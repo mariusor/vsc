@@ -24,15 +24,15 @@ class sqlFactory {
 	 * or a new connection of type $incString
 	 *
 	 * @param string $incString
-	 * @return interfaceSql
+	 * @return fooSqlDriverA
 	 */
 
-	static public function connect($incString) {
+	static public function &connect($incString) {
 		if (!sqlFactory::validType ($incString)) {
 			sqlFactory::$instance = new nullSql();
 		}
 
-		if(!(sqlFactory::$instance instanceof interfaceSql)) {
+		if(!(sqlFactory::$instance instanceof fooSqlDriverA)) {
 			if (stristr($incString, 'mysqli')) {
 				sqlFactory::$instance =  new mySqlIm ();
 			} elseif (stristr ($incString, 'mysql')) {

@@ -3,7 +3,7 @@
  * Pseudo null to be implemented (ehm, inherited) by the rest
  * of the DB classes.
  */
-class nullSql extends interfaceSql {
+class nullSql extends fooSqlDriverA {
 	public 		$conn,
 				$link,
 				$STRING_OPEN_QUOTE = '',

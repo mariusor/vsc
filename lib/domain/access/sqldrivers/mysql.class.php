@@ -16,7 +16,7 @@
  *  an external object. (??!)
  */
 
-class mySql extends interfaceSql {
+class mySql extends fooSqlDriverA {
 	public 		$conn,
 				$link;
 	private 	$name,

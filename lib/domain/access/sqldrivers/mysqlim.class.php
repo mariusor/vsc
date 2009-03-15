@@ -16,7 +16,7 @@
  *  an external object. (??!)
  */
 
-class mySqlIm extends interfaceSql {
+class mySqlIm extends fooSqlDriverA {
 	public 		$conn,
 				$link,
 				$STRING_OPEN_QUOTE = '"',
@@ -39,21 +39,21 @@ class mySqlIm extends interfaceSql {
 		elseif (defined('DB_HOST'))
 			$this->host	= DB_HOST;
 		else
-			trigger_error('Database connection data missing!', E_USER_ERROR);
+			throw new tsExceptionModel ('Database connection data missing: [DB_HOST]');
 
 		if (!empty ($dbUser))
 			$this->user	= $dbUser;
 		elseif (defined('DB_USER'))
 			$this->user	= DB_USER;
 		else
-			trigger_error('Database connection data missing!', E_USER_ERROR);
+			throw new tsExceptionModel ('Database connection data missing: [DB_USERNAME]');
 
 		if(!empty($dbPass))
 			$this->pass	= $dbPass;
 		elseif (defined('DB_PASS'))
 			$this->pass	= DB_PASS;
 		else
-			trigger_error('Database connection data missing!', E_USER_ERROR);
+			throw new tsExceptionModel ('Database connection data missing [DB_PASSWORD]');
 
 		if (!empty($this->host) && !empty($this->user) && !empty($this->pass)) {
 			$this->connect ();
@@ -77,6 +77,7 @@ class mySqlIm extends interfaceSql {
 		$errNo = mysqli_connect_errno();
 		if (!empty($errNo)) {
 			$this->error = $errNo.' '.mysqli_connect_error();
+			throw new tsExceptionModel($this->error);
 //			trigger_error ($this->link->error, E_USER_ERROR);
 			return false;
 		}

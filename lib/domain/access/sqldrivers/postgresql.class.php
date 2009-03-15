@@ -1,6 +1,6 @@
 <?php
 
-class postgreSql extends interfaceSql {
+class postgreSql extends fooSqlDriverA {
 	public 		$conn,
 				$link,
 				$STRING_OPEN_QUOTE = '\'',
