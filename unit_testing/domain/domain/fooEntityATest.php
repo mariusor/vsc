@@ -5,8 +5,12 @@
  * @author Marius Orcsik <marius@habarnam.ro>
  */
 import ('models');
+include ('tdousers.class.php');
+class fooUsersTest extends UnitTestCase {
 
-class fooEntityATest extends UnitTestCase {
+	public function setUp() {
+		// begin transaction shit - if the case
+	}
 
 	private function getTestData () {
 		return array (
@@ -15,7 +19,13 @@ class fooEntityATest extends UnitTestCase {
 		);
 	}
 
-	public function testToArray (){
-		$this->assertEqual(2, 2);
+	public function testInstantiation (){
+		$ousers = new tdoUsers();
+
+		$this->assertIsA($ousers, 'tdoUsers');
+	}
+
+	public function testFields () {
+
 	}
 }
