@@ -1,7 +1,7 @@
 <?php
 /* Db constants
  -----------------------*/
-define ('DB_TYPE', 				'mysqli');
+define ('DB_TYPE', 				'mysql');
 define ('DB_HOST', 				'localhost');
 define ('DB_USER', 				'root');
 define ('DB_PASS', 				'ASD');
@@ -10,26 +10,9 @@ define ('DB_NAME', 				'b');
 
 usingPackage ('models');
 usingPackage ('models/sqldrivers');
-/**
- * mock object for testing the abstract fooTdoA
- */
-class fooTdo extends fooTdoA {
-	public function __construct () {
-		$this->setConnection(sqlFactory::connect('mysqli'));
-	}
-}
+usingPackage ('coreexceptions');
 
-class dummyTable extends fooEntityA {
-	private $id;
-	private $payload;
-
-	public function __construct () {
-		$this->id 		= new fooColumn ('id', 'int', 11);
-		$this->payload 	= new fooColumn ('payload', 'varchar', 255);
-	}
-}
-
-class fooAbstractTest extends UnitTestCase {
+class fooTdoAbstractTest extends UnitTestCase {
 	public function test_Instantiation () {
 		$o = new fooTdo();
 
@@ -51,7 +34,25 @@ class fooAbstractTest extends UnitTestCase {
 		$o = new dummyTable();
 		$oC = new fooTdo();
 
-		var_dump('asd');
 		echo $oC->outputCreateSQL($o);
+	}
+}
+
+/**
+ * mock object for testing the abstract fooTdoA
+ */
+class fooTdo extends fooTdoA {
+	public function __construct () {
+		$this->setConnection(sqlFactory::connect('mysqli'));
+	}
+}
+
+class dummyTable extends fooEntityA {
+	private $id;
+	private $payload;
+
+	public function __construct () {
+		$this->id 		= new fooColumn ('id', 'int', 11);
+		$this->payload 	= new fooColumn ('payload', 'varchar', 255);
 	}
 }
