@@ -1,6 +1,6 @@
 <?php
 class tdoUsers extends fooEntityA {
-	private $_name = 'users';
+	protected $_name = 'users';
 
 	private $id;
 	private $userName;
