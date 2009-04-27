@@ -20,6 +20,16 @@ class fooTdo extends fooTdoA {
 //	}
 }
 
+class dummyTable extends fooEntityA {
+	private $id;
+	private $payload;
+
+	public function __construct () {
+		$this->id 		= new fooColumn ('id', 'int', 11);
+		$this->payload 	= new fooColumn ('payload', 'varchar', 255);
+	}
+}
+
 class fooAbstractTest extends UnitTestCase {
 	public function test_Instantiation () {
 		$o = new fooTdo();
@@ -37,5 +47,11 @@ class fooAbstractTest extends UnitTestCase {
 //		}
 
 		$this->assertIsA($o->getConnection(), 'mySqlIm');
+	}
+
+	public function test_createSQL () {
+		$o = new dummyTable();
+		$oC = new fooTdo();
+		echo $oC->outputCreateSQL($o);
 	}
 }
