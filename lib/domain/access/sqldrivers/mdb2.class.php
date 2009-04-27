@@ -1,22 +1,14 @@
 <?php
 /**
- * At the moment we only have the habsql class:D, but:
- * Here should be a _PACKAGE_ to include:
- * <type>Sql - class to encapsulate the <something>sql_* functionality
- * 			 - it will be derived from tdoHabstract
- * <type>SqlR - the sql resource of type <type> [might not be needed]
- * 			   - in case I need it, <type>Sql->conn will have this type
- * <type>SqlOrder - a struct(class, yeah, yeah) to contain the ORDER BY
- * 					pairs of stuff: string $field, bool $ASC = true
- * <type>SqlJoin - class to handle joining of two <type>Sql classes
- * 				  - TODO: very important
- * <type>SqlField
- *
- * OBS: maybe the static methods (_AND, _OR, sa.) can be conained into
- *  an external object. (??!)
+ * Yo dawg I heard you like wrappers
+ * so I put a wrapper for the MDB2 wrapper
+ * @package ts_model
+ * @subpackage sqldrivers
+ * @author Marius Orcsik <marius@habarnam.ro>
+ * @date 09.04.27
  */
 
-class mySqlIm extends fooSqlDriverA {
+class mdb2 extends fooSqlDriverA {
 	public 		$conn,
 				$link,
 				$STRING_OPEN_QUOTE = '"',
@@ -30,10 +22,19 @@ class mySqlIm extends fooSqlDriverA {
 				$user,
 				$pass;
 
+	public function isLoadable () {
+		return extension_loaded('mdb2');
+	}
+
+	public function getType () {
+		return null;
+	}
+
 	public function __construct( $dbHost = null, $dbUser = null, $dbPass = null ){
-		if (!extension_loaded('mysqli')) {
+		if ($this->isLoadable()) {
 			return new nullSql();
 		}
+
 		if (!empty ($dbHost))
 			$this->host	= $dbHost;
 		elseif (defined('DB_HOST'))
@@ -58,10 +59,6 @@ class mySqlIm extends fooSqlDriverA {
 		if (!empty($this->host) && !empty($this->user) && !empty($this->pass)) {
 			$this->connect ();
 		}
-	}
-
-	public function getType () {
-		return 'mysql';
 	}
 
 	public function __destruct() {
@@ -234,11 +231,11 @@ class mySqlIm extends fooSqlDriverA {
 			return '';
 
 		$retStr = 'SELECT ';
-		return $retStr . ' ' . $incObj . ' ';
+		return $retStr.' '.$incObj.' ';
 	}
 
-	public function _CREATE ($sName){
-		return ' CREATE ' . $sName . ' ';
+	public function _CREATE (){
+		return ' CREATE ';
 	}
 
 	public function _SET(){
@@ -248,7 +245,7 @@ class mySqlIm extends fooSqlDriverA {
 	public function _INSERT ($incData){
 		if (empty ($incData))
 			return '';
-		return ' INSERT INTO '.$incData . ' ';
+		return ' INSERT INTO '.$incData;
 	}
 
 	public function _VALUES ($incData) {

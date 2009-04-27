@@ -51,6 +51,10 @@ class mySql extends fooSqlDriverA {
 		}
 	}
 
+	public function getType () {
+		return 'mysql';
+	}
+
 	public function __destruct() {
 	}
 

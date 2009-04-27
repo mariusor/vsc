@@ -25,6 +25,8 @@ abstract class fooSqlDriverA {
 
 	private function connect() {}
 
+	abstract public function getType ();
+
 	public function selectDatabase($incData) {}
 
 	public function escape ($incData) {}
@@ -43,7 +45,7 @@ abstract class fooSqlDriverA {
 
 	abstract public function _SELECT($incObj);
 
-	abstract public function _CREATE();
+	abstract public function _CREATE($sName);
 
 	abstract public function _SET();
 
