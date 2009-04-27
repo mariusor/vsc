@@ -10,7 +10,6 @@ define ('DB_NAME', 				'b');
 
 usingPackage ('models');
 usingPackage ('models/sqldrivers');
-//usingPackage ('coreexceptions');
 /**
  * mock object for testing the abstract fooTdoA
  */
