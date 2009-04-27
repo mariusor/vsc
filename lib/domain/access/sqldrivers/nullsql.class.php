@@ -28,6 +28,11 @@ class nullSql extends fooSqlDriverA {
 		echo 'This site has all database functionality disabled.<br/> Please check for configuration errors';
 	}
 
+	public function getType () {
+		return 'null';
+	}
+
+
 	public function close () {}
 
 	public function getScalar () {}

@@ -14,7 +14,7 @@ class sqlFactory {
 	 * @return bool
 	 */
 	public static function validType ($type) {
-		if (in_array($type, sqlFactory::$TYPES))
+		if (in_array(strtolower($type), sqlFactory::$TYPES))
 			return true;
 		return false;
 	}

@@ -49,6 +49,10 @@ class postgreSql extends fooSqlDriverA {
 		}
 	}
 
+	public function getType () {
+		return 'postgresql';
+	}
+
 	public function __destruct() {
 //		var_dump($this->link);
 //		if (!empty ($this->link) &&  $this->link  instanceof mysqli)

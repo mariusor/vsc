@@ -16,7 +16,7 @@
  *  an external object. (??!)
  */
 
-class mySqlI extends fooSqlDriverA {
+class mySqlIm extends fooSqlDriverA {
 	public 		$conn,
 				$link,
 				$STRING_OPEN_QUOTE = '"',
