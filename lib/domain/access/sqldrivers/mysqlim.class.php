@@ -242,7 +242,7 @@ class mySqlIm extends fooSqlDriverA {
 	}
 
 	public function _CREATE ($sName){
-		return ' CREATE ' . $sName . ' ';
+		return ' CREATE TABLE ' . $sName . ' ';
 	}
 
 	public function _SET(){
