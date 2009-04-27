@@ -60,6 +60,10 @@ class mySqlIm extends fooSqlDriverA {
 		}
 	}
 
+	public function getEngine () {
+		return 'INNODB';
+	}
+
 	public function getType () {
 		return 'mysql';
 	}
