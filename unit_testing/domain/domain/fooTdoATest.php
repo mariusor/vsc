@@ -3,9 +3,9 @@
  -----------------------*/
 define ('DB_TYPE', 				'mysqli');
 define ('DB_HOST', 				'localhost');
-define ('DB_USER', 				'b');
+define ('DB_USER', 				'root');
 define ('DB_PASS', 				'ASD');
-//define ('DB_NAME', 				'b');
+define ('DB_NAME', 				'b');
 
 
 usingPackage ('models');
@@ -15,9 +15,9 @@ usingPackage ('models/sqldrivers');
  * mock object for testing the abstract fooTdoA
  */
 class fooTdo extends fooTdoA {
-//	public function __construct () {
-////		throw new tsExceptionUnimplemented(__METHOD__ . ' not implemented.');
-//	}
+	public function __construct () {
+		$this->setConnection(sqlFactory::connect('mysqli'));
+	}
 }
 
 class dummyTable extends fooEntityA {
@@ -51,7 +51,8 @@ class fooAbstractTest extends UnitTestCase {
 	public function test_createSQL () {
 		$o = new dummyTable();
 		$oC = new fooTdo();
+
+		var_dump('asd');
 		echo $oC->outputCreateSQL($o);
 	}
-
 }
