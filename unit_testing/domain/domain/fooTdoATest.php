@@ -13,22 +13,17 @@ usingPackage ('models/sqldrivers');
 usingPackage ('coreexceptions');
 
 class fooTdoAbstractTest extends UnitTestCase {
-//	public function test_Instantiation () {
-//		$o = new fooTdo();
-//
-//		$this->assertIsA($o, 'fooTdoA');
-//	}
+	public function test_Instantiation () {
+		$o = new fooTdo();
 
-//	public function testGetConnection () {
-//		$o = new fooTdo ();
-//		try {
-//			$o->setConnection (sqlFactory::connect('mysqli'));
-//		} catch (tsExceptionModel $e) {
-//			// could not connect
-//		}
-//
-//		$this->assertIsA($o->getConnection(), 'mySqlIm');
-//	}
+		$this->assertIsA($o, 'fooTdoA');
+	}
+
+	public function testGetConnection () {
+		$o = new fooTdo ();
+		$o->setConnection (sqlFactory::connect('mysql'));
+		$this->assertIsA($o->getConnection(), 'mySqlIm');
+	}
 
 	public function testCreateSQL () {
 		$o = new dummyTable();
@@ -49,11 +44,14 @@ class fooTdo extends fooTdoA {
 }
 
 class dummyTable extends fooEntityA {
-	private $id;
-	private $payload;
+	public $id;
+	public $payload;
 
 	public function __construct () {
-		$this->id 		= new fooColumn ('id', 'int', 11);
-		$this->payload 	= new fooColumn ('payload', 'varchar', 255);
+		$this->setName('dummy');
+		$this->id 		= new fooFieldInteger('id');
+		$this->setPrimaryKey ($this->id);
+		
+		$this->payload 	= new fooFieldInteger ('payload');
 	}
 }
