@@ -4,7 +4,7 @@
  */
 
 class sqlFactory {
-	static public	$TYPES 		= array ('postgresql', 'mysql','mysqli');
+	static public	$TYPES 		= array ('postgresql', 'mysql', 'null');
 	static private	$instance	= false;
 
 	/**
@@ -33,11 +33,11 @@ class sqlFactory {
 		}
 
 		if(!(sqlFactory::$instance instanceof fooSqlDriverA)) {
-			if (stristr($incString, 'mysqli')) {
+			if (stristr($incString, 'mysql')) {
 				sqlFactory::$instance =  new mySqlIm ();
-			} elseif (stristr ($incString, 'mysql')) {
+			} /*elseif (stristr ($incString, 'mysql')) {
 				sqlFactory::$instance =  new mySql ();
-			} elseif (stristr ($incString, 'postgresql')) {
+			}*/ elseif (stristr ($incString, 'postgresql')) {
 				sqlFactory::$instance = new postgreSql ();
 			} elseif (stristr ($incString, 'sqlserv')) {
 				sqlFactory::$instance = new nullSql (); // Sql server not implemented
