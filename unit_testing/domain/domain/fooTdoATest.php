@@ -39,12 +39,11 @@ class fooAbstractTest extends UnitTestCase {
 
 	public function test_getConnection () {
 		$o = new fooTdo ();
-//		try {
+		try {
 			$o->setConnection (sqlFactory::connect('mysqli'));
-//		} catch (tsExceptionModel $e) {
-//			// could not connect
-//
-//		}
+		} catch (tsExceptionModel $e) {
+			// could not connect
+		}
 
 		$this->assertIsA($o->getConnection(), 'mySqlIm');
 	}
@@ -54,4 +53,5 @@ class fooAbstractTest extends UnitTestCase {
 		$oC = new fooTdo();
 		echo $oC->outputCreateSQL($o);
 	}
+
 }
