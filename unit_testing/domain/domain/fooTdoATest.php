@@ -50,8 +50,8 @@ class dummyTable extends fooEntityA {
 	public function __construct () {
 		$this->setName('dummy');
 		$this->id 		= new fooFieldInteger('id');
-		$this->setPrimaryKey ($this->id);
-		
 		$this->payload 	= new fooFieldInteger ('payload');
+		
+		$this->setPrimaryKey ($this->id);
 	}
 }
