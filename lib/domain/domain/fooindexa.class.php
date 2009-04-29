@@ -14,9 +14,6 @@ abstract class fooIndexA implements fooFieldI  {
 	protected $fields = array();
 
 	public function __construct ($mIncomingStuff = null) {
-		if ($mIncomingStuff instanceof fooFieldA) {
-			$mIncomingStuff[] = $mIncomingStuff;
-		}
 		if (is_array ($mIncomingStuff)) {
 			$this->setName($mIncomingStuff[0]->getName());
 			foreach ($mIncomingStuff as $oField) {

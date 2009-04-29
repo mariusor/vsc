@@ -26,7 +26,7 @@ class fooFieldInteger extends fooFieldA {
 	 * @return void
 	 */
 	public function setAutoIncrement ($bIsAutoIncrement) {
-		$this->autoIncrement = $bIsAutoIncrement;
+		$this->autoIncrement = (bool)$bIsAutoIncrement;
 	}
 
 	public function getAutoIncrement () {

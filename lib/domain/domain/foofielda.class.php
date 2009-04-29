@@ -13,7 +13,7 @@ abstract class fooFieldA implements fooFieldI {
 	protected  $group = null;
 	protected  $where = false;
 
-	protected  $nullable = false;
+	protected  $nullable = true;
 	protected  $maxLength;
 
 	/**
@@ -39,7 +39,7 @@ abstract class fooFieldA implements fooFieldI {
 	 * @return void
 	 */
 	public function setIsNullable ($bIsNull) {
-		$this->nullable = $bIsNull;
+		$this->nullable = (bool)$bIsNull;
 	}
 
 	/**

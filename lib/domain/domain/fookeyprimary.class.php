@@ -7,15 +7,11 @@
 
 class fooKeyPrimary extends fooIndexA  {
 	public function __construct ($mIncomingStuff) {
-		if ($mIncomingStuff instanceof fooFieldA) {
-			$aInc[] = $mIncomingStuff;
-		}
-		$mIncomingStuff = $aInc;
-
+		/* @var $oField fooFieldA */
 		foreach ($mIncomingStuff as $oField) {
 			// enforcing NOT NULL constraints on the components of the primary key
 			if (fooFieldA::isValid($oField)) {
-				$oField->setIsNullable(true);
+				$oField->setIsNullable(false);
 				$aRet[] = $oField;
 			} else {
 				throw new fooIndexException('The object passed can not be used as a primary key.');

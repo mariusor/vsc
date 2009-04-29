@@ -42,8 +42,8 @@ abstract class fooEntityA {
 	 * @param fooFieldA $oIndex
 	 * @return void
 	 */
-	public function setPrimaryKey (fooFieldA $oColumn) {
-		$this->_pk = new fooKeyPrimary ($oColumn);
+	public function setPrimaryKey () {
+		$this->_pk = new fooKeyPrimary (func_get_args());
 	}
 
 	public function getPrimaryKey () {
