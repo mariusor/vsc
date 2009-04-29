@@ -1,4 +1,5 @@
 <?php
+usingPackage ('models/foo');
 class tdoUsers extends fooEntityA {
 	protected $_name = 'users';
 
