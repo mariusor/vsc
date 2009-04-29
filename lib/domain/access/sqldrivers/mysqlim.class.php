@@ -15,6 +15,7 @@
  * OBS: maybe the static methods (_AND, _OR, sa.) can be conained into
  *  an external object. (??!)
  */
+usingPackage ('models/sqldrivers/exceptions');
 
 class mySqlIm extends fooSqlDriverA {
 	public 		$conn,
@@ -39,21 +40,21 @@ class mySqlIm extends fooSqlDriverA {
 		elseif (defined('DB_HOST'))
 			$this->host	= DB_HOST;
 		else
-			throw new tsExceptionModel ('Database connection data missing: [DB_HOST]');
+			throw new fooConnectionException ('Database connection data missing: [DB_HOST]');
 
 		if (!empty ($dbUser))
 			$this->user	= $dbUser;
 		elseif (defined('DB_USER'))
 			$this->user	= DB_USER;
 		else
-			throw new tsExceptionModel ('Database connection data missing: [DB_USERNAME]');
+			throw new fooConnectionException ('Database connection data missing: [DB_USERNAME]');
 
 		if(!empty($dbPass))
 			$this->pass	= $dbPass;
 		elseif (defined('DB_PASS'))
 			$this->pass	= DB_PASS;
 		else
-			throw new tsExceptionModel ('Database connection data missing [DB_PASSWORD]');
+			throw new fooConnectionException ('Database connection data missing [DB_PASSWORD]');
 
 		if (!empty($this->host) && !empty($this->user) && !empty($this->pass)) {
 			$this->connect ();
@@ -85,7 +86,7 @@ class mySqlIm extends fooSqlDriverA {
 		$errNo = mysqli_connect_errno();
 		if (!empty($errNo)) {
 			$this->error = $errNo.' '.mysqli_connect_error();
-			throw new tsExceptionModel($this->error);
+			throw new fooConnectionException($this->error);
 //			trigger_error ($this->link->error, E_USER_ERROR);
 			return false;
 		}
