@@ -37,8 +37,9 @@ abstract class fooTdoA {
 		$sRet = $this->getConnection()->_CREATE ($oInc->getName()) . "\n";
 		$sRet .= ' ( ' . "\n";
 
+		/* @var $oColumn fooFieldA */
 		foreach ($oInc->getMembers () as $oColumn) {
-			$sRet .= $oColumn->getName() . ' ' . $oColumn->getType() ;
+			$sRet .= "\t" . $oColumn->getName() . ' ' . $oColumn->getType() ;
 			if ($oColumn->getMaxLength()) {
 				$sRet .= '(' . $oColumn->getMaxLength() . ')';
 			}
@@ -55,12 +56,12 @@ abstract class fooTdoA {
 
 		foreach ($oInc->getIndexes() as $oIndex) {
 			// this needs to be replaced with connection functionality : something like getConstraint (type, columns)
-			$sRet .=  $oIndex->getType() . ' KEY ' . $oIndex->getName() . '  (' . $oIndex->getIndexComponents(). '),' . "\n";
+			$sRet .=  "\t" .$oIndex->getType() . ' KEY ' . $oIndex->getName() . '  (' . $oIndex->getIndexComponents(). '),' . "\n";
 		}
 
 		$sRet = substr( $sRet, 0, -2);
 
-		$sRet.= ' ) ' . "\n";
+		$sRet.= "\n" . ' ) ';
 
 		if ($this->oConnection->getType() == 'mysql') {
 			$sRet.= ' ENGINE ' . $this->getConnection()->getEngine();
