@@ -4,10 +4,9 @@
  * @subpackage models
  * @author Marius Orcsik <marius@habarnam.ro>
  */
-import ('models');
-include ('tdousers.class.php');
-class fooUsersTest extends UnitTestCase {
+include_once ('dummytable.class.php');
 
+class fooUsersTest extends UnitTestCase {
 	public function setUp() {
 		// begin transaction shit - if the case
 	}
@@ -20,12 +19,11 @@ class fooUsersTest extends UnitTestCase {
 //	}
 
 	public function testInstantiation (){
-		$ousers = new tdoUsers();
+		$ousers = new dummyTable();
 
-		$this->assertIsA($ousers, 'tdoUsers');
+		$this->assertIsA($ousers, 'dummyTable');
 	}
 
 	public function testFields () {
-
 	}
 }

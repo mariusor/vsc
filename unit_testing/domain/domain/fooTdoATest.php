@@ -7,8 +7,8 @@ define ('DB_USER', 				'root');
 define ('DB_PASS', 				'ASD');
 define ('DB_NAME', 				'b');
 
-
-usingPackage ('models');
+include_once ('dummytable.class.php'); // the definition of the entity
+usingPackage ('models/foo');
 usingPackage ('models/sqldrivers');
 usingPackage ('coreexceptions');
 
@@ -40,20 +40,5 @@ class fooTdoAbstractTest extends UnitTestCase {
 class fooTdo extends fooTdoA {
 	public function __construct () {
 		$this->setConnection(sqlFactory::connect('mysql'));
-	}
-}
-
-class dummyTable extends fooEntityA {
-	public $id;
-	public $payload;
-
-	public function __construct () {
-		$this->setName('dummy');
-		$this->id 		= new fooFieldInteger('id');
-		$this->id->setAutoIncrement (true);
-		
-		$this->payload 	= new fooFieldInteger ('payload');
-		
-		$this->setPrimaryKey ($this->id);
 	}
 }
