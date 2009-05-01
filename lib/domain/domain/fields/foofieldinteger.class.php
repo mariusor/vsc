@@ -1,7 +1,7 @@
 <?php
 /**
  * @package ts_models
- * @author Marius Orcsik marius@habarnam.ro
+ * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.03.29
  */
 class fooFieldInteger extends fooFieldA {
