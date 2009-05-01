@@ -8,6 +8,7 @@
  * @date 09.02.26
  */
 usingPackage ('models/foo/fields');
+usingPackage ('models/foo/indexes');
 abstract class fooEntityA {
 	protected 	$_name;
 	private 	$_alias;
