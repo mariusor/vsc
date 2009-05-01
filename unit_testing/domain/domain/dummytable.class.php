@@ -2,7 +2,7 @@
 usingPackage ('models/foo');
 
 class dummyTable extends fooEntityA {
-	protected $_name = 'dummy';
+	protected $_name = 'dummy2';
 
 	public $id;
 	public $payload;
@@ -15,6 +15,6 @@ class dummyTable extends fooEntityA {
 		$this->payload 		= new fooFieldVarChar ('payload');
 		$this->timestamp 	= new fooFieldDateTime ('ts');
 
-		$this->setPrimaryKey ($this->id);
+		$this->setPrimaryKey ($this->id, $this->payload);
 	}
 }
