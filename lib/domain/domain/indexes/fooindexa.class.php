@@ -4,10 +4,7 @@
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.03.19
  */
-//define ('INDEX',	1);
-//define ('PRIMARY',	2);
-//define ('UNIQUE',	4);
-//define ('FULLTEXT',	8);
+
 abstract class fooIndexA implements fooFieldI  {
 	protected $name;
 	protected $fields = array();
