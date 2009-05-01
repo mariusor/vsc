@@ -5,7 +5,6 @@
  * @author Marius Orcsik <marius@habarnam.ro>
  * @version 0.0.1
  */
-usingPackage ('models/foo/exceptions');
 abstract class fooTdoA {
 	/**
 	 * @var fooSqlDriverA

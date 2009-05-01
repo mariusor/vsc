@@ -8,7 +8,6 @@
 //define ('PRIMARY',	2);
 //define ('UNIQUE',	4);
 //define ('FULLTEXT',	8);
-usingPackage ('models/foo/exceptions');
 abstract class fooIndexA implements fooFieldI  {
 	protected $name;
 	protected $fields = array();
