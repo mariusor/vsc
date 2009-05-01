@@ -38,27 +38,19 @@ abstract class fooTdoA {
 
 		/* @var $oColumn fooFieldA */
 		foreach ($oInc->getMembers () as $oColumn) {
-			$sRet .= "\t" . $oColumn->getName() . ' ' . $oColumn->getType() ;
-			if ($oColumn->getMaxLength()) {
-				$sRet .= '(' . $oColumn->getMaxLength() . ')';
-			}
-
-			if (fooFieldInteger::isInt ($oColumn) && $oColumn->getAutoIncrement()){
-				$sRet .= ' AUTO_INCREMENT'; // this needs to be replaces with Connection functionality : eg, postgres will convert integer auto_increment to serial
-			}
-
-			if (!$oColumn->getIsNullable ())
-				$sRet .= ' NOT NULL';
-
+			$sRet .= "\t" . $oColumn->getName() . ' ' . $oColumn->getDefinition() ;
 			$sRet .= ', ' . "\n";
 		}
 
-		foreach ($oInc->getIndexes() as $oIndex) {
-			// this needs to be replaced with connection functionality : something like getConstraint (type, columns)
-			$sRet .=  "\t" .$oIndex->getType() . ' KEY ' . $oIndex->getName() . '  (' . $oIndex->getIndexComponents(). '),' . "\n";
+		$aIndexes = $oInc->getIndexes(true);
+		if (is_array ($aIndexes)) {
+			foreach ($aIndexes as $oIndex) {
+				// this needs to be replaced with connection functionality : something like getConstraint (type, columns)
+				$sRet .=  "\t" . $oIndex->getDefinition() . ", \n"; //getType() . ' KEY ' . $oIndex->getName() . '  (' . $oIndex->getIndexComponents(). '), ' . "\n";
+			}
 		}
 
-		$sRet = substr( $sRet, 0, -2);
+		$sRet = substr( $sRet, 0, -3);
 
 		$sRet.= "\n" . ' ) ';
 

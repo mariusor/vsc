@@ -6,7 +6,7 @@
  */
 class fooFieldDateTime extends fooFieldA {
 	const TYPE = 'datetime';
-	protected  $maxLength = 20; // arbitrary chosen, > strlen(YYYY-MM-DD GG:II:SS)
+	protected  $maxLength = null; // arbitrary chosen, > strlen(YYYY-MM-DD GG:II:SS)
 
 	public function isVarChar (fooFieldA $oField) {
 		return ($oField instanceof self);
@@ -20,5 +20,11 @@ class fooFieldDateTime extends fooFieldA {
 		// need a mechanism based on the connection type
 		// TODO
 		return $this->value;
+	}
+
+	public function getDefinition () {
+		// this is totally wrong for PostgreSQL
+		return	$this->getType() .
+				($this->getIsNullable() ? ' NULL' : ' NOT NULL');
 	}
 }

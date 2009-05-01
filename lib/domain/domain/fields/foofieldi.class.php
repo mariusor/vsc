@@ -11,4 +11,10 @@ interface fooFieldI {
 	public function setName($sName);
 
 	public function getName();
+
+	/**
+	 * returns the SQL definition of the entity
+	 * @return string
+	 */
+	public function getDefinition ();
 }

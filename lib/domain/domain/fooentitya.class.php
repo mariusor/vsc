@@ -9,6 +9,7 @@
  */
 usingPackage ('models/foo/fields');
 usingPackage ('models/foo/indexes');
+
 abstract class fooEntityA {
 	protected 	$_name;
 	private 	$_alias;
@@ -84,11 +85,12 @@ abstract class fooEntityA {
 		return $aRet;
 	}
 
-	public function getIndexes () {
+	public function getIndexes ($bWithPrimaryKey = false) {
 		$aIndexes = array ();
-		$aIndexes[] = $this->getPrimaryKey();
+		if ($bWithPrimaryKey)
+			$aIndexes[] = $this->getPrimaryKey();
 
-//		$aIndexes = array_merge($aIndexes, $this->_indexes);
+		$aIndexes = array_merge($aIndexes, $this->_indexes);
 
 		return $aIndexes;
 	}
@@ -98,6 +100,7 @@ abstract class fooEntityA {
 	 * @return mixed[]
 	 */
 	public function toArray () {
+
 	}
 
 	/**
@@ -118,5 +121,4 @@ abstract class fooEntityA {
 	 * @return bool
 	 */
 	public function loadChild (fooEntityA $oChild) {}
-
 }

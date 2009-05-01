@@ -31,4 +31,9 @@ class fooKeyPrimary extends fooIndexA  {
 	public function getType() {
 		return 'PRIMARY';
 	}
+
+	public function getDefinition () {
+		// this is totally wrong for PostgreSQL
+		return	'PRIMARY KEY ' . $this->getName() . ' (' . $this->getIndexComponents(). ')';
+	}
 }

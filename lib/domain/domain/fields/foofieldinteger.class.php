@@ -32,4 +32,12 @@ class fooFieldInteger extends fooFieldA {
 	public function getAutoIncrement () {
 		return $this->autoIncrement;
 	}
+
+	public function getDefinition () {
+		// this is totally wrong for PostgreSQL
+		return	$this->getType() .
+				($this->getMaxLength() ? '(' . $this->getMaxLength() . ')' : '') .
+				($this->getIsNullable() ? ' NULL' : ' NOT NULL') .
+				($this->getAutoIncrement() ? ' AUTO_INCREMENT' : '');
+	}
 }

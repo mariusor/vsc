@@ -30,4 +30,11 @@ class fooFieldVarChar extends fooFieldA {
 	public function setEncoding ($sEncoding) {
 		$this->encoding = $sEncoding;
 	}
+
+	public function getDefinition () {
+		// this is totally wrong for PostgreSQL
+		return	$this->getType() .
+				($this->getMaxLength() ? '(' . $this->getMaxLength() . ')' : '') .
+				($this->getIsNullable() ? ' NULL' : ' NOT NULL');
+	}
 }
