@@ -11,8 +11,8 @@ class dummyTable extends fooEntityA {
 		$this->id 		= new fooFieldInteger('id');
 		$this->id->setAutoIncrement (true);
 
-		$this->payload 	= new fooFieldInteger ('payload');
+		$this->payload 	= new fooFieldVarChar ('payload');
 
-		$this->setPrimaryKey ($this->id,$this->payload);
+		$this->setPrimaryKey ($this->id);
 	}
 }
