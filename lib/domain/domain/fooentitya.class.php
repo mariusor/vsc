@@ -7,7 +7,7 @@
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.02.26
  */
-
+usingPackage ('models/foo/fields');
 abstract class fooEntityA {
 	protected 	$_name;
 	private 	$_alias;
