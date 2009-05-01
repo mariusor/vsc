@@ -15,7 +15,6 @@
  * OBS: maybe the static methods (_AND, _OR, sa.) can be conained into
  *  an external object. (??!)
  */
-usingPackage ('models/sqldrivers/exceptions');
 
 class mySqlIm extends fooSqlDriverA {
 	public 		$conn,

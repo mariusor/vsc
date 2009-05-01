@@ -7,7 +7,6 @@
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.04.27
  */
-usingPackage ('models/sqldrivers/exceptions');
 class mdb2 extends fooSqlDriverA {
 	public 		$conn,
 				$link,
