@@ -74,6 +74,31 @@ class mySqlIm extends fooSqlDriverA {
 //			$this->close();
 	}
 
+	public function startTransaction ($bAutoCommit = false) {
+		if ($this->getEngine() != 'InnoDB')
+			throw new tsExceptionUnimplemented ('Unable to use transactions for the current MySQL engine.');
+
+		$sQuery = 'SET autocommit=' . ($bAutoCommit ? 1 : 0) . ';';
+		$this->query($sQuery);
+		$sQuery = 'START TRANSACTION;';
+		return $this->query($sQuery);
+	}
+
+	public function rollBackTransaction () {
+		if ($this->getEngine() != 'InnoDB')
+			throw new tsExceptionUnimplemented ('Unable to use transactions for the current MySQL engine.');
+
+		$sQuery = 'ROLLBACK;';
+		return $this->query($sQuery);
+	}
+
+	public function commitTransaction () {
+		if ($this->getEngine() != 'InnoDB')
+			throw new tsExceptionUnimplemented ('Unable to use transactions for the current MySQL engine.');
+
+		$sQuery = 'COMMIT;';
+		return $this->query($sQuery);
+	}
 
 	/**
 	 * wrapper for mysql_connect
@@ -156,7 +181,6 @@ class mySqlIm extends fooSqlDriverA {
 			return false;
 
 		if ($this->link->errno)	{
-//			d ($query, $this->link->errno, $this->link->error);
 			throw new fooConnectionException ($this->link->error. nl() . $query . nl ());
 			return false;
 		}
@@ -166,6 +190,8 @@ class mySqlIm extends fooSqlDriverA {
 			return $this->conn;
 		elseif (preg_match('/insert|update|replace|delete/i', $query))
 			return $this->link->affected_rows;
+
+		return true;
 	}
 
 	/**

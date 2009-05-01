@@ -43,6 +43,12 @@ abstract class fooSqlDriverA {
 
 	public function close () {}
 
+	abstract public function startTransaction ($bAutoCommit = false);
+
+	abstract public function rollBackTransaction ();
+
+	abstract public function commitTransaction ();
+
 	abstract public function _SELECT($incObj);
 
 	abstract public function _CREATE($sName);
