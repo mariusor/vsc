@@ -7,12 +7,14 @@ define ('DB_USER', 				'root');
 define ('DB_PASS', 				'ASD');
 define ('DB_NAME', 				'b');
 
-include_once ('dummytable.class.php'); // the definition of the entity
 usingPackage ('models/foo');
 usingPackage ('models/sqldrivers');
 usingPackage ('coreexceptions');
 
-class fooTdoAbstractTest extends UnitTestCase {
+include_once ('dummytable.class.php'); // the definition of the entity
+include_once ('dataobject.class.php'); // the definition of the data object
+
+class fooTdoTest extends UnitTestCase {
 	public function test_Instantiation () {
 		$o = new fooTdo();
 
@@ -26,19 +28,13 @@ class fooTdoAbstractTest extends UnitTestCase {
 	}
 
 	public function testCreateSQL () {
+		// we should have a separate test for each type of connection
+		// the test should be the actual creation
 		$o = new dummyTable();
 		$oC = new fooTdo();
 
-		$this->assertEqual(1, 1);
-		$oC->outputCreateSQL($o);
-	}
-}
+		$createSQL = $oC->outputCreateSQL($o);
 
-/**
- * mock object for testing the abstract fooTdoA
- */
-class fooTdo extends fooTdoA {
-	public function __construct () {
-		$this->setConnection(sqlFactory::connect('mysql'));
+		d (alltrim($createSQL));
 	}
 }

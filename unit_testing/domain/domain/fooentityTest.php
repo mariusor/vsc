@@ -6,24 +6,27 @@
  */
 include_once ('dummytable.class.php');
 
-class fooUsersTest extends UnitTestCase {
+class fooEntityTest extends UnitTestCase {
+	private $state;
+
 	public function setUp() {
 		// begin transaction shit - if the case
+		$this->state = new dummyTable();
 	}
 
-//	private function getTestData () {
-//		return array (
-//			array ('One', 'Two', 3),
-//			array (null, 0, 1)
-//		);
-//	}
-
 	public function testInstantiation (){
-		$ousers = new dummyTable();
-
-		$this->assertIsA($ousers, 'dummyTable');
+		$this->assertIsA($this->state, 'dummyTable');
+		$this->assertIsA($this->state, 'fooEntityA');
 	}
 
 	public function testFields () {
+		foreach ($this->state->getMembers() as $oColumn) {
+			$this->assertIsA($oColumn, 'fooFieldA', 'Column ' . var_export($oColumn, true) . ' is not a valid fooField');
+		}
+	}
+
+	public function testPrimaryKey () {
+		$this->state->setPrimaryKey($this->state->payload);
+		$this->assertIsA($this->state->getPrimaryKey(), 'fooKeyPrimary');
 	}
 }

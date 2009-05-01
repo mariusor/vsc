@@ -13,7 +13,7 @@ class dummyTable extends fooEntityA {
 		$this->id->setAutoIncrement (true);
 
 		$this->payload 		= new fooFieldVarChar ('payload');
-		$this->timestamp 	= new fooFieldDateTime ('timestamp');
+		$this->timestamp 	= new fooFieldDateTime ('ts');
 
 		$this->setPrimaryKey ($this->id);
 	}
