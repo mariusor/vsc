@@ -6,12 +6,14 @@ class dummyTable extends fooEntityA {
 
 	public $id;
 	public $payload;
+	public $timestamp;
 
 	public function __construct () {
 		$this->id 		= new fooFieldInteger('id');
 		$this->id->setAutoIncrement (true);
 
-		$this->payload 	= new fooFieldVarChar ('payload');
+		$this->payload 		= new fooFieldVarChar ('payload');
+		$this->timestamp 	= new fooFieldDateTime ('timestamp');
 
 		$this->setPrimaryKey ($this->id);
 	}
