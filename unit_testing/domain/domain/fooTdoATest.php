@@ -30,7 +30,7 @@ class fooTdoAbstractTest extends UnitTestCase {
 		$oC = new fooTdo();
 
 		$this->assertEqual(1, 1);
-		echo $oC->outputCreateSQL($o);
+		$oC->outputCreateSQL($o);
 	}
 }
 
