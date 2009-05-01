@@ -1,4 +1,4 @@
-<?php
+	<?php
 /* Db constants
  -----------------------*/
 define ('DB_TYPE', 				'mysql');
@@ -15,32 +15,38 @@ include_once ('dummytable.class.php'); // the definition of the entity
 include_once ('dataobject.class.php'); // the definition of the data object
 
 class fooTdoTest extends UnitTestCase {
-	private $state;
+	private $connection;
 
 	public function setUp () {
-		$this->state = new fooTdo();
+		$this->connection = new fooTdo();
+		$this->connection->getConnection()->selectDatabase('test');
 	}
+
 	public function tearDown() {}
 
 	public function test_Instantiation () {
-		$this->assertIsA($this->state, 'fooTdo');
-		$this->assertIsA($this->state, 'fooTdoA');
+		$this->assertIsA($this->connection, 'fooTdo');
+		$this->assertIsA($this->connection, 'fooTdoA');
 	}
 
 	public function testGetConnection () {
-		$this->state->setConnection (sqlFactory::connect('mysql'));
-		$this->assertIsA($this->state->getConnection(), 'mySqlIm');
+		$this->connection->setConnection (sqlFactory::connect('mysql'));
+		$this->assertIsA($this->connection->getConnection(), 'mySqlIm');
 	}
 
 	public function testCreateSQL () {
 		// we should have a separate test for each type of connection
 		// the test should be the actual creation
 		$o = new dummyTable();
+		$createSQL = $this->connection->outputCreateSQL($o);
 
-		$createSQL = $this->state->outputCreateSQL($o);
-		$this->state->getConnection()->selectDatabase('test');
-		$i = $this->state->getConnection()->query($createSQL);
-
-//		$this->assertTrue($i, '');
+		$i = $this->connection->getConnection()->query($createSQL);
+		$this->assertTrue($i, 'Creation of table failed');
+		try {
+			$this->connection->getConnection()->query('DROP TABLE ' . $o->getName());
+		} catch (Exception $e) {
+			// the drop of the table might go wrong - why oh why ?
+			throw $e;
+		}
 	}
 }
