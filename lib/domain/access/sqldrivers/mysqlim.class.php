@@ -149,14 +149,15 @@ class mySqlIm extends fooSqlDriverA {
 //			if (!preg_match("/insert|update|delete/i", $query))
 			$this->conn = $this->link->query($query);
 			$qend = microtime(true);
-			echo htmlentities ($query).' ['.number_format($qend-$qst, 5, ',', '.').'s]<br/>'."\n";
+//			echo htmlentities ($query).' ['.number_format($qend-$qst, 5, ',', '.').'s]' . nlbr();
 			if (isset($GLOBALS['qCnt']))
 				$GLOBALS['qCnt']++;
 		} else
 			return false;
 
 		if ($this->link->errno)	{
-			trigger_error ($this->link->error.'<br/> '.$query);
+//			d ($query, $this->link->errno, $this->link->error);
+			throw new fooConnectionException ($this->link->error. nl() . $query . nl ());
 			return false;
 		}
 
