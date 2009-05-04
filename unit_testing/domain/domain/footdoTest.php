@@ -11,8 +11,8 @@ usingPackage ('models/foo');
 usingPackage ('models/sqldrivers');
 usingPackage ('coreexceptions');
 
-include_once ('dummytable.class.php'); // the definition of the entity
-include_once ('dataobject.class.php'); // the definition of the data object
+include_once ('fixtures/dummytable.class.php'); // the definition of the entity
+include_once ('fixtures/dataobject.class.php'); // the definition of the data object
 
 class fooTdoTest extends UnitTestCase {
 	private $connection;

@@ -4,7 +4,7 @@
  * @subpackage models
  * @author Marius Orcsik <marius@habarnam.ro>
  */
-include_once ('dummytable.class.php');
+include_once ('fixtures/dummytable.class.php');
 
 class fooEntityTest extends UnitTestCase {
 	/**
