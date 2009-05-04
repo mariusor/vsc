@@ -29,4 +29,25 @@ class fooEntityTest extends UnitTestCase {
 		$this->state->setPrimaryKey($this->state->payload);
 		$this->assertIsA($this->state->getPrimaryKey(), 'fooKeyPrimary');
 	}
+
+	public function testGetter () {
+		$value = $this->state->getPayload ();
+		$this->assertEqual ($value, 2);
+
+		$value = $this->state->getId();
+		$this->assertNull($value);
+	}
+
+	public function testSetter () {
+		$this->state->setPayload (1);
+		$value = $this->state->getPayload();
+
+		$this->assertEqual ($value, 1);
+
+
+		$this->state->setPayload (null);
+		$value = $this->state->getPayload();
+
+		$this->assertNull ($value);
+	}
 }

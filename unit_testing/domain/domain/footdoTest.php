@@ -1,4 +1,4 @@
-	<?php
+<?php
 /* Db constants
  -----------------------*/
 define ('DB_TYPE', 				'mysql');

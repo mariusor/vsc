@@ -2,10 +2,10 @@
 usingPackage ('models/foo');
 
 class dummyTable extends fooEntityA {
-	protected $_name = 'dummy2';
+	protected $_name = 'dummy';
 
 	public $id;
-	private $payload;
+	public $payload;
 	public $timestamp;
 
 	public function __construct () {
@@ -15,16 +15,8 @@ class dummyTable extends fooEntityA {
 		$this->payload 		= new fooFieldVarChar ('payload');
 		$this->timestamp 	= new fooFieldDateTime ('ts');
 
-		$this->setPayload(2);
+		$this->setPayload(2); // this is used later in the testGetter
 
 		$this->setPrimaryKey ($this->id, $this->payload);
 	}
-
-	public function setId ($iId) {}
-	public function setPayload ($sPayload) {}
-	public function setTimestamp ($sDate) {}
-
-	public function getId () {}
-	public function getPayload () {}
-	public function getTimestamp () {}
 }
