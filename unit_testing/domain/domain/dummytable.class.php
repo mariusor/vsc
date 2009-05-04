@@ -15,8 +15,8 @@ class dummyTable extends fooEntityA {
 		$this->payload 		= new fooFieldVarChar ('payload');
 		$this->timestamp 	= new fooFieldDateTime ('ts');
 
-		$this->setPayload(2); // this is used later in the testGetter
+		$this->setPayload(2); // this is used later in the testGetter - if you modify here, modify the fooEntityTest
 
-		$this->setPrimaryKey ($this->id, $this->payload);
+		$this->setPrimaryKey ($this->id);
 	}
 }
