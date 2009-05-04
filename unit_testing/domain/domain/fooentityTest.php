@@ -14,6 +14,10 @@ class fooEntityTest extends UnitTestCase {
 		$this->state = new dummyTable();
 	}
 
+	public function tearDown () {
+		unset ($this->state);
+	}
+
 	public function testInstantiation (){
 		$this->assertIsA($this->state, 'dummyTable');
 		$this->assertIsA($this->state, 'fooEntityA');
@@ -49,5 +53,19 @@ class fooEntityTest extends UnitTestCase {
 		$value = $this->state->getPayload();
 
 		$this->assertNull ($value);
+	}
+
+	public function testLoadFromArray () {
+		$values = array (
+			'id' 		=> 1,
+			'payload'	=> 'Ana are mere !! test" asd" ',
+			'timestamp'	=> date('Y-m-d G:i:s'),
+		);
+
+		$this->state->loadFromArray ($values);
+
+		$this->assertEqual($values['id'], 			$this->state->getId());
+		$this->assertEqual($values['payload'], 		$this->state->getPayload());
+		$this->assertEqual($values['timestamp'], 	$this->state->getTimestamp());
 	}
 }
