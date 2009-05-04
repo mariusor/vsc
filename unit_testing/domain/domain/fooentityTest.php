@@ -55,17 +55,33 @@ class fooEntityTest extends UnitTestCase {
 		$this->assertNull ($value);
 	}
 
-	public function testLoadFromArray () {
+	public function testFromArray () {
 		$values = array (
 			'id' 		=> 1,
 			'payload'	=> 'Ana are mere !! test" asd" ',
 			'timestamp'	=> date('Y-m-d G:i:s'),
 		);
 
-		$this->state->loadFromArray ($values);
+		$this->state->fromArray ($values);
 
 		$this->assertEqual($values['id'], 			$this->state->getId());
 		$this->assertEqual($values['payload'], 		$this->state->getPayload());
 		$this->assertEqual($values['timestamp'], 	$this->state->getTimestamp());
+	}
+
+	public function testToArray () {
+		$values = array (
+			'id' 		=> 1,
+			'payload'	=> 'Ana are mere !! test" asd" ',
+			'timestamp'	=> date('Y-m-d G:i:s'),
+		);
+
+		$this->state->fromArray ($values);
+
+		$values2 = $this->state->toArray ();
+
+		$this->assertEqual($values['id'], 			$values2['id']);
+		$this->assertEqual($values['payload'], 		$values2['payload']);
+		$this->assertEqual($values['timestamp'], 	$values2['timestamp']);
 	}
 }
