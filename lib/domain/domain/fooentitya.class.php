@@ -18,13 +18,18 @@ abstract class fooEntityA {
 
 	public function __call ($sMethodName, $aParameters) {
 //		d ($sMethodName, $aParameters);
-		if ( preg_match( '/set(.*)/', $sMethodName, $found ) ) {
-			$sPropertyName = strtolower ($found[1]);
+		$i = preg_match ('/(set|get)(.*)/i', $sMethodName, $found );
+		if ($i) {
+			$sMethod	= $found[1];
+			$sProperty 	= $found[2]; $sProperty[0] = strtolower ($sProperty[0]); // lowering the first letter
+		}
+
+		if ( $sMethod == 'set' ) {
 			// check for fields with $found[1] name
-			$this->$sPropertyName->setValue($aParameters[0]);
+			$this->$sProperty->setValue($aParameters[0]);
 			return true;
-		} else if ( preg_match( '/get(.*)/', $sMethodName, $found ) ) {
-			return $this->$found[1]->getValue();
+		} else if ( $sMethod == 'get' ) {
+			return $this->$sProperty->getValue();
 		}
 //		throw new tsExceptionUnimplemented ('Method [' . get_class ($this) . '::' . $sMethodName . ']');
 	}
