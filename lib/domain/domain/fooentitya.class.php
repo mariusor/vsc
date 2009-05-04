@@ -11,7 +11,7 @@ usingPackage ('models/foo/fields');
 usingPackage ('models/foo/indexes');
 
 abstract class fooEntityA {
-	protected 	$_name;
+	protected 	$name;
 	private 	$alias;
 	private 	$pk;
 	private		$fields = array ();
@@ -54,7 +54,7 @@ abstract class fooEntityA {
 	 * @return void
 	 */
 	protected function setName ($sName) {
-		$this->_name = $sName;
+		$this->name = $sName;
 	}
 
 	public function getName () {

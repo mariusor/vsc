@@ -37,7 +37,7 @@ abstract class fooTdoA {
 		$sRet .= ' ( ' . "\n";
 
 		/* @var $oColumn fooFieldA */
-		foreach ($oInc->getMembers () as $oColumn) {
+		foreach ($oInc->getFields () as $oColumn) {
 			$sRet .= "\t" . $oColumn->getName() . ' ' . $oColumn->getDefinition() ;
 			$sRet .= ', ' . "\n";
 		}
