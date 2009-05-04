@@ -21,7 +21,9 @@ abstract class fooEntityA {
 		$i = preg_match ('/(set|get)(.*)/i', $sMethodName, $found );
 		if ($i) {
 			$sMethod	= $found[1];
-			$sProperty 	= $found[2]; $sProperty[0] = strtolower ($sProperty[0]); // lowering the first letter
+			$sProperty 	= $found[2];
+
+			$sProperty[0] = strtolower ($sProperty[0]); // lowering the first letter
 		}
 
 		if ( $sMethod == 'set' ) {
@@ -92,8 +94,10 @@ abstract class fooEntityA {
 		$aReflectedProperties = $oReflector->getProperties ();
 
 		foreach ($aReflectedProperties as $oProperty) {
-			$sName = $oProperty->getName();
-			$aRet[] = $sName;
+			if ($oProperty->isPublic()) {
+				$sName = $oProperty->getName();
+				$aRet[] = $sName;
+			}
 		}
 
 		return $aRet;
@@ -114,7 +118,19 @@ abstract class fooEntityA {
 	 * @return mixed[]
 	 */
 	public function toArray () {
+		$aRet = array();
+		$oReflector = new ReflectionClass (get_class($this));
+		$aReflectedProperties = $oReflector->getProperties ();
 
+		foreach ($aReflectedProperties as $oProperty) {
+			if ($oProperty->isPublic()) {
+				$sName = $oProperty->getName();
+				$sGetter = 'get' . ucfirst($sName);
+				$aRet[$sName] = $this->$sGetter();
+			}
+		}
+
+		return $aRet;
 	}
 
 	/**
@@ -127,7 +143,7 @@ abstract class fooEntityA {
 	 * @param mixed[string] $aIncArray
 	 * @return int
 	 */
-	public function loadFromArray ($aIncArray) {
+	public function fromArray ($aIncArray) {
 		foreach ($aIncArray as $sFieldName => $mValue) {
 			$sSetter = 'set' . ucfirst($sFieldName);
 			try {
@@ -135,8 +151,10 @@ abstract class fooEntityA {
 			} catch (Exception $e) {
 				// dunno what might be thrown here
 				d ($e);
+				return 0;
 			}
 		}
+		return 1;
 	}
 
 	/**
