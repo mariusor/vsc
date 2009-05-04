@@ -17,15 +17,24 @@ abstract class fooEntityA {
 	private 	$_indexes = array ();
 
 	public function __call ($sMethodName, $aParameters) {
-		throw new tsExceptionUnimplemented ('Method [' . get_class ($this) . '::' . $sMethodName . ']');
+//		d ($sMethodName, $aParameters);
+		if ( preg_match( '/set(.*)/', $sMethodName, $found ) ) {
+			$sPropertyName = strtolower ($found[1]);
+			// check for fields with $found[1] name
+			$this->$sPropertyName->setValue($aParameters[0]);
+			return true;
+		} else if ( preg_match( '/get(.*)/', $sMethodName, $found ) ) {
+			return $this->$found[1]->getValue();
+		}
+//		throw new tsExceptionUnimplemented ('Method [' . get_class ($this) . '::' . $sMethodName . ']');
 	}
 
-	public function __get($sProprietyName) {
-		throw new tsExceptionUnimplemented ('Property [' . get_class ($this) . '::' . $sMethodName . '] doesn\'t exist');
+	public function __get ($sPropertyName) {
+		throw new tsExceptionUnimplemented ('Property [' . get_class ($this) . '::' . $sPropertyName . '] doesn\'t exist');
 	}
 
-	public function __set($sProprietyName, $mValue) {
-		throw new tsExceptionUnimplemented ('Property [' . get_class ($this) . '::' . $sMethodName . '] doesn\'t exist');
+	public function __set ($sPropertyName, $mValue) {
+		throw new tsExceptionUnimplemented ('Property [' . get_class ($this) . '::' . $sPropertyName . '] doesn\'t exist');
 	}
 
 	/**
