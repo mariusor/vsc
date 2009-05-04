@@ -1,12 +1,9 @@
 <?php
 usingPackage ('models/foo');
+usingPackage ('models/foo/fields');
 
 class dummyTable extends fooEntityA {
 	protected $_name = 'dummy';
-
-	public $id;
-	public $payload;
-	public $timestamp;
 
 	public function __construct () {
 		$this->id 		= new fooFieldInteger('id');

@@ -7,6 +7,9 @@
 include_once ('dummytable.class.php');
 
 class fooEntityTest extends UnitTestCase {
+	/**
+	 * @var fooEntityA
+	 */
 	private $state;
 
 	public function setUp() {
@@ -24,7 +27,7 @@ class fooEntityTest extends UnitTestCase {
 	}
 
 	public function testFields () {
-		foreach ($this->state->getMembers() as $oColumn) {
+		foreach ($this->state->getFields() as $oColumn) {
 			$this->assertIsA($oColumn, 'fooFieldA', 'Column ' . var_export($oColumn, true) . ' is not a valid fooField');
 		}
 	}
