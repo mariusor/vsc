@@ -73,8 +73,7 @@ abstract class fooFieldA implements fooFieldI {
 		$this->value = $value;
 	}
 
-
-	function getValue () {
+	public function getValue () {
 		return $this->value;
 	}
 

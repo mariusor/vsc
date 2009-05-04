@@ -12,9 +12,10 @@ usingPackage ('models/foo/indexes');
 
 abstract class fooEntityA {
 	protected 	$_name;
-	private 	$_alias;
-	private 	$_pk;
-	private 	$_indexes = array ();
+	private 	$alias;
+	private 	$pk;
+	private		$fields = array ();
+	private 	$indexes = array ();
 
 	public function __call ($sMethodName, $aParameters) {
 //		d ($sMethodName, $aParameters);
@@ -37,11 +38,15 @@ abstract class fooEntityA {
 	}
 
 	public function __get ($sPropertyName) {
-		throw new tsExceptionUnimplemented ('Property [' . get_class ($this) . '::' . $sPropertyName . '] doesn\'t exist');
+		return $this->fields[$sPropertyName];
 	}
 
 	public function __set ($sPropertyName, $mValue) {
-		throw new tsExceptionUnimplemented ('Property [' . get_class ($this) . '::' . $sPropertyName . '] doesn\'t exist');
+		if (fooFieldA::isValid ($mValue)) {
+			$this->fields[$sPropertyName] = $mValue;
+		} else {
+			$this->fields[$sPropertyName]->setValue($mValue);
+		}
 	}
 
 	/**
@@ -53,7 +58,7 @@ abstract class fooEntityA {
 	}
 
 	public function getName () {
-		return $this->_name;
+		return $this->name;
 	}
 
 	/**
@@ -61,45 +66,26 @@ abstract class fooEntityA {
 	 * @return void
 	 */
 	public function setPrimaryKey () {
-		$this->_pk = new fooKeyPrimary (func_get_args());
+		$this->pk = new fooKeyPrimary (func_get_args());
 	}
 
 	public function getPrimaryKey () {
-		return $this->_pk;
+		return $this->pk;
 	}
 
 	/**
 	 * @return fooFieldA[]
 	 */
-	public function getMembers () {
-		$aMembers = array();
-		$oReflector = new ReflectionClass (get_class($this));
-		$aReflectedProperties = $oReflector->getProperties ();
-
-		foreach ($aReflectedProperties as $oProperty) {
-			if ($oProperty->isPublic()) // this will need to be fixed asap (ie, php 5.3.0)
-				$aMembers[] = $oProperty->getValue ($this);
-		}
-
-		return $aMembers;
+	public function getFields () {
+		return $this->fields;
 	}
 
 	/**
 	 * gets all the column names as an array
 	 * @return string[]
 	 */
-	public function getColumnNames () {
-		$aRet = array();
-		$oReflector = new ReflectionClass (get_class($this));
-		$aReflectedProperties = $oReflector->getProperties ();
-
-		foreach ($aReflectedProperties as $oProperty) {
-			if ($oProperty->isPublic()) {
-				$sName = $oProperty->getName();
-				$aRet[] = $sName;
-			}
-		}
-
+	public function getFieldNames () {
+		$aRet = array_keys($this->fields);
 		return $aRet;
 	}
 
@@ -108,7 +94,7 @@ abstract class fooEntityA {
 		if ($bWithPrimaryKey)
 			$aIndexes[] = $this->getPrimaryKey();
 
-		$aIndexes = array_merge($aIndexes, $this->_indexes);
+		$aIndexes = array_merge ($aIndexes, $this->indexes);
 
 		return $aIndexes;
 	}
@@ -119,15 +105,9 @@ abstract class fooEntityA {
 	 */
 	public function toArray () {
 		$aRet = array();
-		$oReflector = new ReflectionClass (get_class($this));
-		$aReflectedProperties = $oReflector->getProperties ();
 
-		foreach ($aReflectedProperties as $oProperty) {
-			if ($oProperty->isPublic()) {
-				$sName = $oProperty->getName();
-				$sGetter = 'get' . ucfirst($sName);
-				$aRet[$sName] = $this->$sGetter();
-			}
+		foreach ($this->getFields() as $sFieldName => $oField) {
+			$aRet[$sFieldName]	= $oField->getValue();
 		}
 
 		return $aRet;
@@ -145,9 +125,8 @@ abstract class fooEntityA {
 	 */
 	public function fromArray ($aIncArray) {
 		foreach ($aIncArray as $sFieldName => $mValue) {
-			$sSetter = 'set' . ucfirst($sFieldName);
 			try {
-				$this->$sSetter ($mValue);
+				$this->fields[$sFieldName]->setValue ($mValue);
 			} catch (Exception $e) {
 				// dunno what might be thrown here
 				d ($e);

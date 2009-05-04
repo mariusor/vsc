@@ -4,6 +4,8 @@
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.03.29
  */
+usingPackage ('models/foo');
+
 class fooFieldInteger extends fooFieldA {
 	const TYPE = 'integer';
 	protected  $maxLength = 11;
