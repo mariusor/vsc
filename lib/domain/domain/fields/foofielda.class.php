@@ -73,6 +73,11 @@ abstract class fooFieldA implements fooFieldI {
 		$this->value = $value;
 	}
 
+
+	function getValue () {
+		return $this->value;
+	}
+
 	public function setGroup ($true = true) {
 		$this->group = (bool)$true;
 	}
