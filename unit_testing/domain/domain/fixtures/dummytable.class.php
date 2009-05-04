@@ -3,7 +3,7 @@ usingPackage ('models/foo');
 usingPackage ('models/foo/fields');
 
 class dummyTable extends fooEntityA {
-	protected $_name = 'dummy';
+	protected $name = 'dummy';
 
 	public function __construct () {
 		$this->id 		= new fooFieldInteger('id');
