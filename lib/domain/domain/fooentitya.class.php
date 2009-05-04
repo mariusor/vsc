@@ -127,7 +127,17 @@ abstract class fooEntityA {
 	 * @param mixed[string] $aIncArray
 	 * @return int
 	 */
-	public function fromArray ($aIncArray) {}
+	public function loadFromArray ($aIncArray) {
+		foreach ($aIncArray as $sFieldName => $mValue) {
+			$sSetter = 'set' . ucfirst($sFieldName);
+			try {
+				$this->$sSetter ($mValue);
+			} catch (Exception $e) {
+				// dunno what might be thrown here
+				d ($e);
+			}
+		}
+	}
 
 	/**
 	 *
