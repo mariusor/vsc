@@ -34,7 +34,8 @@ abstract class fooEntityA {
 		} else if ( $sMethod == 'get' ) {
 			return $this->$sProperty->getValue();
 		}
-//		throw new tsExceptionUnimplemented ('Method [' . get_class ($this) . '::' . $sMethodName . ']');
+
+		throw new tsExceptionUnimplemented ('Method [' . get_class ($this) . '::' . $sMethodName . ']');
 	}
 
 	public function __get ($sPropertyName) {
@@ -71,6 +72,26 @@ abstract class fooEntityA {
 
 	public function getPrimaryKey () {
 		return $this->pk;
+	}
+
+	/**
+	 * @param fooFieldA[] $aFields
+	 * @param string $sAlias
+	 * @return void
+	 */
+	private function addFields ($aFields, $sAlias) {
+		foreach ($aFields as $sFieldName => $oField) {
+			$this->addField (array ($sAlias . '.' . $sFieldName => $oField));
+		}
+	}
+
+	/**
+	 *
+	 * @param []$aIncField
+	 * @return void
+	 */
+	private function addField ($aIncField) {
+		$this->fields [$aIncField[0]] = $aIncField[1];
 	}
 
 	/**
@@ -142,4 +163,13 @@ abstract class fooEntityA {
 	 * @return bool
 	 */
 	public function loadChild (fooEntityA $oChild) {}
+
+	/**
+	 *
+	 * @param fooEntityA $oChild
+	 * @return bool
+	 */
+	public function join (fooEntityA $oObject) {
+		$this->addFields ($oObject->getFields (), $oObject->getName());
+	}
 }

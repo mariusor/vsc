@@ -6,4 +6,7 @@
  */
 
 class fooKeyUnique extends fooIndexA  {
+	public function setName ($sName) {
+		$this->name = $sName . '_unq';
+	}
 }

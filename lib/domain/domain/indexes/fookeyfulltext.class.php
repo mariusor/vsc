@@ -6,5 +6,7 @@
  */
 
 class fooKeyFullText implements fooIndexA  {
-
+	public function setName ($sName) {
+		$this->name = $sName . '_tx';
+	}
 }
