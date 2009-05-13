@@ -87,4 +87,13 @@ class fooEntityTest extends UnitTestCase {
 		$this->assertEqual($values['payload'], 		$values2['payload']);
 		$this->assertEqual($values['timestamp'], 	$values2['timestamp']);
 	}
+
+	public function testJoinObjects () {
+		$a = new dummyTable();
+
+		$this->state->join ($a, $this->state->getPrimaryKey(), $a->getPrimaryKey());
+		d ($this->state);
+
+		$this->assertIsA($this->state, 'dummyTable');
+	}
 }
