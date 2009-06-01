@@ -2,9 +2,9 @@
 /**
  * Factory class for data objects
  */
-
+usingPackage ('coreexceptions');
 class sqlFactory {
-	static public	$TYPES 		= array ('postgresql', 'mysql', 'null');
+	static public	$TYPES 		= array ('postgresql', 'mysql', 'mysqli', 'null');
 	static private	$instance	= false;
 
 	/**
@@ -30,6 +30,7 @@ class sqlFactory {
 	static public function &connect($incString) {
 		if (!sqlFactory::validType ($incString)) {
 			sqlFactory::$instance = new nullSql();
+//			throw new tsExceptionUnimplemented ('The database type is invalid');
 		}
 
 		if(!(sqlFactory::$instance instanceof fooSqlDriverA)) {
