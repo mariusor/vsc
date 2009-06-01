@@ -25,17 +25,22 @@ class nullSql extends fooSqlDriverA {
 	 * @param string $dbPass
 	 */
 	public function __construct( $dbHost = null, $dbUser = null, $dbPass = null ) {
-		echo 'This site has all database functionality disabled.<br/> Please check for configuration errors';
+		throw new tsExceptionUnimplemented('This site has all database functionality disabled.<br/> Please check for configuration errors');
 	}
 
 	public function getType () {
 		return 'null';
 	}
 
-
 	public function close () {}
 
 	public function getScalar () {}
+
+	public function startTransaction ($bAutoCommit = false) {}
+
+	public function rollBackTransaction () {}
+
+	public function commitTransaction () {}
 
 	public function _SELECT ($incObj){}
 

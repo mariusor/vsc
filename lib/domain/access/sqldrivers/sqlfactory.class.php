@@ -4,8 +4,8 @@
  */
 usingPackage ('coreexceptions');
 class sqlFactory {
-	static public	$TYPES 		= array ('postgresql', 'mysql', 'mysqli', 'null');
-	static private	$instance	= false;
+	static public	$TYPES 		= array ('postgresql', 'mysql', 'mysqli');
+	static private	$instance	= null;
 
 	/**
 	 * returning if the set DB type is supported
@@ -14,7 +14,7 @@ class sqlFactory {
 	 * @return bool
 	 */
 	public static function validType ($type) {
-		if (in_array(strtolower($type), sqlFactory::$TYPES))
+		if (in_array(strtolower($type), self::$TYPES))
 			return true;
 		return false;
 	}
@@ -28,26 +28,27 @@ class sqlFactory {
 	 */
 
 	static public function &connect($incString) {
-		if (!sqlFactory::validType ($incString)) {
-			sqlFactory::$instance = new nullSql();
+		if (!self::validType ($incString)) {
+			self::$instance = new nullSql();
+			d(self::$instance);
 //			throw new tsExceptionUnimplemented ('The database type is invalid');
 		}
 
-		if(!(sqlFactory::$instance instanceof fooSqlDriverA)) {
+		if(!(self::$instance instanceof fooSqlDriverA)) {
 			if (stristr($incString, 'mysql')) {
-				sqlFactory::$instance =  new mySqlIm ();
+				self::$instance =  new mySqlIm ();
 			} /*elseif (stristr ($incString, 'mysql')) {
-				sqlFactory::$instance =  new mySql ();
+				self::$instance =  new mySql ();
 			}*/ elseif (stristr ($incString, 'postgresql')) {
-				sqlFactory::$instance = new postgreSql ();
+				self::$instance = new postgreSql ();
 			} elseif (stristr ($incString, 'sqlserv')) {
-				sqlFactory::$instance = new nullSql (); // Sql server not implemented
+				self::$instance = new nullSql (); // Sql server not implemented
 			}
 
-			if (sqlFactory::$instance->error) {
-				sqlFactory::$instance = new nullSql ();
+			if (self::$instance->error) {
+				self::$instance = new nullSql ();
 			}
 		}
-		return sqlFactory::$instance;
+		return self::$instance;
 	}
 }
