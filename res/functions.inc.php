@@ -7,7 +7,7 @@
  * @param $message
  * @param $filename
  * @param $lineno
- * @throws tsExceptionError
+ * @throws vscExceptionError
  * @return void
  */
 function exceptions_error_handler ($iSeverity, $sMessage, $sFilename, $iLineNo) {
@@ -18,8 +18,10 @@ function exceptions_error_handler ($iSeverity, $sMessage, $sFilename, $iLineNo) 
 	if (error_reporting() & $iSeverity) {
 		// the __autoload seems not to be working here
 		import ('coreexceptions');
-		include ('tsexceptionerror.class.php');
-		throw new tsExceptionError ($sMessage, 0, $iSeverity, $sFilename, $iLineNo);
+		if (!class_exists ('vscExceptionError')) {
+			include ('vscexceptionerror.class.php');
+		}
+		throw new vscExceptionError ($sMessage, 0, $iSeverity, $sFilename, $iLineNo);
 	}
 }
 
@@ -96,7 +98,7 @@ if (!function_exists('import')){
 	 * @todo make sure that the path isn't aleady in the include path
 	 * @param string $sIncPath
 	 * @return bool
-	 * @throws tsExceptionPackageImport
+	 * @throws vscExceptionPackageImport
 	 */
 
 	function import ($sIncPath) {
@@ -117,9 +119,11 @@ if (!function_exists('import')){
 				);
 			}
 			return true;
-		} else {
+		} elseif ($pkgLower != 'coreexceptions') {
 			import ('coreexceptions');
-			throw new tsExceptionPackageImport ('Bad package "' . $sIncPath . '"');
+			throw new vscExceptionPackageImport ('Bad package "' . $sIncPath . '"');
+		} else {
+			trigger_error ('Bad package "' . $sIncPath . '"');
 		}
 	}
 }
