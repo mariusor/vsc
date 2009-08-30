@@ -19,7 +19,7 @@ function exceptions_error_handler ($iSeverity, $sMessage, $sFilename, $iLineNo) 
 		// the __autoload seems not to be working here
 		import ('coreexceptions');
 		if (!class_exists ('vscExceptionError')) {
-			include ('vscexceptionerror.class.php');
+			include_once ('vscexceptionerror.class.php');
 		}
 		throw new vscExceptionError ($sMessage, 0, $iSeverity, $sFilename, $iLineNo);
 	}
@@ -67,7 +67,7 @@ function d () {
 		// not running in console
 		echo '</pre>';
 	}
-	die ();
+	exit ();
 }
 
 
@@ -76,7 +76,7 @@ function d () {
  * @param string $className
  */
 function __autoload ($className) {
-	if (class_exists ($className, false))  {
+	if (class_exists ($className))  {
 		return true;
 	}
 
@@ -89,7 +89,13 @@ function __autoload ($className) {
 		$fileIncluded = @include ($sFilePath);
 	}
 
-	return $fileIncluded;
+	if (!$fileIncluded) {
+		import ('coreexceptions');
+		include_once ('vscexceptionautoload.class.php');
+		throw new vscExceptionAutoload('Could not load class ['.$className.'] in path: ' . get_include_path());
+	} else {
+		return true;
+	}
 }
 
 if (!function_exists('import')){
@@ -106,21 +112,23 @@ if (!function_exists('import')){
 		$pkgPath	= LIB_PATH . $pkgLower . DIRECTORY_SEPARATOR;
 
 		$path 		= get_include_path();
-		if (is_dir($pkgPath)) {
-			if (strpos ($path, $pkgPath) === false) {
+		if (is_dir ($pkgPath)) {
+			if (strpos ($path, $pkgPath . PATH_SEPARATOR) === false) {
 				// adding exceptions dir to include path if it exists
 				if (is_dir ($pkgPath. DIRECTORY_SEPARATOR . 'exceptions')) {
 					// adding the exceptions if they exist
 					$pkgPath .= PATH_SEPARATOR . $pkgPath . DIRECTORY_SEPARATOR . 'exceptions';
 				}
 				set_include_path (
-					$path . PATH_SEPARATOR .
-					$pkgPath
+					$pkgPath . PATH_SEPARATOR .
+					$path
 				);
 			}
+
 			return true;
 		} elseif ($pkgLower != 'coreexceptions') {
 			import ('coreexceptions');
+			include_once ('vscexceptionpackageimport.class.php');
 			throw new vscExceptionPackageImport ('Bad package "' . $sIncPath . '"');
 		} else {
 			trigger_error ('Bad package "' . $sIncPath . '"');

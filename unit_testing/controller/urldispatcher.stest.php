@@ -7,7 +7,6 @@ class fooUrlDispatcherTest extends Snap_UnitTestCase {
 
 	public function testGetRequest () {
 		// unable to actually test
-		d ($_GET);
 		return $this->assertEqual(true, true);
 	}
 }
