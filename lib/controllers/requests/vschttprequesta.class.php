@@ -1,19 +1,34 @@
 <?php
 /**
  * @package vsc_controllers
- * @subpackage requests
+ * @subpackage vsc_requests
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.07.13
  */
 abstract class vscHttpRequestA {
-	private $sHttpMethod = null;
-	private $aGetVars = array();
-	private $aPostVars = array();
-	private $aCookieVars = array();
-	private $aSessionVars = array();
-	private $sServerProtocol = null;
-
+	private $sHttpMethod;
+	private $sServerProtocol;
 	private $aVarOrder;
+
+	private $aGetVars			= array();
+	private $aPostVars			= array();
+	private $aCookieVars		= array();
+	private $aSessionVars		= array();
+
+	private $aAccept			= array();
+	private $aAcceptCharset		= array();
+	private $aAcceptEncoding	= array();
+	private $aAcceptLanguage	= array();
+
+	private $sAuthorization		= '';
+	private $iContentLength		= 0; // ? I don't think I'm interested in the length of the request
+	private $sContentType		= '';
+
+	private $sIfModifiedSince	= '';
+	private $sIfNoneMatch		= '';
+
+	private $sReferer			= '';
+	private $sUserAgent			= '';
 
 	public function __construct () {
 		$this->aGetVars = $_GET;
@@ -25,8 +40,17 @@ abstract class vscHttpRequestA {
 			$this->getServerProtocol();
 			$this->getHttpMethod();
 		}
+
+		$this->aAccept			= explode (',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+		$this->aAcceptLanguage	= explode (',', $_SERVER['HTTP_ACCEPT']);
+		$this->aAcceptEncoding	= explode (',', $_SERVER['HTTP_ACCEPT_ENCODING']);
+		$this->aAcceptCharset	= explode (',', $_SERVER['HTTP_ACCEPT_CHARSET']);
+
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getServerProtocol () {
 		if (!$this->sServerProtocol) {
 			$this->sServerProtocol = $_SERVER['SERVER_PROTOCOL'];

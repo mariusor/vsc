@@ -1,8 +1,30 @@
 <?php
-
+/**
+ * @package vsc_controllers
+ * @subpackage vsc_requests
+ * @author marius orcsik <marius@habarnam.ro>
+ * @date 09.07.13
+ */
 class vscRwHttpRequest extends vscHttpRequestA {
-	private $sRequestUri = null;
-	private $aTaintedVars = array();
+	private $sRequestUri		= null;
+	private $aTaintedVars		= array();
+
+	/**
+	 * returns the key of the first url parameter
+	 * @return string
+	 */
+	public function getFirstParameter() {
+		$aKeys = array_keys($this->aTaintedVars);
+		return array_shift($aKeys);
+	}
+	/**
+	 * returns the key of the last url parameter
+	 * @return string
+	 */
+	public function getLastParameter() {
+		$aKeys = array_keys($this->aTaintedVars);
+		return array_pop ($aKeys);
+	}
 
 	public function __construct () {
 		parent::__construct();
@@ -45,8 +67,8 @@ class vscRwHttpRequest extends vscHttpRequestA {
 		if (!$this->sRequestUri) {
 			$sServerType = $_SERVER['SERVER_SOFTWARE'];
 
-			// this header is present for all server in the same form
-			$sCurrentScriptDir = dirname($_SERVER['PHP_SELF']) != '/' ? dirname($_SERVER['PHP_SELF']) : '';
+			// this header is present for all servers in the same form
+			$sCurrentScriptDir = dirname ($_SERVER['PHP_SELF']) != '/' ? dirname ($_SERVER['PHP_SELF']) : '';
 			if (stristr($sServerType, 'lighttpd')) {
 				$sReqUri = $_SERVER['REQUEST_URI'];
 				$this->sRequestUri = str_replace ($sCurrentScriptDir, '', $sReqUri);
@@ -66,7 +88,10 @@ class vscRwHttpRequest extends vscHttpRequestA {
 		return $this->sRequestUri;
 	}
 
-	// this has to be moved in the rw url handler
+	/**
+	 * @todo this has to be moved in the rw url handler
+	 * @return void
+	 */
 	public function constructTaintedVars () {
 		foreach(explode ('/', $this->getRequestUri()) as $sUrlId) {
 			if ($sUrlId) {

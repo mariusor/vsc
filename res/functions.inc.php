@@ -53,6 +53,11 @@ function d () {
 	$aRgs = func_get_args();
 	$iExit = 1;
 
+	for ($i = 0; $i < ob_get_level(); $i++) {
+		// cleaning the buffers
+		ob_end_clean();
+	}
+
 	if (!isCli()) {
 		// not running in console
 		echo '<pre>';
@@ -72,7 +77,7 @@ function d () {
 
 
 /**
- * the __autoload automagic function for class initialization,
+ * the __autoload automagic function for class initialisation,
  * @param string $className
  */
 function __autoload ($className) {

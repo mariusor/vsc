@@ -1,2 +1,2 @@
 <?php
-class vscExceptionPackageImport extends vscException {}
+class vscExceptionPackageImport extends vscExceptionPath {}
