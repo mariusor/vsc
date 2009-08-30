@@ -76,7 +76,7 @@ function d () {
  * @param string $className
  */
 function __autoload ($className) {
-	if (class_exists ($className))  {
+	if (class_exists ($className, false))  {
 		return true;
 	}
 
