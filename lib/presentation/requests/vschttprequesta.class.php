@@ -31,24 +31,28 @@ abstract class vscHttpRequestA {
 	private $sUserAgent			= '';
 
 	public function __construct () {
-		$this->aGetVars = $_GET;
-		$this->aPostVars = $_POST;
-		$this->aCookieVars = $_COOKIE;
-//		$this->aSessionVars = $_SESSION;
+		if (isset($_GET))
+			$this->aGetVars		= $_GET;
+		if (isset($_POST))
+			$this->aPostVars	= $_POST;
+		if (isset($_COOKIE))
+			$this->aCookieVars	= $_COOKIE;
+		if (isset($_SESSION))
+			$this->aSessionVars	= $_SESSION;
 
 		if (isset($_SERVER)) {
 			$this->getServerProtocol();
 			$this->getHttpMethod();
+
+			$this->aAccept			= explode (',', $_SERVER['HTTP_ACCEPT']);
+			$this->aAcceptLanguage	= explode (',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+			$this->aAcceptEncoding	= explode (',', $_SERVER['HTTP_ACCEPT_ENCODING']);
+			$this->aAcceptCharset	= explode (',', $_SERVER['HTTP_ACCEPT_CHARSET']);
+
+			$this->sUserAgent		= $_SERVER['HTTP_USER_AGENT'];
+			if (isset ($_SERVER['HTTP_REFERER']))
+				$this->sReferer			= $_SERVER['HTTP_REFERER'];
 		}
-
-		$this->aAccept			= explode (',', $_SERVER['HTTP_ACCEPT']);
-		$this->aAcceptLanguage	= explode (',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-		$this->aAcceptEncoding	= explode (',', $_SERVER['HTTP_ACCEPT_ENCODING']);
-		$this->aAcceptCharset	= explode (',', $_SERVER['HTTP_ACCEPT_CHARSET']);
-
-		$this->sUserAgent		= $_SERVER['HTTP_USER_AGENT'];
-		if (isset ($_SERVER['HTTP_REFERER']))
-			$this->sReferer			= $_SERVER['HTTP_REFERER'];
 	}
 
 	/**
@@ -62,30 +66,51 @@ abstract class vscHttpRequestA {
 		return $this->sServerProtocol;
 	}
 
+	/**
+	 * @return []
+	 */
 	public function getHttpAccept () {
 		return $this->aAccept;
 	}
 
+	/**
+	 * @return []
+	 */
 	public function getHttpAcceptCharset () {
 		return $this->aAcceptCharset;
 	}
 
+	/**
+	 * @return []
+	 */
 	public function getHttpAcceptEncoding () {
 		return $this->aAcceptEncoding;
 	}
 
+	/**
+	 * @return []
+	 */
 	public function getHttpAcceptLanguage () {
 		return $this->aAcceptLanguage;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getHttpReferer () {
 		return $this->sReferer;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getHttpUserAgent () {
 		return $this->sUserAgent;
 	}
 
+	/**
+	 * @return []
+	 */
 	public function getVarOrder () {
 		if (count($this->aVarOrder) != 4){
 			// get gpc order
@@ -98,6 +123,11 @@ abstract class vscHttpRequestA {
 		return $this->aVarOrder;
 	}
 
+	/**
+	 * @param string $sVarName
+	 * @throws vscException
+	 * @return mixed
+	 */
 	public function getVar ($sVarName) {
 		foreach ($this->getVarOrder() as $sMethod) {
 			try {
@@ -116,31 +146,55 @@ abstract class vscHttpRequestA {
 						break;
 				}
 			} catch (vscException $e) {
-				// no var - go on
+				// no variable - go on with our lives
 			}
 		}
 		throw new vscException ('Variable ' . $sVarName . ' doesn\'t exist in the http request.');
 	}
 
+	/**
+	 *
+	 * @param string $sVarName
+	 * @throws vscException
+	 * @return mixed
+	 */
 	protected function getGetVar ($sVarName) {
 		if (key_exists($sVarName, $this->aGetVars))
 			return $this->aGetVars[$sVarName];
 		else throw new vscException ('No GET variable named: ' . $sVarName);
 	}
 
+	/**
+	 *
+	 * @param string $sVarName
+	 * @throws vscException
+	 * @return mixed
+	 */
 	protected function getPostVar ($sVarName) {
 		if (key_exists($sVarName, $this->aPostVars))
 			return $this->aPostVars[$sVarName];
 		else throw new vscException ('No POST variable named: ' . $sVarName);
 	}
 
+	/**
+	 *
+	 * @param string $sVarName
+	 * @throws vscException
+	 * @return mixed
+	 */
 	protected function getCookieVar ($sVarName) {
 		if (key_exists($sVarName, $this->aCookieVars))
 			return $this->aCookieVars[$sVarName];
 		else throw new vscException ('No COOKIE variable named: ' . $sVarName);
 	}
+
+	/**
+	 * @param string $sVarName
+	 * @param string $sVarValue
+	 * @return bool
+	 */
 	public function setCookieVar ($sVarName, $sVarValue) {
-		// TODO
+		return setcookie ($sVarName, $sVarValue);
 	}
 
 	protected function getHttpMethod () {
