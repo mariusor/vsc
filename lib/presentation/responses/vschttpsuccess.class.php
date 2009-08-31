@@ -13,6 +13,7 @@ class vscHttpSuccess extends vscHttpResponseA {
 
 	public function setHeaders () {
 		header ($this->getServerProtocol() . ' ' . $this->getStatus (200));
+		parent::setHeaders();
 	}
 
 	public function getOutput () {

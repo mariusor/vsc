@@ -14,6 +14,7 @@ class vscHttpRedirection extends vscHttpResponseA {
 	);
 	public function setHeaders () {
 		header ($this->getServerProtocol() . $this->getStatus (303));
+		header ('Location: ' . $this->getLocation());
 	}
 	public function getOutput () {
 		$this->setHeaders ();

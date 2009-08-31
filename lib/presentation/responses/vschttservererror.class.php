@@ -12,6 +12,7 @@ class vscHttpServerError extends vscHttpResponseA {
 	);
 	public function setHeaders () {
 		header ($this->getServerProtocol() . ' '. array_pop ($this->aStatusList));
+		parent::setHeaders();
 	}
 	public function getOutput () {
 		$this->setHeaders ();

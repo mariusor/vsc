@@ -260,7 +260,59 @@ abstract class vscHttpResponseA {
 	}
 
 	public function setHeaders () {
-		$aHeaders = get_object_vars($this);
+		$sCacheControl = $this->getCacheControl();
+		if ($sCacheControl) {
+			header ('Cache-Control: ' . $sCacheControl);
+		}
+		$sContentDisposition = $this->getContentDisposition();
+		if ($sContentDisposition) {
+			header ('Content-Disposition: ' . $sContentDisposition);
+		}
+		$sContentEncoding = $this->getContentEncoding();
+		if ($sContentEncoding) {
+			header ('Content-Encoding:' . $sContentEncoding);
+		}
+		$sContentLanguage = $this->getContentLanguage();
+		if ($sContentLanguage) {
+			header ('Content-Language:' . $sContentLanguage);
+		}
+		$iContentLength = $this->getContentLength();
+		if ($iContentLength) {
+			header ('Content-Length:' . $iContentLength);
+		}
+		$sContentLocation = $this->getContentLocation();
+		if ($sContentLocation) {
+			header ('Content-Location:' . $sContentLocation);
+		}
+		$sMd5 = $this->getContentMd5();
+		if ($sMd5) {
+			header ('Content-MD5:' . $sMd5);
+		}
+		$sContentType = $this->getContentType();
+		if ($sContentType) {
+			header ('Content-Type:' . $sContentType);
+		}
+		$sDate = $this->getDate();
+		if ($sDate) {
+			header ('Date:' . $sDate);
+		}
+		$sETag = $this->getETag();
+		if ($sETag) {
+			header ('ETag:' . $sETag);
+		}
+		$sExpires = $this->getExpires();
+		if ($sExpires) {
+			header ('Expires:' . $sExpires);
+		}
+		$sLastModified = $this->getLastModified();
+		if ($sLastModified) {
+			header ('Last-Modified:' . $sLastModified);
+		}
+		// dunno if I need this
+		$sLocation = $this->getLocation();
+		if ($sLocation) {
+			header ('Location:' . $sLocation);
+		}
 	}
 
 	abstract public function getOutput();
