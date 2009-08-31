@@ -1,5 +1,5 @@
 <?php
-class fooUrlDispatcherTest extends Snap_UnitTestCase {
+class vscRwDispatcherTest extends Snap_UnitTestCase {
 	public function setUp () {
 		$_GET = array ('ana' => 'are', 'mere' => '');
 	}

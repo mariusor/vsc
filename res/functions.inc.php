@@ -122,7 +122,7 @@ if (!function_exists('import')){
 				// adding exceptions dir to include path if it exists
 				if (is_dir ($pkgPath . 'exceptions')) {
 					// adding the exceptions if they exist
-					$pkgPath .= PATH_SEPARATOR . $pkgPath . 'exceptions';
+					$pkgPath .= PATH_SEPARATOR . $pkgPath . 'exceptions' . DIRECTORY_SEPARATOR;
 				}
 				set_include_path (
 					$pkgPath . PATH_SEPARATOR .

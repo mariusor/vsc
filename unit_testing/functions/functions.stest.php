@@ -12,10 +12,16 @@ class fooFunctions extends Snap_UnitTestCase {
 		set_include_path($this->state);
 	}
 
-	public function testImportReturnPath () {
+	public function testImportWithExceptionsReturnPath () {
+		import ('presentation'); // this should exist at all times
+		$sTestPath = LIB_PATH . 'presentation' . DIRECTORY_SEPARATOR . PATH_SEPARATOR .
+					 LIB_PATH . 'presentation' . DIRECTORY_SEPARATOR . 'exceptions' . DIRECTORY_SEPARATOR . PATH_SEPARATOR .'.';
+		return $this->assertEqual (get_include_path(), $sTestPath);
+	}
+
+	public function testImportWithoutExceptionsReturnPath () {
 		import ('coreexceptions'); // this should exist at all times
 		$sTestPath = LIB_PATH . 'coreexceptions' . DIRECTORY_SEPARATOR . PATH_SEPARATOR . '.';
-
 		return $this->assertEqual (get_include_path(), $sTestPath);
 	}
 
