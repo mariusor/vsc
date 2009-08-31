@@ -1,3 +1,3 @@
 <?php
-header ('HTTP/1.0 404 Not Found');
+header ('HTTP/1.0 405 Forbidden');
 echo "Go Back!";
