@@ -6,6 +6,7 @@
  * @date 09.08.30
  */
 abstract class vscHttpResponseA {
+//	const c = array('allow', 'cache-control', 'content-encoding', 'content-language', 'content-length', 'content-location', 'content-disposision', 'content-md5', 'content-type', 'date', 'etag', 'expires', 'last-modified', '');
 //	protected $aStatusList = array(
 //		200 => '200 OK',
 //		204 => '204 No Content',
@@ -20,24 +21,225 @@ abstract class vscHttpResponseA {
 //		500 => '500 Internal Server Error',
 //		501 => '501 Not Implemented',
 //	);
-	private $sServerProtocol 		= 'HTTP/1.1';
+	private $sServerProtocol;
 
 	private $aAllow					= array ('GET', 'POST', 'HEAD');
-	private $sCacheControl			= '';
-	private $sContentEncoding		= '';
-	private $sContentLanguage		= '';
-	private $iContentLength			= 0;
-	private $sContentLocation		= '';
-	private $sContentDisposition	= '';
-	private $sContentMd5			= '';
-	private $sContentType			= '';
-	private $sDate					= '';
-	private $sETag					= '';
-	private $sExpires				= '';
-	private $sLastModified			= '';
-	private $sLocation				= '';
+	private $sCacheControl;
+	private $sContentEncoding;
+	private $sContentLanguage;
+	private $iContentLength;
+	private $sContentLocation;
+	private $sContentDisposition;
+	private $sContentMd5;
+	private $sContentType;
+	private $sDate;
+	private $sETag;
+	private $sExpires;
+	private $sLastModified;
+	private $sLocation;
+
+	private $aHeaders;
 
 	private $sResponseBody;
+
+	public function addHeader ($sName, $sValue) {
+		$this->aHeaders[$sName]		= $sValue;
+	}
+
+	/**
+	 * @param string $sValue
+	 * @return void
+	 */
+	public function setCacheControl ($sValue){
+		$this->sCacheControl = $sValue;
+	}
+
+	/**
+	 * @param string $sValue
+	 * @return void
+	 */
+	public function setContentEncoding ($sValue){
+		$this->sContentEncoding = $sValue;
+	}
+
+	/**
+	 * @param string $sValue
+	 * @return void
+	 */
+	public function setContentLanguage ($sValue){
+		$this->sContentLanguage = $sValue;
+	}
+
+	/**
+	 * @param string $sValue
+	 * @return void
+	 */
+	public function setContentLength ($iValue){
+		$this->iContentLength = $iValue;
+	}
+
+	/**
+	 * @param string $sValue
+	 * @return void
+	 */
+	public function setContentLocation ($sValue){
+		$this->sContentLocation = $sValue;
+	}
+
+	/**
+	 * @param string $sValue
+	 * @return void
+	 */
+	public function setContentDisposition ($sValue){
+		$this->sContentDisposition = $sValue;
+	}
+
+	/**
+	 * @param string $sValue
+	 * @return void
+	 */
+	public function setContentMd5 ($sValue){
+		$this->sContentMd5 = $sValue;
+	}
+
+	/**
+	 * @param string $sValue
+	 * @return void
+	 */
+	public function setContentType ($sValue){
+		$this->sContentType = $sValue;
+	}
+
+	/**
+	 * @param string $sValue
+	 * @return void
+	 */
+	public function setDate ($sValue){
+		$this->sDate = $sValue;
+	}
+
+	/**
+	 * @param string $sValue
+	 * @return void
+	 */
+	public function setETag ($sValue){
+		$this->sETag = $sValue;
+	}
+
+	/**
+	 * @param string $sValue
+	 * @return void
+	 */
+	public function setExpires ($sValue){
+		$this->sExpires = $sValue;
+	}
+
+	/**
+	 * @param string $sValue
+	 * @return void
+	 */
+	public function setLastModified ($sValue){
+		$this->sLastModified = $sValue;
+	}
+
+	/**
+	 * @param string $sValue
+	 * @return void
+	 */
+	public function setLocation ($sValue){
+		$this->sLocation = $sValue;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCacheControl (){
+		$this->sCacheControl = $sValue;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getContentEncoding (){
+		$this->sContentEncoding = $sValue;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getContentLanguage (){
+		$this->sContentLanguage = $sValue;
+	}
+
+	/**
+	 * @return integer
+	 */
+	public function getContentLength (){
+		$this->iContentLength = $iValue;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getContentLocation (){
+		$this->sContentLocation = $sValue;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getContentDisposition (){
+		$this->sContentDisposition = $sValue;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function setContentMd5 ($sValue){
+		$this->sContentMd5 = $sValue;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getContentType (){
+		return $this->sContentType;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDate (){
+		return $this->sDate;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getETag (){
+		return $this->sETag;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getExpires (){
+		return $this->sExpires;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLastModified (){
+		return $this->sLastModified;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLocation (){
+		return $this->sLocation;
+	}
 
 	/**
 	 * @return string
