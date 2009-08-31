@@ -10,16 +10,26 @@ class vscHttpRwRequestTest extends Snap_UnitTestCase {
 		import ('presentation/requests');
 		$this->state = new vscRwHttpRequest();
 	}
+
 	public function tearDown () {
 		unset ($this->state);
 	}
 
-	public function testGetVarCorrect() {
+	public function testGetGetVarCorrect() {
 		return $this->assertEqual($_GET['ana'], $this->state->getVar('ana'));
 	}
 
-	public function testGetVarIncorrect() {
+	public function testGetGetVarInorrect() {
+		$this->willThrow('vscException');
+		return $this->assertNull($this->state->getVar('asdf'));
+	}
+
+	public function testGetPostVarIncorrect() {
 		return $this->assertNotEqual($_POST['ana'], $this->state->getVar('ana'));
+	}
+
+	public function testGetPostVarCorrect() {
+		return $this->assertEqual($_POST['postone'], $this->state->getVar('postone'));
 	}
 
 	public function testGetTaintedVarCorrect() {
