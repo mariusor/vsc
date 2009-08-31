@@ -1,7 +1,7 @@
 <?php
 /**
- * @package vsc_controllers
- * @subpackage vsc_response
+ * @package vsc_presentation
+ * @subpackage responses
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.30
  */

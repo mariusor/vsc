@@ -1,7 +1,7 @@
 <?php
 /**
- * @package vsc_controllers
- * @subpackage vsc_requests
+ * @package vsc_presentation
+ * @subpackage requests
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.07.13
  */
@@ -41,11 +41,14 @@ abstract class vscHttpRequestA {
 			$this->getHttpMethod();
 		}
 
-		$this->aAccept			= explode (',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-		$this->aAcceptLanguage	= explode (',', $_SERVER['HTTP_ACCEPT']);
+		$this->aAccept			= explode (',', $_SERVER['HTTP_ACCEPT']);
+		$this->aAcceptLanguage	= explode (',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
 		$this->aAcceptEncoding	= explode (',', $_SERVER['HTTP_ACCEPT_ENCODING']);
 		$this->aAcceptCharset	= explode (',', $_SERVER['HTTP_ACCEPT_CHARSET']);
 
+		$this->sUserAgent		= $_SERVER['HTTP_USER_AGENT'];
+		if (isset ($_SERVER['HTTP_REFERER']))
+			$this->sReferer			= $_SERVER['HTTP_REFERER'];
 	}
 
 	/**
@@ -57,6 +60,30 @@ abstract class vscHttpRequestA {
 		}
 
 		return $this->sServerProtocol;
+	}
+
+	public function getHttpAccept () {
+		return $this->aAccept;
+	}
+
+	public function getHttpAcceptCharset () {
+		return $this->aAcceptCharset;
+	}
+
+	public function getHttpAcceptEncoding () {
+		return $this->aAcceptEncoding;
+	}
+
+	public function getHttpAcceptLanguage () {
+		return $this->aAcceptLanguage;
+	}
+
+	public function getHttpReferer () {
+		return $this->sReferer;
+	}
+
+	public function getHttpUserAgent () {
+		return $this->sUserAgent;
 	}
 
 	public function getVarOrder () {
@@ -116,7 +143,7 @@ abstract class vscHttpRequestA {
 		// TODO
 	}
 
-	public function getHttpMethod () {
+	protected function getHttpMethod () {
 		if (!$this->sHttpMethod) {
 			$this->sHttpMethod = $_SERVER['REQUEST_METHOD'];
 		}
@@ -130,5 +157,4 @@ abstract class vscHttpRequestA {
 	public function isPost() {
 		return ($this->getHttpMethod() == 'POST');
 	}
-
 }

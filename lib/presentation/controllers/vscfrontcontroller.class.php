@@ -1,7 +1,7 @@
 <?php
 /**
- * @package vsc_controllers
- * @subpackage vsc_controllers
+ * @package vsc_presentation
+ * @subpackage controllers
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.30
  */
@@ -10,8 +10,8 @@ class vscFrontController {
 	 *
 	 * @return vscHttpResponseA
 	 */
-	public function dispatch () {
-		import ('controllers/responses');
+	public function getResponse () {
+		import ('presentation/responses');
 		return new vscHttpSuccess();
 	}
 }

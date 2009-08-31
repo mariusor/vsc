@@ -1,11 +1,12 @@
 <?php
 /**
  * Parses the current request into a valid Front Controller / Controller pair
- * @package vsc_controller
+ * @package vsc_presentation
+ * @subpackage dispatchers
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.07.10
  */
-class vscUrlDispatcher {
+class vscDispatcher {
 	/**
 	 *
 	 * @var vscHttpRequestA
@@ -23,12 +24,12 @@ class vscUrlDispatcher {
 	 * @return vscFrontController
 	 */
 	public function getFrontController () {
-		import ('controllers/controllers');
+		import ('presentation/controllers');
 		return new vscFrontController();
 	}
 
 	public function getProcessController () {
-		return new tsMainController();
+		return new tsMainController ();
 	}
 
 	/**
@@ -41,9 +42,9 @@ class vscUrlDispatcher {
 		if (!is_file ($sIncPath)) {
 			throw new vscExceptionPath('[' . $sIncPath . '] is not a valid path.');
 		} else {
-			import ('controllers/sitemaps');
+			import ('presentation/sitemaps');
 			$this->oSiteMap = new vscSiteMap ();
-			$this->oSiteMap->addMap ('/', $sIncPath);
+			$this->oSiteMap->addEntry ('/', $sIncPath);
 		}
 	}
 

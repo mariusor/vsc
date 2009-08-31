@@ -106,7 +106,7 @@ function __autoload ($className) {
 if (!function_exists('import')){
 	/**
 	 * Adds the package name to the include path
-	 * @todo make sure that the path isn't aleady in the include path
+	 * Also we are checking if an existing import exists, which would define some application specific import rules
 	 * @param string $sIncPath
 	 * @return bool
 	 * @throws vscExceptionPackageImport
@@ -120,9 +120,9 @@ if (!function_exists('import')){
 		if (is_dir ($pkgPath)) {
 			if (strpos ($path, $pkgPath . PATH_SEPARATOR) === false) {
 				// adding exceptions dir to include path if it exists
-				if (is_dir ($pkgPath. DIRECTORY_SEPARATOR . 'exceptions')) {
+				if (is_dir ($pkgPath . 'exceptions')) {
 					// adding the exceptions if they exist
-					$pkgPath .= PATH_SEPARATOR . $pkgPath . DIRECTORY_SEPARATOR . 'exceptions';
+					$pkgPath .= PATH_SEPARATOR . $pkgPath . 'exceptions';
 				}
 				set_include_path (
 					$pkgPath . PATH_SEPARATOR .
