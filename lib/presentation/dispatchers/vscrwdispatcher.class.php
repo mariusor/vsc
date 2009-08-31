@@ -31,7 +31,7 @@ class vscRwDispatcher {
 	}
 
 	public function getProcessController () {
-		return new tsMainController ();
+		return new vscEmptyController ();
 	}
 
 	/**

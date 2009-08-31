@@ -5,4 +5,9 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.31
  */
-class vscHtmlFrontController extends vscFrontControllerA {}
+class vscHtmlFrontController extends vscFrontControllerA {
+	public function getResponse () {
+		import ('presentation/responses');
+		return new vscHttpSuccess();
+	}
+}

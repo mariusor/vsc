@@ -16,6 +16,7 @@ class vscHttpClientError extends vscHttpResponseA {
 	public function setHeaders () {
 		header ($this->getServerProtocol() . $this->getStatus (404));
 	}
+
 	public function getOutput () {
 		$this->setHeaders ();
 		return 'test';
