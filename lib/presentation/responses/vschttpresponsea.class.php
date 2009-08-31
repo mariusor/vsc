@@ -6,7 +6,6 @@
  * @date 09.08.30
  */
 abstract class vscHttpResponseA {
-//	const c = array('allow', 'cache-control', 'content-encoding', 'content-language', 'content-length', 'content-location', 'content-disposision', 'content-md5', 'content-type', 'date', 'etag', 'expires', 'last-modified', '');
 //	protected $aStatusList = array(
 //		200 => '200 OK',
 //		204 => '204 No Content',
@@ -195,8 +194,8 @@ abstract class vscHttpResponseA {
 	/**
 	 * @return string
 	 */
-	public function setContentMd5 ($sValue){
-		$this->sContentMd5 = $sValue;
+	public function getContentMd5 (){
+		return $this->sContentMd5;
 	}
 
 	/**
@@ -258,6 +257,10 @@ abstract class vscHttpResponseA {
 		}
 
 		return ' ' . $this->aStatusList[$iStatus];
+	}
+
+	public function setHeaders () {
+		$aHeaders = get_object_vars($this);
 	}
 
 	abstract public function getOutput();
