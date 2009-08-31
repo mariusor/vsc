@@ -8,7 +8,6 @@
  */
 class vscRwDispatcher {
 	/**
-	 *
 	 * @var vscHttpRequestA
 	 */
 	private $oRequest;
@@ -18,7 +17,6 @@ class vscRwDispatcher {
 	private $oSiteMap;
 
 	public function __construct (){
-		$this->oRequest = vsc::getHttpRequest();
 	}
 
 	/**
@@ -50,5 +48,8 @@ class vscRwDispatcher {
 		}
 	}
 
-	public function getRequest () {}
+	public function getRequest () {
+		$this->oRequest = vsc::getHttpRequest();
+		return $this->oRequest;
+	}
 }

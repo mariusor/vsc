@@ -5,6 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.07.13
  */
+import ('coreexceptions');
 class vscRwHttpRequest extends vscHttpRequestA {
 	private $sRequestUri		= null;
 	private $aTaintedVars		= array();
@@ -64,7 +65,7 @@ class vscRwHttpRequest extends vscHttpRequestA {
 	 * @return string
 	 */
 	public function getRequestUri () {
-		if (!$this->sRequestUri) {
+		if (!$this->sRequestUri && isset($_SERVER['SERVER_SOFTWARE'])) {
 			$sServerType = $_SERVER['SERVER_SOFTWARE'];
 
 			// this header is present for all servers in the same form

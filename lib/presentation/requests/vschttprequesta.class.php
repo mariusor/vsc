@@ -44,11 +44,16 @@ abstract class vscHttpRequestA {
 			$this->getServerProtocol();
 			$this->getHttpMethod();
 
-			$this->aAccept			= explode (',', $_SERVER['HTTP_ACCEPT']);
-			$this->aAcceptLanguage	= explode (',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-			$this->aAcceptEncoding	= explode (',', $_SERVER['HTTP_ACCEPT_ENCODING']);
-			$this->aAcceptCharset	= explode (',', $_SERVER['HTTP_ACCEPT_CHARSET']);
+			if (isset ($_SERVER['HTTP_ACCEPT']))
+				$this->aAccept			= explode (',', $_SERVER['HTTP_ACCEPT']);
+			if (isset ($_SERVER['HTTP_ACCEPT_LANGUAGE']))
+				$this->aAcceptLanguage	= explode (',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+			if (isset ($_SERVER['HTTP_ACCEPT_ENCODING']))
+				$this->aAcceptEncoding	= explode (',', $_SERVER['HTTP_ACCEPT_ENCODING']);
+			if (isset ($_SERVER['HTTP_ACCEPT_CHARSET']))
+				$this->aAcceptCharset	= explode (',', $_SERVER['HTTP_ACCEPT_CHARSET']);
 
+			if (isset ($_SERVER['HTTP_USER_AGENT']))
 			$this->sUserAgent		= $_SERVER['HTTP_USER_AGENT'];
 			if (isset ($_SERVER['HTTP_REFERER']))
 				$this->sReferer			= $_SERVER['HTTP_REFERER'];
@@ -59,7 +64,7 @@ abstract class vscHttpRequestA {
 	 * @return string
 	 */
 	public function getServerProtocol () {
-		if (!$this->sServerProtocol) {
+		if (!$this->sServerProtocol && isset ($_SERVER['SERVER_PROTOCOL'])) {
 			$this->sServerProtocol = $_SERVER['SERVER_PROTOCOL'];
 		}
 
@@ -198,7 +203,7 @@ abstract class vscHttpRequestA {
 	}
 
 	protected function getHttpMethod () {
-		if (!$this->sHttpMethod) {
+		if (!$this->sHttpMethod && isset ($_SERVER['REQUEST_METHOD'])) {
 			$this->sHttpMethod = $_SERVER['REQUEST_METHOD'];
 		}
 		return $this->sHttpMethod;
