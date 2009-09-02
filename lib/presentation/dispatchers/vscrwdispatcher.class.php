@@ -12,7 +12,7 @@ class vscRwDispatcher {
 	 */
 	private $oRequest;
 	/**
-	 * @var vscSiteMap
+	 * @var vscRwSiteMap
 	 */
 	private $oSiteMap;
 
@@ -29,7 +29,25 @@ class vscRwDispatcher {
 	}
 
 	public function getProcessController () {
-		return new vscEmptyController ();
+		$aMaps = $this->oSiteMap->getAllMaps();
+
+		if (is_array($aMaps)) {
+			$sUri = $this->getRequest()->getRequestUri();
+//			var_dump($sUri);
+			/* @var $oControllerMap vscMappingController */
+			foreach ($aMaps as $oControllerMap) {
+//				$controllerMatch	= preg_match ('/'.$oControllerMap->getName().'/i', $this->getRequest()->getRequestUri());
+				$regexMatch			= preg_match ('|' . $oControllerMap->getUrl().'|i',  $sUri, $aMatches);
+				if (($regexMatch)) {
+					array_shift($aMatches);
+					return $oControllerMap->getInstance ($aMatches);
+				}
+//				var_dump ('|' . $oControllerMap->getUrl().'|i', $aMatches );
+			}
+		}
+//		die();
+
+		return new vsc404Controller ();
 	}
 
 	/**
@@ -39,12 +57,13 @@ class vscRwDispatcher {
 	 * @return void
 	 */
 	public function loadSiteMap ($sIncPath) {
-		if (!is_file ($sIncPath)) {
-			throw new vscExceptionPath('[' . $sIncPath . '] is not a valid path.');
-		} else {
-			import ('presentation/sitemaps');
-			$this->oSiteMap = new vscSiteMap ();
-			$this->oSiteMap->addEntry ('/', $sIncPath);
+		import ('presentation/sitemaps');
+		$this->oSiteMap = new vscRwSiteMap ();
+		$this->oSiteMap->setBasePath ($sIncPath);
+		try {
+			$this->oSiteMap->mapModule ('^/', '.');
+		} catch (vscExceptionSitemap $e) {
+			// there was a faulty controller in the sitemap
 		}
 	}
 

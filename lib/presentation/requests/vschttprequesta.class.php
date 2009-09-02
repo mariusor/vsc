@@ -6,6 +6,7 @@
  * @date 09.07.13
  */
 abstract class vscHttpRequestA {
+	private $sRequestUri		= null;
 	private $sHttpMethod;
 	private $sServerProtocol;
 	private $aVarOrder;
@@ -215,5 +216,42 @@ abstract class vscHttpRequestA {
 
 	public function isPost() {
 		return ($this->getHttpMethod() == 'POST');
+	}
+
+
+	/**
+	 * Returns the REQUEST_URI which is used to get the URL Rewrite variables
+	 * This will also remove the part of the path that is actually an existing path
+	 * lighttpd:
+	 *  url.rewrite = (
+	 * 		"^/([^?]*)?(.*)$" => "/index.php$2"
+ 	 *  )
+	 *
+	 * @todo move to the vscUrlRWParser
+	 * @return string
+	 */
+	public function getRequestUri () {
+		if (!$this->sRequestUri && isset($_SERVER['SERVER_SOFTWARE'])) {
+			$sServerType = $_SERVER['SERVER_SOFTWARE'];
+
+			// this header is present for all servers in the same form
+			$sCurrentScriptDir = dirname ($_SERVER['PHP_SELF']) != '/' ? dirname ($_SERVER['PHP_SELF']) : '';
+			if (stristr($sServerType, 'lighttpd')) {
+				$sReqUri = $_SERVER['REQUEST_URI'];
+				$this->sRequestUri = str_replace ($sCurrentScriptDir, '', $sReqUri);
+			} elseif (stristr($sServerType, 'apache')) {
+				$sReqUri = $_SERVER['REQUEST_URI'];
+				$this->sRequestUri = str_replace ($sCurrentScriptDir, '', $sReqUri);
+			} elseif (stristr($sServerType, 'cherokee')) {
+				// TODO
+			}
+
+			// removing unnecessary get vars
+			$iQMarkPos = strpos ($this->sRequestUri, '?');
+			if ($iQMarkPos) {
+				$this->sRequestUri = substr ($this->sRequestUri, 0, $iQMarkPos);
+			}
+		}
+		return $this->sRequestUri;
 	}
 }
