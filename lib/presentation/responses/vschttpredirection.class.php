@@ -12,12 +12,9 @@ class vscHttpRedirection extends vscHttpResponseA {
 		303 => '303 See Other',
 		304 => '304 Not Modified',
 	);
-	public function setHeaders () {
-		header ($this->getServerProtocol() . $this->getStatus (303));
-		header ('Location: ' . $this->getLocation());
-	}
+
 	public function getOutput () {
-		$this->setHeaders ();
+		$this->outputHeaders ();
 		return null;
 	}
 }

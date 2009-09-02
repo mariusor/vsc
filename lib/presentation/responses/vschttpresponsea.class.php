@@ -6,21 +6,23 @@
  * @date 09.08.30
  */
 abstract class vscHttpResponseA {
-//	protected $aStatusList = array(
-//		200 => '200 OK',
-//		204 => '204 No Content',
-//		301 => '301 Moved Permanently',
-//		302 => '302 Found',
-//		303 => '303 See Other',
-//		304 => '304 Not Modified',
-//		403 => '403 Forbidden',
-//		404 => '404 Not Found',
-//		415 => '415 Unsupported Media Type',
-//		426 => '426 Update Required',
-//		500 => '500 Internal Server Error',
-//		501 => '501 Not Implemented',
-//	);
+	protected $aStatusList = array(
+		200 => '200 OK',
+		204 => '204 No Content',
+		301 => '301 Moved Permanently',
+		302 => '302 Found',
+		303 => '303 See Other',
+		304 => '304 Not Modified',
+		403 => '403 Forbidden',
+		404 => '404 Not Found',
+		415 => '415 Unsupported Media Type',
+		426 => '426 Update Required',
+		500 => '500 Internal Server Error',
+		501 => '501 Not Implemented',
+	);
 	private $sServerProtocol;
+
+	private $iStatus;
 
 	private $aAllow					= array ('GET', 'POST', 'HEAD');
 	private $sCacheControl;
@@ -40,6 +42,14 @@ abstract class vscHttpResponseA {
 	private $aHeaders;
 
 	private $sResponseBody;
+
+	public function setStatus ($iStatus) {
+		if (!key_exists ($iStatus, $this->aStatusList)){
+			throw new vscExceptionResponse('[' . $iStatus . '] is not a valid ' . $this->getServerProtocol() . ' status');
+		}
+
+		$this->iStatus = $iStatus;
+	}
 
 	public function addHeader ($sName, $sValue) {
 		$this->aHeaders[$sName]		= $sValue;
@@ -153,42 +163,42 @@ abstract class vscHttpResponseA {
 	 * @return string
 	 */
 	public function getCacheControl (){
-		$this->sCacheControl = $sValue;
+		return $this->sCacheControl;
 	}
 
 	/**
 	 * @return string
 	 */
 	public function getContentEncoding (){
-		$this->sContentEncoding = $sValue;
+		return $this->sContentEncoding;
 	}
 
 	/**
 	 * @return string
 	 */
 	public function getContentLanguage (){
-		$this->sContentLanguage = $sValue;
+		return $this->sContentLanguage;
 	}
 
 	/**
 	 * @return integer
 	 */
 	public function getContentLength (){
-		$this->iContentLength = $iValue;
+		return $this->iContentLength;
 	}
 
 	/**
 	 * @return string
 	 */
 	public function getContentLocation (){
-		$this->sContentLocation = $sValue;
+		return $this->sContentLocation;
 	}
 
 	/**
 	 * @return string
 	 */
 	public function getContentDisposition (){
-		$this->sContentDisposition = $sValue;
+		return $this->sContentDisposition;
 	}
 
 	/**
@@ -251,15 +261,18 @@ abstract class vscHttpResponseA {
 		return $this->sServerProtocol;
 	}
 
-	public function getStatus ($iStatus) {
-		if (!key_exists ($iStatus, $this->aStatusList)){
-			throw new vscExceptionResponse('[' . $iStatus . '] is not a valid ' . $this->getServerProtocol() . ' status');
-		}
-
-		return ' ' . $this->aStatusList[$iStatus];
+	public function getHttpStatusString () {
+		return $this->getServerProtocol() . ' ' . $this->aStatusList[$this->getStatus()];
 	}
 
-	public function setHeaders () {
+	public function getStatus () {
+		return $this->iStatus;
+	}
+
+	public function outputHeaders () {
+		if ($this->getStatus())
+			header ($this->getHttpStatusString ());
+
 		$sCacheControl = $this->getCacheControl();
 		if ($sCacheControl) {
 			header ('Cache-Control: ' . $sCacheControl);

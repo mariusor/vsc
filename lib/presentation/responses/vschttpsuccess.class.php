@@ -11,13 +11,7 @@ class vscHttpSuccess extends vscHttpResponseA {
 		204 => '204 No Content',
 	);
 
-	public function setHeaders () {
-		header ($this->getServerProtocol() . ' ' . $this->getStatus (200));
-		parent::setHeaders();
-	}
-
 	public function getOutput () {
-		$this->setHeaders ();
-		return 'test';
+		$this->outputHeaders ();
 	}
 }

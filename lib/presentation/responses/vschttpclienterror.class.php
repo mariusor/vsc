@@ -13,13 +13,7 @@ class vscHttpClientError extends vscHttpResponseA {
 		426 => '426 Update Required',
 	);
 
-	public function setHeaders () {
-		header ($this->getServerProtocol() . $this->getStatus (404));
-		parent::setHeaders();
-	}
-
 	public function getOutput () {
-		$this->setHeaders ();
-		return 'test';
+		$this->outputHeaders ();
 	}
 }

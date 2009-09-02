@@ -10,12 +10,8 @@ class vscHttpServerError extends vscHttpResponseA {
 		500 => '500 Internal Server Error',
 		501 => '501 Not Implemented',
 	);
-	public function setHeaders () {
-		header ($this->getServerProtocol() . ' '. array_pop ($this->aStatusList));
-		parent::setHeaders();
-	}
+
 	public function getOutput () {
-		$this->setHeaders ();
-		return 'test';
+		$this->outputHeaders ();
 	}
 }
