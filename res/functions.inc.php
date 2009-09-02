@@ -67,6 +67,7 @@ function d () {
 		// maybe I should just output the whole array $aRgs
 		var_dump($object);
 	}
+	debug_print_backtrace();
 
 	if (!isCli()) {
 		// not running in console
