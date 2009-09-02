@@ -9,5 +9,5 @@ abstract class vscFrontControllerA {
 	/**
 	 * @return vscHttpResponseA
 	 */
-	abstract public function getResponse ();
+	abstract public function getResponse (vscControllerA $oProcessController);
 }
