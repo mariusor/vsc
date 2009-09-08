@@ -1,12 +1,22 @@
 <?php
-class vscRwDispatcherTest  extends Snap_UnitTestCase {
-	public function setUp () {}
-	public function tearDown () {}
+class vscRwDispatcher  extends Snap_UnitTestCase {
+	public function setUp () {
+		// @todo
+	}
+	public function tearDown () {
+		// @todo
+	}
 
-	public function loadSiteMap () {
+	public function testLoadSiteMap () {
+		return $this->assertEqual (1, 1);
 	}
-	public function getRequest () {
+	public function testGetRequest () {
+		return $this->skip('todo');
 	}
-	public function getFrontController () {}
-	public function getProcessController () {}
+	public function testGetFrontController () {
+		return $this->skip('todo');
+	}
+	public function testGetProcessController () {
+		return $this->skip('todo');
+	}
 }
