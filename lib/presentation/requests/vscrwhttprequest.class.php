@@ -34,6 +34,10 @@ class vscRwHttpRequest extends vscHttpRequestA {
 		}
 	}
 
+	public function getTaintedVars () {
+		return $this->aTaintedVars;
+	}
+
 	protected function getTaintedVar ($sVarName) {
 		if (key_exists($sVarName, $this->aTaintedVars))
 			return $this->aTaintedVars[$sVarName];

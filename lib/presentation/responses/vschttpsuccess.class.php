@@ -13,5 +13,6 @@ class vscHttpSuccess extends vscHttpResponseA {
 
 	public function getOutput () {
 		$this->outputHeaders ();
+		return $this->sResponseBody;
 	}
 }

@@ -30,6 +30,7 @@ class vscRwDispatcher {
 
 	public function getProcessController () {
 		$aMaps = $this->oSiteMap->getAllMaps();
+		$aVars = array ();
 
 		if (is_array($aMaps)) {
 			$sUri = $this->getRequest()->getRequestUri();
@@ -37,10 +38,20 @@ class vscRwDispatcher {
 			/* @var $oControllerMap vscMappingController */
 			foreach ($aMaps as $oControllerMap) {
 //				$controllerMatch	= preg_match ('/'.$oControllerMap->getName().'/i', $this->getRequest()->getRequestUri());
-				$regexMatch			= preg_match ('|' . $oControllerMap->getUrl().'|i',  $sUri, $aMatches);
-				if (($regexMatch)) {
+				$iMatch			= preg_match ('|' . $oControllerMap->getUrl().'[/]*|i',  $sUri, $aMatches);
+				$aTaintedVars	= $this->getRequest()->getTaintedVars ();
+				if (($iMatch)) {
 					array_shift($aMatches);
-					return $oControllerMap->getInstance ($aMatches);
+
+					foreach ($aTaintedVars as $sVarName => $sVarVal) {
+						if (in_array($sVarVal, $aMatches)) {
+							$aVars[$sVarName] = $sVarVal;
+						}
+					}
+
+					$oSpecificController = $oControllerMap->getInstance ($aVars);
+
+					return $oSpecificController;
 				}
 //				var_dump ('|' . $oControllerMap->getUrl().'|i', $aMatches );
 			}

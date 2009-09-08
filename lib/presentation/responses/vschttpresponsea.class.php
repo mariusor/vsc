@@ -41,7 +41,7 @@ abstract class vscHttpResponseA {
 
 	private $aHeaders;
 
-	private $sResponseBody;
+//	private $sResponseBody;
 
 	public function setStatus ($iStatus) {
 		if (!key_exists ($iStatus, $this->aStatusList)){
@@ -326,6 +326,12 @@ abstract class vscHttpResponseA {
 		if ($sLocation) {
 			header ('Location:' . $sLocation);
 		}
+	}
+	protected $sResponseBody;
+
+	public function setContentBody ($oBody) {
+		/* @var $oBody vscResponseBody */
+		$this->sResponseBody = $oBody->getOutput();
 	}
 
 	abstract public function getOutput();
