@@ -22,7 +22,7 @@ abstract class vscDispatcherA {
 	abstract public function getFrontController ();
 
 	/**
-	 * @return vscControllerA
+	 * @return vscProcessorA
 	 */
 	abstract public function getProcessController ();
 

@@ -58,7 +58,7 @@ class vscRwDispatcher {
 		}
 //		die();
 
-		return new vsc404Controller ();
+		return null;
 	}
 
 	/**

@@ -1,11 +1,11 @@
 <?php
 /**
  * @package vsc_presentation
- * @subpackage controllers
+ * @subpackage processors
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.31
  */
-abstract class vscControllerA {
+abstract class vscProcessorA {
 	private $aLocalVars;
 
 	public function __construct ($aLocalVars) {
