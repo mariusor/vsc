@@ -1,2 +1,14 @@
 <?php
-class vscMappingControllerTest  extends Snap_UnitTestCase {}
+class vscMappingController  extends Snap_UnitTestCase {
+	public function setUp () {
+		// @todo
+	}
+
+	public function tearDown () {
+		// @todo
+	}
+
+	public function testNull() {
+		return $this->skip('todo');
+	}
+}
