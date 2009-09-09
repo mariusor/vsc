@@ -1,5 +1,5 @@
 <?php
-class vscMappingController  extends Snap_UnitTestCase {
+class vscMappingControllerTest  extends Snap_UnitTestCase {
 	public function setUp () {
 		// @todo
 	}
@@ -8,7 +8,4 @@ class vscMappingController  extends Snap_UnitTestCase {
 		// @todo
 	}
 
-	public function testNull() {
-		return $this->skip('todo');
-	}
 }

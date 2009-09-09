@@ -1,15 +1,11 @@
 <?php
 
-class vscHttpSuccess extends Snap_UnitTestCase {
+class vscHttpSuccessTest extends Snap_UnitTestCase {
 	public function setUp () {
 		// @todo
 	}
 
 	public function tearDown () {
 		// @todo
-	}
-
-	public function testNull() {
-		return $this->skip('todo');
 	}
 }

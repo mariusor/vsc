@@ -1,6 +1,6 @@
 <?php
 
-class vscHttpServerError extends Snap_UnitTestCase {
+class vscHttpServerErrorTest extends Snap_UnitTestCase {
 	public function setUp () {
 		// @todo
 	}
@@ -9,7 +9,4 @@ class vscHttpServerError extends Snap_UnitTestCase {
 		// @todo
 	}
 
-	public function testNull() {
-		return $this->skip('todo');
-	}
 }

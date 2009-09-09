@@ -1,5 +1,5 @@
 <?php
-class vscHttpRwRequest extends Snap_UnitTestCase {
+class vscHttpRwRequestTest extends Snap_UnitTestCase {
 	private $state;
 
 	public function setUp () {

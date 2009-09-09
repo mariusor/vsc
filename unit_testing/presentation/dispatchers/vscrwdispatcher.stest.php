@@ -1,5 +1,5 @@
 <?php
-class vscRwDispatcher  extends Snap_UnitTestCase {
+class vscRwDispatcherTest  extends Snap_UnitTestCase {
 	public function setUp () {
 		// @todo
 	}
@@ -8,15 +8,25 @@ class vscRwDispatcher  extends Snap_UnitTestCase {
 	}
 
 	public function testLoadSiteMap () {
-		return $this->assertEqual (1, 1);
+		return $this->todo ('Loading the sitemap is not yet implementd.');
 	}
 	public function testGetRequest () {
-		return $this->skip('todo');
+		return $this->todo ('getRequest() is not yet implemented in the dispatchers');
 	}
+
 	public function testGetFrontController () {
-		return $this->skip('todo');
+		import ('presentation/dispatchers');
+		$new = new vscRwDispatcher();
+		$oFront = $new->getFrontController();
+
+		return $this->assertIsA($oFront, 'vscFrontControllerA');
 	}
-	public function testGetProcessController () {
-		return $this->skip('todo');
+
+	public function testGetProcessControllerNull () {
+		import ('presentation/dispatchers');
+		$new = new vscRwDispatcher();
+
+		$oProcess = $new->getProcessController();
+		return $this->assertNull($oProcess);
 	}
 }

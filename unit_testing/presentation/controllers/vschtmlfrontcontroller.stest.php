@@ -1,5 +1,5 @@
 <?php
-class vscHtmlFrontController extends Snap_UnitTestCase  {
+class vscHtmlFrontControllerTest extends Snap_UnitTestCase  {
 	public function setUp () {
 		// @todo
 	}
@@ -8,7 +8,7 @@ class vscHtmlFrontController extends Snap_UnitTestCase  {
 		// @todo
 	}
 
-	public function testNull() {
-		return $this->skip('todo');
+	public function testGetResponse() {
+		return $this->todo('I need a valid method for testing the getResponse method of the generic front controller');
 	}
 }
