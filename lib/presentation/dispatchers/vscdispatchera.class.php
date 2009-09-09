@@ -6,6 +6,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.31
  */
+import ('presentation');
 import ('presentation/sitemaps');
 abstract class vscDispatcherA {
 	/**
