@@ -6,32 +6,30 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.07.10
  */
-class vscRwDispatcher {
-	/**
-	 * @var vscHttpRequestA
-	 */
-	private $oRequest;
-	/**
-	 * @var vscRwSiteMap
-	 */
-	private $oSiteMap;
-
-	public function __construct (){
-	}
+import ('presentation/controllers');
+import ('presentation/processors');
+class vscRwDispatcher extends vscDispatcherA {
 
 	/**
-	 *
-	 * @return vscFrontController
+	 * @return vscFrontControllerA
 	 */
 	public function getFrontController () {
-		import ('presentation/controllers');
 		return new vscHtmlFrontController ();
 	}
 
+	/**
+	 * (non-PHPdoc)
+	 * @see lib/presentation/dispatchers/vscDispatcherA#getProcessController()
+	 * @return vscProcessorA
+	 */
 	public function getProcessController () {
-		$aMaps = $this->oSiteMap->getAllMaps();
 		$aVars = array ();
-
+		try {
+			$aMaps = $this->getSiteMap()->getAllMaps();
+		} catch (vscException $e) {
+			// we don't have a sitemap
+			return null;
+		}
 		if (is_array($aMaps)) {
 			$sUri = $this->getRequest()->getRequestUri();
 //			var_dump($sUri);
@@ -68,18 +66,12 @@ class vscRwDispatcher {
 	 * @return void
 	 */
 	public function loadSiteMap ($sIncPath) {
-		import ('presentation/sitemaps');
-		$this->oSiteMap = new vscRwSiteMap ();
-		$this->oSiteMap->setBasePath ($sIncPath);
+		$this->setSiteMap (new vscRwSiteMap ());
+		$this->getSiteMap()->setBasePath ($sIncPath);
 		try {
-			$this->oSiteMap->mapModule ('^/', '.');
+			$this->getSiteMap()->mapModule ('^/', '.');
 		} catch (vscExceptionSitemap $e) {
 			// there was a faulty controller in the sitemap
 		}
-	}
-
-	public function getRequest () {
-		$this->oRequest = vsc::getHttpRequest();
-		return $this->oRequest;
 	}
 }
