@@ -1,14 +1,20 @@
 <?php
 class vscHtmlFrontControllerTest extends Snap_UnitTestCase  {
+private $state;
 	public function setUp () {
-		// @todo
+		import ('presentation/controllers');
+		$this->state = new vscHtmlFrontController();
 	}
 
 	public function tearDown () {
-		// @todo
+		$this->state = null;
 	}
 
 	public function testGetResponse() {
-		return $this->todo('I need a valid method for testing the getResponse method of the generic front controller');
+		import ('presentation/responses');
+		import ('presentation/requests');
+
+		$oReq = new vscRwHttpRequest();
+		return $this->assertIsA($this->state->getResponse($oReq),'vscHttpResponseA');
 	}
 }

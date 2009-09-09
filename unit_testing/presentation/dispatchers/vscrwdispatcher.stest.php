@@ -8,10 +8,10 @@ class vscRwDispatcherTest  extends Snap_UnitTestCase {
 	}
 
 	public function testLoadSiteMap () {
-		return $this->todo ('Loading the sitemap is not yet implementd.');
+		return $this->todo ('loadSiteMap() is not yet implemented.');
 	}
 	public function testGetRequest () {
-		return $this->todo ('getRequest() is not yet implemented in the dispatchers');
+		return $this->todo ('getRequest() is not yet implemented.');
 	}
 
 	public function testGetFrontController () {
