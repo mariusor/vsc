@@ -8,6 +8,7 @@
  */
 import ('presentation/controllers');
 import ('presentation/processors');
+import ('coreexceptions');
 class vscRwDispatcher extends vscDispatcherA {
 
 	/**
@@ -32,11 +33,10 @@ class vscRwDispatcher extends vscDispatcherA {
 		}
 		if (is_array($aMaps)) {
 			$sUri = $this->getRequest()->getRequestUri();
-//			var_dump($sUri);
-			/* @var $oControllerMap vscMappingController */
-			foreach ($aMaps as $oControllerMap) {
-//				$controllerMatch	= preg_match ('/'.$oControllerMap->getName().'/i', $this->getRequest()->getRequestUri());
-				$iMatch			= preg_match ('|' . $oControllerMap->getUrl().'[/]*|i',  $sUri, $aMatches);
+			/* @var $oProcessorMap vscMappingProcessor */
+			foreach ($aMaps as $oProcessorMap) {
+//				$controllerMatch	= preg_match ('/'.$oProcessorMap->getName().'/i', $this->getRequest()->getRequestUri());
+				$iMatch			= preg_match ('|' . $oProcessorMap->getUrl().'[/]*|i',  $sUri, $aMatches);
 				$aTaintedVars	= $this->getRequest()->getTaintedVars ();
 				if (($iMatch)) {
 					array_shift($aMatches);
@@ -47,11 +47,12 @@ class vscRwDispatcher extends vscDispatcherA {
 						}
 					}
 
-					$oSpecificController = $oControllerMap->getInstance ($aVars);
+					include ($oProcessorMap->getPath());
+					$oSpecificController = $oProcessorMap->getInstance ($aVars);
 
 					return $oSpecificController;
 				}
-//				var_dump ('|' . $oControllerMap->getUrl().'|i', $aMatches );
+//				var_dump ('|' . $oProcessorMap->getUrl().'|i', $aMatches );
 			}
 		}
 //		die();
@@ -72,6 +73,7 @@ class vscRwDispatcher extends vscDispatcherA {
 			$this->getSiteMap()->mapModule ('^/', '.');
 		} catch (vscExceptionSitemap $e) {
 			// there was a faulty controller in the sitemap
+			d ($e);
 		}
 	}
 }

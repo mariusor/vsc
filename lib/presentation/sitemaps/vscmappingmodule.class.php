@@ -29,7 +29,7 @@ class vscMappingModule extends vscMappingA {
 		return $this->hasMap();
 	}
 
-	public function getControllerPath () {
-		return $this->getPath() . 'controllers' . DIRECTORY_SEPARATOR;
+	public function getProcessorPath () {
+		return $this->getPath() . 'processors' . DIRECTORY_SEPARATOR;
 	}
 }

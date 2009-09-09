@@ -1,5 +1,5 @@
 <?php
-class vscMappingController extends vscMappingA {
+class vscMappingProcessor extends vscMappingA {
 	public function getPath () {
 		return substr(parent::getPath(), 0, -1);
 	}

@@ -11,6 +11,20 @@ abstract class vscSiteMapA {
 	private $aModules;
 	private $sCurrentModule;
 
+	static public function getLibProcessorPath () {
+		return realpath(dirname(__FILE__) . '/..') . DIRECTORY_SEPARATOR;
+	}
+
+	public function __construct () {
+		$oModule = new vscMappingModule ();
+		$oModule->setName ('processors');
+		$oModule->setParent (null);
+		$oModule->setPath (self::getLibProcessorPath());
+
+		$this->aModules['processors']	= $oModule;
+		$this->sCurrentModule = 'processors';
+	}
+
 	public function setBasePath ($sPath) {
 		if (!$sPath || !is_dir ($sPath)) {
 			throw new vscExceptionModuleImport ('The base module path [' . ($sPath). '] is invalid.');
@@ -57,9 +71,9 @@ abstract class vscSiteMapA {
 		return $this->aMaps;
 	}
 
-//	abstract public function getMappedController ($sUrl);
+//	abstract public function getMappedProcessor ($sUrl);
 
-	public function mapController ($sRegex, $sControllerName) {}
+	public function mapProcessor ($sRegex, $sProcessorName) {}
 
 	/**
 	 * if #isValidModule adds the sModuleName to the include path
@@ -79,7 +93,7 @@ abstract class vscSiteMapA {
 			$this->sCurrentModule = $sModuleName;
 			try {
 				$this->aModules[$sModuleName]	= $oModule;
-				include ($this->getModule($sModuleName)->getConfigMap());
+//				include ($this->getModule($sModuleName)->getConfigMap());
 			} catch (Exception $e) {
 				// oops
 				throw $e;
@@ -111,23 +125,28 @@ abstract class vscSiteMapA {
 		return false;
 	}
 
-	protected function isValidController ($sControllerName) {
-		return (is_file ($this->getCurrentModule()->getControllerPath() . strtolower($sControllerName) . '.class.php'));
+	protected function isValidProcessor ($sProcessorName) {
+		return (is_file ($this->getCurrentModule()->getProcessorPath()) . strtolower($sProcessorName) . '.class.php');
 	}
 
-	public function map ($sRegex, $sControllerName) {
+	public function map ($sRegex, $sProcessorName) {
+		d ($sRegex, $sProcessorName);
+		try {
 		if (!$sRegex) {
-			throw new vscExceptionSitemap ('An url must be present.');
+			throw new vscExceptionSitemap ('An path must be present.');
 		}
-		if (!$sControllerName || !$this->isValidController ($sControllerName)) {
-			throw new vscExceptionSitemap ('The controller [' . ($sControllerName). '] could not be resolved.');
+		if (!$sProcessorName || !$this->isValidProcessor ($sProcessorName)) {
+			throw new vscExceptionSitemap ('The controller [' . ($sProcessorName). '] could not be resolved.');
 		}
-		$sControllerFile = strtolower($sControllerName) . '.class.php';
-		$sControllerPath = $this->getCurrentModule()->getControllerPath() . $sControllerFile;
-		$oControllerMapping = new vscMappingController($this->getCurrentModule()->getUrl(). $sRegex, $sControllerPath);
-		$oControllerMapping->setName ($sControllerName);
+		} catch (Exception $e) {
+			d ($e);
+		}
+		$sProcessorFile = strtolower($sProcessorName) . '.class.php';
+		$sProcessorPath = $this->getCurrentModule()->getProcessorPath() . $sProcessorFile;
+		$oProcessorMapping = new vscMappingProcessor($this->getCurrentModule()->getUrl(). $sRegex, $sProcessorPath);
+		$oProcessorMapping->setName ($sProcessorName);
 
-		$this->aMaps[$sRegex] = $oControllerMapping;
+		$this->aMaps[$sRegex] = $oProcessorMapping;
 	}
 
 	public function getAllMaps () {
