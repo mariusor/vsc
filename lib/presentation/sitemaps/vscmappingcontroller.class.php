@@ -4,6 +4,10 @@ class vscMappingController extends vscMappingA {
 		return substr(parent::getPath(), 0, -1);
 	}
 
+	/**
+	 * @param $aParameters
+	 * @return vscProcessorA
+	 */
 	public function getInstance ($aParameters) {
 		include ($this->getPath());
 		$sName = $this->getName();
