@@ -37,4 +37,16 @@ class vscRwDispatcherTest  extends Snap_UnitTestCase {
 		$oProcess = $this->state->getProcessController();
 		return $this->assertNull($oProcess);
 	}
+
+	public function testGetMapsMap () {
+		define ('BASE_PATH', dirname (__FILE__) . '/fixtures/');
+
+		$this->state->loadSiteMap (BASE_PATH);
+		$sCurPath = realpath(dirname (__FILE__) . '/../requests/fixtures/vscpopulatedrequest.class.php');
+		include ($sCurPath);
+		$oBlaReq = new vscPopulatedRequest ();
+		//d ($this->state->getRequest());
+		//d ($this->state->getProcessController());
+		return $this->assertIsA ($this->state->getSiteMap(), 'vscSiteMapA');
+	}
 }
