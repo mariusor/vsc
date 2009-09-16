@@ -115,7 +115,7 @@ if (!function_exists('import')){
 
 	function import ($sIncPath) {
 		$pkgLower 	= strtolower ($sIncPath);
-		$pkgPath	= LIB_PATH . $pkgLower . DIRECTORY_SEPARATOR;
+		$pkgPath	= VSC_LIB_PATH . $pkgLower . DIRECTORY_SEPARATOR;
 
 		$path 		= get_include_path();
 		if (is_dir ($pkgPath)) {
