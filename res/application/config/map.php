@@ -11,6 +11,10 @@
 $this->map ('test', VSC_RES_PATH . 'application/processors/vsctestprocessor.class.php');
 $this->map ('.*', VSC_RES_PATH . 'application/processors/vsc404processor.class.php');
 
+// front controllers
+$this->mapController ('xml$', VSC_RES_PATH . 'application/controllers/vschtmlcontroller.class.php');
+$this->mapController ('rss$', VSC_RES_PATH . 'application/controllers/vscrsscontroller.class.php');
+
 $sTest = $this->getBasePath();
 $this->setBasePath('^/'); // setting the base regex to the main map path so this works for all files not matching anything else
 $this->map ('.*', VSC_RES_PATH . 'application/processors/vsc404processor.class.php');

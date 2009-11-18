@@ -5,5 +5,4 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.31
  */
-class vscHtmlFrontController extends vscFrontControllerA {
-}
+class vscRssController extends vscFrontControllerA {}

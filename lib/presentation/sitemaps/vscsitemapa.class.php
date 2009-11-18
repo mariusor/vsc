@@ -8,6 +8,7 @@
 abstract class vscSiteMapA {
 	private $aBasePath;
 	private $aMaps;
+	private $aControllerMaps;
 
 	public function __construct () {
 	}
@@ -28,6 +29,10 @@ abstract class vscSiteMapA {
 		return $this->aMaps;
 	}
 
+	public function getControllerMaps () {
+		return $this->aControllerMaps;
+	}
+
 	/**
 	 * verifies if $sPath is on the path
 	 * verifies if $sPath is a valid folder and it has a config/map.php file
@@ -38,15 +43,24 @@ abstract class vscSiteMapA {
 		return ((is_file ($sPath) && basename ($sPath) == 'map.php'));
 	}
 
-	public function isValidProcessor ($sPath) {
+	public function isValidObject ($sPath) {
 		return (is_file ($sPath) && substr ($sPath, -10) == '.class.php');
 	}
 
-	public function getProcessorName ($sPath) {
+	public function getObjectName ($sPath) {
 		$sClassName	= substr(basename($sPath), 0, -10);
 		$iKey		= array_search($sClassName, array_map('strtolower', get_declared_classes()));
 		$aClasses	= get_declared_classes();
 		return  $aClasses[$iKey];
+	}
+
+	public function mapController ($sRegex, $sPath) {
+		if (!$sRegex) {
+			throw new vscExceptionSitemap ('An URI must be present.');
+		}
+		if ($this->isValidObject ($sPath)) {
+			$this->aControllerMaps[$sRegex] = $sPath;
+		}
 	}
 
 	public function map ($sRegex, $sPath) {
@@ -69,7 +83,7 @@ abstract class vscSiteMapA {
 		}
 
 		// Valid processor
-		if ($this->isValidProcessor ($sPath)) {
+		if ($this->isValidObject ($sPath)) {
 			$this->addMap ($sRegex, $sPath);
 			return;
 		}
