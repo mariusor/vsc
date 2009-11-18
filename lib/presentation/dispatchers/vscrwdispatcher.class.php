@@ -4,7 +4,7 @@
  * @package vsc_presentation
  * @subpackage dispatchers
  * @author marius orcsik <marius@habarnam.ro>
- * @date 09.07.10
+ * @date 09.09.24
  */
 import ('presentation/controllers');
 import ('presentation/processors');
@@ -24,40 +24,30 @@ class vscRwDispatcher extends vscDispatcherA {
 	 * @return vscProcessorA
 	 */
 	public function getProcessController () {
-		$aVars = array ();
-		try {
-			$aMaps = $this->getSiteMap()->getAllMaps();
-		} catch (vscException $e) {
-			// we don't have a sitemap
-			return null;
+		$aMaps		= $this->getSiteMap ()->getMaps();
+		$aRegexes	= array_keys($aMaps);
+		$aMatches 	= array();
+
+		$sUri = $this->getRequest()->getRequestUri();
+		foreach ($aRegexes as $sRegex) {
+			$iMatch			= preg_match ('|' . $sRegex.'[/]*|i',  $sUri, $aMatches);
+			if ($iMatch) break;
 		}
-		if (is_array($aMaps)) {
-			$sUri = $this->getRequest()->getRequestUri();
-			/* @var $oProcessorMap vscMappingProcessor */
-			foreach ($aMaps as $oProcessorMap) {
-//				$controllerMatch	= preg_match ('/'.$oProcessorMap->getName().'/i', $this->getRequest()->getRequestUri());
-				$iMatch			= preg_match ('|' . $oProcessorMap->getUrl().'[/]*|i',  $sUri, $aMatches);
-				$aTaintedVars	= $this->getRequest()->getTaintedVars ();
-				if (($iMatch)) {
-					array_shift($aMatches);
 
-					foreach ($aTaintedVars as $sVarName => $sVarVal) {
-						if (in_array($sVarVal, $aMatches)) {
-							$aVars[$sVarName] = $sVarVal;
-						}
-					}
+		$sPath = $aMaps[$sRegex];
+		if ($this->getSiteMap()->isValidProcessor ($sPath)) {
+			include ($sPath);
 
-					include ($oProcessorMap->getPath());
-					$oSpecificController = $oProcessorMap->getInstance ($aVars);
+			$sProcessorName = $this->getSiteMap()->getProcessorName($sPath);
+			array_shift($aMatches); // removing the matching string
 
-					return $oSpecificController;
-				}
-//				var_dump ('|' . $oProcessorMap->getUrl().'|i', $aMatches );
-			}
+			return new $sProcessorName($aMatches);
+		} elseif ($this->getSiteMap()->isValidMap ($sPath)) {
+			$this->getSiteMap()->map ($sRegex, $sPath);
+			return $this->getProcessController();
 		}
-//		die();
 
-		return null;
+ 		return null;
 	}
 
 	/**
@@ -68,12 +58,13 @@ class vscRwDispatcher extends vscDispatcherA {
 	 */
 	public function loadSiteMap ($sIncPath) {
 		$this->setSiteMap (new vscRwSiteMap ());
-		$this->getSiteMap()->setBasePath ($sIncPath);
+//		$this->getSiteMap()->setBasePath ($sIncPath);
 		try {
-			$this->getSiteMap()->mapModule ('^/', '.');
+			// hic sunt leones
+			$this->getSiteMap()->map ('^/', $sIncPath);
 		} catch (vscExceptionSitemap $e) {
 			// there was a faulty controller in the sitemap
-			d ($e);
+			// d ($e);
 		}
 	}
 }

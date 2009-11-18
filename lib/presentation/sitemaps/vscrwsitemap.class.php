@@ -5,5 +5,4 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.30
  */
-class vscRwSiteMap extends vscSiteMapA {
-}
+class vscRwSiteMap extends vscSiteMapA {}
