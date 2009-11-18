@@ -203,10 +203,6 @@ abstract class vscHttpRequestA {
 		return setcookie ($sVarName, $sVarValue);
 	}
 
-	// this seems quite unsafe
-	public function setTaintedVars ($aVars) {
-	}
-
 	protected function getHttpMethod () {
 		if (!$this->sHttpMethod && isset ($_SERVER['REQUEST_METHOD'])) {
 			$this->sHttpMethod = $_SERVER['REQUEST_METHOD'];

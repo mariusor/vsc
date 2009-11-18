@@ -20,7 +20,7 @@ class vscRwHttpRequest extends vscHttpRequestA {
 
 	// this seems quite unsafe
 	public function setTaintedVars ($aVars) {
-		$this->aTaintedVars = $aVars;
+		$this->aTaintedVars = array_merge ($aVars, $this->aTaintedVars);
 	}
 
 	/**

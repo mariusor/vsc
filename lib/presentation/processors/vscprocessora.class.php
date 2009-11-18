@@ -15,7 +15,7 @@ abstract class vscProcessorA {
 	}
 
 	public function setLocalVars ($aVars) {
-		if (count($aVars) >= count ($this->aLocalVars)) {
+		if (count($aVars) >= 1) {
 			foreach ($this->aLocalVars as $sKey => $sValue) {
 				$this->aLocalVars[$sKey] = array_shift($aVars);
 			}
