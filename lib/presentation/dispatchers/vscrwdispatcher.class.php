@@ -65,7 +65,11 @@ class vscRwDispatcher extends vscDispatcherA {
 			$sProcessorName = $this->getSiteMap()->getObjectName($sPath);
 			array_shift($aMatches); // removing the matching string
 
-			return new $sProcessorName($aMatches);
+			/* @var $oProcessor vscProcessorA */
+			$oProcessor = new $sProcessorName($aMatches);
+			$this->getRequest()->setTaintedVars ($oProcessor->getLocalVars());
+
+			return $oProcessor;
 		} elseif ($this->getSiteMap()->isValidMap ($sPath)) {
 			$this->getSiteMap()->map ($sRegex, $sPath);
 			return $this->getProcessController();

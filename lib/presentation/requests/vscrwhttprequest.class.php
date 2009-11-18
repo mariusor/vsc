@@ -7,7 +7,7 @@
  */
 import ('coreexceptions');
 class vscRwHttpRequest extends vscHttpRequestA {
-	private $aTaintedVars		= array();
+	protected $aTaintedVars;
 
 	/**
 	 * returns the key of the first url parameter
@@ -17,6 +17,12 @@ class vscRwHttpRequest extends vscHttpRequestA {
 		$aKeys = array_keys($this->aTaintedVars);
 		return array_shift($aKeys);
 	}
+
+	// this seems quite unsafe
+	public function setTaintedVars ($aVars) {
+		$this->aTaintedVars = $aVars;
+	}
+
 	/**
 	 * returns the key of the last url parameter
 	 * @return string
@@ -49,7 +55,7 @@ class vscRwHttpRequest extends vscHttpRequestA {
 			return parent::getVar($sVarName);
 		} catch (vscException $e) {
 			try {
-				return $this->getTaintedVar($sVarName);
+				return urldecode($this->getTaintedVar($sVarName));
 			} catch (vscException $e) {
 				throw new vscException ('Variable ' . $sVarName . ' doesn\'t exist in the HTTP request or in the URL.');
 			}
@@ -61,13 +67,13 @@ class vscRwHttpRequest extends vscHttpRequestA {
 	 * @return void
 	 */
 	public function constructTaintedVars () {
-		foreach(explode ('/', $this->getRequestUri()) as $sUrlId) {
+		foreach(explode ('/', $this->getRequestUri()) as $iKey => $sUrlId) {
 			if ($sUrlId) {
 				$t = explode (':', $sUrlId);
 				if (count($t) > 1) {
 					$this->aTaintedVars[array_shift($t)] = implode(':', $t);
 				} else {
-					$this->aTaintedVars[$t[0]] = '';
+					$this->aTaintedVars[] = $t[0];
 				}
 			}
 		}

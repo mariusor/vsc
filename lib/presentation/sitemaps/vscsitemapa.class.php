@@ -22,7 +22,9 @@ abstract class vscSiteMapA {
 	}
 
 	public function addMap ($sRegex, $sPath) {
-		$this->aMaps[$this->getBasePath() . $sRegex] 	= $sPath;
+		$sKey = $this->getBasePath() . $sRegex;
+		if (!is_array($this->aMaps) || !key_exists($sKey, $this->aMaps))
+			$this->aMaps[$sKey] 	= $sPath;
 	}
 
 	public function getMaps () {
@@ -48,7 +50,7 @@ abstract class vscSiteMapA {
 	}
 
 	public function getObjectName ($sPath) {
-		$sClassName	= substr(basename($sPath), 0, -10);
+		$sClassName	= substr(basename($sPath), 0, -10); // strlen('.class.php')
 		$iKey		= array_search($sClassName, array_map('strtolower', get_declared_classes()));
 		$aClasses	= get_declared_classes();
 		return  $aClasses[$iKey];

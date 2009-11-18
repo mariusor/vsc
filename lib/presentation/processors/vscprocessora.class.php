@@ -6,7 +6,7 @@
  * @date 09.08.31
  */
 abstract class vscProcessorA {
-	private $aLocalVars;
+	protected $aLocalVars = array();
 
 	public function __construct ($aLocalVars) {
 		$this->setLocalVars ($aLocalVars);
@@ -15,13 +15,19 @@ abstract class vscProcessorA {
 	}
 
 	public function setLocalVars ($aVars) {
-		if (count($aVars) >= 1) {
-			$this->aLocalVars = $aVars;
+		if (count($aVars) >= count ($this->aLocalVars)) {
+			foreach ($this->aLocalVars as $sKey => $sValue) {
+				$this->aLocalVars[$sKey] = array_shift($aVars);
+			}
 		}
 	}
 
 	public function getLocalVars () {
 		return $this->aLocalVars;
+	}
+
+	public function getValueNames () {
+		return $this->aLocalValueNames;
 	}
 
 	abstract public function init ();

@@ -55,7 +55,7 @@ abstract class vscHttpRequestA {
 				$this->aAcceptCharset	= explode (',', $_SERVER['HTTP_ACCEPT_CHARSET']);
 
 			if (isset ($_SERVER['HTTP_USER_AGENT']))
-			$this->sUserAgent		= $_SERVER['HTTP_USER_AGENT'];
+			$this->sUserAgent			= $_SERVER['HTTP_USER_AGENT'];
 			if (isset ($_SERVER['HTTP_REFERER']))
 				$this->sReferer			= $_SERVER['HTTP_REFERER'];
 		}
@@ -145,7 +145,7 @@ abstract class vscHttpRequestA {
 						return $this->getPostVar($sVarName);
 						break;
 					case 'C':
-						return $this->getCookieVar($sVarName);
+						return urldecode($this->getCookieVar($sVarName));
 						break;
 					case 'S':
 	//					return $this->getSeesionVar($sVarName);
@@ -201,6 +201,10 @@ abstract class vscHttpRequestA {
 	 */
 	public function setCookieVar ($sVarName, $sVarValue) {
 		return setcookie ($sVarName, $sVarValue);
+	}
+
+	// this seems quite unsafe
+	public function setTaintedVars ($aVars) {
 	}
 
 	protected function getHttpMethod () {

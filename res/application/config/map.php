@@ -15,6 +15,8 @@ $this->map ('.*', VSC_RES_PATH . 'application/processors/vsc404processor.class.p
 $this->mapController ('xml$', VSC_RES_PATH . 'application/controllers/vschtmlcontroller.class.php');
 $this->mapController ('rss$', VSC_RES_PATH . 'application/controllers/vscrsscontroller.class.php');
 
+
+// fallback 404 processor
 $sTest = $this->getBasePath();
 $this->setBasePath('^/'); // setting the base regex to the main map path so this works for all files not matching anything else
 $this->map ('.*', VSC_RES_PATH . 'application/processors/vsc404processor.class.php');
