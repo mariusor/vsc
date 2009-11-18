@@ -8,5 +8,10 @@
  */
 
 /* @var $this vscRwSiteMap */
-$this->map ('/test', VSC_RES_PATH . 'application/processors/vsctestprocessor.class.php');
-$this->map ('/(.*)', VSC_RES_PATH . 'application/processors/vsc404processor.class.php');
+$this->map ('test', VSC_RES_PATH . 'application/processors/vsctestprocessor.class.php');
+$this->map ('.*', VSC_RES_PATH . 'application/processors/vsc404processor.class.php');
+
+$sTest = $this->getBasePath();
+$this->setBasePath('^/'); // setting the base regex to the main map path so this works for all files not matching anything else
+$this->map ('.*', VSC_RES_PATH . 'application/processors/vsc404processor.class.php');
+$this->setBasePath($sTest);

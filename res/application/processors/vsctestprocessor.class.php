@@ -1,5 +1,6 @@
 <?php
 import ('presentation/processors');
+
 class vscTestProcessor extends vscProcessorA {
 	public function init () {
 	}
