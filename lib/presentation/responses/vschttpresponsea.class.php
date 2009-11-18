@@ -329,8 +329,11 @@ abstract class vscHttpResponseA {
 	}
 	protected $sResponseBody;
 
+	/**
+	 * @param $oBody vscResponseBody
+	 * @return string
+	 */
 	public function setContentBody ($oBody) {
-		/* @var $oBody vscResponseBody */
 		$this->sResponseBody = $oBody->getOutput();
 	}
 

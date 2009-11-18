@@ -15,5 +15,6 @@ class vscHttpClientError extends vscHttpResponseA {
 
 	public function getOutput () {
 		$this->outputHeaders ();
+		return $this->sResponseBody;
 	}
 }
