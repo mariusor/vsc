@@ -12,19 +12,18 @@ abstract class vscFrontControllerA {
 	public function getResponse (vscHttpRequestA $oRequest, $oProcessController = null) {
 		import ('presentation/responses');
 
-		if ($oProcessController instanceof vscProcessorA) {
+		if (!($oProcessController instanceof vscErrorProcessorI)) { // this will be allways true
 			$oResponse = new vscHttpSuccess();
 			$oResponse->setStatus (200);
-
-			$oContent = new vscResponseBody();
-			$oContent->setOutput($oProcessController->handleRequest($oRequest));
-
-			$oResponse->setContentBody ($oContent);
-		}else {
+		} else {
 			$oResponse = new vscHttpClientError();
-			$oResponse->setStatus(404);
+			$oResponse->setStatus($oProcessController->getErrorCode());
 		}
 
+		$oContent = new vscResponseBody();
+		$oContent->setOutput($oProcessController->handleRequest($oRequest));
+
+		$oResponse->setContentBody ($oContent);
 		return $oResponse;
 	}
 }

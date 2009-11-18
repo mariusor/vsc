@@ -13,13 +13,15 @@ abstract class vscSiteMapA {
 	}
 
 	public function setBasePath ($sPath) {
+		$this->aBasePath = $sPath;
 	}
 
 	public function getBasePath () {
+		return $this->aBasePath;
 	}
 
 	public function addMap ($sRegex, $sPath) {
-		$this->aMaps[$sRegex] = $sPath;
+		$this->aMaps[$this->getBasePath() . $sRegex] 	= $sPath;
 	}
 
 	public function getMaps () {
@@ -42,7 +44,7 @@ abstract class vscSiteMapA {
 
 	public function getProcessorName ($sPath) {
 		$sClassName	= substr(basename($sPath), 0, -10);
-		$iKey		= array_search($sClassName, array_map('strtolower',get_declared_classes()));
+		$iKey		= array_search($sClassName, array_map('strtolower', get_declared_classes()));
 		$aClasses	= get_declared_classes();
 		return  $aClasses[$iKey];
 	}
@@ -51,13 +53,18 @@ abstract class vscSiteMapA {
 		if (!$sRegex) {
 			throw new vscExceptionSitemap ('An URI must be present.');
 		}
-		if (!$sPath) {
-			throw new vscExceptionSitemap ('The path [' . ($sPath). '] could not be resolved.');
+		if (empty($sPath) && is_file($sPath)) {
+			throw new vscExceptionSitemap ('The path associated with ['.$sRegex.'] can\'t be empty or an invalid file.');
 		}
 
 		// Valid site map
 		if ($this->isValidMap ($sPath)) {
+			$sMap = $this->getBasePath();
+
+			$this->setBasePath ($sMap . $sRegex);
 			include ($sPath);
+
+			$this->setBasePath ($sMap);
 			return;
 		}
 
@@ -67,6 +74,7 @@ abstract class vscSiteMapA {
 			return;
 		}
 
-		throw new vscExceptionSitemap ('The path [' . ($sPath). '] could not be resolved to either a site map or a processor.');
+		return;
+//		throw new vscExceptionSitemap ('The path [' . ($sPath). '] could not be resolved to either a site map or a processor.');
 	}
 }

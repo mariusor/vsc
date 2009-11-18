@@ -30,11 +30,12 @@ class vscRwDispatcher extends vscDispatcherA {
 
 		$sUri = $this->getRequest()->getRequestUri();
 		foreach ($aRegexes as $sRegex) {
-			$iMatch			= preg_match ('|' . $sRegex.'[/]*|i',  $sUri, $aMatches);
+			$iMatch			= preg_match ('|' . $sRegex.'[/]*|Ui',  $sUri, $aMatches);
 			if ($iMatch) break;
 		}
 
 		$sPath = $aMaps[$sRegex];
+
 		if ($this->getSiteMap()->isValidProcessor ($sPath)) {
 			include ($sPath);
 
@@ -64,7 +65,7 @@ class vscRwDispatcher extends vscDispatcherA {
 			$this->getSiteMap()->map ('^/', $sIncPath);
 		} catch (vscExceptionSitemap $e) {
 			// there was a faulty controller in the sitemap
-			// d ($e);
+			 d ($e);
 		}
 	}
 }

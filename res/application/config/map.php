@@ -8,4 +8,5 @@
  */
 
 /* @var $this vscRwSiteMap */
-$this->map ('(.*)', VSC_LIB_PATH . 'presentation/processors/vscemptyprocessor.class.php');
+$this->map ('/test', VSC_RES_PATH . 'application/processors/vsctestprocessor.class.php');
+$this->map ('/(.*)', VSC_RES_PATH . 'application/processors/vsc404processor.class.php');

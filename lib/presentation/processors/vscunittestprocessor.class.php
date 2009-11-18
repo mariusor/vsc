@@ -4,6 +4,7 @@
  * @subpackage processors
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.09.09 :)
+ * @deprecated
  */
 class vscUnitTestProcessor extends vscProcessorA {
 	public function init () {
