@@ -136,26 +136,25 @@ abstract class vscHttpRequestA {
 	 */
 	public function getVar ($sVarName) {
 		foreach ($this->getVarOrder() as $sMethod) {
-			try {
-				switch ($sMethod) {
-					case 'G':
-						return $this->getGetVar($sVarName);
-						break;
-					case 'P':
-						return $this->getPostVar($sVarName);
-						break;
-					case 'C':
-						return urldecode($this->getCookieVar($sVarName));
-						break;
-					case 'S':
-	//					return $this->getSeesionVar($sVarName);
-						break;
-				}
-			} catch (vscException $e) {
-				// no variable - go on with our lives
+			switch ($sMethod) {
+			case 'G':
+				$mVal = $this->getGetVar($sVarName);
+				break;
+			case 'P':
+				$mVal = $this->getPostVar($sVarName);
+				break;
+			case 'C':
+				$mVal = urldecode($this->getCookieVar($sVarName));
+				break;
+			case 'S':
+//				$mVal = $this->getSeesionVar($sVarName);
+				break;
+			}
+			if ($mVal) {
+				return $mVal;
 			}
 		}
-		throw new vscException ('Variable ' . $sVarName . ' doesn\'t exist in the http request.');
+		return null;
 	}
 
 	/**
@@ -165,9 +164,11 @@ abstract class vscHttpRequestA {
 	 * @return mixed
 	 */
 	protected function getGetVar ($sVarName) {
-		if (key_exists($sVarName, $this->aGetVars))
+		if (key_exists($sVarName, $this->aGetVars)) {
 			return $this->aGetVars[$sVarName];
-		else throw new vscException ('No GET variable named: ' . $sVarName);
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -177,9 +178,11 @@ abstract class vscHttpRequestA {
 	 * @return mixed
 	 */
 	protected function getPostVar ($sVarName) {
-		if (key_exists($sVarName, $this->aPostVars))
+		if (key_exists($sVarName, $this->aPostVars)) {
 			return $this->aPostVars[$sVarName];
-		else throw new vscException ('No POST variable named: ' . $sVarName);
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -189,9 +192,11 @@ abstract class vscHttpRequestA {
 	 * @return mixed
 	 */
 	protected function getCookieVar ($sVarName) {
-		if (key_exists($sVarName, $this->aCookieVars))
+		if (key_exists($sVarName, $this->aCookieVars)) {
 			return $this->aCookieVars[$sVarName];
-		else throw new vscException ('No COOKIE variable named: ' . $sVarName);
+		} else {
+			return null;
+		}
 	}
 
 	/**

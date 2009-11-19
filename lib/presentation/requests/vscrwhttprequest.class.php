@@ -51,15 +51,11 @@ class vscRwHttpRequest extends vscHttpRequestA {
 	}
 
 	public function getVar ($sVarName) {
-		try {
-			return parent::getVar($sVarName);
-		} catch (vscException $e) {
-			try {
-				return urldecode($this->getTaintedVar($sVarName));
-			} catch (vscException $e) {
-				throw new vscException ('Variable ' . $sVarName . ' doesn\'t exist in the HTTP request or in the URL.');
-			}
+		$mValue = parent::getVar($sVarName);
+		if (!$mValue) {
+			$mValue = urldecode($this->getTaintedVar($sVarName));
 		}
+		return $mValue;
 	}
 
 	/**
