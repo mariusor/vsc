@@ -3,9 +3,9 @@
  * @package vsc_presentation
  * @subpackage views
  * @author marius orcsik <marius@habarnam.ro>
- * @date 09.09.07
+ * @date 09.11.19
  */
-class vscRssView extends vscViewA {
+class vscRssView extends vscViewA implements vscRssViewI {
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#append($tpl_var, $value, $merge)
