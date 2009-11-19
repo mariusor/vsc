@@ -67,6 +67,8 @@ class vscRwDispatcher extends vscDispatcherA {
 
 			/* @var $oProcessor vscProcessorA */
 			$oProcessor = new $sProcessorName($aMatches);
+
+			// setting the variables defined in the processor into the tainted variables
 			$this->getRequest()->setTaintedVars ($oProcessor->getLocalVars());
 
 			return $oProcessor;
