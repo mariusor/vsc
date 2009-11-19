@@ -1,6 +1,6 @@
 <?php
 /**
- * @package vsc_presentation
+ * @package vsc_application
  * @subpackage processors
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.31

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package vsc_presentation
+ * @package vsc_infrastructure
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.31
  */
@@ -31,7 +31,7 @@ class vsc {
 	 * @return vscHttpDispatcherA
 	 */
 	static public function getDispatcher () {
-		import ('presentation/dispatchers');
+		import ('application/dispatchers');
 		if (!(self::$oDispatcher instanceof vscDispatcherA)){
 			self::$oDispatcher = new vscRwDispatcher();
 		}

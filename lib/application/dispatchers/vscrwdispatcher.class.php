@@ -6,8 +6,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.09.24
  */
-import ('presentation/controllers');
-import ('presentation/processors');
+import ('application/controllers');
+import ('application/processors');
 import ('coreexceptions');
 class vscRwDispatcher extends vscDispatcherA {
 

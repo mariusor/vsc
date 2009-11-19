@@ -1,13 +1,12 @@
 <?php
 /**
  * Parses the current request into a valid Front Controller / Controller pair
- * @package vsc_presentation
+ * @package vsc_application
  * @subpackage dispatchers
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.31
  */
-import ('presentation');
-import ('presentation/sitemaps');
+import ('application/sitemaps');
 abstract class vscDispatcherA {
 	/**
 	 * @var vscHttpRequestA
