@@ -22,7 +22,15 @@ abstract class vscFrontControllerA {
 		}
 
 		$oContent = new vscDefaultView();
-		$oContent->setOutput($oProcessController->handleRequest($oRequest));
+		try {
+			$oContent->setOutput($oProcessController->handleRequest($oRequest));
+		} catch (vscException $e) {
+			// something bad in the code
+			d ($e);
+		} catch (ErrorException $e) {
+			// logging theoretically
+			_e ($e);
+		}
 
 		$oResponse->setContentBody ($oContent);
 		return $oResponse;
