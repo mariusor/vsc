@@ -24,19 +24,11 @@ class vscXhtmlView extends vscViewA implements vscXhtmlViewI {
 	 */
     public function display($resource_name) {}
 
-    /**
-     * (non-PHPdoc)
-     * @see lib/presentation/views/vscViewI#fetch($resource_name, $cache_id, $compile_id, $display)
-     */
-    public function fetch($sTplPath) {
-    	return parent::fetch($sTplPath);
+	public function getOutput() {
+    	return $this->fetch(VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . 'xhtml/main.php');
     }
 
    	public function getScripts() {}
-
-	public function getContent() {
-		return parent::getContent();
-	}
 
 	public function getMetaHeaders() {}
 

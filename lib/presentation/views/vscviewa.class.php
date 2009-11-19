@@ -47,6 +47,6 @@ abstract class vscViewA implements vscViewI {
 	}
 
 	public function getOutput () {
-		return $this->fetch(VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . 'xhtml/main.php');
+		return '';
 	}
 }

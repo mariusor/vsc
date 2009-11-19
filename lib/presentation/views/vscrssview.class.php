@@ -24,10 +24,13 @@ class vscRssView extends vscViewA {
 	 */
     public function display($resource_name) {}
 
-    /**
-     * (non-PHPdoc)
-     * @see lib/presentation/views/vscViewI#fetch($resource_name, $cache_id, $compile_id, $display)
-     */
-    public function fetch($resource_name) {}
+	public function getOutput () {
+		return $this->fetch (VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . 'rss/main.php');
+	}
 
+	public function getUrl(){}
+	public function getTitle(){}
+	public function getDescription(){}
+	public function getLanguage(){}
+	public function getLastBuildDate(){}
 }

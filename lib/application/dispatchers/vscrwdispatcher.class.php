@@ -24,7 +24,7 @@ class vscRwDispatcher extends vscDispatcherA {
 
 		$sUri = $this->getRequest()->getRequestUri();
 		foreach ($aRegexes as $sRegex) {
-			$iMatch			= preg_match ('|' . $sRegex.'[/]*|Ui',  $sUri, $aMatches);
+			$iMatch			= preg_match ('|' . $sRegex.'|Ui',  $sUri, $aMatches);
 			if ($iMatch) break;
 		}
 
