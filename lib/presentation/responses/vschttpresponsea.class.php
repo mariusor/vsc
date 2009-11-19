@@ -330,7 +330,7 @@ abstract class vscHttpResponseA {
 	protected $sResponseBody;
 
 	/**
-	 * @param $oBody vscResponseBody
+	 * @param $oBody vscViewA
 	 * @return string
 	 */
 	public function setContentBody ($oBody) {
