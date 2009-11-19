@@ -7,7 +7,7 @@
  */
 import ('coreexceptions');
 class vscRwHttpRequest extends vscHttpRequestA {
-	protected $aTaintedVars;
+	protected $aTaintedVars = array();
 
 	/**
 	 * returns the key of the first url parameter
@@ -20,7 +20,9 @@ class vscRwHttpRequest extends vscHttpRequestA {
 
 	// this seems quite unsafe
 	public function setTaintedVars ($aVars) {
-		$this->aTaintedVars = array_merge ($aVars, $this->aTaintedVars);
+		if (is_array($aVars)) {
+			$this->aTaintedVars = array_merge ($aVars, $this->aTaintedVars);
+		}
 	}
 
 	/**
@@ -45,9 +47,11 @@ class vscRwHttpRequest extends vscHttpRequestA {
 	}
 
 	protected function getTaintedVar ($sVarName) {
-		if (key_exists($sVarName, $this->aTaintedVars))
+		if (key_exists($sVarName, $this->aTaintedVars)) {
 			return $this->aTaintedVars[$sVarName];
-		else throw new vscException ('No URL variable named: ' . $sVarName);
+		} else {
+			return null;
+		}
 	}
 
 	public function getVar ($sVarName) {

@@ -1,4 +1,5 @@
 <?php
+import ('domain/models');
 class vsc404Processor extends vscProcessorA implements vscErrorProcessorI {
 
 	public function init () {}
@@ -8,6 +9,9 @@ class vsc404Processor extends vscProcessorA implements vscErrorProcessorI {
 	}
 
 	public function handleRequest (vscHttpRequestA $oHttpRequest) {
-		return '<html><head><title>404: Not Found</title></head><body><h1 style="color:#900">404: Not Found</h1></body></html>';
+		$oModel = new vscEmptyModel();
+		$oModel->sTitle = '404: Not Found';
+		$oModel->sContent = '<h1 style="color:#600">Not Found</h1>';
+		return $oModel;
 	}
 }

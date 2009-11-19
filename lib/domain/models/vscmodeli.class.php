@@ -5,4 +5,4 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.11.19
  */
-abstract class vscModelA implements vscModelI {}
+interface vscModelI {}

@@ -5,16 +5,25 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.31
  */
-abstract class vscProcessorA {
+abstract class vscProcessorA implements vscProcessorI {
 	protected $aLocalVars = array();
 
-	public function __construct ($aLocalVars) {
+	/**
+	 * @param array $aLocalVars
+	 * @return void
+	 */
+	public function __construct ($aLocalVars = null) {
 		$this->setLocalVars ($aLocalVars);
 
 		$this->init ();
 	}
 
-	public function setLocalVars ($aVars) {
+	/**
+	 *
+	 * @param array $aVars
+	 * @return void
+	 */
+	public function setLocalVars ($aVars = null) {
 		if (count($aVars) >= 1) {
 			foreach ($this->aLocalVars as $sKey => $sValue) {
 				$this->aLocalVars[$sKey] = array_shift($aVars);
@@ -22,15 +31,17 @@ abstract class vscProcessorA {
 		}
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getLocalVars () {
 		return $this->aLocalVars;
 	}
 
+	/**
+	 * @returns array
+	 */
 	public function getValueNames () {
 		return $this->aLocalValueNames;
 	}
-
-	abstract public function init ();
-
-	abstract public function handleRequest (vscHttpRequestA $oHttpRequest);
 }

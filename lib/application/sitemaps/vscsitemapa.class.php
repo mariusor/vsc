@@ -10,27 +10,45 @@ abstract class vscSiteMapA {
 	private $aMaps;
 	private $aControllerMaps;
 
-	public function __construct () {
-	}
+	public function __construct () {}
 
+	/**
+	 * @param string $sPath
+	 * @return void
+	 */
 	public function setBasePath ($sPath) {
 		$this->aBasePath = $sPath;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getBasePath () {
 		return $this->aBasePath;
 	}
 
+	/**
+	 *
+	 * @param string $sRegex
+	 * @param string $sPath
+	 * @return unknown_type
+	 */
 	public function addMap ($sRegex, $sPath) {
 		$sKey = $this->getBasePath() . $sRegex;
 		if (!is_array($this->aMaps) || !key_exists($sKey, $this->aMaps))
 			$this->aMaps[$sKey] 	= $sPath;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getMaps () {
 		return $this->aMaps;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getControllerMaps () {
 		return $this->aControllerMaps;
 	}
@@ -65,6 +83,12 @@ abstract class vscSiteMapA {
 		}
 	}
 
+	/**
+	 *
+	 * @param string $sRegex
+	 * @param string $sPath
+	 * @return unknown_type
+	 */
 	public function map ($sRegex, $sPath) {
 		if (!$sRegex) {
 			throw new vscExceptionSitemap ('An URI must be present.');

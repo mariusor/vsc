@@ -12,8 +12,8 @@ $this->map ('test', VSC_RES_PATH . 'application/processors/vsctestprocessor.clas
 $this->map ('.*', VSC_RES_PATH . 'application/processors/vsc404processor.class.php');
 
 // front controllers
-$this->mapController ('xml$', VSC_RES_PATH . 'application/controllers/vschtmlcontroller.class.php');
-$this->mapController ('rss$', VSC_RES_PATH . 'application/controllers/vscrsscontroller.class.php');
+//$this->mapController ('xml$', VSC_RES_PATH . 'application/controllers/vschtmlcontroller.class.php');
+//$this->mapController ('rss$', VSC_RES_PATH . 'application/controllers/vscrsscontroller.class.php');
 
 
 // fallback 404 processor

@@ -16,6 +16,9 @@ class vscRwDispatcher extends vscDispatcherA {
 	 */
 	public function getFrontController () {
 		$aMaps		= $this->getSiteMap ()->getControllerMaps();
+		if (!is_array($aMaps)) {
+			return new vscHtmlController ();
+		}
 		$aRegexes	= array_keys($aMaps);
 		$aMatches 	= array();
 
@@ -29,15 +32,9 @@ class vscRwDispatcher extends vscDispatcherA {
 		if ($this->getSiteMap()->isValidObject ($sPath)) {
 			include ($sPath);
 
-			$sProcessorName = $this->getSiteMap()->getObjectName($sPath);
-			array_shift($aMatches); // removing the matching string
-
-			return new $sProcessorName($aMatches);
-		} elseif ($this->getSiteMap()->isValidMap ($sPath)) {
-			$this->getSiteMap()->map ($sRegex, $sPath);
-			return $this->getProcessController();
+			$sControllerName = $this->getSiteMap()->getObjectName($sPath);
+			return new $sControllerName();
 		}
-
 		return new vscHtmlController ();
 	}
 
@@ -48,6 +45,11 @@ class vscRwDispatcher extends vscDispatcherA {
 	 */
 	public function getProcessController () {
 		$aMaps		= $this->getSiteMap ()->getMaps();
+
+		if (!is_array($aMaps)) {
+			return new vsc404Processor();
+		}
+
 		$aRegexes	= array_keys($aMaps);
 		$aMatches 	= array();
 
@@ -72,9 +74,6 @@ class vscRwDispatcher extends vscDispatcherA {
 			$this->getRequest()->setTaintedVars ($oProcessor->getLocalVars());
 
 			return $oProcessor;
-		} elseif ($this->getSiteMap()->isValidMap ($sPath)) {
-			$this->getSiteMap()->map ($sRegex, $sPath);
-			return $this->getProcessController();
 		}
 
  		return new vsc404Processor();
@@ -88,7 +87,6 @@ class vscRwDispatcher extends vscDispatcherA {
 	 */
 	public function loadSiteMap ($sIncPath) {
 		$this->setSiteMap (new vscRwSiteMap ());
-//		$this->getSiteMap()->setBasePath ($sIncPath);
 		try {
 			// hic sunt leones
 			$this->getSiteMap()->map ('^/', $sIncPath);

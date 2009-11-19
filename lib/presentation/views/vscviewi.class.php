@@ -27,18 +27,13 @@ interface vscViewI {
      * executes & displays the template results
      *
      * @param string $resource_name
-     * @param string $cache_id
-     * @param string $compile_id
      */
-    function display($resource_name, $cache_id = null, $compile_id = null);
+    function display($resource_name);
 
     /**
      * executes & returns or displays the template results
      *
      * @param string $resource_name
-     * @param string $cache_id
-     * @param string $compile_id
-     * @param boolean $display
      */
-    function fetch($resource_name, $cache_id = null, $compile_id = null, $display = false);
+    function fetch($resource_name);
 }

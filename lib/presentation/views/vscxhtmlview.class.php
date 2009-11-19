@@ -5,28 +5,40 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.09.07
  */
-class vscDefaultView extends vscViewA {
+class vscXhtmlView extends vscViewA implements vscXhtmlViewI {
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#append($tpl_var, $value, $merge)
 	 */
-	function append($tpl_var, $value=null, $merge=false) {}
+	public function append($tpl_var, $value=null, $merge=false) {}
 
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#assign($tpl_var, $value)
 	 */
-    function assign($tpl_var, $value = null) {}
+    public function assign($tpl_var, $value = null) {}
 
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#display($resource_name, $cache_id, $compile_id)
 	 */
-    function display($resource_name, $cache_id = null, $compile_id = null) {}
+    public function display($resource_name) {}
 
     /**
      * (non-PHPdoc)
      * @see lib/presentation/views/vscViewI#fetch($resource_name, $cache_id, $compile_id, $display)
      */
-    function fetch($resource_name, $cache_id = null, $compile_id = null, $display = false) {}
+    public function fetch($sTplPath) {
+    	return parent::fetch($sTplPath);
+    }
+
+   	public function getScripts() {}
+
+	public function getContent() {
+		return parent::getContent();
+	}
+
+	public function getMetaHeaders() {}
+
+	public function getStyleSheets() {}
 }

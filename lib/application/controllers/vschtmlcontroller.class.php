@@ -5,9 +5,11 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.31
  */
+
 import ('presentation/views');
-class vscRssController extends vscFrontControllerA {
+
+class vscHtmlController extends vscFrontControllerA {
 	public function getDefaultView () {
-		return new vscRssView();
+		return new vscXhtmlView();
 	}
 }

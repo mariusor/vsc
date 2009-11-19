@@ -6,6 +6,7 @@
  * @date 09.08.31
  */
 import ('presentation/views');
+
 class vscRssController extends vscFrontControllerA {
 	public function getDefaultView () {
 		return new vscRssView();

@@ -5,4 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.11.19
  */
-abstract class vscModelA implements vscModelI {}
+class vscEmptyModel extends vscModelA {
+	public $sTitle = '[null]';
+	public $sContent = '[null]';
+}
