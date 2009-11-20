@@ -26,7 +26,10 @@ foreach ($this->getStyleSheets () as $aStyleSheet) {
 <?php } ?>
 </head>
 <body>
-<?php echo $this->getContent() ?>
+<div>
+	<?php echo $this->getContent() ?>
+
+</div>
 </body>
 <?php foreach ($this->getScripts() as $aScript) { ?>
 	<script type="text/javascript" src="<?php echo $aScript['path'];?>" />
