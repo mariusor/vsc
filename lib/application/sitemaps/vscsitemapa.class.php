@@ -31,12 +31,15 @@ abstract class vscSiteMapA {
 	 *
 	 * @param string $sRegex
 	 * @param string $sPath
-	 * @return unknown_type
+	 * @return vscMapping
 	 */
 	public function addMap ($sRegex, $sPath) {
 		$sKey = $this->getBasePath() . $sRegex;
-		if (!is_array($this->aMaps) || !key_exists($sKey, $this->aMaps))
-			$this->aMaps[$sKey] 	= $sPath;
+		if (!is_array($this->aMaps) || !key_exists($sKey, $this->aMaps)) {
+			$oNewMap 	= new vscMapping($sPath, $sKey);
+			$this->aMaps[$sKey] = $oNewMap;
+			return $oNewMap;
+		}
 	}
 
 	/**
@@ -87,7 +90,7 @@ abstract class vscSiteMapA {
 	 *
 	 * @param string $sRegex
 	 * @param string $sPath
-	 * @return unknown_type
+	 * @return vscMapping
 	 */
 	public function map ($sRegex, $sPath) {
 		if (!$sRegex) {
@@ -110,8 +113,7 @@ abstract class vscSiteMapA {
 
 		// Valid processor
 		if ($this->isValidObject ($sPath)) {
-			$this->addMap ($sRegex, $sPath);
-			return;
+			return $this->addMap ($sRegex, $sPath);
 		}
 
 		return;
