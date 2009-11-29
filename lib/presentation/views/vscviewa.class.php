@@ -15,8 +15,13 @@ abstract class vscViewA implements vscViewI {
 
 	public function setModel (vscModelI $oModel) {
 		$this->oModel = $oModel;
-		if ($oModel->sTitle)
-			$this->sTitle = $oModel->sTitle;
+		if ($oModel->getTitle()) {
+			$this->sTitle = $oModel->getTitle();
+		}
+	}
+
+	public function __get ($sVarName) {
+		return $this->getModel()->$sVarName;
 	}
 
 	public function getModel () {
@@ -28,7 +33,7 @@ abstract class vscViewA implements vscViewI {
 	}
 
 	public function getContent () {
-		return $this->oModel->sContent;
+		return $this->oModel->getContent();
 	}
 
 	public function fetch ($includePath) {
