@@ -10,8 +10,8 @@ class vsc404Processor extends vscProcessorA implements vscErrorProcessorI {
 
 	public function handleRequest (vscHttpRequestA $oHttpRequest) {
 		$oModel = new vscEmptyModel();
-		$oModel->sTitle = '404: Not Found';
-		$oModel->sContent = '<h1 style="color:#600">Not Found</h1>';
+		$oModel->setTitle ('404: Not Found');
+		$oModel->setContent ('<h1 style="color:#600">Not Found</h1>');
 		return $oModel;
 	}
 }

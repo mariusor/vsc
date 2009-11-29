@@ -8,7 +8,4 @@
 import ('presentation/views');
 
 class vscRssController extends vscFrontControllerA {
-	public function getDefaultView () {
-		return new vscRssView();
-	}
 }

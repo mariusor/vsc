@@ -37,7 +37,6 @@ abstract class vscHttpResponseA {
 	private $sETag;
 	private $sExpires;
 	private $sLastModified;
-	private $sLocation;
 
 	private $aHeaders;
 
@@ -152,14 +151,6 @@ abstract class vscHttpResponseA {
 	}
 
 	/**
-	 * @param string $sValue
-	 * @return void
-	 */
-	public function setLocation ($sValue){
-		$this->sLocation = $sValue;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getCacheControl (){
@@ -246,13 +237,6 @@ abstract class vscHttpResponseA {
 	/**
 	 * @return string
 	 */
-	public function getLocation (){
-		return $this->sLocation;
-	}
-
-	/**
-	 * @return string
-	 */
 	public function getServerProtocol () {
 		if (!$this->sServerProtocol) {
 			$this->sServerProtocol = $_SERVER['SERVER_PROTOCOL'];
@@ -320,11 +304,6 @@ abstract class vscHttpResponseA {
 		$sLastModified = $this->getLastModified();
 		if ($sLastModified) {
 			header ('Last-Modified:' . $sLastModified);
-		}
-		// dunno if I need this
-		$sLocation = $this->getLocation();
-		if ($sLocation) {
-			header ('Location:' . $sLocation);
 		}
 	}
 	protected $sResponseBody;

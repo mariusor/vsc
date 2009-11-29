@@ -5,8 +5,14 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.30
  */
+import ('presentation/responses');
+
 abstract class vscFrontControllerA {
-	abstract public function getDefaultView ();
+	private $sTemplatePath;
+
+	public function getTemplatePath () {
+		return $this->sTemplatePath;
+	}
 
 	/**
 	 * @param vscHttpRequestA $oRequest
@@ -15,9 +21,8 @@ abstract class vscFrontControllerA {
 	 * @return vscHttpResponseA
 	 */
 	public function getResponse (vscHttpRequestA $oRequest, $oProcessor = null, $oView = null) {
-		import ('presentation/responses');
 
-		if (!($oProcessor instanceof vscErrorProcessorI)) { // this will be allways true
+		if (!($oProcessor instanceof vscErrorProcessorI)) { // this will be always true
 			$oResponse = new vscHttpSuccess();
 			$oResponse->setStatus (200);
 		} else {
@@ -27,6 +32,7 @@ abstract class vscFrontControllerA {
 
 		// we didn't set any special view
 		if (!$oView) {
+			// this means that the developer needs to provide his own views
 			$oView = $this->getDefaultView();
 		}
 
@@ -42,5 +48,13 @@ abstract class vscFrontControllerA {
 
 		$oResponse->setContentBody ($oView);
 		return $oResponse;
+	}
+
+	public function setTemplatePath ($sIncPath) {
+		if (is_dir($sIncPath)) {
+			$this->sTemplatePath = $sIncPath;
+		} else {
+			throw new vscExceptionController('The template path ['.$sIncPath.'] is not a folder.');
+		}
 	}
 }
