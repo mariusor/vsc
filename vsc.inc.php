@@ -12,3 +12,5 @@ if ((int)substr($sVersion, 0, 1) < 5) {
 
 include ('res/config.inc.php');
 include ('res/functions.inc.php');
+
+import (VSC_LIB_PATH);

@@ -104,41 +104,60 @@ function __autoload ($className) {
 	}
 }
 
-if (!function_exists('import')){
-	/**
-	 * Adds the package name to the include path
-	 * Also we are checking if an existing import exists, which would define some application specific import rules
-	 * @param string $sIncPath
-	 * @return bool
-	 * @throws vscExceptionPackageImport
-	 */
+function addPath ($pkgPath) {
+	if (is_dir ($pkgPath)) {
+		$sIncludePath 	= get_include_path();
 
-	function import ($sIncPath) {
-		$pkgLower 	= strtolower ($sIncPath);
-		$pkgPath	= VSC_LIB_PATH . $pkgLower . DIRECTORY_SEPARATOR;
-
-		$path 		= get_include_path();
-		if (is_dir ($pkgPath)) {
-			if (strpos ($path, $pkgPath . PATH_SEPARATOR) === false) {
-				// adding exceptions dir to include path if it exists
-				if (is_dir ($pkgPath . 'exceptions')) {
-					// adding the exceptions if they exist
-					$pkgPath .= PATH_SEPARATOR . $pkgPath . 'exceptions' . DIRECTORY_SEPARATOR;
-				}
-				set_include_path (
-					$pkgPath . PATH_SEPARATOR .
-					$path
-				);
+		if (strpos ($sIncludePath, $pkgPath . PATH_SEPARATOR) === false) {
+			// adding exceptions dir to include path if it exists
+			if (is_dir ($pkgPath . 'exceptions')) {
+				// adding the exceptions if they exist
+				$pkgPath .= PATH_SEPARATOR . $pkgPath . 'exceptions' . DIRECTORY_SEPARATOR;
 			}
 
-			return true;
-		} elseif ($pkgLower != 'coreexceptions') {
-			import ('coreexceptions');
-			include_once ('vscexceptionpackageimport.class.php');
-			throw new vscExceptionPackageImport ('Bad package "' . $sIncPath . '"');
-		} else {
-			trigger_error ('Bad package "' . $sIncPath . '"');
+			set_include_path (
+				$pkgPath . PATH_SEPARATOR .
+				$sIncludePath
+			);
 		}
+		return true;
+	}
+
+	return false;
+}
+
+/**
+ * Adds the package name to the include path
+ * Also we are checking if an existing import exists, which would define some application specific import rules
+ * @param string $sIncPath
+ * @return bool
+ * @throws vscExceptionPackageImport
+ */
+
+function import ($sIncPath) {
+	$bStatus 	= false;
+	$sPkgLower 	= strtolower ($sIncPath);
+
+	if (is_dir ($sIncPath)) {
+		return addPath ($sIncPath);
+	}
+
+	$sIncludePath 	= get_include_path();
+	$aPaths 		= explode(PATH_SEPARATOR, $sIncludePath);
+
+	foreach ($aPaths as $sPath) {
+		$pkgPath = $sPath . DIRECTORY_SEPARATOR . $sPkgLower . DIRECTORY_SEPARATOR;
+		if (is_dir ($pkgPath)) {
+			$bStatus |= addPath ($pkgPath);
+			break;
+		}
+	}
+	if (!$bStatus) {
+		import ('coreexceptions');
+		include_once ('vscexceptionpackageimport.class.php');
+		throw new vscExceptionPackageImport ('Bad package [' . $sIncPath . ']');
+	} else {
+		return true;
 	}
 }
 
@@ -149,6 +168,7 @@ function getDirFiles ( $dir, $showHidden = false){
 		trigger_error('Can not find : '.$dir);
 		return false;
 	}
+
 	if ( $root = @opendir($dir) ){
 		while ($file = readdir ($root)){
 			if ( ($file == '.' || $file == '..') || ($showHidden == false && stripos($file, '.') === 0)){continue;}
