@@ -6,6 +6,11 @@
  * @date 09.09.07
  */
 class vscXhtmlView extends vscViewA implements vscXhtmlViewI {
+
+	public function __construct () {
+		$this->setTemplate(VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . 'xhtml/content.php');
+	}
+
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#append($tpl_var, $value, $merge)
@@ -33,4 +38,5 @@ class vscXhtmlView extends vscViewA implements vscXhtmlViewI {
 	public function getMetaHeaders() {}
 
 	public function getStyleSheets() {}
+
 }

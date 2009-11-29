@@ -9,9 +9,19 @@ import ('presentation/responses');
 
 abstract class vscFrontControllerA {
 	private $sTemplatePath;
+	private $sMainTemplatePath;
+
+	/**
+	 * @return vscViewA
+	 */
+	abstract public function getDefaultView();
 
 	public function getTemplatePath () {
 		return $this->sTemplatePath;
+	}
+
+	public function setTemplate ($sPath) {
+		$this->sMainTemplatePath = $sPath;
 	}
 
 	/**
@@ -20,9 +30,9 @@ abstract class vscFrontControllerA {
 	 * @param vscViewA $oView
 	 * @return vscHttpResponseA
 	 */
-	public function getResponse (vscHttpRequestA $oRequest, $oProcessor = null, $oView = null) {
+	public function getResponse (vscHttpRequestA $oRequest, $oProcessor = null) {
 
-		if (!($oProcessor instanceof vscErrorProcessorI)) { // this will be always true
+		if (!($oProcessor instanceof vscErrorProcessorI)) {
 			$oResponse = new vscHttpSuccess();
 			$oResponse->setStatus (200);
 		} else {
@@ -31,10 +41,9 @@ abstract class vscFrontControllerA {
 		}
 
 		// we didn't set any special view
-		if (!$oView) {
-			// this means that the developer needs to provide his own views
-			$oView = $this->getDefaultView();
-		}
+		// this means that the developer needs to provide his own views
+		$oView = $this->getDefaultView();
+		$oView->setTemplate($this->sMainTemplatePath);
 
 		try {
 			$oView->setModel($oProcessor->handleRequest($oRequest));

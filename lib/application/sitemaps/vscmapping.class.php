@@ -19,11 +19,11 @@ class vscMapping {
 		$this->sTitle = $sTitle;
 	}
 
-	public function setMainTemplate ($sPath) {
+	public function setTemplate ($sPath) {
 		$this->sMainTemplate = $sPath;
 	}
 
-	public function getMainTemplate () {
+	public function getTemplate () {
 		return $this->sMainTemplate;
 	}
 
@@ -31,7 +31,7 @@ class vscMapping {
 		return $this->sProcessorPath;
 	}
 
-	public function __toString () {
-		return $this->getPath();
-	}
+//	public function __toString () {
+//		return $this->getPath();
+//	}
 }

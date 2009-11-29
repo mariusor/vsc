@@ -27,6 +27,9 @@ abstract class vscDispatcherA {
 	 */
 	abstract public function getProcessController ();
 
+
+	abstract public function getView ();
+
 	/**
 	 *
 	 * @param string $sIncPath

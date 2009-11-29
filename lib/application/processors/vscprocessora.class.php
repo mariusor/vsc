@@ -12,8 +12,9 @@ abstract class vscProcessorA implements vscProcessorI {
 	 * @param array $aLocalVars
 	 * @return void
 	 */
-	public function __construct ($aLocalVars = null) {
-		$this->setLocalVars ($aLocalVars);
+	public function __construct () {
+//		$aVars = vsc::getHttpRequest();
+//		$this->setLocalVars ($aVars);
 
 		$this->init ();
 	}

@@ -10,7 +10,7 @@
  * @date 09.09.16
  */
 /* @var $this vscRwSiteMap */
-$this->map ('.*', VSC_RES_PATH . 'application/processors/vsc404processor.class.php');
+//$this->map ('.*', VSC_RES_PATH . 'application/processors/vsc404processor.class.php');
 
 // front controllers
 $this->mapController ('rss$', VSC_RES_PATH . 'application/controllers/vscrsscontroller.class.php');

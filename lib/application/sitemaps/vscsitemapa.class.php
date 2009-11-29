@@ -82,8 +82,11 @@ abstract class vscSiteMapA {
 			throw new vscExceptionSitemap ('An URI must be present.');
 		}
 		if ($this->isValidObject ($sPath)) {
-			$this->aControllerMaps[$sRegex] = $sPath;
+			$oNewMap 	= new vscMapping($sPath, $sRegex);
+
+			$this->aControllerMaps[$sRegex] = $oNewMap;
 		}
+		return $oNewMap;
 	}
 
 	/**
@@ -108,7 +111,7 @@ abstract class vscSiteMapA {
 			include ($sPath);
 
 			$this->setBasePath ($sMap);
-			return;
+			return true;
 		}
 
 		// Valid processor
@@ -116,7 +119,7 @@ abstract class vscSiteMapA {
 			return $this->addMap ($sRegex, $sPath);
 		}
 
-		return;
+		return false;
 //		throw new vscExceptionSitemap ('The path [' . ($sPath). '] could not be resolved to either a site map or a processor.');
 	}
 }

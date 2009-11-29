@@ -36,4 +36,9 @@ interface vscViewI {
      * @param string $resource_name
      */
     function fetch($resource_name);
+
+    /**
+     * @return string
+     */
+    function getTemplate ();
 }

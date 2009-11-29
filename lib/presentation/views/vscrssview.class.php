@@ -6,6 +6,10 @@
  * @date 09.11.19
  */
 class vscRssView extends vscViewA implements vscRssViewI {
+	public function __construct () {
+		$this->setTemplate(VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . 'rss/content.php');
+	}
+
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#append($tpl_var, $value, $merge)

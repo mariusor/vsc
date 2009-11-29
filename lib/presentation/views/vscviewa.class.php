@@ -8,6 +8,7 @@
 abstract class vscViewA implements vscViewI {
 	private $sTitle;
 	private $oModel;
+	private $sMainTemplate;
 
 	public function getTitle () {
 		return $this->sTitle;
@@ -53,5 +54,13 @@ abstract class vscViewA implements vscViewI {
 
 	public function getOutput () {
 		return '';
+	}
+
+	public function getTemplate() {
+		return $this->sMainTemplate;
+	}
+
+	public function setTemplate($sPath) {
+		$this->sMainTemplate = $sPath;
 	}
 }
