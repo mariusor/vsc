@@ -5,8 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-	<title><?php echo $this->getTitle(); ?></title>
-<?php if (count($this->getStyleSheets ())>=1) {?>
+	<title><?php echo $this->getModel()->getTitle(); ?></title>
+<?php  if (count($this->getStyleSheets ())>=1) {?>
 	<style type="text/css">
 <?php
 foreach ($this->getStyleSheets () as $aStyleSheet) {
@@ -16,7 +16,7 @@ foreach ($this->getStyleSheets () as $aStyleSheet) {
 }
 ?>
 	</style>
-<?php }?>
+<?php }  ?>
 <?php foreach ($this->getMetaHeaders() as $aMeta) { ?>
 	<meta <?php
 	foreach ($aMeta as $sName => $sValue) {
@@ -28,12 +28,18 @@ foreach ($this->getStyleSheets () as $aStyleSheet) {
 <body>
 <div>
 	<!-- hic sunt leones -->
-	<?php include ($this->getTemplate()) ?>
+<?php
+	echo $this->fetch ($this->getTemplate());
+?>
 
 	<!-- /hic sunt leones -->
 </div>
 </body>
-<?php foreach ($this->getScripts() as $aScript) { ?>
-	<script type="text/javascript" src="<?php echo $aScript['path'];?>" />
-<?php } ?>
+<?php
+foreach ($this->getScripts() as $aScript) {
+?>
+<!--	<script type="text/javascript" src="<?php echo $aScript['path'];?>" />-->
+<?php
+}
+?>
 </html>

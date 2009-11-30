@@ -5,6 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.11.19
  */
+import ('presentation/views');
 class vscRssView extends vscViewA implements vscRssViewI {
 	public function __construct () {
 		$this->setTemplate(VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . 'rss/content.php');

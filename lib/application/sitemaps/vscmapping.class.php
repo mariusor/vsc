@@ -1,8 +1,8 @@
 <?php
 class vscMapping {
 	private $sRegex;
-
 	private $sProcessorPath;
+
 	private $sViewPath;
 
 	private $sTitle;
@@ -31,7 +31,15 @@ class vscMapping {
 		return $this->sProcessorPath;
 	}
 
-//	public function __toString () {
-//		return $this->getPath();
-//	}
+	public function addStyle ($sPath) {
+		$this->aResources['styles'][] = $sPath;
+	}
+
+	public function addScript ($sPath) {
+		$this->aResources['scripts'][] = $sPath;
+	}
+
+	public function addMeta ($sName, $sValue) {
+		$this->aResources['headers'][$sName] = $sValue;
+	}
 }

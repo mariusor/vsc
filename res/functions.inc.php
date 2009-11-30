@@ -106,13 +106,17 @@ function __autoload ($className) {
 
 function addPath ($pkgPath) {
 	if (is_dir ($pkgPath)) {
+		$sPath = substr($pkgPath,-1);
+		if ($sPath == DIRECTORY_SEPARATOR) {
+			$pkgPath = substr ($pkgPath,0, -1);
+		}
 		$sIncludePath 	= get_include_path();
 
 		if (strpos ($sIncludePath, $pkgPath . PATH_SEPARATOR) === false) {
 			// adding exceptions dir to include path if it exists
 			if (is_dir ($pkgPath . 'exceptions')) {
 				// adding the exceptions if they exist
-				$pkgPath .= PATH_SEPARATOR . $pkgPath . 'exceptions' . DIRECTORY_SEPARATOR;
+				$pkgPath .= PATH_SEPARATOR . $pkgPath . 'exceptions';
 			}
 
 			set_include_path (
@@ -146,10 +150,9 @@ function import ($sIncPath) {
 	$aPaths 		= explode(PATH_SEPARATOR, $sIncludePath);
 
 	foreach ($aPaths as $sPath) {
-		$pkgPath = $sPath . DIRECTORY_SEPARATOR . $sPkgLower . DIRECTORY_SEPARATOR;
+		$pkgPath = $sPath . DIRECTORY_SEPARATOR . $sPkgLower;
 		if (is_dir ($pkgPath)) {
 			$bStatus |= addPath ($pkgPath);
-			break;
 		}
 	}
 	if (!$bStatus) {

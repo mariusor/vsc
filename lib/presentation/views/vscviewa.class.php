@@ -10,51 +10,51 @@ abstract class vscViewA implements vscViewI {
 	private $oModel;
 	private $sMainTemplate;
 
+//	private $sBody;
+
 	public function getTitle () {
 		return $this->sTitle;
 	}
 
-	public function setModel (vscModelI $oModel) {
+	public function setModel (vscModelA $oModel) {
 		$this->oModel = $oModel;
-		if ($oModel->getTitle()) {
-			$this->sTitle = $oModel->getTitle();
-		}
+//		if ($oModel->getTitle()) {
+//			$this->sTitle = $oModel->getTitle();
+//		}
 	}
 
 	public function __get ($sVarName) {
+		// TODO: use proper reflection
 		return $this->getModel()->$sVarName;
 	}
 
+	/**
+	 * @return vscModelA
+	 */
 	public function getModel () {
 		return $this->oModel;
 	}
 
-	public function setContent ($sText) {
-		$this->sContent = $sText;
-	}
-
-	public function getContent () {
-		return $this->oModel->getContent();
-	}
+//	public function setBody ($sText) {
+//		$this->sBody = $sText;
+//	}
 
 	public function fetch ($includePath) {
+		if (empty($includePath))
+			return '';
 		ob_start ();
 		if (is_file ($includePath)) {
-			$bIncluded = @include ($includePath);
+			$bIncluded = include ($includePath);
 		} else {
 			ob_end_clean();
-			throw new vscExceptionPackageImport ('Template ' . $includePath . ' could not be located');
-			return '';
+			throw new vscExceptionPackageImport ('Template [' . $includePath . '] could not be located');
 		}
-
-		$this->sContent = ob_get_contents();
+		$sContent = ob_get_contents();
 		ob_end_clean ();
-		return $this->sContent;
+		return $sContent;
 	}
 
-	public function getOutput () {
-		return '';
-	}
+	abstract public function getOutput ();
 
 	public function getTemplate() {
 		return $this->sMainTemplate;

@@ -5,20 +5,22 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.11.19
  */
+
+import ('domain/models');
 class vscEmptyModel extends vscModelA {
 	private $sTitle = '[null]';
-	private $sContent = '[null]';
+	public $sContent = '[null]';
 
 	public function setTitle ($sTitle) {
 		$this->sTitle = $sTitle;
 	}
 
-	public function setContent ($sContent) {
-		$this->sContent = $sContent;
-	}
-
 	public function getTitle () {
 		return $this->sTitle;
+	}
+
+	public function setContent ($sContent) {
+		$this->sContent = $sContent;
 	}
 
 	public function getContent () {

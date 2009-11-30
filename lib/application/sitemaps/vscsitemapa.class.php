@@ -85,6 +85,7 @@ abstract class vscSiteMapA {
 			$oNewMap 	= new vscMapping($sPath, $sRegex);
 
 			$this->aControllerMaps[$sRegex] = $oNewMap;
+			$this->setBasePath($sRegex);
 		}
 		return $oNewMap;
 	}
@@ -120,6 +121,5 @@ abstract class vscSiteMapA {
 		}
 
 		return false;
-//		throw new vscExceptionSitemap ('The path [' . ($sPath). '] could not be resolved to either a site map or a processor.');
 	}
 }

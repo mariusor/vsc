@@ -14,3 +14,4 @@ include ('res/config.inc.php');
 include ('res/functions.inc.php');
 
 import (VSC_LIB_PATH);
+import (VSC_RES_PATH);

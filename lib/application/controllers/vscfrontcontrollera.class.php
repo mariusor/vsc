@@ -49,12 +49,12 @@ abstract class vscFrontControllerA {
 			$oView->setModel($oProcessor->handleRequest($oRequest));
 		} catch (vscException $e) {
 			// something bad in the code
-			d ($e);
+			_e ($e);
 		} catch (ErrorException $e) {
 			// logging theoretically
 			_e ($e);
 		}
-
+//		d ($oRequest, $oProcessor, $oView, $oResponse);
 		$oResponse->setContentBody ($oView);
 		return $oResponse;
 	}

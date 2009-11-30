@@ -22,7 +22,9 @@ class vscRwDispatcher extends vscDispatcherA {
 		$sUri = $this->getRequest()->getRequestUri();
 		foreach ($aRegexes as $sRegex) {
 			$iMatch			= preg_match ('|' . $sRegex.'|Ui',  $sUri, $aMatches);
-			if ($iMatch) break;
+			if ($iMatch) {
+				break;
+			}
 		}
 
 		return $aMaps[$sRegex];
@@ -32,9 +34,8 @@ class vscRwDispatcher extends vscDispatcherA {
 	 * @return vscFrontControllerA
 	 */
 	public function getFrontController () {
-		$aMaps				= $this->getSiteMap ()->getControllerMaps();
+		$aMaps				= $this->getSiteMap()->getControllerMaps();
 		$oControllerMapping	= $this->getCurrentMap($aMaps);
-
 		$sPath 				= $oControllerMapping->getPath();
 
 		if ($this->getSiteMap()->isValidObject ($sPath)) {
@@ -53,7 +54,7 @@ class vscRwDispatcher extends vscDispatcherA {
 	 * @return vscProcessorA
 	 */
 	public function getProcessController () {
-		$aMaps				= $this->getSiteMap ()->getMaps();
+		$aMaps				= $this->getSiteMap()->getMaps();
 		$oProcessorMapping	= $this->getCurrentMap($aMaps);
 		$sPath 				= $oProcessorMapping->getPath();
 
