@@ -235,7 +235,7 @@ abstract class vscHttpRequestA {
 	 * @todo move to the vscUrlRWParser
 	 * @return string
 	 */
-	public function getRequestUri () {
+	public function getRequestUri ($bUrlDecode = false) {
 		if (!$this->sRequestUri && isset($_SERVER['SERVER_SOFTWARE'])) {
 			$sServerType = $_SERVER['SERVER_SOFTWARE'];
 
@@ -257,6 +257,10 @@ abstract class vscHttpRequestA {
 				$this->sRequestUri = substr ($this->sRequestUri, 0, $iQMarkPos);
 			}
 		}
+		if ($bUrlDecode) {
+			$this->sRequestUri = urldecode ($this->sRequestUri);
+		}
+
 		return $this->sRequestUri;
 	}
 }

@@ -6,7 +6,6 @@
  * @date 09.08.30
  */
 import ('presentation/responses');
-
 abstract class vscFrontControllerA {
 	private $sTemplatePath;
 	private $sMainTemplatePath;
@@ -46,14 +45,14 @@ abstract class vscFrontControllerA {
 		$oView->setTemplate($this->sMainTemplatePath);
 
 		try {
-			$oView->setModel($oProcessor->handleRequest($oRequest));
-		} catch (vscException $e) {
-			// something bad in the code
-			_e ($e);
-		} catch (ErrorException $e) {
-			// logging theoretically
-			_e ($e);
+			$oModel = $oProcessor->handleRequest($oRequest);
+			if ($oModel instanceof vscModelA)
+				$oView->setModel($oModel);
+		} catch (Exception $e) {
+			throw $e;
 		}
+
+
 //		d ($oRequest, $oProcessor, $oView, $oResponse);
 		$oResponse->setContentBody ($oView);
 		return $oResponse;

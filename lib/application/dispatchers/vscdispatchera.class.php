@@ -31,7 +31,6 @@ abstract class vscDispatcherA {
 	abstract public function getView ();
 
 	/**
-	 *
 	 * @param string $sIncPath
 	 * @throws vscExceptionPath
 	 * @return void
