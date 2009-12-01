@@ -9,6 +9,7 @@
 import ('application/controllers');
 import ('application/processors');
 import ('coreexceptions');
+
 class vscRwDispatcher extends vscDispatcherA {
 
 	/**
@@ -16,17 +17,24 @@ class vscRwDispatcher extends vscDispatcherA {
 	 * @return vscMapping
 	 */
 	public function getCurrentMap ($aMaps) {
+		if (!is_array($aMaps))
+			return '';
+
 		$aRegexes	= array_keys($aMaps);
 		$aMatches 	= array();
 
-		$sUri = $this->getRequest()->getRequestUri();
-		foreach ($aRegexes as $sRegex) {
-			$iMatch			= preg_match ('|' . $sRegex.'|Ui',  $sUri, $aMatches);
-			if ($iMatch) {
-				break;
+		try {
+			mb_internal_encoding('UTF-8');
+			$sUri = $this->getRequest()->getRequestUri(true); // get it as a urldecoded string
+			foreach ($aRegexes as $sRegex) {
+				$iMatch			= mb_eregi (str_replace('/', '\/', $sRegex),  $sUri, $aMatches);
+				if ($iMatch) {
+					break;
+				}
 			}
+		} catch (Exception $e) {
+			d ($e);
 		}
-
 		return $aMaps[$sRegex];
 	}
 
@@ -36,7 +44,11 @@ class vscRwDispatcher extends vscDispatcherA {
 	public function getFrontController () {
 		$aMaps				= $this->getSiteMap()->getControllerMaps();
 		$oControllerMapping	= $this->getCurrentMap($aMaps);
-		$sPath 				= $oControllerMapping->getPath();
+		if ($oControllerMapping instanceof vscMapping) {
+			$sPath 				= $oControllerMapping->getPath();
+		} else {
+			$sPath = '';
+		}
 
 		if ($this->getSiteMap()->isValidObject ($sPath)) {
 			include ($sPath);
@@ -56,7 +68,11 @@ class vscRwDispatcher extends vscDispatcherA {
 	public function getProcessController () {
 		$aMaps				= $this->getSiteMap()->getMaps();
 		$oProcessorMapping	= $this->getCurrentMap($aMaps);
-		$sPath 				= $oProcessorMapping->getPath();
+		if ($oProcessorMapping instanceof vscMapping) {
+			$sPath 				= $oProcessorMapping->getPath();
+		} else {
+			$sPath = '';
+		}
 
 		if ($this->getSiteMap()->isValidObject ($sPath)) {
 			include ($sPath);
