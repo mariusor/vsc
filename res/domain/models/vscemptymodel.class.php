@@ -8,8 +8,8 @@
 
 import ('domain/models');
 class vscEmptyModel extends vscModelA {
-	private $sTitle = '[null]';
-	public $sContent = '[null]';
+	protected $sTitle = '[null]';
+	protected $sContent = '[null]';
 
 	public function setTitle ($sTitle) {
 		$this->sTitle = $sTitle;
