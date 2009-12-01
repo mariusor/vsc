@@ -37,4 +37,28 @@ class vsc {
 		}
 		return self::$oDispatcher;
 	}
+
+	static public function getEnv () {
+		return self;
+	}
+
+	public function isDevelopment () {
+		return true;
+	}
+
+	/**
+	 * @return bool
+	 */
+	static public function isCli () {
+		return (php_sapi_name() == 'cli');
+	}
+
+	/**
+	 * returns an end of line, based on the environment
+	 * @return string
+	 */
+	static public function nl () {
+		return isCli() ? "\n" : '<br/>' . "\n";
+	}
+
 }

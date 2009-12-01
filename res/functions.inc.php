@@ -104,6 +104,10 @@ function __autoload ($className) {
 	}
 }
 
+function getPaths () {
+	return explode (PATH_SEPARATOR, get_include_path());
+}
+
 function addPath ($pkgPath) {
 	if (is_dir ($pkgPath)) {
 		$sPath = substr($pkgPath,-1);
@@ -155,6 +159,7 @@ function import ($sIncPath) {
 			$bStatus |= addPath ($pkgPath);
 		}
 	}
+
 	if (!$bStatus) {
 		import ('coreexceptions');
 		include_once ('vscexceptionpackageimport.class.php');
