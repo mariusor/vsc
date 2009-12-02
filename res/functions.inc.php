@@ -78,7 +78,7 @@ function d () {
 
 
 /**
- * the __autoload automagic function for class initialisation,
+ * the __autoload automagic function for class instantiation,
  * @param string $className
  */
 function __autoload ($className) {
@@ -90,8 +90,8 @@ function __autoload ($className) {
 
 	$sFilePath	= $classNameLow . '.class.php';
 	$fileIncluded = @include ($sFilePath);
-	if ( !$fileIncluded ) {
-		$sFilePath = $classNameLow . DIRECTORY_SEPARATOR . $sFilePath;
+	if (!$fileIncluded &&  stristr ($classNameLow, 'exception')) {
+		$sFilePath = 'exceptions' . DIRECTORY_SEPARATOR . $sFilePath;
 		$fileIncluded = @include ($sFilePath);
 	}
 
@@ -117,12 +117,6 @@ function addPath ($pkgPath) {
 		$sIncludePath 	= get_include_path();
 
 		if (strpos ($sIncludePath, $pkgPath . PATH_SEPARATOR) === false) {
-			// adding exceptions dir to include path if it exists
-			if (is_dir ($pkgPath . 'exceptions')) {
-				// adding the exceptions if they exist
-				$pkgPath .= PATH_SEPARATOR . $pkgPath . 'exceptions';
-			}
-
 			set_include_path (
 				$pkgPath . PATH_SEPARATOR .
 				$sIncludePath
