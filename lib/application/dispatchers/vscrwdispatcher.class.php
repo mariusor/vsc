@@ -24,7 +24,7 @@ class vscRwDispatcher extends vscDispatcherA {
 		$aMatches 	= array();
 
 		try {
-			mb_internal_encoding('UTF-8');
+			mb_internal_encoding('utf-8');
 			$sUri = $this->getRequest()->getRequestUri(true); // get it as a urldecoded string
 			foreach ($aRegexes as $sRegex) {
 				$iMatch			= mb_eregi (str_replace('/', '\/', $sRegex),  $sUri, $aMatches);
@@ -53,11 +53,16 @@ class vscRwDispatcher extends vscDispatcherA {
 		if ($this->getSiteMap()->isValidObject ($sPath)) {
 			include ($sPath);
 
-			$sControllerName = $this->getSiteMap()->getObjectName($sPath);
-			return new $sControllerName();
+			$sControllerName = $this->getSiteMap()->getClassName($sPath);
+
+			/* @var $oFront vscFrontControllerA */
+			$oFront = new $sControllerName();
+			$oFront->setMap ($oControllerMapping);
+
+			return $oFront;
 		}
 
-		return new vscHtmlController ();
+		return new vscXhtmlController ();
 	}
 
 	/**
@@ -77,18 +82,20 @@ class vscRwDispatcher extends vscDispatcherA {
 		if ($this->getSiteMap()->isValidObject ($sPath)) {
 			include ($sPath);
 
-			$sProcessorName = $this->getSiteMap()->getObjectName($sPath);
+			$sProcessorName = $this->getSiteMap()->getClassName($sPath);
 
 			/* @var $oProcessor vscProcessorA */
 			$oProcessor = new $sProcessorName();
-
-			// setting the variables defined in the processor into the tainted variables
-//			$this->getRequest()->setTaintedVars ($oProcessor->getLocalVars());
-
-			return $oProcessor;
+		} else {
+			$oProcessor = new vsc404Processor();
 		}
 
- 		return new vsc404Processor();
+		$oProcessor->setMap ($oProcessorMapping);
+
+		// setting the variables defined in the processor into the tainted variables
+		$this->getRequest()->setTaintedVars ($oProcessor->getLocalVars()); // FIXME!!!
+		return $oProcessor;
+
 	}
 
 	/**

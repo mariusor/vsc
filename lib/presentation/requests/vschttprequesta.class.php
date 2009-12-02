@@ -129,6 +129,27 @@ abstract class vscHttpRequestA {
 		return $this->aVarOrder;
 	}
 
+	public function getVars () {
+		$aRet = array ();
+		foreach ($this->getVarOrder() as $sMethod) {
+			switch ($sMethod) {
+			case 'G':
+				$aRet = array_merge ($aRet, $this->aGetVars);
+				break;
+			case 'P':
+				$aRet = array_merge ($aRet, $this->aPostVars);
+				break;
+			case 'C':
+				$aRet = array_merge ($aRet, $this->aCookieVars);
+				break;
+			case 'S':
+				$aRet = array_merge ($aRet, $this->aSessionVars);
+				break;
+			}
+		}
+		return $aRet;
+	}
+
 	/**
 	 * @param string $sVarName
 	 * @throws vscException

@@ -12,5 +12,7 @@ interface vscXhtmlViewI {
 
 	function getMetaHeaders();
 
-	function getStyleSheets();
+	function getStyles();
+
+	function getSetting ($sVar);
 }

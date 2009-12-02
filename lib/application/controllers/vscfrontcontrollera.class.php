@@ -7,20 +7,26 @@
  */
 import ('presentation/responses');
 abstract class vscFrontControllerA {
-	private $sTemplatePath;
-	private $sMainTemplatePath;
+	private $oCurrentMap;
 
 	/**
 	 * @return vscViewA
 	 */
 	abstract public function getDefaultView();
 
-	public function getTemplatePath () {
-		return $this->sTemplatePath;
+	/**
+	 * @return vscMapping
+	 */
+	public function getMap () {
+		if ($this->oCurrentMap instanceof vscMapping) {
+			return $this->oCurrentMap;
+		} else {
+			throw new vscExceptionView ('Make sure the current map is correctly set.');
+		}
 	}
 
-	public function setTemplate ($sPath) {
-		$this->sMainTemplatePath = $sPath;
+	public function setMap ($oMap) {
+		$this->oCurrentMap = $oMap;
 	}
 
 	/**
@@ -42,18 +48,28 @@ abstract class vscFrontControllerA {
 		// we didn't set any special view
 		// this means that the developer needs to provide his own views
 		$oView = $this->getDefaultView();
-		$oView->setTemplate($this->sMainTemplatePath);
+		try {
+			$oMyMap = $this->getMap();
+		} catch (Exception $e) {
+			// no map
+			$oMyMap = null;
+		}
+		try {
+			$oMap = $oProcessor->getMap()->merge ($oMyMap);
+			$oView->setMap ($oMap);
+		} catch (vscException $e) {
+			// no map
+		}
 
 		try {
 			$oModel = $oProcessor->handleRequest($oRequest);
-			if ($oModel instanceof vscModelA)
+			if ($oModel instanceof vscModelA) {
 				$oView->setModel($oModel);
+			}
 		} catch (Exception $e) {
 			throw $e;
 		}
 
-
-//		d ($oRequest, $oProcessor, $oView, $oResponse);
 		$oResponse->setContentBody ($oView);
 		return $oResponse;
 	}

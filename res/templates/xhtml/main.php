@@ -6,13 +6,15 @@
 <head>
 	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
 	<title><?php echo $this->getModel()->getTitle(); ?></title>
-<?php  if (count($this->getStyleSheets ())>=1) {?>
+<?php if (count($this->getStyles ())>=1) {?>
 	<style type="text/css">
 <?php
-foreach ($this->getStyleSheets () as $aStyleSheet) {
+foreach ($this->getStyles() as $sMedia => $aStyles) {
+	foreach ($aStyles as $sPath ) {
 ?>
-		@import url(<?php echo $aStyleSheet['path']; ?>) <?php echo ($aStyleSheet['medium'] ?  $aStyleSheet['medium'] : '') ?>
+		@import url(<?php echo $sPath; ?>) <?php echo ($sMedia ? $sMedia : '') ?>
 <?php
+	}
 }
 ?>
 	</style>

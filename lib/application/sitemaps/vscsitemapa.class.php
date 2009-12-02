@@ -37,6 +37,9 @@ abstract class vscSiteMapA {
 		$sKey = $this->getBasePath() . $sRegex;
 		if (!is_array($this->aMaps) || !key_exists($sKey, $this->aMaps)) {
 			$oNewMap 	= new vscMapping($sPath, $sKey);
+			if (key_exists ('__map', $GLOBALS) && $GLOBALS['__map'] instanceof vscMapping) {
+				$oNewMap->merge($GLOBALS['__map']);
+			}
 			$this->aMaps[$sKey] = $oNewMap;
 			return $oNewMap;
 		}
@@ -70,11 +73,21 @@ abstract class vscSiteMapA {
 		return (is_file ($sPath) && substr ($sPath, -10) == '.class.php');
 	}
 
-	public function getObjectName ($sPath) {
+	public function getClassName ($sPath) {
 		$sClassName	= substr(basename($sPath), 0, -10); // strlen('.class.php')
 		$iKey		= array_search($sClassName, array_map('strtolower', get_declared_classes()));
 		$aClasses	= get_declared_classes();
 		return  $aClasses[$iKey];
+	}
+
+	public function addModuleMap ($oMap) {
+		$GLOBALS['__map'] = $oMap;
+	}
+
+	public function getModuleMap () {
+		if (key_exists ('__map', $GLOBALS) && $GLOBALS['__map'] instanceof vscMapping) {
+			return $GLOBALS['__map'];
+		}
 	}
 
 	public function mapController ($sRegex, $sPath) {
@@ -109,10 +122,11 @@ abstract class vscSiteMapA {
 			$sMap = $this->getBasePath();
 
 			$this->setBasePath ($sMap . $sRegex);
+			$this->addModuleMap(new vscMapping($sPath, $sRegex));
 			include ($sPath);
 
 			$this->setBasePath ($sMap);
-			return true;
+			return $this->getModuleMap();
 		}
 
 		// Valid processor

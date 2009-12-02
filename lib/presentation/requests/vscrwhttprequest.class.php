@@ -54,6 +54,10 @@ class vscRwHttpRequest extends vscHttpRequestA {
 		}
 	}
 
+	public function getVars () {
+		return array_merge ($this->aTaintedVars, parent::getVars());
+	}
+
 	public function getVar ($sVarName) {
 		$mValue = parent::getVar($sVarName);
 		if (!$mValue) {

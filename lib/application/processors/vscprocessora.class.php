@@ -6,6 +6,7 @@
  * @date 09.08.31
  */
 abstract class vscProcessorA implements vscProcessorI {
+	private $oCurrentMap;
 	protected $aLocalVars = array();
 
 	/**
@@ -13,10 +14,25 @@ abstract class vscProcessorA implements vscProcessorI {
 	 * @return void
 	 */
 	public function __construct () {
-//		$aVars = vsc::getHttpRequest();
-//		$this->setLocalVars ($aVars);
+		$aVars = vsc::getHttpRequest()->getVars();
+		$this->setLocalVars ($aVars);
 
 		$this->init ();
+	}
+
+	/**
+	 * @return vscMapping
+	 */
+	public function getMap () {
+		if ($this->oCurrentMap instanceof vscMapping) {
+			return $this->oCurrentMap;
+		} else {
+			throw new vscExceptionView ('Make sure the current map is correctly set.');
+		}
+	}
+
+	public function setMap ($oMap) {
+		$this->oCurrentMap = $oMap;
 	}
 
 	/**
@@ -37,6 +53,14 @@ abstract class vscProcessorA implements vscProcessorI {
 	 */
 	public function getLocalVars () {
 		return $this->aLocalVars;
+	}
+
+	public function getVar ($sVar) {
+		if (key_exists ($sVar, $this->aLocalVars)) {
+			return $this->aLocalVars[$sVar];
+		} else {
+			return null;
+		}
 	}
 
 	/**

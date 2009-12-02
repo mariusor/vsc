@@ -8,7 +8,8 @@
 abstract class vscViewA implements vscViewI {
 	private $sTitle;
 	private $oModel;
-	private $sMainTemplate;
+
+	private $oCurrentMap;
 
 //	private $sBody;
 
@@ -21,6 +22,21 @@ abstract class vscViewA implements vscViewI {
 //		if ($oModel->getTitle()) {
 //			$this->sTitle = $oModel->getTitle();
 //		}
+	}
+
+	/**
+	 * @return vscMapping
+	 */
+	public function getMap () {
+		if ($this->oCurrentMap instanceof vscMapping) {
+			return $this->oCurrentMap;
+		} else {
+			throw new vscExceptionView ('Make sure the current map is correctly set.');
+		}
+	}
+
+	public function setMap ($oMap) {
+		$this->oCurrentMap = $oMap;
 	}
 
 	public function __get ($sVarName) {
@@ -57,10 +73,10 @@ abstract class vscViewA implements vscViewI {
 	abstract public function getOutput ();
 
 	public function getTemplate() {
-		return $this->sMainTemplate;
+		return $this->getMap()->getTemplate();
 	}
 
 	public function setTemplate($sPath) {
-		$this->sMainTemplate = $sPath;
+		$this->getMap()->setTemplate($sPath);
 	}
 }
