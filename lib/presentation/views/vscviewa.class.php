@@ -73,10 +73,18 @@ abstract class vscViewA implements vscViewI {
 	abstract public function getOutput ();
 
 	public function getTemplate() {
-		return $this->getMap()->getTemplate();
+		try {
+    		return $this->getMap()->getTemplate();
+		} catch (vscExceptionView $e) {
+			return '';
+		}
 	}
 
 	public function setTemplate($sPath) {
-		$this->getMap()->setTemplate($sPath);
+		try {
+    		$this->getMap()->setTemplate($sPath);
+		} catch (vscExceptionView $e) {
+			//
+		}
 	}
 }

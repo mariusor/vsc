@@ -86,6 +86,7 @@ class vscRwDispatcher extends vscDispatcherA {
 
 			/* @var $oProcessor vscProcessorA */
 			$oProcessor = new $sProcessorName();
+
 		} else {
 			$oProcessor = new vsc404Processor();
 		}

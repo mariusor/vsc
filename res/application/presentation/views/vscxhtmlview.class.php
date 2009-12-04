@@ -6,6 +6,7 @@
  * @date 09.09.07
  */
 import ('presentation/views');
+import ('presentation/views/exceptions');
 class vscXhtmlView extends vscViewA implements vscXhtmlViewI {
 
 	public function __construct () {
@@ -41,23 +42,43 @@ class vscXhtmlView extends vscViewA implements vscXhtmlViewI {
     }
 
 	public function getOutput() {
-    	return $this->fetch (VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . 'xhtml/main.php');
+		try {
+    		return $this->fetch (VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . 'xhtml/main.php');
+		} catch (vscExceptionView $e) {
+			return '';
+		}
     }
 
    	public function getScripts() {
-   		return $this->getMap()->getScripts();
+   		try {
+    		return $this->getMap()->getScripts();
+		} catch (vscExceptionView $e) {
+			return array();
+		}
    	}
 
 	public function getMetaHeaders() {
-		return $this->getMap()->getMetas();
+		try {
+    		return $this->getMap()->getMetas();
+		} catch (vscExceptionView $e) {
+			return array();
+		}
 	}
 
 	public function getStyles() {
-		return $this->getMap()->getStyles();
+		try {
+    		return $this->getMap()->getStyles();
+		} catch (vscExceptionView $e) {
+			return array();
+		}
 	}
 
 	public function getSetting ($sVar) {
-		return $this->getMap()->getSetting($sVar);
+		try {
+			return $this->getMap()->getSetting($sVar);
+		} catch (vscExceptionView $e) {
+			return '';
+		}
 	}
 
 }

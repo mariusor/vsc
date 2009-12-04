@@ -19,29 +19,41 @@ foreach ($this->getStyles() as $sMedia => $aStyles) {
 ?>
 	</style>
 <?php }  ?>
-<?php foreach ($this->getMetaHeaders() as $aMeta) { ?>
+<?php
+if (count($this->getMetaHeaders()) >= 1) {
+	foreach ($this->getMetaHeaders() as $aMeta) { ?>
 	<meta <?php
-	foreach ($aMeta as $sName => $sValue) {
-		echo $sKey .'="'.$sValue.'"';
+		foreach ($aMeta as $sName => $sValue) {
+			echo $sKey .'="'.$sValue.'"';
+		}
+?> />
+<?php
 	}
-	?> />
-<?php } ?>
+}
+?>
 </head>
 <body>
 <div>
 	<!-- hic sunt leones -->
 <?php
-	echo $this->fetch ($this->getTemplate());
+	$sContent = $this->fetch ($this->getTemplate());
+	if (empty ($sContent)) {
+		echo $this->getModel()->getContent();
+	} else {
+		echo $sContent;
+	}
 ?>
 
 	<!-- /hic sunt leones -->
 </div>
 </body>
 <?php
-foreach ($this->getScripts() as $aScript) {
+if (count ($this->getScripts()) >= 1 ) {
+	foreach ($this->getScripts() as $aScript) {
 ?>
 <!--	<script type="text/javascript" src="<?php echo $aScript['path'];?>" />-->
 <?php
+	}
 }
 ?>
 </html>
