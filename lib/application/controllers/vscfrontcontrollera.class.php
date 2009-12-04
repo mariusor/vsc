@@ -36,6 +36,18 @@ abstract class vscFrontControllerA {
 	 * @return vscHttpResponseA
 	 */
 	public function getResponse (vscHttpRequestA $oRequest, $oProcessor = null) {
+		import ('presentation/responses/exceptions');
+		try {
+			$oModel = $oProcessor->handleRequest($oRequest);
+		} catch (vscExceptionResponseError $e) {
+			// we had error in the controller : @todo make more error processors
+			$oProcessor = new vsc404Processor();
+			$oModel = new vscEmptyModel();
+			$oModel->setTitle('404 - Not Found');
+			$oModel->setContent($e->getMessage());
+		} catch (Exception $e) {
+			throw $e;
+		}
 
 		if (!($oProcessor instanceof vscErrorProcessorI)) {
 			$oResponse = new vscHttpSuccess();
@@ -61,13 +73,8 @@ abstract class vscFrontControllerA {
 			// no map
 		}
 
-		try {
-			$oModel = $oProcessor->handleRequest($oRequest);
-			if ($oModel instanceof vscModelA) {
-				$oView->setModel($oModel);
-			}
-		} catch (Exception $e) {
-			throw $e;
+		if ($oModel instanceof vscModelA) {
+			$oView->setModel($oModel);
 		}
 
 		$oResponse->setContentBody ($oView);
