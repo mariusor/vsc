@@ -2,8 +2,8 @@
 class vscHtmlFrontControllerTest extends Snap_UnitTestCase  {
 private $state;
 	public function setUp () {
-		import ('presentation/controllers');
-		$this->state = new vscHtmlFrontController();
+		import ('application/controllers');
+		$this->state = new vscXhtmlFrontController();
 	}
 
 	public function tearDown () {

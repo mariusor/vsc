@@ -3,7 +3,7 @@ class vscRwDispatcherTest  extends Snap_UnitTestCase {
 	private $state;
 
 	public function setUp () {
-		import ('presentation/dispatchers');
+		import ('application/dispatchers');
 
 		$this->state = new vscRwDispatcher();
 	}
@@ -21,7 +21,7 @@ class vscRwDispatcherTest  extends Snap_UnitTestCase {
 	public function testGetRequest () {
 		$oReq = $this->state->getRequest();
 
-		import ('presentation');
+		import ('application');
 		$oBlaReq = vsc::getHttpRequest();
 
 		return $this->assertIdentical ($oReq, $oBlaReq);
