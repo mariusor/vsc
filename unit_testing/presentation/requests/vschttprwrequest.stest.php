@@ -21,7 +21,7 @@ class vscHttpRwRequestTest extends Snap_UnitTestCase {
 
 	public function testGetGetVarInorrect() {
 		$this->willThrow('vscException');
-		return $this->assertNull($this->state->getVar('asdf'));
+		return $this->assertEqual($this->state->getVar('asdf'), '');
 	}
 
 	public function testGetPostVarIncorrect() {
