@@ -36,9 +36,18 @@ abstract class vscFrontControllerA {
 	 * @return vscHttpResponseA
 	 */
 	public function getResponse (vscHttpRequestA $oRequest, $oProcessor = null) {
+		$oResponse = null;
+		$oModel = null;
+
 		import ('presentation/responses/exceptions');
 		try {
 			$oModel = $oProcessor->handleRequest($oRequest);
+		} catch (vscExceptionResponseRedirect $e) {
+			$oResponse = new vscHttpRedirection();
+			$oResponse->setStatus($e->getRedirectCode());
+			$oResponse->setLocation ($e->getLocation());
+
+			return $oResponse;
 		} catch (vscExceptionResponseError $e) {
 			// we had error in the controller : @todo make more error processors
 			$oProcessor = new vsc404Processor();
