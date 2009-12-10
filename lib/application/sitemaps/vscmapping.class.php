@@ -12,7 +12,7 @@ class vscMapping {
 
 	public function __construct ($sPath, $sRegex) {
 		$this->sPath	= $sPath;
-		$this->sRegex			= $sRegex;
+		$this->sRegex	= $sRegex;
 	}
 
 	public function merge ($oMap = null) {
@@ -48,11 +48,15 @@ class vscMapping {
 	}
 
 	public function addStyle ($sPath, $sMedia = 'screen') {
-		$this->aResources['styles'][$sMedia][] = $sPath;
+		import ('infrastructure/urls');
+		$oUrl = new vscUrlRWParser($sPath);
+		$this->aResources['styles'][$sMedia][] = $oUrl->getCompleteUrl(true);
 	}
 
 	public function addScript ($sPath) {
-		$this->aResources['scripts'][] = $sPath;
+		import ('infrastructure/urls');
+		$oUrl = new vscUrlRWParser($sPath);
+		$this->aResources['scripts'][] = $oUrl->getCompleteUrl(true);
 	}
 
 	public function addMeta ($sName, $sValue) {
@@ -74,7 +78,7 @@ class vscMapping {
 	}
 
 	public function getStyles ($sMedia = null) {
-		$aStyles				= $this->getResources('styles');
+		$aStyles					= $this->getResources('styles');
 		if (!is_null($sMedia)) {
 			$aMediaStyles[$sMedia]	= $aStyles[$sMedia];
 			return key_exists ($sMedia, $aStyles) ? $aMediaStyles : null;
