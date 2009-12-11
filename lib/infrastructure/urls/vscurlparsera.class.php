@@ -13,15 +13,19 @@ class vscUrlParserA implements vscUrlParserI {
 
 	public function setUrl ($sUrl) {
 		$this->sUrl 		= $sUrl;
-		$this->aComponents  = array_merge (array (
-			'scheme'	=> '',
-			'host'		=> '',
-			'user'		=> '',
-			'pass'		=> '',
-			'path'		=> '',
-			'query'		=> '',
-			'fragment'	=> ''
-		), parse_url($sUrl));
+        try {
+            $this->aComponents  = array_merge (array (
+                'scheme'	=> '',
+                'host'		=> '',
+                'user'		=> '',
+                'pass'		=> '',
+                'path'		=> '',
+                'query'		=> '',
+                'fragment'	=> ''
+            ), parse_url($sUrl));
+        } catch (vscExceptionError $e) {
+            // d ($e);
+        }
 	}
 
 	public function getScheme () {
@@ -52,7 +56,12 @@ class vscUrlParserA implements vscUrlParserI {
 			}
 			$iUp = substr_count ($sPath, '../');
 
-			$sParentPath = substr (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), 0 , -1);
+            try {
+                $sParentPath = substr (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), 0 , -1);
+            } catch (vscExceptionError $e) {
+                //
+                $sParentPath = '';
+            }
 			$aParent = array_slice (explode('/', $sParentPath), 0, -$iUp);
 
 			$sPath = '/' . implode ('/', $aParent) . str_replace('../', '', $sPath);
