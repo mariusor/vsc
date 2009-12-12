@@ -49,9 +49,9 @@ if (count($this->getMetaHeaders()) >= 1) {
 </body>
 <?php
 if (count ($this->getScripts()) >= 1 ) {
-	foreach ($this->getScripts() as $aScript) {
+	foreach ($this->getScripts() as $sPath) {
 ?>
-<!--	<script type="text/javascript" src="<?php echo $aScript['path'];?>" />-->
+<script type="text/javascript" src="<?php echo $sPath;?>"></script>
 <?php
 	}
 }
