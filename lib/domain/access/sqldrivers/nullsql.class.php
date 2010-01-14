@@ -44,7 +44,7 @@ class nullSql extends fooSqlDriverA {
 
 	public function _SELECT ($incObj){}
 
-	public function _CREATE (){}
+	public function _CREATE ($sIncName){}
 
 	public function _SET(){}
 

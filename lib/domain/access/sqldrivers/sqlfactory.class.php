@@ -30,7 +30,6 @@ class sqlFactory {
 	static public function &connect($incString) {
 		if (!self::validType ($incString)) {
 			self::$instance = new nullSql();
-			d(self::$instance);
 //			throw new tsExceptionUnimplemented ('The database type is invalid');
 		}
 

@@ -51,7 +51,7 @@ abstract class fooSqlDriverA {
 
 	abstract public function _SELECT($incObj);
 
-	abstract public function _CREATE();
+	abstract public function _CREATE($sIncName);
 
 	abstract public function _SET();
 
