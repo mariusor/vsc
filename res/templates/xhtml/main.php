@@ -12,7 +12,7 @@
 foreach ($this->getStyles() as $sMedia => $aStyles) {
 	foreach ($aStyles as $sPath ) {
 ?>
-		@import url(<?php echo $sPath; ?>) <?php echo ($sMedia ? $sMedia : ''); echo ";\n"; ?>
+		@import url("<?php echo $sPath; ?>") <?php echo ($sMedia ? $sMedia : ''); echo ";\n"; ?>
 <?php
 	}
 }
