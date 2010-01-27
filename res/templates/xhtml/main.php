@@ -59,7 +59,6 @@ if (count($this->getLinks()) >= 1) {
 
 	<!-- /hic sunt leones -->
 </div>
-</body>
 <?php
 if (count ($this->getScripts()) >= 1 ) {
 	foreach ($this->getScripts() as $sPath) {
@@ -69,4 +68,5 @@ if (count ($this->getScripts()) >= 1 ) {
 	}
 }
 ?>
+</body>
 </html>
