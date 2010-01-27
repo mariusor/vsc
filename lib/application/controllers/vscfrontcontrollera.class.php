@@ -82,9 +82,13 @@ abstract class vscFrontControllerA {
 			// no map
 		}
 
-		if ($oModel instanceof vscModelA) {
-			$oView->setModel($oModel);
+		if (!($oModel instanceof vscModelA)) {
+			import ('domain/models');
+			$oModel = new vscEmptyModel();
+			$oModel->setTitle ('Warning');
+			$oModel->setContent ('Warning: the processor didn\'t return a valid model. This is probably an error');
 		}
+		$oView->setModel($oModel);
 
 		$oResponse->setContentBody ($oView);
 		return $oResponse;

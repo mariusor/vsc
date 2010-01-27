@@ -3,8 +3,8 @@
  * This file is included in the vscSiteMap::load () function
  * It should be used to load other sitemaps or point to specific controllers
  *
- * OBS: make sure you put the most specific regexes at the top of the sitemap
- *      so they will be tried before the more generic ones
+ * OBS: make sure you put the most specific regular expressions at the top
+ * 		of the sitemap so they will be tried before the more generic ones
  *
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.09.16
