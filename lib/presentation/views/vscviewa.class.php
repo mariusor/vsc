@@ -48,7 +48,11 @@ abstract class vscViewA implements vscViewI {
 	 * @return vscModelA
 	 */
 	public function getModel () {
-		return $this->oModel;
+		if ($this->oModel instanceof vscModelA) {
+			return $this->oModel;
+		} else {
+			throw new vscExceptionView('The current model is null');
+		}
 	}
 
 //	public function setBody ($sText) {
