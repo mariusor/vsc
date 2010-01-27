@@ -57,6 +57,7 @@ class vscRwDispatcher extends vscDispatcherA {
 
 			/* @var $oFront vscFrontControllerA */
 			$oFront = new $sControllerName();
+			// adding the map to the controller, allows it to add resources (styles,scripts) from inside it
 			$oFront->setMap ($oControllerMapping);
 
 			return $oFront;
@@ -91,6 +92,7 @@ class vscRwDispatcher extends vscDispatcherA {
 			$oProcessor = new vsc404Processor();
 		}
 
+		// adding the map to the processor, allows it to easy add resources (styles,scripts) from inside it
 		$oProcessor->setMap ($oProcessorMapping);
 
 		// setting the variables defined in the processor into the tainted variables
