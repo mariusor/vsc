@@ -43,6 +43,11 @@ class vscMapping {
 		return $this->sPath;
 	}
 
+	/**
+	 * @param $sVar
+	 * @param $sVal
+	 * @return void
+	 */
 	public function addSetting ($sVar, $sVal) {
 		$this->aResources['settings'][$sVar] = $sVal;
 	}
@@ -57,6 +62,24 @@ class vscMapping {
 		import ('infrastructure/urls');
 		$oUrl = new vscUrlRWParser($sPath);
 		$this->aResources['scripts'][] = $oUrl->getCompleteUrl(true);
+	}
+
+	/**
+	 * @param string $sType The type of the link element (eg, application/rss+xml or image/png)
+	 * @param string $aData The rest of the link's attributes (href, rel, s/a)
+	 * @return void
+	 */
+	public function addLink ($sType, $aData) {
+		import ('infrastructure/urls');
+		if (key_exists('href', $aData)) {
+			$oUrl = new vscUrlRWParser($aData['href']);
+			$aData['href'] = $oUrl->getCompleteUrl(true);
+		}
+		if (key_exists('src', $aData)) {
+			$oUrl = new vscUrlRWParser($aData['src']);
+			$aData['src'] = $oUrl->getCompleteUrl(true);
+		}
+		$this->aResources['links'][$sType][] = $aData;
 	}
 
 	public function addMeta ($sName, $sValue) {
@@ -104,6 +127,28 @@ class vscMapping {
 		return $this->getResources ('settings');
 	}
 
+	/**
+	 * @param string $sType
+	 * @return array
+	 */
+	public function getLinks ($sType = null) {
+		$aLinks = $this->getResources ('links');
+
+		if (!is_null($sType)) {
+			if (key_exists($sType, $aLinks)) {
+				$aTLinks[$sType] = $aLinks[$sType];
+				$aLinks = $aTLinks;
+			} else {
+				$aLinks = array($sType => array()); // kinda hackish, but needed to have a uniform structure
+			}
+		}
+		return $aLinks;
+	}
+
+	/**
+	 * @param string $sVar
+	 * @return array
+	 */
 	public function getSetting ($sVar) {
 		$aSettings = $this->getResources ('settings');
 

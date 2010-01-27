@@ -81,4 +81,12 @@ class vscXhtmlView extends vscViewA implements vscXhtmlViewI {
 		}
 	}
 
+	public function getLinks ($sType = null) {
+		try {
+			return $this->getMap()->getLinks($sType);
+		} catch (vscExceptionView $e) {
+			return '';
+		}
+	}
+
 }
