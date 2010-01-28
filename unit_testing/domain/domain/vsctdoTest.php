@@ -7,26 +7,26 @@ define ('DB_USER', 				'root');
 define ('DB_PASS', 				'ASD');
 define ('DB_NAME', 				'b');
 
-usingPackage ('models/foo');
-usingPackage ('models/sqldrivers');
-usingPackage ('coreexceptions');
+import ('models/vsc');
+import ('models/sqldrivers');
+import ('coreexceptions');
 
 include_once ('fixtures/dummytable.class.php'); // the definition of the entity
 include_once ('fixtures/dataobject.class.php'); // the definition of the data object
 
-class fooTdoTest extends UnitTestCase {
+class vscTdoTest extends UnitTestCase {
 	private $connection;
 
 	public function setUp () {
-		$this->connection = new fooTdo();
+		$this->connection = new vscTdo();
 		$this->connection->getConnection()->selectDatabase('test');
 	}
 
 	public function tearDown() {}
 
 	public function test_Instantiation () {
-		$this->assertIsA($this->connection, 'fooTdo');
-		$this->assertIsA($this->connection, 'fooTdoA');
+		$this->assertIsA($this->connection, 'vscTdo');
+		$this->assertIsA($this->connection, 'vscTdoA');
 	}
 
 	public function testGetConnection () {

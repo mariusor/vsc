@@ -1,12 +1,12 @@
 <?php
 /**
- * @package ts_tests
- * @subpackage models
- * @author Marius Orcsik <marius@habarnam.ro>
+ * @package domain 
+ * @subpackage domain
+ * @author marius orcsik <marius@habarnam.ro>
  */
 include_once ('fixtures/dummytable.class.php');
 
-class fooEntityTest extends UnitTestCase {
+class vscEntityTest extends UnitTestCase {
 	/**
 	 * @var fooEntityA
 	 */

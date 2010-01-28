@@ -1,12 +1,12 @@
 <?php
 /**
- * @package ts_tests
- * @subpackage models
- * @author Marius Orcsik <marius@habarnam.ro>
+ * @package domain
+ * @subpackage domain
+ * @author marius orcsik <marius@habarnam.ro>
  */
-usingPackage ('models/foo/fields');
+import ('domain/domain/fields');
 
-class fooFieldIntegerTest extends UnitTestCase {
+class vscFieldIntegerTest extends UnitTestCase {
 	private $state;
 
 	public function setUp () {}
@@ -14,9 +14,9 @@ class fooFieldIntegerTest extends UnitTestCase {
 	public function tearDown () { }
 
 	public function testInstantiation () {
-		$a = new fooFieldInteger ('integerField');
+		$a = new vscFieldInteger ('integerField');
 
-		$this->assertIsA 	($a, 'fooFieldInteger');
+		$this->assertIsA 	($a, 'vscFieldInteger');
 		$this->assertEqual  ($a->getName(), 'integerField', 'The name of the field should be [integerField], but it is [' .$a->getName() . ']');
 	}
 }
