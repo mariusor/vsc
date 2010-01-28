@@ -87,12 +87,12 @@ abstract class vscEntityA {
 	}
 
 	/**
-	 *
-	 * @param []$aIncField
+	 * @param array $aIncField
 	 * @return void
 	 */
 	private function addField ($aIncField) {
-		$this->fields [$aIncField[0]] = $aIncField[1];
+		$sKey = key($aIncField);
+		$this->fields [$sKey] = $aIncField[$sKey];
 	}
 
 	/**
@@ -166,7 +166,7 @@ abstract class vscEntityA {
 	public function loadChild (vscEntityA $oChild) {}
 
 	/**
-	 *
+	 * @todo Finish IT !!
 	 * @param vscEntityA $oChild
 	 * @return bool
 	 */
