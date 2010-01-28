@@ -172,5 +172,7 @@ abstract class vscEntityA {
 	 */
 	public function join (vscEntityA $oObject) {
 		$this->addFields ($oObject->getFields (), $oObject->getName());
+
+		return $this;
 	}
 }
