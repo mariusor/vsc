@@ -1,2 +1,2 @@
 <?php
-class fooInvalidTypeException extends tsExceptionModel {}
+class vscInvalidTypeException extends vscExceptionDomain {}
