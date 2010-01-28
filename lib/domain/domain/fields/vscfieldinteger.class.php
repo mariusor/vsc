@@ -1,17 +1,16 @@
 <?php
 /**
- * @package ts_models
- * @author Marius Orcsik <marius@habarnam.ro>
+ * @package domain
+ * @subpackage domain
+ * @author marius orcsik <marius@habarnam.ro>
  * @date 09.03.29
  */
-usingPackage ('models/foo');
-
-class fooFieldInteger extends fooFieldA {
+class vscFieldInteger extends vscFieldA {
 	const TYPE = 'integer';
 	protected  $maxLength = 11;
 	protected  $autoIncrement = false;
 
-	public function isInt (fooFieldA $oField) {
+	public function isInt (vscFieldA $oField) {
 		return ($oField instanceof self);
 	}
 

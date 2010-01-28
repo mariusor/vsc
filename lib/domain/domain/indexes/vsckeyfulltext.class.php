@@ -5,7 +5,7 @@
  * @date 09.05.01
  */
 
-class fooKeyFullText implements fooIndexA  {
+class vscKeyFullText implements vscIndexA  {
 	public function setName ($sName) {
 		$this->name = $sName . '_tx';
 	}

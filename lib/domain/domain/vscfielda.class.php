@@ -1,10 +1,11 @@
 <?php
 /**
- * @package ts_models
- * @author Marius Orcsik <marius@habarnam.ro>
+ * @package domain
+ * @subpackage domain
+ * @author marius orcsik <marius@habarnam.ro>
  * @date 09.03.29
  */
-abstract class fooFieldA implements fooFieldI {
+abstract class vscFieldA implements vscFieldI {
 	protected  $name;
 	protected  $value;
 	protected  $parent;

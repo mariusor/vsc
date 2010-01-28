@@ -1,14 +1,15 @@
 <?php
 /**
- * @package ts_models
- * @author Marius Orcsik <marius@habarnam.ro>
+ * @package domain
+ * @subpackage domain
+ * @author marius orcsik <marius@habarnam.ro>
  * @date 09.05.01
  */
-class fooFieldDateTime extends fooFieldA {
+class vscFieldDateTime extends vscFieldA {
 	const TYPE = 'datetime';
 	protected  $maxLength = null; // arbitrary chosen, > strlen(YYYY-MM-DD GG:II:SS)
 
-	public function isVarChar (fooFieldA $oField) {
+	public function isVarChar (vscFieldA $oField) {
 		return ($oField instanceof self);
 	}
 

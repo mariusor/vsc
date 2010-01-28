@@ -4,12 +4,12 @@
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.05.01
  */
-class fooFieldVarChar extends fooFieldA {
+class vscFieldVarChar extends vscFieldA {
 	const TYPE = 'varchar';
 	protected  $maxLength = 255;
 	protected  $encoding = 'UTF-8';
 
-	public function isVarChar (fooFieldA $oField) {
+	public function isVarChar (vscFieldA $oField) {
 		return ($oField instanceof self);
 	}
 

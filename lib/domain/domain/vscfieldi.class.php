@@ -1,11 +1,12 @@
 <?php
 /**
  * interface for fields and indexes
- * @package ts_models
- * @author Marius Orcsik <marius@habarnam.ro>
+ * @package domain
+ * @subpackage domain
+ * @author marius orcsik <marius@habarnam.ro>
  * @date 09.03.29
  */
-interface fooFieldI {
+interface vscFieldI {
 	public function getType ();
 
 	public function setName($sName);

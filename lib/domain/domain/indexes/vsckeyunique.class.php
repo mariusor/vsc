@@ -5,7 +5,7 @@
  * @date 09.04.27
  */
 
-class fooKeyUnique extends fooIndexA  {
+class vscKeyUnique extends vscIndexA  {
 	public function setName ($sName) {
 		$this->name = $sName . '_unq';
 	}

@@ -5,16 +5,16 @@
  * @date 09.04.27
  */
 
-class fooKeyPrimary extends fooIndexA  {
+class vscKeyIndex extends vscIndexA  {
 	public function __construct ($mIncomingStuff) {
-		/* @var $oField fooFieldA */
+		/* @var $oField vscFieldA */
 		foreach ($mIncomingStuff as $oField) {
 			// enforcing NOT NULL constraints on the components of the primary key
-			if (fooFieldA::isValid($oField)) {
+			if (vscFieldA::isValid($oField)) {
 				$oField->setIsNullable(false);
 				$aRet[] = $oField;
 			} else {
-				throw new fooIndexException('The object passed can not be used as a primary key.');
+				throw new vscIndexException('The object passed can not be used as a primary key.');
 			}
 		}
 		parent::__construct($aRet);
@@ -25,15 +25,15 @@ class fooKeyPrimary extends fooIndexA  {
 	}
 
 	public function setName ($sName) {
-		$this->name = $sName . '_pk';
+		$this->name = $sName . '_idx';
 	}
 
 	public function getType() {
-		return 'PRIMARY';
+		return 'INDEX';
 	}
 
 	public function getDefinition () {
 		// this is totally wrong for PostgreSQL
-		return	'PRIMARY KEY ' . $this->getName() . ' (' . $this->getIndexComponents(). ')';
+		return	'INDEX ' . $this->getName() . ' (' . $this->getIndexComponents(). ')';
 	}
 }

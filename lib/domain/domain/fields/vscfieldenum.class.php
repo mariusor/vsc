@@ -1,14 +1,15 @@
 <?php
 /**
- * @package ts_models
- * @author Marius Orcsik <marius@habarnam.ro>
+ * @package domain
+ * @subpackage domain
+ * @author marius orcsik <marius@habarnam.ro>
  * @date 09.05.13
  */
-class fooFieldEnum extends fooFieldA {
+class vscFieldEnum extends vscFieldA {
 	const TYPE = 'enum';
 	protected $values = array();
 
-	public function isVarChar (fooFieldA $oField) {
+	public function isVarChar (vscFieldA $oField) {
 		return ($oField instanceof self);
 	}
 

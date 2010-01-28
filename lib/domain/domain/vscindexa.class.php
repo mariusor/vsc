@@ -1,11 +1,12 @@
 <?php
 /**
- * @package ts_models
- * @author Marius Orcsik <marius@habarnam.ro>
+ * @package domain
+ * @subpackage domain
+ * @author marius orcsik <marius@habarnam.ro>
  * @date 09.03.19
  */
 
-abstract class fooIndexA implements fooFieldI  {
+abstract class vscIndexA implements vscFieldI  {
 	protected $name;
 	protected $fields = array();
 
@@ -13,13 +14,13 @@ abstract class fooIndexA implements fooFieldI  {
 		if (is_array ($mIncomingStuff)) {
 			$this->setName($mIncomingStuff[0]->getName());
 			foreach ($mIncomingStuff as $oField) {
-				if (fooFieldA::isValid($oField))
+				if (vscFieldA::isValid($oField))
 					$this->addField ($oField);
 				else
-					throw new fooIndexException ('The object passed can not be used as a primary key.');
+					throw new vscIndexException ('The object passed can not be used as a primary key.');
 			}
 		} else {
-			throw new fooIndexException ('The data used to instantiate the table\'s primary key is invalid.');
+			throw new vscIndexException ('The data used to instantiate the table\'s primary key is invalid.');
 		}
 	}
 
@@ -27,11 +28,11 @@ abstract class fooIndexA implements fooFieldI  {
 
 //	abstract public function setName ($sName);
 
-	public function addField (fooFieldA $oField) {
+	public function addField (vscFieldA $oField) {
 		$this->fields[$oField->getName()] = $oField;
 	}
 
-//	public function removeField (fooFieldA $oField) {
+//	public function removeField (vscFieldA $oField) {
 //		if (isset ($this->fields[$oField->getName()]))
 //			unset($this->fields[$oField->getName()]);
 //	}

@@ -7,10 +7,10 @@
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.02.26
  */
-usingPackage ('models/foo/fields');
-usingPackage ('models/foo/indexes');
+usingPackage ('models/vsc/fields');
+usingPackage ('models/vsc/indexes');
 
-abstract class fooEntityA {
+abstract class vscEntityA {
 	protected 	$name;
 	private 	$alias;
 	private 	$pk;
@@ -43,7 +43,7 @@ abstract class fooEntityA {
 	}
 
 	public function __set ($sPropertyName, $mValue) {
-		if (fooFieldA::isValid ($mValue)) {
+		if (vscFieldA::isValid ($mValue)) {
 			$this->fields[$sPropertyName] = $mValue;
 		} else {
 			$this->fields[$sPropertyName]->setValue($mValue);
@@ -63,11 +63,11 @@ abstract class fooEntityA {
 	}
 
 	/**
-	 * @param fooFieldA $oIndex
+	 * @param vscFieldA $oIndex
 	 * @return void
 	 */
 	public function setPrimaryKey () {
-		$this->pk = new fooKeyPrimary (func_get_args());
+		$this->pk = new vscKeyPrimary (func_get_args());
 	}
 
 	public function getPrimaryKey () {
@@ -75,7 +75,7 @@ abstract class fooEntityA {
 	}
 
 	/**
-	 * @param fooFieldA[] $aFields
+	 * @param vscFieldA[] $aFields
 	 * @param string $sAlias
 	 * @return void
 	 */
@@ -95,7 +95,7 @@ abstract class fooEntityA {
 	}
 
 	/**
-	 * @return fooFieldA[]
+	 * @return vscFieldA[]
 	 */
 	public function getFields () {
 		return $this->fields;
@@ -159,17 +159,17 @@ abstract class fooEntityA {
 
 	/**
 	 *
-	 * @param fooEntityA $oChild
+	 * @param vscEntityA $oChild
 	 * @return bool
 	 */
-	public function loadChild (fooEntityA $oChild) {}
+	public function loadChild (vscEntityA $oChild) {}
 
 	/**
 	 *
-	 * @param fooEntityA $oChild
+	 * @param vscEntityA $oChild
 	 * @return bool
 	 */
-	public function join (fooEntityA $oObject) {
+	public function join (vscEntityA $oObject) {
 		$this->addFields ($oObject->getFields (), $oObject->getName());
 	}
 }

@@ -1,30 +1,31 @@
 <?php
 /**
  * the query compiler/executer object
- * @package ts_models
- * @author Marius Orcsik <marius@habarnam.ro>
+ * @package domain
+ * @subpackage domain
+ * @author marius orcsik <marius@habarnam.ro>
  * @version 0.0.1
  */
-abstract class fooTdoA {
+abstract class vscTdoA {
 	/**
-	 * @var fooSqlDriverA
+	 * @var vscSqlDriverA
 	 */
 	private $oConnection;
 
 	/**
-	 * @param fooSqlDriverA $oConnection
+	 * @param vscSqlDriverA $oConnection
 	 * @return void
 	 */
-	public function setConnection (fooSqlDriverA $oConnection) {
+	public function setConnection (vscSqlDriverA $oConnection) {
 		$this->oConnection = $oConnection;
 	}
 
 	/**
-	 * @return fooSqlDriverA
+	 * @return vscSqlDriverA
 	 */
 	public function getConnection () {
 		if (!self::isValidConnection($this->oConnection))
-			throw new fooInvalidTypeException ('Could not establish a valid DB connection - current resource type [' . get_class ($this->oConnection) . ']');
+			throw new vscInvalidTypeException ('Could not establish a valid DB connection - current resource type [' . get_class ($this->oConnection) . ']');
 		return $this->oConnection;
 	}
 
@@ -32,11 +33,11 @@ abstract class fooTdoA {
 	 * Outputs the SQL necessary for creating the table
 	 * @return string
 	 */
-	public function outputCreateSQL (fooEntityA $oInc) {
+	public function outputCreateSQL (vscEntityA $oInc) {
 		$sRet = $this->getConnection()->_CREATE ($oInc->getName()) . "\n";
 		$sRet .= ' ( ' . "\n";
 
-		/* @var $oColumn fooFieldA */
+		/* @var $oColumn vscFieldA */
 		foreach ($oInc->getFields () as $oColumn) {
 			$sRet .= "\t" . $oColumn->getName() . ' ' . $oColumn->getDefinition() ;
 			$sRet .= ', ' . "\n";
