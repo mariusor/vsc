@@ -20,7 +20,7 @@ class vscEmptyModel extends vscModelA {
 	}
 
 	public function setContent ($sContent) {
-		$this->sContent = htmlentities($sContent, null, 'UTF-8');
+		$this->sContent = $sContent;
 	}
 
 	public function getContent () {
