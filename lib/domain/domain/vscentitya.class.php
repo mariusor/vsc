@@ -3,12 +3,13 @@
  * The abstract object entity - it represents an entry in the database.
  * It can be composed from more Entity Objects using reflection
  *
- * @package ts_models
+ * @package domain
+ * @subpackage domain
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.02.26
  */
-usingPackage ('models/vsc/fields');
-usingPackage ('models/vsc/indexes');
+import ('domain/domain/fields');
+import ('domain/domain/indexes');
 
 abstract class vscEntityA {
 	protected 	$name;
@@ -35,7 +36,7 @@ abstract class vscEntityA {
 			return $this->$sProperty->getValue();
 		}
 
-		throw new tsExceptionUnimplemented ('Method [' . get_class ($this) . '::' . $sMethodName . ']');
+		throw new vscExceptionUnimplemented ('Method [' . get_class ($this) . '::' . $sMethodName . ']');
 	}
 
 	public function __get ($sPropertyName) {
