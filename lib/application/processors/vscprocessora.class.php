@@ -14,6 +14,7 @@ abstract class vscProcessorA implements vscProcessorI {
 	 * @return void
 	 */
 	public function __construct () {
+		import ('infrastructure');
 		$aVars = vsc::getHttpRequest()->getVars();
 		$this->setLocalVars ($aVars);
 

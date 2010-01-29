@@ -13,5 +13,5 @@ include_once ('core/reporter/reporters/phpserializer.php');
 set_include_path (realpath ('../vsc-v.2/') . PATH_SEPARATOR . get_include_path());
 require ('vsc.inc.php');
 
-error_reporting(-1);
-ini_set('display_errors', 1);
+error_reporting(E_ALL);
+ini_set('display_errors', '1');

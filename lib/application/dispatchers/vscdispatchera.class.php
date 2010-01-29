@@ -60,6 +60,7 @@ abstract class vscDispatcherA {
 	 * @return vscHttpRequestA
 	 */
 	public function getRequest () {
+		import ('infrastructure');
 		if (!($this->oRequest instanceof vscHttpRequestA))
 			$this->oRequest = vsc::getHttpRequest();
 		return $this->oRequest;

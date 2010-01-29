@@ -8,7 +8,7 @@
  */
 import ('application/controllers');
 import ('application/processors');
-import ('coreexceptions');
+import ('exceptions');
 
 class vscRwDispatcher extends vscDispatcherA {
 

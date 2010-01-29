@@ -1,5 +1,5 @@
 <?php
-import ('coreexceptions');
+import ('exceptions');
 class vscExceptionResponseRedirect extends vscException {
 	private $sLocation;
 	private $iHttpRedirectCode;
