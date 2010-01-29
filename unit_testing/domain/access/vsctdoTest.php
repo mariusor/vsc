@@ -9,12 +9,12 @@ define ('DB_NAME', 				'b');
 
 import ('models/vsc');
 import ('models/sqldrivers');
-import ('coreexceptions');
+import ('exceptions');
 
 include_once ('fixtures/dummytable.class.php'); // the definition of the entity
 include_once ('fixtures/dataobject.class.php'); // the definition of the data object
 
-class vscTdoTest extends UnitTestCase {
+class vscTdoTest extends Snap_UnitTestCase {
 	private $connection;
 
 	public function setUp () {
