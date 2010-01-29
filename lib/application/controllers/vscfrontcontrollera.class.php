@@ -39,23 +39,25 @@ abstract class vscFrontControllerA {
 		$oResponse = null;
 		$oModel = null;
 
-		import ('presentation/responses/exceptions');
-		try {
-			$oModel = $oProcessor->handleRequest($oRequest);
-		} catch (vscExceptionResponseRedirect $e) {
-			$oResponse = new vscHttpRedirection();
-			$oResponse->setStatus($e->getRedirectCode());
-			$oResponse->setLocation ($e->getLocation());
+		if (($oProcessor instanceof vscProcessorI)) {
+			import ('presentation/responses/exceptions');
+			try {
+				$oModel = $oProcessor->handleRequest($oRequest);
+			} catch (vscExceptionResponseRedirect $e) {
+				$oResponse = new vscHttpRedirection();
+				$oResponse->setStatus($e->getRedirectCode());
+				$oResponse->setLocation ($e->getLocation());
 
-			return $oResponse;
-		} catch (vscExceptionResponseError $e) {
-			// we had error in the controller : @todo make more error processors
-			$oProcessor = new vsc404Processor();
-			$oModel = new vscEmptyModel();
-			$oModel->setTitle('404 - Not Found');
-			$oModel->setContent($e->getMessage());
-		} catch (Exception $e) {
-			throw $e;
+				return $oResponse;
+			} catch (vscExceptionResponseError $e) {
+				// we had error in the controller : @todo make more error processors
+				$oProcessor = new vsc404Processor();
+				$oModel = new vscEmptyModel();
+				$oModel->setTitle('404 - Not Found');
+				$oModel->setContent($e->getMessage());
+			} catch (Exception $e) {
+				throw $e;
+			}
 		}
 
 		if (!($oProcessor instanceof vscErrorProcessorI)) {
@@ -75,11 +77,14 @@ abstract class vscFrontControllerA {
 			// no map
 			$oMyMap = null;
 		}
-		try {
-			$oMap = $oProcessor->getMap()->merge ($oMyMap);
-			$oView->setMap ($oMap);
-		} catch (vscException $e) {
-			// no map
+
+		if (($oProcessor instanceof vscProcessorI)) {
+			try {
+				$oMap = $oProcessor->getMap()->merge ($oMyMap);
+				$oView->setMap ($oMap);
+			} catch (vscException $e) {
+				// no map
+			}
 		}
 
 		if (!($oModel instanceof vscModelA)) {
@@ -90,7 +95,7 @@ abstract class vscFrontControllerA {
 		}
 		$oView->setModel($oModel);
 
-		$oResponse->setContentBody ($oView);
+		$oResponse->setView ($oView);
 		return $oResponse;
 	}
 

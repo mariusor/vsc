@@ -5,6 +5,4 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.12.02
  */
-interface vscRssControllerI {
-
-}
+interface vscRssControllerI {}

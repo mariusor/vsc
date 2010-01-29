@@ -1,5 +1,5 @@
 <?php
-import ('coreexceptions');
+import ('exceptions');
 class vscExceptionResponseError extends vscException {
 	private $iHttpErrorCode;
 

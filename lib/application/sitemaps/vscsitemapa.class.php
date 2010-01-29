@@ -99,8 +99,9 @@ abstract class vscSiteMapA {
 
 			$this->aControllerMaps[$sRegex] = $oNewMap;
 			$this->setBasePath($sRegex);
+
+			return $oNewMap;
 		}
-		return $oNewMap;
 	}
 
 	/**
