@@ -6,7 +6,7 @@
  */
 import ('domain/domain/fields');
 
-class vscFieldIntegerTest extends UnitTestCase {
+class vscFieldIntegerTest extends Snap_UnitTestCase {
 	private $state;
 
 	public function setUp () {}

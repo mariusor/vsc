@@ -1,14 +1,14 @@
 <?php
 /**
- * @package domain 
+ * @package domain
  * @subpackage domain
  * @author marius orcsik <marius@habarnam.ro>
  */
 include_once ('fixtures/dummytable.class.php');
 
-class vscEntityTest extends UnitTestCase {
+class vscEntityTest extends Snap_UnitTestCase {
 	/**
-	 * @var fooEntityA
+	 * @var vscEntityA
 	 */
 	private $state;
 
@@ -23,18 +23,18 @@ class vscEntityTest extends UnitTestCase {
 
 	public function testInstantiation (){
 		$this->assertIsA($this->state, 'dummyTable');
-		$this->assertIsA($this->state, 'fooEntityA');
+		$this->assertIsA($this->state, 'vscEntityA');
 	}
 
 	public function testFields () {
 		foreach ($this->state->getFields() as $oColumn) {
-			$this->assertIsA($oColumn, 'fooFieldA', 'Column ' . var_export($oColumn, true) . ' is not a valid fooField');
+			$this->assertIsA($oColumn, 'vscFieldA', 'Column ' . var_export($oColumn, true) . ' is not a valid vscField');
 		}
 	}
 
 	public function testPrimaryKey () {
 		$this->state->setPrimaryKey($this->state->payload);
-		$this->assertIsA($this->state->getPrimaryKey(), 'fooKeyPrimary');
+		$this->assertIsA($this->state->getPrimaryKey(), 'vscKeyPrimary');
 	}
 
 	public function testGetter () {
