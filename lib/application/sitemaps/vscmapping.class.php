@@ -3,6 +3,10 @@ class vscMapping {
 	private $sRegex;
 	private $sPath;
 
+	/**
+	 * the local template base path - the view will use it to compose the actual paths
+	 * @var unknown_type
+	 */
 	private $sViewPath;
 
 	private $sTitle;
@@ -31,11 +35,15 @@ class vscMapping {
 		$this->sTitle = $sTitle;
 	}
 
-	public function setTemplate ($sPath) {
+	public function setTemplatePath ($sPath) {
+		$this->sViewPath = $sPath;
+	}
+
+	public function setTemplateName ($sPath) {
 		$this->sMainTemplate = $sPath;
 	}
 
-	public function getTemplate () {
+	public function getTemplateName () {
 		return $this->sMainTemplate;
 	}
 
