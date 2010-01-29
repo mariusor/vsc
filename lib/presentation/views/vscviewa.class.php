@@ -13,6 +13,12 @@ abstract class vscViewA implements vscViewI {
 
 //	private $sBody;
 
+	protected $sContentType;
+
+	public function getContentType() {
+		return $this->sContentType;
+	}
+
 	public function getTitle () {
 		return $this->sTitle;
 	}

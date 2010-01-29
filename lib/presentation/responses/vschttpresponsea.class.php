@@ -312,8 +312,9 @@ abstract class vscHttpResponseA {
 	 * @param $oBody vscViewA
 	 * @return string
 	 */
-	public function setContentBody ($oBody) {
-		$this->sResponseBody = $oBody->getOutput();
+	public function setView ($oView) {
+		$this->setContentType($oView->getContentType());
+		$this->sResponseBody = $oView->getOutput();
 	}
 
 	abstract public function getOutput();

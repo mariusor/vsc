@@ -8,7 +8,7 @@
 import ('presentation/views');
 import ('presentation/views/exceptions');
 class vscXhtmlView extends vscViewA implements vscXhtmlViewI {
-
+	protected $sContentType = 'text/html';
 	public function __construct () {
 //		$this->setTemplate(VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . 'xhtml/content.php');
 	}

@@ -32,7 +32,7 @@ if (count($this->getMetaHeaders()) >= 1) {
 }
 ?>
 <?php
-if (count($this->getLinks()) >= 1) {
+if (is_array ($this->getLinks()) && count($this->getLinks()) >= 1) {
 	foreach ($this->getLinks() as $sType => $aLinkContent) {
 		foreach ($aLinkContent as $aValue) {
 			echo "\t".'<link type="' . $sType .'" ';
