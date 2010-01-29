@@ -17,7 +17,7 @@ function exceptions_error_handler ($iSeverity, $sMessage, $sFilename, $iLineNo) 
 
 	if (error_reporting() & $iSeverity) {
 		// the __autoload seems not to be working here
-		include_once(realpath(VSC_LIB_PATH . 'coreexceptions/vscexceptionerror.class.php'));
+		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexceptionerror.class.php'));
 		throw new vscExceptionError ($sMessage, 0, $iSeverity, $sFilename, $iLineNo);
 	}
 }
@@ -82,19 +82,22 @@ function __autoload ($className) {
 	if (class_exists ($className, false))  {
 		return true;
 	}
+	$fileIncluded = false;
 
 	$classNameLow = strtolower($className);
 
 	$sFilePath	= $classNameLow . '.class.php';
 	if (stristr ($classNameLow, 'exception')) {
-		$sFilePath = 'exceptions' . DIRECTORY_SEPARATOR . $sFilePath;
+		$sExceptionsFilePath = 'exceptions' . DIRECTORY_SEPARATOR . $sFilePath;
+		$fileIncluded = @include ($sExceptionsFilePath);
+	}
+	if (!$fileIncluded) {
 		$fileIncluded = @include ($sFilePath);
 	}
-	$fileIncluded = @include ($sFilePath);
 	if (!$fileIncluded) {
-		include_once(realpath(VSC_LIB_PATH . 'coreexceptions/vscexception.class.php'));
-		include_once(realpath(VSC_LIB_PATH . 'coreexceptions/vscexceptionpath.class.php'));
-		include_once(realpath(VSC_LIB_PATH . 'coreexceptions/vscexceptionautoload.class.php'));
+		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexception.class.php'));
+		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexceptionpath.class.php'));
+		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexceptionautoload.class.php'));
 
 		throw new vscExceptionAutoload('Could not load class ['.$className.'] in path: ' . get_include_path());
 	} else {
@@ -153,9 +156,9 @@ function import ($sIncPath) {
 	}
 
 	if (!$bStatus) {
-		include_once(realpath(VSC_LIB_PATH . 'coreexceptions/vscexception.class.php'));
-		include_once(realpath(VSC_LIB_PATH . 'coreexceptions/vscexceptionpath.class.php'));
-		include_once(realpath(VSC_LIB_PATH . 'coreexceptions/vscexceptionpackageimport.class.php'));
+		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexception.class.php'));
+		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexceptionpath.class.php'));
+		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexceptionpackageimport.class.php'));
 
 		throw new vscExceptionPackageImport ('Bad package [' . $sIncPath . ']');
 	} else {
