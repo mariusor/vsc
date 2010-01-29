@@ -3,6 +3,12 @@ class vscMapping {
 	private $sRegex;
 	private $sPath;
 
+	/**
+	 * the local template path - will be used to compose something like
+	 * this->sViewPath . view->typeOfView . this->sMainTemplate
+	 *
+	 * @var unknown_type
+	 */
 	private $sViewPath;
 
 	private $sTitle;
@@ -29,6 +35,14 @@ class vscMapping {
 
 	public function setTitle ($sTitle) {
 		$this->sTitle = $sTitle;
+	}
+
+	public function setTemplatePath ($sPath) {
+		$this->sViewPath = $sPath;
+	}
+
+	public function getTemplatePath () {
+		return $this->sViewPath;
 	}
 
 	public function setTemplate ($sPath) {

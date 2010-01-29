@@ -89,4 +89,8 @@ class vscXhtmlView extends vscViewA implements vscXhtmlViewI {
 		}
 	}
 
+	public function getFolder () {
+		return 'xhtml';
+	}
+
 }
