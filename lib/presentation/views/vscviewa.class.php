@@ -69,30 +69,37 @@ abstract class vscViewA implements vscViewI {
 		if (empty($includePath))
 			return '';
 		ob_start ();
-		if (is_file ($includePath)) {
-			$bIncluded = include ($includePath);
-		} else {
-			ob_end_clean();
-			throw new vscExceptionPackageImport ('Template [' . $includePath . '] could not be located');
+		try {
+			if (is_file ($includePath)) {
+				$bIncluded = require ($includePath);
+			} else {
+				cleanBuffers ();
+				throw new vscExceptionPath ('Template [' . $includePath . '] could not be located');
+			}
+			$sContent = ob_get_contents();
+			ob_end_clean ();
+			return $sContent;
+		} catch (ErrorException $e) {
+			cleanBuffers();
+			throw $e;
 		}
-		$sContent = ob_get_contents();
-		ob_end_clean ();
-		return $sContent;
 	}
 
-	abstract public function getOutput ();
+//	abstract public function getOutput ();
+
+	abstract public function getTemplateFolder ();
 
 	public function getTemplate() {
 		try {
-    		return $this->getMap()->getTemplate();
+    		return $this->getMap()->getPath() . DIRECTORY_SEPARATOR . $this->getTemplateFolder() . $this->getMap()->getTemplateName();
 		} catch (vscExceptionView $e) {
 			return '';
 		}
 	}
 
-	public function setTemplate($sPath) {
+	public function setTemplateName($sPath) {
 		try {
-    		$this->getMap()->setTemplate($sPath);
+    		$this->getMap()->setTemplateName($sPath);
 		} catch (vscExceptionView $e) {
 			//
 		}
