@@ -1,3 +1,3 @@
 <?php
-import ('coreexceptions');
+import ('exceptions');
 class vscExceptionResponse extends vscException {}
