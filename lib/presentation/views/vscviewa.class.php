@@ -69,37 +69,40 @@ abstract class vscViewA implements vscViewI {
 		if (empty($includePath))
 			return '';
 		ob_start ();
-		try {
-			if (is_file ($includePath)) {
-				$bIncluded = require ($includePath);
-			} else {
-				cleanBuffers ();
+		if (!is_file ($includePath)) {
+			$includePath = $this->getMap()->getTemplatePath() . DIRECTORY_SEPARATOR . $this->getFolder() . DIRECTORY_SEPARATOR . $includePath;
+
+			if (!is_file ($includePath)) {
+				ob_end_clean();
 				throw new vscExceptionPath ('Template [' . $includePath . '] could not be located');
 			}
+		}
+
+		$bIncluded = require ($includePath);
+//		d ($includePath, $bIncluded);
+		if (!$bIncluded) {
+			ob_end_clean();
+			throw new vscExceptionView ('Template [' . $includePath . '] could not be included');
+		} else {
 			$sContent = ob_get_contents();
-			ob_end_clean ();
+			ob_end_clean();
 			return $sContent;
-		} catch (ErrorException $e) {
-			cleanBuffers();
-			throw $e;
 		}
 	}
 
-//	abstract public function getOutput ();
-
-	abstract public function getTemplateFolder ();
+	abstract public function getOutput ();
 
 	public function getTemplate() {
 		try {
-    		return $this->getMap()->getPath() . DIRECTORY_SEPARATOR . $this->getTemplateFolder() . $this->getMap()->getTemplateName();
+    		return $this->getMap()->getTemplate();
 		} catch (vscExceptionView $e) {
 			return '';
 		}
 	}
 
-	public function setTemplateName($sPath) {
+	public function setTemplate($sPath) {
 		try {
-    		$this->getMap()->setTemplateName($sPath);
+    		$this->getMap()->setTemplate($sPath);
 		} catch (vscExceptionView $e) {
 			//
 		}

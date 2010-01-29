@@ -4,7 +4,9 @@ class vscMapping {
 	private $sPath;
 
 	/**
-	 * the local template base path - the view will use it to compose the actual paths
+	 * the local template path - will be used to compose something like
+	 * this->sViewPath . view->typeOfView . this->sMainTemplate
+	 *
 	 * @var unknown_type
 	 */
 	private $sViewPath;
@@ -39,11 +41,15 @@ class vscMapping {
 		$this->sViewPath = $sPath;
 	}
 
-	public function setTemplateName ($sPath) {
+	public function getTemplatePath () {
+		return $this->sViewPath;
+	}
+
+	public function setTemplate ($sPath) {
 		$this->sMainTemplate = $sPath;
 	}
 
-	public function getTemplateName () {
+	public function getTemplate () {
 		return $this->sMainTemplate;
 	}
 
