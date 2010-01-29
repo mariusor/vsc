@@ -17,10 +17,7 @@ function exceptions_error_handler ($iSeverity, $sMessage, $sFilename, $iLineNo) 
 
 	if (error_reporting() & $iSeverity) {
 		// the __autoload seems not to be working here
-		import ('coreexceptions');
-		if (!class_exists ('vscExceptionError')) {
-			include_once ('vscexceptionerror.class.php');
-		}
+		include_once(realpath(VSC_LIB_PATH . 'coreexceptions/vscexceptionerror.class.php'));
 		throw new vscExceptionError ($sMessage, 0, $iSeverity, $sFilename, $iLineNo);
 	}
 }
@@ -89,15 +86,16 @@ function __autoload ($className) {
 	$classNameLow = strtolower($className);
 
 	$sFilePath	= $classNameLow . '.class.php';
-	$fileIncluded = @include ($sFilePath);
-	if (!$fileIncluded &&  stristr ($classNameLow, 'exception')) {
+	if (stristr ($classNameLow, 'exception')) {
 		$sFilePath = 'exceptions' . DIRECTORY_SEPARATOR . $sFilePath;
 		$fileIncluded = @include ($sFilePath);
 	}
-
+	$fileIncluded = @include ($sFilePath);
 	if (!$fileIncluded) {
-		import ('coreexceptions');
-		include_once ('vscexceptionautoload.class.php');
+		include_once(realpath(VSC_LIB_PATH . 'coreexceptions/vscexception.class.php'));
+		include_once(realpath(VSC_LIB_PATH . 'coreexceptions/vscexceptionpath.class.php'));
+		include_once(realpath(VSC_LIB_PATH . 'coreexceptions/vscexceptionautoload.class.php'));
+
 		throw new vscExceptionAutoload('Could not load class ['.$className.'] in path: ' . get_include_path());
 	} else {
 		return true;
@@ -155,8 +153,10 @@ function import ($sIncPath) {
 	}
 
 	if (!$bStatus) {
-		import ('coreexceptions');
-		include_once ('vscexceptionpackageimport.class.php');
+		include_once(realpath(VSC_LIB_PATH . 'coreexceptions/vscexception.class.php'));
+		include_once(realpath(VSC_LIB_PATH . 'coreexceptions/vscexceptionpath.class.php'));
+		include_once(realpath(VSC_LIB_PATH . 'coreexceptions/vscexceptionpackageimport.class.php'));
+
 		throw new vscExceptionPackageImport ('Bad package [' . $sIncPath . ']');
 	} else {
 		return true;
