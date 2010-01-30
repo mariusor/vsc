@@ -1,6 +1,6 @@
 <?php
 
-class postgreSql extends fooSqlDriverA {
+class postgreSql extends vscSqlDriverA {
 	public 		$conn,
 				$link,
 				$STRING_OPEN_QUOTE = '\'',

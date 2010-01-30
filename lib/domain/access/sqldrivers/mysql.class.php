@@ -16,7 +16,7 @@
  *  an external object. (??!)
  */
 
-class mySql extends fooSqlDriverA {
+class mySql extends vscSqlDriverA {
 	public 		$conn,
 				$link;
 	private 	$name,

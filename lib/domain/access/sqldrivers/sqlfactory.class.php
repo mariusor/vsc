@@ -2,7 +2,7 @@
 /**
  * Factory class for data objects
  */
-usingPackage ('coreexceptions');
+import ('exceptions');
 class sqlFactory {
 	static public	$TYPES 		= array ('postgresql', 'mysql', 'mysqli');
 	static private	$instance	= null;
@@ -24,22 +24,22 @@ class sqlFactory {
 	 * or a new connection of type $incString
 	 *
 	 * @param string $incString
-	 * @return fooSqlDriverA
+	 * @return vscSqlDriverA
 	 */
 
-	static public function &connect($incString) {
+	static public function connect($incString, $dbHost = null, $dbUser = null, $dbPass = null) {
 		if (!self::validType ($incString)) {
 			self::$instance = new nullSql();
 //			throw new tsExceptionUnimplemented ('The database type is invalid');
 		}
 
-		if(!(self::$instance instanceof fooSqlDriverA)) {
+		if(!(self::$instance instanceof vscSqlDriverA)) {
 			if (stristr($incString, 'mysql')) {
-				self::$instance =  new mySqlIm ();
+				self::$instance =  new mySqlIm ($dbHost, $dbUser, $dbPass);
 			} /*elseif (stristr ($incString, 'mysql')) {
 				self::$instance =  new mySql ();
 			}*/ elseif (stristr ($incString, 'postgresql')) {
-				self::$instance = new postgreSql ();
+				self::$instance = new postgreSql ($dbHost, $dbUser, $dbPass);
 			} elseif (stristr ($incString, 'sqlserv')) {
 				self::$instance = new nullSql (); // Sql server not implemented
 			}

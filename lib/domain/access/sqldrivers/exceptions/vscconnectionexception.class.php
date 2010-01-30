@@ -5,4 +5,5 @@
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.04.29
  */
-class fooConnectionException extends tsExceptionModel {}
+import ('domain');
+class vscConnectionException extends vscExceptionDomain {}

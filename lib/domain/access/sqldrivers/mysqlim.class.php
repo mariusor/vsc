@@ -16,9 +16,13 @@
  *  an external object. (??!)
  */
 
-class mySqlIm extends fooSqlDriverA {
-	public 		$conn,
-				$link,
+class mySqlIm extends vscSqlDriverA {
+	public 		$conn;
+
+	/**
+	 * @var mysqli
+	 */
+	public		$link,
 				$STRING_OPEN_QUOTE = '"',
 				$STRING_CLOSE_QUOTE = '"',
 				$FIELD_OPEN_QUOTE = '`',
@@ -39,21 +43,21 @@ class mySqlIm extends fooSqlDriverA {
 		elseif (defined('DB_HOST'))
 			$this->host	= DB_HOST;
 		else
-			throw new fooConnectionException ('Database connection data missing: [DB_HOST]');
+			throw new vscConnectionException ('Database connection data missing: [DB_HOST]');
 
 		if (!empty ($dbUser))
 			$this->user	= $dbUser;
 		elseif (defined('DB_USER'))
 			$this->user	= DB_USER;
 		else
-			throw new fooConnectionException ('Database connection data missing: [DB_USERNAME]');
+			throw new vscConnectionException ('Database connection data missing: [DB_USERNAME]');
 
 		if(!empty($dbPass))
 			$this->pass	= $dbPass;
 		elseif (defined('DB_PASS'))
 			$this->pass	= DB_PASS;
 		else
-			throw new fooConnectionException ('Database connection data missing [DB_PASSWORD]');
+			throw new vscConnectionException ('Database connection data missing [DB_PASSWORD]');
 
 		if (!empty($this->host) && !empty($this->user) && !empty($this->pass)) {
 			$this->connect ();
@@ -106,13 +110,10 @@ class mySqlIm extends fooSqlDriverA {
 	 * @return bool
 	 */
 	private function connect (){
-		$this->link	= @new mysqli ($this->host, $this->user, $this->pass);
-		$errNo = mysqli_connect_errno();
-		if (!empty($errNo)) {
-			$this->error = $errNo.' '.mysqli_connect_error();
-			throw new fooConnectionException($this->error);
-//			trigger_error ($this->link->error, E_USER_ERROR);
-			return false;
+		$this->link	= new mysqli ($this->host, $this->user, $this->pass);
+		if (!empty($this->link->connect_errno)) {
+			$this->error = $this->link->connect_errno . ' ' . $this->link->connect_error;
+			throw new vscConnectionException('mysqli : ' . $this->error);
 		}
 		return true;
 	}
@@ -181,7 +182,7 @@ class mySqlIm extends fooSqlDriverA {
 			return false;
 
 		if ($this->link->errno)	{
-			throw new fooConnectionException ($this->link->error. nl() . $query . nl ());
+			throw new vscConnectionException ($this->link->error. nl() . $query . nl ());
 			return false;
 		}
 

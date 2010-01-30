@@ -3,7 +3,7 @@
  * Pseudo interface to be implemented (ehm, inherited) by the rest
  * of the DB classes.
  */
-abstract class fooSqlDriverA {
+abstract class vscSqlDriverA {
 	public 		$conn,
 				$error,
 				$link;
