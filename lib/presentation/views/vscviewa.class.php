@@ -78,8 +78,17 @@ abstract class vscViewA implements vscViewI {
 			}
 		}
 
-		$bIncluded = require ($includePath);
-//		d ($includePath, $bIncluded);
+		$bIncluded = false;
+		// outputting the model's content into the local scope
+		extract(
+			array(
+				'model' 	=> $this->getModel(),
+				'view'		=> null,
+				'helper'	=> null
+			)
+		);
+		// this automatically excludes templating errors: I'm not quite sure yet it's OK to do it
+		$bIncluded = @include ($includePath);
 		if (!$bIncluded) {
 			ob_end_clean();
 			throw new vscExceptionView ('Template [' . $includePath . '] could not be included');

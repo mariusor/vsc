@@ -27,7 +27,7 @@ class sqlFactory {
 	 * @return vscSqlDriverA
 	 */
 
-	static public function connect($incString, $dbHost = null, $dbUser = null, $dbPass = null) {
+	static public function connect($incString, $dbHost = null, $dbUser = null, $dbPass = null, $dbName = null) {
 		if (!self::validType ($incString)) {
 			self::$instance = new nullSql();
 //			throw new tsExceptionUnimplemented ('The database type is invalid');
@@ -35,11 +35,11 @@ class sqlFactory {
 
 		if(!(self::$instance instanceof vscSqlDriverA)) {
 			if (stristr($incString, 'mysql')) {
-				self::$instance =  new mySqlIm ($dbHost, $dbUser, $dbPass);
+				self::$instance =  new mySqlIm ($dbHost, $dbUser, $dbPass, $dbName);
 			} /*elseif (stristr ($incString, 'mysql')) {
 				self::$instance =  new mySql ();
 			}*/ elseif (stristr ($incString, 'postgresql')) {
-				self::$instance = new postgreSql ($dbHost, $dbUser, $dbPass);
+				self::$instance = new postgreSql ($dbHost, $dbUser, $dbPass, $dbName);
 			} elseif (stristr ($incString, 'sqlserv')) {
 				self::$instance = new nullSql (); // Sql server not implemented
 			}
