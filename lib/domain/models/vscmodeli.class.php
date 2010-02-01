@@ -5,4 +5,4 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.11.19
  */
-interface vscModelI {}
+interface vscModelI extends ArrayAccess, Countable , Iterator {}

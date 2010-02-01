@@ -5,11 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-	<title><?php if ($this->getModel() instanceof vscModelA) echo $this->getModel()->getTitle(); ?></title>
+	<title><?php echo $sTitle ?></title>
 <?php if (count($this->getStyles ())>=1) {?>
 	<style type="text/css">
 <?php
 foreach ($this->getStyles() as $sMedia => $aStyles) {
+	if (is_array($aStyles))
 	foreach ($aStyles as $sPath ) {
 ?>
 		@import url("<?php echo $sPath; ?>") <?php echo ($sMedia ? $sMedia : ''); echo ";\n"; ?>
@@ -32,6 +33,7 @@ if (count($this->getMetaHeaders()) >= 1) {
 }
 ?>
 <?php
+/*
 if (is_array ($this->getLinks()) && count($this->getLinks()) >= 1) {
 	foreach ($this->getLinks() as $sType => $aLinkContent) {
 		foreach ($aLinkContent as $aValue) {
@@ -42,7 +44,7 @@ if (is_array ($this->getLinks()) && count($this->getLinks()) >= 1) {
 			echo '/>'."\n";
 		}
 	}
-}
+}*/
 ?>
 </head>
 <body>
@@ -50,11 +52,7 @@ if (is_array ($this->getLinks()) && count($this->getLinks()) >= 1) {
 	<!-- hic sunt leones -->
 <?php
 	$sContent = $this->fetch ($this->getTemplate());
-	if (empty ($sContent)) {
-		echo $this->getModel()->getContent();
-	} else {
-		echo $sContent;
-	}
+	echo $sContent;
 ?>
 
 	<!-- /hic sunt leones -->
