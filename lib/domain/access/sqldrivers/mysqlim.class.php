@@ -34,7 +34,9 @@ class mySqlIm extends vscSqlDriverA {
 				$user,
 				$pass;
 
-	public function __construct( $dbHost = null, $dbUser = null, $dbPass = null ){
+	private		$defaultSocketPath =  '/var/run/mysqld/mysqld.sock';
+
+	public function __construct( $dbHost = null, $dbUser = null, $dbPass = null, $dbName = null ){
 		if (!extension_loaded('mysqli')) {
 			return new nullSql();
 		}
@@ -110,7 +112,7 @@ class mySqlIm extends vscSqlDriverA {
 	 * @return bool
 	 */
 	private function connect (){
-		$this->link	= new mysqli ($this->host, $this->user, $this->pass);
+		$this->link	= new mysqli ($this->host, $this->user, $this->pass, $this->name, null, $this->defaultSocketPath);
 		if (!empty($this->link->connect_errno)) {
 			$this->error = $this->link->connect_errno . ' ' . $this->link->connect_error;
 			throw new vscConnectionException('mysqli : ' . $this->error);
