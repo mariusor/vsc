@@ -6,7 +6,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @version 0.0.1
  */
-abstract class vscTdoA {
+abstract class vscAccessA implements vscAccessI {
 	/**
 	 * @var vscSqlDriverA
 	 */
