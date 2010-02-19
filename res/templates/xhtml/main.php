@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-	<title><?php echo $sTitle ?></title>
+	<title><?php echo $model->getTitle(); ?></title>
 <?php if (count($this->getStyles ())>=1) {?>
 	<style type="text/css">
 <?php
