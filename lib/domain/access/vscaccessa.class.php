@@ -62,6 +62,13 @@ abstract class vscAccessA implements vscAccessI {
 		return $sRet;
 	}
 
+	/**
+	 * @TODO - next item on the agenda
+	 * @return string
+	 */
+	public function outputSelectSql () {
+	}
+
 	static public function isValidConnection ($oConnection) {
 		return sqlFactory::validType ($oConnection->getType());
 	}

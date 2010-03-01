@@ -52,6 +52,21 @@ abstract class vscEntityA {
 	}
 
 	/**
+	 * @param string $sAlias
+	 * @return void
+	 */
+	public function setAlias ($sAlias) {
+		$this->alias = $sAlias;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAlias () {
+		return $this->alias;
+	}
+
+	/**
 	 * @param string $sName
 	 * @return void
 	 */

@@ -76,15 +76,15 @@ abstract class vscModelA implements vscModelI {
 		$oProperty = new ReflectionProperty($this, $sIncName);
 		$sSetterName = 'set'.ucfirst($sIncName);
 		$oSetter = new ReflectionMethod($this, $sSetterName);
-		d ($oSetter);
+//		d ($oSetter);
 		if (!$oProperty->isPrivate()) {
 			// setting $sIncName to be the current element
 			$this->sOffset = $sIncName;
 			$sSetterName = 'set'.ucfirst($sIncName);
 			$oSetter = new ReflectionMethod($this, $sSetterName);
-			d ($oSetter);
+//			d ($oSetter);
 
-//			$this->$sSetterName($value);
+			$this->$sSetterName($value);
 		}
 	}
 
