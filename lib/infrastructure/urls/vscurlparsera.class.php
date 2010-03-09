@@ -11,6 +11,10 @@ class vscUrlParserA implements vscUrlParserI {
 		}
 	}
 
+	public function __toString() {
+		return $this->getCompleteUrl(true);
+	}
+
 	public function setUrl ($sUrl) {
 		$this->sUrl 		= $sUrl;
         try {
@@ -50,23 +54,64 @@ class vscUrlParserA implements vscUrlParserI {
 
 	public function getPath () {
 		$sPath = $this->aComponents['path'];
+
 		if (!self::isAbsolutePath($sPath)) {
 			if (substr ($sPath, 0, 2) == './'){
 				$sPath = substr ($sPath, 2);
 			}
-			$iUp = substr_count ($sPath, '../');
-
-            try {
-                $sParentPath = substr (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), 0 , -1);
+			try {
+                $sParentPath = substr (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), 0 , -1) . '/';
             } catch (vscExceptionError $e) {
                 //
                 $sParentPath = '';
             }
-			$aParent = array_slice (explode('/', $sParentPath), 0, -$iUp);
-
-			$sPath = '/' . implode ('/', $aParent) . str_replace('../', '', $sPath);
+            $sPath = $sParentPath . $sPath;
 		}
+
+		// removing the folders from the path if there are parent references (../)
+		$sPath = trim($sPath, '/');
+		$tPath = explode('/', $sPath);
+		$aPath = explode('/', $sPath);
+
+		$iCnt = 0;
+		foreach ($aPath as $iKey => $sFolder) {
+			if ($sFolder == '..') {
+				$iCnt++;
+
+				unset ($aPath[$iKey]);
+				if (key_exists($iKey-1,$aPath)) {
+					$iPrevKey = $iKey-1;
+					$sPrev = $aPath[$iPrevKey];
+				} else {
+					$sPrev = prev($aPath);
+					$iPrevKey = array_search ($sPrev, $aPath);
+				}
+				unset ($aPath[$iPrevKey]);
+
+//				if ($iCnt == 3) d ($tPath, array($iPrevKey=>$sPrev), array($iKey=>$sFolder));
+			}
+		}
+
+		$sPath = '/' . implode ('/', $aPath) . '/';
 		return $sPath;
+	}
+
+	/**
+	 * @param string $sPath
+	 * @return vscUrlParserA
+	 */
+	public function addPath ($sPath) {
+		$this->aComponents['path'] .= $sPath;
+		return $this;
+	}
+
+	/**
+	 * @param string $sFragment
+	 * @return vscUrlParserA
+	 */
+	public function addFragment($sFragment) {
+		$this->aComponents['fragment'] = $sFragment;
+		return $this;
 	}
 
 	public function getQuery () {
@@ -86,7 +131,7 @@ class vscUrlParserA implements vscUrlParserI {
 	}
 
 	public static function isAbsolutePath ($sPath) {
-		return (substr ($sPath, 0, 1) == '/');
+		return substr ($sPath, 0, 1) == '/';
 	}
 
 	public function getCompleteUrl ($bFull = false) {
@@ -119,9 +164,16 @@ class vscUrlParserA implements vscUrlParserI {
 		if (self::isAbsolutePath($sPath)) {
 			$sUrl .= $sPath;
 		} else {
-			$sUrl .= parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) . $sPath;
+			try {
+				$sUrl .= parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) . $sPath;
+			} catch (vscExceptionError $e) {
+				d ($e->getTraceAsString());
+			}
 		}
 
+		if (substr($sPath, -1) != '/') {
+			$sPath .= '/';
+		}
 
 		$sQuery = $this->getQuery ();
 		if ($sQuery) {
