@@ -56,6 +56,19 @@ abstract class vscProcessorA implements vscProcessorI {
 		return $this->aLocalVars;
 	}
 
+	/**
+	 * @param string $sVar
+	 * @param string $sValue
+	 */
+	public function setVar ($sVar, $sValue) {
+		if (key_exists ($sVar, $this->aLocalVars)) {
+			$this->aLocalVars[$sVar] = $sValue;
+		}
+	}
+
+	/**
+	 * @param string $sVar
+	 */
 	public function getVar ($sVar) {
 		if (key_exists ($sVar, $this->aLocalVars)) {
 			return $this->aLocalVars[$sVar];
