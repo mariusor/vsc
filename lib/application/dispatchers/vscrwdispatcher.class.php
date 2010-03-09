@@ -74,22 +74,32 @@ class vscRwDispatcher extends vscDispatcherA {
 	public function getProcessController () {
 		$aMaps				= $this->getSiteMap()->getMaps();
 		$oProcessorMapping	= $this->getCurrentMap($aMaps);
+
 		if ($oProcessorMapping instanceof vscMapping) {
 			$sPath 				= $oProcessorMapping->getPath();
 		} else {
 			$sPath = '';
 		}
 
-		if ($this->getSiteMap()->isValidObject ($sPath)) {
-			include ($sPath);
+		try {
+			if ($this->getSiteMap()->isValidObject ($sPath)) {
+				include ($sPath);
 
-			$sProcessorName = $this->getSiteMap()->getClassName($sPath);
+				$sProcessorName = $this->getSiteMap()->getClassName($sPath);
 
-			/* @var $oProcessor vscProcessorA */
-			$oProcessor = new $sProcessorName();
+				/* @var $oProcessor vscProcessorA */
+				$oProcessor = new $sProcessorName();
 
-		} else {
-			$oProcessor = new vsc404Processor();
+			} else {
+				$oProcessor = new vsc404Processor();
+			}
+		} catch  (vscExceptionResponseRedirect $e) {
+			import ('presentation/responses');
+			// get the response
+			$oResponse 			= new vscHttpRedirection ();
+			$oResponse->setLocation ($e->getLocation());
+			ob_end_flush();
+			$sContent = $oResponse->outputHeaders();
 		}
 
 		// adding the map to the processor, allows it to easy add resources (styles,scripts) from inside it
