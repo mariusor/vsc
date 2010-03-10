@@ -15,6 +15,34 @@ class vscUrlParserA implements vscUrlParserI {
 		return $this->getCompleteUrl(true);
 	}
 
+	static private function parse_url ($sUrl = null) {
+		$sFragment	= '';
+		if ($sUrl) {
+			$iQPos = strpos($_SERVER['REQUEST_URI'], '?');
+			$sPath		= substr ($_SERVER['REQUEST_URI'], 0 , $iQPos);
+			$sQuery		= substr ($_SERVER['REQUEST_URI'], $iQPos);
+			if (stristr($_SERVER['REQUEST_URI'], '#')) {
+				$sFragment	= substr ($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'],'#'));
+			}
+		} else {
+			$sPath		= substr ($sUrl, 0 , strpos('?'));
+			$sQuery		= substr ($sUrl, strpos('?'));
+			if (stristr($sUrl, '#')) {
+				$sFragment	= substr ($sUrl, strpos('#'));
+			}
+		}
+
+		return array (
+			'scheme'	=> (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https' : 'http'),
+			'host'		=> ($_SERVER['SERVER_NAME']),
+			'user'		=> '',
+			'pass'		=> '',
+			'path'		=> $sPath,
+			'query'		=> $sQuery,
+			'fragment'	=> $sFragment
+		);
+	}
+
 	public function setUrl ($sUrl) {
 		$this->sUrl 		= $sUrl;
         try {
@@ -28,7 +56,7 @@ class vscUrlParserA implements vscUrlParserI {
                 'fragment'	=> ''
             ), parse_url($sUrl));
         } catch (vscExceptionError $e) {
-            // d ($e);
+            $this->aComponents  = self::parse_url ($sUrl);
         }
 	}
 
@@ -70,7 +98,6 @@ class vscUrlParserA implements vscUrlParserI {
 
 		// removing the folders from the path if there are parent references (../)
 		$sPath = trim($sPath, '/');
-		$tPath = explode('/', $sPath);
 		$aPath = explode('/', $sPath);
 
 		$iCnt = 0;
@@ -87,12 +114,11 @@ class vscUrlParserA implements vscUrlParserI {
 					$iPrevKey = array_search ($sPrev, $aPath);
 				}
 				unset ($aPath[$iPrevKey]);
-
-//				if ($iCnt == 3) d ($tPath, array($iPrevKey=>$sPrev), array($iKey=>$sFolder));
+//				if ($iCnt == 1) d (array($iPrevKey=>$sPrev), array($iKey=>$sFolder));
 			}
 		}
 
-		$sPath = '/' . implode ('/', $aPath) . '/';
+		$sPath = (count($aPath) > 0 ?  '/' . implode ('/', $aPath) : ''). '/';
 		return $sPath;
 	}
 
@@ -101,6 +127,7 @@ class vscUrlParserA implements vscUrlParserI {
 	 * @return vscUrlParserA
 	 */
 	public function addPath ($sPath) {
+		if (substr($this->aComponents['path'], -1) != '/') $this->aComponents['path'] .= '/';
 		$this->aComponents['path'] .= $sPath;
 		return $this;
 	}
