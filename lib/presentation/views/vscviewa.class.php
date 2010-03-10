@@ -11,8 +11,6 @@ abstract class vscViewA implements vscViewI {
 
 	private $oCurrentMap;
 
-//	private $sBody;
-
 	protected $sContentType;
 
 	public function getContentType() {
@@ -20,14 +18,17 @@ abstract class vscViewA implements vscViewI {
 	}
 
 	public function getTitle () {
+		$sModelTitle	= $this->getModel()->getTitle();
+		if (!empty ($sModelTitle)) return $sModelTitle;
+
+		$sStaticTitle	= $this->getMap()->getTitle();
+		if (!empty ($sStaticTitle)) return $sStaticTitle;
+
 		return $this->sTitle;
 	}
 
 	public function setModel (vscModelA $oModel) {
 		$this->oModel = $oModel;
-//		if ($oModel->getTitle()) {
-//			$this->sTitle = $oModel->getTitle();
-//		}
 	}
 
 	/**

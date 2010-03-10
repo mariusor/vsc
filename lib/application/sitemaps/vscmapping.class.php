@@ -37,6 +37,10 @@ class vscMapping {
 		$this->sTitle = $sTitle;
 	}
 
+	public function getTitle () {
+		return $this->sTitle;
+	}
+
 	public function setTemplatePath ($sPath) {
 		$this->sViewPath = $sPath;
 	}

@@ -5,11 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-	<title><?php echo $model->getTitle(); ?></title>
-<?php if (count($this->getStyles ())>=1) {?>
+	<title><?php $sTitle = $this->getTitle(); echo ($sTitle ? $sTitle : '[null]') ?></title>
+<?php
+$aAllStyles = $this->getStyles ();
+if (count($aAllStyles)>=1) {?>
 	<style type="text/css">
 <?php
-foreach ($this->getStyles() as $sMedia => $aStyles) {
+foreach ($aAllStyles as $sMedia => $aStyles) {
 	if (is_array($aStyles))
 	foreach ($aStyles as $sPath ) {
 ?>
@@ -21,8 +23,9 @@ foreach ($this->getStyles() as $sMedia => $aStyles) {
 	</style>
 <?php }  ?>
 <?php
-if (count($this->getMetaHeaders()) >= 1) {
-	foreach ($this->getMetaHeaders() as $aMeta) { ?>
+$aAllMeta = $this->getMetaHeaders();
+if (count($aAllMeta) >= 1) {
+	foreach ($aAllMeta as $aMeta) { ?>
 	<meta <?php
 		foreach ($aMeta as $sName => $sValue) {
 			echo $sKey .'="'.$sValue.'"';
@@ -62,8 +65,9 @@ if (is_array ($this->getLinks()) && count($this->getLinks()) >= 1) {
 	<!-- /hic sunt leones -->
 </div>
 <?php
-if (count ($this->getScripts()) >= 1 ) {
-	foreach ($this->getScripts() as $sPath) {
+$aAllScripts = $this->getScripts();
+if (count ($aAllScripts) >= 1 ) {
+	foreach ($aAllScripts as $sPath) {
 ?>
 <script type="text/javascript" src="<?php echo $sPath;?>"></script>
 <?php
