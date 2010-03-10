@@ -118,7 +118,11 @@ class vscUrlParserA implements vscUrlParserI {
 			}
 		}
 
-		$sPath = (count($aPath) > 0 ?  '/' . implode ('/', $aPath) : ''). '/';
+		$sPath = (count($aPath) > 0 ?  '/' . implode ('/', $aPath) : '');
+		$sLast = end ($aPath);
+		if (!stristr($sLast, '.')) { // we don't have a file as the last element in the path
+			$sPath .= '/';
+		}
 		return $sPath;
 	}
 
