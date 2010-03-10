@@ -52,7 +52,11 @@ if (is_array ($this->getLinks()) && count($this->getLinks()) >= 1) {
 	<!-- hic sunt leones -->
 <?php
 	$sContent = $this->fetch ($this->getTemplate());
-	echo $sContent;
+	if (!empty($sContent)) {
+		echo $sContent;
+	} else {
+		include ('content.php');
+	}
 ?>
 
 	<!-- /hic sunt leones -->
