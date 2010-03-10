@@ -19,22 +19,30 @@ class vscUrlParserA implements vscUrlParserI {
 		$sFragment	= '';
 		if ($sUrl) {
 			$iQPos = strpos($_SERVER['REQUEST_URI'], '?');
-			$sPath		= substr ($_SERVER['REQUEST_URI'], 0 , $iQPos);
-			$sQuery		= substr ($_SERVER['REQUEST_URI'], $iQPos);
+			if ($iQPos) {
+				$sPath		= substr ($_SERVER['REQUEST_URI'], 0 , $iQPos);
+				$sQuery		= substr ($_SERVER['REQUEST_URI'], $iQPos+1);
+			} else {
+				$sPath		= $_SERVER['REQUEST_URI'];
+			}
 			if (stristr($_SERVER['REQUEST_URI'], '#')) {
 				$sFragment	= substr ($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'],'#'));
 			}
 		} else {
-			$sPath		= substr ($sUrl, 0 , strpos('?'));
-			$sQuery		= substr ($sUrl, strpos('?'));
+			if ($iQPos) {
+				$sPath		= substr ($sUrl, 0 , strpos('?'));
+				$sQuery		= substr ($sUrl, strpos('?') + 1);
+			} else {
+				//
+			}
 			if (stristr($sUrl, '#')) {
 				$sFragment	= substr ($sUrl, strpos('#'));
 			}
 		}
 
 		return array (
-			'scheme'	=> (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https' : 'http'),
-			'host'		=> ($_SERVER['SERVER_NAME']),
+			'scheme'	=> (vsc::getHttpRequest()->isSecure() ? 'https' : 'http'),
+			'host'		=> (vsc::getHttpRequest()->getServerName()),
 			'user'		=> '',
 			'pass'		=> '',
 			'path'		=> $sPath,
@@ -46,14 +54,14 @@ class vscUrlParserA implements vscUrlParserI {
 	public function setUrl ($sUrl) {
 		$this->sUrl 		= $sUrl;
         try {
-            $this->aComponents  = array_merge (array (
-                'scheme'	=> '',
-                'host'		=> '',
-                'user'		=> '',
-                'pass'		=> '',
-                'path'		=> '',
-                'query'		=> '',
-                'fragment'	=> ''
+            $this->aComponents  = array_merge(array (
+	            'scheme'	=> (vsc::getHttpRequest()->isSecure() ? 'https' : 'http'),
+				'host'		=> '',
+				'user'		=> '',
+				'pass'		=> '',
+				'path'		=> '',
+				'query'		=> '',
+				'fragment'	=> ''
             ), parse_url($sUrl));
         } catch (vscExceptionError $e) {
             $this->aComponents  = self::parse_url ($sUrl);
@@ -196,7 +204,7 @@ class vscUrlParserA implements vscUrlParserI {
 			$sUrl .= $sPath;
 		} else {
 			try {
-				$sUrl .= parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) . $sPath;
+				$sUrl .= $this->aComponents['path'] . $sPath;
 			} catch (vscExceptionError $e) {
 				d ($e->getTraceAsString());
 			}
