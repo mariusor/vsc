@@ -7,7 +7,9 @@
  */
 abstract class vscHttpRequestA {
 	private $sRequestUri		= null;
+	private $oRequestUri;
 	private $sHttpMethod;
+	private $sServerName;
 	private $sServerProtocol;
 	private $aVarOrder;
 
@@ -59,6 +61,14 @@ abstract class vscHttpRequestA {
 			if (isset ($_SERVER['HTTP_REFERER']))
 				$this->sReferer			= $_SERVER['HTTP_REFERER'];
 		}
+	}
+
+	public function getServerName() {
+		if (!$this->sServerName && isset ($_SERVER['SERVER_NAME'])) {
+			$this->sServerName = $_SERVER['SERVER_NAME'];
+		}
+
+		return $this->sServerName;
 	}
 
 	/**
@@ -236,21 +246,33 @@ abstract class vscHttpRequestA {
 		return $this->sHttpMethod;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isGet() {
 		return ($this->getHttpMethod() == 'GET');
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isPost() {
 		return ($this->getHttpMethod() == 'POST');
 	}
 
+	/**
+	 * @return bool
+	 */
+	public function isSecure () {
+		return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on');
+	}
 
 	/**
 	 * Returns the REQUEST_URI which is used to get the URL Rewrite variables
 	 * This will also remove the part of the path that is actually an existing path
 	 * lighttpd:
 	 *  url.rewrite = (
-	 * 		"^/([^?]*)?(.*)$" => "/index.php$2"
+	 * 		"^/([^?]*)?(.*)$" => "/index.php$2" <- this doesn't look right to me
  	 *  )
 	 *
 	 * @todo move to the vscUrlRWParser
@@ -283,5 +305,9 @@ abstract class vscHttpRequestA {
 		}
 
 		return $this->sRequestUri;
+	}
+
+	public function getRequestUriObject() {
+		return new vscUrlRWParser($this->getRequestUri());
 	}
 }
