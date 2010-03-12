@@ -12,38 +12,12 @@ class vscUrlParserA implements vscUrlParserI {
 	}
 
 	public function __toString() {
-		return $this->getCompleteUri(true);
+		return $this->getCompleteUrl(true);
 	}
 
-	static private function parseUrl ($sUrl = null, $iComponent = -1) {
-		$aComponents = array (
-			'scheme'	=> vsc::getHttpRequest()->isSecure() ? 'https' : 'http',
-			'user'		=> '',
-			'pass'		=> '',
-			'host'		=> vsc::getHttpRequest()->getServerName(),
-			'port'		=> '',
-			'path'		=> '',
-			'query'		=> '',
-			'fragment'	=> ''
-		);
-
-		try {
-			$mRet = parse_url ($sUrl, $iComponent);
-			if (is_array($mRet)){
-				return array_merge (
-					$aComponents,
-					$mRet
-				);
-			} elseif (is_string($mRet)) {
-				return $mRet;
-			}
-		} catch (vscErrorException $e) {
-			// parse url failed, we should do it on our own :(
-			d ($e->getAsString());
-		}
-
+	static private function parse_url ($sUrl = null) {
 		$sFragment	= '';
-		if ($sUrl == null) {
+		if ($sUrl) {
 			$iQPos = strpos($_SERVER['REQUEST_URI'], '?');
 			if ($iQPos) {
 				$sPath		= substr ($_SERVER['REQUEST_URI'], 0 , $iQPos);
@@ -55,10 +29,9 @@ class vscUrlParserA implements vscUrlParserI {
 				$sFragment	= substr ($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'],'#'));
 			}
 		} else {
-			$iQPos = strpos($sUrl, '?');
 			if ($iQPos) {
-				$sPath		= substr ($sUrl, 0 , $iQPos);
-				$sQuery		= substr ($sUrl, $iQPos + 1);
+				$sPath		= substr ($sUrl, 0 , strpos('?'));
+				$sQuery		= substr ($sUrl, strpos('?') + 1);
 			} else {
 				//
 			}
@@ -67,44 +40,32 @@ class vscUrlParserA implements vscUrlParserI {
 			}
 		}
 
-		$aComponents['path']		= $sPath;
-		$aComponents['query']		= $sQuery;
-		$aComponents['fragment']	= $sFragment;
-
-		switch ($iComponent) {
-		case -1:
-			return $aComponents;
-			break;
-		case PHP_URL_SCHEME:
-			return $aComponents['scheme'];
-			break;
-		case PHP_URL_USER:
-			return $aComponents['user'];
-			break;
-		case PHP_URL_PASS:
-			return $aComponents['pass'];
-			break;
-		case PHP_URL_HOST:
-			return $aComponents['host'];
-			break;
-		case PHP_URL_PORT:
-			return $aComponents['port'];
-			break;
-		case PHP_URL_PATH:
-			return $aComponents['path'];
-			break;
-		case PHP_URL_QUERY:
-			return $aComponents['query'];
-			break;
-		case PHP_URL_FRAGMENT:
-			return $aComponents['fragment'];
-			break;
-		}
+		return array (
+			'scheme'	=> (vsc::getHttpRequest()->isSecure() ? 'https' : 'http'),
+			'host'		=> (vsc::getHttpRequest()->getServerName()),
+			'user'		=> '',
+			'pass'		=> '',
+			'path'		=> $sPath,
+			'query'		=> $sQuery,
+			'fragment'	=> $sFragment
+		);
 	}
 
 	public function setUrl ($sUrl) {
 		$this->sUrl 		= $sUrl;
-		$this->aComponents  = self::parseUrl ($sUrl);
+        try {
+            $this->aComponents  = array_merge(array (
+	            'scheme'	=> (vsc::getHttpRequest()->isSecure() ? 'https' : 'http'),
+				'host'		=> '',
+				'user'		=> '',
+				'pass'		=> '',
+				'path'		=> '',
+				'query'		=> '',
+				'fragment'	=> ''
+            ), parse_url($sUrl));
+        } catch (vscExceptionError $e) {
+            $this->aComponents  = self::parse_url ($sUrl);
+        }
 	}
 
 	public function getScheme () {
@@ -127,24 +88,6 @@ class vscUrlParserA implements vscUrlParserI {
 		return $this->aComponents['host'];
 	}
 
-	static public function pathHasFile($sPath) {
-		return (bool)stristr(substr ($sPath, strrpos($sPath, '/')), '.');
-	}
-
-	static public function pathRemoveFile($sPath) {
-		return substr ($sPath,0, strrpos($sPath, '/') + 1); // +1, because I need to keep the trailing /
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getCurrentPath () {
-		$sCurrentPath = self::parseUrl($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-		if (self::pathHasFile ($sCurrentPath)) {
-			return self::pathRemoveFile ($sCurrentPath);
-		}
-	}
-
 	public function getPath () {
 		$sPath = $this->aComponents['path'];
 
@@ -152,7 +95,13 @@ class vscUrlParserA implements vscUrlParserI {
 			if (substr ($sPath, 0, 2) == './'){
 				$sPath = substr ($sPath, 2);
 			}
-			$sPath = $this->getCurrentPath() . $sPath;
+			try {
+                $sParentPath = substr (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), 0 , -1) . '/';
+            } catch (vscExceptionError $e) {
+                //
+                $sParentPath = '';
+            }
+            $sPath = $sParentPath . $sPath;
 		}
 
 		// removing the folders from the path if there are parent references (../)
@@ -190,22 +139,9 @@ class vscUrlParserA implements vscUrlParserI {
 	 * @return vscUrlParserA
 	 */
 	public function addPath ($sPath) {
-		$aRet = self::parseUrl($sPath);
-		if (self::isAbsolutePath($sPath)) {
-			$this->aComponents['path'] = $aRet['path'];
-		} else {
-			$this->aComponents['path'] .= $aRet['path'];
-		}
-		if (!self::hasGoodTermination($this->aComponents['path']))
-			$this->aComponents['path'] .= '/';
+		if (substr($this->aComponents['path'], -1) != '/') $this->aComponents['path'] .= '/';
+		$this->aComponents['path'] .= $sPath;
 		return $this;
-	}
-
-	static public function hasGoodTermination ($sUri) {
-		if (!$sUri)
-			return false;
-		// a correct uri either ends in a / or with a file-name: name.ext
-		return (substr($sUri, -1) == '/' || stristr(substr ($sUri, strrpos($sUri, '/')), '.'));
 	}
 
 	/**
@@ -229,11 +165,18 @@ class vscUrlParserA implements vscUrlParserI {
 		return $this->sUrl;
 	}
 
-	public static function isAbsolutePath ($sPath) {
-		return (substr ($sPath, 0, 1) == '/');
+	public function isLocal () {
+		return (!$this->getScheme() && $this->getPath());
 	}
 
-	public function getCompleteUri ($bFull = false) {
+	public static function isAbsolutePath ($sPath) {
+		return substr ($sPath, 0, 1) == '/';
+	}
+
+	public function getCompleteUrl ($bFull = false) {
+		if (!$this->isLocal()) {
+			$bFull = true;
+		}
 		$sUrl = '';
 
 		if ($bFull) {
@@ -241,7 +184,7 @@ class vscUrlParserA implements vscUrlParserI {
 			if (!$sScheme) {
 				$sScheme = 'http';
 			}
-			$sUrl =  $sScheme. '://';
+			$sUrl .=  $sScheme. '://';
 
 			$sUser = $this->getUser();
 			if ($sUser) {
@@ -253,11 +196,23 @@ class vscUrlParserA implements vscUrlParserI {
 			if (!$sHost) {
 				$sHost = $_SERVER['HTTP_HOST'];
 			}
-
 			$sUrl .= $sHost;
 		}
 
-		$sUrl .= $this->getPath();
+		$sPath = $this->getPath();
+		if (self::isAbsolutePath($sPath)) {
+			$sUrl .= $sPath;
+		} else {
+			try {
+				$sUrl .= $this->aComponents['path'] . $sPath;
+			} catch (vscExceptionError $e) {
+				d ($e->getTraceAsString());
+			}
+		}
+
+		if (substr($sPath, -1) != '/') {
+			$sPath .= '/';
+		}
 
 		$sQuery = $this->getQuery ();
 		if ($sQuery) {
@@ -267,6 +222,7 @@ class vscUrlParserA implements vscUrlParserI {
 		if ($sFragment) {
 			$sUrl .= '#' . $sFragment;
 		}
+
 		return $sUrl;
 	}
 }
