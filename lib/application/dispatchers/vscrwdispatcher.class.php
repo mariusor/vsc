@@ -8,7 +8,6 @@
  */
 import ('application/controllers');
 import ('application/processors');
-import ('presentation/responses');
 import ('exceptions');
 
 class vscRwDispatcher extends vscDispatcherA {
@@ -26,7 +25,7 @@ class vscRwDispatcher extends vscDispatcherA {
 
 		try {
 			mb_internal_encoding('utf-8');
-			$sUri = $this->getRequest()->getUri(true); // get it as a urldecoded string
+			$sUri = $this->getRequest()->getRequestUri(true); // get it as a urldecoded string
 			foreach ($aRegexes as $sRegex) {
 				$iMatch			= mb_eregi (str_replace('/', '\/', $sRegex),  $sUri, $aMatches);
 				if ($iMatch) {
@@ -95,6 +94,7 @@ class vscRwDispatcher extends vscDispatcherA {
 				$oProcessor = new vsc404Processor();
 			}
 		} catch  (vscExceptionResponseRedirect $e) {
+			import ('presentation/responses');
 			// get the response
 			$oResponse 			= new vscHttpRedirection ();
 			$oResponse->setLocation ($e->getLocation());
