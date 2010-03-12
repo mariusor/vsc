@@ -1,4 +1,5 @@
 <?php
+import ('infrastructure/urls');
 class vscMapping {
 	private $sRegex;
 	private $sPath;
@@ -71,13 +72,11 @@ class vscMapping {
 	}
 
 	public function addStyle ($sPath, $sMedia = 'screen') {
-		import ('infrastructure/urls');
 		$oUrl = new vscUrlRWParser($sPath);
 		$this->aResources['styles'][$sMedia][] = $oUrl->getCompleteUri(true);
 	}
 
 	public function addScript ($sPath) {
-		import ('infrastructure/urls');
 		$oUrl = new vscUrlRWParser($sPath);
 		$this->aResources['scripts'][] = $oUrl->getCompleteUri(true);
 	}
@@ -88,7 +87,6 @@ class vscMapping {
 	 * @return void
 	 */
 	public function addLink ($sType, $aData) {
-		import ('infrastructure/urls');
 		if (key_exists('href', $aData)) {
 			$oUrl = new vscUrlRWParser($aData['href']);
 			$aData['href'] = $oUrl->getCompleteUri(true);
