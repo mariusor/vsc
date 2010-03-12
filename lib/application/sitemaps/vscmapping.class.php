@@ -1,4 +1,5 @@
 <?php
+import ('infrastructure/urls');
 class vscMapping {
 	private $sRegex;
 	private $sPath;
@@ -71,15 +72,13 @@ class vscMapping {
 	}
 
 	public function addStyle ($sPath, $sMedia = 'screen') {
-		import ('infrastructure/urls');
 		$oUrl = new vscUrlRWParser($sPath);
-		$this->aResources['styles'][$sMedia][] = $oUrl->getCompleteUrl(true);
+		$this->aResources['styles'][$sMedia][] = $oUrl->getCompleteUri(true);
 	}
 
 	public function addScript ($sPath) {
-		import ('infrastructure/urls');
 		$oUrl = new vscUrlRWParser($sPath);
-		$this->aResources['scripts'][] = $oUrl->getCompleteUrl(true);
+		$this->aResources['scripts'][] = $oUrl->getCompleteUri(true);
 	}
 
 	/**
@@ -88,14 +87,13 @@ class vscMapping {
 	 * @return void
 	 */
 	public function addLink ($sType, $aData) {
-		import ('infrastructure/urls');
 		if (key_exists('href', $aData)) {
 			$oUrl = new vscUrlRWParser($aData['href']);
-			$aData['href'] = $oUrl->getCompleteUrl(true);
+			$aData['href'] = $oUrl->getCompleteUri(true);
 		}
 		if (key_exists('src', $aData)) {
 			$oUrl = new vscUrlRWParser($aData['src']);
-			$aData['src'] = $oUrl->getCompleteUrl(true);
+			$aData['src'] = $oUrl->getCompleteUri(true);
 		}
 		$this->aResources['links'][$sType][] = $aData;
 	}
