@@ -6,6 +6,8 @@
  * @date 09.08.30
  */
 import ('presentation/responses');
+import ('presentation/responses/exceptions');
+import ('domain/models');
 abstract class vscFrontControllerA {
 	private $oCurrentMap;
 
@@ -40,7 +42,6 @@ abstract class vscFrontControllerA {
 		$oModel = null;
 
 		if (($oProcessor instanceof vscProcessorI)) {
-			import ('presentation/responses/exceptions');
 			try {
 				$oModel = $oProcessor->handleRequest($oRequest);
 			} catch (vscExceptionResponseRedirect $e) {
@@ -88,7 +89,6 @@ abstract class vscFrontControllerA {
 		}
 
 		if (!($oModel instanceof vscModelA)) {
-			import ('domain/models');
 			$oModel = new vscEmptyModel();
 			$oModel->setTitle ('Warning');
 			$oModel->setContent ('Warning: the processor didn\'t return a valid model. This is probably an error');

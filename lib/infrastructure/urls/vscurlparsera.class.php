@@ -12,7 +12,7 @@ class vscUrlParserA implements vscUrlParserI {
 	}
 
 	public function __toString() {
-		return $this->getCompleteUrl(true);
+		return $this->getCompleteUri(true);
 	}
 
 	static private function parse_url ($sUrl = null) {
@@ -173,7 +173,7 @@ class vscUrlParserA implements vscUrlParserI {
 		return substr ($sPath, 0, 1) == '/';
 	}
 
-	public function getCompleteUrl ($bFull = false) {
+	public function getCompleteUri ($bFull = false) {
 		if (!$this->isLocal()) {
 			$bFull = true;
 		}
@@ -224,5 +224,9 @@ class vscUrlParserA implements vscUrlParserI {
 		}
 
 		return $sUrl;
+	}
+
+	static public function hasGoodTermination ($sUri) {
+		return (substr($sUri, -1) == '/' || stristr(substr($sUri, strrpos($sUri, '/')), '.'));
 	}
 }

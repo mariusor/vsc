@@ -6,8 +6,8 @@
  * @date 09.07.13
  */
 abstract class vscHttpRequestA {
-	private $sRequestUri		= null;
-	private $oRequestUri;
+	private $sUri		= null;
+	private $oUri;
 	private $sHttpMethod;
 	private $sServerName;
 	private $sServerProtocol;
@@ -278,36 +278,39 @@ abstract class vscHttpRequestA {
 	 * @todo move to the vscUrlRWParser
 	 * @return string
 	 */
-	public function getRequestUri ($bUrlDecode = false) {
-		if (!$this->sRequestUri && isset($_SERVER['SERVER_SOFTWARE'])) {
+	public function getUri ($bUrlDecode = false) {
+		if (!$this->sUri && isset($_SERVER['SERVER_SOFTWARE'])) {
 			$sServerType = $_SERVER['SERVER_SOFTWARE'];
 
 			// this header is present for all servers in the same form
 			$sCurrentScriptDir = dirname ($_SERVER['PHP_SELF']) != '/' ? dirname ($_SERVER['PHP_SELF']) : '';
 			if (stristr($sServerType, 'lighttpd')) {
 				$sReqUri = $_SERVER['REQUEST_URI'];
-				$this->sRequestUri = str_replace ($sCurrentScriptDir, '', $sReqUri);
+				$this->sUri = str_replace ($sCurrentScriptDir, '', $sReqUri);
 			} elseif (stristr($sServerType, 'apache')) {
 				$sReqUri = $_SERVER['REQUEST_URI'];
-				$this->sRequestUri = str_replace ($sCurrentScriptDir, '', $sReqUri);
+				$this->sUri = str_replace ($sCurrentScriptDir, '', $sReqUri);
 			} elseif (stristr($sServerType, 'cherokee')) {
 				// TODO
 			}
 
 			// removing unnecessary get vars
-			$iQMarkPos = strpos ($this->sRequestUri, '?');
+			$iQMarkPos = strpos ($this->sUri, '?');
 			if ($iQMarkPos) {
-				$this->sRequestUri = substr ($this->sRequestUri, 0, $iQMarkPos);
+				$this->sUri = substr ($this->sUri, 0, $iQMarkPos);
 			}
 		}
 		if ($bUrlDecode) {
-			$this->sRequestUri = urldecode ($this->sRequestUri);
+			$this->sUri = urldecode ($this->sUri);
 		}
 
-		return $this->sRequestUri;
+		return $this->sUri;
 	}
 
-	public function getRequestUriObject() {
-		return new vscUrlRWParser($this->getRequestUri());
+	public function getUriObject() {
+		if (!($this->oUri instanceof vscUrlRWParser)) {
+			$this->oUri = new vscUrlRWParser($this->getUri());
+		}
+		return $this->oUri;
 	}
 }
