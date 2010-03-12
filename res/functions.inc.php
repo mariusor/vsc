@@ -118,24 +118,23 @@ function cleanBuffers ($iLevel = null) {
 	}
 }
 
-function addPath ($pkgPath) {
-	if (is_dir ($pkgPath)) {
-		$sPath = substr($pkgPath,-1);
-		if ($sPath == DIRECTORY_SEPARATOR) {
-			$pkgPath = substr ($pkgPath,0, -1);
-		}
-		$sIncludePath 	= get_include_path();
-
-		if (strpos ($sIncludePath, $pkgPath . PATH_SEPARATOR) === false) {
-			set_include_path (
-				$pkgPath . PATH_SEPARATOR .
-				$sIncludePath
-			);
-		}
-		return true;
+function addPath ($pkgPath, $sIncludePath = null) {
+	$sPath = substr($pkgPath,-1);
+	if ($sPath == DIRECTORY_SEPARATOR) {
+		$pkgPath = substr ($pkgPath,0, -1);
 	}
 
-	return false;
+	if (is_null($sIncludePath)) {
+		$sIncludePath 	= get_include_path();
+	}
+
+	if (strpos ($sIncludePath, $pkgPath . PATH_SEPARATOR) === false) {
+		set_include_path (
+			$pkgPath . PATH_SEPARATOR .
+			$sIncludePath
+		);
+	}
+	return true;
 }
 
 /**
@@ -149,18 +148,19 @@ function addPath ($pkgPath) {
 function import ($sIncPath) {
 	$bStatus 	= false;
 	$sPkgLower 	= strtolower ($sIncPath);
+	$sIncludePath 	= get_include_path();
+
 
 	if (is_dir ($sIncPath)) {
-		return addPath ($sIncPath);
+		return addPath ($sIncPath, $sIncludePath);
 	}
 
-	$sIncludePath 	= get_include_path();
 	$aPaths 		= explode(PATH_SEPARATOR, $sIncludePath);
 
 	foreach ($aPaths as $sPath) {
-		$pkgPath = $sPath . DIRECTORY_SEPARATOR . $sPkgLower;
-		if (is_dir ($pkgPath)) {
-			$bStatus |= addPath ($pkgPath);
+		$pkgPath 	= realpath($sPath . DIRECTORY_SEPARATOR . $sPkgLower);
+		if ($pkgPath) {
+			$bStatus |= addPath ($pkgPath, $sIncludePath);
 		}
 	}
 
