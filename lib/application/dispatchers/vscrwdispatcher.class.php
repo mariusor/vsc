@@ -8,6 +8,7 @@
  */
 import ('application/controllers');
 import ('application/processors');
+import ('presentation/responses');
 import ('exceptions');
 
 class vscRwDispatcher extends vscDispatcherA {
@@ -94,7 +95,6 @@ class vscRwDispatcher extends vscDispatcherA {
 				$oProcessor = new vsc404Processor();
 			}
 		} catch  (vscExceptionResponseRedirect $e) {
-			import ('presentation/responses');
 			// get the response
 			$oResponse 			= new vscHttpRedirection ();
 			$oResponse->setLocation ($e->getLocation());
