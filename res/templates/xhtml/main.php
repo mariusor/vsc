@@ -59,11 +59,7 @@ if (is_array ($this->getLinks()) && count($this->getLinks()) >= 1) {
 	if (!empty($sContent)) {
 		echo $sContent;
 	} else {
-		ob_start();
 		include ('content.php');
-		$sContent = d(ob_get_content());
-		ob_end_clean;
-		echo (!empty($sContent) ? $sContent : '[null]');
 	}
 ?>
 
