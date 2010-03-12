@@ -5,6 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.07.13
  */
+import ('infrastructure/urls');
 abstract class vscHttpRequestA {
 	private $sRequestUri		= null;
 	private $oRequestUri;
@@ -278,7 +279,7 @@ abstract class vscHttpRequestA {
 	 * @todo move to the vscUrlRWParser
 	 * @return string
 	 */
-	public function getRequestUri ($bUrlDecode = false) {
+	public function getUri ($bUrlDecode = false) {
 		if (!$this->sRequestUri && isset($_SERVER['SERVER_SOFTWARE'])) {
 			$sServerType = $_SERVER['SERVER_SOFTWARE'];
 
@@ -307,7 +308,10 @@ abstract class vscHttpRequestA {
 		return $this->sRequestUri;
 	}
 
-	public function getRequestUriObject() {
-		return new vscUrlRWParser($this->getRequestUri());
+	/**
+	 * @return vscUrlParserA
+	 */
+	public function getUriObject() {
+		return new vscUrlRWParser($this->getUri());
 	}
 }

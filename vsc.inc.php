@@ -15,7 +15,7 @@ include ('res/functions.inc.php');
 
 import (VSC_LIB_PATH);
 import (VSC_RES_PATH);
-
 // including the infrastructure folder
 import ('infrastructure');
+
 include_once ('vsc.class.php');
