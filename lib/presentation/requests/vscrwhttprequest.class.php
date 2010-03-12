@@ -37,7 +37,7 @@ class vscRwHttpRequest extends vscHttpRequestA {
 	public function __construct () {
 		parent::__construct();
 		if (isset ($_SERVER)) {
-			$this->getUri();
+			$this->getRequestUri();
 			$this->constructTaintedVars ();
 		}
 	}
@@ -71,7 +71,7 @@ class vscRwHttpRequest extends vscHttpRequestA {
 	 * @return void
 	 */
 	public function constructTaintedVars () {
-		foreach(explode ('/', $this->getUri()) as $iKey => $sUrlId) {
+		foreach(explode ('/', $this->getRequestUri()) as $iKey => $sUrlId) {
 			if ($sUrlId) {
 				$t = explode (':', $sUrlId);
 				if (count($t) > 1) {
