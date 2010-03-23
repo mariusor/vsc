@@ -22,11 +22,9 @@ foreach ($this->getStyles() as $sMedia => $aStyles) {
 <?php }  ?>
 <?php
 if (count($this->getMetaHeaders()) >= 1) {
-	foreach ($this->getMetaHeaders() as $aMeta) { ?>
+	foreach ($this->getMetaHeaders() as $sName => $sValue) { ?>
 	<meta <?php
-		foreach ($aMeta as $sName => $sValue) {
-			echo $sKey .'="'.$sValue.'"';
-		}
+			echo 'name="'.$sName .'" content="'.$sValue.'"';
 ?> />
 <?php
 	}

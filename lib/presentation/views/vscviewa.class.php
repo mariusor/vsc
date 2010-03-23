@@ -70,7 +70,7 @@ abstract class vscViewA implements vscViewI {
 			return '';
 		ob_start ();
 		if (!is_file ($includePath)) {
-			$includePath = $this->getMap()->getTemplatePath() . DIRECTORY_SEPARATOR . $this->getFolder() . DIRECTORY_SEPARATOR . $includePath;
+			$includePath = $this->getMap()->getTemplatePath() . DIRECTORY_SEPARATOR . $this->getViewFolder() . DIRECTORY_SEPARATOR . $includePath;
 
 			if (!is_file ($includePath)) {
 				ob_end_clean();
@@ -83,10 +83,11 @@ abstract class vscViewA implements vscViewI {
 		extract(
 			array(
 				'model' 	=> $this->getModel(),
-				'view'		=> null,
-				'helper'	=> null
+				'view'		=> $this,
+				'helper'	=> $this->getMap()
 			)
 		);
+
 		// this automatically excludes templating errors: I'm not quite sure yet it's OK to do it
 		$bIncluded = @include ($includePath);
 		if (!$bIncluded) {
@@ -99,7 +100,13 @@ abstract class vscViewA implements vscViewI {
 		}
 	}
 
-	abstract public function getOutput ();
+	public function getOutput() {
+		try {
+    		return $this->fetch (VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . $this->getViewFolder() . DIRECTORY_SEPARATOR . 'main.php');
+		} catch (vscExceptionView $e) {
+			return '';
+		}
+    }
 
 	public function getTemplate() {
 		try {
