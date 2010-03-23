@@ -21,7 +21,7 @@ abstract class vscFieldA implements vscFieldI {
 	 * @param mixed $oField
 	 * @return bool
 	 */
-	static public function isValid ($oField) {
+	final static public function isValid ($oField) {
 		return ($oField instanceof self);
 	}
 

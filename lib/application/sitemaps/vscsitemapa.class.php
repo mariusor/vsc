@@ -135,6 +135,6 @@ abstract class vscSiteMapA {
 			return $this->addMap ($sRegex, $sPath);
 		}
 
-		return false;
+		throw new vscExceptionSitemap('The object ['.$sPath.'] could not be loaded.');
 	}
 }

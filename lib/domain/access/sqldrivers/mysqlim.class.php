@@ -58,9 +58,7 @@ class mySqlIm extends vscSqlDriverA {
 			$this->pass	= $dbPass;
 		elseif (defined('DB_PASS'))
 			$this->pass	= DB_PASS;
-		else
-			throw new vscConnectionException ('Database connection data missing [DB_PASSWORD]');
-
+		
 		if (!empty($this->host) && !empty($this->user) && !empty($this->pass)) {
 			$this->connect ();
 		}

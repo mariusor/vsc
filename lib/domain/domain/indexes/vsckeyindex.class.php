@@ -7,21 +7,23 @@
 
 class vscKeyIndex extends vscIndexA  {
 	public function __construct ($mIncomingStuff) {
-		/* @var $oField vscFieldA */
-		foreach ($mIncomingStuff as $oField) {
-			// enforcing NOT NULL constraints on the components of the primary key
-			if (vscFieldA::isValid($oField)) {
-				$oField->setIsNullable(false);
-				$aRet[] = $oField;
-			} else {
-				throw new vscIndexException('The object passed can not be used as a primary key.');
+		$aRet = array();
+		if (vscFieldA::isValid($mIncomingStuff)) {
+			$mIncomingStuff->setIsNullable(false);
+			parent::__construct ($mIncomingStuff);
+		} elseif (is_array($mIncomingStuff)) {
+			/* @var $oField vscFieldA */
+			foreach ($mIncomingStuff as $oField) {
+				// enforcing NOT NULL constraints on the components of the primary key
+				if (vscFieldA::isValid($oField)) {
+					$oField->setIsNullable(false);
+					$aRet[] = $oField;
+				} else {
+					throw new vscIndexException('The object passed can not be used as a primary key.');
+				}
 			}
+			parent::__construct($aRet);
 		}
-		parent::__construct($aRet);
-	}
-
-	public function getName () {
-		return $this->name;
 	}
 
 	public function setName ($sName) {
