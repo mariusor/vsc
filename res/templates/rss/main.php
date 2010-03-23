@@ -1,3 +1,4 @@
+<?php /* @var $this vscRssView */ ?>
 <?php echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
@@ -8,6 +9,7 @@
 		<language><?php echo $this->getLanguage() ?></language>
 		<lastBuildDate><?php echo $this->getLastBuildDate() ?></lastBuildDate>
 		<docs>http://blogs.law.harvard.edu/tech/rss</docs>
-		<?php echo $this->getContent() ?>
+		<?php echo $this->getContent(); ?>
+
 	</channel>
 </rss>

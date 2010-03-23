@@ -30,12 +30,8 @@ class vscRssView extends vscViewA implements vscRssViewI {
 	 */
     public function display($resource_name) {}
 
-	public function getOutput () {
-		return $this->fetch (VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . 'rss/main.php');
-	}
-
-	public function getFolder () {
-		return 'xhtml';
+	public function getViewFolder () {
+		return 'rss';
 	}
 
 	public function getUrl(){}

@@ -11,20 +11,25 @@ abstract class vscIndexA implements vscFieldI  {
 	protected $fields = array();
 
 	public function __construct ($mIncomingStuff = null) {
-		if (is_array ($mIncomingStuff)) {
+		if (vscFieldA::isValid($mIncomingStuff)) {
+			$this->setName ($mIncomingStuff->getName());
+			$this->addField ($mIncomingStuff);
+		} elseif (is_array ($mIncomingStuff)) {
 			$this->setName($mIncomingStuff[0]->getName());
 			foreach ($mIncomingStuff as $oField) {
 				if (vscFieldA::isValid($oField))
 					$this->addField ($oField);
 				else
-					throw new vscIndexException ('The object passed can not be used as a primary key.');
+					throw new vscIndexException ('The object passed can not be used as an index.');
 			}
 		} else {
 			throw new vscIndexException ('The data used to instantiate the table\'s primary key is invalid.');
 		}
 	}
 
-//	abstract public function getName ();
+	public function getName () {
+		return $this->name;
+	}
 
 //	abstract public function setName ($sName);
 
@@ -39,5 +44,9 @@ abstract class vscIndexA implements vscFieldI  {
 
 	public function getIndexComponents () {
 		return implode (', ', array_keys($this->fields));
+	}
+	
+	static public function isValid ($oIndex) {
+		return ($oIndex instanceof self);
 	}
 }

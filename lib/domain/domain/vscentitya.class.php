@@ -18,6 +18,8 @@ abstract class vscEntityA {
 	private		$fields = array ();
 	private 	$indexes = array ();
 
+	abstract public function compose();
+	
 	public function __call ($sMethodName, $aParameters) {
 //		d ($sMethodName, $aParameters);
 		$i = preg_match ('/(set|get)(.*)/i', $sMethodName, $found );
@@ -121,9 +123,18 @@ abstract class vscEntityA {
 	 * gets all the column names as an array
 	 * @return string[]
 	 */
-	public function getFieldNames () {
+	public function getFieldNames ($bWithAlias = false) {
 		$aRet = array_keys($this->fields);
+		if ($bWithAlias) {
+			foreach ($aRet as $key => $sFieldName) {
+				$aRet[$key] = $this->getAlias() . '.' . $sFieldName;
+			}
+		}
 		return $aRet;
+	}
+	
+	public function addIndex (vscIndexA $oIndex) {
+		$this->indexes[] = $oIndex;
 	}
 
 	public function getIndexes ($bWithPrimaryKey = false) {
@@ -132,7 +143,6 @@ abstract class vscEntityA {
 			$aIndexes[] = $this->getPrimaryKey();
 
 		$aIndexes = array_merge ($aIndexes, $this->indexes);
-
 		return $aIndexes;
 	}
 

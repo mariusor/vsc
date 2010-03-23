@@ -23,13 +23,10 @@ foreach ($aAllStyles as $sMedia => $aStyles) {
 	</style>
 <?php }  ?>
 <?php
-$aAllMeta = $this->getMetaHeaders();
-if (count($aAllMeta) >= 1) {
-	foreach ($aAllMeta as $aMeta) { ?>
+if (count($this->getMetaHeaders()) >= 1) {
+	foreach ($this->getMetaHeaders() as $sName => $sValue) { ?>
 	<meta <?php
-		foreach ($aMeta as $sName => $sValue) {
-			echo $sKey .'="'.$sValue.'"';
-		}
+			echo 'name="'.$sName .'" content="'.$sValue.'"';
 ?> />
 <?php
 	}
