@@ -11,12 +11,12 @@
 import (VSC_LIB_PATH . 'domain/domain/fields');
 import (VSC_LIB_PATH . 'domain/domain/indexes');
 
-abstract class vscEntityA extends vscObject {
-	protected 	$name;
-	private 	$alias;
-	private 	$pk;
-	private		$fields = array ();
-	private 	$indexes = array ();
+abstract class vscEntityA extends vscNull {
+	protected 	$sTableName;
+	private 	$sTableAlias;
+	private 	$oPk;
+	private		$aFields = array ();
+	private 	$aIndexes = array ();
 
 	final public function __construct () {
 		$this->buildObject();
@@ -35,25 +35,25 @@ abstract class vscEntityA extends vscObject {
 		}
 
 		if ( $sMethod == 'set' ) {
-			// check for fields with $found[1] name
+			// check for aFields with $found[1] sTableName
 			$this->$sProperty->setValue($aParameters[0]);
 			return true;
 		} else if ( $sMethod == 'get' ) {
 			return $this->$sProperty->getValue();
 		}
 
-		throw new vscExceptionUnimplemented ('Method [' . get_class ($this) . '::' . $sMethodName . ']');
+		return parent::__call($sMethodName, $aParameters);
 	}
 
 	public function __get ($sPropertyName) {
-		return $this->fields[$sPropertyName];
+		return $this->aFields[$sPropertyName];
 	}
 
 	public function __set ($sPropertyName, $mValue) {
 		if (vscFieldA::isValid ($mValue)) {
-			$this->fields[$sPropertyName] = $mValue;
+			$this->aFields[$sPropertyName] = $mValue;
 		} else {
-			$this->fields[$sPropertyName]->setValue($mValue);
+			$this->aFields[$sPropertyName]->setValue($mValue);
 		}
 	}
 
@@ -61,27 +61,27 @@ abstract class vscEntityA extends vscObject {
 	 * @param string $sAlias
 	 * @return void
 	 */
-	public function setAlias ($sAlias) {
-		$this->alias = $sAlias;
+	public function setTableAlias ($sAlias) {
+		$this->sTableAlias = $sAlias;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getAlias () {
-		return $this->alias;
+	public function getTableAlias () {
+		return $this->sTableAlias;
 	}
 
 	/**
 	 * @param string $sName
 	 * @return void
 	 */
-	protected function setName ($sName) {
-		$this->name = $sName;
+	protected function setTableName ($sName) {
+		$this->sTableName = $sName;
 	}
 
-	public function getName () {
-		return $this->name;
+	public function getTableName () {
+		return $this->sTableName;
 	}
 
 	/**
@@ -89,11 +89,11 @@ abstract class vscEntityA extends vscObject {
 	 * @return void
 	 */
 	public function setPrimaryKey () {
-		$this->pk = new vscKeyPrimary (func_get_args());
+		$this->oPk = new vscKeyPrimary (func_get_args());
 	}
 
 	public function getPrimaryKey () {
-		return $this->pk;
+		return $this->oPk;
 	}
 
 	/**
@@ -113,14 +113,14 @@ abstract class vscEntityA extends vscObject {
 	 */
 	private function addField ($aIncField) {
 		$sKey = key($aIncField);
-		$this->fields [$sKey] = $aIncField[$sKey];
+		$this->aFields [$sKey] = $aIncField[$sKey];
 	}
 
 	/**
 	 * @return vscFieldA[]
 	 */
 	public function getFields () {
-		return $this->fields;
+		return $this->aFields;
 	}
 
 	/**
@@ -128,17 +128,17 @@ abstract class vscEntityA extends vscObject {
 	 * @return string[]
 	 */
 	public function getFieldNames ($bWithAlias = false) {
-		$aRet = array_keys($this->fields);
+		$aRet = array_keys($this->aFields);
 		if ($bWithAlias) {
 			foreach ($aRet as $key => $sFieldName) {
-				$aRet[$key] = $this->getAlias() . '.' . $sFieldName;
+				$aRet[$key] = $this->getTableAlias() . '.' . $sFieldName;
 			}
 		}
 		return $aRet;
 	}
 
 	public function addIndex (vscIndexA $oIndex) {
-		$this->indexes[] = $oIndex;
+		$this->aIndexes[] = $oIndex;
 	}
 
 	public function getIndexes ($bWithPrimaryKey = false) {
@@ -146,7 +146,7 @@ abstract class vscEntityA extends vscObject {
 		if ($bWithPrimaryKey)
 			$aIndexes[] = $this->getPrimaryKey();
 
-		$aIndexes = array_merge ($aIndexes, $this->indexes);
+		$aIndexes = array_merge ($aIndexes, $this->aIndexes);
 		return $aIndexes;
 	}
 
@@ -177,7 +177,7 @@ abstract class vscEntityA extends vscObject {
 	public function fromArray ($aIncArray) {
 		foreach ($aIncArray as $sFieldName => $mValue) {
 			try {
-				$this->fields[$sFieldName]->setValue ($mValue);
+				$this->aFields[$sFieldName]->setValue ($mValue);
 			} catch (Exception $e) {
 				// dunno what might be thrown here
 				d ($e);
@@ -200,7 +200,7 @@ abstract class vscEntityA extends vscObject {
 	 * @return bool
 	 */
 	public function join (vscEntityA $oObject) {
-		$this->addFields ($oObject->getFields (), $oObject->getName());
+		$this->addFields ($oObject->getFields (), $oObject->getTableName());
 
 		return $this;
 	}
