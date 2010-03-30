@@ -4,7 +4,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.31
  */
-class vsc {
+class vsc extends vscObject {
 	/**
 	 * @var vscHttpRequestA
 	 */

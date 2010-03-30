@@ -5,7 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.09.24
  */
-abstract class vscSiteMapA {
+abstract class vscSiteMapA extends vscObject {
 	private $aBasePath;
 	private $aMaps;
 	private $aControllerMaps;

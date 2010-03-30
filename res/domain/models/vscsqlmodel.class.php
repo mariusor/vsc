@@ -17,10 +17,10 @@ class vscSqlModel extends vscEmptyModel {
 	public function getConnection () {
 		return $this->oConnection;
 	}
-//
-//	public function __init(){
-//		import ('domain/access/sqldrivers');
-//		$this->dbConnection = sqlFactory::connect('mysqli', 'localhost', 'root', 'ASD');
-//		$this->dbConnection->selectDatabase('b');
-//	}
+
+	public function __init(){
+		import ('domain/access/sqldrivers');
+		$this->dbConnection = sqlFactory::connect('mysqli', 'localhost', 'root', 'ASD');
+		$this->dbConnection->selectDatabase('b');
+	}
 }

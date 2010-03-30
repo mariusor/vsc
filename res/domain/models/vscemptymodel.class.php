@@ -8,22 +8,22 @@
 
 import ('domain/models');
 class vscEmptyModel extends vscModelA {
-	protected $sTitle = null;
-	protected $sContent = null;
+	protected $sPageTitle = null;
+	protected $sPageContent = null;
 
-	public function setTitle ($sTitle) {
-		$this->sTitle = $sTitle;
+	public function setPageTitle ($sTitle) {
+		$this->sPageTitle = $sTitle;
 	}
 
-	public function getTitle () {
-		return $this->sTitle;
+	public function getPageTitle () {
+		return $this->sPageTitle;
 	}
 
-	public function setContent ($sContent) {
-		$this->sContent = $sContent;
+	public function setPageContent ($sContent) {
+		$this->sPageContent = $sContent;
 	}
 
-	public function getContent () {
-		return $this->sContent;
+	public function getPageContent () {
+		return $this->sPageContent;
 	}
 }

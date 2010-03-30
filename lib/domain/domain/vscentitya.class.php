@@ -8,18 +8,22 @@
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.02.26
  */
-import ('domain/domain/fields');
-import ('domain/domain/indexes');
+import (VSC_LIB_PATH . 'domain/domain/fields');
+import (VSC_LIB_PATH . 'domain/domain/indexes');
 
-abstract class vscEntityA {
+abstract class vscEntityA extends vscObject {
 	protected 	$name;
 	private 	$alias;
 	private 	$pk;
 	private		$fields = array ();
 	private 	$indexes = array ();
 
-	abstract public function compose();
-	
+	final public function __construct () {
+		$this->buildObject();
+	}
+
+	abstract protected function buildObject();
+
 	public function __call ($sMethodName, $aParameters) {
 //		d ($sMethodName, $aParameters);
 		$i = preg_match ('/(set|get)(.*)/i', $sMethodName, $found );
@@ -132,7 +136,7 @@ abstract class vscEntityA {
 		}
 		return $aRet;
 	}
-	
+
 	public function addIndex (vscIndexA $oIndex) {
 		$this->indexes[] = $oIndex;
 	}

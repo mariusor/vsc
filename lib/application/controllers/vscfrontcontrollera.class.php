@@ -8,7 +8,7 @@
 import ('presentation/responses');
 import ('presentation/responses/exceptions');
 import ('domain/models');
-abstract class vscFrontControllerA {
+abstract class vscFrontControllerA extends vscObject {
 	private $oCurrentMap;
 
 	/**

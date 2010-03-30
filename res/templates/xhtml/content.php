@@ -1,5 +1,5 @@
 <?php /* @var $this vscViewA  */ ?>
-<h2><?php echo $this->getModel()->getTitle(); ?></h2>
+<h2><?php echo $this->getModel()->getPageTitle(); ?></h2>
 <?php
-	echo $this->getModel()->getContent();
+	echo $this->getModel()->getPageContent();
 ?>

@@ -1,6 +1,7 @@
 <?php
 import ('infrastructure/urls');
-class vscMapping {
+
+class vscMapping extends vscObject {
 	private $sRegex;
 	private $sPath;
 

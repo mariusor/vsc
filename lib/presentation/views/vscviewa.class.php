@@ -5,7 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.30
  */
-abstract class vscViewA implements vscViewI {
+abstract class vscViewA extends vscObject implements vscViewI {
 	private $sTitle;
 	private $oModel;
 
@@ -18,8 +18,9 @@ abstract class vscViewA implements vscViewI {
 	}
 
 	public function getTitle () {
-		$sModelTitle	= $this->getModel()->getTitle();
-		if (!empty ($sModelTitle)) return $sModelTitle;
+		if ($this->getModel() instanceof vscEmptyModel && $this->getModel()->getPageTitle() != '') {
+			return  $this->getModel()->getPageTitle();
+		}
 
 		$sStaticTitle	= $this->getMap()->getTitle();
 		if (!empty ($sStaticTitle)) return $sStaticTitle;
@@ -47,8 +48,13 @@ abstract class vscViewA implements vscViewI {
 	}
 
 	public function __get ($sVarName) {
+		try {
 		// TODO: use proper reflection
-		return $this->getModel()->$sVarName;
+			return $this->getModel()->$sVarName;
+		} catch (Exception $e) {
+			// most likely the variable doesn't exist
+			d ($e->getTraceAsString());
+		}
 	}
 
 	/**

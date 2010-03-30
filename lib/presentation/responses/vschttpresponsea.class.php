@@ -5,7 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.30
  */
-abstract class vscHttpResponseA {
+abstract class vscHttpResponseA extends vscObject {
 	protected $aStatusList = array(
 		200 => '200 OK',
 		204 => '204 No Content',

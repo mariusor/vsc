@@ -5,7 +5,7 @@
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 10.02.25
  */
-class vscJoinA {
+class vscJoinA extends vscObject {
 	static public $aTypes = array (
 		'INNER',
 		'LEFT',

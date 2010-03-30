@@ -5,7 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.11.19
  */
-abstract class vscModelA implements vscModelI {
+abstract class vscModelA extends vscObject implements vscModelI {
 	private $sOffset;
 
 	// ArrayAccess interface

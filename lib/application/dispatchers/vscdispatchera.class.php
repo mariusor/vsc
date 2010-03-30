@@ -7,7 +7,7 @@
  * @date 09.08.31
  */
 import ('application/sitemaps');
-abstract class vscDispatcherA {
+abstract class vscDispatcherA extends vscObject {
 	/**
 	 * @var vscHttpRequestA
 	 */

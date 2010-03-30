@@ -5,7 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.07.13
  */
-abstract class vscHttpRequestA {
+abstract class vscHttpRequestA extends vscObject {
 	private $sUri		= null;
 	private $oUri;
 	private $sHttpMethod;

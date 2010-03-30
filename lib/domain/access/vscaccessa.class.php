@@ -7,7 +7,7 @@
  * @version 0.0.1
  */
 import ('domain/access/sqldrivers');
-abstract class vscAccessA implements vscAccessI {
+abstract class vscAccessA extends vscObject implements vscAccessI {
 	/**
 	 * @var vscSqlDriverA
 	 */
@@ -72,9 +72,9 @@ abstract class vscAccessA implements vscAccessI {
 	public function outputSelectSql (vscEntityA $oInc) {
 		if (empty($oInc->getAlias))
 			$oInc->setAlias ('filter');
-			
+
 		$aFieldNames = $oInc->getFieldNames();
-		
+
 		foreach ($oInc->getFields() as $oField) {
 			if (!is_null($oField->getValue())) {
 				// I need to make something for values with IS NULL clauses
