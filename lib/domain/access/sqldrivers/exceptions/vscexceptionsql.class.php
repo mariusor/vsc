@@ -1,2 +1,2 @@
 <?php
-class tsExceptionModel extends Exception {}
+class vscExceptionSql extends vscExceptionDomain {}

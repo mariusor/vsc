@@ -1,6 +1,7 @@
 <?php
 /**
- * @package ts_models
+ * @package vsc_domain
+ * @subpackage domain
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.05.01
  */
@@ -11,7 +12,7 @@ class vscFieldText extends vscFieldA {
 	public function getType () {
 		if ($this->getMaxLength() > 255 || is_null($this->getMaxLength()))
 			return 'text';
-		else 
+		else
 			return 'varchar';
 	}
 

@@ -15,7 +15,6 @@
  * OBS: maybe the static methods (_AND, _OR, sa.) can be conained into
  *  an external object. (??!)
  */
-
 class mySqlIm extends vscSqlDriverA {
 	public 		$conn;
 
@@ -58,7 +57,7 @@ class mySqlIm extends vscSqlDriverA {
 			$this->pass	= $dbPass;
 		elseif (defined('DB_PASS'))
 			$this->pass	= DB_PASS;
-		
+
 		if (!empty($this->host) && !empty($this->user) && !empty($this->pass)) {
 			$this->connect ();
 		}

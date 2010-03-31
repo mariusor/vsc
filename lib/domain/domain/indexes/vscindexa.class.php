@@ -1,11 +1,10 @@
 <?php
 /**
- * @package domain
+ * @package vsc_domain
  * @subpackage domain
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.03.19
  */
-
 abstract class vscIndexA implements vscFieldI  {
 	protected $name;
 	protected $fields = array();
@@ -45,7 +44,7 @@ abstract class vscIndexA implements vscFieldI  {
 	public function getIndexComponents () {
 		return implode (', ', array_keys($this->fields));
 	}
-	
+
 	static public function isValid ($oIndex) {
 		return ($oIndex instanceof self);
 	}

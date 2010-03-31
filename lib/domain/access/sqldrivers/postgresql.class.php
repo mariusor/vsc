@@ -1,5 +1,4 @@
 <?php
-
 class postgreSql extends vscSqlDriverA {
 	public 		$conn,
 				$link,

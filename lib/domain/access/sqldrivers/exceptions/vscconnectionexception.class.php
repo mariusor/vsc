@@ -1,7 +1,7 @@
 <?php
 /**
- * @package ts_model
- * @subpackage exceptions
+ * @package vsc_domain
+ * @subpackage access
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.04.29
  */

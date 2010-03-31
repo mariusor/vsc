@@ -3,7 +3,7 @@
  * The abstract object entity - it represents an entry in the database.
  * It can be composed from more Entity Objects using reflection
  *
- * @package domain
+ * @package vsc_domain
  * @subpackage domain
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.02.26

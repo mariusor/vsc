@@ -1,10 +1,10 @@
 <?php
 /**
- * @package ts_models
- * @author Marius Orcsik <marius@habarnam.ro>
+ * @package vsc_domain
+ * @subpackage domain
+ * @author marius orcsik <marius@habarnam.ro>
  * @date 09.04.27
  */
-
 class vscKeyPrimary extends vscIndexA  {
 	public function __construct ($mIncomingStuff) {
 		/* @var $oField vscFieldA */

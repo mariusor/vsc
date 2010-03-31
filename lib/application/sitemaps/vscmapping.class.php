@@ -1,4 +1,10 @@
 <?php
+/**
+ * @package vsc_application
+ * @subpackage sitemaps
+ * @author marius orcisk <marius@habarnam.ro>
+ * @date 09.11.29
+ */
 import ('infrastructure/urls');
 
 class vscMapping extends vscObject {

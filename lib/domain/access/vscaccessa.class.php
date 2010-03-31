@@ -1,8 +1,8 @@
 <?php
 /**
  * the query compiler/executer object
- * @package domain
- * @subpackage domain
+ * @package vsc_domain
+ * @subpackage access
  * @author marius orcsik <marius@habarnam.ro>
  * @version 0.0.1
  */

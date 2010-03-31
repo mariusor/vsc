@@ -1,6 +1,6 @@
 <?php
 /**
- * @package domain
+ * @package vsc_domain
  * @subpackage domain
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 10.02.25

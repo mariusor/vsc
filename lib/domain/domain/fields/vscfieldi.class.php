@@ -1,7 +1,7 @@
 <?php
 /**
  * interface for fields and indexes
- * @package domain
+ * @package vsc_domain
  * @subpackage domain
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.03.29

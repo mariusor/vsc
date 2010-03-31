@@ -1,7 +1,7 @@
 <?php
 /**
- * @package domain
- * @subpackage exceptions
+ * @package vsc_domain
+ * @subpackage domain
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.04.28
  */
