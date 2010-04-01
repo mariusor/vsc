@@ -10,18 +10,21 @@
  * @date 09.09.16
  */
 /* @var $this vscRwSiteMap */
+$this->getModuleMap()->setTemplatePath (VSC_RES_PATH . 'templates');
 $this->map ('.*', VSC_RES_PATH . 'application/processors/vsc404processor.class.php');
+
 // front controllers
 $this->mapController ('rss$', VSC_RES_PATH . 'application/controllers/vscrsscontroller.class.php');
 $this->mapController ('$', VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.class.php');
 
 // fallback 404 processor for everything
 $sTest = $this->getBasePath();
+
 $this->setBasePath('^/'); // setting the base regex to the main map path so this works for all files not matching anything else
 $oMap = $this->map ('.+', VSC_RES_PATH . 'application/processors/vsc404processor.class.php');
-$oMap->setTemplate (VSC_RES_PATH . 'templates/xhtml/content.php');
+$oMap->setTemplate ('content.php');
 
-$oMap = $this->map ('.*', VSC_RES_PATH . 'application/processors/vscemptyprocessor.class.php');
-//$oMap->setTemplate (VSC_RES_PATH . 'templates/xhtml/content.php');
+//$oMap = $this->map ('.*', VSC_RES_PATH . 'application/processors/vscemptyprocessor.class.php');
+//$oMap->setTemplate ('content.php');
 
-$this->setBasePath($sTest);
+//$this->setBasePath($sTest);

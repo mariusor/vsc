@@ -17,23 +17,26 @@ class vscUrlParserA implements vscUrlParserI {
 
 	static private function parse_url ($sUrl = null) {
 		$sFragment	= '';
-		if ($sUrl) {
+		if (is_null($sUrl)) {
 			$iQPos = strpos($_SERVER['REQUEST_URI'], '?');
 			if ($iQPos) {
 				$sPath		= substr ($_SERVER['REQUEST_URI'], 0 , $iQPos);
 				$sQuery		= substr ($_SERVER['REQUEST_URI'], $iQPos+1);
 			} else {
 				$sPath		= $_SERVER['REQUEST_URI'];
+				$sQuery		= '';
 			}
 			if (stristr($_SERVER['REQUEST_URI'], '#')) {
 				$sFragment	= substr ($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'],'#'));
 			}
 		} else {
+			$iQPos = strpos($sUrl, '?');
 			if ($iQPos) {
 				$sPath		= substr ($sUrl, 0 , strpos('?'));
 				$sQuery		= substr ($sUrl, strpos('?') + 1);
 			} else {
-				//
+				$sPath		= '';
+				$sQuery 	= '';
 			}
 			if (stristr($sUrl, '#')) {
 				$sFragment	= substr ($sUrl, strpos('#'));
