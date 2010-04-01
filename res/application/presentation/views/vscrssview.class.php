@@ -9,7 +9,7 @@ import ('presentation/views');
 class vscRssView extends vscViewA implements vscRssViewI {
 	protected $sContentType = 'application/rss+xml';
 	public function __construct () {
-		$this->setTemplate(VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . 'rss/content.php');
+//		$this->setTemplate (VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . 'rss/content.php');
 	}
 
 	/**
@@ -34,9 +34,6 @@ class vscRssView extends vscViewA implements vscRssViewI {
 		return 'rss';
 	}
 
-	public function getUrl(){}
-	public function getTitle(){}
-	public function getContent(){}
 	public function getDescription(){}
 	public function getLanguage(){}
 	public function getLastBuildDate(){}

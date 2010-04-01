@@ -6,9 +6,6 @@
  * @date 09.11.19
  */
 interface vscRssViewI {
-	function getUrl();
-	function getTitle();
-	function getContent();
 	function getDescription();
 	function getLanguage();
 	function getLastBuildDate();
