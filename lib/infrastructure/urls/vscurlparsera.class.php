@@ -88,7 +88,7 @@ class vscUrlParserA implements vscUrlParserI {
 		return $this->aComponents['host'];
 	}
 
-	public function getPath () {
+	public function getParentPath ($iSteps = 0) {
 		$sPath = $this->aComponents['path'];
 
 		if (!self::isAbsolutePath($sPath)) {
@@ -126,12 +126,21 @@ class vscUrlParserA implements vscUrlParserI {
 			}
 		}
 
+		if ($iSteps > 0) {
+			// removing last $iSteps components of the path
+			$aPath = array_slice ($aPath, 0, -$iSteps);
+		}
+
 		$sPath = (count($aPath) > 0 ?  '/' . implode ('/', $aPath) : '');
 		$sLast = end ($aPath);
 		if (!stristr($sLast, '.')) { // we don't have a file as the last element in the path
 			$sPath .= '/';
 		}
 		return $sPath;
+	}
+
+	public function getPath () {
+		return $this->getParentPath(0);
 	}
 
 	/**
@@ -173,33 +182,30 @@ class vscUrlParserA implements vscUrlParserI {
 		return substr ($sPath, 0, 1) == '/';
 	}
 
-	public function getCompleteUri ($bFull = false) {
+	public function getSiteUri () {
+		$sUri = ($this->getScheme() ? $this->getScheme() : 'http') . '://';
+		// ff just tries to log you in... and removes the user:pass from the url :(
+		$sUri .= ($this->getUser() ? $this->getUser() . ($this->getPass() ? ':' . $this->getPass() : '') . '@' : '');
+		$sUri .= ($this->getHost() ? $this->getHost() : $_SERVER['HTTP_HOST']);
+
+		if ($sUri) {
+			return $sUri;
+		} else {
+			throw new vscExceptionInfrastructure ('No host present...');
+		}
+	}
+
+	public function getCompleteParentUri ($bFull = false, $iSteps = 1) {
 		if (!$this->isLocal()) {
 			$bFull = true;
 		}
 		$sUrl = '';
 
 		if ($bFull) {
-			$sScheme = $this->getScheme();
-			if (!$sScheme) {
-				$sScheme = 'http';
-			}
-			$sUrl .=  $sScheme. '://';
-
-			$sUser = $this->getUser();
-			if ($sUser) {
-				$sPass 	= $this->getPass();
-				$sUrl 	.=  $this->getUser() . ($sPass ? ':' . $sPass : '') . '@';
-			}
-
-			$sHost = $this->getHost();
-			if (!$sHost) {
-				$sHost = $_SERVER['HTTP_HOST'];
-			}
-			$sUrl .= $sHost;
+			$sUrl .= $this->getSiteUri();
 		}
 
-		$sPath = $this->getPath();
+		$sPath = $this->getParentPath($iSteps);
 		if (self::isAbsolutePath($sPath)) {
 			$sUrl .= $sPath;
 		} else {
@@ -224,6 +230,10 @@ class vscUrlParserA implements vscUrlParserI {
 		}
 
 		return $sUrl;
+	}
+
+	public function getCompleteUri ($bFull = false) {
+		return $this->getCompleteParentUri($bFull, 0);
 	}
 
 	static public function hasGoodTermination ($sUri) {

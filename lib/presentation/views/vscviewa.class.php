@@ -13,6 +13,8 @@ abstract class vscViewA extends vscObject implements vscViewI {
 
 	protected $sContentType;
 
+	static private $oUriParser;
+
 	public function getContentType() {
 		return $this->sContentType;
 	}
@@ -129,5 +131,24 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		} catch (vscExceptionView $e) {
 			//
 		}
+	}
+
+	static public function getUriParser () {
+		if (!(self::$oUriParser instanceof vscUrlParserA)) {
+			self::$oUriParser = new vscUrlRWParser();
+		}
+		return self::$oUriParser;
+	}
+
+	static public function getCurrentSiteUri () {
+		return self::getUriParser()->getSiteUri();
+	}
+
+	static public function getCurrentUri() {
+		return self::getUriParser()->getCompleteUri(true);
+	}
+
+	static public function getParentUri ($iParent = 1) {
+		return self::getUriParser()->getCompleteParentUri(true, $iParent);
 	}
 }
