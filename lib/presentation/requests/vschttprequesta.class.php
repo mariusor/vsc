@@ -17,6 +17,7 @@ abstract class vscHttpRequestA extends vscObject {
 	private $aPostVars			= array();
 	private $aCookieVars		= array();
 	private $aSessionVars		= array();
+	private $aFiles				= array();
 
 	private $aAccept			= array();
 	private $aAcceptCharset		= array();
@@ -61,6 +62,21 @@ abstract class vscHttpRequestA extends vscObject {
 			if (isset ($_SERVER['HTTP_REFERER']))
 				$this->sReferer			= $_SERVER['HTTP_REFERER'];
 		}
+
+		if (count ($_FILES) >= 1 ) {
+			$this->aFiles = $_FILES;
+		}
+	}
+
+	public function hasFiles () {
+		return (is_array($this->aFiles) && count ($this->aFiles) >=1 );
+	}
+
+	public function getFiles() {
+		return $this->aFiles;
+	}
+
+	public function getFile ($sFileName) {
 	}
 
 	public function getServerName() {
