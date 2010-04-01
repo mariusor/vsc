@@ -29,6 +29,10 @@ class vscMapping extends vscObject {
 		$this->sRegex	= $sRegex;
 	}
 
+	public function getRegex () {
+		return $this->sRegex;
+	}
+
 	public function setResources ($aResources) {
 		$this->aResources = $aResources;
 	}
