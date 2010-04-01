@@ -29,14 +29,30 @@ class vscMapping extends vscObject {
 		$this->sRegex	= $sRegex;
 	}
 
+	public function setResources ($aResources) {
+		$this->aResources = $aResources;
+	}
+
+	protected function mergeResources ($oMap) {
+		$aLocalResources	= $this->getResources();
+		$aParentResources	= $oMap->getResources();
+		$aResources = array_merge($aLocalResources, $aParentResources);
+		// maybe I should merge the regexes too like processor_regex . '.*' . controller_regex
+
+		$this->aResources = $aResources;
+	}
+
+	protected function mergePaths ($oMap) {
+		$sParentPath = $oMap->getTemplatePath();
+		if ($sParentPath) {
+			$this->setTemplatePath($sParentPath);
+		}
+	}
+
 	public function merge ($oMap = null) {
 		if ($oMap instanceof vscMapping) {
-			$aLocalResources	= $this->getResources();
-			$aRemoteResources	= $oMap->getResources();
-			$aResources = array_merge($aLocalResources, $aRemoteResources);
-			// maybe I should merge the regexes too like processor_regex . '.*' . controller_regex
-
-			$this->aResources = $aResources;
+			$this->mergeResources ($oMap);
+			$this->mergePaths ($oMap);
 		}
 		return $this;
 	}
@@ -50,7 +66,7 @@ class vscMapping extends vscObject {
 	}
 
 	public function setTemplatePath ($sPath) {
-		$this->sViewPath = $sPath;
+		(string)$this->sViewPath .= $sPath;
 	}
 
 	public function getTemplatePath () {

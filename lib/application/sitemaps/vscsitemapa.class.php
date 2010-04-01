@@ -84,9 +84,14 @@ abstract class vscSiteMapA extends vscObject {
 		$GLOBALS['__map'] = $oMap;
 	}
 
+	/**
+	 * @return vscMapping
+	 */
 	public function getModuleMap () {
 		if (key_exists ('__map', $GLOBALS) && $GLOBALS['__map'] instanceof vscMapping) {
 			return $GLOBALS['__map'];
+		} else {
+			return new vscNull();
 		}
 	}
 
@@ -121,11 +126,14 @@ abstract class vscSiteMapA extends vscObject {
 		// Valid site map
 		if ($this->isValidMap ($sPath)) {
 			$sMap = $this->getBasePath();
+			$aResources = $this->getModuleMap()->getResources();
 
 			$this->setBasePath ($sMap . $sRegex);
-			$this->addModuleMap(new vscMapping($sPath, $sRegex));
+			$oModuleMap = new vscMapping($sPath, $sRegex);
+			$this->addModuleMap($oModuleMap);
 			include ($sPath);
 
+			$this->getModuleMap()->setResources($aResources);
 			$this->setBasePath ($sMap);
 			return $this->getModuleMap();
 		}
