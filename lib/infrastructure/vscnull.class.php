@@ -17,4 +17,8 @@ class vscNull extends vscObject {
 	public function __get ($sVarName) {
 		return $this;
 	}
+
+	public function __toString () {
+		return '';
+	}
 }
