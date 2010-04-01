@@ -5,7 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.11.19
  */
-abstract class vscModelA extends vscObject implements vscModelI {
+abstract class vscModelA extends vscNull implements vscModelI {
 	private $sOffset;
 
 	// ArrayAccess interface
@@ -64,7 +64,11 @@ abstract class vscModelA extends vscObject implements vscModelI {
 	}
 
 	public function __get ($sIncName) {
-		$oProperty = new ReflectionProperty($this, $sIncName);
+		try {
+			$oProperty = new ReflectionProperty($this, $sIncName);
+		} catch (ReflectionException $e) {
+			//
+		}
 		if (!$oProperty->isPrivate()) {
 			// setting $sIncName to be the current element
 			$this->sOffset = $sIncName;
