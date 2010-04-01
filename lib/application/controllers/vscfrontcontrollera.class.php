@@ -54,8 +54,8 @@ abstract class vscFrontControllerA extends vscObject {
 				// we had error in the controller : @todo make more error processors
 				$oProcessor = new vsc404Processor();
 				$oModel = new vscEmptyModel();
-				$oModel->setTitle('404 - Not Found');
-				$oModel->setContent($e->getMessage());
+				$oModel->setPageTitle('404 - Not Found');
+				$oModel->setPageContent($e->getMessage());
 			} catch (Exception $e) {
 				throw $e;
 			}

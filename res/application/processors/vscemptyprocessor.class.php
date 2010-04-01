@@ -6,8 +6,8 @@ class vscEmptyProcessor extends vscProcessorA {
 
 	public function handleRequest (vscHttpRequestA $oHttpRequest) {
 		$oModel = new vscEmptyModel();
-		$oModel->setTitle('[ null ]');
-		$oModel->setContent('[ NULL ]');
+		$oModel->setPageTitle('[ null ]');
+		$oModel->setPageContent('[ NULL ]');
 		return $oModel;
 	}
 }
