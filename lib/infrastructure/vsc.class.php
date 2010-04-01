@@ -53,6 +53,10 @@ class vsc extends vscObject {
 		return (php_sapi_name() == 'cli');
 	}
 
+	static public function name() {
+		return 'V<sup>S<sup>C</sup></sup>';
+	}
+
 	/**
 	 * returns an end of line, based on the environment
 	 * @return string
