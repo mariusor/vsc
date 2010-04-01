@@ -52,7 +52,11 @@ if (is_array ($this->getLinks()) && count($this->getLinks()) >= 1) {
 	<!-- hic sunt leones -->
 
 <?php
+try {
 	$sContent = $this->fetch ($this->getTemplate());
+} catch (vscExceptionPath $e) {
+	// the template could not be found
+}
 	if (!empty($sContent)) {
 		echo $sContent;
 	} else {
