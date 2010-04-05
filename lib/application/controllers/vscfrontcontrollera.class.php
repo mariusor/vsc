@@ -90,8 +90,8 @@ abstract class vscFrontControllerA extends vscObject {
 
 		if (!($oModel instanceof vscModelA)) {
 			$oModel = new vscEmptyModel();
-			$oModel->setTitle ('Warning');
-			$oModel->setContent ('Warning: the processor didn\'t return a valid model. This is probably an error');
+			$oModel->setPageTitle ('Warning');
+			$oModel->setPageContent ('Warning: the processor didn\'t return a valid model. This is probably an error');
 		}
 		$oView->setModel($oModel);
 
@@ -103,7 +103,7 @@ abstract class vscFrontControllerA extends vscObject {
 		if (is_dir($sIncPath)) {
 			$this->sTemplatePath = $sIncPath;
 		} else {
-			throw new vscExceptionController('The template path ['.$sIncPath.'] is not a folder.');
+			throw new vscExceptionController('The template path ['.$sIncPath.'] is not a valid folder.');
 		}
 	}
 }

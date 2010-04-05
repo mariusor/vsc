@@ -15,8 +15,7 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 	 */
 	public function __construct () {
 		import ('infrastructure');
-		$aVars = vsc::getHttpRequest()->getVars();
-		$this->setLocalVars ($aVars);
+		$this->setLocalVars (vsc::getHttpRequest()->getTaintedVars());
 
 		$this->init ();
 	}
