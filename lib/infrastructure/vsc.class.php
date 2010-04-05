@@ -5,6 +5,7 @@
  * @date 09.08.31
  */
 class vsc extends vscObject {
+    static private $oInstance;
 	/**
 	 * @var vscHttpRequestA
 	 */
@@ -39,7 +40,10 @@ class vsc extends vscObject {
 	}
 
 	static public function getEnv () {
-		return self;
+        if (!(self::$oInstance instanceof self)) {
+            self::$oInstance = new self();
+        }
+		return self::$oInstance;
 	}
 
 	public function isDevelopment () {
