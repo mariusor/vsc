@@ -140,6 +140,18 @@ abstract class vscHttpRequestA extends vscObject {
 		return $this->sUserAgent;
 	}
 
+    public function getGetVars() {
+        return $this->aGetVars;
+    }
+
+    public function getPostVars() {
+        return $this->aPostVars;
+    }
+
+    public function getCookieVars() {
+        return $this->aCookieVars;
+    }
+
 	/**
 	 * @return []
 	 */
