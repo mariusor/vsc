@@ -10,6 +10,7 @@
  */
 import (VSC_LIB_PATH . 'domain/domain/fields');
 import (VSC_LIB_PATH . 'domain/domain/indexes');
+import (VSC_LIB_PATH . 'domain/models');
 
 abstract class vscEntityA extends vscNull {
 	protected 	$sTableName;
@@ -34,26 +35,47 @@ abstract class vscEntityA extends vscNull {
 			$sProperty[0] = strtolower ($sProperty[0]); // lowering the first letter
 		}
 
-		if ( $sMethod == 'set' ) {
+		if ( $sMethod == 'set' && vscFieldA::isValid( $this->$sProperty)) {
 			// check for aFields with $found[1] sTableName
 			$this->$sProperty->setValue($aParameters[0]);
 			return true;
 		} else if ( $sMethod == 'get' ) {
-			return $this->$sProperty->getValue();
+			return $this->$sProperty;
 		}
 
 		return parent::__call($sMethodName, $aParameters);
 	}
 
-	public function __get ($sPropertyName) {
-		return $this->aFields[$sPropertyName];
+	public function __get ($sIncName) {
+		try {
+			$oProperty = new ReflectionProperty($this, $sIncName);
+		} catch (ReflectionException $e) {
+            parent::__get($sIncName);
+		}
+		if ($oProperty instanceof ReflectionProperty && !$oProperty->isPrivate()) {
+			return $this->$sIncName;
+		}
 	}
 
-	public function __set ($sPropertyName, $mValue) {
-		if (vscFieldA::isValid ($mValue)) {
-			$this->aFields[$sPropertyName] = $mValue;
-		} else {
-			$this->aFields[$sPropertyName]->setValue($mValue);
+	public function __set ($sIncName, $mValue) {
+        try {
+            $oProperty = new ReflectionProperty($this, $sIncName);
+        } catch (ReflectionException $e) {
+            d ($e);
+            parent::__set ($sPropertyName,$mValue);
+        }
+		$sSetterName = 'set'.ucfirst($sIncName);
+		$oSetter = new ReflectionMethod($this, $sSetterName);
+		if (!$oProperty->isPrivate()) {
+			$sSetterName = 'set'.ucfirst($sIncName);
+			$oSetter = new ReflectionMethod($this, $sSetterName);
+//			d ($oSetter);
+
+            if (vscFieldA::isValid ($mValue)) {
+                $this->$sPropertyName = $mValue;
+            } else {
+                $this->$sPropertyName->setValue($mValue);
+            }
 		}
 	}
 
@@ -63,6 +85,9 @@ abstract class vscEntityA extends vscNull {
 	 */
 	public function setTableAlias ($sAlias) {
 		$this->sTableAlias = $sAlias;
+        foreach ($this->getFields() as $oField) {
+            $oField->setAlias($sAlias);
+        }
 	}
 
 	/**
@@ -120,7 +145,12 @@ abstract class vscEntityA extends vscNull {
 	 * @return vscFieldA[]
 	 */
 	public function getFields () {
-		return $this->aFields;
+        $oRef = new ReflectionClass($this);
+        $aProperties = $oRef->getProperties(ReflectionProperty::IS_PUBLIC);
+        foreach ($aProperties as $oProperty) {
+           $aRet[$oProperty->getName()] = $oProperty->getValue($this); 
+        }
+        return $aRet;
 	}
 
 	/**
@@ -128,13 +158,12 @@ abstract class vscEntityA extends vscNull {
 	 * @return string[]
 	 */
 	public function getFieldNames ($bWithAlias = false) {
-		$aRet = array_keys($this->aFields);
-		if ($bWithAlias) {
-			foreach ($aRet as $key => $sFieldName) {
-				$aRet[$key] = $this->getTableAlias() . '.' . $sFieldName;
-			}
-		}
-		return $aRet;
+        $oRef = new ReflectionClass($this);
+        $aProperties = $oRef->getProperties(ReflectionProperty::IS_PUBLIC);
+        foreach ($aProperties as $oProperty) {
+           $aRet[] = $oProperty->getName(); 
+        }
+        return $aRet;
 	}
 
 	public function addIndex (vscIndexA $oIndex) {
@@ -185,23 +214,9 @@ abstract class vscEntityA extends vscNull {
 			}
 		}
 		return 1;
-	}
+    }
 
-	/**
-	 *
-	 * @param vscEntityA $oChild
-	 * @return bool
-	 */
-	public function loadChild (vscEntityA $oChild) {}
-
-	/**
-	 * @todo Finish IT !!
-	 * @param vscEntityA $oChild
-	 * @return bool
-	 */
-	public function join (vscEntityA $oObject) {
-		$this->addFields ($oObject->getFields (), $oObject->getTableName());
-
-		return $this;
-	}
+    static public function isValid($oIncObject) {
+        return ($oIncObject instanceof self);
+    }
 }

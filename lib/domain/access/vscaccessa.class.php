@@ -70,20 +70,23 @@ abstract class vscAccessA extends vscObject implements vscAccessI {
 	 * @return string
 	 */
 	public function outputSelectSql (vscEntityA $oInc) {
+        $aWheres = array();
 		if (empty($oInc->getAlias))
-			$oInc->setAlias ('filter');
+			$oInc->setTableAlias ('filter');
 
 		$aFieldNames = $oInc->getFieldNames();
 
 		foreach ($oInc->getFields() as $oField) {
 			if (!is_null($oField->getValue())) {
 				// I need to make something for values with IS NULL clauses
-				$aWheres = $oInc->getAlias() . '.' . $oField->getName() ;
+				$aWheres[] = $oInc->getAlias() . '.' . $oField->getName() ;
 			} else {
-				$aSelectFields[] = $oInc->getAlias() . '.' . $oField->getName();
+				$aSelectFields[] = $oInc->getTableAlias() . '.' . $oField->getName();
 			}
 		}
-		$sRet = $this->getConnection()->_SELECT (implode(', ', $aSelectFields) . $this->getConnection()->_FROM($oInc->getName())) . $oInc->getAlias() ."\n";
+        $aWheres[] = 1;
+		$sRet = $this->getConnection()->_SELECT (implode(', ', $aSelectFields) . $this->getConnection()->_FROM($oInc->getTableName())) . $oInc->getTableAlias() ."\n";
+        $sRet .= $this->getConnection()->_WHERE(implode ($this->getConnection()->_AND(), $aWheres));
 		return $sRet;
 	}
 

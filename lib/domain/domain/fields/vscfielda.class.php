@@ -13,6 +13,7 @@ abstract class vscFieldA implements vscFieldI {
 	protected  $order = null;
 	protected  $group = null;
 	protected  $where = false;
+    protected  $sAlias;
 
 	protected  $nullable = true;
 	protected  $maxLength;
@@ -85,6 +86,10 @@ abstract class vscFieldA implements vscFieldI {
 	public function setOrder ($asc = true) {
 		$this->order = (bool)$asc;
 	}
+
+    public function setAlias ($sAlias) {
+        $this->sAlias = $sAlias;
+    }
 
 	abstract protected function escape ();
 }
