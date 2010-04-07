@@ -80,7 +80,25 @@ class vscJoinA extends vscObject {
 		$this->rightTable->setAlias($this->state);
 		$rightFields	= $this->rightTable->getFields();
 
-		$this->leftTable->addFields($rightFields);
+		$this->setFields(array_merge($rightFields, $leftFields));
+	}
+
+	public function setFields ($aFields) {
+//		$oRObject = new ReflectionObject($this);
+		foreach ($aFields as $sFieldName => $oField) {
+//			if ($oRObject->hasProperty($sFieldName)) {
+//				$oRProperty = new ReflectionProperty($this, $sFieldName);
+//				if (!$oRProperty->isPrivate()) {
+//					$oRProperty->setValue($this, $oField);
+//				} else {
+//					// I should throw an access exception;
+//					d ('property is private... please replace me with an exception');
+//				}
+//			} else {
+//
+//			}
+			$this->$sFieldName = $oField;
+		}
 	}
 
 	/**
