@@ -17,7 +17,7 @@ abstract class vscModelA extends vscNull implements vscModelI {
 	}
 	public function offsetUnset($offset) {
 		if (!$oProperty->isPrivate()) {
-			unset($this->$sIncName);
+			unset ($this->$offset);
 		}
 	}
 
@@ -26,7 +26,7 @@ abstract class vscModelA extends vscNull implements vscModelI {
 	}
 
 	// Iterator interface
-	public function  current  () {
+	public function current  () {
 		return $this->offsetGet($this->sOffset);
 	}
 
@@ -36,60 +36,84 @@ abstract class vscModelA extends vscNull implements vscModelI {
 
 	public function next () {
 		$aProperties = $this->getProperties();
-		ksort($aProperties);
 		$aKeys = array_keys ($aProperties);
 
-		if (in_array($this->sOffset, $aKeys));
-			$iNext = key($aKeys)+1;
+		$iCurrent = array_search($this->sOffset, $aKeys);
 
-		return $iNext;
+		if ($iCurrent+1 < $this->count()) {
+			$this->sOffset = $aKeys[$iCurrent+1];
+		} else {
+			$this->sOffset = null;
+		}
 	}
+
 	public function rewind () {
 		$aProperties = $this->getProperties();
-		ksort($aProperties);
 		$aKeys = array_keys ($aProperties);
 
-		if (in_array($this->sOffset, $aKeys));
-			$iPrev = key($aKeys)-1;
-
-		return $iPrev;
+		$this->sOffset = $aKeys[0];
 	}
+
 	public function valid () {
-		return (in_array($this->getProperties(), $this->sOffset));
+		$oRObject = new ReflectionObject ($this);
+		return ($oRObject->hasProperty($this->sOffset) && $oRObject->getProperty($this->sOffset)->isPublic());
 	}
 
 	// Countable interface
 	public function count () {
-		return count ($this->toArray());
+		return count ($this->getProperties());
 	}
 
 	public function __get ($sIncName) {
 		try {
 			$oProperty = new ReflectionProperty($this, $sIncName);
+			if (!$oProperty->isPublic()) {
+				// try for a getter method
+				$sGetterName = 'get'.ucfirst($sIncName);
+				$oGetter = new ReflectionMethod($this, $sGetterName);
+
+				$this->sOffset = $sIncName; // ?? I wonder if setting the offset to the current read position is the right way
+				return $oGetter->invoke($this, $sIncName);
+			} else {
+				$this->sOffset = $sIncName; // ?? I wonder if setting the offset to the current read position is the right way
+				return $oProperty->getValue($this);
+			}
 		} catch (ReflectionException $e) {
-			//
+//			$this->sOffset = $sIncName;
+//			return $this->$sIncName;
 		}
-		if (!$oProperty->isPrivate()) {
-			// setting $sIncName to be the current element
-			$this->sOffset = $sIncName;
-			return $this->$sIncName;
-		}
+//		d ($sIncName, $oProperty, $oProperty->getValue($this));
+		parent::__get ($sIncName);
 	}
 
 	public function __set($sIncName, $value) {
-		$oProperty = new ReflectionProperty($this, $sIncName);
-		$sSetterName = 'set'.ucfirst($sIncName);
-		$oSetter = new ReflectionMethod($this, $sSetterName);
-//		d ($oSetter);
-		if (!$oProperty->isPrivate()) {
-			// setting $sIncName to be the current element
-			$this->sOffset = $sIncName;
-			$sSetterName = 'set'.ucfirst($sIncName);
-			$oSetter = new ReflectionMethod($this, $sSetterName);
-//			d ($oSetter);
-
-			$this->$sSetterName($value);
+		if (is_null($sIncName)) {
+			throw ReflectionError ('Can\'t set a value to a null property on the current object ['. get_class ($this).']');
 		}
+		try {
+			$oProperty = new ReflectionProperty($this, $sIncName);
+			if (!$oProperty->isPublic()) {
+				// trying for a setter
+				$sSetterName = 'set'.ucfirst($sIncName);
+				$oSetter = new ReflectionMethod($this, $sSetterName);
+
+				$oSetter->invoke($this, $value);
+			} else {
+				$oProperty->setValue($this, $value);
+			}
+
+			$this->sOffset = $sIncName;
+			return;
+		} catch (ReflectionException $e) {
+//			$this->sOffset = $sIncName;
+//			$this->$sIncName = $value;
+		}
+
+		parent::__set ($sIncName, $value);
+	}
+
+	public function __construct () {
+		$this->rewind();
 	}
 
 	private function getProperties () {
@@ -99,7 +123,7 @@ abstract class vscModelA extends vscNull implements vscModelI {
 
 		/* @var $oProperty ReflectionProperty */
 		foreach ($aProperties as $oProperty) {
-			if (!$oProperty->isPrivate()) {
+			if ($oProperty->isPublic()) {
 				$aRet[$oProperty->getName()] = $this->__get($oProperty->getName());
 			}
 		}
