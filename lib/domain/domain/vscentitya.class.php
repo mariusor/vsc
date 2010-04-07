@@ -12,7 +12,7 @@ import (VSC_LIB_PATH . 'domain/domain/fields');
 import (VSC_LIB_PATH . 'domain/domain/indexes');
 import (VSC_LIB_PATH . 'domain/models');
 
-abstract class vscEntityA extends vscNull {
+abstract class vscEntityA extends vscModelA {
 	protected 	$sTableName;
 	private 	$sTableAlias;
 	private 	$oPk;
@@ -21,12 +21,13 @@ abstract class vscEntityA extends vscNull {
 
 	final public function __construct () {
 		$this->buildObject();
+
+		parent::__construct ();
 	}
 
 	abstract protected function buildObject();
 
 	public function __call ($sMethodName, $aParameters) {
-//		d ($sMethodName, $aParameters);
 		$i = preg_match ('/(set|get)(.*)/i', $sMethodName, $found );
 		if ($i) {
 			$sMethod	= $found[1];
@@ -46,17 +47,6 @@ abstract class vscEntityA extends vscNull {
 		return parent::__call($sMethodName, $aParameters);
 	}
 
-	public function __get ($sIncName) {
-		try {
-			$oProperty = new ReflectionProperty($this, $sIncName);
-		} catch (ReflectionException $e) {
-            parent::__get($sIncName);
-		}
-		if ($oProperty instanceof ReflectionProperty && !$oProperty->isPrivate()) {
-			return $this->$sIncName;
-		}
-	}
-
 	public function __set ($sIncName, $mValue) {
         try {
             $oProperty = new ReflectionProperty($this, $sIncName);
@@ -69,7 +59,6 @@ abstract class vscEntityA extends vscNull {
 		if (!$oProperty->isPrivate()) {
 			$sSetterName = 'set'.ucfirst($sIncName);
 			$oSetter = new ReflectionMethod($this, $sSetterName);
-//			d ($oSetter);
 
             if (vscFieldA::isValid ($mValue)) {
                 $this->$sPropertyName = $mValue;
@@ -148,7 +137,7 @@ abstract class vscEntityA extends vscNull {
         $oRef = new ReflectionClass($this);
         $aProperties = $oRef->getProperties(ReflectionProperty::IS_PUBLIC);
         foreach ($aProperties as $oProperty) {
-           $aRet[$oProperty->getName()] = $oProperty->getValue($this); 
+           $aRet[$oProperty->getName()] = $oProperty->getValue($this);
         }
         return $aRet;
 	}
@@ -161,7 +150,7 @@ abstract class vscEntityA extends vscNull {
         $oRef = new ReflectionClass($this);
         $aProperties = $oRef->getProperties(ReflectionProperty::IS_PUBLIC);
         foreach ($aProperties as $oProperty) {
-           $aRet[] = $oProperty->getName(); 
+           $aRet[] = $oProperty->getName();
         }
         return $aRet;
 	}
