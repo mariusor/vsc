@@ -94,15 +94,16 @@ function __autoload ($className) {
 	if (!$fileIncluded) {
 		$fileIncluded = @include ($sFilePath);
 	}
-	if (!$fileIncluded) {
+    if (!$fileIncluded ||
+        (!in_array($className,get_declared_classes()) && !in_array($className,get_declared_interfaces()))
+    ) {
 		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexception.class.php'));
 		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexceptionpath.class.php'));
 		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexceptionautoload.class.php'));
 
 		throw new vscExceptionAutoload('Could not load class ['.$className.'] in path: ' . get_include_path());
-	} else {
-		return true;
-	}
+	} 
+    return true;
 }
 
 function getPaths () {
