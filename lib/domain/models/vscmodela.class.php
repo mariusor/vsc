@@ -124,7 +124,8 @@ abstract class vscModelA extends vscNull implements vscModelI {
 
 		/* @var $oProperty ReflectionProperty */
 		foreach ($aProperties as $oProperty) {
-			$aRet[$oProperty->getName()] = $this->__get($oProperty->getName());
+			$sName = $oProperty->getName();
+			$aRet[$sName] = $this->__get($sName);
 		}
 		return $aRet;
 	}
