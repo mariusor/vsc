@@ -51,7 +51,8 @@ abstract class vscModelA extends vscNull implements vscModelI {
 		$aProperties = $this->getProperties();
 		$aKeys = array_keys ($aProperties);
 
-		$this->sOffset = $aKeys[0];
+		if (is_array($aKeys) && isset ($aKeys[0]))
+			$this->sOffset = $aKeys[0];
 	}
 
 	public function valid () {
@@ -123,9 +124,7 @@ abstract class vscModelA extends vscNull implements vscModelI {
 
 		/* @var $oProperty ReflectionProperty */
 		foreach ($aProperties as $oProperty) {
-			if ($oProperty->isPublic()) {
-				$aRet[$oProperty->getName()] = $this->__get($oProperty->getName());
-			}
+			$aRet[$oProperty->getName()] = $this->__get($oProperty->getName());
 		}
 		return $aRet;
 	}
