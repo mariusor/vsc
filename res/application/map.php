@@ -14,7 +14,8 @@ $this->getModuleMap()->setTemplatePath (VSC_RES_PATH . 'templates');
 $this->map ('.*', VSC_RES_PATH . 'application/processors/vsc404processor.class.php');
 
 // front controllers
-$this->mapController ('rss$', VSC_RES_PATH . 'application/controllers/vscrsscontroller.class.php');
+$this->mapController ('.*\.json$', VSC_RES_PATH . 'application/controllers/vscjsoncontroller.class.php');
+$this->mapController ('.*\.rss$', VSC_RES_PATH . 'application/controllers/vscrsscontroller.class.php');
 $this->mapController ('$', VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.class.php');
 
 // fallback 404 processor for everything
