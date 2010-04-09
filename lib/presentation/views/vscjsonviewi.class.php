@@ -6,7 +6,4 @@
  * @date 10.04.09
  */
 interface vscJsonViewI {
-	function getDescription();
-	function getLanguage();
-	function getLastBuildDate();
 }

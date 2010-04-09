@@ -6,8 +6,8 @@
  * @date 10.04.09
  */
 import ('presentation/views');
-class vscJsonView extends vscViewA implements vscJsonViewI {
-	protected $sContentType = 'application/json';
+class vscTxtView extends vscViewA implements vscViewI {
+	protected $sContentType = 'text/plain';
 	public function __construct () {
 	}
 
@@ -30,6 +30,6 @@ class vscJsonView extends vscViewA implements vscJsonViewI {
     public function display ($resource_name) {}
 
 	public function getViewFolder () {
-		return 'json';
+		return 'txt';
 	}
 }

@@ -16,6 +16,7 @@ $this->map ('.*', VSC_RES_PATH . 'application/processors/vsc404processor.class.p
 // front controllers
 $this->mapController ('.*\.json$', VSC_RES_PATH . 'application/controllers/vscjsoncontroller.class.php');
 $this->mapController ('.*\.rss$', VSC_RES_PATH . 'application/controllers/vscrsscontroller.class.php');
+$this->mapController ('.*\.txt$', VSC_RES_PATH . 'application/controllers/vsctxtcontroller.class.php');
 $this->mapController ('$', VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.class.php');
 
 // fallback 404 processor for everything
