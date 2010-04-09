@@ -7,7 +7,7 @@
  */
 import ('presentation/views');
 class vscJsonView extends vscViewA implements vscJsonViewI {
-	protected $sContentType = 'application/rss+xml';
+	protected $sContentType = 'application/json';
 	public function __construct () {
 	}
 
@@ -32,8 +32,4 @@ class vscJsonView extends vscViewA implements vscJsonViewI {
 	public function getViewFolder () {
 		return 'json';
 	}
-
-	public function getDescription(){}
-	public function getLanguage(){}
-	public function getLastBuildDate(){}
 }
