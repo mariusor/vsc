@@ -5,9 +5,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.30
  */
-import ('presentation/responses');
-import ('presentation/responses/exceptions');
-import ('domain/models');
+import (VSC_LIB_PATH . 'presentation/responses');
+import (VSC_RES_PATH . 'domain/models');
 abstract class vscFrontControllerA extends vscObject {
 	private $oCurrentMap;
 
