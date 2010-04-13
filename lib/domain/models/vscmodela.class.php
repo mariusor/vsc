@@ -117,7 +117,22 @@ abstract class vscModelA extends vscNull implements vscModelI {
 		$this->rewind();
 	}
 
-	private function getProperties () {
+	/**
+	 * It should add a new property to the object
+	 * @param string $sName
+	 * @param mixed $mValue
+	 */
+	protected function addProperty ($sName, $mValue, $bIfNonExistent = false) {
+		if ($bIfNonExistent) {
+			try {
+				$this->$sName = $mValue;
+			} catch (vscExceptionUnimplemented $e) {
+//				$this->$sName = $mValue;
+			}
+		}
+	}
+
+	protected function getProperties () {
 		$aRet = array();
 		$t = new ReflectionObject($this);
 		$aProperties = $t->getProperties();
