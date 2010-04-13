@@ -8,14 +8,14 @@ class vscNull extends vscObject {
 	public function __call ($sMethodName, $aVars) {
 		if (stristr($sMethodName, 'get')) {
 			// we have a getter we return $this
-			return $this;
-		} else {
+			return new vscNull();
+		} elseif (!stristr($sMethodName, 'set')) {
 			parent::__call ($sMethodName, $aVars);
 		}
 	}
 
 	public function __get ($sVarName) {
-		return $this;
+		return new vscNull();
 	}
 
 	public function __toString () {

@@ -10,7 +10,7 @@ abstract class vscObject {
 		if (vsc::getEnv()->isDevelopment()) {
 			throw new vscExceptionUnimplemented ('Method [' . get_class($this) .'::' . $sMethodName .'] not implemented for calling.');
 		} else {
-			return $this;
+			return new vscNull();
 		}
 	}
 
@@ -18,7 +18,7 @@ abstract class vscObject {
 		if (vsc::getEnv()->isDevelopment()) {
 			throw new vscExceptionUnimplemented ('Method [' . get_class($this) .'::' . $sMethodName .'] not implemented for calling statically.');
 		} else {
-			return $this;
+			return new vscNull();
 		}
 	}
 
@@ -26,7 +26,7 @@ abstract class vscObject {
 		if (vsc::getEnv()->isDevelopment()) {
 			throw new vscExceptionUnimplemented ('Property [' . get_class($this) .'::' . $sVarName .'] not implemented for reading.');
 		} else {
-			return $this;
+			return new vscNull();
 		}
 	}
 
@@ -34,7 +34,7 @@ abstract class vscObject {
 		if (vsc::getEnv()->isDevelopment()) {
 			throw new vscExceptionUnimplemented ('Property [' . get_class($this) .'::' . $sVarName .'] not implemented for writing.');
 		} else {
-			return $this;
+			return new vscNull();
 		}
 	}
 }
