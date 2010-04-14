@@ -55,7 +55,10 @@ abstract class vscModelA extends vscNull implements vscModelI {
 			$this->sOffset = $aKeys[0];
 	}
 
-	public function valid () {
+	public function valid ($sName = null) {
+		if ($sName !== null) {
+			$this->sOffset = $sName;
+		}
 		$oRObject = new ReflectionObject ($this);
 		return ($oRObject->hasProperty($this->sOffset) && $oRObject->getProperty($this->sOffset)->isPublic());
 	}

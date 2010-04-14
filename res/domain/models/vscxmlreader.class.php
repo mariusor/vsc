@@ -26,18 +26,17 @@ class vscXmlReader extends vscModelA {
 		return $this->sXmlString;
 	}
 
-	public function buildObj() {
-		$xml = new DOMDocument();
-		if (@$xml->loadXML($this->sXmlString)) {
-			$xml->normalizeDocument();
-			$oNode = $xml->getElementById(0);
-			if ($oNode instanceof DOMElement) {
-				return $this->parseXmlToArray ($oNode->childNodes);
-			} else {
-				return array();
-			}
-		} else {
-			return array();
+	public function getPayload () {
+		return $this->oPayload;
+	}
+
+	public function buildObj () {
+		$this->oPayload = new DOMDocument();
+		$this->oPayload->strictErrorChecking = false;
+
+
+		if ($this->oPayload->loadXML($this->getString())) {
+			$this->oPayload->normalizeDocument();
 		}
 	}
 }
