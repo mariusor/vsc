@@ -135,20 +135,36 @@ abstract class vscModelA extends vscNull implements vscModelI {
 		}
 	}
 
-	protected function getProperties () {
+	protected function getProperties ($bAll = false) {
 		$aRet = array();
 		$t = new ReflectionObject($this);
 		$aProperties = $t->getProperties();
 
 		/* @var $oProperty ReflectionProperty */
 		foreach ($aProperties as $oProperty) {
-			$sName = $oProperty->getName();
-			$aRet[$sName] = $this->__get($sName);
+			if ($bAll || (!$bAll && $oProperty->isPublic() )) {
+				$sName = $oProperty->getName();
+				$aRet[$sName] = $this->__get($sName);
+			}
 		}
 		return $aRet;
 	}
 
+	/**
+	 * recursively transform all properties into arrays
+	 */
 	public function toArray () {
-		return $this->getProperties();
+		$aProperties = $this->getProperties(true);
+		foreach ($aProperties as $sName => $oProperty) {
+			if ($oProperty instanceof vscModelA) {
+				$aRet[$sName] = $oProperty->toArray();
+			} elseif (is_array($oProperty) || is_scalar($oProperty)) {
+				$aRet[$sName] = $oProperty;
+			} else {
+				$aRet[$sName] = var_export($oProperty,true);
+			}
+		}
+
+		return $aRet;
 	}
 }

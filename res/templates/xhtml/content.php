@@ -15,6 +15,17 @@ These settings are defined in one of the following files:
 	};
 ?>
 </ul>
-<?php /*/ ?>The matching regular expression for the current URI is: <pre> <?php $this->getMap()->getRegex()?></pre> <?php /**/ ?>
+<?php /**/ ?>The matching regular expression for the current URI is: <pre> <?php echo $this->getMap()->getRegex(); ?> => <?php echo $this->getMap()->getPath(); ?> </pre> <?php /**/ ?>
+<?php
+try {
+	echo '<ul>'."\n";
+	echo '<li style="list-style:none; margin-left:-2em">Model type: <strong>' . get_class($this->getModel()) . '</strong></li>'."\n";
+	echo $this->fetch (dirname(__FILE__) . '/model.php');
+	echo '</ul>'."\n";
+} catch (vscException $e) {
+	d ($e);
+}
+
+?>
 </div>
 

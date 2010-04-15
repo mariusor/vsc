@@ -1,12 +1,23 @@
 <?php
-foreach ($mValue as $sName => $mValue) {
-	$sType = gettype($mValue);
-	echo '<dt>'. $sName . ' ['.($sType != 'object' ? $sType : get_class($mValue)).'] </dt>'."\n";
-	if ($mValue instanceof Iterator || is_array($mValue)) {
-		echo '<dl>'."\n";
-		include (__FILE__);
-		echo '</dl>'."\n";
-	} else {
-		echo '<dd> Value: ' . $mValue . '</dd>'."\n";
+/* @var $this vscViewA */
+foreach ($model->toArray() as $sName => $mValue) {
+	if (is_scalar($mValue)) {
+		echo '<li><strong>' . $sName.'</strong> ➞ '."\n";
+		echo $mValue.'</li>'."\n";
+		continue;
+	} /**/elseif (is_array($mValue)) {
+		$mValue = new vscArrayModel ($mValue);
 	}
+
+	if ($mValue instanceof vscModelA) {
+		$this->setModel ($mValue);
+		echo '<li> <strong>'.(is_int($sName) ? '#' : '').$sName.'</strong> [' . get_class ($mValue) . '] '.(isset($mValue->length) ? ' (' . $mValue->length . ')' : '')."\n";
+		echo '<ul>'."\n";
+		echo $this->fetch (__FILE__);
+		echo '</ul></li>'."\n";
+		continue;
+	}
+
+	echo '<li> <strong>'.$sName.'</strong> ➞ '."\n";
+	echo var_export ($mValue, true).'</li>'."\n";
 }

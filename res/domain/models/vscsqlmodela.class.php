@@ -9,7 +9,7 @@
 import ('domain/models');
 import ('domain/access/sqldrivers');
 
-abstract class vscSqlModelA extends vscEmptyModel {
+abstract class vscSqlModelA extends vscModelA {
 	private $oConnection;
 
 	public function setConnection (vscSqlDriverA $oConnection) {
@@ -42,7 +42,7 @@ abstract class vscSqlModelA extends vscEmptyModel {
         $aProperties = $oRef->getProperties(ReflectionProperty::IS_PUBLIC);
         foreach ($aProperties as $oProperty) {
             if (vscEntityA::isValid ($oProperty)) {
-                $aRet[$oProperty->getName()] = $oProperty->getValue($this); 
+                $aRet[$oProperty->getName()] = $oProperty->getValue($this);
             }
         }
         return $aRet;

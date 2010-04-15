@@ -9,9 +9,11 @@
 import ('domain/models');
 class vscArrayModel extends vscModelA {
 	protected $aContent = array();
+	public $length;
 
 	public function __construct ($aIncArray = array()) {
 		$this->aContent = $aIncArray;
+		$this->length  = count ($aIncArray);
 
 		parent::__construct();
 	}

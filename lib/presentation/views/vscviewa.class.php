@@ -66,7 +66,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		if ($this->oModel instanceof vscModelA) {
 			return $this->oModel;
 		} else {
-			throw new vscExceptionView('The current model is null');
+			throw new vscExceptionView('The current model is invalid');
 		}
 	}
 
