@@ -1,9 +1,9 @@
 <?php
-/* @var $this vscViewA */
+/* @var $this vscTxtViewA */
 foreach ($model->toArray() as $sName => $mValue) {
 	if (is_scalar($mValue)) {
-		echo '<li><strong>' . $sName.'</strong> ➞ '."\n";
-		echo $mValue.'</li>'."\n";
+		echo $sName.' ➞ '."\n";
+		echo $mValue.''."\n";
 		continue;
 	} /**/elseif (is_array($mValue)) {
 		$mValue = new vscArrayModel ($mValue);
@@ -11,13 +11,13 @@ foreach ($model->toArray() as $sName => $mValue) {
 
 	if ($mValue instanceof vscModelA) {
 		$this->setModel ($mValue);
-		echo '<li> <strong>'.(is_int($sName) ? '#' : '').$sName.'</strong> [' . get_class ($mValue) . '] '.(isset($mValue->length) ? ' (' . $mValue->length . ')' : '')."\n";
-		echo '<ul>'."\n";
+		echo ' '.(is_int($sName) ? '#' : '').$sName.' [' . get_class ($mValue) . '] '.(isset($mValue->length) ? ' (' . $mValue->length . ')' : '')."\n";
+		echo "\n";
 		echo $this->fetch (__FILE__);
-		echo '</ul></li>'."\n";
+		echo "\n";
 		continue;
 	}
 
-	echo '<li> <strong>'.$sName.'</strong> ➞ '."\n";
-	echo var_export ($mValue, true).'</li>'."\n";
+	echo $sName.' ➞ '."\n";
+	echo var_export ($mValue, true).''."\n";
 }

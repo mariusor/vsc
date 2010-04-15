@@ -60,7 +60,7 @@ try {
 	if (!empty($sContent)) {
 		echo $sContent;
 	} else {
-		include ('content.php');
+		echo $this->fetch(dirname(__FILE__) . '/content.php');
 	}
 ?>
 
