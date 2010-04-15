@@ -1,7 +1,7 @@
 <?php /* @var $this vscJsonTxtA  */ ?>
 Default TXT template
 
-This is the default txt template from the <?php echo vsc::name(); ?> framework.
+This is the default txt template from the <?php echo ereg_replace("<[a-z\/\":=]*>", '', vsc::name()); ?> framework.
 In order to add content, you need to:
 
 	- add the <?php echo $this->getViewFolder() ?> folder in your module's template folder: <?php echo $this->getMap()->getTemplatePath(); ?>
