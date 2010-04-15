@@ -9,7 +9,7 @@
 		<language><?php echo $this->getLanguage() ?></language>
 		<lastBuildDate><?php echo $this->getLastBuildDate() ?></lastBuildDate>
 		<docs>http://blogs.law.harvard.edu/tech/rss</docs>
-		<?php
+<?php
 try {
 	$sContent = $this->fetch ($this->getTemplate());
 } catch (vscExceptionPath $e) {
@@ -20,7 +20,7 @@ try {
 	} else {
 		include ('content.php');
 	}
-		?>
+?>
 
 	</channel>
 </rss>

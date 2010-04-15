@@ -40,7 +40,7 @@ class vscRssReader extends vscXmlReader {
 	public function buildObj() {
 		parent::buildObj();
 
-		$oNode = $this->getPayload()->getElementsByTagName('channel')->item(0);
+		$oNode = $this->getDom()->getElementsByTagName('channel')->item(0);
 		if ($oNode instanceof DOMElement) {
 			$this->parseToEntity ($oNode->childNodes);
 		}

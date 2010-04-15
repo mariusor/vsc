@@ -9,7 +9,7 @@ import ('domain/models');
 import ('domain/exceptions');
 class vscXmlReader extends vscModelA {
 	private $sXmlString;
-	private $oPayload;
+	private $oDOM;
 
 	public function __construct () {
 		if (!extension_loaded('dom')) {
@@ -26,17 +26,17 @@ class vscXmlReader extends vscModelA {
 		return $this->sXmlString;
 	}
 
-	public function getPayload () {
-		return $this->oPayload;
+	public function getDom () {
+		return $this->oDOM;
 	}
 
 	public function buildObj () {
-		$this->oPayload = new DOMDocument();
-		$this->oPayload->strictErrorChecking = false;
+		$this->oDOM = new DOMDocument();
+		$this->oDOM->strictErrorChecking = false;
 
 
-		if ($this->oPayload->loadXML($this->getString())) {
-			$this->oPayload->normalizeDocument();
+		if ($this->oDOM->loadXML($this->getString())) {
+			$this->oDOM->normalizeDocument();
 		}
 	}
 }
