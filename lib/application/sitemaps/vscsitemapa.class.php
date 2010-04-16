@@ -65,11 +65,11 @@ abstract class vscSiteMapA extends vscObject {
 	 * @param string $sPath
 	 * @return bool
 	 */
-	public function isValidMap ($sPath) {
+	static public function isValidMap ($sPath) {
 		return ((is_file ($sPath) && basename ($sPath) == 'map.php'));
 	}
 
-	public function isValidObject ($sPath) {
+	static public function isValidObject ($sPath) {
 		return (is_file ($sPath) && substr ($sPath, -10) == '.class.php');
 	}
 
@@ -99,7 +99,7 @@ abstract class vscSiteMapA extends vscObject {
 		if (!$sRegex) {
 			throw new vscExceptionSitemap ('An URI must be present.');
 		}
-		if ($this->isValidObject ($sPath)) {
+		if (self::isValidObject ($sPath)) {
 			$oNewMap 	= new vscMapping($sPath, $sRegex);
 
 			$this->aControllerMaps[$sRegex] = $oNewMap;
@@ -124,7 +124,7 @@ abstract class vscSiteMapA extends vscObject {
 		}
 
 		// Valid site map
-		if ($this->isValidMap ($sPath)) {
+		if (self::isValidMap ($sPath)) {
 			$sMap = $this->getBasePath();
 			$aResources = $this->getModuleMap()->getResources();
 
@@ -139,7 +139,7 @@ abstract class vscSiteMapA extends vscObject {
 		}
 
 		// Valid processor
-		if ($this->isValidObject ($sPath)) {
+		if (self::isValidObject ($sPath)) {
 			return $this->addMap ($sRegex, $sPath);
 		}
 

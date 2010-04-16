@@ -85,6 +85,18 @@ class vscMapping extends vscObject {
 		return $this->sMainTemplate;
 	}
 
+	public function getModulePath () {
+		if (vscSiteMapA::isValidMap($this->sPath)) {
+			return realpath (dirname($this->sPath) ) . DIRECTORY_SEPARATOR;
+		} else {
+			return false;
+		}
+	}
+
+	public function getModuleName() {
+		return basename ($this->getModulePath());
+	}
+
 	public function getPath () {
 		return $this->sPath;
 	}
