@@ -2,22 +2,26 @@
 /* @var $this vscTxtViewA */
 foreach ($model->toArray() as $sName => $mValue) {
 	if (is_scalar($mValue)) {
-		echo $sName.' ➞ '."\n";
-		echo $mValue.''."\n";
+		vscString::_echo ("\t", $GLOBALS['depth']);
+		echo $sName.' = ';
+		echo $mValue . "\n";
 		continue;
-	} /**/elseif (is_array($mValue)) {
+	} elseif (is_array($mValue)) {
 		$mValue = new vscArrayModel ($mValue);
 	}
 
 	if ($mValue instanceof vscModelA) {
 		$this->setModel ($mValue);
-		echo ' '.(is_int($sName) ? '#' : '').$sName.' [' . get_class ($mValue) . '] '.(isset($mValue->length) ? ' (' . $mValue->length . ')' : '')."\n";
-		echo "\n";
+		vscString::_echo ("\t", $GLOBALS['depth']);
+		echo (is_int($sName) ? '#' : '').$sName.' [' . get_class ($mValue) . '] '.(isset($mValue->length) ? ' (' . $mValue->length . ')' : ''). "\n";
+		$GLOBALS['depth']++;
 		echo $this->fetch (__FILE__);
 		echo "\n";
+		$GLOBALS['depth']--;
 		continue;
 	}
 
-	echo $sName.' ➞ '."\n";
-	echo var_export ($mValue, true).''."\n";
+	vscString::_echo ("\t", $GLOBALS['depth']);
+	echo $sName.' = ';
+	echo var_export ($mValue, true)."\n";
 }

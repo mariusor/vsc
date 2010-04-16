@@ -1,7 +1,7 @@
 <?php /* @var $this vscJsonTxtA  */ ?>
 Default TXT template
 
-This is the default txt template from the <?php echo ereg_replace("<[a-z\/\":=]*>", '', vsc::name()); ?> framework.
+This is the default txt template from the <?php echo vscString::stripTags(vsc::name()); ?> framework.
 In order to add content, you need to:
 
 	- add the <?php echo $this->getViewFolder() ?> folder in your module's template folder: <?php echo $this->getMap()->getTemplatePath(); ?>
@@ -14,7 +14,7 @@ These settings are defined in one of the following files:
 <?php
 	foreach (get_included_files() as $sFileName) {
 		if (stristr($sFileName, 'map.php'))
-			echo '   - ' . $sFileName . "\n";
+			echo "\t" .  '- ' . $sFileName . "\n";
 	};
 ?>
 
@@ -22,6 +22,7 @@ These settings are defined in one of the following files:
 
 <?php
 try {
+	$GLOBALS['depth'] = 0;
 	echo "\n";
 	echo 'Model type: ' . get_class($this->getModel()) . "\n";
 	echo $this->fetch (dirname(__FILE__) . '/model.php');

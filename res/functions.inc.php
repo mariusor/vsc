@@ -29,23 +29,6 @@ function isCli () {
 	return (php_sapi_name() == 'cli');
 }
 
-/**
- * returns an end of line, based on the environment
- * @return string
- */
-function nl () {
-	return isCli() ? "\n" : '<br/>' . "\n";
-}
-
-/**
- * Removes all extra spaces from a string
- * @param string $s
- * @return string
- */
-function alltrim ($s) {
-	return trim (preg_replace('/\s+/', ' ', $s));
-}
-
 function d () {
 	$aRgs = func_get_args();
 	$iExit = 1;
@@ -99,9 +82,9 @@ function __autoload ($className) {
          !in_array($className,get_declared_interfaces())
         )
     ) {
-		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexception.class.php'));
-		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexceptionpath.class.php'));
-		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexceptionautoload.class.php'));
+		include (realpath(VSC_LIB_PATH . 'exceptions/vscexception.class.php'));
+		include (realpath(VSC_LIB_PATH . 'exceptions/vscexceptionpath.class.php'));
+		include (realpath(VSC_LIB_PATH . 'exceptions/vscexceptionautoload.class.php'));
 
 		throw new vscExceptionAutoload('Could not load class ['.$className.'] in path: ' . get_include_path());
 	}
