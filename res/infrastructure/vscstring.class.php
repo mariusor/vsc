@@ -32,7 +32,7 @@ class vscString {
 	 * @param string $s
 	 * @return string
 	 */
-	static public function alltrim ($sString) {
+	static public function allTrim ($sString) {
 		return trim (ereg_replace('/\s+/', ' ', $sString));
 	}
 }

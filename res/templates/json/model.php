@@ -1,9 +1,14 @@
 <?php
 /* @var $this vscJsonViewA */
-foreach ($model->toArray() as $sName => $mValue) {
+$aArray = $model->toArray();
+$mEnd = end ($aArray);
+$sEndKey = key ($aArray);
+foreach ($aArray as $sName => $mValue) {
 	if (is_scalar($mValue)) {
-		echo '"' . $sName.'" : ';
-		echo '"' . $mValue.'"'."\n";
+		vscString::_echo ("\t", $GLOBALS['depth']);
+		echo '"' . $sName.'": ';
+		echo '"' . vscString::stripEntities($mValue). '"' . ($sName != $sEndKey ? ',' : '') . "\n";
+
 		continue;
 	} /**/elseif (is_array($mValue)) {
 		$mValue = new vscArrayModel ($mValue);
@@ -11,13 +16,18 @@ foreach ($model->toArray() as $sName => $mValue) {
 
 	if ($mValue instanceof vscModelA) {
 		$this->setModel ($mValue);
-		echo (!is_int($sName) ? '"'.$sName.'"' : $sName).' : ';
+		vscString::_echo ("\t", $GLOBALS['depth']);
+		echo '"'.$sName.'": ';
 		echo '{'."\n";
+		$GLOBALS['depth']++;
 		echo $this->fetch (__FILE__);
-		echo '}'."\n";
+		vscString::_echo ("\t", $GLOBALS['depth']-1);
+		echo '}' . ($sName != $sEndKey && $mEnd != $mValue ? ',' : '') . "\n";
+		$GLOBALS['depth']--;
 		continue;
 	}
 
+	vscString::_echo ("\t", $GLOBALS['depth']);
 	echo '"'.$sName.'" : ';
-	echo '"' . var_export ($mValue, true).'"'."\n";
+	echo '"' . var_export ($mValue, true).'"' . ($sName != $sEndKey ? ',' : '') . "\n";
 }

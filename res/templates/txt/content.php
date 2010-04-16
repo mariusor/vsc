@@ -30,7 +30,4 @@ try {
 } catch (vscException $e) {
 	d ($e);
 }
-
 ?>
-
-
