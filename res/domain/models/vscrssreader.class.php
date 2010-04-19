@@ -15,7 +15,7 @@ class vscRssReader extends vscXmlReader {
 	public $language;
 	public $pubDate;
 	public $lastBuildDate;
-	private $items;
+	private $items = array();
 
 	public function getItems () {
 		return $this->items;

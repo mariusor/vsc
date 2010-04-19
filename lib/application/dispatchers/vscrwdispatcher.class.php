@@ -28,7 +28,7 @@ class vscRwDispatcher extends vscDispatcherA {
 			mb_internal_encoding('utf-8');
 			$sUri = $this->getRequest()->getUri(true); // get it as a urldecoded string
 			foreach ($aRegexes as $sRegex) {
-				$iMatch			= mb_eregi (str_replace('/', '\/', $sRegex),  $sUri, $aMatches);
+				$iMatch			= preg_match ('/' . str_replace('/', '\/', $sRegex). '/i' ,  $sUri, $aMatches);
 				if ($iMatch) {
 					break;
 				}
