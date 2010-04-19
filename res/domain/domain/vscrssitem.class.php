@@ -8,6 +8,7 @@
 class vscRssItem extends vscModelA {
 	public $title;
 	public $link;
+	public $category;
 	public $description;
 	public $pubDate;
 	public $guid;
@@ -25,7 +26,15 @@ class vscRssItem extends vscModelA {
 					$this->valid ($sName)
 				) {
 					try {
-						$this->$sName = $oChildNode->nodeValue;
+						if (!is_null ($this->$sName)) {
+							$sInitial = $this->$sName;
+							if (!is_array ($sInitial)) {
+								$sInitial = array ($sInitial);
+							}
+							$this->$sName = array_merge($sInitial,array($oChildNode->nodeValue));
+						} else {
+							$this->$sName = $oChildNode->nodeValue;
+						}
 					} catch (vscExceptionUnimplemented $e) {
 						// problem
 					}
