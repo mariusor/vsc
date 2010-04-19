@@ -141,14 +141,14 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	}
 
 	static public function getCurrentSiteUri () {
-		return self::getUriParser()->getSiteUri();
+		return htmlspecialchars(self::getUriParser()->getSiteUri());
 	}
 
 	static public function getCurrentUri() {
-		return self::getUriParser()->getCompleteUri(true);
+		return htmlspecialchars(self::getUriParser()->getCompleteUri(true));
 	}
 
 	static public function getParentUri ($iParent = 1) {
-		return self::getUriParser()->getCompleteParentUri(true, $iParent);
+		return htmlspecialchars(self::getUriParser()->getCompleteParentUri(true, $iParent));
 	}
 }
