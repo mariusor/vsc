@@ -56,6 +56,25 @@ class vscJsonReader extends vscModelA {
 		return $this->oPayload;
 	}
 
+	public function getError ($iError) {
+		switch($iLastError) {
+		case JSON_ERROR_DEPTH:
+			$sLastError = 'Maximum stack depth exceeded';
+			break;
+		case JSON_ERROR_CTRL_CHAR:
+			$sLastError = 'Unexpected control character found';
+			break;
+		case JSON_ERROR_SYNTAX:
+			$sLastError = 'Syntax error, malformed JSON';
+			break;
+		case JSON_ERROR_NONE:
+		default:
+			$sLastError = 'No errors';
+			break;
+		}
+		return $sLastError;
+	}
+
 	public function buildObj() {
 		$oPayload	= json_decode($this->sJsonString);
 		$iLastError	= json_last_error();
@@ -64,22 +83,7 @@ class vscJsonReader extends vscModelA {
 				$this->addProperty ($sName, $oStd, true);
 			}
 		} else {
-			switch($iLastError) {
-			case JSON_ERROR_DEPTH:
-				$sLastError = 'Maximum stack depth exceeded';
-				break;
-			case JSON_ERROR_CTRL_CHAR:
-				$sLastError = 'Unexpected control character found';
-				break;
-			case JSON_ERROR_SYNTAX:
-				$sLastError = 'Syntax error, malformed JSON';
-				break;
-			case JSON_ERROR_NONE:
-				$sLastError = 'No errors';
-				break;
-			}
-
-			throw new vscExceptionDomain('The JSON string contains errors: ['.$sLastError.']');
+			throw new vscExceptionDomain('The JSON string contains errors: [' . $this->getError($iLastError) . ']');
 		}
 	}
 }

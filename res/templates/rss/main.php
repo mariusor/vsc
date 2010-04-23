@@ -3,11 +3,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<atom:link href="<?php echo self::getCurrentUri(); ?>" rel="self" type="application/rss+xml" />
-		<title><?php echo $this->getTitle(); ?></title>
+		<title><?php echo htmlspecialchars($this->getTitle(), ENT_QUOTES, 'UTF-8'); ?></title>
 		<link><?php echo self::getCurrentSiteUri(); ?></link>
-		<description><?php echo $this->getDescription() ?></description>
-		<language><?php echo $this->getLanguage() ?></language>
-		<lastBuildDate><?php echo $this->getLastBuildDate() ?></lastBuildDate>
+		<description><?php echo htmlspecialchars($this->getDescription(), ENT_QUOTES, 'UTF-8') ?></description>
+		<language><?php echo ($this->getLanguage() != '' ? $this->getLanguage() : 'EN') ?></language>
+		<lastBuildDate><?php echo ($this->getLastBuildDate() != '' ? $this->getLastBuildDate() : date('%c')); ?></lastBuildDate>
 		<docs>http://blogs.law.harvard.edu/tech/rss</docs>
 <?php
 try {
