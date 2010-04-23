@@ -100,12 +100,15 @@ abstract class vscSiteMapA extends vscObject {
 			throw new vscExceptionSitemap ('An URI must be present.');
 		}
 		if (self::isValidObject ($sPath)) {
-			$oNewMap 	= new vscMapping($sPath, $sRegex);
+			$sKey = $this->getBasePath() . $sRegex;
+			if (!is_array($this->aControllerMaps) || !key_exists($sKey, $this->aControllerMaps)) {
+				$oNewMap 	= new vscMapping($sPath, $sKey);
 
-			$this->aControllerMaps[$sRegex] = $oNewMap;
-			$this->setBasePath($sRegex);
+				$this->aControllerMaps[$sKey] = $oNewMap;
+				$this->setBasePath($sRegex);
 
-			return $oNewMap;
+				return $oNewMap;
+			}
 		}
 	}
 
