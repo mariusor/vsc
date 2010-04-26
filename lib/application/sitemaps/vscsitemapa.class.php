@@ -99,13 +99,12 @@ abstract class vscSiteMapA extends vscObject {
 		if (!$sRegex) {
 			throw new vscExceptionSitemap ('An URI must be present.');
 		}
-		if (self::isValidObject ($sPath)) {
-			$sKey = $this->getBasePath() . $sRegex;
-			if (!is_array($this->aControllerMaps) || !key_exists($sKey, $this->aControllerMaps)) {
-				$oNewMap 	= new vscMapping($sPath, $sKey);
 
+		if (self::isValidObject ($sPath)) {
+			$sKey = $this->getModuleMap()->getRegex() . $sRegex;
+			if (!is_array($this->aControllerMaps) || !key_exists($sKey, $this->aControllerMaps)) {
+				$oNewMap 	= new vscMapping ($sPath, $sKey);
 				$this->aControllerMaps[$sKey] = $oNewMap;
-				$this->setBasePath($sRegex);
 
 				return $oNewMap;
 			}
@@ -128,6 +127,7 @@ abstract class vscSiteMapA extends vscObject {
 
 		// Valid site map
 		if (self::isValidMap ($sPath)) {
+			$oCurrentMap = $this->getModuleMap();
 			$sMap = $this->getBasePath();
 			$aResources = $this->getModuleMap()->getResources();
 
@@ -136,8 +136,10 @@ abstract class vscSiteMapA extends vscObject {
 			$this->addModuleMap($oModuleMap);
 			include ($sPath);
 
+			$this->addModuleMap($oCurrentMap);
 			$this->getModuleMap()->setResources($aResources);
 			$this->setBasePath ($sMap);
+
 			return $this->getModuleMap();
 		}
 
