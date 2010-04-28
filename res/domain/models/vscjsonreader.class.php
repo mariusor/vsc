@@ -57,7 +57,7 @@ class vscJsonReader extends vscModelA {
 	}
 
 	public function getError ($iError) {
-		switch($iLastError) {
+		switch($iError) {
 		case JSON_ERROR_DEPTH:
 			$sLastError = 'Maximum stack depth exceeded';
 			break;
