@@ -34,7 +34,7 @@ abstract class vscAccessA extends vscObject implements vscAccessI {
 	 * Outputs the SQL necessary for creating the table
 	 * @return string
 	 */
-	public function outputCreateSQL (vscEntityA $oInc) {
+	public function outputCreateSQL (vscDomainObjectA $oInc) {
 		$sRet = $this->getConnection()->_CREATE ($oInc->getName()) . "\n";
 		$sRet .= ' ( ' . "\n";
 
@@ -69,7 +69,7 @@ abstract class vscAccessA extends vscObject implements vscAccessI {
 	 * @TODO - next item on the agenda
 	 * @return string
 	 */
-	public function outputSelectSql (vscEntityA $oInc) {
+	public function outputSelectSql (vscDomainObjectA $oInc) {
         $aWheres = array();
 		if (empty($oInc->getAlias))
 			$oInc->setTableAlias ('filter');

@@ -41,30 +41,30 @@ abstract class vscSqlModelA extends vscModelA {
         $oRef = new ReflectionClass($this);
         $aProperties = $oRef->getProperties(ReflectionProperty::IS_PUBLIC);
         foreach ($aProperties as $oProperty) {
-            if (vscEntityA::isValid ($oProperty)) {
+            if (vscDomainObjectA::isValid ($oProperty)) {
                 $aRet[$oProperty->getName()] = $oProperty->getValue($this);
             }
         }
         return $aRet;
     }
 
-    public function addJoin (vscEntityA $oRightObj, vscFieldA $oRightField, vscEntityA $oLeftObj, vscFieldA $oLeftField) {
+    public function addJoin (vscDomainObjectA $oRightObj, vscFieldA $oRightField, vscDomainObjectA $oLeftObj, vscFieldA $oLeftField) {
 
     }
 
 	/**
 	 *
-	 * @param vscEntityA $oChild
+	 * @param vscDomainObjectA $oChild
 	 * @return bool
 	 */
-	public function loadChild (vscEntityA $oChild) {}
+	public function loadChild (vscDomainObjectA $oChild) {}
 
 	/**
 	 * @todo Finish IT !!
-	 * @param vscEntityA $oChild
+	 * @param vscDomainObjectA $oChild
 	 * @return bool
 	 */
-	public function join (vscEntityA $oObject) {
+	public function join (vscDomainObjectA $oObject) {
 		$this->addFields ($oObject->getFields (), $oObject->getTableName());
 
 		return $this;

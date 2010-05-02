@@ -15,11 +15,11 @@ class vscJoinA extends vscObject {
 	protected	$state;
 	protected	$type;
 	/**
-	 * @var vscEntityA $leftTable
+	 * @var vscDomainObjectA $leftTable
 	 */
 	protected	$leftTable;
 	/**
-	 * @var vscEntityA $rightTable
+	 * @var vscDomainObjectA $rightTable
 	 */
 	protected	$rightTable;
 
@@ -35,8 +35,8 @@ class vscJoinA extends vscObject {
 
 	public function __construct ($type, &$lt, &$rt, &$lf, &$rf, $state) {
 		if (
-			$rt instanceof vscEntityA ||
-			$lt instanceof vscEntityA
+			$rt instanceof vscDomainObjectA ||
+			$lt instanceof vscDomainObjectA
 		) {
 			$this->leftTable	= &$lt;
 			$this->rightTable	= &$rt;

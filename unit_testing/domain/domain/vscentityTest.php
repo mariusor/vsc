@@ -8,7 +8,7 @@ include_once ('fixtures/dummytable.class.php');
 
 class vscEntityTest extends Snap_UnitTestCase {
 	/**
-	 * @var vscEntityA
+	 * @var vscDomainObjectA
 	 */
 	private $state;
 
@@ -23,7 +23,7 @@ class vscEntityTest extends Snap_UnitTestCase {
 
 	public function testInstantiation (){
 		$this->assertIsA($this->state, 'dummyTable');
-		$this->assertIsA($this->state, 'vscEntityA');
+		$this->assertIsA($this->state, 'vscDomainObjectA');
 	}
 
 	public function testFields () {
