@@ -6,11 +6,49 @@
  * @date 10.01.03
  */
 
+import ('domain/domain');
 import ('domain/models');
 import ('domain/access/sqldrivers');
 
-abstract class vscSqlModelA extends vscModelA {
+abstract class vscSqlModelA extends vscModelA implements vscDomainObjectI {
 	private $oConnection;
+
+	public function getTableName() {}
+
+	/**
+	 * @param vscFieldA[] $aFields
+	 * @param string $sAlias
+	 * @return void
+	 */
+	public function addFields ($aFields, $sAlias) {}
+
+	/**
+	 * @param array $aIncField
+	 * @return void
+	 */
+	public function addField ($aIncField) {}
+
+	/**
+	 * @return vscFieldA[]
+	 */
+	public function getFields () {
+		$aReturnArray = array();
+		foreach ($this->getDomainObjects() as $oDomain) {
+			$aReturnArray = array_merge ($aReturnArray, $oDomain->getFields());
+		}
+
+		return $aReturnArray;
+	}
+
+	/**
+	 * gets all the column names as an array
+	 * @return string[]
+	 */
+	public function getFieldNames ($bWithAlias = false) {}
+
+	public function addIndex (vscIndexA $oIndex) {}
+
+	public function getIndexes ($bWithPrimaryKey = false) {}
 
 	public function setConnection (vscSqlDriverA $oConnection) {
 		$this->oConnection = $oConnection;
@@ -38,10 +76,13 @@ abstract class vscSqlModelA extends vscModelA {
 	abstract public function getDatabaseName();
 
     public function getDomainObjects () {
+    	$aRet = array();
         $oRef = new ReflectionClass($this);
         $aProperties = $oRef->getProperties(ReflectionProperty::IS_PUBLIC);
+
+        /* $oProperty ReflectionProperty */
         foreach ($aProperties as $oProperty) {
-            if (vscDomainObjectA::isValid ($oProperty)) {
+            if (vscDomainObjectA::isValid ($oProperty->getValue($this))) {
                 $aRet[$oProperty->getName()] = $oProperty->getValue($this);
             }
         }
@@ -49,7 +90,8 @@ abstract class vscSqlModelA extends vscModelA {
     }
 
     public function addJoin (vscDomainObjectA $oRightObj, vscFieldA $oRightField, vscDomainObjectA $oLeftObj, vscFieldA $oLeftField) {
-
+		$oRightObj->setTableAlias('t1');
+		$oLeftObj->setTableAlias('t2');
     }
 
 	/**

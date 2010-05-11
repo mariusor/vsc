@@ -87,8 +87,16 @@ abstract class vscFieldA implements vscFieldI {
 		$this->order = (bool)$asc;
 	}
 
+	public function hasAlias () {
+        return !empty($this->sAlias);
+    }
+
     public function setAlias ($sAlias) {
         $this->sAlias = $sAlias;
+    }
+
+    public function getAlias () {
+        return $this->sAlias;
     }
 
 	abstract protected function escape ();
