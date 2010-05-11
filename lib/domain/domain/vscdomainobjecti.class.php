@@ -1,44 +1,26 @@
 <?php
+/**
+ * @package vsc_domain
+ * @subpackage domain
+ * @author marius orcsik <marius@habarnam.ro>
+ * @date 10.01.28
+ */
+
 interface vscDomainObjectI {
-	/**
-	 * @param string $sAlias
-	 * @return void
-	 */
-	public function setTableAlias ($sAlias);
-
-	/**
-	 * @return string
-	 */
-	public function getTableAlias ();
-
-	/**
-	 * @param string $sName
-	 * @return void
-	 */
-	protected function setTableName ($sName);
-
-	public function getTableName ();
-
-	/**
-	 * @param vscFieldA $oIndex
-	 * @return void
-	 */
-	public function setPrimaryKey ();
-
-	public function getPrimaryKey ();
+	public function getTableName();
 
 	/**
 	 * @param vscFieldA[] $aFields
 	 * @param string $sAlias
 	 * @return void
 	 */
-	private function addFields ($aFields, $sAlias);
+	public function addFields ($aFields, $sAlias);
 
 	/**
 	 * @param array $aIncField
 	 * @return void
 	 */
-	private function addField ($aIncField);
+	public function addField ($aIncField);
 
 	/**
 	 * @return vscFieldA[]

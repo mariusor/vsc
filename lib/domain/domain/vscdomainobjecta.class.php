@@ -12,7 +12,7 @@ import (VSC_LIB_PATH . 'domain/domain/fields');
 import (VSC_LIB_PATH . 'domain/domain/indexes');
 import (VSC_LIB_PATH . 'domain/models');
 
-abstract class vscDomainObjectA extends vscModelA {
+abstract class vscDomainObjectA extends vscModelA /*implements vscDomainObjectI */{
 	protected 	$sTableName;
 	private 	$sTableAlias;
 	private 	$oPk;
@@ -115,7 +115,7 @@ abstract class vscDomainObjectA extends vscModelA {
 	 * @param string $sAlias
 	 * @return void
 	 */
-	private function addFields ($aFields, $sAlias) {
+	protected function addFields ($aFields, $sAlias) {
 		foreach ($aFields as $sFieldName => $oField) {
 			$this->addField (array ($sAlias . '.' . $sFieldName => $oField));
 		}
@@ -125,7 +125,7 @@ abstract class vscDomainObjectA extends vscModelA {
 	 * @param array $aIncField
 	 * @return void
 	 */
-	private function addField ($aIncField) {
+	protected function addField ($aIncField) {
 		$sKey = key($aIncField);
 		$this->aFields [$sKey] = $aIncField[$sKey];
 	}
@@ -155,7 +155,7 @@ abstract class vscDomainObjectA extends vscModelA {
         return $aRet;
 	}
 
-	public function addIndex (vscIndexA $oIndex) {
+	protected function addIndex (vscIndexA $oIndex) {
 		$this->aIndexes[] = $oIndex;
 	}
 
