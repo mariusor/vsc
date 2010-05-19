@@ -13,45 +13,9 @@ import ('domain/access/sqldrivers');
 abstract class vscSqlModelA extends vscModelA implements vscDomainObjectI {
 	private $oConnection;
 
-	public function getTableName() {}
-
-	/**
-	 * @param vscFieldA[] $aFields
-	 * @param string $sAlias
-	 * @return void
-	 */
-	public function addFields ($aFields, $sAlias) {}
-
-	/**
-	 * @param array $aIncField
-	 * @return void
-	 */
-	public function addField ($aIncField) {}
-
-	/**
-	 * @return vscFieldA[]
-	 */
-	public function getFields () {
-		$aReturnArray = array();
-		foreach ($this->getDomainObjects() as $oDomain) {
-			$aReturnArray = array_merge ($aReturnArray, $oDomain->getFields());
-		}
-
-		return $aReturnArray;
-	}
-
-	/**
-	 * gets all the column names as an array
-	 * @return string[]
-	 */
-	public function getFieldNames ($bWithAlias = false) {}
-
-	public function addIndex (vscIndexA $oIndex) {}
-
-	public function getIndexes ($bWithPrimaryKey = false) {}
-
-	public function setConnection (vscSqlDriverA $oConnection) {
-		$this->oConnection = $oConnection;
+	public function __construct () {
+		parent::__construct();
+		$this->__init();
 	}
 
 	public function getConnection () {
@@ -59,15 +23,17 @@ abstract class vscSqlModelA extends vscModelA implements vscDomainObjectI {
 	}
 
 	public function __init(){
-		$this->dbConnection = sqlFactory::connect(
+		$this->oConnection = sqlFactory::connect(
 			$this->getDatabaseType(),
 			$this->getDatabaseHost(),
 			$this->getDatabaseUser(),
 			$this->getDatabasePassword()
 		);
 
-		$this->dbConnection->selectDatabase($this->getDatabaseName());
+		$this->oConnection->selectDatabase($this->getDatabaseName());
 	}
+
+//	abstract protected function buildObject();
 
 	abstract public function getDatabaseType();
 	abstract public function getDatabaseHost();
@@ -110,6 +76,51 @@ abstract class vscSqlModelA extends vscModelA implements vscDomainObjectI {
 		$this->addFields ($oObject->getFields (), $oObject->getTableName());
 
 		return $this;
+	}
+
+		public function getTableName() {}
+
+	/**
+	 * @param vscFieldA[] $aFields
+	 * @param string $sAlias
+	 * @return void
+	 */
+	public function addFields ($aFields, $sAlias) {}
+
+	/**
+	 * @param array $aIncField
+	 * @return void
+	 */
+	public function addField ($aIncField) {}
+
+	/**
+	 * @return vscFieldA[]
+	 */
+	public function getFields () {
+		$aReturnArray = array();
+		foreach ($this->getDomainObjects() as $oDomain) {
+			$aReturnArray = array_merge ($aReturnArray, $oDomain->getFields());
+		}
+
+		return $aReturnArray;
+	}
+
+	protected function getPropertyNames ($bAll = false) {
+		return $this->getFieldNames();
+	}
+
+	/**
+	 * gets all the column names as an array
+	 * @return string[]
+	 */
+	public function getFieldNames ($bWithAlias = false) {}
+
+	public function addIndex (vscIndexA $oIndex) {}
+
+	public function getIndexes ($bWithPrimaryKey = false) {}
+
+	public function setConnection (vscSqlDriverA $oConnection) {
+		$this->oConnection = $oConnection;
 	}
 }
 
