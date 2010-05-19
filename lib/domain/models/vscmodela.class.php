@@ -27,7 +27,7 @@ abstract class vscModelA extends vscNull implements vscModelI {
 
 	// Iterator interface
 	public function current  () {
-		return $this->offsetGet($this->sOffset);
+		return $this->__get($this->sOffset);
 	}
 
 	public function key () {
@@ -35,8 +35,7 @@ abstract class vscModelA extends vscNull implements vscModelI {
 	}
 
 	public function next () {
-		$aProperties = $this->getProperties();
-		$aKeys = array_keys ($aProperties);
+		$aKeys = $this->getPropertyNames();
 
 		$iCurrent = array_search($this->sOffset, $aKeys);
 
@@ -48,27 +47,33 @@ abstract class vscModelA extends vscNull implements vscModelI {
 	}
 
 	public function rewind () {
-		$aProperties = $this->getProperties();
-		$aKeys = array_keys ($aProperties);
+		$aKeys = $this->getPropertyNames();
 
 		if (is_array($aKeys) && isset ($aKeys[0]))
 			$this->sOffset = $aKeys[0];
 	}
 
 	public function valid ($sName = null) {
+		$bRetValue = false;
 		if ($sName !== null) {
 			$this->sOffset = $sName;
 		}
 		$oRObject = new ReflectionObject ($this);
-		return ($oRObject->hasProperty($this->sOffset) && $oRObject->getProperty($this->sOffset)->isPublic());
+		try {
+			$bRetValue = (bool)($oRObject->hasProperty($this->sOffset) && $oRObject->getProperty($this->sOffset)->isPublic());
+		} catch (ReflectionException $e) {
+			$bRetValue = false;
+		}
+
+		return $bRetValue;
 	}
 
 	// Countable interface
 	public function count () {
-		return count ($this->getProperties());
+		return count ($this->getPropertyNames());
 	}
 
-	public function __get ($sIncName) {
+	public function __get ($sIncName = null) {
 		try {
 			$oProperty = new ReflectionProperty($this, $sIncName);
 			if (!$oProperty->isPublic()) {
@@ -83,6 +88,7 @@ abstract class vscModelA extends vscNull implements vscModelI {
 				return $oProperty->getValue($this);
 			}
 		} catch (ReflectionException $e) {
+//			d ($e);
 //			$this->sOffset = $sIncName;
 //			return $this->$sIncName;
 		}
@@ -133,6 +139,20 @@ abstract class vscModelA extends vscNull implements vscModelI {
 //				$this->$sName = $mValue;
 			}
 		}
+	}
+
+	protected function getPropertyNames ($bAll = false) {
+		$aRet = array();
+		$t = new ReflectionObject($this);
+		$aProperties = $t->getProperties();
+
+		/* @var $oProperty ReflectionProperty */
+		foreach ($aProperties as $oProperty) {
+			if ($bAll || (!$bAll && $oProperty->isPublic() )) {
+				$aRet[] = $oProperty->getName();
+			}
+		}
+		return $aRet;
 	}
 
 	protected function getProperties ($bAll = false) {
