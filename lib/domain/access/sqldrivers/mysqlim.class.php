@@ -79,7 +79,7 @@ class mySqlIm extends vscSqlDriverA {
 
 	public function startTransaction ($bAutoCommit = false) {
 		if ($this->getEngine() != 'InnoDB')
-			throw new tsExceptionUnimplemented ('Unable to use transactions for the current MySQL engine.');
+			throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine.');
 
 		$sQuery = 'SET autocommit=' . ($bAutoCommit ? 1 : 0) . ';';
 		$this->query($sQuery);
@@ -89,7 +89,7 @@ class mySqlIm extends vscSqlDriverA {
 
 	public function rollBackTransaction () {
 		if ($this->getEngine() != 'InnoDB')
-			throw new tsExceptionUnimplemented ('Unable to use transactions for the current MySQL engine.');
+			throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine.');
 
 		$sQuery = 'ROLLBACK;';
 		return $this->query($sQuery);
@@ -97,7 +97,7 @@ class mySqlIm extends vscSqlDriverA {
 
 	public function commitTransaction () {
 		if ($this->getEngine() != 'InnoDB')
-			throw new tsExceptionUnimplemented ('Unable to use transactions for the current MySQL engine.');
+			throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine.');
 
 		$sQuery = 'COMMIT;';
 		return $this->query($sQuery);

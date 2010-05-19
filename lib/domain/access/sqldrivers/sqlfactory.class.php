@@ -4,7 +4,10 @@
  */
 import ('exceptions');
 class sqlFactory {
-	static public	$TYPES 		= array ('postgresql', 'mysql', 'mysqli');
+	const mysql			= 1;
+	const postgresql	= 2;
+	const sqlite		= 3;
+
 	static private	$instance	= null;
 
 	/**
@@ -14,9 +17,48 @@ class sqlFactory {
 	 * @return bool
 	 */
 	public static function validType ($type) {
-		if (in_array(strtolower($type), self::$TYPES))
-			return true;
-		return false;
+		$oReflectedSelf = new ReflectionClass('sqlFactory');
+		return (
+			$oReflectedSelf->hasConstant($type) ||// the $type is a string naming the connection type
+			in_array ($type, $oReflectedSelf->getConstants())
+		);
+	}
+
+	static public function getInstance ($incString, $dbHost = null, $dbUser = null, $dbPass = null, $dbName = null) {
+		if (!self::validType ($incString)) {
+			self::$instance = new nullSql();
+			throw new vscExceptionUnimplemented ('The database type is invalid');
+		}
+
+		if(!(self::$instance instanceof vscSqlDriverA)) {
+			if (is_string($incString)) {
+				if (stristr($incString, 'mysql')) {
+					self::$instance =  new mySqlIm ($dbHost, $dbUser, $dbPass, $dbName);
+				} elseif (stristr ($incString, 'postgresql')) {
+					self::$instance = new postgreSql ($dbHost, $dbUser, $dbPass, $dbName);
+				} elseif (stristr ($incString, 'sqlserv')) {
+					self::$instance = new nullSql (); // Sql server not implemented
+				}
+			} else {
+				switch ($incString) {
+				case self::mysql:
+					self::$instance =  new mySqlIm ($dbHost, $dbUser, $dbPass, $dbName);
+					break;
+				case self::postgresql:
+					self::$instance = new postgreSql ($dbHost, $dbUser, $dbPass, $dbName);
+					break;
+				case self::sqlite:
+					self::$instance = new nullSql (); // Sql server not implemented
+					break;
+				}
+			}
+		}
+
+		if (!(self::$instance instanceof vscSqlDriverA) || self::$instance->error) {
+			self::$instance = new nullSql ();
+		}
+
+		return self::$instance;
 	}
 
 	/**
@@ -28,26 +70,8 @@ class sqlFactory {
 	 */
 
 	static public function connect($incString, $dbHost = null, $dbUser = null, $dbPass = null, $dbName = null) {
-		if (!self::validType ($incString)) {
-			self::$instance = new nullSql();
-//			throw new tsExceptionUnimplemented ('The database type is invalid');
-		}
+		self::getInstance($incString);
 
-		if(!(self::$instance instanceof vscSqlDriverA)) {
-			if (stristr($incString, 'mysql')) {
-				self::$instance =  new mySqlIm ($dbHost, $dbUser, $dbPass, $dbName);
-			} /*elseif (stristr ($incString, 'mysql')) {
-				self::$instance =  new mySql ();
-			}*/ elseif (stristr ($incString, 'postgresql')) {
-				self::$instance = new postgreSql ($dbHost, $dbUser, $dbPass, $dbName);
-			} elseif (stristr ($incString, 'sqlserv')) {
-				self::$instance = new nullSql (); // Sql server not implemented
-			}
-
-			if (self::$instance->error) {
-				self::$instance = new nullSql ();
-			}
-		}
 		return self::$instance;
 	}
 }

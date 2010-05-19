@@ -25,7 +25,7 @@ class nullSql extends vscSqlDriverA {
 	 * @param string $dbPass
 	 */
 	public function __construct( $dbHost = null, $dbUser = null, $dbPass = null ) {
-		throw new tsExceptionUnimplemented('This site has all database functionality disabled.<br/> Please check for configuration errors');
+		throw new vscExceptionUnimplemented('This site has all database functionality disabled.<br/> Please check for configuration errors');
 	}
 
 	public function getType () {
