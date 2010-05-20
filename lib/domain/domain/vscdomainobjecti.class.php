@@ -7,8 +7,6 @@
  */
 
 interface vscDomainObjectI {
-	public function getTableName();
-
 	/**
 	 * @param vscFieldA[] $aFields
 	 * @param string $sAlias
