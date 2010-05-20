@@ -7,7 +7,7 @@
  * @version 0.0.1
  */
 import ('domain/access/sqldrivers');
-abstract class vscAccessA extends vscObject implements vscAccessI {
+abstract class vscSimpleSqlAccessA extends vscObject {
 	/**
 	 * @var vscSqlDriverA
 	 */
@@ -62,31 +62,6 @@ abstract class vscAccessA extends vscObject implements vscAccessI {
 			$sRet.= ' ENGINE ' . $this->getConnection()->getEngine();
 		}
 
-		return $sRet;
-	}
-
-	/**
-	 * @TODO - next item on the agenda
-	 * @return string
-	 */
-	public function outputSelectSql (vscDomainObjectI $oInc) {
-        $aWheres = array();
-		if ($oInc->getAlias())
-			$oInc->setTableAlias ('filter');
-
-		$aFieldNames = $oInc->getFieldNames();
-
-		foreach ($oInc->getFields() as $oField) {
-			if (!is_null($oField->getValue())) {
-				// I need to make something for values with IS NULL clauses
-				$aWheres[] = $oInc->getAlias() . '.' . $oField->getName() ;
-			} else {
-				$aSelectFields[] = $oInc->getTableAlias() . '.' . $oField->getName();
-			}
-		}
-        $aWheres[] = 1;
-		$sRet = $this->getConnection()->_SELECT (implode(', ', $aSelectFields) . $this->getConnection()->_FROM($oInc->getTableName())) . $oInc->getTableAlias() ."\n";
-        $sRet .= $this->getConnection()->_WHERE(implode ($this->getConnection()->_AND(), $aWheres));
 		return $sRet;
 	}
 

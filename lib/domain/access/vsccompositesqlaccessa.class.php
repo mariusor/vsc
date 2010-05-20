@@ -5,7 +5,7 @@
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 10.02.25
  */
-class vscJoinA extends vscObject {
+class vscCompositeSqlAccessA extends vscObject {
 	static public $aTypes = array (
 		'INNER',
 		'LEFT',

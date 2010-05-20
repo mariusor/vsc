@@ -51,7 +51,7 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
         try {
             $oProperty = new ReflectionProperty($this, $sIncName);
         } catch (ReflectionException $e) {
-            d ($e);
+//            d ($e);
             parent::__set ($sPropertyName,$mValue);
         }
 		$sSetterName = 'set'.ucfirst($sIncName);
@@ -193,16 +193,15 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 	 * @return int
 	 */
 	public function fromArray ($aIncArray) {
+		$iStatus = 1;
 		foreach ($aIncArray as $sFieldName => $mValue) {
-			try {
-				$this->aFields[$sFieldName]->setValue ($mValue);
-			} catch (Exception $e) {
-				// dunno what might be thrown here
-				d ($e);
-				return 0;
+			if ($this->valid ($sFieldName)) {
+				$this->$sFieldName->setValue ($mValue);
+			} else {
+				$iStatus = 0;
 			}
 		}
-		return 1;
+		return $iStatus;
     }
 
     static public function isValid($oIncObject) {
