@@ -3,7 +3,7 @@
  * Pseudo interface to be implemented (ehm, inherited) by the rest
  * of the DB classes.
  */
-abstract class vscSqlDriverA {
+abstract class vscSqlDriverA extends vscObject {
 	public 		$conn,
 				$error,
 				$link;
@@ -42,6 +42,8 @@ abstract class vscSqlDriverA {
 	public function getFirst () {}
 
 	public function close () {}
+
+//	static public function isValid();
 
 	abstract public function startTransaction ($bAutoCommit = false);
 

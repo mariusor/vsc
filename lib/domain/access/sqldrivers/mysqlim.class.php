@@ -35,31 +35,35 @@ class mySqlIm extends vscSqlDriverA {
 
 	private		$defaultSocketPath =  '/var/run/mysqld/mysqld.sock';
 
+	static public function isValid ($oLink) {
+		return ($oLink instanceof mysqli);
+	}
+
+
 	public function __construct( $dbHost = null, $dbUser = null, $dbPass = null, $dbName = null ){
 		if (!extension_loaded('mysqli')) {
 			return new nullSql();
 		}
-		if (!empty ($dbHost))
+		if (!empty ($dbHost)) {
 			$this->host	= $dbHost;
-		elseif (defined('DB_HOST'))
-			$this->host	= DB_HOST;
-		else
+		} else {
 			throw new vscConnectionException ('Database connection data missing: [DB_HOST]');
+		}
 
-		if (!empty ($dbUser))
+		if (!empty ($dbUser)) {
 			$this->user	= $dbUser;
-		elseif (defined('DB_USER'))
-			$this->user	= DB_USER;
-		else
+		} else {
 			throw new vscConnectionException ('Database connection data missing: [DB_USERNAME]');
+		}
 
-		if(!empty($dbPass))
+		if(!empty($dbPass)) {
 			$this->pass	= $dbPass;
-		elseif (defined('DB_PASS'))
-			$this->pass	= DB_PASS;
+		}
 
-		if (!empty($this->host) && !empty($this->user) && !empty($this->pass)) {
+		try {
 			$this->connect ();
+		} catch (Exception $e) {
+			d($e);
 		}
 	}
 
@@ -68,7 +72,7 @@ class mySqlIm extends vscSqlDriverA {
 	}
 
 	public function getType () {
-		return 'mysql';
+		return sqlFactory::mysql;
 	}
 
 	public function __destruct() {
@@ -79,7 +83,7 @@ class mySqlIm extends vscSqlDriverA {
 
 	public function startTransaction ($bAutoCommit = false) {
 		if ($this->getEngine() != 'InnoDB')
-			throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine.');
+			throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
 
 		$sQuery = 'SET autocommit=' . ($bAutoCommit ? 1 : 0) . ';';
 		$this->query($sQuery);
@@ -89,7 +93,7 @@ class mySqlIm extends vscSqlDriverA {
 
 	public function rollBackTransaction () {
 		if ($this->getEngine() != 'InnoDB')
-			throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine.');
+			throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
 
 		$sQuery = 'ROLLBACK;';
 		return $this->query($sQuery);
@@ -97,7 +101,7 @@ class mySqlIm extends vscSqlDriverA {
 
 	public function commitTransaction () {
 		if ($this->getEngine() != 'InnoDB')
-			throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine.');
+			throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
 
 		$sQuery = 'COMMIT;';
 		return $this->query($sQuery);
@@ -108,7 +112,7 @@ class mySqlIm extends vscSqlDriverA {
 	 *
 	 * @return bool
 	 */
-	private function connect (){
+	private function connect () {
 		$this->link	= new mysqli ($this->host, $this->user, $this->pass, $this->name, null, $this->defaultSocketPath);
 		if (!empty($this->link->connect_errno)) {
 			$this->error = $this->link->connect_errno . ' ' . $this->link->connect_error;
@@ -123,7 +127,7 @@ class mySqlIm extends vscSqlDriverA {
 	 * @return bool
 	 */
 	public function close (){
-		if ($this->link instanceof mysqli)
+		if (self::isValid($this->link))
 			$this->link->close ();
 		// dunno how smart it is to nullify an mysqli object
 		$this->link = null;
@@ -138,11 +142,10 @@ class mySqlIm extends vscSqlDriverA {
 	 */
 	public function selectDatabase ($incData){
 		$this->name = $incData;
-		if (($this->link instanceof mysqli) && $this->link->select_db($incData)) {
+		if (self::isValid($this->link) && $this->link->select_db($incData)) {
 			return true;
 		} else {
-//			trigger_error($this->link->error, E_USER_ERROR);
-			return false;
+			throw new vscConnectionException($this->link->error . ' ['.$this->link->errno . ']');
 		}
 	}
 

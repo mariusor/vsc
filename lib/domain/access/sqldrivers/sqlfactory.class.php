@@ -70,7 +70,7 @@ class sqlFactory {
 	 */
 
 	static public function connect($incString, $dbHost = null, $dbUser = null, $dbPass = null, $dbName = null) {
-		self::getInstance($incString);
+		self::getInstance($incString, $dbHost, $dbUser, $dbPass, $dbName);
 
 		return self::$instance;
 	}
