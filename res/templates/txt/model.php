@@ -1,6 +1,6 @@
 <?php
 /* @var $this vscTxtViewA */
-foreach ($model->toArray() as $sName => $mValue) {
+foreach ($model as $sName => $mValue) {
 	if (is_scalar($mValue)) {
 		vscString::_echo ("\t", $GLOBALS['depth']);
 		echo $sName.' = ';

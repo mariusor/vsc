@@ -1,6 +1,6 @@
 <?php
 /* @var $this vscViewA */
-foreach ($model->toArray() as $sName => $mValue) {
+foreach ($model as $sName => $mValue) {
 	if (is_scalar($mValue)) {
 		echo '<li><strong>' . $sName.'</strong> ➞ '."\n";
 		echo $mValue.'</li>'."\n";

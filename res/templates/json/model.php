@@ -1,6 +1,6 @@
 <?php
 /* @var $this vscJsonViewA */
-$aArray = $model->toArray();
+$aArray = $model;
 $mEnd = end ($aArray);
 $sEndKey = key ($aArray);
 foreach ($aArray as $sName => $mValue) {
