@@ -31,7 +31,7 @@ class vscKeyPrimary extends vscIndexA  {
 	}
 
 	public function getType() {
-		return 'PRIMARY';
+		return vscIndexType::PRIMARY;
 	}
 
 	public function getDefinition () {

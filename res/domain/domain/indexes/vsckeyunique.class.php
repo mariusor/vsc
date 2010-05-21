@@ -13,7 +13,7 @@ class vscKeyUnique extends vscKeyIndex  {
 	}
 
 	public function getType() {
-		return 'INDEX';
+		return vscIndexType::UNIQUE;
 	}
 
 	public function getDefinition () {

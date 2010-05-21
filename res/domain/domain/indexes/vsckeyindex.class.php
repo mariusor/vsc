@@ -33,7 +33,7 @@ class vscKeyIndex extends vscIndexA  {
 	}
 
 	public function getType() {
-		return 'INDEX';
+		return vscIndexType::INDEX;
 	}
 
 	public function getDefinition () {
