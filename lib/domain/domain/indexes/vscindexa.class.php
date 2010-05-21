@@ -36,6 +36,14 @@ abstract class vscIndexA implements vscFieldI  {
 		$this->fields[$oField->getName()] = $oField;
 	}
 
+	/**
+	 *
+	 * @return vscFieldA[]
+	 */
+	public function getFields () {
+		return $this->fields;
+	}
+
 //	public function removeField (vscFieldA $oField) {
 //		if (isset ($this->fields[$oField->getName()]))
 //			unset($this->fields[$oField->getName()]);
