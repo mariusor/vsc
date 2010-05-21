@@ -184,7 +184,7 @@ class mySqlIm extends vscSqlDriverA {
 			return false;
 
 		if ($this->link->errno)	{
-			throw new vscConnectionException ($this->link->error. nl() . $query . nl ());
+			throw new vscConnectionException ($this->link->error. vsc::nl() . $query . vsc::nl ());
 			return false;
 		}
 
@@ -238,11 +238,12 @@ class mySqlIm extends vscSqlDriverA {
 	 */
 	public function getArray (){
 		$retArr = array();
-		if ($this->conn instanceof mysqli_result)
-			while (($r = $this->conn->fetch_assoc ())){
+		if ($this->conn instanceof mysqli_result) {
+			while ($r =$this->conn->fetch_assoc ()){
 				$retArr[] = $r;
 			}
-
+			$this->conn->free_result();
+		}
 		return $retArr;
 	}
 
