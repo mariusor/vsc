@@ -5,6 +5,8 @@
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.05.01
  */
+import (VSC_LIB_PATH . 'domain/domain/fields');
+
 class vscFieldText extends vscFieldA {
 	protected  $maxLength = 255;
 	protected  $encoding = 'UTF8';

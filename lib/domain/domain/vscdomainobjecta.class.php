@@ -8,9 +8,8 @@
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.02.26
  */
-import (VSC_LIB_PATH . 'domain/domain/fields');
-import (VSC_LIB_PATH . 'domain/domain/indexes');
-import (VSC_LIB_PATH . 'domain/models');
+import (VSC_RES_PATH . 'domain/domain/fields');
+import (VSC_RES_PATH . 'domain/domain/indexes');
 
 abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 	protected 	$sTableName;

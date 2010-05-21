@@ -5,6 +5,9 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.05.01
  */
+
+import (VSC_LIB_PATH . 'domain/domain/fields');
+
 class vscFieldDateTime extends vscFieldA {
 	const TYPE = 'datetime';
 	protected  $maxLength = null; // arbitrary chosen, > strlen(YYYY-MM-DD GG:II:SS)

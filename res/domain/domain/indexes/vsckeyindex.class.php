@@ -5,6 +5,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.04.27
  */
+import (VSC_LIB_PATH . 'domain/domain/indexes');
+
 class vscKeyIndex extends vscIndexA  {
 	public function __construct ($mIncomingStuff) {
 		$aRet = array();

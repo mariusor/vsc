@@ -5,6 +5,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.03.29
  */
+import (VSC_LIB_PATH . 'domain/domain/fields');
+
 class vscFieldInteger extends vscFieldA {
 	const TYPE = 'integer';
 	protected  $maxLength = 11;
