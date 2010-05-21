@@ -105,6 +105,7 @@ function cleanBuffers ($iLevel = null) {
 }
 
 function addPath ($pkgPath, $sIncludePath = null) {
+	// removing the trailing / if it exists
 	$sPath = substr($pkgPath,-1);
 	if ($sPath == DIRECTORY_SEPARATOR) {
 		$pkgPath = substr ($pkgPath,0, -1);
@@ -114,6 +115,7 @@ function addPath ($pkgPath, $sIncludePath = null) {
 		$sIncludePath 	= get_include_path();
 	}
 
+	// checking to see if the path exists already in the included path
 	if (strpos ($sIncludePath, $pkgPath . PATH_SEPARATOR) === false) {
 		set_include_path (
 			$pkgPath . PATH_SEPARATOR .
@@ -142,15 +144,17 @@ function import ($sIncPath) {
 	}
 
 	$aPaths 		= explode(PATH_SEPARATOR, $sIncludePath);
+	krsort ($aPaths);
 
 	foreach ($aPaths as $sPath) {
 		$pkgPath 	= realpath($sPath . DIRECTORY_SEPARATOR . $sPkgLower);
 		if ($pkgPath) {
-			$bStatus |= addPath ($pkgPath, $sIncludePath);
+			$bStatus |= addPath ($pkgPath);
 		}
 	}
 
 	if (!$bStatus) {
+		// to avoid an infinite loop, we include these execeptions manually
 		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexception.class.php'));
 		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexceptionpath.class.php'));
 		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexceptionpackageimport.class.php'));
