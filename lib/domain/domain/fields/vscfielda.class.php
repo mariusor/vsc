@@ -8,6 +8,7 @@
 abstract class vscFieldA implements vscFieldI {
 	protected  $name;
 	protected  $value;
+	protected  $default = null;
 	protected  $parent;
 	protected  $modifier = null;
 	protected  $order = null;
@@ -71,12 +72,24 @@ abstract class vscFieldA implements vscFieldI {
 		return $this->maxLength;
 	}
 
+	public function hasValue() {
+		return ($this->value != $this->default);
+	}
+
 	public function setValue ($value) {
 		$this->value = $value;
 	}
 
 	public function getValue () {
 		return $this->value;
+	}
+
+	public function setDefaultValue ($value) {
+		$this->default = $value;
+	}
+
+	public function getDefaultValue () {
+		return $this->default;
 	}
 
 	public function setGroup ($true = true) {
