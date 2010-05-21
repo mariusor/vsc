@@ -33,6 +33,8 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 			$sProperty 	= $found[2];
 
 			$sProperty[0] = strtolower ($sProperty[0]); // lowering the first letter
+		} else {
+			$sMethod = $sMethodName;
 		}
 
 		if ( $sMethod == 'set' && vscFieldA::isValid( $this->$sProperty)) {
