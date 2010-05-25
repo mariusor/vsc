@@ -19,7 +19,9 @@ class vscSimpleSqlAccess extends vscSimpleSqlAccessA implements vscSqlAccessI {
 		/* @var $oField vscFieldA */
 		foreach ($oDomainObject->getFields() as $oField) {
 			if (is_null($oField->getValue())) {
-				$aSelectFields[] = $oDomainObject->getTableAlias() . '.' . $oField->getName();
+				$aSelectFields[]	= $this->getConnection()->FIELD_OPEN_QUOTE . $oDomainObject->getTableAlias() . $this->getConnection()->FIELD_CLOSE_QUOTE .
+									'.' . $this->getConnection()->FIELD_OPEN_QUOTE . $oField->getName() . $this->getConnection()->FIELD_CLOSE_QUOTE .
+									$this->getConnection()->_AS($this->getConnection()->FIELD_OPEN_QUOTE.$oField->getAlias().$this->getConnection()->FIELD_CLOSE_QUOTE);
 			}
 		}
 
@@ -32,11 +34,11 @@ class vscSimpleSqlAccess extends vscSimpleSqlAccessA implements vscSqlAccessI {
 		foreach ($oDomainObject->getFields() as $oField) {
 			if (!is_null($oField->getValue())) {
 				$mValue		=  $this->getConnection()->escape($oField->getValue());
-				if (is_string($mValue)) {
+			if (is_numeric($mValue) || is_null($mValue)) {
+					$sCondition = $mValue;
+				} elseif (is_string($mValue)) {
 					// this should be moved to the sql driver
 					$sCondition = $this->getConnection()->STRING_OPEN_QUOTE . $mValue . $this->getConnection()->STRING_CLOSE_QUOTE;
-				} elseif (is_numeric($mValue) || is_null($mValue)) {
-					$sCondition = $mValue;
 				}
 				$aWheres[]	= $oDomainObject->getTableAlias() . '.' . $oField->getName() . ' = ' . $sCondition;
 			}
@@ -61,8 +63,10 @@ class vscSimpleSqlAccess extends vscSimpleSqlAccessA implements vscSqlAccessI {
 			$oDomainObject->setTableAlias ('filter');
 		}
 
-		$sRet = $this->getConnection()->_SELECT ($this->getFieldsForSelect($oDomainObject)) . $this->getConnection()->_FROM($oDomainObject->getTableName()) . $oDomainObject->getTableAlias() ."\n";
-        $sRet .= $this->getConnection()->_WHERE($this->getDefaultWhereClauses($oDomainObject));
+		$sRet = $this->getConnection()->_SELECT ($this->getFieldsForSelect($oDomainObject)) .
+				$this->getConnection()->_FROM($oDomainObject->getTableName()) . $oDomainObject->getTableAlias() ."\n";
+
+		$sRet .= $this->getConnection()->_WHERE($this->getDefaultWhereClauses($oDomainObject));
 		return $sRet;
 	}
 
