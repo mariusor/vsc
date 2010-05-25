@@ -81,36 +81,3 @@ abstract class vscSqlDriverA extends vscObject {
 
 	abstract public function _WHERE ($clause);
 }
-
-abstract class interfaceSqlField {
-	static public $validTypes = array ('INT');
-	public $name;
-	private $type;
-
-	public function __construct () {}
-	public function __destruct () {}
-}
-
-abstract class interfaceSqlJoin {
-	private	$type,
-			$state,
-			$leftTable,
-			$leftField,
-			$rightTable,
-			$rightField;
-
-	public function __construct () {}
-	public function __destruct () {}
-}
-
-abstract class interfaceSqlResource {
-	public	$instance;
-
-	public function __construct () {}
-	public function __destruct () {}
-}
-
-class interfaceSqlOrder {
-	public function __construct () {}
-	public function __destruct () {}
-}

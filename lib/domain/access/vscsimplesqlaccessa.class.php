@@ -58,7 +58,7 @@ abstract class vscSimpleSqlAccessA extends vscObject {
 
 		$sRet.= "\n" . ' ) ';
 
-		if ($this->oConnection->getType() == 'mysql') {
+		if ($this->oConnection->getType() == 'mysql' || $this->oConnection->getType() == sqlFactory::mysql) {
 			$sRet.= ' ENGINE ' . $this->getConnection()->getEngine();
 		}
 
