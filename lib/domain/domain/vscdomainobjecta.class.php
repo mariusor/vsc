@@ -76,7 +76,7 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 	public function setTableAlias ($sAlias) {
 		$this->sTableAlias = $sAlias;
         foreach ($this->getFields() as $oField) {
-            $oField->setAlias($sAlias);
+            $oField->setAlias($sAlias . '.' . $oField->getName());
         }
 	}
 
@@ -194,8 +194,16 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 	 * @return int
 	 */
 	public function fromArray ($aIncArray) {
+		if (!is_array($aIncArray)) {
+			return -1;
+		}
 		$iStatus = 1;
 		foreach ($aIncArray as $sFieldName => $mValue) {
+			if (($sFieldName =  stristr($sFieldName, '.'))) {
+				// removing the alias of the table from the array's index
+				$sFieldName = substr($sFieldName, 1);
+			}
+
 			if ($this->valid ($sFieldName)) {
 				$this->$sFieldName->setValue ($mValue);
 			} else {
