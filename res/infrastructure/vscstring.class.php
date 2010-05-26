@@ -35,14 +35,4 @@ class vscString {
 	static public function allTrim ($sString) {
 		return trim (ereg_replace('/\s+/', ' ', $sString));
 	}
-
-	static public function formatUri ($sString) {
-		$aToReplace		= array (
-			'/(&([^(amp;)]+=))/'
-		);
-		$aReplaceWith	= array (
-			'&amp;\2'
-		);
-		return preg_replace($aToReplace, $aReplaceWith, $sString);
-	}
 }
