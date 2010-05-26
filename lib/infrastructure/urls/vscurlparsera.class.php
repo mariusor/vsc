@@ -15,6 +15,24 @@ class vscUrlParserA implements vscUrlParserI {
 		return $this->getCompleteUri(true);
 	}
 
+	static public function parseQuery ($sQuery) {
+		$aReturnParameters = array();
+		$aParameters = explode ('&', $sQuery);
+
+		if (is_array($aParameters)) {
+			foreach ($aParameters as $sParameterString) {
+				try {
+					list ($sParamName, $sParamValue) = explode ('=', $sParameterString);
+					$aReturnParameters[$sParamName] = $sParamValue;
+				} catch (vscExceptionError $e) {
+					// d ($e->getTraceAsString());
+				}
+			}
+		}
+
+		return $aReturnParameters;
+	}
+
 	static private function parse_url ($sUrl = null) {
 		$sFragment	= '';
 		if (is_null($sUrl)) {
@@ -49,7 +67,7 @@ class vscUrlParserA implements vscUrlParserI {
 			'user'		=> '',
 			'pass'		=> '',
 			'path'		=> $sPath,
-			'query'		=> $sQuery,
+			'query'		=> self::parseQuery($sQuery),
 			'fragment'	=> $sFragment
 		);
 	}
@@ -66,6 +84,7 @@ class vscUrlParserA implements vscUrlParserI {
 				'query'		=> '',
 				'fragment'	=> ''
             ), parse_url($sUrl));
+            $this->aComponents['query'] = self::parseQuery($this->aComponents['query']);
         } catch (vscExceptionError $e) {
             $this->aComponents  = self::parse_url ($sUrl);
         }
@@ -99,9 +118,11 @@ class vscUrlParserA implements vscUrlParserI {
 				$sPath = substr ($sPath, 2);
 			}
 			try {
-                $sParentPath = substr (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), 0 , -1) . '/';
+                $sParentPath = substr (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), 0 , -1);
+                if (substr($sParentPath, -1) != '/') {
+                	$sParentPath .= '/';
+                }
             } catch (vscExceptionError $e) {
-                //
                 $sParentPath = '';
             }
             $sPath = $sParentPath . $sPath;
@@ -136,7 +157,7 @@ class vscUrlParserA implements vscUrlParserI {
 
 		$sPath = (count($aPath) > 0 ?  '/' . implode ('/', $aPath) : '');
 		$sLast = end ($aPath);
-		if (!stristr($sLast, '.')) { // we don't have a file as the last element in the path
+		if (!$this->hasGoodTermination($sPath)) { // we don't have a file as the last element in the path
 			$sPath .= '/';
 		}
 		return $sPath;
@@ -167,6 +188,20 @@ class vscUrlParserA implements vscUrlParserI {
 
 	public function getQuery () {
 		return $this->aComponents['query'];
+	}
+
+	public function getQueryString () {
+		$aQuery = array ();
+		if (is_array($this->aComponents['query'])) {
+			foreach ($this->aComponents['query'] as $sParameterName => $sParameterValue) {
+				$aQuery[] = $sParameterName . '=' . $sParameterValue;
+			}
+
+			$sQuery = implode ('&', $aQuery);
+		} else {
+			$sQuery = $this->aComponents['query'];
+		}
+		return $sQuery;
 	}
 
 	public function getFragment () {
@@ -219,11 +254,12 @@ class vscUrlParserA implements vscUrlParserI {
 			}
 		}
 
+//		if (count ($this->getQuery()) > 0) d ($sPath, substr($sPath, -1));
 		if (substr($sPath, -1) != '/') {
 			$sPath .= '/';
 		}
 
-		$sQuery = $this->getQuery ();
+		$sQuery = $this->getQueryString ();
 		if ($sQuery) {
 			$sUrl .= '?' . $sQuery;
 		}
