@@ -51,7 +51,7 @@ class mySql extends vscSqlDriverA {
 	}
 
 	public function getType () {
-		return 'mysql';
+		return vscDbType::mysql;
 	}
 
 	public function __destruct() {

@@ -49,7 +49,7 @@ class postgreSql extends vscSqlDriverA {
 	}
 
 	public function getType () {
-		return 'postgresql';
+		return vscDbType::postgresql;
 	}
 
 	public function __destruct() {

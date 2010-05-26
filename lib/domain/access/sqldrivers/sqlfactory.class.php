@@ -4,10 +4,6 @@
  */
 import ('exceptions');
 class sqlFactory {
-	const mysql			= 1;
-	const postgresql	= 2;
-	const sqlite		= 3;
-
 	static private	$instance	= null;
 
 	/**
@@ -17,7 +13,7 @@ class sqlFactory {
 	 * @return bool
 	 */
 	public static function validType ($type) {
-		$oReflectedSelf = new ReflectionClass('sqlFactory');
+		$oReflectedSelf = new ReflectionClass('vscDbType');
 		return (
 			$oReflectedSelf->hasConstant($type) ||// the $type is a string naming the connection type
 			in_array ($type, $oReflectedSelf->getConstants())
@@ -41,13 +37,14 @@ class sqlFactory {
 				}
 			} else {
 				switch ($incString) {
-				case self::mysql:
+				case vscDbType::mysql:
 					self::$instance =  new mySqlIm ($dbHost, $dbUser, $dbPass, $dbName);
 					break;
-				case self::postgresql:
+				case vscDbType::postgresql:
 					self::$instance = new postgreSql ($dbHost, $dbUser, $dbPass, $dbName);
 					break;
-				case self::sqlite:
+				case vscDbType::sqlite:
+				case vscDbType::mssql:
 					self::$instance = new nullSql (); // Sql server not implemented
 					break;
 				}

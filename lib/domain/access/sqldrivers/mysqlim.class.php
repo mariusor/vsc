@@ -72,7 +72,7 @@ class mySqlIm extends vscSqlDriverA {
 	}
 
 	public function getType () {
-		return sqlFactory::mysql;
+		return vscDbType::mysql;
 	}
 
 	public function __destruct() {
