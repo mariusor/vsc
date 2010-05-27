@@ -5,7 +5,6 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.05.01
  */
-import (VSC_LIB_PATH . 'domain/domain/indexes');
 
 class vscKeyFullText extends vscKeyIndex  {
 	public function setName ($sName) {
