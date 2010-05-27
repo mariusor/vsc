@@ -272,6 +272,10 @@ class mySqlIm extends vscSqlDriverA {
 		return $retStr . ' ' . $incObj . ' ';
 	}
 
+	public function _DELETE($sIncName) {
+		return ' DELETE FROM ' . $sIncName . ' ';
+	}
+
 	public function _CREATE ($sName){
 		return ' CREATE TABLE ' . $sName . ' ';
 	}
@@ -306,10 +310,8 @@ class mySqlIm extends vscSqlDriverA {
 		return ' VALUES (' . $ret . ' )';
 	}
 
-	public function _UPDATE ($incOb){
-		if (!is_array($incOb))
-			$incOb[] = array ($incOb);
-		return ' UPDATE '.$incOb[0].(!empty($incOb[1]) ? ' AS '.$incOb[1] : '');
+	public function _UPDATE ($sTable){
+		return ' UPDATE '. $sTable;
 	}
 
 	/**

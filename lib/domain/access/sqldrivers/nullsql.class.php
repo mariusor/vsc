@@ -44,6 +44,8 @@ class nullSql extends vscSqlDriverA {
 
 	public function _SELECT ($incObj){}
 
+	public function _DELETE($sIncName) {}
+
 	public function _CREATE ($sIncName){}
 
 	public function _SET(){}

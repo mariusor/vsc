@@ -220,6 +220,10 @@ class postgreSql extends vscSqlDriverA {
 		return $retStr.' '.$incObj.' ';
 	}
 
+	public function _DELETE($sIncName) {
+		return ' DELETE FROM ' . $sIncName . ' ';
+	}
+
 	public function _CREATE (){
 		return ' CREATE ';
 	}

@@ -53,6 +53,8 @@ abstract class vscSqlDriverA extends vscObject {
 
 	abstract public function _SELECT($incObj);
 
+	abstract public function _DELETE($sIncName);
+
 	abstract public function _CREATE($sIncName);
 
 	abstract public function _SET();
