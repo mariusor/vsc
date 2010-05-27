@@ -111,6 +111,10 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 		return $this->oPk;
 	}
 
+	public function hasPrimaryKey () {
+		return ($this->oPk instanceof vscKeyPrimary);
+	}
+
 	/**
 	 * @param vscFieldA[] $aFields
 	 * @param string $sAlias
@@ -199,9 +203,9 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 		}
 		$iStatus = 1;
 		foreach ($aIncArray as $sFieldName => $mValue) {
-			if (($sFieldName =  stristr($sFieldName, '.'))) {
+			if (($sJustFieldName =  stristr($sFieldName, '.'))) {
 				// removing the alias of the table from the array's index
-				$sFieldName = substr($sFieldName, 1);
+				$sFieldName = substr($sJustFieldName, 1);
 			}
 
 			if ($this->valid ($sFieldName)) {
