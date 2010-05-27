@@ -7,11 +7,11 @@
  */
 class vscSimpleSqlAccess extends vscSimpleSqlAccessA implements vscSqlAccessI {
 	public function save (vscDomainObjectI $oDomainObject) {
-		$bInsert = true;
+		$bInsert = false;
 		$oPk = $oDomainObject->getPrimaryKey();
 		foreach ($oPk->getFields() as $oField) {
 			if (!$oField->hasValue()) {
-				$bInsert = false;
+				$bInsert = true;
 				break;
 			}
 		}
@@ -190,7 +190,7 @@ class vscSimpleSqlAccess extends vscSimpleSqlAccessA implements vscSqlAccessI {
 
 		$sRet.= "\n" . ' ) ';
 
-		if ($this->oConnection->getType() == sqlFactory::mysql) {
+		if ($this->oConnection->getType() == vscDbType::mysql) {
 			$sRet.= ' ENGINE ' . $this->getConnection()->getEngine();
 		}
 
