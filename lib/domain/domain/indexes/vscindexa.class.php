@@ -49,6 +49,10 @@ abstract class vscIndexA implements vscFieldI  {
 //			unset($this->fields[$oField->getName()]);
 //	}
 
+	public function hasField (vscFieldA $oField) {
+		return (key_exists($oField->getName(), $this->fields) && vscFieldA::isValid($oField));
+	}
+
 	public function getIndexComponents () {
 		return implode (', ', array_keys($this->fields));
 	}

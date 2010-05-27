@@ -87,6 +87,10 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 		return $this->sTableAlias;
 	}
 
+	public function hasTableAlias () {
+		return ($this->sTableAlias != '');
+	}
+
 	/**
 	 * @param string $sName
 	 * @return void
