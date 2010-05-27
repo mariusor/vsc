@@ -56,4 +56,8 @@ abstract class vscIndexA implements vscFieldI  {
 	static public function isValid ($oIndex) {
 		return ($oIndex instanceof self);
 	}
+
+	public function __toString() {
+		return implode ('.', $this->getFields());
+	}
 }
