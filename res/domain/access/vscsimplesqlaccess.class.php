@@ -42,7 +42,6 @@ class vscSimpleSqlAccess extends vscSimpleSqlAccessA implements vscSqlAccessI {
 		}
 		$sSql .= implode (', ', $aInsertFields);
 
-		d ($sSql);
 		return $o->query($sSql);
 	}
 

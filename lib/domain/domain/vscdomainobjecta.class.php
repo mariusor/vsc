@@ -200,6 +200,7 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 	 * 2 if there were properties which didn't have a corresponding key=>value pair
 	 * @param mixed[string] $aIncArray
 	 * @return int
+	 * @TODO : this doesn't work for columns named differently from the field property of the domain object FIXIT
 	 */
 	public function fromArray ($aIncArray) {
 		if (!is_array($aIncArray)) {
