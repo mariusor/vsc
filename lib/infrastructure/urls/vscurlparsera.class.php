@@ -157,7 +157,7 @@ class vscUrlParserA implements vscUrlParserI {
 
 		$sPath = (count($aPath) > 0 ?  '/' . implode ('/', $aPath) : '');
 		$sLast = end ($aPath);
-		if (!$this->hasGoodTermination($sPath)) { // we don't have a file as the last element in the path
+		if (!self::hasGoodTermination($sPath)) { // we don't have a file as the last element in the path
 			$sPath .= '/';
 		}
 		return $sPath;
