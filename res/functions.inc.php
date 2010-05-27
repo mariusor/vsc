@@ -45,7 +45,11 @@ function d () {
 
 	foreach ($aRgs as $object) {
 		// maybe I should just output the whole array $aRgs
-		var_dump($object);
+		try {
+			var_dump($object);
+		}catch (Exception $e) {
+			//
+		}
 	}
 	debug_print_backtrace();
 
