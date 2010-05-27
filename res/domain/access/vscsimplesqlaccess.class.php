@@ -21,7 +21,7 @@ class vscSimpleSqlAccess extends vscSimpleSqlAccessA implements vscSqlAccessI {
 			if (is_null($oField->getValue())) {
 				$aSelectFields[]	= $this->getConnection()->FIELD_OPEN_QUOTE . $oDomainObject->getTableAlias() . $this->getConnection()->FIELD_CLOSE_QUOTE .
 									'.' . $this->getConnection()->FIELD_OPEN_QUOTE . $oField->getName() . $this->getConnection()->FIELD_CLOSE_QUOTE .
-									$this->getConnection()->_AS($this->getConnection()->FIELD_OPEN_QUOTE.$oField->getAlias().$this->getConnection()->FIELD_CLOSE_QUOTE);
+									($oField->hasAlias() ? $this->getConnection()->_AS($this->getConnection()->FIELD_OPEN_QUOTE . $oField->getAlias(). $this->getConnection()->FIELD_CLOSE_QUOTE) : '');
 			}
 		}
 
@@ -59,9 +59,9 @@ class vscSimpleSqlAccess extends vscSimpleSqlAccessA implements vscSqlAccessI {
 	public function outputSelectSql (vscDomainObjectI $oDomainObject) {
         $aWheres = array();
 
-		if (!$oDomainObject->getTableAlias()) {
-			$oDomainObject->setTableAlias ('filter');
-		}
+//		if (!$oDomainObject->getTableAlias()) {
+//			$oDomainObject->setTableAlias ('filter');
+//		}
 
 		$sRet = $this->getConnection()->_SELECT ($this->getFieldsForSelect($oDomainObject)) .
 				$this->getConnection()->_FROM($oDomainObject->getTableName()) . $oDomainObject->getTableAlias() ."\n";
@@ -105,4 +105,77 @@ class vscSimpleSqlAccess extends vscSimpleSqlAccessA implements vscSqlAccessI {
 		return $sRet;
 	}
 
+	public function loadByFilter (vscDomainObjectA $oDomainObject, $aFieldsArray = array()) { // this shold be moved to the composite model
+		$aRet = array();
+		$oDomainObject->fromArray ($aFieldsArray);
+		$sType = get_class($oDomainObject);
+
+		$this->getConnection()->query($this->outputSelectSql($oDomainObject));
+
+		foreach ($this->getConnection()->getArray() as $aValues) {
+			$oRet = new $sType();
+			$oRet->fromArray ($aValues);
+
+			// theoretically the primary key is unique enough
+			// the conversion to string calls vscIndexA::__toString
+			$sKey = (string)$oRet->getPrimaryKey();
+			if ($sKey === '') {
+				$sKey = count ($aRet);
+			}
+
+			$aRet[] = $oRet;
+		}
+
+		return $aRet;
+	}
+
+	/**
+	 *
+	 * This has the only advantage over loadByFilter to ensure that the result returns a single entry
+	 * @param array $aFieldsArray
+	 * @throws vscExceptionDomain
+	 * @returns vscDomainObjectA
+	 */
+	public function getByUniqueIndex (vscDomainObjectA $oDomainObject, $aFieldsArray = array()) {
+		$bValid = false;
+		$aFieldNames = array_keys($aFieldsArray);
+
+		// tries to find a unique index of the entity which has values and selects an entry based on it
+		// it will find at least the primary key
+		$aIndexes = $oDomainObject->getIndexes(true);
+		/* @var $oIndex vscKeyUnique */
+		foreach ($aIndexes as $oIndex) {
+			if ($oIndex->getType() & vscIndexType::UNIQUE == vscIndexType::UNIQUE) {
+				$aIndexFields 		= $oIndex->getFields();
+				$aIndexFieldNames	= array_keys($aIndexFields);
+
+				// setting the value of each field of the index
+				if ($aIndexFieldNames == $aFieldNames) {
+					foreach ($aIndexFields as $sFieldName => $oField) {
+						$oField->setValue($aFieldsArray[$sFieldName]);
+					}
+					$bValid = true;
+				}
+			}
+		}
+
+		if ($bValid) {
+			$sSql = $this->outputSelectSql($this->getDomainObject());
+
+			$this->getConnection()->query($sSql);
+			return $oDomainObject->fromArray($this->getConnection()->getAssoc());
+		} else {
+			throw new vscExceptionDomain('None of the object unique indexes has all the neccessary values to get an unique instance.');
+		}
+	}
+
+	public function getByPrimaryKey (vscDomainObjectA $oDomainObject) {
+		if ($oDomainObject->hasPrimaryKey()) {
+			$oDomainObject;
+		}
+
+		$this->getConnection()->query($this->outputSelectSql($this->getDomainObject()));
+
+		return $oDomainObject->fromArray($this->getConnection()->getAssoc());
+	}
 }

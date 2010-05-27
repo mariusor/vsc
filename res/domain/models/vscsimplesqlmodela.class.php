@@ -83,6 +83,9 @@ abstract class vscSimpleSqlModelA extends vscModelA implements vscDomainObjectI 
 	abstract public function getDatabasePassword();
 	abstract public function getDatabaseName();
 
+	/**
+	 * @return vscDomainObjectA
+	 */
 	public function getDomainObject() {}
 
 	public function getTableName() {}
@@ -128,79 +131,6 @@ abstract class vscSimpleSqlModelA extends vscModelA implements vscDomainObjectI 
 
 	public function setConnection (vscSqlDriverA $oConnection) {
 		$this->oConnection = $oConnection;
-	}
-
-	public function loadByFilter ($aFieldsArray) { // this shold be moved to the composite model
-		$aRet = array();
-		$this->getDomainObject()->fromArray ($aFieldsArray);
-
-		$a = new vscSimpleSqlAccess();
-		$a->setConnection($this->getConnection());
-
-		$this->getConnection()->query($a->outputSelectSql($this->getDomainObject()));
-
-		foreach ($this->getConnection()->getArray() as $aValues) {
-			$aObj 	= $this->getDomainObject();
-			$aObj->fromArray($aValues);
-			$aRet[] = $aObj;
-		}
-
-		return $aRet;
-	}
-
-	/**
-	 *
-	 * This has the only advantage over loadByFilter to ensure that the result returns a single entry
-	 * @param array $aFieldsArray
-	 * @throws vscExceptionDomain
-	 * @returns vscDomainObjectA
-	 */
-	public function getByUniqueIndex ($aFieldsArray) {
-		$bValid = false;
-		$aFieldNames = array_keys($aFieldsArray);
-
-		// tries to find a unique index of the entity which has values and selects an entry based on it
-		// it will find at least the primary key
-		$aIndexes = $this->getDomainObject()->getIndexes(true);
-		/* @var $oIndex vscKeyUnique */
-		foreach ($aIndexes as $oIndex) {
-			if ($oIndex->getType() & vscIndexType::UNIQUE == vscIndexType::UNIQUE) {
-				$aIndexFields 		= $oIndex->getFields();
-				$aIndexFieldNames	= array_keys($aIndexFields);
-
-				// setting the value of each field of the index
-				if ($aIndexFieldNames == $aFieldNames) {
-					foreach ($aIndexFields as $sFieldName => $oField) {
-						$oField->setValue($aFieldsArray[$sFieldName]);
-					}
-					$bValid = true;
-				}
-			}
-		}
-
-		if ($bValid) {
-			$a = new vscSimpleSqlAccess();
-			$a->setConnection($this->getConnection());
-			$sSql = $a->outputSelectSql($this->getDomainObject());
-
-			$this->getConnection()->query($sSql);
-			return $this->getDomainObject()->fromArray($this->getConnection()->getAssoc());
-		} else {
-			throw new vscExceptionDomain('None of the object unique indexes has all the neccessary values to get an unique instance.');
-		}
-	}
-
-	public function getByPrimaryKey () {
-		$a = new vscSimpleSqlAccess();
-		$a->setConnection($this->getConnection());
-
-		if ($this->getDomainObject()->hasPrimaryKey()) {
-			$this->getDomainObject();
-		}
-
-		$this->getConnection()->query($a->outputSelectSql($this->getDomainObject()));
-
-		return $this->getDomainObject()->fromArray($this->getConnection()->getAssoc());
 	}
 }
 
