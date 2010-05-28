@@ -86,9 +86,9 @@ function __autoload ($className) {
          !in_array($className,get_declared_interfaces())
         )
     ) {
-		include (realpath(VSC_LIB_PATH . 'exceptions/vscexception.class.php'));
-		include (realpath(VSC_LIB_PATH . 'exceptions/vscexceptionpath.class.php'));
-		include (realpath(VSC_LIB_PATH . 'exceptions/vscexceptionautoload.class.php'));
+		include_once (realpath(VSC_LIB_PATH . 'exceptions/vscexception.class.php'));
+		include_once (realpath(VSC_LIB_PATH . 'exceptions/vscexceptionpath.class.php'));
+		include_once (realpath(VSC_LIB_PATH . 'exceptions/vscexceptionautoload.class.php'));
 
 		throw new vscExceptionAutoload('Could not load class ['.$className.'] in path: ' . get_include_path());
 	}
