@@ -100,12 +100,14 @@ function getPaths () {
 }
 
 function cleanBuffers ($iLevel = null) {
+	$sErrors = '';
 	if (is_null($iLevel))
 		$iLevel = ob_get_level();
 
 		for ($i = 0; $i < $iLevel; $i++) {
-		ob_end_clean();
+		$sErrors .= ob_get_clean();
 	}
+	return $sErrors;
 }
 
 function addPath ($pkgPath, $sIncludePath = null) {
@@ -218,12 +220,14 @@ if (!function_exists('_e')) {
 	}
 
 	function _e ($e) {
-		cleanBuffers();
+		$sErrors = cleanBuffers();
 		header ('HTTP/1.1 500 Internal Server Error');
 		echo getErrorHeaderOutput ($e);
 		if (isDebug()) {
 			echo $e ? $e->getTraceAsString() : '';
 		}
+		if ($sErrors)
+		echo '<p>' . $sErrors . '</p>';
 		echo '</pre>';
 		echo '</body>';
 		echo '</html>';
