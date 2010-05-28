@@ -11,21 +11,6 @@ import ('domain/domain');
 import ('domain/models');
 
 abstract class vscSimpleSqlModelA extends vscModelA implements vscDomainObjectI {
-	private $oConnection;
-
-	final public function __construct () {
-		$this->oConnection = sqlFactory::connect(
-			$this->getDatabaseType(),
-			$this->getDatabaseHost(),
-			$this->getDatabaseUser(),
-			$this->getDatabasePassword()
-		);
-
-		$this->oConnection->selectDatabase($this->getDatabaseName());
-
-		parent::__construct();
-	}
-
 	public function __get ($sVarName) {
 		try {
 			return $this->getDomainObject()->__get($sVarName);
@@ -76,12 +61,6 @@ abstract class vscSimpleSqlModelA extends vscModelA implements vscDomainObjectI 
 	protected function buildObject() {
 		$this->getDomainObject()->buildObject();
 	}
-
-	abstract public function getDatabaseType();
-	abstract public function getDatabaseHost();
-	abstract public function getDatabaseUser();
-	abstract public function getDatabasePassword();
-	abstract public function getDatabaseName();
 
 	/**
 	 * @return vscDomainObjectA

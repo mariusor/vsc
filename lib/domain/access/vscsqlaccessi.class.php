@@ -8,11 +8,11 @@
 interface vscSqlAccessI {
 	static public function isValidConnection ($oConnection);
 
-	public function save (vscDomainObjectI $oInc);
+	public function save (vscDomainObjectA $oInc);
 
-	public function insert (vscDomainObjectI $oInc);
+	public function insert (vscDomainObjectA $oInc);
 
-	public function update (vscDomainObjectI $oInc);
+	public function update (vscDomainObjectA $oInc);
 
-	public function delete (vscDomainObjectI $oInc);
+	public function delete (vscDomainObjectA $oInc);
 }
