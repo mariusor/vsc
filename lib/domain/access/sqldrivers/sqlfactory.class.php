@@ -15,7 +15,7 @@ class sqlFactory {
 	public static function validType ($type) {
 		$oReflectedSelf = new ReflectionClass('vscDbType');
 		return (
-			$oReflectedSelf->hasConstant($type) ||// the $type is a string naming the connection type
+			$oReflectedSelf->hasConstant($type) || // the $type is a string naming the connection type
 			in_array ($type, $oReflectedSelf->getConstants())
 		);
 	}
