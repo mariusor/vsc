@@ -8,6 +8,7 @@
  */
 import ('domain/access/sqldrivers');
 import ('domain/domain/indexes');
+import ('domain/access/fields');
 
 abstract class vscSqlAccessA extends vscObject {
 	/**
@@ -31,6 +32,35 @@ abstract class vscSqlAccessA extends vscObject {
 	abstract public function getDatabaseUser();
 	abstract public function getDatabasePassword();
 	abstract public function getDatabaseName();
+
+	public function getFieldAccess (vscFieldA $oField) {
+		$oFieldAccess = null;
+		switch ($oField->getType()) {
+			case (vscFieldType::INTEGER):
+			case ('integer'):
+				$oFieldAccess = new vscFieldIntegerAccess();
+				break;
+			case (vscFieldType::TEXT):
+			case ('varchar'):
+			case ('text'):
+				$oFieldAccess = new vscFieldTextAccess();
+				break;
+			case (vscFieldType::DATETIME):
+			case ('datetime'):
+				$oFieldAccess = new vscFieldDateTimeAccess();
+				break;
+			case (vscFieldType::ENUM):
+			case ('enum'):
+				$oFieldAccess = new vscFieldEnumAccess();
+				break;
+		}
+
+//		if ($oField->getType() != vscFieldInteger::TYPE)d ($oField->getType(), $oFieldAccess);
+
+		$oFieldAccess->setConnection($this->getConnection());
+
+		return $oFieldAccess;
+	}
 
 	/**
 	 * @param vscSqlDriverA $oConnection
@@ -68,9 +98,9 @@ abstract class vscSqlAccessA extends vscObject {
 		foreach ($oDomainObject->getFields() as $oField) {
 			if ($oField->hasValue()) {
 				$aInsertFields[] = $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ' = ' . $this->getQuotedValue($oField->getValue());
-			} elseif ($oField->getDefaultValue() !== null) {
+			} /*elseif ($oField->getDefaultValue() !== null) {
 				$aInsertFields[] = $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ' = ' . $this->getQuotedValue($oField->getDefaultValue());
-			}
+			}*/
 		}
 		$sSql .= implode (', ', $aInsertFields);
 
@@ -138,7 +168,7 @@ abstract class vscSqlAccessA extends vscObject {
 
 		/* @var $oColumn vscFieldA */
 		foreach ($oDomainObject->getFields () as $oColumn) {
-			$sRet .= "\t" . $oColumn->getName() . ' ' . $oColumn->getDefinition() ;
+			$sRet .= "\t" . $oColumn->getName() . ' ' . $this->getFieldAccess($oColumn)->getDefinition($oColumn) ;
 			$sRet .= ', ' . "\n";
 		}
 
@@ -215,9 +245,9 @@ abstract class vscSqlAccessA extends vscObject {
 		$aWheres = null;
 		/* @var $oField vscFieldA */
 		foreach ($oDomainObject->getFields() as $oField) {
-			if (!is_null($oField->getValue())) {
+			if (!is_null($oField->hasValue())) {
 				$aWheres[]	= ($oDomainObject->hasTableAlias() ? $this->getConnection()->FIELD_OPEN_QUOTE . $oDomainObject->getTableAlias() . $this->getConnection()->FIELD_CLOSE_QUOTE . '.' : '') .
-							  $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ' = ' . $this->getQuotedValue($oField->getValue());
+							$this->getFieldAccess($oField)->getNameWithValue($oField);
 			}
 		}
 
