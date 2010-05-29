@@ -31,8 +31,6 @@ abstract class vscFieldA implements vscFieldI {
 		$this->name		= $incName;
 	}
 
-	public function __destruct () {}
-
 	public function __toString () {
 		return (string)$this->value;
 	}
@@ -92,6 +90,10 @@ abstract class vscFieldA implements vscFieldI {
 		return $this->default;
 	}
 
+	public function hasDefaultValue () {
+		return ($this->default !== null || ($this->getIsNullable() && $this->default === null));
+	}
+
 	public function setGroup ($true = true) {
 		$this->group = (bool)$true;
 	}
@@ -111,6 +113,4 @@ abstract class vscFieldA implements vscFieldI {
     public function getAlias () {
         return $this->sAlias;
     }
-
-	abstract protected function escape ();
 }
