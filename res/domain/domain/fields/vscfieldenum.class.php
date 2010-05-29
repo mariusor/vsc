@@ -8,7 +8,6 @@
 import (VSC_LIB_PATH . 'domain/domain/fields');
 
 class vscFieldEnum extends vscFieldA {
-	const TYPE = 'enum';
 	protected $values = array();
 
 	public function isVarChar (vscFieldA $oField) {
@@ -16,7 +15,7 @@ class vscFieldEnum extends vscFieldA {
 	}
 
 	public function getType () {
-		return self::TYPE;
+		return vscFieldType::ENUM;
 	}
 
 	protected function escape () {

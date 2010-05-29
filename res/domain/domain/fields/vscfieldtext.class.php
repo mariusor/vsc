@@ -12,10 +12,7 @@ class vscFieldText extends vscFieldA {
 	protected  $encoding = 'UTF8';
 
 	public function getType () {
-		if ($this->getMaxLength() > 255 || is_null($this->getMaxLength()))
-			return 'text';
-		else
-			return 'varchar';
+		return vscFieldType::TEXT;
 	}
 
 	protected function escape () {

@@ -8,7 +8,6 @@
 import (VSC_LIB_PATH . 'domain/domain/fields');
 
 class vscFieldInteger extends vscFieldA {
-	const TYPE = 'integer';
 	protected  $maxLength = 11;
 	protected  $autoIncrement = false;
 
@@ -17,7 +16,7 @@ class vscFieldInteger extends vscFieldA {
 	}
 
 	public function getType () {
-		return self::TYPE;
+		return vscFieldType::INTEGER;
 	}
 
 	protected function escape () {
