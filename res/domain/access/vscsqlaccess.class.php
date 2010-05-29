@@ -7,6 +7,21 @@
  */
 import ('domain/domain');
 class vscSqlAccess extends vscSqlAccessA implements vscSqlAccessI {
+	public function getDatabaseType() {
+		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
+	}
+	public function getDatabaseHost() {
+		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
+	}
+	public function getDatabaseUser() {
+		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
+	}
+	public function getDatabasePassword() {
+		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
+	}
+	public function getDatabaseName() {
+		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
+	}
 
 	/**
 	 * (non-PHPdoc)

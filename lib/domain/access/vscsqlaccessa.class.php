@@ -26,11 +26,11 @@ abstract class vscSqlAccessA extends vscObject {
 		$this->getConnection()->selectDatabase($this->getDatabaseName());
 	}
 
-//	abstract public function getDatabaseType();
-//	abstract public function getDatabaseHost();
-//	abstract public function getDatabaseUser();
-//	abstract public function getDatabasePassword();
-//	abstract public function getDatabaseName();
+	abstract public function getDatabaseType();
+	abstract public function getDatabaseHost();
+	abstract public function getDatabaseUser();
+	abstract public function getDatabasePassword();
+	abstract public function getDatabaseName();
 
 	/**
 	 * @param vscSqlDriverA $oConnection
