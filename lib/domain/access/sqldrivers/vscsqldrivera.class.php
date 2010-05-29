@@ -82,4 +82,6 @@ abstract class vscSqlDriverA extends vscObject {
 	abstract public function _ORDER($orderBys = null);
 
 	abstract public function _WHERE ($clause);
+
+	abstract public function _NULL ($bIsNull = true);
 }

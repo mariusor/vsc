@@ -337,4 +337,8 @@ class postgreSql extends vscSqlDriverA {
 	public function _WHERE ($clause) {
 		return ' WHERE '.$clause;
 	}
+
+	public function _NULL ($bIsNull = true) {
+		return (!$bIsNull ? ' NOT ' : ' ') . 'NULL';
+	}
 }

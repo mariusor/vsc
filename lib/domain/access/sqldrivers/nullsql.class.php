@@ -73,4 +73,6 @@ class nullSql extends vscSqlDriverA {
 	public function _ORDER ($orderBys = null){}
 
 	public function _WHERE ($clause) {}
+
+	public function _NULL ($bIsNull = true) {}
 }
