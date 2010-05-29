@@ -30,6 +30,7 @@ class vscFieldInteger extends vscFieldA {
 	 */
 	public function setAutoIncrement ($bIsAutoIncrement) {
 		$this->autoIncrement = (bool)$bIsAutoIncrement;
+		$this->setIsNullable(false);
 	}
 
 	public function getAutoIncrement () {

@@ -5,9 +5,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 10.04.01
  */
-import (VSC_LIB_PATH . 'domain/domain');
-import (VSC_LIB_PATH . 'domain/access');
-class vscSqlAccess extends vscSqlAccessA /*implements vscSqlAccessI*/ {
+import ('domain/domain');
+class vscSqlAccess extends vscSqlAccessA implements vscSqlAccessI {
 
 	/**
 	 * (non-PHPdoc)
