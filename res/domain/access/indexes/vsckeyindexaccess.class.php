@@ -9,7 +9,8 @@
 import (VSC_LIB_PATH . 'domain/access/indexes');
 
 class vscKeyIndexAccess extends vscSqlIndexAccessA {
+    public function getType(vscIndexA $oIndex) {}
 	public function getDefinition (vscIndexA $oIndex) {
-		return	'INDEX ' . $this->getName() . ' (' . $this->getIndexComponents(). ')';
+		return	'INDEX ' . $oIndex->getName() . ' (' . $oIndex->getIndexComponents(). ')';
 	}
 }
