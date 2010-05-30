@@ -55,8 +55,6 @@ abstract class vscSqlAccessA extends vscObject {
 				break;
 		}
 
-//		if ($oField->getType() != vscFieldInteger::TYPE)d ($oField->getType(), $oFieldAccess);
-
 		$oFieldAccess->setConnection($this->getConnection());
 
 		return $oFieldAccess;
@@ -245,7 +243,7 @@ abstract class vscSqlAccessA extends vscObject {
 		$aWheres = null;
 		/* @var $oField vscFieldA */
 		foreach ($oDomainObject->getFields() as $oField) {
-			if (!is_null($oField->hasValue())) {
+			if ($oField->hasValue()) {
 				$aWheres[]	= ($oDomainObject->hasTableAlias() ? $this->getConnection()->FIELD_OPEN_QUOTE . $oDomainObject->getTableAlias() . $this->getConnection()->FIELD_CLOSE_QUOTE . '.' : '') .
 							$this->getFieldAccess($oField)->getNameWithValue($oField);
 			}
