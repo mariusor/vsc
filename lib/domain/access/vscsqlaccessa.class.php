@@ -60,6 +60,28 @@ abstract class vscSqlAccessA extends vscObject {
 		return $oFieldAccess;
 	}
 
+	public function getIndexAccess (vscIndexA $oIndex) {
+		$oIndexAccess = null;
+		switch ($oIndex->getType()) {
+			case (vscIndexType::PRIMARY):
+				$oIndexAccess = new vscKeyPrimaryAccess();
+				break;
+			case (vscIndexType::FULLTEXT):
+				$oIndexAccess = new vscKeyFullTextAccess();
+				break;
+			case (vscIndexType::INDEX):
+				$oIndexAccess = new vscKeyIndexAccess();
+				break;
+			case (vscIndexType::UNIQUE):
+				$oIndexAccess = new vscKeyUniqueAccess();
+				break;
+		}
+
+		$oIndexAccess->setConnection($this->getConnection());
+
+		return $oIndexAccess;
+	}
+	
 	/**
 	 * @param vscSqlDriverA $oConnection
 	 * @return void
@@ -175,7 +197,7 @@ abstract class vscSqlAccessA extends vscObject {
 			foreach ($aIndexes as $oIndex) {
 				if (vscIndexA::isValid($oIndex)) {
 				// this needs to be replaced with connection functionality : something like getConstraint (type, columns)
-					$sRet .=  "\t" . $oIndex->getDefinition() . ", \n"; //getType() . ' KEY ' . $oIndex->getName() . '  (' . $oIndex->getIndexComponents(). '), ' . "\n";
+					$sRet .=  "\t" . $this->getIndexAccess($oIndex)->getDefinition($oIndex) . ", \n"; 
 				}
 			}
 		}
