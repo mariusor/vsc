@@ -22,7 +22,4 @@ class vscFieldEnum extends vscFieldA {
 		return $this->value;
 	}
 
-	public function getDefinition () {
-		return	$this->getType();
-	}
 }

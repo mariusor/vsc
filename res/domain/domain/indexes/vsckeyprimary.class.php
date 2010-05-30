@@ -34,8 +34,4 @@ class vscKeyPrimary extends vscIndexA  {
 		return vscIndexType::PRIMARY;
 	}
 
-	public function getDefinition () {
-		// this is totally wrong for PostgreSQL
-		return	'PRIMARY KEY ' . $this->getName() . ' (' . $this->getIndexComponents(). ')';
-	}
 }

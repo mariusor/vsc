@@ -21,9 +21,4 @@ class vscFieldDateTime extends vscFieldA {
 		return $this->value;
 	}
 
-	public function getDefinition () {
-		// this is totally wrong for PostgreSQL
-		return	$this->getType() .
-				($this->getIsNullable() ? ' NULL' : ' NOT NULL');
-	}
 }

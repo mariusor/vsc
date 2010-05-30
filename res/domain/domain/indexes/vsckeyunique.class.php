@@ -15,8 +15,4 @@ class vscKeyUnique extends vscKeyIndex  {
 		return vscIndexType::UNIQUE;
 	}
 
-	public function getDefinition () {
-		// this is totally wrong for PostgreSQL
-		return	'UNIQUE INDEX ' . $this->getName() . ' (' . $this->getIndexComponents(). ')';
-	}
 }

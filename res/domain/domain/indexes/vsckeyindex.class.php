@@ -36,8 +36,4 @@ class vscKeyIndex extends vscIndexA  {
 		return vscIndexType::INDEX;
 	}
 
-	public function getDefinition () {
-		// this is totally wrong for PostgreSQL
-		return	'INDEX ' . $this->getName() . ' (' . $this->getIndexComponents(). ')';
-	}
 }

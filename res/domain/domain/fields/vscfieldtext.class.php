@@ -29,11 +29,4 @@ class vscFieldText extends vscFieldA {
 		$this->encoding = $sEncoding;
 	}
 
-	public function getDefinition () {
-		// this is totally wrong for PostgreSQL
-		return	$this->getType() .
-				($this->getMaxLength() ? '(' . $this->getMaxLength() . ')' : '') .
-				($this->getEncoding() ? ' CHARACTER SET ' . $this->getEncoding() : '') .
-				($this->getIsNullable() ? ' NULL' : ' NOT NULL');
-	}
 }

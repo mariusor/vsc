@@ -36,11 +36,4 @@ class vscFieldInteger extends vscFieldA {
 		return $this->autoIncrement;
 	}
 
-	public function getDefinition () {
-		// this is totally wrong for PostgreSQL
-		return	$this->getType() .
-				($this->getMaxLength() ? '(' . $this->getMaxLength() . ')' : '') .
-				($this->getIsNullable() ? ' NULL' : ' NOT NULL') .
-				($this->getAutoIncrement() ? ' AUTO_INCREMENT' : '');
-	}
 }

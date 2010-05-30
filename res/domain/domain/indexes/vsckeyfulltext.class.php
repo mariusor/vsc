@@ -14,9 +14,4 @@ class vscKeyFullText extends vscKeyIndex  {
 	public function getType() {
 		return vscIndexType::UNIQUE;
 	}
-
-	public function getDefinition () {
-		// this is totally wrong for PostgreSQL
-		return	'FULLTEXT INDEX ' . $this->getName() . ' (' . $this->getIndexComponents(). ')';
-	}
 }
