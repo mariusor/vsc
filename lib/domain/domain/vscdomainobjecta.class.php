@@ -225,4 +225,10 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
     static public function isValid($oIncObject) {
         return ($oIncObject instanceof self);
     }
+
+    public function reset() {
+		foreach ($this->getFieldNames() as $sFieldName) {
+			$this->$sFieldName->setValue(null);
+		}
+    }
 }
