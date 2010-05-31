@@ -20,7 +20,9 @@ abstract class vscSqlFieldAccessA extends vscObject {
 		$o = $this->getConnection();
 		$mValue		=  $this->getConnection()->escape($oField->getValue());
 
-		if (is_numeric($mValue) || is_null($mValue)) {
+		if (is_null($mValue)) {
+			return $o->_NULL(true);
+		} elseif (is_numeric($mValue)) {
 			$sCondition = $mValue;
 		} elseif (is_string($mValue)) {
 			// this should be moved to the sql driver
