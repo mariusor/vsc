@@ -115,15 +115,19 @@ class postgreSql extends vscSqlDriverA {
 		}
 		if (!empty($query)) {
 			$qst = microtime(true);
-			try {
 			$this->conn = pg_query($this->link, $query);
-			}catch (Exception $e) {
-				d ($e->getMessage());
-			}
 			$qend = microtime(true);
-			echo htmlentities ($query).' ['.number_format($qend-$qst, 5, ',', '.').'s]<br/>'."\n";
-			if (isset($GLOBALS['qCnt']))
-				$GLOBALS['qCnt']++;
+			if (!isset($GLOBALS['queries'])) {
+				$GLOBALS['queries'] = array ();
+			}
+			if (isset($GLOBALS['queries'])) {
+				$aQuery = array (
+					'query'	=> $query,
+					'duration' => $qend - $qst, // seconds
+				);
+
+				$GLOBALS['queries'][] = $aQuery;
+			}
 		} else
 			return false;
 
@@ -246,7 +250,7 @@ class postgreSql extends vscSqlDriverA {
 	}
 
 	public function _VALUES ($incData) {
-		return ' VALUES ( ' . $incData . ' )';
+		return ' VALUES ' . $incData;
 	}
 
 	public function _UPDATE ($sTable){

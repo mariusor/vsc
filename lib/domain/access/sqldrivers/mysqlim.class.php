@@ -171,9 +171,17 @@ class mySqlIm extends vscSqlDriverA {
 //			if (!preg_match("/insert|update|delete/i", $query))
 			$this->conn = $this->link->query($query);
 			$qend = microtime(true);
-//			echo htmlentities ($query).' ['.number_format($qend-$qst, 5, ',', '.').'s]' . nlbr();
-			if (isset($GLOBALS['qCnt']))
-				$GLOBALS['qCnt']++;
+			if (!isset($GLOBALS['queries'])) {
+				$GLOBALS['queries'] = array ();
+			}
+			if (isset($GLOBALS['queries'])) {
+				$aQuery = array (
+					'query'	=> $query,
+					'duration' => $qend - $qst,  // seconds
+				);
+
+				$GLOBALS['queries'][] = $aQuery;
+			}
 		} else
 			return false;
 
@@ -301,7 +309,7 @@ class mySqlIm extends vscSqlDriverA {
 //				$ret = $incData;
 //			}
 //		}
-		return ' VALUES ( ' . $incData . ' )';
+		return ' VALUES ' . $incData;
 	}
 
 	public function _UPDATE ($sTable){
