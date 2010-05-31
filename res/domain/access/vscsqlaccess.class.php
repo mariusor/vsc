@@ -29,12 +29,22 @@ class vscSqlAccess extends vscSqlAccessA {
 	public function getFieldValues (vscDomainObjectI $oDomainObject) {
 		$aRet = array ();
 		foreach ($oDomainObject->getFields() as $oField) {
-			$aRet[$oField->getName()] = $this->getFieldAccess($oField)->escapeValue($oField);
+			try {
+				$aRet[$oField->getName()] = $this->getFieldAccess($oField)->escapeValue($oField);
+			} catch (vscExceptionConstraint $e) {
+				//
+			}
 		}
 		return $aRet;
 	}
 
-	public function outputInsertSql (vscDomainObjectI $oDomainObject) {
+	/**
+	 *
+	 * Enter description here ...
+	 * @param vscDomainObjectI $oDomainObject
+	 * @param array $aValues array (0 => array (// usable with fromArray), ... )
+	 */
+	public function outputInsertSql (vscDomainObjectI $oDomainObject, $aValuesGroup = null) {
 		$sSql = '';
 		$aWheres = array();
 		$aUpdateFields = array();
@@ -52,9 +62,23 @@ class vscSqlAccess extends vscSqlAccessA {
 				$aInsertFields[] = $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ' = ' . $this->getQuotedValue($oField->getValue());
 			}
 		}
-		$sSql .= $o->_VALUES(implode (',', $this->getFieldValues($oDomainObject)));
 
-		d ($sSql);
+		$aValueArray = array();
+		if (is_array($aValuesGroup)) {
+			$aInitialValues = $oDomainObject->toArray();
+			foreach ($aValuesGroup as $aValues) {
+				$oDomainObject->fromArray ($aValues);
+				$aValueArray[] = implode (', ',  $this->getFieldValues($oDomainObject));
+				$oDomainObject->reset();
+			}
+			$sValueString = '( '. implode (' ), ( ', $aValueArray) . ' )';
+			$oDomainObject->fromArray ($aInitialValues);
+		} else {
+			$sValueString = '( ' . implode (', ', $this->getFieldValues($oDomainObject)) . ' )';
+		}
+
+		$sSql .= $o->_VALUES($sValueString);
+
 		return $sSql;
 	}
 
