@@ -11,7 +11,7 @@ import ('domain/access/fields');
 import ('domain/access/indexes');
 import ('domain/domain/indexes');
 
-abstract class vscSqlAccessA extends vscObject {
+abstract class vscSqlAccessA extends vscObject implements vscSqlAccessI {
 	/**
 	 * @var vscSqlDriverA
 	 */
@@ -28,11 +28,21 @@ abstract class vscSqlAccessA extends vscObject {
 		$this->getConnection()->selectDatabase($this->getDatabaseName());
 	}
 
-	abstract public function getDatabaseType();
-	abstract public function getDatabaseHost();
-	abstract public function getDatabaseUser();
-	abstract public function getDatabasePassword();
-	abstract public function getDatabaseName();
+	public function getDatabaseType() {
+		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
+	}
+	public function getDatabaseHost() {
+		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
+	}
+	public function getDatabaseUser() {
+		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
+	}
+	public function getDatabasePassword() {
+		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
+	}
+	public function getDatabaseName() {
+		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
+	}
 
 	public function getFieldAccess (vscFieldA $oField) {
 		$oFieldAccess = null;
@@ -82,7 +92,7 @@ abstract class vscSqlAccessA extends vscObject {
 
 		return $oIndexAccess;
 	}
-	
+
 	/**
 	 * @param vscSqlDriverA $oConnection
 	 * @return void
@@ -108,270 +118,27 @@ abstract class vscSqlAccessA extends vscObject {
 		}
 	}
 
-	public function outputInsertSql (vscDomainObjectI $oDomainObject) {
-		$sSql = '';
-		$aWheres = array();
-		$aUpdateFields = array();
-
-		$o = $this->getConnection();
-		$sSql = $o->_INSERT($o->FIELD_OPEN_QUOTE . $oDomainObject->getTableName() . $o->FIELD_CLOSE_QUOTE) . $o->_SET();
-
-		foreach ($oDomainObject->getFields() as $oField) {
-			if ($oField->hasValue()) {
-				$aInsertFields[] = $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ' = ' . $this->getQuotedValue($oField->getValue());
-			} /*elseif ($oField->getDefaultValue() !== null) {
-				$aInsertFields[] = $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ' = ' . $this->getQuotedValue($oField->getDefaultValue());
-			}*/
-		}
-		$sSql .= implode (', ', $aInsertFields);
-
-		return $sSql;
+	/**
+	 * (non-PHPdoc)
+	 * @see lib/domain/access/vscSqlAccessI#insert()
+	 */
+	public function insert (vscDomainObjectA $oDomainObject) {
+		return $this->getConnection()->query($this->outputInsertSql($oDomainObject));
 	}
 
 	/**
-	 * this is not exactly perfect, as it assumes the domain object has a primary key
-	 * @param vscDomainObjectI $oDomainObject
+	 * (non-PHPdoc)
+	 * @see lib/domain/access/vscSqlAccessI#update()
 	 */
-	public function outputUpdateSql (vscDomainObjectI $oDomainObject) {
-		$sSql = '';
-		$aWheres = array();
-		$aUpdateFields = array();
-
-		$o = $this->getConnection();
-		$sSql = $o->_UPDATE($o->FIELD_OPEN_QUOTE . $oDomainObject->getTableName() . $o->FIELD_CLOSE_QUOTE) . $o->_SET();
-
-		$oPk = $oDomainObject->getPrimaryKey();
-
-		foreach ($oDomainObject->getFields() as $oField) {
-			if (!$oPk->hasField ($oField) && $oField->hasValue()) {
-				$aUpdateFields[] = $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ' = ' . $this->getQuotedValue($oField->getValue());
-			}
-		}
-
-		$sSql .= implode (', ', $aUpdateFields);
-
-		foreach ($oPk->getFields() as $oField) {
-			$aWheres[] = ($oDomainObject->hasTableAlias() ? $o->FIELD_OPEN_QUOTE . $oDomainObject->getTableAlias() . $o->FIELD_CLOSE_QUOTE . '.' : '') .
-						$o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ' = ' . $this->getQuotedValue($oField->getValue());
-		}
-		$sSql .= $o->_WHERE(implode ($o->_AND(), $aWheres));
-
-		return $sSql;
-	}
-
-
-	/**
-	 * @TODO - next item on the agenda
-	 * @param $oDomainObject
-	 * @return string
-	 */
-	public function outputSelectSql (vscDomainObjectI $oDomainObject) {
-        $aWheres = array();
-
-		if (!$oDomainObject->getTableAlias()) {
-			$oDomainObject->setTableAlias ('filter');
-		}
-
-		$sRet = $this->getConnection()->_SELECT ($this->getFieldsForSelect($oDomainObject)) .
-				$this->getConnection()->_FROM($oDomainObject->getTableName()) . $oDomainObject->getTableAlias() ."\n";
-
-		$sRet .= $this->getConnection()->_WHERE($this->getDefaultWhereClauses($oDomainObject));
-		return $sRet;
+	public function update (vscDomainObjectA $oDomainObject) {
+		return $this->getConnection()->query($this->outputUpdateSql($oDomainObject));
 	}
 
 	/**
-	 * Outputs the SQL necessary for creating the table
-	 * @return string
+	 * (non-PHPdoc)
+	 * @see lib/domain/access/vscSqlAccessI#delete()
 	 */
-	public function outputCreateTableSQL (vscDomainObjectI $oDomainObject) {
-		$sRet = $this->getConnection()->_CREATE ($oDomainObject->getTableName()) . "\n";
-		$sRet .= ' ( ' . "\n";
-
-		/* @var $oColumn vscFieldA */
-		foreach ($oDomainObject->getFields () as $oColumn) {
-			$sRet .= "\t" . $oColumn->getName() . ' ' . $this->getFieldAccess($oColumn)->getDefinition($oColumn) ;
-			$sRet .= ', ' . "\n";
-		}
-
-		$aIndexes = $oDomainObject->getIndexes(true);
-		if (is_array ($aIndexes) && !empty($aIndexes)) {
-			foreach ($aIndexes as $oIndex) {
-				if (vscIndexA::isValid($oIndex)) {
-				// this needs to be replaced with connection functionality : something like getConstraint (type, columns)
-					$sRet .=  "\t" . $this->getIndexAccess($oIndex)->getDefinition($oIndex) . ", \n"; 
-				}
-			}
-		}
-
-		$sRet = substr( $sRet, 0, -3 );
-
-		$sRet.= "\n" . ' ) ';
-
-		if ($this->oConnection->getType() == vscDbType::mysql) {
-			$sRet.= ' ENGINE ' . $this->getConnection()->getEngine();
-		}
-
-		return $sRet;
-	}
-
-	public function outputDeleteSql (vscDomainObjectI $oDomainObject) {
-		$sSql = '';
-		$aWheres = array();
-
-		$o = $this->getConnection();
-		$sSql = $o->_DELETE($o->FIELD_OPEN_QUOTE . $oDomainObject->getTableName() . $o->FIELD_CLOSE_QUOTE);
-
-		$oPk = $oDomainObject->getPrimaryKey();
-
-		foreach ($oPk->getFields() as $oField) {
-			$aWheres[] = ($oDomainObject->hasTableAlias() ? $o->FIELD_OPEN_QUOTE . $oDomainObject->getTableAlias() . $o->FIELD_CLOSE_QUOTE . '.' : '') .
-						$o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ' = ' . $this->getQuotedValue($oField->getValue());
-		}
-		$sSql .= $o->_WHERE(implode ($o->_AND(), $aWheres));
-
-		return $sSql;
-	}
-
-	public function getFieldsForSelect (vscDomainObjectI $oDomainObject) {
-		$aSelectFields = array ();
-		/* @var $oField vscFieldA */
-
-		$o = $this->getConnection();
-
-		foreach ($oDomainObject->getFields() as $oField) {
-			if (is_null($oField->getValue())) {
-				$aSelectFields[] = ($oDomainObject->hasTableAlias() ? $o->FIELD_OPEN_QUOTE . $oDomainObject->getTableAlias() . $o->FIELD_CLOSE_QUOTE . '.' : '') .
-								 $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE .
-								 ($oField->hasAlias() ? $o->_AS($o->FIELD_OPEN_QUOTE . $oField->getAlias(). $o->FIELD_CLOSE_QUOTE) : '');
-			}
-		}
-
-		return implode(', ', $aSelectFields);
-	}
-
-	public function getQuotedValue ($mValue) {
-		$o = $this->getConnection();
-		$mValue		=  $o->escape($mValue);
-		if (is_numeric($mValue) || is_null($mValue)) {
-			$sCondition = $mValue;
-		} elseif (is_string($mValue)) {
-			// this should be moved to the sql driver
-			$sCondition = $o->STRING_OPEN_QUOTE . $mValue . $o->STRING_CLOSE_QUOTE;
-		}
-
-		return $sCondition;
-	}
-
-	public function getDefaultWhereClauses (vscDomainObjectI $oDomainObject) {
-		$aWheres = null;
-		/* @var $oField vscFieldA */
-		foreach ($oDomainObject->getFields() as $oField) {
-			if ($oField->hasValue()) {
-				$aWheres[]	= ($oDomainObject->hasTableAlias() ? $this->getConnection()->FIELD_OPEN_QUOTE . $oDomainObject->getTableAlias() . $this->getConnection()->FIELD_CLOSE_QUOTE . '.' : '') .
-							$this->getFieldAccess($oField)->getNameWithValue($oField);
-			}
-		}
-
-		if ( is_null ($aWheres) ) {
-			$aWheres = array (1);
-		}
-
-		return implode($this->getConnection()->_AND(), $aWheres);
-	}
-
-	/**
-	 *
-	 * @param vscDomainObjectA $oDomainObject
-	 * @param unknown_type $aFieldsArray
-	 */
-	public function loadByFilter (vscDomainObjectA $oDomainObject, $aFieldsArray = array()) { // this shold be moved to the composite model
-		$aRet = array();
-		$oDomainObject->fromArray ($aFieldsArray);
-		$sType = get_class($oDomainObject);
-
-		$this->getConnection()->query($this->outputSelectSql($oDomainObject));
-
-		foreach ($this->getConnection()->getArray() as $aValues) {
-			$oRet = new $sType();
-			$oRet->fromArray ($aValues);
-
-			// theoretically the primary key is unique enough
-			// the conversion to string calls vscIndexA::__toString
-			$sKey = (string)$oRet->getPrimaryKey();
-			if ($sKey === '') {
-				$sKey = count ($aRet);
-			}
-
-			$aRet[] = $oRet;
-		}
-
-		return $aRet;
-	}
-
-	/**
-	 *
-	 * This has the only advantage over loadByFilter to ensure that the result returns a single entry
-	 * @param array $aFieldsArray
-	 * @throws vscExceptionDomain
-	 * @returns vscDomainObjectA
-	 */
-	public function getByUniqueIndex (vscDomainObjectA $oDomainObject, $aFieldsArray = array()) {
-		$bValid = false;
-		$aFieldNames = array_keys($aFieldsArray);
-
-		// tries to find a unique index of the entity which has values and selects an entry based on it
-		// it will find at least the primary key
-		$aIndexes = $oDomainObject->getIndexes(true);
-		/* @var $oIndex vscKeyUnique */
-		foreach ($aIndexes as $oIndex) {
-			if ($oIndex->getType() & vscIndexType::UNIQUE == vscIndexType::UNIQUE) {
-				$aIndexFields 		= $oIndex->getFields();
-				$aIndexFieldNames	= array_keys($aIndexFields);
-
-				// setting the value of each field of the index
-				if ($aIndexFieldNames == $aFieldNames) {
-					foreach ($aIndexFields as $sFieldName => $oField) {
-						$oField->setValue($aFieldsArray[$sFieldName]);
-					}
-					$bValid = true;
-				}
-			}
-		}
-
-		if ($bValid) {
-			$sSql = $this->outputSelectSql($this->getDomainObject());
-
-			$this->getConnection()->query($sSql);
-			return $oDomainObject->fromArray($this->getConnection()->getAssoc());
-		} else {
-			throw new vscExceptionDomain('None of the object unique indexes has all the neccessary values to get an unique instance.');
-		}
-	}
-
-	public function getByPrimaryKey (vscDomainObjectA $oDomainObject) {
-		if ($oDomainObject->hasPrimaryKey()) {
-			$oPk = $oDomainObject->getPrimaryKey();
-			$aIndexFields 		= $oPk->getFields();
-			$aIndexFieldNames	= array_keys($aIndexFields);
-
-			// setting the value of each field of the index
-			if ($aIndexFieldNames == $aFieldNames) {
-				foreach ($aIndexFields as $sFieldName => $oField) {
-					$oField->setValue($aFieldsArray[$sFieldName]);
-				}
-				$bValid = true;
-			}
-		}
-
-		$this->getConnection()->query($this->outputSelectSql($this->getDomainObject()));
-
-		if ($bValid) {
-			$sSql = $this->outputSelectSql($this->getDomainObject());
-
-			$this->getConnection()->query($sSql);
-			return $oDomainObject->fromArray($this->getConnection()->getAssoc());
-		} else {
-			throw new vscExceptionDomain('None of the object unique indexes has all the neccessary values to get an unique instance.');
-		}
+	public function delete (vscDomainObjectA $oDomainObject) {
+		return $this->getConnection()->query($this->outputDeleteSql($oDomainObject));
 	}
 }
