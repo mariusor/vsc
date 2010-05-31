@@ -67,9 +67,9 @@ class vscSqlAccess extends vscSqlAccessA {
 		if (is_array($aValuesGroup)) {
 			$aInitialValues = $oDomainObject->toArray();
 			foreach ($aValuesGroup as $aValues) {
+				$oDomainObject->reset();
 				$oDomainObject->fromArray ($aValues);
 				$aValueArray[] = implode (', ',  $this->getFieldValues($oDomainObject));
-				$oDomainObject->reset();
 			}
 			$sValueString = '( '. implode (' ), ( ', $aValueArray) . ' )';
 			$oDomainObject->fromArray ($aInitialValues);
