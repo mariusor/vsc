@@ -8,23 +8,53 @@
 import ('domain/domain');
 class vscSqlAccess extends vscSqlAccessA {
 
+	public function getQuotedFieldList (vscDomainObjectI $oDomainObject, $bWithAlias = false, $bWithTableAlias = false) {
+		$aRet = array ();
+		$o = $this->getConnection();
+
+		foreach ($oDomainObject->getFields() as $oField) {
+			$sField = '';
+			if ($bWithTableAlias && $oDomainObject->getTableAlias()) {
+				$sField = $o->FIELD_OPEN_QUOTE .  $oDomainObject->getTableAlias() . $o->FIELD_CLOSE_QUOTE . '.';
+			}
+
+			$sField .= $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ($bWithAlias && $oField->getAlias() ? $o->_AS() . $o->FIELD_OPEN_QUOTE . $oField->getAlias() . $o->FIELD_CLOSE_QUOTE : '');
+
+			$aRet[] = $sField;
+		}
+
+		return $aRet;
+	}
+
+	public function getFieldValues (vscDomainObjectI $oDomainObject) {
+		$aRet = array ();
+		foreach ($oDomainObject->getFields() as $oField) {
+			$aRet[$oField->getName()] = $this->getFieldAccess($oField)->escapeValue($oField);
+		}
+		return $aRet;
+	}
+
 	public function outputInsertSql (vscDomainObjectI $oDomainObject) {
 		$sSql = '';
 		$aWheres = array();
 		$aUpdateFields = array();
 
 		$o = $this->getConnection();
-		$sSql = $o->_INSERT($o->FIELD_OPEN_QUOTE . $oDomainObject->getTableName() . $o->FIELD_CLOSE_QUOTE) . $o->_SET();
+		$sSql = $o->_INSERT($o->FIELD_OPEN_QUOTE . $oDomainObject->getTableName() . $o->FIELD_CLOSE_QUOTE);
+
+		$aFields = $oDomainObject->toArray();
+		$aValues = array_keys ($aFields);
+
+		$sSql .= ' ( '.implode (', ', $this->getQuotedFieldList ($oDomainObject)) . ' )';
 
 		foreach ($oDomainObject->getFields() as $oField) {
 			if ($oField->hasValue()) {
 				$aInsertFields[] = $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ' = ' . $this->getQuotedValue($oField->getValue());
-			} /*elseif ($oField->getDefaultValue() !== null) {
-				$aInsertFields[] = $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ' = ' . $this->getQuotedValue($oField->getDefaultValue());
-			}*/
+			}
 		}
-		$sSql .= implode (', ', $aInsertFields);
+		$sSql .= $o->_VALUES(implode (',', $this->getFieldValues($oDomainObject)));
 
+		d ($sSql);
 		return $sSql;
 	}
 
@@ -170,20 +200,21 @@ class vscSqlAccess extends vscSqlAccessA {
 	}
 
 	public function getDefaultWhereClauses (vscDomainObjectI $oDomainObject) {
+		$o = $this->getConnection();
 		$aWheres = null;
 		/* @var $oField vscFieldA */
 		foreach ($oDomainObject->getFields() as $oField) {
 			if ($oField->hasValue()) {
-				$aWheres[]	= ($oDomainObject->hasTableAlias() ? $this->getConnection()->FIELD_OPEN_QUOTE . $oDomainObject->getTableAlias() . $this->getConnection()->FIELD_CLOSE_QUOTE . '.' : '') .
+				$aWheres[]	= ($oDomainObject->hasTableAlias() ? $o->FIELD_OPEN_QUOTE . $oDomainObject->getTableAlias() . $o->FIELD_CLOSE_QUOTE . '.' : '') .
 							$this->getFieldAccess($oField)->getNameWithValue($oField);
 			}
 		}
 
 		if ( is_null ($aWheres) ) {
-			$aWheres = array (1);
+			$aWheres = array ($o->TRUE);
 		}
 
-		return implode($this->getConnection()->_AND(), $aWheres);
+		return implode($o->_AND(), $aWheres);
 	}
 
 	/**
