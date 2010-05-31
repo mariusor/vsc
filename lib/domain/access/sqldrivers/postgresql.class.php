@@ -115,7 +115,11 @@ class postgreSql extends vscSqlDriverA {
 		}
 		if (!empty($query)) {
 			$qst = microtime(true);
+			try {
 			$this->conn = pg_query($this->link, $query);
+			}catch (Exception $e) {
+				d ($e->getMessage());
+			}
 			$qend = microtime(true);
 			echo htmlentities ($query).' ['.number_format($qend-$qst, 5, ',', '.').'s]<br/>'."\n";
 			if (isset($GLOBALS['qCnt']))
@@ -124,7 +128,7 @@ class postgreSql extends vscSqlDriverA {
 			return false;
 
 		if (!$this->conn)	{
-			trigger_error ($this->link->error.'<br/> ' . $query);
+			$e = new vscExceptionDomain($this->link->error.'<br/> ' . $query, $this->link->errno);
 			return false;
 		}
 
@@ -232,7 +236,7 @@ class postgreSql extends vscSqlDriverA {
 	}
 
 	public function _SET(){
-		return ' SET ';
+		return ' ';
 	}
 
 	public function _INSERT ($incData){
@@ -242,15 +246,7 @@ class postgreSql extends vscSqlDriverA {
 	}
 
 	public function _VALUES ($incData) {
-		if (empty ($incData))
-			return '';
-		else {
-			if (is_array ($incData)) {
-				$ret = implode("', '", $incData);
-			}
-		}
-
-		return ' VALUES (' . "'" . $ret . "')";
+		return ' VALUES ( ' . $incData . ' )';
 	}
 
 	public function _UPDATE ($sTable){

@@ -285,23 +285,23 @@ class mySqlIm extends vscSqlDriverA {
 	}
 
 	public function _VALUES ($incData) {
-		if (empty ($incData))
-			return '';
-		else {
-			if (is_array ($incData)) {
-				$ret = '';
-				foreach ($incData as $value) {
-					if (is_numeric($value))
-						$ret .= $value . ', ';
-					elseif (is_string($value))
-						$ret .= "'" . $this->escape ($value) . "', ";
-				}
-				$ret = substr ($ret,0, -2);
-			} elseif (is_string ($incData)) {
-				$ret = $incData;
-			}
-		}
-		return ' VALUES (' . $ret . ' )';
+//		if (empty ($incData))
+//			return '';
+//		else {
+//			if (is_array ($incData)) {
+//				$ret = '';
+//				foreach ($incData as $value) {
+//					if (is_numeric($value))
+//						$ret .= $value . ', ';
+//					elseif (is_string($value))
+//						$ret .= "'" . $this->escape ($value) . "', ";
+//				}
+//				$ret = substr ($ret,0, -2);
+//			} elseif (is_string ($incData)) {
+//				$ret = $incData;
+//			}
+//		}
+		return ' VALUES ( ' . $incData . ' )';
 	}
 
 	public function _UPDATE ($sTable){
