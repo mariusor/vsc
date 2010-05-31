@@ -75,12 +75,6 @@ class mySqlIm extends vscSqlDriverA {
 		return vscDbType::mysql;
 	}
 
-	public function __destruct() {
-//		var_dump($this->link);
-//		if (!empty ($this->link) &&  $this->link  instanceof mysqli)
-//			$this->close();
-	}
-
 	public function startTransaction ($bAutoCommit = false) {
 		if ($this->getEngine() != 'InnoDB')
 			throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');

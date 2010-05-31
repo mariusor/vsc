@@ -13,49 +13,39 @@ class postgreSql extends vscSqlDriverA {
 				$user,
 				$pass;
 
+	static public function isValid ($oLink) {
+		return true;// ($oLink instanceof mysqli);
+	}
+
 	public function __construct( $dbHost = null, $dbUser = null, $dbPass = null , $dbName = null ){
-		if (!empty ($dbHost))
+		if (!extension_loaded('pgsql')) {
+			return new nullSql();
+		}
+		if (!empty ($dbHost)) {
 			$this->host	= $dbHost;
-		elseif (defined('DB_HOST'))
-			$this->host	= DB_HOST;
-		else
-			trigger_error('Database connection data missing!', E_USER_ERROR);
+		} else {
+			throw new vscConnectionException ('Database connection data missing: [DB_HOST]');
+		}
 
-		if (!empty ($dbUser))
+		if (!empty ($dbUser)) {
 			$this->user	= $dbUser;
-		elseif (defined('DB_USER'))
-			$this->user	= DB_USER;
-		else
-			trigger_error('Database connection data missing!', E_USER_ERROR);
+		} else {
+			throw new vscConnectionException ('Database connection data missing: [DB_USERNAME]');
+		}
 
-		if(!empty($dbPass))
+		if(!empty($dbPass)) {
 			$this->pass	= $dbPass;
-		elseif (defined('DB_PASS'))
-			$this->pass	= DB_PASS;
-		else
-			trigger_error('Database connection data missing!', E_USER_ERROR);
+		}
 
-		// this is needed for postgresql
-		if(!empty($dbName))
-			$this->name	= $dbName;
-		elseif (defined('DB_NAME'))
-			$this->name	= DB_NAME;
-		else
-			trigger_error('Database connection data missing!', E_USER_ERROR);
-
-		if (!empty($this->host) && !empty($this->user) && !empty($this->pass)) {
+		try {
 			$this->connect ();
+		} catch (Exception $e) {
+			d($e);
 		}
 	}
 
 	public function getType () {
 		return vscDbType::postgresql;
-	}
-
-	public function __destruct() {
-//		var_dump($this->link);
-//		if (!empty ($this->link) &&  $this->link  instanceof mysqli)
-//			$this->close();
 	}
 
 
@@ -82,7 +72,7 @@ class postgreSql extends vscSqlDriverA {
 	 */
 	public function close (){
 //		if ($this->link instanceof mysqli)
-			pg_close($this->link);
+		pg_close($this->link);
 		$this->link = null;
 		return true;
 	}
@@ -207,6 +197,19 @@ class postgreSql extends vscSqlDriverA {
 		return $retVal;
 	}
 
+
+	public function startTransaction ($bAutoCommit = false) {
+		throw new vscExceptionUnimplemented('Transaction support for postgres is not currenty implemented');
+	}
+
+	public function rollBackTransaction () {
+		throw new vscExceptionUnimplemented('Transaction support for postgres is not currenty implemented');
+	}
+
+	public function commitTransaction () {
+		throw new vscExceptionUnimplemented('Transaction support for postgres is not currenty implemented');
+	}
+
 	/**
 	 *
 	 * @param array $incObj = array (array('field1','alias1),array('field2','alias2),...)
@@ -224,8 +227,8 @@ class postgreSql extends vscSqlDriverA {
 		return ' DELETE FROM ' . $sIncName . ' ';
 	}
 
-	public function _CREATE (){
-		return ' CREATE ';
+	public function _CREATE ($sIncName){
+		return ' CREATE ' . $sIncName;
 	}
 
 	public function _SET(){
@@ -250,10 +253,8 @@ class postgreSql extends vscSqlDriverA {
 		return ' VALUES (' . "'" . $ret . "')";
 	}
 
-	public function _UPDATE ($incOb){
-		if (!is_array($incOb))
-			$incOb[] = array ($incOb);
-		return ' UPDATE '.$incOb[0].(!empty($incOb[1]) ? ' AS '.$incOb[1] : '');
+	public function _UPDATE ($sTable){
+		return ' UPDATE '. $sTable;
 	}
 
 	/**
