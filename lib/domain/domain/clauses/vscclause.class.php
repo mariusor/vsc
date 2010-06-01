@@ -39,7 +39,7 @@ class vscClause {
 			return;
 		}
 
-		if (($mSubject instanceof vscFieldA) || ($mSubject instanceof cClause )) {
+		if (($mSubject instanceof vscFieldA) || ($mSubject instanceof vscClause )) {
 			$this->mSubject 	= $mSubject;
 			$this->mPredicative	= $mPredicative;
 			if ($this->validPredicate ($sPredicate)) {
@@ -56,7 +56,7 @@ class vscClause {
 		}
 	}
 
-	private function validPredicate ($sPredicate) {
+	public function validPredicate ($sPredicate) {
 		return true; // broken for now
 	}
 }

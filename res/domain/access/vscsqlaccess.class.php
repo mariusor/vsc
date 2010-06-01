@@ -9,7 +9,34 @@ import ('domain/domain');
 import (VSC_LIB_PATH . 'domain/access/clauses');
 import (VSC_LIB_PATH . 'domain/domain/clauses');
 class vscSqlAccess extends vscSqlAccessA {
-	private $aClauses = array();
+	private $aGroupBys	= array();
+	private $aOrderBys	= array();
+	private $aClauses	= array();
+	private $iStart;
+	private $iCount;
+
+	private $oFactory;
+
+	final public function __construct() {
+		parent::__construct();
+
+		$this->oFactory = new vscAccessFactory();
+		$this->oFactory->setConnection($this->getConnection());
+	}
+
+	public function getAccess($oObject = null) {
+		if ($oObject instanceof vscFieldA) {
+			return $this->oFactory->getField($oObject);
+		}
+
+		if ($oObject instanceof vscIndexA) {
+			return $this->oFactory->getIndex($oObject);
+		}
+
+		if (is_null($oObject) || $oObject instanceof vscClause) {
+			return $this->oFactory->getClause($oObject);
+		}
+	}
 
 	public function getQuotedFieldList (vscDomainObjectI $oDomainObject, $bWithAlias = false, $bWithTableAlias = false) {
 		$aRet = array ();
@@ -33,7 +60,7 @@ class vscSqlAccess extends vscSqlAccessA {
 		$aRet = array ();
 		foreach ($oDomainObject->getFields() as $oField) {
 			try {
-				$aRet[$oField->getName()] = $this->getFieldAccess($oField)->escapeValue($oField);
+				$aRet[$oField->getName()] = $this->getAccess($oField)->escapeValue($oField);
 			} catch (vscExceptionConstraint $e) {
 				//
 			}
@@ -130,7 +157,11 @@ class vscSqlAccess extends vscSqlAccessA {
 
 		$this->buildDefaultClauses($oDomainObject);
 
-		$sRet .= $this->getConnection()->_WHERE($this->getClausesString ());
+		$sRet .= $this->getConnection()->_WHERE($this->getClausesString ()) .
+				$this->getGroupByString() .
+				$this->getOrderByString() .
+				$this->getLimitString();
+
 		return $sRet;
 	}
 
@@ -144,7 +175,7 @@ class vscSqlAccess extends vscSqlAccessA {
 
 		/* @var $oColumn vscFieldA */
 		foreach ($oDomainObject->getFields () as $oColumn) {
-			$sRet .= "\t" . $oColumn->getName() . ' ' . $this->getFieldAccess($oColumn)->getDefinition($oColumn) ;
+			$sRet .= "\t" . $oColumn->getName() . ' ' . $this->getAccess($oColumn)->getDefinition($oColumn) ;
 			$sRet .= ', ' . "\n";
 		}
 
@@ -153,7 +184,7 @@ class vscSqlAccess extends vscSqlAccessA {
 			foreach ($aIndexes as $oIndex) {
 				if (vscIndexA::isValid($oIndex)) {
 				// this needs to be replaced with connection functionality : something like getConstraint (type, columns)
-					$sRet .=  "\t" . $this->getIndexAccess($oIndex)->getDefinition($oIndex) . ", \n";
+					$sRet .=  "\t" . $this->getAccess($oIndex)->getDefinition($oIndex) . ", \n";
 				}
 			}
 		}
@@ -362,13 +393,6 @@ class vscSqlAccess extends vscSqlAccessA {
 		}
 	}
 
-	public function getClauseAccess () {
-		$oAccess = new vscSqlClauseAccess();
-		$oAccess->setConnection ($this->getConnection());
-
-		return $oAccess;
-	}
-
 	public function where ($mSubject, $sPredicate= null, $mPredicative = null) {
 		if (($mSubject instanceof vscClause) && ($sPredicate == null || $mPredicative == null)) {
 			$w = $mSubject;
@@ -376,7 +400,7 @@ class vscSqlAccess extends vscSqlAccessA {
 			$w = new vscClause($mSubject, $sPredicate, $mPredicative);
 		}
 		// this might generate an infinite recursion error on some PHP > 5.2 due to object comparison
-		if (!in_array ($w, $this->aClauses, true)) {
+		if (!in_array ($w, $this->aClauses/*, true*/)) {
 			$this->aClauses[]	= $w;
 		}
 	}
@@ -386,12 +410,64 @@ class vscSqlAccess extends vscSqlAccessA {
 		$aStrClauses = array();
 		if (count ($this->aClauses) > 0 ) {
 			foreach ($this->aClauses as $oClause) {
-				$aStrClauses[] .= $this->getClauseAccess()->getDefinition($oClause);
+				$aStrClauses[] .= $this->getAccess()->getDefinition($oClause);
 			}
 
 			$sStr = implode ($this->getConnection()->_AND(), $aStrClauses);
 		}
 
 		return $sStr;
+	}
+
+	public function setLimit ($iStart, $iCount = null) {
+		if ($iCount === null) {
+			$iCount = $iStart;
+			$iStart = 0;
+		}
+		$this->iStart = $iStart;
+		$this->iCount = $iCount;
+	}
+
+	public function getLimitString() {
+		return $this->getConnection()->_LIMIT ($this->iStart, $this->iCount);
+	}
+
+	public function groupBy (vscFieldA $oField) {
+		if (!in_array($oField, $this->aGroupBys)) {
+			$this->aGroupBys[] = $this->getAccess($oField)->getQuotedFieldName($oField);
+		}
+	}
+
+	public function orderBy (vscFieldA $oField, $bAscending = true) {
+		if ($bAscending) {
+			$sDirection = ' ASC';
+		} else {
+			$sDirection = ' DESC';
+		}
+		if (!in_array($oField, $this->aOrderBys)) {
+			$this->aOrderBys[$oField->getName()] =  array (
+				$this->getAccess($oField)->getQuotedFieldName($oField),
+				$sDirection
+			);
+		}
+	}
+
+	public function getGroupByString () {
+		if (count ($this->aGroupBys) > 0 ) {
+			return $this->getConnection()->_GROUP(implode (', ', $this->aGroupBys));
+		} else {
+			return '';
+		}
+	}
+
+	public function getOrderByString () {
+		if (count ($this->aOrderBys) > 0 ) {
+			foreach ($this->aOrderBys as $aOrderBy) {
+				$aOrders[] = $aOrderBy[0] . $aOrderBy[1];
+			}
+			return $this->getConnection()->_ORDER(implode (', ', $aOrders));
+		} else {
+			return '';
+		}
 	}
 }
