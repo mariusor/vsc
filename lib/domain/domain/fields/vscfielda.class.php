@@ -11,9 +11,6 @@ abstract class vscFieldA implements vscFieldI {
 	protected  $default = null;
 	protected  $parent;
 	protected  $modifier = null;
-	protected  $order = null;
-	protected  $group = null;
-	protected  $where = false;
     protected  $sAlias;
 
 	protected  $nullable = true;
@@ -112,5 +109,13 @@ abstract class vscFieldA implements vscFieldI {
 
     public function getAlias () {
         return $this->sAlias;
+    }
+
+    public function setParent(vscDomainObjectA $oDomainObject) {
+    	$this->parent = $oDomainObject;
+    }
+
+    public function getTableName() {
+    	return $this->parent->getTableName();
     }
 }

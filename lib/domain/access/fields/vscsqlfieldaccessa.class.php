@@ -48,8 +48,13 @@ abstract class vscSqlFieldAccessA extends vscObject {
 	}
 
 	public function getNameWithValue (vscFieldA $oField) {
+		return $this->getQuotedFieldName($oField) . ' = ' . $this->escapeValue($oField);
+	}
+
+	public function getQuotedFieldName (vscFieldA $oField) {
 		$o = $this->getConnection();
-		return $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ' = ' . $this->escapeValue($oField);
+
+		return $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE;
 	}
 
 	abstract public function getType(vscFieldA $oField);
