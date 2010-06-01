@@ -6,7 +6,10 @@
  * @date 10.04.01
  */
 import ('domain/domain');
+import (VSC_LIB_PATH . 'domain/access/clauses');
+import (VSC_LIB_PATH . 'domain/domain/clauses');
 class vscSqlAccess extends vscSqlAccessA {
+	private $aClauses = array();
 
 	public function getQuotedFieldList (vscDomainObjectI $oDomainObject, $bWithAlias = false, $bWithTableAlias = false) {
 		$aRet = array ();
@@ -125,7 +128,9 @@ class vscSqlAccess extends vscSqlAccessA {
 		$sRet = $this->getConnection()->_SELECT ($this->getFieldsForSelect($oDomainObject)) .
 				$this->getConnection()->_FROM($this->getTableName($oDomainObject, true)) ."\n";
 
-		$sRet .= $this->getConnection()->_WHERE($this->getDefaultWhereClauses($oDomainObject));
+		$this->buildDefaultClauses($oDomainObject);
+
+		$sRet .= $this->getConnection()->_WHERE($this->getClausesString ());
 		return $sRet;
 	}
 
@@ -223,22 +228,21 @@ class vscSqlAccess extends vscSqlAccessA {
 		return $sCondition;
 	}
 
-	public function getDefaultWhereClauses (vscDomainObjectI $oDomainObject) {
+	public function buildDefaultClauses (vscDomainObjectI $oDomainObject) {
 		$o = $this->getConnection();
-		$aWheres = null;
+		$aWheres = array();
 		/* @var $oField vscFieldA */
 		foreach ($oDomainObject->getFields() as $oField) {
 			if ($oField->hasValue()) {
-				$aWheres[]	= ($oDomainObject->hasTableAlias() ? $o->FIELD_OPEN_QUOTE . $oDomainObject->getTableAlias() . $o->FIELD_CLOSE_QUOTE . '.' : '') .
-							$this->getFieldAccess($oField)->getNameWithValue($oField);
+				$aWheres[]	= new vscClause($oField, '=', $oField->getValue());
 			}
 		}
 
-		if ( is_null ($aWheres) ) {
-			$aWheres = array ($o->TRUE);
+		if (count($this->aClauses) == 0 && count($aWheres) == 0) {
+			$this->aClauses = array (new vscClause ($o->TRUE));
+		} else {
+			$this->aClauses = array_merge($this->aClauses, $aWheres);
 		}
-
-		return implode($o->_AND(), $aWheres);
 	}
 
 	/**
@@ -358,4 +362,36 @@ class vscSqlAccess extends vscSqlAccessA {
 		}
 	}
 
+	public function getClauseAccess () {
+		$oAccess = new vscSqlClauseAccess();
+		$oAccess->setConnection ($this->getConnection());
+
+		return $oAccess;
+	}
+
+	public function where ($mSubject, $sPredicate= null, $mPredicative = null) {
+		if (($mSubject instanceof vscClause) && ($sPredicate == null || $mPredicative == null)) {
+			$w = $mSubject;
+		} else {
+			$w = new vscClause($mSubject, $sPredicate, $mPredicative);
+		}
+		// this might generate an infinite recursion error on some PHP > 5.2 due to object comparison
+		if (!in_array ($w, $this->aClauses, true)) {
+			$this->aClauses[]	= $w;
+		}
+	}
+
+	public function getClausesString () {
+		$sStr = '';
+		$aStrClauses = array();
+		if (count ($this->aClauses) > 0 ) {
+			foreach ($this->aClauses as $oClause) {
+				$aStrClauses[] .= $this->getClauseAccess()->getDefinition($oClause);
+			}
+
+			$sStr = implode ($this->getConnection()->_AND(), $aStrClauses);
+		}
+
+		return $sStr;
+	}
 }
