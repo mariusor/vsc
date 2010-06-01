@@ -115,7 +115,7 @@ abstract class vscFieldA implements vscFieldI {
     	$this->parent = $oDomainObject;
     }
 
-    public function getTableName() {
-    	return $this->parent->getTableName();
+    public function getTableAlias() {
+    	return  $this->parent->hasTableAlias() ? $this->parent->getTableAlias() : $this->parent->getTableName();
     }
 }

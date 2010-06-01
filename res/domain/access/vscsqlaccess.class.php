@@ -149,13 +149,26 @@ class vscSqlAccess extends vscSqlAccessA {
 	 * @param $oDomainObject
 	 * @return string
 	 */
-	public function outputSelectSql (vscDomainObjectI $oDomainObject) {
+	public function outputSelectSql () {
+		$aParameters = func_get_args();
+		$aSelects = $aNames = array ();
+
+		foreach ($aParameters as $key => $oParameter) {
+			if (!($oParameter instanceof vscDomainObjectI)) {
+				unset ($aParameters[$key]);
+			}
+			/* @var $oParameter vscDomainObjectA */
+			$oParameter->setTableAlias('t'.$key);
+			$aSelects[] =  $this->getFieldsForSelect($oParameter, true);
+
+			$aNames[] = $this->getTableName($oParameter, true);
+			$this->buildDefaultClauses($oParameter);
+		}
+
         $aWheres = array();
 
-		$sRet = $this->getConnection()->_SELECT ($this->getFieldsForSelect($oDomainObject)) .
-				$this->getConnection()->_FROM($this->getTableName($oDomainObject, true)) ."\n";
-
-		$this->buildDefaultClauses($oDomainObject);
+		$sRet = $this->getConnection()->_SELECT (implode (', ', $aSelects)) .
+				$this->getConnection()->_FROM(implode (', ', $aNames)) ."\n";
 
 		$sRet .= $this->getConnection()->_WHERE($this->getClausesString ()) .
 				$this->getGroupByString() .
@@ -229,7 +242,7 @@ class vscSqlAccess extends vscSqlAccessA {
 		return $sRet;
 	}
 
-	public function getFieldsForSelect (vscDomainObjectI $oDomainObject) {
+	public function getFieldsForSelect (vscDomainObjectI $oDomainObject, $bWithAlias = false) {
 		$aSelectFields = array ();
 		/* @var $oField vscFieldA */
 
@@ -239,7 +252,7 @@ class vscSqlAccess extends vscSqlAccessA {
 			if (is_null($oField->getValue())) {
 				$aSelectFields[] = ($oDomainObject->hasTableAlias() ? $o->FIELD_OPEN_QUOTE . $oDomainObject->getTableAlias() . $o->FIELD_CLOSE_QUOTE . '.' : '') .
 								 $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE .
-								 ($oField->hasAlias() ? $o->_AS($o->FIELD_OPEN_QUOTE . $oField->getAlias(). $o->FIELD_CLOSE_QUOTE) : '');
+								 ($bWithAlias && $oField->hasAlias() ? $o->_AS($o->FIELD_OPEN_QUOTE . $oField->getAlias(). $o->FIELD_CLOSE_QUOTE) : '');
 			}
 		}
 
@@ -446,7 +459,7 @@ class vscSqlAccess extends vscSqlAccessA {
 		}
 		if (!in_array($oField, $this->aOrderBys)) {
 			$this->aOrderBys[$oField->getName()] =  array (
-				$this->getAccess($oField)->getQuotedFieldName($oField),
+				$oField->hasAlias() ?  $oField->getAlias() :  $oField->getTableAlias() . '.' . $oField->getName(),
 				$sDirection
 			);
 		}

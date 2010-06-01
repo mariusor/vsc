@@ -29,7 +29,7 @@ class vscSqlClauseAccess extends vscObject {
 		} elseif ($oClause->getSubject() instanceof vscClause) {
 			$subStr = (string)$oClause->getSubject ();
 		} elseif ($oClause->getSubject() instanceof vscFieldA) {
-			$subStr =  ($oClause->getSubject()->getTableName() != 't' ? $oClause->getSubject()->getTableName().'.': '') . $oClause->getSubject()->getName();
+			$subStr =  ($oClause->getSubject()->getTableAlias() != 't' ? $oClause->getSubject()->getTableAlias().'.': '') . $oClause->getSubject()->getName();
 		} else {
 			return '';
 		}

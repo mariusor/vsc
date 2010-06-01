@@ -57,6 +57,6 @@ class vscClause {
 	}
 
 	public function validPredicate ($sPredicate) {
-		return true; // broken for now
+		return true;
 	}
 }
