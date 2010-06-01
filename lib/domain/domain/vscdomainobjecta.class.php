@@ -1,7 +1,7 @@
 <?php
 /**
- * The abstract object entity - it represents an entry in the database.
- * It can be composed from more Entity Objects using reflection
+ * The abstract object entity - it represents an entry in the database
+ * and it contains the structure neccessary to create the table
  *
  * @package vsc_domain
  * @subpackage domain
@@ -21,10 +21,18 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 	final public function __construct () {
 		$this->buildObject();
 
+		$this->setFieldsParent();
+
 		parent::__construct ();
 	}
 
 	abstract protected function buildObject();
+
+	public function setFieldsParent() {
+		foreach ($this->getFields() as $oField) {
+			$oField->setParent ($this);
+		}
+	}
 
 	public function __call ($sMethodName, $aParameters) {
 		$i = preg_match ('/(set|get)(.*)/i', $sMethodName, $found );
