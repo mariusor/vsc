@@ -18,12 +18,24 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 	private		$aFields = array ();
 	private 	$aIndexes = array ();
 
+	public function valid ($sName = null) {
+		$bRetValue = false;
+		$oRObject = new ReflectionObject ($this);
+		try {
+			$bRetValue = (bool)($oRObject->hasProperty($sName) && $oRObject->getProperty($sName)->isPublic());
+		} catch (ReflectionException $e) {
+			$bRetValue = false;
+		}
+
+		return $bRetValue;
+	}
+
 	final public function __construct () {
 		$this->buildObject();
 
 		$this->setFieldsParent();
 
-		parent::__construct ();
+//		parent::__construct ();
 	}
 
 	abstract protected function buildObject();

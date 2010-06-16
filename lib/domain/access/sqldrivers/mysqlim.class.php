@@ -345,7 +345,7 @@ class mySqlIm extends vscSqlDriverA {
 		return ' OR ';
 	}
 	public function _JOIN ($type) {
-
+		return $type . ' JOIN ';
 	}
 
 	/**

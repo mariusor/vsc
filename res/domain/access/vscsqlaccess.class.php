@@ -6,12 +6,16 @@
  * @date 10.04.01
  */
 import ('domain/domain');
-import (VSC_LIB_PATH . 'domain/access/clauses');
-import (VSC_LIB_PATH . 'domain/domain/clauses');
+import ('domain/access/clauses');
+import ('domain/domain/clauses');
+import ('domain/access/joins');
+import ('domain/domain/joins');
+
 class vscSqlAccess extends vscSqlAccessA {
 	private $aGroupBys	= array();
 	private $aOrderBys	= array();
 	private $aClauses	= array();
+	private $aJoins		= array();
 	private $iStart;
 	private $iCount;
 
@@ -25,6 +29,10 @@ class vscSqlAccess extends vscSqlAccessA {
 	}
 
 	public function getAccess($oObject = null) {
+		if ($oObject instanceof vscJoinA) {
+			return $this->oFactory->getJoin($oObject);
+		}
+
 		if ($oObject instanceof vscFieldA) {
 			return $this->oFactory->getField($oObject);
 		}
@@ -153,9 +161,15 @@ class vscSqlAccess extends vscSqlAccessA {
 		$aParameters = func_get_args();
 		$aSelects = $aNames = array ();
 
+		if (count($aParameters) == 1 && is_array($aParameters)) {
+			// some of the functions get the arguments themselves and pass them as an array
+			$aParameters = $aParameters[0];
+		}
+
 		foreach ($aParameters as $key => $oParameter) {
 			if (!($oParameter instanceof vscDomainObjectI)) {
 				unset ($aParameters[$key]);
+				continue;
 			}
 			/* @var $oParameter vscDomainObjectA */
 			$oParameter->setTableAlias('t'.$key);
@@ -168,9 +182,9 @@ class vscSqlAccess extends vscSqlAccessA {
         $aWheres = array();
 
 		$sRet = $this->getConnection()->_SELECT (implode (', ', $aSelects)) .
-				$this->getConnection()->_FROM(implode (', ', $aNames)) ."\n";
-
-		$sRet .= $this->getConnection()->_WHERE($this->getClausesString ()) .
+				$this->getConnection()->_FROM(implode (', ', $aNames)) ."\n" .
+//				$this->getJoinsString() .
+				$this->getConnection()->_WHERE($this->getClausesString ()) .
 				$this->getGroupByString() .
 				$this->getOrderByString() .
 				$this->getLimitString();
@@ -294,25 +308,42 @@ class vscSqlAccess extends vscSqlAccessA {
 	 * @param vscDomainObjectA $oDomainObject
 	 * @param unknown_type $aFieldsArray
 	 */
-	public function loadByFilter (vscDomainObjectA $oDomainObject, $aFieldsArray = array()) { // this shold be moved to the composite model
-		$aRet = array();
-		$oDomainObject->fromArray ($aFieldsArray);
-		$sType = get_class($oDomainObject);
+	public function loadByFilter () { // this shold be moved to the composite model
+		$aParameters = func_get_args();
+		$aSelects = $aNames = array ();
 
-		$this->getConnection()->query($this->outputSelectSql($oDomainObject));
-
-		foreach ($this->getConnection()->getArray() as $aValues) {
-			$oRet = new $sType();
-			$oRet->fromArray ($aValues);
-
-			// theoretically the primary key is unique enough
-			// the conversion to string calls vscIndexA::__toString
-			$sKey = (string)$oRet->getPrimaryKey();
-			if ($sKey === '') {
-				$sKey = count ($aRet);
+		foreach ($aParameters as $key => $oParameter) {
+			if (!($oParameter instanceof vscDomainObjectI)) {
+				unset ($aParameters[$key]);
 			}
 
-			$aRet[] = $oRet;
+			$sLabel = $oParameter->getTableAlias() ? $oParameter->getTableAlias() : $oParameter->getTableName();
+			$aTypes[$sLabel] = get_class($oParameter);
+		}
+		$aLocalRet = $aRet = array();
+
+		$this->getConnection()->query($this->outputSelectSql($aParameters));
+
+		$icnt = 0;
+		foreach ($this->getConnection()->getAssoc() as $sKey => $sValue) {
+			$sTableAlias	= substr($sKey, 0, strpos($sKey, '.'));
+			$sFieldName 	= substr($sKey, strpos($sKey, '.')+1);
+
+			$aValuesPerTable[$sTableAlias][$sFieldName] = $sValue;
+			$aTotalValues[] = $aValuesPerTable;
+		}
+
+		foreach ($aTotalValues as $aValues) {
+			foreach ($aParameters as $sName => $oDomainObject) {
+				$sType = get_class($oDomainObject);
+				$sLabel = $oParameter->getTableAlias() ? $oParameter->getTableAlias() : $oParameter->getTableName();
+
+				$oDomainObject = new $sType();
+				$oDomainObject->fromArray ($aValues[$sLabel]);
+
+				$aLocalRet[] = $oDomainObject;
+			}
+			$aRet[] = $aLocalRet;
 		}
 
 		return $aRet;
@@ -416,6 +447,16 @@ class vscSqlAccess extends vscSqlAccessA {
 		if (!in_array ($w, $this->aClauses/*, true*/)) {
 			$this->aClauses[]	= $w;
 		}
+		return $this;
+	}
+
+	public function join (vscFieldA $oLeftField, vscFieldA $oRightField) {
+		$w = new vscJoinInner($oLeftField, $oRightField);
+		if (!in_array ($w, $this->aJoins/*, true*/)) {
+			$this->aJoins[]	= $w;
+		}
+		$this->where ($oLeftField, '=', $oRightField);
+		return $this;
 	}
 
 	public function getClausesString () {
@@ -449,6 +490,7 @@ class vscSqlAccess extends vscSqlAccessA {
 		if (!in_array($oField, $this->aGroupBys)) {
 			$this->aGroupBys[] = $this->getAccess($oField)->getQuotedFieldName($oField);
 		}
+		return $this;
 	}
 
 	public function orderBy (vscFieldA $oField, $bAscending = true) {
@@ -463,6 +505,7 @@ class vscSqlAccess extends vscSqlAccessA {
 				$sDirection
 			);
 		}
+		return $this;
 	}
 
 	public function getGroupByString () {
@@ -482,5 +525,19 @@ class vscSqlAccess extends vscSqlAccessA {
 		} else {
 			return '';
 		}
+	}
+
+	public function getJoinsString () {
+		$sStr = '';
+		$aStrJoins = array();
+		if (count ($this->aJoins) > 0 ) {
+			foreach ($this->aJoins as $oJoin) {
+				$aStrJoins[] .= $this->getAccess($oJoin)->getDefinition($oJoin);
+			}
+
+			$sStr = implode (', ', $aStrJoins);
+		}
+
+		return $sStr;
 	}
 }

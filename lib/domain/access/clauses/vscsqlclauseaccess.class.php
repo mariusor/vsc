@@ -1,6 +1,6 @@
 <?php
 /**
- * @package c_domain
+ * @package vsc_domain
  * @subpackage access
  * @author marius orcsik <marius@habarnam.ro>
  * @date 10.06.01
@@ -52,7 +52,7 @@ class vscSqlClauseAccess extends vscObject {
 		} elseif (is_array($oClause->getPredicative ())) {
 			$preStr =  '("'.implode('", "',$oClause->getPredicative ()).'")';
 		} elseif ($oClause->getPredicative () instanceof vscFieldA) {
-			$preStr = ($oClause->getPredicative()->getTableName() != 't' ? $oClause->getPredicative()->getTableName().'.': '').$oClause->getPredicative()->getName();
+			$preStr = ($oClause->getPredicative()->getTableAlias() != 't' ? $oClause->getPredicative()->getTableAlias().'.': '').$oClause->getPredicative()->getName();
 		} elseif ($oClause->getPredicative () instanceof vscClause) {
 			$subStr = $subStr;
 			$preStr = $oClause->getPredicative ();

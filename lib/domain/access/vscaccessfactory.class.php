@@ -29,6 +29,9 @@ class vscAccessFactory extends vscObject {
 	 private $oKeyPrimary;
 	 private $oKeyUnique;
 
+	 private $oJoinInner;
+	 private $oJoinOuter;
+
 	 public function getField (vscFieldA $oField) {
 		switch ($oField->getType()) {
 			case (vscFieldType::INTEGER):
@@ -110,5 +113,26 @@ class vscAccessFactory extends vscObject {
 		}
 
 		return $this->oClause;
+	}
+
+	public function getJoin (vscJoinA $oJoin) {
+		switch ($oJoin->getType()) {
+			case (vscJoinType::INNER):
+				if (!($this->oJoinInner instanceof vscJoinInnerAccess)) {
+					$this->oJoinInner = new vscJoinInnerAccess();
+					$this->oJoinInner->setConnection($this->getConnection());
+				}
+				return $this->oJoinInner;
+				break;
+			case (vscJoinType::OUTER):
+			case (vscJoinType::LEFT):
+			case (vscJoinType::RIGHT):
+				if (!($this->oJoinOuter instanceof vscJoinOuterAccess)) {
+					$this->oJoinOuter = new vscJoinOuterAccess();
+					$this->oJoinOuter->setConnection($this->getConnection());
+				}
+				return $this->oJoinOuter;
+				break;
+		}
 	}
 }

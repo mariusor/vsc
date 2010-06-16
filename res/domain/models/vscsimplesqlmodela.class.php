@@ -67,6 +67,8 @@ abstract class vscSimpleSqlModelA extends vscModelA implements vscDomainObjectI 
 	 */
 	public function getDomainObject() {}
 
+	public function getDomainObjects() {}
+
 	public function getTableName() {}
 
 	/**
@@ -111,5 +113,6 @@ abstract class vscSimpleSqlModelA extends vscModelA implements vscDomainObjectI 
 	public function setConnection (vscSqlDriverA $oConnection) {
 		$this->oConnection = $oConnection;
 	}
+//	abstract public function getDomainObjects();
 }
 
