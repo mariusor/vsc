@@ -21,11 +21,13 @@ class vscUrlParserA implements vscUrlParserI {
 
 		if (is_array($aParameters)) {
 			foreach ($aParameters as $sParameterString) {
-				try {
-					list ($sParamName, $sParamValue) = explode ('=', $sParameterString);
-					$aReturnParameters[$sParamName] = $sParamValue;
-				} catch (vscExceptionError $e) {
-					// d ($e->getTraceAsString());
+				if (!empty($sParameterString) ) {
+					try {
+						list ($sParamName, $sParamValue) = explode ('=', $sParameterString);
+						$aReturnParameters[$sParamName] = $sParamValue;
+					} catch (vscExceptionError $e) {
+						// d ($e->getTraceAsString());
+					}
 				}
 			}
 		}
