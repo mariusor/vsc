@@ -190,12 +190,12 @@ class mySqlIm extends vscSqlDriverA {
 			return false;
 		}
 
-		if (stristr('select', $query))
+		if (stristr($query, 'select')) {
 			// mysqli result
 			return $this->conn;
-		elseif (preg_match('/insert|update|replace|delete/i', $query))
+		} elseif (preg_match('/insert|update|replace|delete/i', $query)) {
 			return $this->link->affected_rows;
-
+		}
 		return true;
 	}
 

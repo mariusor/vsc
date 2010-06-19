@@ -316,34 +316,34 @@ class vscSqlAccess extends vscSqlAccessA {
 			if (!($oParameter instanceof vscDomainObjectI)) {
 				unset ($aParameters[$key]);
 			}
+		}
+		$aRet = array();
+		$aTotalValues =  array();
 
+		$a = $this->getConnection()->query($this->outputSelectSql($aParameters));
+
+		foreach ($aParameters as $oParameter) {
 			$sLabel = $oParameter->getTableAlias() ? $oParameter->getTableAlias() : $oParameter->getTableName();
 			$aTypes[$sLabel] = get_class($oParameter);
 		}
-		$aLocalRet = $aRet = array();
 
-		$this->getConnection()->query($this->outputSelectSql($aParameters));
+		for ($i = 0; $i < $a->num_rows; $i++) {
+			foreach ($this->getConnection()->getAssoc() as $sKey => $sValue) {
+				$sTableAlias	= substr($sKey, 0, strpos($sKey, '.'));
+				$sFieldName 	= substr($sKey, strpos($sKey, '.')+1);
 
-		$icnt = 0;
-		foreach ($this->getConnection()->getAssoc() as $sKey => $sValue) {
-			$sTableAlias	= substr($sKey, 0, strpos($sKey, '.'));
-			$sFieldName 	= substr($sKey, strpos($sKey, '.')+1);
-
-			$aValuesPerTable[$sTableAlias][$sFieldName] = $sValue;
-			$aTotalValues[] = $aValuesPerTable;
+				$aTotalValues[$sTableAlias][$i][$sFieldName] = $sValue;
+			}
 		}
 
-		foreach ($aTotalValues as $aValues) {
-			foreach ($aParameters as $sName => $oDomainObject) {
-				$sType = get_class($oDomainObject);
-				$sLabel = $oParameter->getTableAlias() ? $oParameter->getTableAlias() : $oParameter->getTableName();
-
+		foreach ($aTotalValues as $sAlias => $aValuesArray) {
+			$sType = $aTypes[$sAlias];
+			foreach ($aValuesArray as $iKey => $aValues){
 				$oDomainObject = new $sType();
-				$oDomainObject->fromArray ($aValues[$sLabel]);
+				$oDomainObject->fromArray ($aValues);
 
-				$aLocalRet[] = $oDomainObject;
+				$aRet[$iKey][$sAlias] = $oDomainObject;
 			}
-			$aRet[] = $aLocalRet;
 		}
 
 		return $aRet;
