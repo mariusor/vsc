@@ -1,11 +1,12 @@
 <?php
+define ('BASE_PATH', dirname (__FILE__) . '/fixtures/');
 import ('application/dispatchers');
+
 class vscRwDispatcherTest  extends Snap_UnitTestCase {
 	private $state;
 
 	public function setUp () {
 		$this->state = new vscRwDispatcher();
-		define ('BASE_PATH', dirname (__FILE__) . '/fixtures/');
 	}
 	public function tearDown () {
 		$this->state = null;
@@ -27,7 +28,6 @@ class vscRwDispatcherTest  extends Snap_UnitTestCase {
 	}
 
 	public function testGetFrontController () {
-		define ('BASE_PATH', dirname (__FILE__) . '/fixtures/');
 
 		$this->state->loadSiteMap (BASE_PATH . 'config/map.php');
 
@@ -37,7 +37,6 @@ class vscRwDispatcherTest  extends Snap_UnitTestCase {
 	}
 
 	public function testGetProcessController404 () {
-		define ('BASE_PATH', dirname (__FILE__) . '/fixtures/');
 		$this->state->loadSiteMap (BASE_PATH . '/config/map.php');
 
 		$oProcess = $this->state->getProcessController();
@@ -46,7 +45,6 @@ class vscRwDispatcherTest  extends Snap_UnitTestCase {
 	}
 
 	public function testGetMapsMap () {
-		define ('BASE_PATH', dirname (__FILE__) . '/fixtures/');
 
 		$this->state->loadSiteMap (BASE_PATH . 'config/map.php');
 		$sCurPath = realpath(dirname (__FILE__) . '/../../presentation/requests/fixtures/vscpopulatedrequest.class.php');

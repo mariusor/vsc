@@ -90,7 +90,8 @@ function __autoload ($className) {
 		include_once (realpath(VSC_LIB_PATH . 'exceptions/vscexceptionpath.class.php'));
 		include_once (realpath(VSC_LIB_PATH . 'exceptions/vscexceptionautoload.class.php'));
 
-		throw new vscExceptionAutoload('Could not load class ['.$className.'] in path: ' . get_include_path());
+		$sExport = var_export(explode (':',get_include_path()),true);
+		throw new vscExceptionAutoload('Could not load class ['.$className.'] in path: <pre>' . $sExport . '</pre>');
 	}
     return true;
 }
