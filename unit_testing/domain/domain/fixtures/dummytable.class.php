@@ -1,18 +1,22 @@
 <?php
-usingPackage ('models/foo');
-usingPackage ('models/foo/fields');
+import (VSC_LIB_PATH . 'domain');
+import ('domain');
 
-class dummyTable extends fooEntityA {
+class dummyTable extends vscDomainObjectA {
 	protected $name = 'dummy';
+	public $id;
+	public $payload;
+	public $timestamp;
 
-	public function __construct () {
+	public function buildObject() {
 		$this->id 		= new vscFieldInteger('id');
 		$this->id->setAutoIncrement (true);
 
-		$this->payload 		= new vscFieldVarChar ('payload');
+		$this->payload 		= new vscFieldText('payload');
 		$this->timestamp 	= new vscFieldDateTime ('ts');
 
-		$this->setPayload(2); // this is used later in the testGetter - if you modify here, modify the fooEntityTest
+		// this is used later in the testGetter - if you modify here, modify the vscentity.stest.php file
+		$this->setPayload(2);
 
 		$this->setPrimaryKey ($this->id);
 	}

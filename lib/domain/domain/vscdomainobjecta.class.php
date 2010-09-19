@@ -8,6 +8,7 @@
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.02.26
  */
+import (VSC_LIB_PATH . 'domain/models');
 import (VSC_RES_PATH . 'domain/domain/fields');
 import (VSC_RES_PATH . 'domain/domain/indexes');
 
@@ -73,7 +74,7 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
             $oProperty = new ReflectionProperty($this, $sIncName);
         } catch (ReflectionException $e) {
 //            d ($e);
-            parent::__set ($sPropertyName,$mValue);
+            parent::__set ($sIncName,$mValue);
         }
 		$sSetterName = 'set'.ucfirst($sIncName);
 		$oSetter = new ReflectionMethod($this, $sSetterName);
@@ -82,9 +83,9 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 			$oSetter = new ReflectionMethod($this, $sSetterName);
 
             if (vscFieldA::isValid ($mValue)) {
-                $this->$sPropertyName = $mValue;
+                $this->$sIncName = $mValue;
             } else {
-                $this->$sPropertyName->setValue($mValue);
+                $this->$sIncName->setValue($mValue);
             }
 		}
 	}
