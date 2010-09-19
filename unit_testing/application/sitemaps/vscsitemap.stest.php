@@ -7,4 +7,7 @@ class vscSiteMapTest  extends Snap_UnitTestCase {
 	public function tearDown () {
 		// @todo
 	}
+	public function testTest () {
+		return $this->assertNull (null);
+	}
 }

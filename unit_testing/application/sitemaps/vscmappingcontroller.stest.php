@@ -8,4 +8,7 @@ class vscMappingControllerTest  extends Snap_UnitTestCase {
 		// @todo
 	}
 
+	public function testTest () {
+		return $this->assertNull (null);
+	}
 }
