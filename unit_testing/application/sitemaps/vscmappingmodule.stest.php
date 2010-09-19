@@ -7,7 +7,7 @@ class vscMappingModuleTest  extends Snap_UnitTestCase {
 	public function tearDown () {
 		// @todo
 	}
-	public function testTest () {
-		return $this->assertNull (null);
+	public function testToDo () {
+		$this->todo('Do me: ' . __METHOD__);
 	}
 }
