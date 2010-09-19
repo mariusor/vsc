@@ -487,8 +487,8 @@ class vscSqlAccess extends vscSqlAccessA {
 	}
 
 	public function groupBy (vscFieldA $oField) {
-		if (!in_array($oField, $this->aGroupBys)) {
-			$this->aGroupBys[] = $this->getAccess($oField)->getQuotedFieldName($oField);
+		if (!key_exists($oField->getName(), $this->aGroupBys)) {
+			$this->aGroupBys[$oField->getName()] = $oField;
 		}
 		return $this;
 	}
@@ -499,9 +499,9 @@ class vscSqlAccess extends vscSqlAccessA {
 		} else {
 			$sDirection = ' DESC';
 		}
-		if (!in_array($oField, $this->aOrderBys)) {
+		if (!key_exists($oField->getName(), $this->aOrderBys)) {
 			$this->aOrderBys[$oField->getName()] =  array (
-				$oField->hasAlias() ?  $oField->getAlias() :  $oField->getTableAlias() . '.' . $oField->getName(),
+				$oField,
 				$sDirection
 			);
 		}
@@ -509,19 +509,28 @@ class vscSqlAccess extends vscSqlAccessA {
 	}
 
 	public function getGroupByString () {
+		$sGroupBy = '';
 		if (count ($this->aGroupBys) > 0 ) {
-			return $this->getConnection()->_GROUP(implode (', ', $this->aGroupBys));
+			foreach ($this->aGroupBys as $oField) {
+				$oDomainObject = $oField->getParent();
+				$sGroupBy .= ($oField->hasAlias() ? $oField->getAlias() : $oField->getName());   
+			}
+			return $this->getConnection()->_GROUP($sGroupBy);
 		} else {
 			return '';
 		}
 	}
 
 	public function getOrderByString () {
+		$sOrderBy = '';
 		if (count ($this->aOrderBys) > 0 ) {
 			foreach ($this->aOrderBys as $aOrderBy) {
-				$aOrders[] = $aOrderBy[0] . $aOrderBy[1];
+				$oField = $aOrderBy[0];
+				$sDirection = $aOrderBy[1];
+				$sOrderBy = ($oField->hasAlias() ? $oField->getAlias() : $oField->getName()) . ' '. $sDirection ;
 			}
-			return $this->getConnection()->_ORDER(implode (', ', $aOrders));
+
+			return $this->getConnection()->_ORDER($sOrderBy);
 		} else {
 			return '';
 		}

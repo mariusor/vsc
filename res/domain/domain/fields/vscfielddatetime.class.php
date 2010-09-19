@@ -20,5 +20,9 @@ class vscFieldDateTime extends vscFieldA {
 		// TODO
 		return $this->value;
 	}
+	
+	public function format ($sFormat) {
+		return strftime($sFormat, strtotime($this->value));
+	}
 
 }

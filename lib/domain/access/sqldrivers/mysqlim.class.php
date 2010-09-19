@@ -42,12 +42,13 @@ class mySqlIm extends vscSqlDriverA {
 
 	public function __construct( $dbHost = null, $dbUser = null, $dbPass = null, $dbName = null ){
 		if (!extension_loaded('mysqli')) {
-			return new nullSql();
+			//return new nullSql();
+			throw new vscConnectionException ('Database engine missing: mysqlim');
 		}
 		if (!empty ($dbHost)) {
 			$this->host	= $dbHost;
 		} else {
-			throw new vscConnectionException ('Database connection data missing: [DB_HOST]');
+			
 		}
 
 		if (!empty ($dbUser)) {
