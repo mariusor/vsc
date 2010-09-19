@@ -1,8 +1,11 @@
 <?php
+import ('res/application/controllers');
+import ('presentation/responses');
+import ('presentation/requests');
+
 class vscRssFrontControllerTest extends Snap_UnitTestCase {
 	private $state;
 	public function setUp () {
-		import ('res/application/controllers');
 		$this->state = new vscRssController();
 	}
 
@@ -11,9 +14,6 @@ class vscRssFrontControllerTest extends Snap_UnitTestCase {
 	}
 
 	public function testGetResponse() {
-		import ('presentation/responses');
-		import ('presentation/requests');
-
 		$oReq = new vscRwHttpRequest();
 		return $this->assertIsA($this->state->getResponse($oReq),'vscHttpResponseA');
 	}

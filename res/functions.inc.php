@@ -204,7 +204,7 @@ if (!function_exists('_e')) {
 		$sRet .= '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">';
 		$sRet .= '<head>';
 		$sRet .= '<style>ul {padding:0; font-size:0.8em} li {padding:0.2em;display:inline} address {position:fixed;bottom:0;}</style>';
-		$sRet .= '<title>Internal Error' . (!$e ? '' : ': '. $e->getMessage()) . '</title>';
+		$sRet .= '<title>Internal Error' . (!$e ? '' : ': '. substr($e->getMessage(), 0, 20) . '...') . '</title>';
 		$sRet .= '</head>';
 		$sRet .= '<body>';
 		$sRet .= '<strong>Internal Error' . (!$e ? '' : ': '. $e->getMessage()) . '</strong>';

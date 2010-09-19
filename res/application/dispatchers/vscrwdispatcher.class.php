@@ -124,7 +124,7 @@ class vscRwDispatcher extends vscDispatcherA {
 			$this->getSiteMap()->map ('^/', $sIncPath);
 		} catch (vscExceptionSitemap $e) {
 			// there was a faulty controller in the sitemap
-			 d ($e);
+			 throw ($e);
 		}
 	}
 
