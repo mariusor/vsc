@@ -18,6 +18,10 @@ class vscString {
 		for ($i = 0; $i <= $iTimes; $i++)
 			echo $sString;
 	}
+	
+	static function stripScriptTags ($sString) {
+		return preg_replace('/<script.*\/script>/i', '', (string)$sString);
+	}
 
 	/**
 	 * returns an end of line, based on the environment

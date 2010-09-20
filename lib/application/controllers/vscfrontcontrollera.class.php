@@ -75,7 +75,7 @@ abstract class vscFrontControllerA extends vscObject {
 			$oMyMap = $this->getMap();
 		} catch (Exception $e) {
 			// no map
-			$oMyMap = null;
+			$oMyMap = new vscNull();
 		}
 
 		if (($oProcessor instanceof vscProcessorI)) {

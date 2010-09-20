@@ -112,8 +112,12 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	public function getOutput() {
 		try {
     		return $this->fetch (VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . $this->getViewFolder() . DIRECTORY_SEPARATOR . 'main.php');
-		} catch (vscExceptionView $e) {
-			return '';
+		} catch (vscExceptionPath $e) {
+			try {
+	    		return $this->fetch ($this->getMap()->getTemplatePath() . DIRECTORY_SEPARATOR . $this->getMap()->getTemplate());
+			} catch (vscExceptionPath $e) {
+				return '';
+			}
 		}
     }
 

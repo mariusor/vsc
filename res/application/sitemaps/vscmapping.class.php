@@ -8,6 +8,8 @@
 import ('infrastructure/urls');
 
 class vscMapping extends vscObject {
+	private $oModuleMap;
+
 	private $sRegex;
 	private $sPath;
 
@@ -21,6 +23,7 @@ class vscMapping extends vscObject {
 
 	private $sTitle;
 	private $aResources = array();
+	private $bIsStatic;
 
 	private $sMainTemplate;
 
@@ -31,6 +34,13 @@ class vscMapping extends vscObject {
 
 	public function getRegex () {
 		return $this->sRegex;
+	}
+
+	public function setIsStatic($bStatic){
+		$this->bIsStatic = $bStatic;
+	}
+	public function isStatic() {
+		return $this->bIsStatic;
 	}
 
 	public function setResources ($aResources) {
@@ -85,9 +95,28 @@ class vscMapping extends vscObject {
 		return $this->sMainTemplate;
 	}
 
+	public function setModuleMap (vscMapping $oMap) {
+		$this->oModuleMap = $oMap;
+	}
+
+	public function getModuleMap () {
+		if ($this->oModuleMap instanceof vscMapping) {
+			return $this->oModuleMap;
+		} elseif (key_exists ('__map', $GLOBALS) && $GLOBALS['__map'] instanceof vscMapping) {
+			return $GLOBALS['__map'];
+		} else {
+			return new vscNull();
+		}
+	}
+
 	public function getModulePath () {
-		if (vscSiteMapA::isValidMap($this->sPath)) {
-			return realpath (dirname($this->sPath) ) . DIRECTORY_SEPARATOR;
+		$sModulePath = $this->getModuleMap()->getPath();
+		if (vscSiteMapA::isValidMap($sModulePath)) {
+			$sModulePath = realpath(dirname($sModulePath));
+			if (basename ($sModulePath) == 'config') {
+				$sModulePath = substr ($sModulePath, 0, -7);
+			}
+			return $sModulePath . DIRECTORY_SEPARATOR;
 		} else {
 			return false;
 		}

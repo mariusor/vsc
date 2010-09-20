@@ -28,7 +28,8 @@ class vscRwDispatcher extends vscDispatcherA {
 			mb_internal_encoding('utf-8');
 			$sUri = $this->getRequest()->getUri(true); // get it as a urldecoded string
 			foreach ($aRegexes as $sRegex) {
-				$iMatch			= preg_match ('/' . str_replace('/', '\/', $sRegex). '/i' ,  $sUri, $aMatches);
+				$sFullRegex = '/' . str_replace('/', '\/', $sRegex). '/i';
+				$iMatch			= preg_match ($sFullRegex,  $sUri, $aMatches);
 				if ($iMatch) {
 					break;
 				}
@@ -83,13 +84,24 @@ class vscRwDispatcher extends vscDispatcherA {
 		}
 
 		try {
-			if ($this->getSiteMap()->isValidObject ($sPath)) {
+			if ($this->getSiteMap()->isValidObject ($sPath) ) {
+				// dirty import of the module folder and important subfolders
+				$sModuleName = $oProcessorMapping->getModuleName();
+				if (is_dir($oProcessorMapping->getModulePath()) && !$oProcessorMapping->isStatic()) {
+					import ($sModuleName);
+					import ('application');
+					import ('domain');
+					import ('presentation/views');
+				}
+
 				include ($sPath);
 
-				$sProcessorName = $this->getSiteMap()->getClassName($sPath);
+				if ( !$oProcessorMapping->isStatic()) {
+					$sProcessorName = $this->getSiteMap()->getClassName($sPath);
 
-				/* @var $oProcessor vscProcessorA */
-				$oProcessor = new $sProcessorName();
+					/* @var $oProcessor vscProcessorA */
+					$oProcessor = new $sProcessorName();
+				}
 
 			} else {
 				$oProcessor = new vsc404Processor();

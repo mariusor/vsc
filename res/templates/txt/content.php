@@ -13,7 +13,7 @@ These settings are defined in one of the following files:
 
 <?php
 	foreach (get_included_files() as $sFileName) {
-		if (stristr($sFileName, 'map.php'))
+		if (stristr($sFileName, 'map.php') && stristr ($sFileName, $this->getMap()->getModuleName()))
 			echo "\t" .  '- ' . $sFileName . "\n";
 	};
 ?>
