@@ -1,4 +1,4 @@
-<?php /* @var $this vscTxtView */ 
+<?php /* @var $this vscTxtView */
 
 try {
 	$sContent = $this->fetch ($this->getTemplate());
