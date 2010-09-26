@@ -12,60 +12,83 @@ import ('presentation/responses');
 import ('exceptions');
 
 class vscRwDispatcher extends vscDispatcherA {
-
 	/**
 	 * @param array $aMaps
 	 * @return vscMapping
 	 */
 	public function getCurrentMap ($aMaps) {
-		if (!is_array($aMaps))
-			return '';
+		if (!is_array($aMaps) || empty($aMaps)) {
+			return new vscNull();
+		}
 
 		$aRegexes	= array_keys($aMaps);
 		$aMatches 	= array();
 
-		try {
-			mb_internal_encoding('utf-8');
-			$sUri = $this->getRequest()->getUri(true); // get it as a urldecoded string
-			foreach ($aRegexes as $sRegex) {
-				$sFullRegex = '/' . str_replace('/', '\/', $sRegex). '/i';
-				$iMatch			= preg_match ($sFullRegex,  $sUri, $aMatches);
-				if ($iMatch) {
-					break;
-				}
+		mb_internal_encoding('utf-8');
+		$sUri = $this->getRequest()->getUri(true); // get it as a urldecoded string
+		foreach ($aRegexes as $sRegex) {
+			$sFullRegex = '/' . str_replace('/', '\/', $sRegex). '/i';
+			$iMatch			= preg_match ($sFullRegex,  $sUri, $aMatches);
+			if ($iMatch) {
+				array_shift($aMatches);
+				/* @var $oProcessorMapping vscMapping */
+				$oProcessorMapping  = $aMaps[$sRegex];
+				$oProcessorMapping->setTaintedVars($aMatches);
+				return $oProcessorMapping;
 			}
-		} catch (Exception $e) {
-			d ($e);
 		}
-		return $aMaps[$sRegex];
+
+		return new vscNull();
+	}
+
+	public function getCurrentModuleMap () {
+		return $this->getCurrentProcessorMap()->getModuleMap();
+	}
+
+	public function getCurrentProcessorMap () {
+		return $this->getCurrentMap($this->getSiteMap()->getMaps());
+	}
+
+	public function getCurrentControllerMap () {
+		$oProcessorMap	= $this->getCurrentProcessorMap();
+		$oModuleMap		= $oProcessorMap->getModuleMap();
+		$aMaps 			= $oProcessorMap->getControllerMaps();
+
+		// merging all controller maps found in the processor map's parent modules
+		while ($oModuleMap instanceof vscMapping) {
+			$aMaps = array_merge ($aMaps, $oModuleMap->getControllerMaps());
+			$oModuleMap = $oModuleMap->getModuleMap();
+		}
+
+		return $this->getCurrentMap($aMaps);
 	}
 
 	/**
 	 * @return vscFrontControllerA
 	 */
 	public function getFrontController () {
-		$aMaps				= $this->getSiteMap()->getControllerMaps();
-		$oControllerMapping	= $this->getCurrentMap($aMaps);
-		if ($oControllerMapping instanceof vscMapping) {
-			$sPath 				= $oControllerMapping->getPath();
-		} else {
-			$sPath = '';
+		if (!($this->oController instanceof vscFrontControllerA)) {
+			$oControllerMapping	= $this->getCurrentControllerMap();
+
+			if (!($oControllerMapping instanceof vscMapping)) {
+				// this mainly means nothing was matched to our url, or no mappings exist
+				$oControllerMapping = new vscMapping (VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.class.php', '');
+			}
+
+			$sPath 	= $oControllerMapping->getPath();
+
+			if ($this->getSiteMap()->isValidObject ($sPath)) {
+				include ($sPath);
+
+				$sControllerName = $this->getSiteMap()->getClassName($sPath);
+
+				/* @var $oFront vscFrontControllerA */
+				$this->oController = new $sControllerName();
+				// adding the map to the controller, allows it to add resources (styles,scripts) from inside it
+				$this->oController->setMap ($oControllerMapping);
+			}
 		}
-
-		if ($this->getSiteMap()->isValidObject ($sPath)) {
-			include ($sPath);
-
-			$sControllerName = $this->getSiteMap()->getClassName($sPath);
-
-			/* @var $oFront vscFrontControllerA */
-			$oFront = new $sControllerName();
-			// adding the map to the controller, allows it to add resources (styles,scripts) from inside it
-			$oFront->setMap ($oControllerMapping);
-
-			return $oFront;
-		}
-
-		return new vscXhtmlController ();
+		return $this->oController;
 	}
 
 	/**
@@ -74,53 +97,59 @@ class vscRwDispatcher extends vscDispatcherA {
 	 * @return vscProcessorA
 	 */
 	public function getProcessController () {
-		$aMaps				= $this->getSiteMap()->getMaps();
-		$oProcessorMapping	= $this->getCurrentMap($aMaps);
-
-		if ($oProcessorMapping instanceof vscMapping) {
-			$sPath 				= $oProcessorMapping->getPath();
-		} else {
-			$sPath = '';
-		}
-
-		try {
-			if ($this->getSiteMap()->isValidObject ($sPath) ) {
-				// dirty import of the module folder and important subfolders
-				$sModuleName = $oProcessorMapping->getModuleName();
-				if (is_dir($oProcessorMapping->getModulePath()) && !$oProcessorMapping->isStatic()) {
-					import ($sModuleName);
-					import ('application');
-					import ('domain');
-					import ('presentation/views');
-				}
-
-				include ($sPath);
-
-				if ( !$oProcessorMapping->isStatic()) {
-					$sProcessorName = $this->getSiteMap()->getClassName($sPath);
-
-					/* @var $oProcessor vscProcessorA */
-					$oProcessor = new $sProcessorName();
-				}
-
-			} else {
-				$oProcessor = new vsc404Processor();
+		if (!($this->oProcessor instanceof vscProcessorA)) {
+			$oProcessorMapping	= $this->getCurrentProcessorMap();
+			if ($oProcessorMapping instanceof vscNull) {
+				// this mainly means nothing was matched to our url, or no mappings exist, so we're falling back to 404
+				$oProcessorMapping	= new vscMapping(VSC_RES_PATH . 'application/processors/vsc404processor.class.php', '');
+				$oProcessorMapping->setTemplatePath(VSC_RES_PATH . 'templates');
+				$oProcessorMapping->setTemplate('404.php');
 			}
-		} catch  (vscExceptionResponseRedirect $e) {
-			// get the response
-			$oResponse 			= new vscHttpRedirection ();
-			$oResponse->setLocation ($e->getLocation());
-			ob_end_flush();
-			$sContent = $oResponse->outputHeaders();
+
+			$sPath = $oProcessorMapping->getPath();
+
+			try {
+				if ($this->getSiteMap()->isValidObject ($sPath) ) {
+					// dirty import of the module folder and important subfolders
+					$sModuleName = $oProcessorMapping->getModuleName();
+					if (is_dir($oProcessorMapping->getModulePath()) && !$oProcessorMapping->isStatic()) {
+						import ($oProcessorMapping->getModulePath());
+						try {
+							import ($sModuleName);
+							import ('application');
+							import ('domain');
+							import ('presentation');
+						} catch (vscExceptionPath $e) {
+							// ooopps
+						}
+					}
+					include ($sPath);
+
+					$sProcessorName = $this->getSiteMap()->getClassName($sPath);
+					/* @var $oProcessor vscProcessorA */
+					$this->oProcessor = new $sProcessorName();
+				} elseif ($this->getSiteMap()->isValidStatic ($sPath) ) {
+					// static stuff
+					$this->oProcessor = new vscFileContentProcessor();
+					$this->oProcessor->setFilePath($sPath);
+				} /*else {
+					$this->oProcessor = new vsc404Processor();
+				}*/
+			} catch  (vscExceptionResponseRedirect $e) {
+				// get the response
+				$oResponse 			= new vscHttpRedirection ();
+				$oResponse->setLocation ($e->getLocation());
+				ob_end_flush();
+				$sContent = $oResponse->outputHeaders();
+			}
+			// adding the map to the processor, allows it to easy add resources (styles,scripts) from inside it
+			$this->oProcessor->setMap ($oProcessorMapping);
+
+			// setting the variables defined in the processor into the tainted variables
+			$this->getRequest()->setTaintedVars ($this->oProcessor->getLocalVars()); // FIXME!!!
 		}
 
-		// adding the map to the processor, allows it to easy add resources (styles,scripts) from inside it
-		$oProcessor->setMap ($oProcessorMapping);
-
-		// setting the variables defined in the processor into the tainted variables
-		$this->getRequest()->setTaintedVars ($oProcessor->getLocalVars()); // FIXME!!!
-		return $oProcessor;
-
+		return $this->oProcessor;
 	}
 
 	/**
@@ -133,18 +162,19 @@ class vscRwDispatcher extends vscDispatcherA {
 		$this->setSiteMap (new vscRwSiteMap ());
 		try {
 			// hic sunt leones
-			$this->getSiteMap()->map ('^/', $sIncPath);
+			$oMap = $this->getSiteMap()->map ('^/', $sIncPath);
 		} catch (vscExceptionSitemap $e) {
 			// there was a faulty controller in the sitemap
-			 throw ($e);
+			// this will probably result in a incomplete parsed sitemap tree
+			throw ($e);
 		}
 	}
 
-	public function getView () { }
+	public function getView () {}
 
 	public function getTemplatePath () {
 		$aMaps				= $this->getSiteMap ()->getMaps();
-		$oProcessorMapping = $this->getCurrentMap($aMaps);
+		$oProcessorMapping	= $this->getCurrentMap($aMaps);
 
 		return $oProcessorMapping->getTemplate();
 	}

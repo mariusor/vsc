@@ -8,8 +8,6 @@
 import ('infrastructure/urls');
 
 class vscMapping extends vscObject {
-	private $oModuleMap;
-
 	private $sRegex;
 	private $sPath;
 
@@ -23,9 +21,18 @@ class vscMapping extends vscObject {
 
 	private $sTitle;
 	private $aResources = array();
-	private $bIsStatic;
+	private $bIsStatic = false;
 
 	private $sMainTemplate;
+
+	private $aControllerMaps = array();
+
+	private $aTaintedVars;
+
+	/**
+	 * @var vscMapping
+	 */
+	private $oParentMap;
 
 	public function __construct ($sPath, $sRegex) {
 		$this->sPath	= $sPath;
@@ -96,34 +103,33 @@ class vscMapping extends vscObject {
 	}
 
 	public function setModuleMap (vscMapping $oMap) {
-		$this->oModuleMap = $oMap;
+		$this->oParentMap = $oMap;
 	}
 
 	public function getModuleMap () {
-		if ($this->oModuleMap instanceof vscMapping) {
-			return $this->oModuleMap;
-		} elseif (key_exists ('__map', $GLOBALS) && $GLOBALS['__map'] instanceof vscMapping) {
-			return $GLOBALS['__map'];
+		if ($this->oParentMap instanceof vscMapping) {
+			return $this->oParentMap;
 		} else {
 			return new vscNull();
 		}
 	}
 
 	public function getModulePath () {
-		$sModulePath = $this->getModuleMap()->getPath();
-		if (vscSiteMapA::isValidMap($sModulePath)) {
-			$sModulePath = realpath(dirname($sModulePath));
-			if (basename ($sModulePath) == 'config') {
-				$sModulePath = substr ($sModulePath, 0, -7);
-			}
-			return $sModulePath . DIRECTORY_SEPARATOR;
-		} else {
-			return false;
+		$sModulePath = $this->getPath();
+		if (!vscSiteMapA::isValidMap($sModulePath) && vscSiteMapA::isValidObject($sModulePath)) {
+			$sModulePath = $this->getModuleMap()->getPath();
 		}
+
+		$sModulePath = realpath(dirname($sModulePath));
+		if (basename ($sModulePath) == 'config') {
+			$sModulePath = substr ($sModulePath, 0, -7);
+		}
+		return $sModulePath . DIRECTORY_SEPARATOR;
+
 	}
 
 	public function getModuleName() {
-		return basename ($this->getModulePath());
+		return $this->getModulePath() ? basename ($this->getModulePath()) : null;
 	}
 
 	public function getPath () {
@@ -184,6 +190,28 @@ class vscMapping extends vscObject {
 		}
 	}
 
+	public function mapController ($sRegex, $sPath){
+		if (!$sRegex) {
+			throw new vscExceptionSitemap ('An URI must be present.');
+		}
+		if (vscSiteMapA::isValidObject ($sPath)) {
+			$sKey = $sRegex;
+			if (!is_array($this->aControllerMaps) || !key_exists($sKey, $this->aControllerMaps)) {
+				$oNewMap 	= new vscMapping ($sPath, $sKey);
+				$this->aControllerMaps[$sKey] = $oNewMap;
+
+				return $oNewMap;
+			}
+		}
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getControllerMaps () {
+		return $this->aControllerMaps;
+	}
+
 	public function getStyles ($sMedia = null) {
 		$aStyles					= $this->getResources('styles');
 		if (!is_null($sMedia)) {
@@ -241,5 +269,13 @@ class vscMapping extends vscObject {
 		} else {
 			return '';
 		}
+	}
+
+	public function setTaintedVars ($aVars) {
+		$this->aTaintedVars = $aVars;
+	}
+
+	public function getTaintedVars () {
+		return $this->aTaintedVars;
 	}
 }

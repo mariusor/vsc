@@ -6,25 +6,21 @@
  * @date 09.09.24
  */
 abstract class vscSiteMapA extends vscObject {
-	private $aBasePath;
-	private $aMaps;
-	private $aControllerMaps;
+	/**
+	 * the base regex for the current map
+	 * @todo this needs to be deprecated in favour of regexes of the parent module
+	 * @var string
+	 */
+	private $aMaps = array();
+	private $oCurrentModuleMap;
 
 	public function __construct () {}
 
 	/**
-	 * @param string $sPath
-	 * @return void
-	 */
-	public function setBasePath ($sPath) {
-		$this->aBasePath = $sPath;
-	}
-
-	/**
 	 * @return string
 	 */
-	public function getBasePath () {
-		return $this->aBasePath;
+	public function getBaseRegex () {
+		return (string)$this->getCurrentModuleMap()->getRegex();
 	}
 
 	/**
@@ -34,16 +30,70 @@ abstract class vscSiteMapA extends vscObject {
 	 * @return vscMapping
 	 */
 	public function addMap ($sRegex, $sPath) {
-		$sKey = $this->getBasePath() . $sRegex;
-		if (!is_array($this->aMaps) || !key_exists($sKey, $this->aMaps)) {
-			$oNewMap 	= new vscMapping($sPath, $sKey);
-			if (key_exists ('__map', $GLOBALS) && $GLOBALS['__map'] instanceof vscMapping) {
-				$oNewMap->merge($GLOBALS['__map']);
-				$oNewMap->setModuleMap($GLOBALS['__map']);
+		$oModuleMap = $this->getCurrentModuleMap();
+		if ($oModuleMap instanceof vscMapping) {
+			$sRegex = $oModuleMap->getRegex() . $sRegex;
+		}
+
+		if (!key_exists($sRegex, $this->aMaps)) {
+			$oNewMap 	= new vscMapping($sPath, $sRegex);
+
+			if ($oModuleMap instanceof vscMapping) {
+				$oNewMap->merge($oModuleMap);
+				$oNewMap->setModuleMap($oModuleMap);
 			}
-			$this->aMaps[$sKey] = $oNewMap;
+
+			$this->aMaps[$sRegex] = $oNewMap;
 			return $oNewMap;
 		}
+//		throw new vscExceptionSitemap('Regular expression exists already in the list of URLs');
+	}
+
+	/**
+	 *
+	 * @param string $sRegex
+	 * @param string $sPath
+	 * @return vscMapping
+	 */
+	public function addModuleMap ($sRegex, $sPath) {
+		$oModuleMap	= $this->getCurrentModuleMap();
+
+		if ($oModuleMap instanceof vscMapping) {
+			$aResources	= $oModuleMap->getResources();
+			$sRegex		= $oModuleMap->getRegex() . $sRegex;
+		}
+
+		$oNewModuleMap		= new vscMapping($sPath, $sRegex);
+
+		// setting the parent module map to the existing one
+		if ($oModuleMap instanceof vscMapping) {
+			$oNewModuleMap->setModuleMap($oModuleMap);
+		}
+
+		// switching the current module map to the new one
+		$this->oCurrentModuleMap = $oNewModuleMap;
+		include ($sPath);
+
+		if ($oModuleMap instanceof vscMapping) {
+			// 	after we finished parsing the new module, we set the previous module map as current
+			$this->oCurrentModuleMap = $oModuleMap;
+			$this->oCurrentModuleMap->setResources($aResources);
+		}
+
+		return $oNewModuleMap;
+	}
+
+	/**
+	 *
+	 * @param string $sRegex
+	 * @param string $sPath
+	 * @return vscMapping
+	 */
+	public function addStaticMap ($sRegex, $sPath) {
+		$oStaticMap = $this->addMap ($sRegex, $sPath);
+		$oStaticMap->setIsStatic(true);
+		return $oStaticMap;
+
 	}
 
 	/**
@@ -53,11 +103,8 @@ abstract class vscSiteMapA extends vscObject {
 		return $this->aMaps;
 	}
 
-	/**
-	 * @return array
-	 */
-	public function getControllerMaps () {
-		return $this->aControllerMaps;
+	static public function isValidStatic ($sPath) {
+		return (is_file ($sPath) && !self::isValidMap($sPath) && !self::isValidObject($sPath));
 	}
 
 	/**
@@ -67,11 +114,11 @@ abstract class vscSiteMapA extends vscObject {
 	 * @return bool
 	 */
 	static public function isValidMap ($sPath) {
-		return ((is_file ($sPath) && basename ($sPath) == 'map.php'));
+		return (basename ($sPath) == 'map.php' && is_file ($sPath));
 	}
 
 	static public function isValidObject ($sPath) {
-		return (is_file ($sPath) && substr ($sPath, -10) == '.class.php');
+		return (substr ($sPath, -10) == '.class.php' && is_file ($sPath));
 	}
 
 	public function getClassName ($sPath) {
@@ -81,34 +128,14 @@ abstract class vscSiteMapA extends vscObject {
 		return  $aClasses[$iKey];
 	}
 
-	public function addModuleMap ($oMap) {
-		$GLOBALS['__map'] = $oMap;
-	}
-
 	/**
 	 * @return vscMapping
 	 */
-	public function getModuleMap () {
-		if (key_exists ('__map', $GLOBALS) && $GLOBALS['__map'] instanceof vscMapping) {
-			return $GLOBALS['__map'];
+	public function getCurrentModuleMap () {
+		if ($this->oCurrentModuleMap instanceof vscMapping) {
+			return $this->oCurrentModuleMap;
 		} else {
 			return new vscNull();
-		}
-	}
-
-	public function mapController ($sRegex, $sPath) {
-		if (!$sRegex) {
-			throw new vscExceptionSitemap ('An URI must be present.');
-		}
-		if (self::isValidObject ($sPath)) {
-			$sModuleRegex = $this->getModuleMap()->getRegex();
-			$sKey =  '^' . $sModuleRegex . '.*' . $sRegex;
-			if (!is_array($this->aControllerMaps) || !key_exists($sKey, $this->aControllerMaps)) {
-				$oNewMap 	= new vscMapping ($sPath, $sKey);
-				$this->aControllerMaps[$sKey] = $oNewMap;
-
-				return $oNewMap;
-			}
 		}
 	}
 
@@ -119,60 +146,24 @@ abstract class vscSiteMapA extends vscObject {
 	 * @return vscMapping
 	 */
 	public function map ($sRegex, $sPath) {
-		if (!$sRegex) {
-			throw new vscExceptionSitemap ('An URI must be present.');
+		if ($sRegex === null) {
+			throw new vscExceptionSitemap ('A regex URI must be present.');
 		}
-		if (empty($sPath) && is_file($sPath)) {
+		if (empty($sPath) || !is_file($sPath)) {
 			throw new vscExceptionSitemap ('The path associated with ['.$sRegex.'] can\'t be empty or an invalid file.');
 		}
 
-		// Valid site map
 		if (self::isValidMap ($sPath)) {
-			$oCurrentMap = $this->getModuleMap();
-			$sMap = $this->getBasePath();
-			$aResources = $this->getModuleMap()->getResources();
-
-			$this->setBasePath ($sMap . $sRegex);
-			$oModuleMap = new vscMapping($sPath, $sRegex);
-			$this->addModuleMap($oModuleMap);
-			include ($sPath);
-
-			$this->addModuleMap($oCurrentMap);
-			$this->getModuleMap()->setResources($aResources);
-			$this->setBasePath ($sMap);
-
-			return $this->getModuleMap();
-		}
-
-		// Valid processor
-		if (self::isValidObject ($sPath)) {
+			// Valid site map
+			return $this->addModuleMap($sRegex, $sPath);
+		} elseif (self::isValidObject ($sPath)) {
+			// Valid processor
 			return $this->addMap ($sRegex, $sPath);
+		} elseif (self::isValidStatic($sPath)) {
+			// Valid static file
+			return $this->addStaticMap ($sRegex, $sPath);
 		}
 
-		throw new vscExceptionSitemap('The object ['.$sPath.'] could not be loaded.');
-	}
-
-	/**
-	 *
-	 * @param string $sRegex
-	 * @param string $sPath
-	 * @return vscMapping
-	 */
-	public function mapStatic ($sRegex, $sPath) {
-		if (!$sRegex) {
-			throw new vscExceptionSitemap ('An URI must be present.');
-		}
-		if (empty($sPath) && is_file($sPath)) {
-			throw new vscExceptionSitemap ('The path associated with ['.$sRegex.'] can\'t be empty or an invalid file.');
-		}
-
-		$sKey = $this->getBasePath() . $sRegex;
-
-		$oNewMap 	= new vscMapping ($sPath, $sKey);
-		$oNewMap->setIsStatic(true);
-
-		$this->aMaps[$sKey] = $oNewMap;
-
-		return $oNewMap;
+		throw new vscExceptionSitemap('The file ['.$sPath.'] could not be loaded.');
 	}
 }
