@@ -76,9 +76,9 @@ class vscRwHttpRequest extends vscHttpRequestA {
 				$t = explode (':', $sUrlId);
 				if (count($t) > 1) {
 					$this->aTaintedVars[array_shift($t)] = implode(':', $t);
-				} else {
+				} /*else {
 					$this->aTaintedVars[] = $t[0];
-				}
+				}*/
 			}
 		}
 	}
