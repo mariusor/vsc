@@ -50,7 +50,8 @@ abstract class vscFrontControllerA extends vscObject {
 
 				return $oResponse;
 			} catch (vscExceptionResponseError $e) {
-				// we had error in the controller : @todo make more error processors
+				// we had error in the controller
+				// @todo make more error processors
 				$oProcessor = new vsc404Processor();
 				$oModel = new vscEmptyModel();
 				$oModel->setPageTitle('404 - Not Found');
@@ -70,22 +71,14 @@ abstract class vscFrontControllerA extends vscObject {
 
 		// we didn't set any special view
 		// this means that the developer needs to provide his own views
-		$oView = $this->getDefaultView();
-		try {
-			$oMyMap = $this->getMap();
-		} catch (Exception $e) {
-			// no map
-			$oMyMap = new vscNull();
+		$oView	= $this->getDefaultView();
+
+		$oMyMap	= $this->getMap();
+		if (($oProcessor instanceof vscProcessorI)) {
+			$oMap = $oProcessor->getMap()->merge($oMyMap);
 		}
 
-		if (($oProcessor instanceof vscProcessorI)) {
-			try {
-				$oMap = $oProcessor->getMap()->merge ($oMyMap);
-				$oView->setMap ($oMap);
-			} catch (vscException $e) {
-				// no map
-			}
-		}
+		$oView->setMap ($oMap);
 
 		if (!($oModel instanceof vscModelA)) {
 			$oModel = new vscEmptyModel();

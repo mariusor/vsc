@@ -19,6 +19,8 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		return $this->sContentType;
 	}
 
+	abstract public function getViewFolder();
+
 	public function getTitle () {
 		if ($this->getModel() instanceof vscEmptyModel && $this->getModel()->getPageTitle() != '') {
 			return  $this->getModel()->getPageTitle();

@@ -18,6 +18,16 @@ abstract class vscDispatcherA extends vscObject {
 	private $oSiteMap;
 
 	/**
+	 * @var vscProcessorA
+	 */
+	protected $oProcessor;
+
+	/**
+	 * @var vscControllerA
+	 */
+	protected $oController;
+
+	/**
 	 * @return vscFrontControllerA
 	 */
 	abstract public function getFrontController ();

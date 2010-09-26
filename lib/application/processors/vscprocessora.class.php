@@ -14,9 +14,6 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 	 * @return void
 	 */
 	public function __construct () {
-		import ('infrastructure');
-		$this->setLocalVars (vsc::getHttpRequest()->getTaintedVars());
-
 		$this->init ();
 	}
 
@@ -31,8 +28,15 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 		}
 	}
 
-	public function setMap ($oMap) {
+	/**
+	 * @param vscMapping $oMap
+	 */
+	public function setMap (vscMapping $oMap) {
 		$this->oCurrentMap = $oMap;
+		$aTainted = $oMap->getTaintedVars();
+		if (is_array($aTainted) && count ($aTainted) >= 1) {
+			$this->setLocalVars($aTainted);
+		}
 	}
 
 	/**
@@ -40,11 +44,9 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 	 * @param array $aVars
 	 * @return void
 	 */
-	public function setLocalVars ($aVars = null) {
-		if (count($aVars) >= 1) {
-			foreach ($this->aLocalVars as $sKey => $sValue) {
-				$this->aLocalVars[$sKey] = array_shift($aVars);
-			}
+	public function setLocalVars ($aVars = array()) {
+		foreach ($this->aLocalVars as $sKey => $sValue) {
+			$this->aLocalVars[$sKey] = array_shift($aVars);
 		}
 	}
 

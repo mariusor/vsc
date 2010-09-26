@@ -86,12 +86,12 @@ function __autoload ($className) {
          !in_array($className,get_declared_interfaces())
         )
     ) {
-		include_once (realpath(VSC_LIB_PATH . 'exceptions/vscexception.class.php'));
-		include_once (realpath(VSC_LIB_PATH . 'exceptions/vscexceptionpath.class.php'));
-		include_once (realpath(VSC_LIB_PATH . 'exceptions/vscexceptionautoload.class.php'));
+		include_once (realpath (VSC_LIB_PATH . 'exceptions/vscexception.class.php'));
+		include_once (realpath (VSC_LIB_PATH . 'exceptions/vscexceptionpath.class.php'));
+		include_once (realpath (VSC_LIB_PATH . 'exceptions/vscexceptionautoload.class.php'));
 
 		$sExport = var_export(explode (':',get_include_path()),true);
-		throw new vscExceptionAutoload('Could not load class ['.$className.'] in path: <pre>' . $sExport . '</pre>');
+		throw new vscExceptionAutoload('Could not load class ['.$className.'] in path: <pre style="font-weight:normal">' . $sExport . '</pre>');
 	}
     return true;
 }
