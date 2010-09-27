@@ -5,6 +5,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.07.13
  */
+
+import ('infrastructure/urls');
 abstract class vscHttpRequestA extends vscObject {
 	private $sUri		= null;
 	private $oUri;
