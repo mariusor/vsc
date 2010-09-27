@@ -27,8 +27,15 @@ class vscRwDispatcher extends vscDispatcherA {
 		mb_internal_encoding('utf-8');
 		$sUri = $this->getRequest()->getUri(true); // get it as a urldecoded string
 		foreach ($aRegexes as $sRegex) {
-			$sFullRegex = '/' . str_replace('/', '\/', $sRegex). '/i';
-			$iMatch			= preg_match ($sFullRegex,  $sUri, $aMatches);
+			$sFullRegex = '#' . str_replace('#', '\#', $sRegex). '#i';
+			try {
+				$iMatch			= preg_match ($sFullRegex,  $sUri, $aMatches);
+			} catch (vscExceptionError $e) {
+				$f = new vscExceptionError(
+					$e->getMessage(). '<br/> Offending regular expression: <span style="font-weight:normal">'. $sFullRegex . '</span>',
+					$e->getCode());
+				throw $f;
+			}
 			if ($iMatch) {
 				array_shift($aMatches);
 				/* @var $oProcessorMapping vscMapping */
@@ -162,7 +169,7 @@ class vscRwDispatcher extends vscDispatcherA {
 		$this->setSiteMap (new vscRwSiteMap ());
 		try {
 			// hic sunt leones
-			$oMap = $this->getSiteMap()->map ('^/', $sIncPath);
+			$oMap = $this->getSiteMap()->map ('\A/', $sIncPath);
 		} catch (vscExceptionSitemap $e) {
 			// there was a faulty controller in the sitemap
 			// this will probably result in a incomplete parsed sitemap tree
