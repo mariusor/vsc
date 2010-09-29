@@ -58,27 +58,24 @@ abstract class vscSiteMapA extends vscObject {
 	public function addModuleMap ($sRegex, $sPath) {
 		$oModuleMap	= $this->getCurrentModuleMap();
 
-		if ($oModuleMap instanceof vscMapping) {
-			$aResources	= $oModuleMap->getResources();
-			$sRegex		= $oModuleMap->getRegex() . $sRegex;
-		}
-
-		$oNewModuleMap		= new vscMapping($sPath, $sRegex);
-
 		// setting the parent module map to the existing one
 		if ($oModuleMap instanceof vscMapping) {
+			$sRegex		= $oModuleMap->getRegex() . $sRegex;
+
+			$oNewModuleMap		= new vscMapping($sPath, $sRegex);
+
 			$oNewModuleMap->setModuleMap($oModuleMap);
+			$oNewModuleMap->merge($oModuleMap);
+		} else {
+			$oNewModuleMap		= new vscMapping($sPath, $sRegex);
 		}
 
 		// switching the current module map to the new one
 		$this->oCurrentModuleMap = $oNewModuleMap;
 		include ($sPath);
 
-		if ($oModuleMap instanceof vscMapping) {
-			// 	after we finished parsing the new module, we set the previous module map as current
-			$this->oCurrentModuleMap = $oModuleMap;
-			$this->oCurrentModuleMap->setResources($aResources);
-		}
+		// 	after we finished parsing the new module, we set the previous module map as current
+		$this->oCurrentModuleMap = $oNewModuleMap->getModuleMap();
 
 		return $oNewModuleMap;
 	}

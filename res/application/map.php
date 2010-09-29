@@ -17,14 +17,14 @@ $oMap = $this->map ('vsc/', VSC_RES_PATH . 'application/processors/vscemptyproce
 $oMap->setTemplate ('content.php');
 
 // @TODO
-//$oMap = $this->map ('vsc/unittest', VSC_RES_PATH . 'application/processors/vscunittestprocessor.class.php');
-//$oMap->setTemplate ('main.php');
+$oMap = $this->map ('vsctest', VSC_RES_PATH . 'application/processors/vsctestprocessor.class.php');
+$oMap->setTemplate ('main.php');
 
 //$oMap = $this->map ('.+', VSC_RES_PATH . 'application/processors/vscemptyprocessor.class.php');
 //$oMap->setTemplate ('content.php');
 
 // fallback 404 processor for everything
-$oMap = $this->map ('.*', VSC_RES_PATH . 'application/processors/vsc404processor.class.php');
+$oMap = $this->map ('', VSC_RES_PATH . 'application/processors/vsc404processor.class.php');
 $oMap->setTemplate ('404.php');
 
 // front controllers
@@ -32,3 +32,4 @@ $oMap->setTemplate ('404.php');
 //$this->getCurrentModuleMap()->mapController ('\.rss$', VSC_RES_PATH . 'application/controllers/vscrsscontroller.class.php');
 //$this->getCurrentModuleMap()->mapController ('\.txt$', VSC_RES_PATH . 'application/controllers/vsctxtcontroller.class.php');
 $this->getCurrentModuleMap()->mapController ('^.*$', VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.class.php');
+
