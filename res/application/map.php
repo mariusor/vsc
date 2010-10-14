@@ -13,18 +13,18 @@
 /* @var $this vscRwSiteMap */
 $this->getCurrentModuleMap()->setTemplatePath (VSC_RES_PATH . 'templates');
 
-$oMap = $this->map ('vsc/', VSC_RES_PATH . 'application/processors/vscemptyprocessor.class.php');
+$oMap = $this->map ('vsc/\Z', VSC_RES_PATH . 'application/processors/vscemptyprocessor.class.php');
 $oMap->setTemplate ('content.php');
 
 // @TODO
-$oMap = $this->map ('vsctest', VSC_RES_PATH . 'application/processors/vsctestprocessor.class.php');
+$oMap = $this->map ('vsc:test/\Z', VSC_RES_PATH . 'application/processors/vsctestprocessor.class.php');
 $oMap->setTemplate ('main.php');
 
 //$oMap = $this->map ('.+', VSC_RES_PATH . 'application/processors/vscemptyprocessor.class.php');
 //$oMap->setTemplate ('content.php');
 
 // fallback 404 processor for everything
-$oMap = $this->map ('', VSC_RES_PATH . 'application/processors/vsc404processor.class.php');
+$oMap = $this->map ('.*', VSC_RES_PATH . 'application/processors/vsc404processor.class.php');
 $oMap->setTemplate ('404.php');
 
 // front controllers

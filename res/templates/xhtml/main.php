@@ -8,26 +8,21 @@
 	<title><?php $sTitle = $this->getTitle(); echo ($sTitle ? $sTitle : '[null]') ?></title>
 <?php
 $aAllStyles = $this->getStyles ();
-if (count($aAllStyles)>=1) {?>
-	<style type="text/css">
-<?php
-foreach ($aAllStyles as $sMedia => $aStyles) {
-	if (is_array($aStyles))
-	foreach ($aStyles as $sPath ) {
-?>
-		@import url("<?php echo $sPath; ?>") <?php echo ($sMedia ? $sMedia : ''); echo ";\n"; ?>
-<?php
+if (count($aAllStyles) >= 1) {
+	echo "\t" . '<style type="text/css">'. "\n";
+	foreach ($aAllStyles as $sMedia => $aStyles) {
+		if (is_array($aStyles)) {
+			foreach ($aStyles as $sPath ) {
+				echo "\t\t".'@import url("' . $sPath . '")' . ($sMedia ? $sMedia : '') . ";\n";
+			}
+		}
 	}
+	echo "\t" . '</style>'. "\n";
 }
-?>
-	</style>
-<?php }  ?>
-<?php
+
 if (count($this->getMetaHeaders()) >= 1) {
 	foreach ($this->getMetaHeaders() as $sName => $sValue) { ?>
-	<meta <?php
-			echo 'name="'.$sName .'" content="'.$sValue.'"';
-?> />
+	<meta <?php echo 'name="'.$sName .'" content="'.$sValue.'"'; ?> />
 <?php
 	}
 }

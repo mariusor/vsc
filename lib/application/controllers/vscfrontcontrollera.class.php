@@ -75,6 +75,7 @@ abstract class vscFrontControllerA extends vscObject {
 
 		$oMyMap	= $this->getMap();
 		if (($oProcessor instanceof vscProcessorI)) {
+			/* @var $oMap vscMapping */
 			$oMap = $oProcessor->getMap()->merge($oMyMap);
 		}
 
@@ -82,7 +83,9 @@ abstract class vscFrontControllerA extends vscObject {
 
 		if (!($oModel instanceof vscModelA)) {
 			$oModel = new vscEmptyModel();
-			$oModel->setPageTitle ('Warning');
+			if (!($oMap->getTitle())) {
+				$oModel->setPageTitle ('Warning');
+			}
 			$oModel->setPageContent ('Warning: the processor didn\'t return a valid model. This is probably an error');
 		}
 		$oView->setModel($oModel);
