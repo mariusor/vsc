@@ -48,7 +48,7 @@ class mySqlIm extends vscSqlDriverA {
 		if (!empty ($dbHost)) {
 			$this->host	= $dbHost;
 		} else {
-			
+
 		}
 
 		if (!empty ($dbUser)) {
@@ -61,11 +61,11 @@ class mySqlIm extends vscSqlDriverA {
 			$this->pass	= $dbPass;
 		}
 
-		try {
+//		try {
 			$this->connect ();
-		} catch (Exception $e) {
-			d($e);
-		}
+//		} catch (Exception $e) {
+//			d($e);
+//		}
 	}
 
 	public function getEngine () {
