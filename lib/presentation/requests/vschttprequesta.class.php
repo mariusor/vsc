@@ -293,6 +293,20 @@ abstract class vscHttpRequestA extends vscObject {
 	/**
 	 * @return bool
 	 */
+	public function isPut() {
+		return ($this->getHttpMethod() == 'PUT');
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isDelete() {
+		return ($this->getHttpMethod() == 'DEELTE');
+	}
+
+	/**
+	 * @return bool
+	 */
 	public function isSecure () {
 		return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on');
 	}
