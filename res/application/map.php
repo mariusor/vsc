@@ -11,6 +11,8 @@
  */
 
 /* @var $this vscRwSiteMap */
+$this->getCurrentModuleMap()->setMainTemplatePath(VSC_RES_PATH . 'templates');
+$this->getCurrentModuleMap()->setMainTemplate('main.php');
 $this->getCurrentModuleMap()->setTemplatePath (VSC_RES_PATH . 'templates');
 
 $oMap = $this->map ('vsc/\Z', VSC_RES_PATH . 'application/processors/vscemptyprocessor.class.php');
@@ -18,7 +20,7 @@ $oMap->setTemplate ('content.php');
 
 // @TODO
 $oMap = $this->map ('vsc:test/\Z', VSC_RES_PATH . 'application/processors/vsctestprocessor.class.php');
-$oMap->setTemplate ('main.php');
+$oMap->setTemplate ('tmain.php');
 
 //$oMap = $this->map ('.+', VSC_RES_PATH . 'application/processors/vscemptyprocessor.class.php');
 //$oMap->setTemplate ('content.php');
@@ -33,3 +35,4 @@ $oMap->setTemplate ('404.php');
 //$this->getCurrentModuleMap()->mapController ('\.txt$', VSC_RES_PATH . 'application/controllers/vsctxtcontroller.class.php');
 $this->getCurrentModuleMap()->mapController ('^.*$', VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.class.php');
 
+//d ($this->getCurrentModuleMap());
