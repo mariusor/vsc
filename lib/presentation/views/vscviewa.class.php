@@ -9,11 +9,24 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	private $sTitle;
 	private $oModel;
 
+	private $sMainTemplate;
+
 	private $oCurrentMap;
 
 	protected $sContentType;
 
 	static private $oUriParser;
+
+	public function setMainTemplate ($sPath) {
+		if (!is_file($sPath))
+			throw new vscExceptionPath('The main template ['.$sPath.'] is not accessible.');
+
+		$this->sMainTemplate = $sPath;
+	}
+
+	public function getMainTemplate () {
+		return $this->sMainTemplate;
+	}
 
 	public function getContentType() {
 		return $this->sContentType;
@@ -37,10 +50,10 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	}
 
 	/**
-	 * @return vscMapping
+	 * @return vscMappingA
 	 */
 	public function getMap () {
-		if ($this->oCurrentMap instanceof vscMapping) {
+		if ($this->oCurrentMap instanceof vscMappingA) {
 			return $this->oCurrentMap;
 		} else {
 			throw new vscExceptionView ('Make sure the current map is correctly set.');
@@ -113,8 +126,10 @@ abstract class vscViewA extends vscObject implements vscViewI {
 
 	public function getOutput() {
 		try {
-    		return $this->fetch (VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . $this->getViewFolder() . DIRECTORY_SEPARATOR . 'main.php');
+			// by default try to load the main template
+    		return $this->fetch ($this->getMainTemplate());
 		} catch (vscExceptionPath $e) {
+			// if it fails, we load the regular template.
 			try {
 	    		return $this->fetch ($this->getMap()->getTemplatePath() . DIRECTORY_SEPARATOR . $this->getMap()->getTemplate());
 			} catch (vscExceptionPath $e) {
