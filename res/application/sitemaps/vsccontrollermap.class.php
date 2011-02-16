@@ -6,7 +6,7 @@
  * @date 10.12.05
  */
 
-class vscControllerMap extends vscMappingA {
+class vscControllerMap extends vscMappingA implements vscContentTypeMappingI {
 	private $sMainTemplatePath;
 	private $sMainTemplate;
 
@@ -15,6 +15,10 @@ class vscControllerMap extends vscMappingA {
 	}
 
 	public function getMainTemplatePath () {
+		// if we didn't provide the controller with a main template path we check the module
+		if ( is_null($this->sMainTemplatePath))
+			if ( $this->getModuleMap() instanceof vscContentTypeMappingI)
+				$this->sMainTemplatePath = $this->getModuleMap()->getMainTemplatePath();
 		return $this->sMainTemplatePath;
 	}
 
@@ -23,6 +27,10 @@ class vscControllerMap extends vscMappingA {
 	}
 
 	public function getMainTemplate () {
+		// if we didn't provide the controller with a main template path we check the module
+		if ( is_null($this->sMainTemplate ) )
+			if ( $this->getModuleMap() instanceof vscContentTypeMappingI)
+				$this->sMainTemplate = $this->getModuleMap()->getMainTemplate();
 		return $this->sMainTemplate;
 	}
 }

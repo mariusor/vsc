@@ -64,7 +64,7 @@ class vscMappingA extends vscObject {
 	}
 
 	/**
-	 * @param vscMappingA $oMap
+	 * @param vscControllerMap $oMap
 	 */
 	protected function mergePaths ($oMap) {
 		$sParentPath = $oMap->getTemplatePath();
@@ -72,10 +72,14 @@ class vscMappingA extends vscObject {
 			$this->setTemplatePath($sParentPath);
 		}
 
-		if (!($this instanceof vscProcessorMap)) {
+		if ($this instanceof vscContentTypeMappingI) {
 			$sParentMainPath = $oMap->getMainTemplatePath();
-			if ($sParentMainPath) {
+			if (!empty($sParentMainPath)) {
 				$this->setMainTemplatePath($sParentMainPath);
+			}
+			$sParentTemplate = $oMap->getMainTemplate();
+			if (!empty($sParentTemplate)) {
+				$this->setMainTemplate($sParentTemplate);
 			}
 		}
 	}
@@ -116,6 +120,9 @@ class vscMappingA extends vscObject {
 		$this->oParentMap = $oMap;
 	}
 
+	/**
+	 * @return vscModuleMap
+	 */
 	public function getModuleMap () {
 		if ($this->oParentMap instanceof vscMappingA) {
 			return $this->oParentMap;
@@ -208,6 +215,10 @@ class vscMappingA extends vscObject {
 			$sKey = $sRegex;
 			if (!is_array($this->aControllerMaps) || !key_exists($sKey, $this->aControllerMaps)) {
 				$oNewMap 	= new vscControllerMap($sPath, $sKey);
+				$oNewMap->setModuleMap($this);
+//				$oNewMap->merge($this); //? ?
+//				d ($this);
+
 				$this->aControllerMaps[$sKey] = $oNewMap;
 
 				return $oNewMap;

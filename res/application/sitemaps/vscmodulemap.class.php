@@ -6,7 +6,7 @@
  * @date 10.12.05
  */
 
-class vscModuleMap extends vscMappingA {
+class vscModuleMap extends vscMappingA implements vscContentTypeMappingI{
 	private $sMainTemplatePath;
 	private $sMainTemplate;
 
