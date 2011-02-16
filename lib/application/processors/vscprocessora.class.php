@@ -18,10 +18,10 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 	}
 
 	/**
-	 * @return vscMapping
+	 * @return vscMappingA
 	 */
 	public function getMap () {
-		if ($this->oCurrentMap instanceof vscMapping) {
+		if ($this->oCurrentMap instanceof vscMappingA) {
 			return $this->oCurrentMap;
 		} else {
 			throw new vscExceptionView ('Make sure the current map is correctly set.');
@@ -29,9 +29,9 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 	}
 
 	/**
-	 * @param vscMapping $oMap
+	 * @param vscMappingA $oMap
 	 */
-	public function setMap (vscMapping $oMap) {
+	public function setMap (vscMappingA $oMap) {
 		$this->oCurrentMap = $oMap;
 		$aTainted = $oMap->getTaintedVars();
 		if (is_array($aTainted) && count ($aTainted) >= 1) {

@@ -14,7 +14,7 @@ import ('exceptions');
 class vscRwDispatcher extends vscDispatcherA {
 	/**
 	 * @param array $aMaps
-	 * @return vscMapping
+	 * @return vscMappingA
 	 */
 	public function getCurrentMap ($aMaps) {
 		if (!is_array($aMaps) || empty($aMaps)) {
@@ -38,7 +38,7 @@ class vscRwDispatcher extends vscDispatcherA {
 			}
 			if ($iMatch) {
 				array_shift($aMatches);
-				/* @var $oProcessorMapping vscMapping */
+				/* @var $oProcessorMapping vscMappingA */
 				$oProcessorMapping  = $aMaps[$sRegex];
 				$oProcessorMapping->setTaintedVars($aMatches);
 				return $oProcessorMapping;
@@ -57,12 +57,13 @@ class vscRwDispatcher extends vscDispatcherA {
 	}
 
 	public function getCurrentControllerMap () {
+		$oCurrentModule = $this->getCurrentModuleMap();
 		$oProcessorMap	= $this->getCurrentProcessorMap();
 		$oModuleMap		= $oProcessorMap->getModuleMap();
 		$aMaps 			= $oProcessorMap->getControllerMaps();
 
 		// merging all controller maps found in the processor map's parent modules
-		while ($oModuleMap instanceof vscMapping) {
+		while ($oModuleMap instanceof vscMappingA) {
 			$aMaps = array_merge ($aMaps, $oModuleMap->getControllerMaps());
 			$oModuleMap = $oModuleMap->getModuleMap();
 		}
@@ -77,9 +78,9 @@ class vscRwDispatcher extends vscDispatcherA {
 		if (!($this->oController instanceof vscFrontControllerA)) {
 			$oControllerMapping	= $this->getCurrentControllerMap();
 
-			if (!($oControllerMapping instanceof vscMapping)) {
+			if (!($oControllerMapping instanceof vscMappingA)) {
 				// this mainly means nothing was matched to our url, or no mappings exist
-				$oControllerMapping = new vscMapping (VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.class.php', '');
+				$oControllerMapping = new vscControllerMap(VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.class.php', '');
 			}
 
 			$sPath 	= $oControllerMapping->getPath();
@@ -95,6 +96,7 @@ class vscRwDispatcher extends vscDispatcherA {
 				$this->oController->setMap ($oControllerMapping);
 			}
 		}
+//		d ($oControllerMapping);
 		return $this->oController;
 	}
 
@@ -108,7 +110,7 @@ class vscRwDispatcher extends vscDispatcherA {
 			$oProcessorMapping	= $this->getCurrentProcessorMap();
 			if ($oProcessorMapping instanceof vscNull) {
 				// this mainly means nothing was matched to our url, or no mappings exist, so we're falling back to 404
-				$oProcessorMapping	= new vscMapping(VSC_RES_PATH . 'application/processors/vsc404processor.class.php', '');
+				$oProcessorMapping	= new vscProcessorMap(VSC_RES_PATH . 'application/processors/vsc404processor.class.php', '');
 				$oProcessorMapping->setTemplatePath(VSC_RES_PATH . 'templates');
 				$oProcessorMapping->setTemplate('404.php');
 			}

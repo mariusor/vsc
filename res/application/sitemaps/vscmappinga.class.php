@@ -5,17 +5,17 @@
  * @author marius orcisk <marius@habarnam.ro>
  * @date 09.11.29
  */
-import ('infrastructure/urls');
+//import ('infrastructure/urls');
 
-class vscMapping extends vscObject {
+class vscMappingA extends vscObject {
 	private $sRegex;
 	private $sPath;
 
 	/**
 	 * the local template path - will be used to compose something like
-	 * this->sViewPath . view->typeOfView . this->sMainTemplate
+	 * this->sViewPath . view->typeOfView . this->sTemplate
 	 *
-	 * @var unknown_type
+	 * @var string
 	 */
 	private $sViewPath;
 
@@ -23,14 +23,14 @@ class vscMapping extends vscObject {
 	private $aResources = array();
 	private $bIsStatic = false;
 
-	private $sMainTemplate;
+	private $sTemplate;
 
 	private $aControllerMaps = array();
 
 	private $aTaintedVars;
 
 	/**
-	 * @var vscMapping
+	 * @var vscMappingA
 	 */
 	private $oParentMap;
 
@@ -63,15 +63,29 @@ class vscMapping extends vscObject {
 		$this->aResources = $aResources;
 	}
 
+	/**
+	 * @param vscControllerMap $oMap
+	 */
 	protected function mergePaths ($oMap) {
 		$sParentPath = $oMap->getTemplatePath();
 		if ($sParentPath) {
 			$this->setTemplatePath($sParentPath);
 		}
+
+		if ($this instanceof vscContentTypeMappingI) {
+			$sParentMainPath = $oMap->getMainTemplatePath();
+			if (!empty($sParentMainPath)) {
+				$this->setMainTemplatePath($sParentMainPath);
+			}
+			$sParentTemplate = $oMap->getMainTemplate();
+			if (!empty($sParentTemplate)) {
+				$this->setMainTemplate($sParentTemplate);
+			}
+		}
 	}
 
 	public function merge ($oMap = null) {
-		if ($oMap instanceof vscMapping) {
+		if ($oMap instanceof vscMappingA) {
 			$this->mergeResources ($oMap);
 			$this->mergePaths ($oMap);
 		}
@@ -95,19 +109,22 @@ class vscMapping extends vscObject {
 	}
 
 	public function setTemplate ($sPath) {
-		$this->sMainTemplate = $sPath;
+		$this->sTemplate = $sPath;
 	}
 
 	public function getTemplate () {
-		return $this->sMainTemplate;
+		return $this->sTemplate;
 	}
 
-	public function setModuleMap (vscMapping $oMap) {
+	public function setModuleMap (vscMappingA $oMap) {
 		$this->oParentMap = $oMap;
 	}
 
+	/**
+	 * @return vscModuleMap
+	 */
 	public function getModuleMap () {
-		if ($this->oParentMap instanceof vscMapping) {
+		if ($this->oParentMap instanceof vscMappingA) {
 			return $this->oParentMap;
 		} else {
 			return new vscNull();
@@ -197,7 +214,11 @@ class vscMapping extends vscObject {
 		if (vscSiteMapA::isValidObject ($sPath)) {
 			$sKey = $sRegex;
 			if (!is_array($this->aControllerMaps) || !key_exists($sKey, $this->aControllerMaps)) {
-				$oNewMap 	= new vscMapping ($sPath, $sKey);
+				$oNewMap 	= new vscControllerMap($sPath, $sKey);
+				$oNewMap->setModuleMap($this);
+//				$oNewMap->merge($this); //? ?
+//				d ($this);
+
 				$this->aControllerMaps[$sKey] = $oNewMap;
 
 				return $oNewMap;
