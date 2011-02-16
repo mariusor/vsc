@@ -57,18 +57,16 @@ class vscRwDispatcher extends vscDispatcherA {
 	}
 
 	public function getCurrentControllerMap () {
+		$oCurrentModule = $this->getCurrentModuleMap();
 		$oProcessorMap	= $this->getCurrentProcessorMap();
 		$oModuleMap		= $oProcessorMap->getModuleMap();
 		$aMaps 			= $oProcessorMap->getControllerMaps();
-
 
 		// merging all controller maps found in the processor map's parent modules
 		while ($oModuleMap instanceof vscMappingA) {
 			$aMaps = array_merge ($aMaps, $oModuleMap->getControllerMaps());
 			$oModuleMap = $oModuleMap->getModuleMap();
 		}
-
-//		d ($aMaps, $oModuleMap);
 
 		return $this->getCurrentMap($aMaps);
 	}

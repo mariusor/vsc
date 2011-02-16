@@ -60,6 +60,9 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		}
 	}
 
+	/**
+	 * @param vscMappingA $oMap
+	 */
 	public function setMap ($oMap) {
 		$this->oCurrentMap = $oMap;
 	}
@@ -92,6 +95,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	public function fetch ($includePath) {
 		if (empty($includePath))
 			return '';
+
 		ob_start ();
 		if (!is_file ($includePath)) {
 			$includePath = $this->getMap()->getTemplatePath() . DIRECTORY_SEPARATOR . $this->getViewFolder() . DIRECTORY_SEPARATOR . $includePath;
@@ -127,7 +131,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	public function getOutput() {
 		try {
 			// by default try to load the main template
-    		return $this->fetch ($this->getMainTemplate());
+    		return $this->fetch ( $this->getMainTemplate() );
 		} catch (vscExceptionPath $e) {
 			// if it fails, we load the regular template.
 			try {

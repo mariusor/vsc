@@ -31,6 +31,7 @@ abstract class vscSiteMapA extends vscObject {
 	 */
 	public function addMap ($sRegex, $sPath) {
 		$oModuleMap = $this->getCurrentModuleMap();
+
 		if ($oModuleMap instanceof vscMappingA) {
 			$sRegex = $oModuleMap->getRegex() . $sRegex;
 		}
@@ -60,27 +61,23 @@ abstract class vscSiteMapA extends vscObject {
 
 		// setting the parent module map to the existing one
 		if ($oModuleMap instanceof vscMappingA) {
-			$sRegex		= $oModuleMap->getRegex() . $sRegex;
+			$sRegex				= $oModuleMap->getRegex() . $sRegex;
 
 			$oNewModuleMap		= new vscModuleMap($sPath, $sRegex);
 
 			$oNewModuleMap->setModuleMap($oModuleMap);
 			$oNewModuleMap->merge($oModuleMap);
 		} else {
-
 			$oNewModuleMap		= new vscModuleMap($sPath, $sRegex);
 		}
 
 		// switching the current module map to the new one
 		$this->oCurrentModuleMap = $oNewModuleMap;
-//		try {
-			include ($sPath);
-//		} catch (Exception $e) {
-//		 	d ($sPath, $sRegex, $e);
-//		}
+
+		include ($sPath);
 
 		// 	after we finished parsing the new module, we set the previous module map as current
-		$this->oCurrentModuleMap = $oNewModuleMap->getModuleMap();
+		$this->oCurrentModuleMap = $oModuleMap;
 
 		return $oNewModuleMap;
 	}
@@ -141,6 +138,12 @@ abstract class vscSiteMapA extends vscObject {
 		}
 	}
 
+	public function getParentModuleMap () {
+		if ($this->oCurrentModuleMap instanceof vscMappingA) {
+			return $this->oCurrentModuleMap->getModuleMap();
+		}
+	}
+
 	/**
 	 *
 	 * @param string $sRegex
@@ -167,5 +170,29 @@ abstract class vscSiteMapA extends vscObject {
 		}
 
 		throw new vscExceptionSitemap('The file ['.$sPath.'] could not be loaded.');
+	}
+
+	private function getAllModules () {
+		$aProcessorMaps = $this->getMaps();
+		$aModuleMaps = array();
+
+		/* @var $oProcessor vscMappingA */
+		foreach ($aProcessorMaps as $sKey => $oProcessor) {
+			$aModuleMaps[$sKey] = $oProcessor->getModuleMap();
+		}
+
+		return $aModuleMaps;
+	}
+
+	private function getAllControllers () {
+		$aProcessorMaps = $this->getMaps();
+		$aControllerMaps = array();
+
+		/* @var $oProcessor vscMappingA */
+		foreach ($aProcessorMaps as $oProcessor) {
+			$aControllerMaps = array_merge($aControllerMaps, $oProcessor->getModuleMap()->getControllerMaps());
+		}
+
+		return $aControllerMaps;
 	}
 }

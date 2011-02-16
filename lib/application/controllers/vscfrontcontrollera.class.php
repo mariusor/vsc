@@ -16,17 +16,20 @@ abstract class vscFrontControllerA extends vscObject {
 	abstract public function getDefaultView();
 
 	/**
-	 * @return vscMappingA
+	 * @return vscControllerMap
 	 */
 	public function getMap () {
-		if ($this->oCurrentMap instanceof vscMappingA) {
+		if ($this->oCurrentMap instanceof vscControllerMap) {
 			return $this->oCurrentMap;
 		} else {
 			throw new vscExceptionView ('Make sure the current map is correctly set.');
 		}
 	}
 
-	public function setMap ($oMap) {
+	/**
+	 * @param vscControllerMap $oMap
+	 */
+	public function setMap (vscControllerMap $oMap) {
 		$this->oCurrentMap = $oMap;
 	}
 
@@ -84,12 +87,11 @@ abstract class vscFrontControllerA extends vscObject {
 			$oMap = $oProcessor->getMap()->merge($oMyMap);
 		}
 
+		// setting the processor map
 		$oView->setMap ($oMap);
-		try {
-			// $oMyMap is the controller's map.
+
+		if (!$oMap->isStatic() && ($oMyMap instanceof vscContentTypeMappingI)) {
 			$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . $oView->getViewFolder() . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
-		} catch (vscExceptionPath $e) {
-			// some path was wrong
 		}
 
 		if (!($oModel instanceof vscModelA)) {
