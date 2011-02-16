@@ -27,18 +27,19 @@ abstract class vscSiteMapA extends vscObject {
 	 *
 	 * @param string $sRegex
 	 * @param string $sPath
-	 * @return vscMapping
+	 * @return vscMappingA
 	 */
 	public function addMap ($sRegex, $sPath) {
 		$oModuleMap = $this->getCurrentModuleMap();
-		if ($oModuleMap instanceof vscMapping) {
+
+		if ($oModuleMap instanceof vscMappingA) {
 			$sRegex = $oModuleMap->getRegex() . $sRegex;
 		}
 
 		if (!key_exists($sRegex, $this->aMaps)) {
-			$oNewMap 	= new vscMapping($sPath, $sRegex);
+			$oNewMap 	= new vscProcessorMap($sPath, $sRegex);
 
-			if ($oModuleMap instanceof vscMapping) {
+			if ($oModuleMap instanceof vscMappingA) {
 				$oNewMap->merge($oModuleMap);
 				$oNewMap->setModuleMap($oModuleMap);
 			}
@@ -53,29 +54,30 @@ abstract class vscSiteMapA extends vscObject {
 	 *
 	 * @param string $sRegex
 	 * @param string $sPath
-	 * @return vscMapping
+	 * @return vscMappingA
 	 */
 	public function addModuleMap ($sRegex, $sPath) {
 		$oModuleMap	= $this->getCurrentModuleMap();
 
 		// setting the parent module map to the existing one
-		if ($oModuleMap instanceof vscMapping) {
-			$sRegex		= $oModuleMap->getRegex() . $sRegex;
+		if ($oModuleMap instanceof vscMappingA) {
+			$sRegex				= $oModuleMap->getRegex() . $sRegex;
 
-			$oNewModuleMap		= new vscMapping($sPath, $sRegex);
+			$oNewModuleMap		= new vscModuleMap($sPath, $sRegex);
 
 			$oNewModuleMap->setModuleMap($oModuleMap);
 			$oNewModuleMap->merge($oModuleMap);
 		} else {
-			$oNewModuleMap		= new vscMapping($sPath, $sRegex);
+			$oNewModuleMap		= new vscModuleMap($sPath, $sRegex);
 		}
 
 		// switching the current module map to the new one
 		$this->oCurrentModuleMap = $oNewModuleMap;
+
 		include ($sPath);
 
 		// 	after we finished parsing the new module, we set the previous module map as current
-		$this->oCurrentModuleMap = $oNewModuleMap->getModuleMap();
+		$this->oCurrentModuleMap = $oModuleMap;
 
 		return $oNewModuleMap;
 	}
@@ -84,7 +86,7 @@ abstract class vscSiteMapA extends vscObject {
 	 *
 	 * @param string $sRegex
 	 * @param string $sPath
-	 * @return vscMapping
+	 * @return vscMappingA
 	 */
 	public function addStaticMap ($sRegex, $sPath) {
 		$oStaticMap = $this->addMap ($sRegex, $sPath);
@@ -126,13 +128,19 @@ abstract class vscSiteMapA extends vscObject {
 	}
 
 	/**
-	 * @return vscMapping
+	 * @return vscMappingA
 	 */
 	public function getCurrentModuleMap () {
-		if ($this->oCurrentModuleMap instanceof vscMapping) {
+		if ($this->oCurrentModuleMap instanceof vscMappingA) {
 			return $this->oCurrentModuleMap;
 		} else {
 			return new vscNull();
+		}
+	}
+
+	public function getParentModuleMap () {
+		if ($this->oCurrentModuleMap instanceof vscMappingA) {
+			return $this->oCurrentModuleMap->getModuleMap();
 		}
 	}
 
@@ -140,7 +148,7 @@ abstract class vscSiteMapA extends vscObject {
 	 *
 	 * @param string $sRegex
 	 * @param string $sPath
-	 * @return vscMapping
+	 * @return vscMappingA
 	 */
 	public function map ($sRegex, $sPath) {
 		if ($sRegex === null) {
@@ -162,5 +170,29 @@ abstract class vscSiteMapA extends vscObject {
 		}
 
 		throw new vscExceptionSitemap('The file ['.$sPath.'] could not be loaded.');
+	}
+
+	private function getAllModules () {
+		$aProcessorMaps = $this->getMaps();
+		$aModuleMaps = array();
+
+		/* @var $oProcessor vscMappingA */
+		foreach ($aProcessorMaps as $sKey => $oProcessor) {
+			$aModuleMaps[$sKey] = $oProcessor->getModuleMap();
+		}
+
+		return $aModuleMaps;
+	}
+
+	private function getAllControllers () {
+		$aProcessorMaps = $this->getMaps();
+		$aControllerMaps = array();
+
+		/* @var $oProcessor vscMappingA */
+		foreach ($aProcessorMaps as $oProcessor) {
+			$aControllerMaps = array_merge($aControllerMaps, $oProcessor->getModuleMap()->getControllerMaps());
+		}
+
+		return $aControllerMaps;
 	}
 }

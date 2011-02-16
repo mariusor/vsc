@@ -1,7 +1,7 @@
 <?php
-import ('presentation/processors');
+//import ('presentation/processors');
 
-define ('SNAPTEST_ROOT', realpath('../../snaptest/') . DIRECTORY_SEPARATOR);
+define ('SNAPTEST_ROOT', realpath('/home/habarnam/abs/snaptest/') . DIRECTORY_SEPARATOR);
 // snaptest web interface
 
 // STEP 1: Define the absolute path to where snaptest.php is
@@ -39,14 +39,18 @@ class vscTestProcessor extends vscProcessorA {
 		$sPath = get_include_path();
 		set_include_path(
 			SNAPTEST_ROOT . PATH_SEPARATOR .
-//			SNAPTEST_ROOT . DIRECTORY_SEPARATOR . 'core/util' . PATH_SEPARATOR .
+			SNAPTEST_ROOT . DIRECTORY_SEPARATOR . 'core/util' . PATH_SEPARATOR .
 			$sPath
-			);
+		);
 		include ('constants.php');
 	}
 
 	public function handleRequest (vscHttpRequestA $oHttpRequest) {
 //		require_once (SNAP_WI_PATH . 'snaptest_webcore.php');
-		return 'Test Controller'. '<hr/><pre>' . var_export ($this->getLocalVars(), true) . '</pre>';
+		$oModel = new vscEmptyModel();
+		$oModel->setPageTitle ('Unit testing');
+		$oModel->setPageContent('Test Controller'. '<hr/><pre>' . var_export ($this->getLocalVars(), true) . '</pre>');
+
+		return $oModel;
 	}
 }

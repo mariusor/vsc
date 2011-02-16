@@ -40,6 +40,10 @@ abstract class vscHttpResponseA extends vscObject {
 
 	private $aHeaders;
 
+	public function getStatusList () {
+		return $this->aStatusList;
+	}
+
 //	private $sResponseBody;
 
 	public function setStatus ($iStatus) {

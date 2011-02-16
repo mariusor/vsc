@@ -4,7 +4,7 @@ class vscUrlParserA implements vscUrlParserI {
 	private $aComponents;
 
 	public function __construct ($sUrl = null) {
-		if (!$sUrl) {
+		if ($sUrl === null) {
 			$this->setUrl($_SERVER['REQUEST_URI']);
 		} else {
 			$this->setUrl($sUrl);
@@ -93,7 +93,7 @@ class vscUrlParserA implements vscUrlParserI {
 	}
 
 	public function getScheme () {
-		return $this->aComponents['scheme'];
+		return strtolower($this->aComponents['scheme']);
 	}
 
 	public function getUser () {
@@ -109,11 +109,13 @@ class vscUrlParserA implements vscUrlParserI {
 	}
 
 	public function getHost () {
-		return $this->aComponents['host'];
+		return strtolower($this->aComponents['host']);
 	}
 
 	public function getParentPath ($iSteps = 0) {
 		$sPath = $this->aComponents['path'];
+
+		if (empty ($sPath)) return '';
 
 		if (!self::isAbsolutePath($sPath)) {
 			if (substr ($sPath, 0, 2) == './'){
@@ -214,6 +216,25 @@ class vscUrlParserA implements vscUrlParserI {
 		return $this->sUrl;
 	}
 
+	public function getFullQueryString () {
+		$sQuery = $this->getQueryString ();
+		if ($sQuery) {
+			return '?' . $sQuery;
+		} else {
+			return '';
+		}
+	}
+
+	public function getFullFragmentString () {
+		$sFragment = $this->getFragment();
+		if ($sFragment) {
+			return '#' . $sFragment;
+		} else {
+			return '';
+		}
+	}
+
+
 	public function isLocal () {
 		return (!$this->getScheme() && $this->getPath());
 	}
@@ -261,14 +282,8 @@ class vscUrlParserA implements vscUrlParserI {
 			$sPath .= '/';
 		}
 
-		$sQuery = $this->getQueryString ();
-		if ($sQuery) {
-			$sUrl .= '?' . $sQuery;
-		}
-		$sFragment = $this->getFragment();
-		if ($sFragment) {
-			$sUrl .= '#' . $sFragment;
-		}
+		$sUrl .=  $this->getFullQueryString();
+		$sUrl .=  $this->getFullFragmentString();
 
 		return $sUrl;
 	}
@@ -278,6 +293,7 @@ class vscUrlParserA implements vscUrlParserI {
 	}
 
 	static public function hasGoodTermination ($sUri) {
+		// last element should be an / or in the last part after / there should be a .
 		return (substr($sUri, -1) == '/' || stristr(substr($sUri, strrpos($sUri, '/')), '.'));
 	}
 }

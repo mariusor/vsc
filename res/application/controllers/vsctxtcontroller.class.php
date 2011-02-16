@@ -5,7 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 10.04.09
  */
-import ('application/presentation/views');
+import ('presentation/views');
 import ('application/controllers');
 class vscTxtController extends vscFrontControllerA implements vscTxtControllerI {
 	public function getDefaultView () {

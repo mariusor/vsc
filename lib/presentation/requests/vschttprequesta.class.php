@@ -7,6 +7,14 @@
  */
 
 import ('infrastructure/urls');
+
+class vscHttpRequestTypes {
+	const GET = 0;
+	const POST = 1;
+	const PUT = 2;
+	const DELETE = 3;
+}
+
 abstract class vscHttpRequestA extends vscObject {
 	private $sUri		= null;
 	private $oUri;
@@ -288,6 +296,20 @@ abstract class vscHttpRequestA extends vscObject {
 	 */
 	public function isPost() {
 		return ($this->getHttpMethod() == 'POST');
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isPut() {
+		return ($this->getHttpMethod() == 'PUT');
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isDelete() {
+		return ($this->getHttpMethod() == 'DEELTE');
 	}
 
 	/**
