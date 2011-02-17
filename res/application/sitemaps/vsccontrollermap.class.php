@@ -10,6 +10,8 @@ class vscControllerMap extends vscMappingA implements vscContentTypeMappingI {
 	private $sMainTemplatePath;
 	private $sMainTemplate;
 
+	private $sViewPath;
+
 	public function setMainTemplatePath ($sPath) {
 		$this->sMainTemplatePath = $sPath;
 	}
@@ -32,5 +34,22 @@ class vscControllerMap extends vscMappingA implements vscContentTypeMappingI {
 			if ( $this->getModuleMap() instanceof vscContentTypeMappingI)
 				$this->sMainTemplate = $this->getModuleMap()->getMainTemplate();
 		return $this->sMainTemplate;
+	}
+
+	/**
+	 *
+	 * To allow a single controller type to return a different type of view
+	 * @param string $sPath
+	 */
+	public function setView ($sPath) {
+		if (vscSiteMapA::isValidObject($sPath)) {
+			$this->sViewPath = $sPath;
+		} else {
+			throw new vscExceptionPath ('View path ['.$sPath.'] is not valid.');
+		}
+	}
+
+	public function getViewPath(){
+		return $this->sViewPath;
 	}
 }

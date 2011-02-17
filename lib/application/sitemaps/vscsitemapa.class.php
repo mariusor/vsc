@@ -103,7 +103,7 @@ abstract class vscSiteMapA extends vscObject {
 	}
 
 	static public function isValidStatic ($sPath) {
-		return (is_file ($sPath) && !self::isValidMap($sPath) && !self::isValidObject($sPath));
+		return (is_file ($sPath) && !stristr($sPath, 'php'));
 	}
 
 	/**

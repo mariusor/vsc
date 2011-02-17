@@ -164,12 +164,23 @@ class vscMappingA extends vscObject {
 
 	public function addStyle ($sPath, $sMedia = 'screen') {
 		$oUrl = new vscUrlRWParser($sPath);
-		$this->aResources['styles'][$sMedia][] = $oUrl->getCompleteUri(true);
+		if ($oUrl->isLocal()) // I had a bad habit of correcting external URL's
+			$sPath = $oUrl->getCompleteUri(true);
+		$this->aResources['styles'][$sMedia][] = $sPath;
 	}
 
-	public function addScript ($sPath) {
+	/**
+	 *
+	 * Adds a path for a JavaScript resource
+	 * @param string $sPath
+	 * @param bool $bInHead
+	 */
+	public function addScript ($sPath, $bInHead = false) {
 		$oUrl = new vscUrlRWParser($sPath);
-		$this->aResources['scripts'][] = $oUrl->getCompleteUri(true);
+		$iMainKey = (int)$bInHead; // [1] in the <head> section; [0] at the end of the *HTML document
+		if ($oUrl->isLocal()) // I had a bad habit of correcting external URL's
+			$sPath = $oUrl->getCompleteUri(true);
+		$this->aResources['scripts'][$iMainKey][] 		= $sPath;
 	}
 
 	/**
@@ -180,11 +191,19 @@ class vscMappingA extends vscObject {
 	public function addLink ($sType, $aData) {
 		if (key_exists('href', $aData)) {
 			$oUrl = new vscUrlRWParser($aData['href']);
-			$aData['href'] = $oUrl->getCompleteUri(true);
+			if ($oUrl->isLocal()) // I had a bad habit of correcting external URL's
+				$sPath = $oUrl->getCompleteUri(true);
+			else
+				$sPath = $aData['href'];
+			$aData['href'] = $sPath;
 		}
 		if (key_exists('src', $aData)) {
 			$oUrl = new vscUrlRWParser($aData['src']);
-			$aData['src'] = $oUrl->getCompleteUri(true);
+			if ($oUrl->isLocal()) // I had a bad habit of correcting external URL's
+				$sPath = $oUrl->getCompleteUri(true);
+			else
+				$sPath = $aData['src'];
+			$aData['src'] = $sPath;
 		}
 		$this->aResources['links'][$sType][] = $aData;
 	}
@@ -207,6 +226,13 @@ class vscMappingA extends vscObject {
 		}
 	}
 
+	/**
+	 *
+	 * @param string $sRegex
+	 * @param string $sPath
+	 * @throws vscExceptionSitemap
+	 * @return vscControllerMap
+	 */
 	public function mapController ($sRegex, $sPath){
 		if (!$sRegex) {
 			throw new vscExceptionSitemap ('An URI must be present.');
@@ -223,7 +249,10 @@ class vscMappingA extends vscObject {
 
 				return $oNewMap;
 			}
+		} else {
+			throw new vscExceptionController('Controller ['.$sPath.'] is invalid.');
 		}
+		return new vscNull();
 	}
 
 	/**
@@ -252,8 +281,9 @@ class vscMappingA extends vscObject {
 		}
 	}
 
-	public function getScripts () {
-		return $this->getResources('scripts');
+	public function getScripts ($bInHead = false) {
+		$aAllScripts = $this->getResources('scripts');
+		return ($bInHead ? $aAllScripts[1] : $aAllScripts[0]); // [1] -> script goes in the <head> [0] - script is loaded at the end of the source
 	}
 
 	public function getSettings () {
