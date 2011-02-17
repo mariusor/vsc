@@ -8,9 +8,7 @@
 import ('presentation/views');
 class vscRssView extends vscViewA implements vscRssViewI {
 	protected $sContentType = 'application/rss+xml';
-	public function __construct () {
-//		$this->setTemplate (VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . 'rss/content.php');
-	}
+	protected $sFolder = 'rss';
 
 	/**
 	 * (non-PHPdoc)
@@ -29,10 +27,6 @@ class vscRssView extends vscViewA implements vscRssViewI {
 	 * @see lib/presentation/views/vscViewI#display($resource_name, $cache_id, $compile_id)
 	 */
     public function display($resource_name) {}
-
-	public function getViewFolder () {
-		return 'rss';
-	}
 
 	public function getDescription(){}
 	public function getLanguage(){}

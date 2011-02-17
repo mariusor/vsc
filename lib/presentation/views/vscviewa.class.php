@@ -14,6 +14,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	private $oCurrentMap;
 
 	protected $sContentType;
+	protected $sFolder;
 
 	static private $oUriParser;
 
@@ -32,7 +33,9 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		return $this->sContentType;
 	}
 
-	abstract public function getViewFolder();
+	public function getViewFolder() {
+		return $this->sFolder;
+	}
 
 	public function getTitle () {
 		if ($this->getModel() instanceof vscEmptyModel && $this->getModel()->getPageTitle() != '') {

@@ -78,7 +78,7 @@ abstract class vscFrontControllerA extends vscObject {
 
 		// we didn't set any special view
 		// this means that the developer needs to provide his own views
-		$oView	= $this->getDefaultView();
+		$oView	= $this->getView();
 
 		/* @var $oMyMap vscControllerMap */
 		$oMyMap	= $this->getMap();
@@ -113,5 +113,19 @@ abstract class vscFrontControllerA extends vscObject {
 		} else {
 			throw new vscExceptionController('The template path ['.$sIncPath.'] is not a valid folder.');
 		}
+	}
+
+	public function getView () {
+		$sViewPath = $this->getMap()->getViewPath();
+		if (is_null($sViewPath)) {
+			$oView = $this->getDefaultView();
+		} else {
+			include ($sViewPath);
+			// this is goddamn ugly - basing it on php's case insensitiveness
+			$sClassName = stristr(basename ($sViewPath), '.class.php', true);
+			$oView = new $sClassName();
+		}
+
+		return $oView;
 	}
 }

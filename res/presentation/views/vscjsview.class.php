@@ -1,0 +1,12 @@
+<?php
+/**
+ * @package vsc_presentation
+ * @subpackage views
+ * @author marius orcsik <marius@habarnam.ro>
+ * @date 10.04.09
+ */
+import ('presentation/views');
+class vscJsView extends vscPlainTextView {
+	protected $sContentType = 'application/x-javascript';
+	protected $sFolder = 'js';
+}
