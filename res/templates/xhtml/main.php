@@ -41,6 +41,16 @@ if (is_array ($this->getLinks()) && count($this->getLinks()) >= 1) {
 	}
 }*/
 ?>
+<?php
+$aAllScripts = $this->getScripts(true);
+if (count ($aAllScripts) >= 1 ) {
+	foreach ($aAllScripts as $sPath) {
+?>
+	<script type="text/javascript" src="<?php echo $sPath?>"> </script>
+<?php
+	}
+}
+?>
 </head>
 <body>
 <div>
@@ -66,7 +76,7 @@ $aAllScripts = $this->getScripts();
 if (count ($aAllScripts) >= 1 ) {
 	foreach ($aAllScripts as $sPath) {
 ?>
-<script type="text/javascript" src="<?php echo $sPath;?>"></script>
+<script type="text/javascript" src="<?php echo $sPath?>"> </script>
 <?php
 	}
 }

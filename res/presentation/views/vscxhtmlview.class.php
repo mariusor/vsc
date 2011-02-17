@@ -10,6 +10,7 @@ import ('presentation/views/exceptions');
 
 class vscXhtmlView extends vscViewA implements vscXhtmlViewI {
 	protected $sContentType = 'application/xhtml+xml';
+	protected $sFolder = 'xhtml';
 	public function __construct () {
 //		$this->setTemplate(VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . 'xhtml/content.php');
 	}
@@ -42,9 +43,9 @@ class vscXhtmlView extends vscViewA implements vscXhtmlViewI {
     	d ($resource_name);
     }
 
-   	public function getScripts() {
+   	public function getScripts($bInHead = false) {
    		try {
-    		return $this->getMap()->getScripts();
+    		return $this->getMap()->getScripts($bInHead);
 		} catch (vscExceptionView $e) {
 			return array();
 		}
@@ -81,9 +82,4 @@ class vscXhtmlView extends vscViewA implements vscXhtmlViewI {
 			return '';
 		}
 	}
-
-	public function getViewFolder () {
-		return 'xhtml';
-	}
-
 }
