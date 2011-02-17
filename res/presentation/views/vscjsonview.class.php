@@ -8,9 +8,7 @@
 import ('presentation/views');
 class vscJsonView extends vscViewA implements vscJsonViewI {
 	protected $sContentType = 'application/json';
-	public function __construct () {
-	}
-
+	protected $sFolder = 'json';
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#append($tpl_var, $value, $merge)
@@ -28,8 +26,4 @@ class vscJsonView extends vscViewA implements vscJsonViewI {
 	 * @see lib/presentation/views/vscViewI#display($resource_name, $cache_id, $compile_id)
 	 */
     public function display ($resource_name) {}
-
-	public function getViewFolder () {
-		return 'json';
-	}
 }
