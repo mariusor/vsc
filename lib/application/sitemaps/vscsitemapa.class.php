@@ -44,6 +44,7 @@ abstract class vscSiteMapA extends vscObject {
 				$oNewMap->setModuleMap($oModuleMap);
 			}
 
+//			if (stristr($sRegex, 'comics')) d ($oNewMap);
 			$this->aMaps[$sRegex] = $oNewMap;
 			return $oNewMap;
 		}
@@ -77,7 +78,7 @@ abstract class vscSiteMapA extends vscObject {
 		include ($sPath);
 
 		// 	after we finished parsing the new module, we set the previous module map as current
-		$this->oCurrentModuleMap = $oModuleMap;
+		$this->oCurrentModuleMap = $oNewModuleMap->getModuleMap();
 
 		return $oNewModuleMap;
 	}
@@ -178,7 +179,11 @@ abstract class vscSiteMapA extends vscObject {
 
 		/* @var $oProcessor vscMappingA */
 		foreach ($aProcessorMaps as $sKey => $oProcessor) {
-			$aModuleMaps[$sKey] = $oProcessor->getModuleMap();
+			$oModuleMap = $oProcessor->getModuleMap();
+			if (!in_array($oModuleMap, $aModuleMaps, true)) {
+				$aModuleMaps[$oModuleMap->getRegex()] = $oModuleMap;
+			}
+
 		}
 
 		return $aModuleMaps;
@@ -194,5 +199,28 @@ abstract class vscSiteMapA extends vscObject {
 		}
 
 		return $aControllerMaps;
+	}
+
+	public function getControllerMappings () {
+		foreach($this->getAllControllers() as $sKey => $oController) {
+			$aC[$sKey] = $oController->getPath();
+		}
+		return $aC;
+	}
+
+	public function getModuleMappings () {
+		/* @var $oModule vscModuleMapping */
+		foreach($this->getAllModules() as $sKey => $oModule) {
+			$aC[$sKey] = $oModule->getPath();
+		}
+		return $aC;
+	}
+
+	public function getProcessorMappings () {
+		/* @var $oModule vscModuleMapping */
+		foreach($this->getMaps() as $sKey => $oProcessor) {
+			$aC[$sKey] = $oProcessor->getPath();
+		}
+		return $aC;
 	}
 }
