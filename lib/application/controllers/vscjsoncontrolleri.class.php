@@ -5,4 +5,4 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 10.04.09
  */
-interface vscJsonControllerI extends vscTxtControllerI {}
+interface vscJsonControllerI extends vscPlainTextControllerI {}
