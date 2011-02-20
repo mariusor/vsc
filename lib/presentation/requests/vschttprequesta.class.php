@@ -9,10 +9,11 @@
 import ('infrastructure/urls');
 
 class vscHttpRequestTypes {
-	const GET = 0;
-	const POST = 1;
-	const PUT = 2;
-	const DELETE = 3;
+	const GET		= 'GET';
+	const HEAD		= 'HEAD';
+	const POST		= 'POST';
+	const PUT		= 'PUT';
+	const DELETE	= 'DELETE';
 }
 
 abstract class vscHttpRequestA extends vscObject {
@@ -288,28 +289,35 @@ abstract class vscHttpRequestA extends vscObject {
 	 * @return bool
 	 */
 	public function isGet() {
-		return ($this->getHttpMethod() == 'GET');
+		return ($this->getHttpMethod() == vscHttpRequestTypes::GET);
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isHead() {
+		return ($this->getHttpMethod() == vscHttpRequestTypes::HEAD);
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function isPost() {
-		return ($this->getHttpMethod() == 'POST');
+		return ($this->getHttpMethod() == vscHttpRequestTypes::POST);
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function isPut() {
-		return ($this->getHttpMethod() == 'PUT');
+		return ($this->getHttpMethod() == vscHttpRequestTypes::PUT);
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function isDelete() {
-		return ($this->getHttpMethod() == 'DEELTE');
+		return ($this->getHttpMethod() == vscHttpRequestTypes::DELETE);
 	}
 
 	/**

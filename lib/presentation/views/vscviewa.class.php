@@ -161,6 +161,9 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		}
 	}
 
+	/**
+	 * @return  vscUrlRWParser
+	 */
 	static public function getUriParser () {
 		if (!(self::$oUriParser instanceof vscUrlParserA)) {
 			self::$oUriParser = new vscUrlRWParser();
