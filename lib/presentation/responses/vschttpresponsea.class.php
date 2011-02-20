@@ -24,7 +24,7 @@ abstract class vscHttpResponseA extends vscObject {
 
 	private $iStatus;
 
-	private $aAllow					= array ('GET', 'POST', 'HEAD');
+	private $aAllow					= array (vscHttpRequestTypes::GET, vscHttpRequestTypes::POST, vscHttpRequestTypes::PUT, vscHttpRequestTypes::DELETE);
 	private $sCacheControl;
 	private $sContentEncoding;
 	private $sContentLanguage;
@@ -318,7 +318,13 @@ abstract class vscHttpResponseA extends vscObject {
 	 */
 	public function setView (vscViewA $oView) {
 		$this->setContentType($oView->getContentType());
-		$this->sResponseBody = $oView->getOutput();
+		if (vsc::getHttpRequest()->isHead()) {
+			$this->setContentLength(0);
+			$this->sResponseBody = '';
+		} else {
+			$this->sResponseBody = $oView->getOutput();
+			$this->setContentLength(strlen($this->sResponseBody));
+		}
 	}
 
 	abstract public function getOutput();
