@@ -66,7 +66,7 @@ function d () {
  * @param string $className
  */
 function __autoload ($className) {
-	if (class_exists ($className, false))  {
+	if (class_exists ($className, false) || class_exists(strtolower($className), false))  { // fuck the vscfrontcontrollera getView shit
 		return true;
 	}
 	$fileIncluded = false;
