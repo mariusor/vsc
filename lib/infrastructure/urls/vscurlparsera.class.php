@@ -52,15 +52,18 @@ class vscUrlParserA implements vscUrlParserI {
 		} else {
 			$iQPos = strpos($sUrl, '?');
 			if ($iQPos) {
+				// we have a query part
 				$sPath		= substr ($sUrl, 0 , strpos('?'));
 				$sQuery		= substr ($sUrl, strpos('?') + 1);
 			} else {
-				$sPath		= '';
+				$sPath		= $sUrl;
 				$sQuery 	= '';
 			}
 			if (stristr($sUrl, '#')) {
 				$sFragment	= substr ($sUrl, strpos('#'));
 			}
+
+//			if (stristr($sUrl, 'index')) d ($sUrl, $sPath);
 		}
 
 		return array (
@@ -77,18 +80,28 @@ class vscUrlParserA implements vscUrlParserI {
 	public function setUrl ($sUrl) {
 		$this->sUrl 		= $sUrl;
         try {
-            $this->aComponents  = array_merge(array (
-	            'scheme'	=> (vsc::getHttpRequest()->isSecure() ? 'https' : 'http'),
-				'host'		=> '',
-				'user'		=> '',
-				'pass'		=> '',
-				'path'		=> '',
-				'query'		=> '',
-				'fragment'	=> ''
-            ), parse_url($sUrl));
+        	$aParse = parse_url($sUrl);
+        	if (is_array($aParse)) {
+	            $this->aComponents  = array_merge(
+		            array (
+			            'scheme'	=> (vsc::getHttpRequest()->isSecure() ? 'https' : 'http'),
+						'host'		=> '',
+						'user'		=> '',
+						'pass'		=> '',
+						'path'		=> '',
+						'query'		=> '',
+						'fragment'	=> ''
+		            ),
+		            $aParse
+				);
+        	} else {
+        		throw new vscExceptionInfrastructure('URL ['. $sUrl . '] was not correctly parsed by parse_url');
+        	}
             $this->aComponents['query'] = self::parseQuery($this->aComponents['query']);
         } catch (vscExceptionError $e) {
             $this->aComponents  = self::parse_url ($sUrl);
+        } catch (vscExceptionInfrastructure $e) {
+        	$this->aComponents  = self::parse_url ($sUrl);
         }
 	}
 

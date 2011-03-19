@@ -34,6 +34,8 @@ class vscMappingA extends vscObject {
 	 */
 	private $oParentMap;
 
+	private $sMatchingUrl;
+
 	public function __construct ($sPath, $sRegex) {
 		$this->sPath	= $sPath;
 		$this->sRegex	= $sRegex;
@@ -165,7 +167,7 @@ class vscMappingA extends vscObject {
 	public function addStyle ($sPath, $sMedia = 'screen') {
 		$oUrl = new vscUrlRWParser($sPath);
 		if ($oUrl->isLocal()) // I had a bad habit of correcting external URL's
-			$sPath = $oUrl->getCompleteUri(true);
+		$sPath = $oUrl->getCompleteUri(true);
 		$this->aResources['styles'][$sMedia][] = $sPath;
 	}
 
@@ -179,7 +181,7 @@ class vscMappingA extends vscObject {
 		$oUrl = new vscUrlRWParser($sPath);
 		$iMainKey = (int)$bInHead; // [1] in the <head> section; [0] at the end of the *HTML document
 		if ($oUrl->isLocal()) // I had a bad habit of correcting external URL's
-			$sPath = $oUrl->getCompleteUri(true);
+		$sPath = $oUrl->getCompleteUri(true);
 		$this->aResources['scripts'][$iMainKey][] 		= $sPath;
 	}
 
@@ -192,17 +194,17 @@ class vscMappingA extends vscObject {
 		if (key_exists('href', $aData)) {
 			$oUrl = new vscUrlRWParser($aData['href']);
 			if ($oUrl->isLocal()) // I had a bad habit of correcting external URL's
-				$sPath = $oUrl->getCompleteUri(true);
+			$sPath = $oUrl->getCompleteUri(true);
 			else
-				$sPath = $aData['href'];
+			$sPath = $aData['href'];
 			$aData['href'] = $sPath;
 		}
 		if (key_exists('src', $aData)) {
 			$oUrl = new vscUrlRWParser($aData['src']);
 			if ($oUrl->isLocal()) // I had a bad habit of correcting external URL's
-				$sPath = $oUrl->getCompleteUri(true);
+			$sPath = $oUrl->getCompleteUri(true);
 			else
-				$sPath = $aData['src'];
+			$sPath = $aData['src'];
 			$aData['src'] = $sPath;
 		}
 		$this->aResources['links'][$sType][] = $aData;
@@ -242,8 +244,8 @@ class vscMappingA extends vscObject {
 			if (!is_array($this->aControllerMaps) || !key_exists($sKey, $this->aControllerMaps)) {
 				$oNewMap 	= new vscControllerMap($sPath, $sKey);
 				$oNewMap->setModuleMap($this);
-//				$oNewMap->merge($this); //? ?
-//				d ($this);
+				//				$oNewMap->merge($this); //? ?
+				//				d ($this);
 
 				$this->aControllerMaps[$sKey] = $oNewMap;
 
@@ -328,5 +330,19 @@ class vscMappingA extends vscObject {
 
 	public function getTaintedVars () {
 		return $this->aTaintedVars;
+	}
+
+	public function setUrl ($sUrl) {
+		$this->sMatchingUrl = $sUrl;
+	}
+
+	public function getUrl () {
+		$sRegex = '#' . str_replace('#', '\#', $this->getRegex()). '#iU';
+		$bHaveMatch = preg_match ($sRegex, $this->sMatchingUrl, $aMatches);
+
+		if ($bHaveMatch) {
+			$oUrlParser = new vscUrlRWParser($aMatches[0]);
+			return $oUrlParser->getCompleteUri();
+		}
 	}
 }
