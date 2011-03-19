@@ -9,6 +9,7 @@ import ('presentation/views');
 class vscPlainTextView extends vscViewA implements vscViewI {
 	protected $sContentType = 'text/plain';
 	protected $sFolder = 'txt';
+
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#append($tpl_var, $value, $merge)
@@ -28,6 +29,8 @@ class vscPlainTextView extends vscViewA implements vscViewI {
     public function display ($resource_name) {}
 
 	public function fetch ($includePath) {
-		return $this->getModel()->getPageContent();
+		$oModel = $this->getModel();
+		/* @var $oModel vscStaticFileModel */
+		return $oModel->getFileContent();
 	}
 }

@@ -9,6 +9,7 @@ import (VSC_LIB_PATH . 'presentation/responses');
 import (VSC_RES_PATH . 'domain/models');
 abstract class vscFrontControllerA extends vscObject {
 	private $oCurrentMap;
+	private $oView;
 
 	/**
 	 * @return vscViewA
@@ -40,14 +41,13 @@ abstract class vscFrontControllerA extends vscObject {
 	 * @return vscHttpResponseA
 	 */
 	public function getResponse (vscHttpRequestA $oRequest, $oProcessor = null) {
-		$oResponse = null;
+		$oResponse = new vscHttpGenericResponse();
 		$oModel = null;
 
 		if (($oProcessor instanceof vscProcessorI)) {
 			try {
 				$oModel = $oProcessor->handleRequest($oRequest);
 			} catch (vscExceptionResponseRedirect $e) {
-				$oResponse = new vscHttpRedirection();
 				$oResponse->setStatus($e->getRedirectCode());
 				$oResponse->setLocation ($e->getLocation());
 
@@ -69,10 +69,10 @@ abstract class vscFrontControllerA extends vscObject {
 		}
 
 		if (!($oProcessor instanceof vscErrorProcessorI)) {
-			$oResponse = new vscHttpSuccess();
+//			$oResponse = new vscHttpSuccess();
 			$oResponse->setStatus (200);
 		} else {
-			$oResponse = new vscHttpClientError();
+//			$oResponse = new vscHttpClientError();
 			$oResponse->setStatus($oProcessor->getErrorCode());
 		}
 
@@ -117,15 +117,17 @@ abstract class vscFrontControllerA extends vscObject {
 
 	public function getView () {
 		$sViewPath = $this->getMap()->getViewPath();
-		if (is_null($sViewPath)) {
-			$oView = $this->getDefaultView();
-		} else {
-			include ($sViewPath);
-			// this is goddamn ugly - basing it on php's case insensitiveness
-			$sClassName = stristr(basename ($sViewPath), '.class.php', true);
-			$oView = new $sClassName();
-		}
+		if (!($this->oView instanceof vscViewA)) {
+			if (is_null($sViewPath)) {
+				$this->oView = $this->getDefaultView();
+			} else {
+				$sClassName = stristr(basename ($sViewPath), '.class.php', true);
+				include ($sViewPath);
+				// this is goddamn ugly - basing it on php's case insensitiveness
 
-		return $oView;
+				$this->oView = new $sClassName();
+			}
+		}
+		return $this->oView;
 	}
 }

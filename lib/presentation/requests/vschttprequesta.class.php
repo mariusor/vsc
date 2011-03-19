@@ -77,6 +77,14 @@ abstract class vscHttpRequestA extends vscObject {
 		if (count ($_FILES) >= 1 ) {
 			$this->aFiles = $_FILES;
 		}
+
+		if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
+			$this->sIfModifiedSince = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
+		}
+
+		if (isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
+			$this->sIfNoneMatch = $_SERVER['HTTP_IF_NONE_MATCH'];
+		}
 	}
 
 	public function hasFiles () {
@@ -135,6 +143,20 @@ abstract class vscHttpRequestA extends vscObject {
 	 */
 	public function getHttpAcceptLanguage () {
 		return $this->aAcceptLanguage;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getIfModifiedSince () {
+		return $this->sIfModifiedSince;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getIfNoneMatch () {
+		return $this->sIfNoneMatch;
 	}
 
 	/**
@@ -278,7 +300,7 @@ abstract class vscHttpRequestA extends vscObject {
 		return setcookie ($sVarName, $sVarValue);
 	}
 
-	protected function getHttpMethod () {
+	public function getHttpMethod () {
 		if (!$this->sHttpMethod && isset ($_SERVER['REQUEST_METHOD'])) {
 			$this->sHttpMethod = $_SERVER['REQUEST_METHOD'];
 		}
