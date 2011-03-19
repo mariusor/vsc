@@ -37,6 +37,7 @@ abstract class vscHttpResponseA extends vscObject {
 	private $sETag;
 	private $sExpires;
 	private $sLastModified;
+	private $sLocation;
 
 	private $aHeaders;
 
@@ -52,6 +53,13 @@ abstract class vscHttpResponseA extends vscObject {
 		}
 
 		$this->iStatus = $iStatus;
+	}
+	/**
+	 * @param string $sValue
+	 * @return void
+	 */
+	public function setLocation ($sValue){
+		$this->sLocation = $sValue;
 	}
 
 	public function addHeader ($sName, $sValue) {
@@ -152,6 +160,13 @@ abstract class vscHttpResponseA extends vscObject {
 	 */
 	public function setLastModified ($sValue){
 		$this->sLastModified = $sValue;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLocation (){
+		return $this->sLocation;
 	}
 
 	/**
@@ -261,6 +276,12 @@ abstract class vscHttpResponseA extends vscObject {
 		if ($this->getStatus())
 			header ($this->getHttpStatusString ());
 
+		$sLocation = $this->getLocation();
+		if ($sLocation) {
+			header ('Location:' . $sLocation);
+			return; // end headers
+		}
+
 		$sCacheControl = $this->getCacheControl();
 		if ($sCacheControl) {
 			header ('Cache-Control: ' . $sCacheControl);
@@ -299,7 +320,7 @@ abstract class vscHttpResponseA extends vscObject {
 		}
 		$sETag = $this->getETag();
 		if ($sETag) {
-			header ('ETag:' . $sETag);
+			header ('Etag:' . $sETag);
 		}
 		$sExpires = $this->getExpires();
 		if ($sExpires) {
@@ -308,6 +329,10 @@ abstract class vscHttpResponseA extends vscObject {
 		$sLastModified = $this->getLastModified();
 		if ($sLastModified) {
 			header ('Last-Modified:' . $sLastModified);
+		}
+		$sLocation = $this->getLocation();
+		if ($sLocation) {
+			header ('Location:' . $sLocation);
 		}
 	}
 	protected $sResponseBody;
@@ -320,10 +345,11 @@ abstract class vscHttpResponseA extends vscObject {
 		$this->setContentType($oView->getContentType());
 		if (vsc::getHttpRequest()->isHead()) {
 			$this->setContentLength(0);
-			$this->sResponseBody = '';
+			$this->sResponseBody = null;
 		} else {
 			$this->sResponseBody = $oView->getOutput();
 			$this->setContentLength(strlen($this->sResponseBody));
+			$this->setContentMd5(md5($this->sResponseBody));
 		}
 	}
 
