@@ -41,6 +41,7 @@ class vscRwDispatcher extends vscDispatcherA {
 				/* @var $oProcessorMapping vscMappingA */
 				$oProcessorMapping  = $aMaps[$sRegex];
 				$oProcessorMapping->setTaintedVars($aMatches);
+				$oProcessorMapping->setUrl ($sUri);
 				return $oProcessorMapping;
 			}
 		}
