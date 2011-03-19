@@ -336,13 +336,15 @@ class vscMappingA extends vscObject {
 		$this->sMatchingUrl = $sUrl;
 	}
 
+	/**
+	 * @return vscUrlParserA
+	 */
 	public function getUrl () {
-		$sRegex = '#' . str_replace('#', '\#', $this->getRegex()). '#iU';
+		$sRegex = '#(' . str_replace('#', '\#', $this->getRegex()). ')#iU';
 		$bHaveMatch = preg_match ($sRegex, $this->sMatchingUrl, $aMatches);
 
 		if ($bHaveMatch) {
-			$oUrlParser = new vscUrlRWParser($aMatches[0]);
-			return $oUrlParser->getCompleteUri();
+			return new vscUrlRWParser($aMatches[0]);
 		}
 	}
 }
