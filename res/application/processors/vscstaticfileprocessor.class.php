@@ -1,6 +1,13 @@
 <?php
+/**
+ * @package vsc_application
+ * @subpackage controllers
+ * @author marius orcsik <marius@habarnam.ro>
+ * @date 11.02.21
+ */
+
 import ('domain/models');
-class vscFileContentProcessor extends vscProcessorA {
+class vscStaticFileProcessor extends vscProcessorA {
 	private $sFilePath;
 
 	public function setFilePath ($sPath) {
@@ -10,8 +17,9 @@ class vscFileContentProcessor extends vscProcessorA {
 	public function init () {}
 
 	public function handleRequest (vscHttpRequestA $oHttpRequest) {
-		$oModel = new vscEmptyModel();
-		$oModel->setPageContent(file_get_contents($this->sFilePath));
+		$oModel = new vscStaticFileModel();
+		$oModel->setFilePath($this->sFilePath);
+
 		return $oModel;
 	}
 }

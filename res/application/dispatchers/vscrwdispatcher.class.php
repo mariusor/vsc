@@ -139,7 +139,7 @@ class vscRwDispatcher extends vscDispatcherA {
 					$this->oProcessor = new $sProcessorName();
 				} elseif ($this->getSiteMap()->isValidStatic ($sPath) ) {
 					// static stuff
-					$this->oProcessor = new vscFileContentProcessor();
+					$this->oProcessor = new vscStaticFileProcessor();
 					$this->oProcessor->setFilePath($sPath);
 				} /*else {
 					$this->oProcessor = new vsc404Processor();
