@@ -56,7 +56,7 @@ class vscUrlParserA implements vscUrlParserI {
 				$sPath		= substr ($sUrl, 0 , strpos('?'));
 				$sQuery		= substr ($sUrl, strpos('?') + 1);
 			} else {
-				$sPath		= $sUrl;
+				$sPath		= stristr($sUrl,'/');
 				$sQuery 	= '';
 			}
 			if (stristr($sUrl, '#')) {
