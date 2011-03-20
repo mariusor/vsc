@@ -236,7 +236,7 @@ abstract class vscHttpResponseA extends vscObject {
 	 * @return string
 	 */
 	public function getETag (){
-		return $this->sETag;
+		return '"'.$this->sETag.'"';
 	}
 
 	/**
@@ -320,7 +320,7 @@ abstract class vscHttpResponseA extends vscObject {
 		}
 		$sETag = $this->getETag();
 		if ($sETag) {
-			header ('ETag: "' . $sETag . '"');
+			header ('ETag: ' . $sETag);
 		}
 		$sExpires = $this->getExpires();
 		if ($sExpires) {
@@ -349,7 +349,7 @@ abstract class vscHttpResponseA extends vscObject {
 		} else {
 			$this->sResponseBody = $oView->getOutput();
 			$this->setContentLength(strlen($this->sResponseBody));
-			$this->setContentMd5(md5($this->sResponseBody));
+			$this->setETag(substr(sha1($this->sResponseBody),0,7));
 		}
 	}
 
