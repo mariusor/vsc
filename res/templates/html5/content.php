@@ -16,7 +16,7 @@ These settings are defined in one of the following files:
 	};
 ?>
 </ul>
-<?php /**/ ?>The matching regular expression for the current URI is: <pre> <?php echo $this->getMap()->getRegex(); ?> => <?php echo $this->getMap()->getPath(); ?> </pre> <?php /**/ ?>
+<?php /**/ ?>The matching regular expression for the current URI is: <pre> <?php echo $this->getMap()->getRegex(); ?> =&gt; <?php echo $this->getMap()->getPath(); ?> </pre> <?php /**/ ?>
 <?php
 try {
 	echo '<ul>'."\n";
