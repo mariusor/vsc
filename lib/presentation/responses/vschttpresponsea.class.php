@@ -320,7 +320,7 @@ abstract class vscHttpResponseA extends vscObject {
 		}
 		$sETag = $this->getETag();
 		if ($sETag) {
-			header ('Etag:' . $sETag);
+			header ('ETag: "' . $sETag . '"');
 		}
 		$sExpires = $this->getExpires();
 		if ($sExpires) {
