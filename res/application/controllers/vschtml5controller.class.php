@@ -3,7 +3,7 @@
  * @package vsc_res_presentation
  * @subpackage controllers
  * @author marius orcsik <marius@habarnam.ro>
- * @date 10.10.15
+ * @date 2010.10.15
  */
 
 import ('application/controllers');

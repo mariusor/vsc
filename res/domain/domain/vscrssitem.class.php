@@ -3,7 +3,7 @@
  * @package vsc_domain
  * @subpackage domain
  * @author marius orcsik <marius@habarnam.ro>
- * @date 10.04.14
+ * @date 2010.04.14
  */
 class vscRssItem extends vscModelA {
 	public $title;

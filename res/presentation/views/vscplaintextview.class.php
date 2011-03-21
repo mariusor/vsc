@@ -3,7 +3,7 @@
  * @package vsc_presentation
  * @subpackage views
  * @author marius orcsik <marius@habarnam.ro>
- * @date 11.02.17
+ * @date 2011.02.17
  */
 import ('presentation/views');
 class vscPlainTextView extends vscViewA implements vscViewI {

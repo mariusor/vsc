@@ -6,7 +6,7 @@
  * TODO: abstract the condition part of a where clause - currently string based :D
  * @package vsc_domain
  * @author marius orcsik <marius@habarnam.ro>
- * @date 10.06.01
+ * @date 2010.06.01
  */
 class vscClause {
 	private	$mSubject;

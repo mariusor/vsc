@@ -3,7 +3,7 @@
  * @package vsc_presentation
  * @subpackage responses
  * @author marius orcsik <marius@habarnam.ro>
- * @date 11.02.23
+ * @date 2011.02.23
  */
 
 class vscHttpGenericResponse extends vscHttpResponseA {

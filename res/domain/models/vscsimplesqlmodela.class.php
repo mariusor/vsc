@@ -3,14 +3,14 @@
  * @package vsc_domain
  * @subpackage models
  * @author marius orcsik <marius@habarnam.ro>
- * @date 10.01.03
+ * @date 2010.01.03
  */
 
 import ('domain/exceptions');
 import ('domain/domain');
 import ('domain/models');
 
-abstract class vscSimpleSqlModelA extends vscModelA implements vscDomainObjectI {
+class vscSimpleSqlModelA extends vscModelA implements vscDomainObjectI {
 	public function __get ($sVarName) {
 		try {
 			return $this->getDomainObject()->__get($sVarName);
@@ -65,9 +65,13 @@ abstract class vscSimpleSqlModelA extends vscModelA implements vscDomainObjectI 
 	/**
 	 * @return vscDomainObjectA
 	 */
-	public function getDomainObject() {}
+	public function getDomainObject() {
+		return new vscNull();
+	}
 
-	public function getDomainObjects() {}
+	public function getDomainObjects() {
+		return array (new vscNull());
+	}
 
 	public function getTableName() {}
 

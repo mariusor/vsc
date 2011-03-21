@@ -3,7 +3,7 @@
  * @package vsc_domain
  * @subpackage access
  * @author marius orcsik <marius@habarnam.ro>
- * @date 10.04.01
+ * @date 2010.04.01
  */
 import ('domain/domain');
 import ('domain/access/clauses');
@@ -27,6 +27,23 @@ class vscSqlAccess extends vscSqlAccessA {
 		$this->oFactory = new vscAccessFactory();
 		$this->oFactory->setConnection($this->getConnection());
 	}
+
+	public function getDatabaseType() {
+		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
+	}
+	public function getDatabaseHost() {
+		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
+	}
+	public function getDatabaseUser() {
+		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
+	}
+	public function getDatabasePassword() {
+		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
+	}
+	public function getDatabaseName() {
+		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
+	}
+
 
 	public function getAccess($oObject = null) {
 		if ($oObject instanceof vscJoinA) {
@@ -513,7 +530,7 @@ class vscSqlAccess extends vscSqlAccessA {
 		if (count ($this->aGroupBys) > 0 ) {
 			foreach ($this->aGroupBys as $oField) {
 				$oDomainObject = $oField->getParent();
-				$sGroupBy .= ($oField->hasAlias() ? $oField->getAlias() : $oField->getName());   
+				$sGroupBy .= ($oField->hasAlias() ? $oField->getAlias() : $oField->getName());
 			}
 			return $this->getConnection()->_GROUP($sGroupBy);
 		} else {

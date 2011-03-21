@@ -3,20 +3,22 @@
  * @package vsc_domain
  * @subpackage models
  * @author marius orcsik <marius@habarnam.ro>
- * @date 10.05.20
+ * @date 2010.05.20
  */
 
 import ('domain/domain');
 import ('domain/models');
 import ('domain/access/sqldrivers');
 
-abstract class vscCompositeSqlModelA extends vscSimpleModelA implements vscCompositeDomainObjectI {
+abstract class vscCompositeSqlModelA extends vscSimpleSqlModelA implements vscCompositeDomainObjectI {
 	private $oConnection;
 
 	public function __construct () {
 		parent::__construct();
 		$this->__init();
 	}
+	public function getDomainObjects () {}
+	public function getDomainObjectRelations () {}
 
 	public function getConnection () {
 		return $this->oConnection;
@@ -34,13 +36,13 @@ abstract class vscCompositeSqlModelA extends vscSimpleModelA implements vscCompo
 	}
 
 //	abstract protected function buildObject();
-
+/*
 	abstract public function getDatabaseType();
 	abstract public function getDatabaseHost();
 	abstract public function getDatabaseUser();
 	abstract public function getDatabasePassword();
 	abstract public function getDatabaseName();
-
+*/
     public function addJoin (vscDomainObjectA $oRightObj, vscFieldA $oRightField, vscDomainObjectA $oLeftObj, vscFieldA $oLeftField) {
 		$oRightObj->setTableAlias('t1');
 		$oLeftObj->setTableAlias('t2');

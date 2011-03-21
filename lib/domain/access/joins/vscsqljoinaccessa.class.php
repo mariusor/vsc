@@ -3,7 +3,7 @@
  * @package vsc_domain
  * @subpackage access
  * @author marius orcsik <marius@habarnam.ro>
- * @date 10.06.02
+ * @date 2010.06.02
  */
 abstract class vscSqlJoinAccessA extends vscObject {
 	private $oConnection;

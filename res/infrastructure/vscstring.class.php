@@ -2,7 +2,7 @@
 /**
  * @package vsc_infrastructure
  * @author marius orcsik <marius@habarnam.ro>
- * @date 10.04.16
+ * @date 2010.04.16
  */
 class vscString {
 

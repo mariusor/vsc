@@ -3,7 +3,7 @@
  * @package vsc_domain
  * @subpackage models
  * @author marius orcsik <marius@habarnam.ro>
- * @date 10.04.13
+ * @date 2010.04.13
  */
 import (VSC_RES_PATH . 'domain/domain');
 class vscRssReader extends vscXmlReader {

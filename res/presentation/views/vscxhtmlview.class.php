@@ -11,9 +11,6 @@ import ('presentation/views/exceptions');
 class vscXhtmlView extends vscViewA implements vscXhtmlViewI {
 	protected $sContentType = 'application/xhtml+xml';
 	protected $sFolder = 'xhtml';
-	public function __construct () {
-//		$this->setTemplate(VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR . 'xhtml/content.php');
-	}
 
 	public function getContent () {
 		return '';

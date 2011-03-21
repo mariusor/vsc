@@ -3,7 +3,7 @@
  * @package vsc_domain
  * @subpackage models
  * @author marius orcsik <marius@habarnam.ro>
- * @date 10.04.15
+ * @date 2010.04.15
  */
 
 import ('domain/models');

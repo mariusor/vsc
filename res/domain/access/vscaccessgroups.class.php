@@ -3,7 +3,7 @@
  * @package vsc_domain
  * @subpackage access
  * @author marius orcsik <marius@habarnam.ro>
- * @date 10.09.19
+ * @date 2010.09.19
  */
 import ('domain/domain');
 

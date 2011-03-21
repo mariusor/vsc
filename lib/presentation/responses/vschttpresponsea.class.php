@@ -236,7 +236,7 @@ abstract class vscHttpResponseA extends vscObject {
 	 * @return string
 	 */
 	public function getETag (){
-		return '"'.$this->sETag.'"';
+		return $this->sETag;
 	}
 
 	/**
@@ -320,7 +320,7 @@ abstract class vscHttpResponseA extends vscObject {
 		}
 		$sETag = $this->getETag();
 		if ($sETag) {
-			header ('ETag: ' . $sETag);
+			header ('ETag: "' . $sETag . '"'); // the ETag is enclosed in quotes (i imagine it's because it might contain \r's ?)
 		}
 		$sExpires = $this->getExpires();
 		if ($sExpires) {

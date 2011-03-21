@@ -3,9 +3,9 @@
  * @package vsc_domain
  * @subpackage domain
  * @author Marius Orcsik <marius@habarnam.ro>
- * @date 10.02.25
+ * @date 2010.02.25
  */
-class vscCompositeSqlAccessA extends vscObject {
+abstract class vscCompositeSqlAccessA extends vscObject {
 	static public $aTypes = array (
 		'INNER',
 		'LEFT',
@@ -123,8 +123,9 @@ class vscCompositeSqlAccessA extends vscObject {
 	}
 
 	static public function isValidType ($inc) {
-		if (in_array($inc, vscJoinA::$aTypes))
-		return true;
+		if (in_array($inc, vscJoinA::$aTypes)) {
+			return true;
+		}
 		return false;
 	}
 }

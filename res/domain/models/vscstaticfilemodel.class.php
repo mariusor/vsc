@@ -3,7 +3,7 @@
  * @package vsc_application
  * @subpackage controllers
  * @author marius orcsik <marius@habarnam.ro>
- * @date 11.02.21
+ * @date 2011.02.21
  */
 class vscStaticFileModel extends vscModelA {
 	protected $sFilePath;

@@ -28,21 +28,11 @@ abstract class vscSqlAccessA extends vscObject implements vscSqlAccessI {
 		$this->getConnection()->selectDatabase($this->getDatabaseName());
 	}
 
-	public function getDatabaseType() {
-		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
-	}
-	public function getDatabaseHost() {
-		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
-	}
-	public function getDatabaseUser() {
-		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
-	}
-	public function getDatabasePassword() {
-		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
-	}
-	public function getDatabaseName() {
-		throw new vscExceptionDomain('Please implement ['. __METHOD__ . '] in a child class.');
-	}
+	abstract public function getDatabaseType();
+	abstract public function getDatabaseHost();
+	abstract public function getDatabaseUser();
+	abstract public function getDatabasePassword();
+	abstract public function getDatabaseName();
 
 	/**
 	 * @param vscSqlDriverA $oConnection
