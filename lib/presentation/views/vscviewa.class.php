@@ -104,7 +104,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 			throw new vscExceptionPath ('Template [' . $includePath . '] could not be located');
 			return '';
 		}
-		
+
 		ob_start ();
 		if (!is_file ($includePath)) {
 			$includePath = $this->getMap()->getTemplatePath() . DIRECTORY_SEPARATOR . $this->getViewFolder() . DIRECTORY_SEPARATOR . $includePath;
@@ -120,13 +120,14 @@ abstract class vscViewA extends vscObject implements vscViewI {
 			array(
 				'model' 	=> $this->getModel(),
 				'view'		=> $this,
-				'helper'	=> $this->getMap()
+				'helper'	=> $this->getMap(),
+				'request'	=> vsc::getHttpRequest()
 			)
 		);
-		
+
 		// this automatically excludes templating errors: I'm not quite sure yet it's OK to do it
 		$bIncluded = include ($includePath);
-		
+
 		if (!$bIncluded) {
 			ob_end_clean();
 			throw new vscExceptionView ('Template [' . $includePath . '] could not be included');
