@@ -13,6 +13,10 @@ abstract class vscViewA extends vscObject implements vscViewI {
 
 	private $oCurrentMap;
 
+	/**
+	 * type of view (html, rss, etc)
+	 * @var string
+	 */
 	protected $sContentType;
 	protected $sFolder;
 
@@ -96,13 +100,14 @@ abstract class vscViewA extends vscObject implements vscViewI {
 //	}
 
 	public function fetch ($includePath) {
-		if (empty($includePath))
+		if (empty($includePath)) {
+			throw new vscExceptionPath ('Template [' . $includePath . '] could not be located');
 			return '';
-
+		}
+		
 		ob_start ();
 		if (!is_file ($includePath)) {
 			$includePath = $this->getMap()->getTemplatePath() . DIRECTORY_SEPARATOR . $this->getViewFolder() . DIRECTORY_SEPARATOR . $includePath;
-
 			if (!is_file ($includePath)) {
 				ob_end_clean();
 				throw new vscExceptionPath ('Template [' . $includePath . '] could not be located');
@@ -118,9 +123,10 @@ abstract class vscViewA extends vscObject implements vscViewI {
 				'helper'	=> $this->getMap()
 			)
 		);
-
+		
 		// this automatically excludes templating errors: I'm not quite sure yet it's OK to do it
-		$bIncluded = @include ($includePath);
+		$bIncluded = include ($includePath);
+		
 		if (!$bIncluded) {
 			ob_end_clean();
 			throw new vscExceptionView ('Template [' . $includePath . '] could not be included');

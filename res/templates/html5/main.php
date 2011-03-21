@@ -1,4 +1,4 @@
-<?php /* @var $this vscHtmlView */ ?>
+<?php /* @var $this vscHtml5View */ ?>
 <!DOCTYPE html>
 <html>
 <head>
