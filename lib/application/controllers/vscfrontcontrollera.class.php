@@ -46,6 +46,8 @@ abstract class vscFrontControllerA extends vscObject {
 
 		if (($oProcessor instanceof vscProcessorI)) {
 			try {
+				$oProcessor->init();
+
 				$oModel = $oProcessor->handleRequest($oRequest);
 			} catch (vscExceptionResponseRedirect $e) {
 				$oResponse->setStatus($e->getRedirectCode());
