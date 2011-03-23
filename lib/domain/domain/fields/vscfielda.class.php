@@ -68,7 +68,7 @@ abstract class vscFieldA implements vscFieldI {
 	}
 
 	public function hasValue() {
-		return ($this->value !== null && $this->value != $this->default);
+		return ($this->value != $this->default && $this->value !== null);
 	}
 
 	public function setValue ($value) {

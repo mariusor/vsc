@@ -16,6 +16,9 @@
  *  an external object. (??!)
  */
 class mySqlIm extends vscSqlDriverA {
+	/**
+	 * @var mysqli_result
+	 */
 	public 		$conn;
 
 	/**
@@ -169,35 +172,29 @@ class mySqlIm extends vscSqlDriverA {
 		}
 		if (!empty($query)) {
 			$qst = microtime(true);
-//			if (!preg_match("/insert|update|delete/i", $query))
 			$this->conn = $this->link->query($query);
 			$qend = microtime(true);
-			if (!isset($GLOBALS['queries'])) {
-				$GLOBALS['queries'] = array ();
-			}
-			if (isset($GLOBALS['queries'])) {
-				$aQuery = array (
-					'query'	=> $query,
-					'duration' => $qend - $qst,  // seconds
-				);
-
-				$GLOBALS['queries'][] = $aQuery;
-			}
 		} else
 			return false;
 
 		if ($this->link->errno)	{
-			throw new vscConnectionException ($this->link->error. vsc::nl() . $query . vsc::nl ());
+			throw new vscConnectionException ($this->link->error. vscString::nl() . $query . vscString::nl ());
 			return false;
 		}
 
-		if (stristr($query, 'select')) {
-			// mysqli result
-			return $this->conn;
-		} elseif (preg_match('/insert|update|replace|delete/i', $query)) {
-			return $this->link->affected_rows;
+		$iReturn =  $this->link->affected_rows;
+		
+		if (isset($GLOBALS['vsc::queries'])) {
+			$aQuery = array (
+				'query'	=> $query,
+				'duration' => $qend - $qst,  // seconds
+				'num_rows'	=> is_numeric($iReturn) ? $iReturn : 0
+			);
+
+			$GLOBALS['vsc::queries'][] = $aQuery;
 		}
-		return true;
+
+		return $iReturn;
 	}
 
 	/**
@@ -212,8 +209,11 @@ class mySqlIm extends vscSqlDriverA {
 
 	// FIXME: for some reason the getAssoc and getArray work differently
 	public function getAssoc () {
-		if ($this->conn instanceof mysqli_result)
-			return $this->conn->fetch_assoc ();
+		if (
+			$this->conn instanceof mysqli_result
+		) {
+			return $this->conn->fetch_assoc();
+		}
 	}
 
 	/**

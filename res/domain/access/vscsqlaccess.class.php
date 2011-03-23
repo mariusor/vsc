@@ -99,7 +99,7 @@ class vscSqlAccess extends vscSqlAccessA {
 	 * @param vscDomainObjectI $oDomainObject
 	 * @param array $aValues array (0 => array (// usable with fromArray), ... )
 	 */
-	public function outputInsertSql (vscDomainObjectI $oDomainObject, $aValuesGroup = null) {
+	public function outputInsertSql (vscDomainObjectI $oDomainObject, $aValuesGroup = array()) {
 		$sSql = '';
 		$aWheres = array();
 		$aUpdateFields = array();
@@ -119,7 +119,7 @@ class vscSqlAccess extends vscSqlAccessA {
 		}
 
 		$aValueArray = array();
-		if (is_array($aValuesGroup)) {
+		if (count($aValuesGroup) > 0) {
 			$aInitialValues = $oDomainObject->toArray();
 			foreach ($aValuesGroup as $aValues) {
 				$oDomainObject->reset();
@@ -178,11 +178,6 @@ class vscSqlAccess extends vscSqlAccessA {
 		$aParameters = func_get_args();
 		$aSelects = $aNames = array ();
 
-		if (count($aParameters) == 1 && is_array($aParameters)) {
-			// some of the functions get the arguments themselves and pass them as an array
-			$aParameters = $aParameters[0];
-		}
-
 		foreach ($aParameters as $key => $oParameter) {
 			if (!($oParameter instanceof vscDomainObjectI)) {
 				unset ($aParameters[$key]);
@@ -200,7 +195,7 @@ class vscSqlAccess extends vscSqlAccessA {
 
 		$sRet = $this->getConnection()->_SELECT (implode (', ', $aSelects)) .
 				$this->getConnection()->_FROM(implode (', ', $aNames)) ."\n" .
-//				$this->getJoinsString() .
+				$this->getJoinsString() .
 				$this->getConnection()->_WHERE($this->getClausesString ()) .
 				$this->getGroupByString() .
 				$this->getOrderByString() .
@@ -273,14 +268,14 @@ class vscSqlAccess extends vscSqlAccessA {
 		return $sRet;
 	}
 
-	public function getFieldsForSelect (vscDomainObjectI $oDomainObject, $bWithAlias = false) {
+	public function getFieldsForSelect (vscDomainObjectI $oDomainObject, $bWithAlias = false, $bAllFields = true) {
 		$aSelectFields = array ();
 		/* @var $oField vscFieldA */
 
 		$o = $this->getConnection();
 
 		foreach ($oDomainObject->getFields() as $oField) {
-			if (is_null($oField->getValue())) {
+			if ($bAllFields || is_null($oField->getValue())) {
 				$aSelectFields[] = ($oDomainObject->hasTableAlias() ? $o->FIELD_OPEN_QUOTE . $oDomainObject->getTableAlias() . $o->FIELD_CLOSE_QUOTE . '.' : '') .
 								 $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE .
 								 ($bWithAlias && $oField->hasAlias() ? $o->_AS($o->FIELD_OPEN_QUOTE . $oField->getAlias(). $o->FIELD_CLOSE_QUOTE) : '');
@@ -402,34 +397,37 @@ class vscSqlAccess extends vscSqlAccessA {
 			$this->getConnection()->query($sSql);
 			return $oDomainObject->fromArray($this->getConnection()->getAssoc());
 		} else {
-			throw new vscExceptionDomain('None of the object unique indexes has all the neccessary values to get an unique instance.');
+			throw new vscExceptionDomain('None of the object\'s unique indexes has all the neccessary values to get an instance.');
 		}
 	}
 
-	public function getByPrimaryKey (vscDomainObjectA $oDomainObject) {
+	public function getByPrimaryKey (vscDomainObjectA $oDomainObject, $aIndexValues = array()) {
+		$bValid = false;
 		if ($oDomainObject->hasPrimaryKey()) {
 			$oPk = $oDomainObject->getPrimaryKey();
 			$aIndexFields 		= $oPk->getFields();
-			$aIndexFieldNames	= array_keys($aIndexFields);
 
-			// setting the value of each field of the index
-			if ($aIndexFieldNames == $aFieldNames) {
-				foreach ($aIndexFields as $sFieldName => $oField) {
-					$oField->setValue($aFieldsArray[$sFieldName]);
+			// setting the value of each field of the index if we have indexValues
+			foreach ($aIndexFields as $sFieldName => $oField) {
+				if (isset($aIndexValues[$sFieldName])) {
+					$oField->setValue($aIndexValues[$sFieldName]);
+					$bValid |= true;
+				} elseif ($oField->hasValue()) {
+					$bValid |= true;
+				} else {
+					$bValid &= false;
 				}
-				$bValid = true;
 			}
 		}
 
-		$this->getConnection()->query($this->outputSelectSql($this->getDomainObject()));
-
 		if ($bValid) {
-			$sSql = $this->outputSelectSql($this->getDomainObject());
+			$sSql = $this->outputSelectSql($oDomainObject);
 
 			$this->getConnection()->query($sSql);
-			return $oDomainObject->fromArray($this->getConnection()->getAssoc());
+			$iStatus = $oDomainObject->fromArray($this->getConnection()->getAssoc());
+			return $oDomainObject;
 		} else {
-			throw new vscExceptionDomain('None of the object unique indexes has all the neccessary values to get an unique instance.');
+			throw new vscExceptionDomain('None of the object\'s unique indexes has all the neccessary values to get an instance.');
 		}
 	}
 

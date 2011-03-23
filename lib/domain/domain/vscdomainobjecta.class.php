@@ -20,15 +20,8 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 	private 	$aIndexes = array ();
 
 	public function valid ($sName = null) {
-		$bRetValue = false;
-		$oRObject = new ReflectionObject ($this);
-		try {
-			$bRetValue = (bool)($oRObject->hasProperty($sName) && $oRObject->getProperty($sName)->isPublic());
-		} catch (ReflectionException $e) {
-			$bRetValue = false;
-		}
-
-		return $bRetValue;
+		$aFieldNames = $this->getFieldNames();
+		return in_array ($sName, $aFieldNames);
 	}
 
 	final public function __construct () {
@@ -70,24 +63,8 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 	}
 
 	public function __set ($sIncName, $mValue) {
-        try {
-            $oProperty = new ReflectionProperty($this, $sIncName);
-        } catch (ReflectionException $e) {
-//            d ($e);
-            parent::__set ($sIncName,$mValue);
-        }
-		$sSetterName = 'set'.ucfirst($sIncName);
-		$oSetter = new ReflectionMethod($this, $sSetterName);
-		if (!$oProperty->isPrivate()) {
-			$sSetterName = 'set'.ucfirst($sIncName);
-			$oSetter = new ReflectionMethod($this, $sSetterName);
-
-            if (vscFieldA::isValid ($mValue)) {
-                $this->$sIncName = $mValue;
-            } else {
-                $this->$sIncName->setValue($mValue);
-            }
-		}
+        $aFields = $this->getFields();
+        $aFields[$sIncName]->setValue($mValue);
 	}
 
 	/**
@@ -164,10 +141,17 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 	 * @return vscFieldA[]
 	 */
 	public function getFields () {
-        $oRef = new ReflectionClass($this);
-        $aProperties = $oRef->getProperties(ReflectionProperty::IS_PUBLIC);
+        $oRef = new ReflectionObject($this);
+        $aProperties = $oRef->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PRIVATE);
         foreach ($aProperties as $oProperty) {
-           $aRet[$oProperty->getName()] = $oProperty->getValue($this);
+        	if (!$oProperty->isPrivate()) {
+        		$oValue = $oProperty->getValue();
+			} else {
+				$oValue = $this->__get($oProperty->getName());
+			}
+			if (vscFieldA::isValid($oValue)) {
+				$aRet[$oProperty->getName()] = $oValue;
+			}
         }
         return $aRet;
 	}
@@ -177,12 +161,16 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 	 * @return string[]
 	 */
 	public function getFieldNames ($bWithAlias = false) {
-        $oRef = new ReflectionClass($this);
-        $aProperties = $oRef->getProperties(ReflectionProperty::IS_PUBLIC);
-        foreach ($aProperties as $oProperty) {
-           $aRet[] = $oProperty->getName();
-        }
-        return $aRet;
+        $aFields = $this->getFields();
+		if ($bWithAlias === false) {
+			return array_keys ($aFields);
+		} else {
+			$aRet = array();
+        	foreach ($aFields as $oField) {
+        		$aRet[] = $oField->getAlias() . '.' . $oField->getName();
+        	}
+        	return $aRet;
+		} 
 	}
 
 	public function addIndex (vscIndexA $oIndex) {
