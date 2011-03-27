@@ -8,7 +8,9 @@
 import (VSC_LIB_PATH . 'domain/domain/indexes');
 
 class vscKeyIndex extends vscIndexA  {
-	public function __construct ($mIncomingStuff) {
+	public function __construct (vscFieldI $oField) {
+		$mIncomingStuff = func_get_args();
+
 		$aRet = array();
 		if (vscFieldA::isValid($mIncomingStuff)) {
 			$mIncomingStuff->setIsNullable(false);

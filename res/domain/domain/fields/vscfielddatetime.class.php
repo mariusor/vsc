@@ -20,9 +20,16 @@ class vscFieldDateTime extends vscFieldA {
 		// TODO
 		return $this->value;
 	}
-	
+
 	public function format ($sFormat) {
-		return strftime($sFormat, strtotime($this->value));
+		return static::parse ($sFormat, $this->value);
+	}
+
+	static public function parse ($mValue, $sFormat = '%Y-%m-%d %T') {
+		if (is_string($mValue))
+			$mValue = strtotime($mValue);
+
+		return strftime($sFormat, $mValue);
 	}
 
 }

@@ -6,12 +6,12 @@
  * @date 09.05.01
  */
 
-class vscKeyFullText extends vscKeyIndex  {
+class vscKeyFullText extends vscKeyUnique {
 	public function setName ($sName) {
 		$this->name = $sName . '_tx';
 	}
 
 	public function getType() {
-		return vscIndexType::UNIQUE;
+		return vscIndexType::FULLTEXT;
 	}
 }
