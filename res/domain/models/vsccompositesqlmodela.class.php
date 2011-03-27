@@ -17,8 +17,37 @@ abstract class vscCompositeSqlModelA extends vscSimpleSqlModelA implements vscCo
 		parent::__construct();
 		$this->__init();
 	}
-	public function getDomainObjects () {}
+
+	public function getDomainObjects () {
+		$oRef = new ReflectionObject($this);
+		$aRet = array();
+		$aProperties = $oRef->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PRIVATE);
+		/* @var $oProperty ReflectionProperty */
+		foreach ($aProperties as $oProperty) {
+			if (!$oProperty->isPrivate()) {
+				$oValue = $oProperty->getValue($this);
+			} else {
+				$oProperty->setAccessible(true);
+				$oValue = $oProperty->getValue($this);
+				$oProperty->setAccessible(false);
+			}
+			if (vscDomainObjectA::isValid($oValue)) {
+				$aRet[$oProperty->getName()] = $oValue;
+			}
+		}
+		return $aRet;
+	}
+
+	public function __get ($sName) {
+		$aDomainObjects =  $this->getDomainObjects();
+		return $aDomainObjects[$sName];
+	}
+
 	public function getDomainObjectRelations () {}
+
+	public function setConnection (vscSqlDriverA $oConnection) {
+		$this->oConnection = $oConnection;
+	}
 
 	public function getConnection () {
 		return $this->oConnection;
@@ -35,18 +64,18 @@ abstract class vscCompositeSqlModelA extends vscSimpleSqlModelA implements vscCo
 		$this->oConnection->selectDatabase($this->getDatabaseName());
 	}
 
-//	abstract protected function buildObject();
-/*
+	//	abstract protected function buildObject();
+	/*
 	abstract public function getDatabaseType();
 	abstract public function getDatabaseHost();
 	abstract public function getDatabaseUser();
 	abstract public function getDatabasePassword();
 	abstract public function getDatabaseName();
-*/
-    public function addJoin (vscDomainObjectA $oRightObj, vscFieldA $oRightField, vscDomainObjectA $oLeftObj, vscFieldA $oLeftField) {
+	*/
+	public function addJoin (vscDomainObjectA $oRightObj, vscFieldA $oRightField, vscDomainObjectA $oLeftObj, vscFieldA $oLeftField) {
 		$oRightObj->setTableAlias('t1');
 		$oLeftObj->setTableAlias('t2');
-    }
+	}
 
 	/**
 	 *
@@ -66,7 +95,7 @@ abstract class vscCompositeSqlModelA extends vscSimpleSqlModelA implements vscCo
 		return $this;
 	}
 
-		public function getTableName() {}
+//	public function getTableName() {}
 
 	/**
 	 * @param vscFieldA[] $aFields
@@ -101,15 +130,19 @@ abstract class vscCompositeSqlModelA extends vscSimpleSqlModelA implements vscCo
 	 * gets all the column names as an array
 	 * @return string[]
 	 */
-	public function getFieldNames ($bWithAlias = false) {}
+	public function getFieldNames($bWithAlias = false) {
+		$aRet = array();
+		/* @var $oDomainObject vscDomainObjectA */
+		foreach ($this->getDomainObjects() as $oDomainObject) {
+			$aRet = array_merge ($aRet, $oDomainObject->getFieldNames(true));
+		}
+
+		return $aRet;
+	}
 
 	public function addIndex (vscIndexA $oIndex) {}
 
 	public function getIndexes ($bWithPrimaryKey = false) {}
-
-	public function setConnection (vscSqlDriverA $oConnection) {
-		$this->oConnection = $oConnection;
-	}
 
 	public function getById ($iId) {
 		$a = new vscSimpleSqlAccess();

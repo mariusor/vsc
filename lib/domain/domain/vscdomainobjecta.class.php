@@ -63,8 +63,11 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 	}
 
 	public function __set ($sIncName, $mValue) {
-        $aFields = $this->getFields();
-        $aFields[$sIncName]->setValue($mValue);
+		$this->getField($sIncName)->setValue($mValue);
+	}
+
+	public function __get ($sIncName) {
+		return $this->getField($sIncName);
 	}
 
 	/**
@@ -137,22 +140,35 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 		$this->aFields [$sKey] = $aIncField[$sKey];
 	}
 
+	protected function getField ($sName) {
+		$aFields = $this->getFields();
+		return $aFields[$sName];
+	}
+
 	/**
 	 * @return vscFieldA[]
 	 */
 	public function getFields () {
         $oRef = new ReflectionObject($this);
         $aProperties = $oRef->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PRIVATE);
+        $aRet = array();
+
+        /* @var $oProperty ReflectionProperty */
         foreach ($aProperties as $oProperty) {
         	if (!$oProperty->isPrivate()) {
-        		$oValue = $oProperty->getValue();
+        		$oValue = $oProperty->getValue($this);
 			} else {
-				$oValue = $this->__get($oProperty->getName());
+				$oProperty->setAccessible(true);
+				$oValue = $oProperty->getValue($this);
+//				$oProperty->setAccessible(false);
+
+//				$oValue = $this->__get($oProperty->getName());
 			}
 			if (vscFieldA::isValid($oValue)) {
 				$aRet[$oProperty->getName()] = $oValue;
 			}
         }
+
         return $aRet;
 	}
 
@@ -166,11 +182,17 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 			return array_keys ($aFields);
 		} else {
 			$aRet = array();
+		/* @var $oField vscFieldA */
         	foreach ($aFields as $oField) {
-        		$aRet[] = $oField->getAlias() . '.' . $oField->getName();
+        		if ($oField->getAlias()) {
+        			$aRet[] = $oField->getAlias();
+        		} else {
+        			$aRet[] = $oField->getTableAlias() . '.' . $oField->getName();
+        		}
+
         	}
         	return $aRet;
-		} 
+		}
 	}
 
 	public function addIndex (vscIndexA $oIndex) {
@@ -232,7 +254,7 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
     }
 
     static public function isValid($oIncObject) {
-        return ($oIncObject instanceof self);
+        return ($oIncObject instanceof static);
     }
 
     public function reset() {

@@ -14,10 +14,11 @@ import ('domain/domain/joins');
 class vscSqlAccess extends vscSqlAccessA {
 	private $aGroupBys	= array();
 	private $aOrderBys	= array();
-	private $aClauses	= array();
+	private $aClauses		= array();
 	private $aJoins		= array();
 	private $iStart;
 	private $iCount;
+	private $aFieldAggregators = array();
 
 	private $oFactory;
 
@@ -134,7 +135,7 @@ class vscSqlAccess extends vscSqlAccessA {
 
 		$sSql .= $o->_VALUES($sValueString);
 
-		return $sSql;
+		return $sSql . ';';
 	}
 
 	/**
@@ -151,6 +152,7 @@ class vscSqlAccess extends vscSqlAccessA {
 
 		$oPk = $oDomainObject->getPrimaryKey();
 
+		/* @var $oField vscFieldA */
 		foreach ($oDomainObject->getFields() as $oField) {
 			if (!$oPk->hasField ($oField) && $oField->hasValue()) {
 				$aUpdateFields[] = $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ' = ' . $this->getQuotedValue($oField->getValue());
@@ -160,23 +162,27 @@ class vscSqlAccess extends vscSqlAccessA {
 		$sSql .= implode (', ', $aUpdateFields);
 
 		foreach ($oPk->getFields() as $oField) {
-			$aWheres[] = ($oDomainObject->hasTableAlias() ? $o->FIELD_OPEN_QUOTE . $oDomainObject->getTableAlias() . $o->FIELD_CLOSE_QUOTE . '.' : '') .
-						$o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ' = ' . $this->getQuotedValue($oField->getValue());
+			$aWheres[] = $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ' = ' . $this->getQuotedValue($oField->getValue());
 		}
 		$sSql .= $o->_WHERE(implode ($o->_AND(), $aWheres));
 
-		return $sSql;
+		return $sSql . ';';
 	}
 
 
 	/**
 	 * @TODO - next item on the agenda
-	 * @param $oDomainObject
+	 * @param vscDomainObjectA $oDomainObject
+	 * @param vscDomainObjectA ...
 	 * @return string
 	 */
 	public function outputSelectSql () {
 		$aParameters = func_get_args();
 		$aSelects = $aNames = array ();
+
+		if (is_array($aParameters) && count($aParameters) == 1) {
+			$aParameters = $aParameters[0];
+		}
 
 		foreach ($aParameters as $key => $oParameter) {
 			if (!($oParameter instanceof vscDomainObjectI)) {
@@ -191,17 +197,17 @@ class vscSqlAccess extends vscSqlAccessA {
 			$this->buildDefaultClauses($oParameter);
 		}
 
-        $aWheres = array();
+		$aWheres = array();
 
 		$sRet = $this->getConnection()->_SELECT (implode (', ', $aSelects)) .
-				$this->getConnection()->_FROM(implode (', ', $aNames)) ."\n" .
-				$this->getJoinsString() .
-				$this->getConnection()->_WHERE($this->getClausesString ()) .
-				$this->getGroupByString() .
-				$this->getOrderByString() .
-				$this->getLimitString();
+		$this->getConnection()->_FROM(implode (', ', $aNames)) ."\n" .
+		//$this->getJoinsString() .
+		$this->getConnection()->_WHERE($this->getClausesString ()) .
+		$this->getGroupByString() .
+		$this->getOrderByString() .
+		$this->getLimitString();
 
-		return $sRet;
+		return $sRet . ';';
 	}
 
 	/**
@@ -209,6 +215,10 @@ class vscSqlAccess extends vscSqlAccessA {
 	 * @return string
 	 */
 	public function outputCreateTableSQL (vscDomainObjectI $oDomainObject) {
+		if ($this->getConnection()->getType() == vscDbType::mysql){
+			$bFullText = false;
+		}
+
 		$sRet = $this->getConnection()->_CREATE ($oDomainObject->getTableName()) . "\n";
 		$sRet .= ' ( ' . "\n";
 
@@ -222,7 +232,14 @@ class vscSqlAccess extends vscSqlAccessA {
 		if (is_array ($aIndexes) && !empty($aIndexes)) {
 			foreach ($aIndexes as $oIndex) {
 				if (vscIndexA::isValid($oIndex)) {
-				// this needs to be replaced with connection functionality : something like getConstraint (type, columns)
+					// checking for fulltext indexes
+					if ($this->getConnection()->getType() == vscDbType::mysql && !$bFullText && vscKeyFullText::isValid($oIndex)){
+						$bFullText	= true;
+						$sEngine	= 'MyISAM';
+					} else {
+						$sEngine	= $this->getConnection()->getEngine();
+					}
+					// this needs to be replaced with connection functionality : something like getConstraint (type, columns)
 					$sRet .=  "\t" . $this->getAccess($oIndex)->getDefinition($oIndex) . ", \n";
 				}
 			}
@@ -233,10 +250,10 @@ class vscSqlAccess extends vscSqlAccessA {
 		$sRet.= "\n" . ' ) ';
 
 		if ($this->getConnection()->getType() == vscDbType::mysql) {
-			$sRet.= ' ENGINE ' . $this->getConnection()->getEngine();
+			$sRet.= ' ENGINE ' . $sEngine;
 		}
 
-		return $sRet;
+		return $sRet . ';';
 	}
 
 	public function outputDeleteSql (vscDomainObjectI $oDomainObject) {
@@ -250,11 +267,11 @@ class vscSqlAccess extends vscSqlAccessA {
 
 		foreach ($oPk->getFields() as $oField) {
 			$aWheres[] = ($oDomainObject->hasTableAlias() ? $o->FIELD_OPEN_QUOTE . $oDomainObject->getTableAlias() . $o->FIELD_CLOSE_QUOTE . '.' : '') .
-						$o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ' = ' . $this->getQuotedValue($oField->getValue());
+			$o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE . ' = ' . $this->getQuotedValue($oField->getValue());
 		}
 		$sSql .= $o->_WHERE(implode ($o->_AND(), $aWheres));
 
-		return $sSql;
+		return $sSql . ';';
 	}
 
 	public function getTableName (vscDomainObjectI $oDomainObject, $bWithAlias = false) {
@@ -268,6 +285,18 @@ class vscSqlAccess extends vscSqlAccessA {
 		return $sRet;
 	}
 
+	public function setFieldAggregatorFunction ($sFunction, vscFieldI $oField) {
+		$this->aFieldAggregators[$oField->getName()] = $sFunction;
+	}
+
+	public function getFieldAggregatorFunction(vscFieldI $oField) {
+		return $this->aFieldAggregators[$oField->getName()];
+	}
+
+	public function hasFieldAggregatorFunction (vscFieldI $oField) {
+		return key_exists($oField->getName(), $this->aFieldAggregators);
+	}
+
 	public function getFieldsForSelect (vscDomainObjectI $oDomainObject, $bWithAlias = false, $bAllFields = true) {
 		$aSelectFields = array ();
 		/* @var $oField vscFieldA */
@@ -276,9 +305,13 @@ class vscSqlAccess extends vscSqlAccessA {
 
 		foreach ($oDomainObject->getFields() as $oField) {
 			if ($bAllFields || is_null($oField->getValue())) {
-				$aSelectFields[] = ($oDomainObject->hasTableAlias() ? $o->FIELD_OPEN_QUOTE . $oDomainObject->getTableAlias() . $o->FIELD_CLOSE_QUOTE . '.' : '') .
-								 $o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE .
-								 ($bWithAlias && $oField->hasAlias() ? $o->_AS($o->FIELD_OPEN_QUOTE . $oField->getAlias(). $o->FIELD_CLOSE_QUOTE) : '');
+				$sFieldSelect = ($oDomainObject->hasTableAlias() ? $o->FIELD_OPEN_QUOTE . $oDomainObject->getTableAlias() . $o->FIELD_CLOSE_QUOTE . '.' : '') .
+					$o->FIELD_OPEN_QUOTE . $oField->getName() . $o->FIELD_CLOSE_QUOTE;
+
+				if ($this->hasFieldAggregatorFunction($oField)) {
+					 $sFieldSelect = sprintf($this->getFieldAggregatorFunction($oField), $sFieldSelect);
+				}
+				$aSelectFields[] = $sFieldSelect . ($bWithAlias && $oField->hasAlias() ? $o->_AS($o->FIELD_OPEN_QUOTE . $oField->getAlias(). $o->FIELD_CLOSE_QUOTE) : '');
 			}
 		}
 
@@ -318,7 +351,8 @@ class vscSqlAccess extends vscSqlAccessA {
 	/**
 	 *
 	 * @param vscDomainObjectA $oDomainObject
-	 * @param unknown_type $aFieldsArray
+	 * @param vscDomainObjectA ...
+	 * @param array $aFieldsArray
 	 */
 	public function loadByFilter () { // this shold be moved to the composite model
 		$aParameters = func_get_args();
@@ -332,14 +366,18 @@ class vscSqlAccess extends vscSqlAccessA {
 		$aRet = array();
 		$aTotalValues =  array();
 
-		$a = $this->getConnection()->query($this->outputSelectSql($aParameters));
+		// this allows to call the self::outputSelectSql function with the parameters received
+		// replaces the previous call : $this->outputSelectSql($aParameters); // where $aParameters was an array
+		$sSelect = $this->outputSelectSql($aParameters);
+
+		$iNumRows = $this->getConnection()->query($sSelect);
 
 		foreach ($aParameters as $oParameter) {
 			$sLabel = $oParameter->getTableAlias() ? $oParameter->getTableAlias() : $oParameter->getTableName();
 			$aTypes[$sLabel] = get_class($oParameter);
 		}
 
-		for ($i = 0; $i < $a->num_rows; $i++) {
+		for ($i = 0; $i < $iNumRows; $i++) {
 			foreach ($this->getConnection()->getAssoc() as $sKey => $sValue) {
 				$sTableAlias	= substr($sKey, 0, strpos($sKey, '.'));
 				$sFieldName 	= substr($sKey, strpos($sKey, '.')+1);
@@ -439,6 +477,8 @@ class vscSqlAccess extends vscSqlAccessA {
 		$bInsert = false;
 		$oPk = $oDomainObject->getPrimaryKey();
 		foreach ($oPk->getFields() as $oField) {
+			if (vscFieldInteger::isValid($oField) && $oField->getAutoIncrement() == true)
+			$oAutoIncremeneted = $oField;
 			if (!$oField->hasValue()) {
 				$bInsert = true;
 				break;
@@ -447,6 +487,9 @@ class vscSqlAccess extends vscSqlAccessA {
 
 		if ($bInsert) {
 			$this->insert ($oDomainObject);
+			// this is an ugly hack
+			if (vscFieldInteger::isValid($oAutoIncremeneted))
+			$oAutoIncremeneted->setValue ($this->getConnection()->getLastInsertId());
 		} else {
 			$this->update ($oDomainObject);
 		}
@@ -455,11 +498,13 @@ class vscSqlAccess extends vscSqlAccessA {
 	public function where ($mSubject, $sPredicate= null, $mPredicative = null) {
 		if (($mSubject instanceof vscClause) && ($sPredicate == null || $mPredicative == null)) {
 			$w = $mSubject;
-		} else {
+		} elseif (!is_null ($mSubject)) {
 			$w = new vscClause($mSubject, $sPredicate, $mPredicative);
+		} else {
+			throw new vscException('Trying to add an empty where clause');
 		}
 		// this might generate an infinite recursion error on some PHP > 5.2 due to object comparison
-		if (!in_array ($w, $this->aClauses/*, true*/)) {
+		if (!in_array ($w, $this->aClauses, true)) {
 			$this->aClauses[]	= $w;
 		}
 		return $this;
@@ -516,8 +561,8 @@ class vscSqlAccess extends vscSqlAccessA {
 		}
 		if (!key_exists($oField->getName(), $this->aOrderBys)) {
 			$this->aOrderBys[$oField->getName()] =  array (
-				$oField,
-				$sDirection
+			$oField,
+			$sDirection
 			);
 		}
 		return $this;

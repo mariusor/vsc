@@ -69,10 +69,6 @@ class vscSimpleSqlModelA extends vscModelA implements vscDomainObjectI {
 		return new vscNull();
 	}
 
-	public function getDomainObjects() {
-		return array (new vscNull());
-	}
-
 	public function getTableName() {}
 
 	/**
