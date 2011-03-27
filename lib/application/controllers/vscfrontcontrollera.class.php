@@ -87,6 +87,10 @@ abstract class vscFrontControllerA extends vscObject {
 		if (($oProcessor instanceof vscProcessorI)) {
 			/* @var $oMap vscMappingA */
 			$oMap = $oProcessor->getMap()->merge($oMyMap);
+			$oProcessorResponse = $oMap->getResponse();
+			if ($oProcessorResponse instanceof vscHttpResponseA) {
+				$oResponse = $oProcessorResponse;
+			}
 		}
 
 		// setting the processor map

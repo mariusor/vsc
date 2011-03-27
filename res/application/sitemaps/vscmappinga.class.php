@@ -286,11 +286,11 @@ class vscMappingA extends vscObject {
 	public function getScripts ($bInHead = false) {
 		$aAllScripts = $this->getResources('scripts');
 		if ($bInHead && key_exists(1, $aAllScripts)) {
-			return $aAllScripts[1]; 
+			return $aAllScripts[1];
 		}
-		
+
 		if (!$bInHead && key_exists(0, $aAllScripts))  {
-			return $aAllScripts[0]; // [1] -> script goes in the <head> [0] - script is loaded at the end of the source 
+			return $aAllScripts[0]; // [1] -> script goes in the <head> [0] - script is loaded at the end of the source
 		}
 	}
 

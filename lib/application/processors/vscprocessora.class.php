@@ -11,7 +11,7 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 	protected $aLocalVars = array();
 
 	/**
-	 * @return vscMappingA
+	 * @return vscProcessorMap
 	 */
 	public function getMap () {
 		if ($this->oCurrentMap instanceof vscMappingA) {

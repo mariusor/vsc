@@ -7,4 +7,23 @@
  */
 
 class vscProcessorMap extends vscMappingA {
+	/**
+	 *
+	 * @var vscHttpResponseA
+	 */
+	private $oResponse;
+
+	/**
+	 * @param vscHttpResponseA $oResponse
+	 */
+	public function setResponse (vscHttpResponseA $oResponse) {
+		$this->oResponse = $oResponse;
+	}
+
+	/**
+	 * @return vscHttpResponseA
+	 */
+	public function getResponse () {
+		return $this->oResponse;
+	}
 }
