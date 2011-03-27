@@ -1,14 +1,8 @@
 <?php
 $sVersion = phpversion();
-if ((int)substr($sVersion, 0, 1) < 5) {
-	$sMessage = 'LibVSC only works for versions of PHP >= 5. Your current version is: ' . $sVersion;
-	if ((php_sapi_name() == 'cli')) {
-		echo $sMessage . "\n";
-		exit (0);
-	} else {
-		throw new Exception ($sMessage);
-	}
-}
+$iMajorVersion = (int)substr($sVersion, 0, 1);
+$iMinorVersion = (int)substr($sVersion, 2, 1);
+
 if (!defined ('VSC_PATH')) {
 	define ('VSC_PATH', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 }
@@ -22,3 +16,9 @@ import (VSC_RES_PATH);
 // including the infrastructure folder
 import ('infrastructure');
 include_once ('vsc.class.php');
+
+if ($iMajorVersion < 5 || $iMinorVersion < 3) {
+	$sMessage = 'libVSC only works for versions of PHP >= 5.3. Your current version is: ' . $sVersion;
+
+	throw new ErrorException ($sMessage, E_USER_ERROR);
+}
