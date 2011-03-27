@@ -11,7 +11,7 @@ abstract class vscFieldA implements vscFieldI {
 	protected  $default = null;
 	protected  $parent;
 	protected  $modifier = null;
-    protected  $sAlias;
+	protected  $sAlias;
 
 	protected  $nullable = true;
 	protected  $maxLength;
@@ -21,7 +21,7 @@ abstract class vscFieldA implements vscFieldI {
 	 * @return bool
 	 */
 	final static public function isValid ($oField) {
-		return ($oField instanceof self);
+		return ($oField instanceof static);
 	}
 
 	public function __construct ($incName) {

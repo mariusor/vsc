@@ -58,7 +58,7 @@ abstract class vscIndexA implements vscFieldI  {
 	}
 
 	static public function isValid ($oIndex) {
-		return ($oIndex instanceof self);
+		return ($oIndex instanceof static);
 	}
 
 	public function __toString() {
