@@ -55,12 +55,19 @@ class postgreSql extends vscSqlDriverA {
 	 * @return bool
 	 */
 	private function connect () {
-		$this->link	= pg_connect('host='.$this->host.' user='.$this->user.' password='.$this->pass . (!empty ($this->name) ? 'dbname='.$this->name : '' ));
-		$err = pg_last_error($this->link);
-		if ($err) {
-			$this->error = $err;
+		try {
+			$this->link	= pg_connect('host='.$this->host.' user='.$this->user.' password='.$this->pass . (!empty ($this->name) ? 'dbname='.$this->name : '' ));
+		} catch (ErrorException $e) {
+			$this->error = $e->getMessage();
 			trigger_error ($this->link->error, E_USER_ERROR);
-			return false;
+		}
+		if ($this->link) {
+			$err = pg_last_error($this->link);
+			if ($err) {
+				$this->error = $err;
+				trigger_error ($this->link->error, E_USER_ERROR);
+				return false;
+			}
 		}
 		return true;
 	}

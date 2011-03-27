@@ -34,7 +34,8 @@ class mySqlIm extends vscSqlDriverA {
 	private 	$name,
 				$host,
 				$user,
-				$pass;
+				$pass,
+				$iLastInsertId;
 
 	private		$defaultSocketPath =  '/var/run/mysqld/mysqld.sock';
 
@@ -51,7 +52,7 @@ class mySqlIm extends vscSqlDriverA {
 		if (!empty ($dbHost)) {
 			$this->host	= $dbHost;
 		} else {
-			
+
 		}
 
 		if (!empty ($dbUser)) {
@@ -160,6 +161,10 @@ class mySqlIm extends vscSqlDriverA {
 			return $incData;
 	}
 
+	public function getLastInsertId() {
+		return $this->iLastInsertId;
+	}
+
 	/**
 	 * wrapper for mysql_query
 	 *
@@ -183,15 +188,20 @@ class mySqlIm extends vscSqlDriverA {
 		}
 
 		$iReturn =  $this->link->affected_rows;
-		
+
 		if (isset($GLOBALS['vsc::queries'])) {
 			$aQuery = array (
-				'query'	=> $query,
-				'duration' => $qend - $qst,  // seconds
+				'query'		=> $query,
+				'duration'	=> $qend - $qst,  // seconds
 				'num_rows'	=> is_numeric($iReturn) ? $iReturn : 0
 			);
 
 			$GLOBALS['vsc::queries'][] = $aQuery;
+		}
+
+		if (stristr ($query, 'insert')) {
+			$this->conn = $this->link->query('select last_insert_id();');
+			$this->iLastInsertId = $this->getScalar();
 		}
 
 		return $iReturn;
