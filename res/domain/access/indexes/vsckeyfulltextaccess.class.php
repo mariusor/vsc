@@ -16,6 +16,7 @@ class vscKeyFullTextAccess extends vscSqlIndexAccessA {
 	 */
 	public function getDefinition (vscIndexA $oIndex) {
 		// this is totally wrong for PostgreSQL
+		if ($this->getConnection()->getType() == vscDbType::postgresql) return '';
 		return	'FULLTEXT INDEX ' . $oIndex->getName() . ' (' . $oIndex->getIndexComponents(). ')';
 	}
 }

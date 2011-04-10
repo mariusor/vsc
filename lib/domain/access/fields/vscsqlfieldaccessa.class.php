@@ -18,7 +18,7 @@ abstract class vscSqlFieldAccessA extends vscObject {
 
 	public function escapeValue (vscFieldA $oField) {
 		$o = $this->getConnection();
-		$mValue		=  $this->getConnection()->escape($oField->getValue());
+		$mValue	=  $this->getConnection()->escape($oField->getValue());
 
 		if (is_null($mValue)) {
 			return $o->_NULL(true);

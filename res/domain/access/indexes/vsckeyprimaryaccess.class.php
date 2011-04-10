@@ -12,6 +12,8 @@ class vscKeyPrimaryAccess extends vscSqlIndexAccessA {
     public function getType(vscIndexA $oIndex) {}
 	public function getDefinition (vscIndexA $oIndex) {
 		// this is totally wrong for PostgreSQL
-		return	'PRIMARY KEY ' . $oIndex->getName() . ' (' . $oIndex->getIndexComponents(). ')';
+		return	'PRIMARY KEY ' .
+		($this->getConnection()->getType() != vscDbType::postgresql ? $oIndex->getName() : '').
+		' (' . $oIndex->getIndexComponents(). ')';
 	}
 }
