@@ -7,7 +7,7 @@
 class vscString {
 
 	static function stripTags ($sString) {
-		return ereg_replace("<[a-z\/\":=]*>", '', $sString);
+		return preg_replace("/<[a-z\/\":=]*>/i", '', $sString);
 	}
 
 	static function stripEntities ($sString) {
@@ -18,7 +18,7 @@ class vscString {
 		for ($i = 0; $i <= $iTimes; $i++)
 			echo $sString;
 	}
-	
+
 	static function stripScriptTags ($sString) {
 		return preg_replace('/<script.*\/script>/i', '', (string)$sString);
 	}

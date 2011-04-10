@@ -9,13 +9,40 @@
 import ('domain/models');
 class vscArrayModel extends vscModelA {
 	protected $aContent = array();
-	public $length;
+	private $length;
 
+	protected function getProperties ($bAll = false) {
+		return $this->aContent;
+	}
+
+	protected function getPropertyNames ($bAll = false) {
+		return array_keys($this->aContent);
+	}
+/*/
+	public function offsetSet($offset, $value) {
+		if (is_null($offset)) {
+			$this->aContent[] = $value;
+			$this->setOffset(array_search($value, $this->aContent));
+		} else {
+			$this->aContent[$offset] = $value;
+			$this->setOffset($offset);
+		}
+	}
+	public function offsetExists($offset) {
+		return isset($this->aContent[$offset]);
+	}
+	public function offsetUnset($offset) {
+		unset($this->aContent[$offset]);
+	}
+	public function offsetGet($offset) {
+		return isset($this->aContent[$offset]) ? $this->aContent[$offset] : null;
+	}
+/**/
 	public function __construct ($aIncArray = array()) {
 		$this->aContent = $aIncArray;
 		$this->length  = count ($aIncArray);
 
-		parent::__construct();
+		//parent::__construct();
 	}
 
 	public function __get ($sIncName) {
@@ -25,11 +52,9 @@ class vscArrayModel extends vscModelA {
 	}
 
 	public function __set($sIncName, $value) {
-		if (isset($this->aContent[$sIncName])) {
-			$this->aContent[$sIncName] = $value;
-			return;
-		}
-		parent::__set ($sIncName, $value);
+		$this->aContent[$sIncName] = $value;
+		$this->setOffset($sIncName);
+		$this->length = count($this->aContent);
 	}
 
 	public function toArray () {

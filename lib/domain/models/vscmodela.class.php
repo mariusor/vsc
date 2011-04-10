@@ -8,6 +8,12 @@
 abstract class vscModelA extends vscNull implements vscModelI {
 	private $sOffset;
 
+
+	public function setOffset($sOffset) {
+		if ($this->offsetExists($sOffset))
+			$this->sOffset = $sOffset;
+	}
+
 	// ArrayAccess interface
 	public function offsetSet($offset, $value) {
 		$this->__set($offset, $value);
@@ -49,23 +55,24 @@ abstract class vscModelA extends vscNull implements vscModelI {
 	public function rewind () {
 		$aKeys = $this->getPropertyNames();
 
-		if (is_array($aKeys) && isset ($aKeys[0]))
+		if (is_array($aKeys) && isset ($aKeys[0])) {
 			$this->sOffset = $aKeys[0];
+		}
 	}
 
 	public function valid ($sName = null) {
 		$bRetValue = false;
-		if ($sName !== null) {
-			$this->sOffset = $sName;
-		}
-		$oRObject = new ReflectionObject ($this);
-		try {
-			$bRetValue = (bool)($oRObject->hasProperty($this->sOffset) && $oRObject->getProperty($this->sOffset)->isPublic());
-		} catch (ReflectionException $e) {
-			$bRetValue = false;
+
+		if ($sName === null)
+			$sName = $this->sOffset;
+
+		$aKeys = $this->getPropertyNames();
+
+		if (in_array($sName, $aKeys)) {
+			return true;
 		}
 
-		return $bRetValue;
+		return false;
 	}
 
 	// Countable interface
