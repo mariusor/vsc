@@ -155,18 +155,22 @@ abstract class vscModelA extends vscNull implements vscModelI {
 		return $aRet;
 	}
 
-	protected function getProperties ($bAll = false) {
+	/**
+	 *
+	 * Enter description here ...
+	 * @param bool $bIncludeNonPublic
+	 */
+	protected function getProperties ($bIncludeNonPublic = false) {
 		$aRet = array();
 		$t = new ReflectionObject($this);
 		$aProperties = $t->getProperties();
 
 		/* @var $oProperty ReflectionProperty */
 		foreach ($aProperties as $oProperty) {
-			if (!$bAll && $oProperty->isPublic()) {
-				$sName = $oProperty->getName();
+			$sName = $oProperty->getName();
+			if ($oProperty->isPublic()) {
 				$aRet[$sName] = $oProperty->getValue($this);
-			} elseif ($bAll) {
-				$sName = $oProperty->getName();
+			} elseif ($bIncludeNonPublic) {
 				$oProperty->setAccessible(true);
 				$aRet[$sName] = $oProperty->getValue($this);
 			}
