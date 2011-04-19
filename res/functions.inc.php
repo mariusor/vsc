@@ -90,7 +90,7 @@ function __autoload ($className) {
 		include_once (realpath (VSC_LIB_PATH . 'exceptions/vscexceptionpath.class.php'));
 		include_once (realpath (VSC_LIB_PATH . 'exceptions/vscexceptionautoload.class.php'));
 
-		$sExport = var_export(explode (':',get_include_path()),true);
+		$sExport = var_export(getPaths(),true);
 		throw new vscExceptionAutoload('Could not load class ['.$className.'] in path: <pre style="font-weight:normal">' . $sExport . '</pre>');
 	}
     return true;
@@ -141,6 +141,8 @@ function addPath ($pkgPath, $sIncludePath = null) {
  */
 
 function import ($sIncPath) {
+	// fixing the paths to be fully compliant with the OS - indifferently how they are set
+	$sIncPath	= str_replace(array('/','\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),$sIncPath);
 	$bStatus 	= false;
 	$sPkgLower 	= strtolower ($sIncPath);
 	$sIncludePath 	= get_include_path();
