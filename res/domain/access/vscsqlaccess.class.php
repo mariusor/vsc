@@ -180,10 +180,6 @@ class vscSqlAccess extends vscSqlAccessA {
 		$aParameters = func_get_args();
 		$aSelects = $aNames = array ();
 
-		if (is_array($aParameters) && count($aParameters) == 1) {
-			$aParameters = $aParameters[0];
-		}
-
 		foreach ($aParameters as $key => $oParameter) {
 			if (!($oParameter instanceof vscDomainObjectI)) {
 				unset ($aParameters[$key]);
