@@ -90,7 +90,7 @@ function __autoload ($className) {
 		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexceptionpath.class.php');
 		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexceptionautoload.class.php');
 
-		$sExport = var_export(explode (':',get_include_path()),true);
+		$sExport = var_export(getPaths(),true);
 		throw new vscExceptionAutoload('Could not load class ['.$className.'] in path: <pre style="font-weight:normal">' . $sExport . '</pre>');
 	}
     return true;
@@ -139,6 +139,8 @@ function addPath ($pkgPath, $sIncludePath = null) {
  * @throws vscExceptionPackageImport
  */
 function import ($sIncPath) {
+	// fixing the paths to be fully compliant with the OS - indifferently how they are set
+	$sIncPath	= str_replace(array('/','\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),$sIncPath);
 	$bStatus 	= false;
 	$sPkgLower 	= strtolower ($sIncPath);
 	$sIncludePath 	= get_include_path();
@@ -208,8 +210,8 @@ if (!function_exists('_e')) {
 		$sRet .= '</head>';
 		$sRet .= '<body>';
 		$sRet .= '<strong>Internal Error' . (!$e ? '' : ': '. $e->getMessage()) . '</strong>';
-		$sRet .= '<address>&copy; habarnam</address>';
-		$sRet .= '<ul><li><a href="#" onclick="p = document.getElementById(\'trace\'); if (p.style.display==\'block\') p.style.display=\'none\';else p.style.display=\'block\'; return false">toggle trace</a></li><li><a href="javascript: p = document.getElementById(\'trace\'); document.location.href =\'mailto:marius@habarnam.ro?subject=Problems&body=\' + p.innerHTML; return false">mail me</a></li></ul>';
+		$sRet .= '<address>&copy; VSC</address>';
+		$sRet .= '<ul><li><a href="#" onclick="p = document.getElementById(\'trace\'); if (p.style.display==\'block\') p.style.display=\'none\';else p.style.display=\'block\'; return false">toggle trace</a></li><li><a href="javascript: p = document.getElementById(\'trace\'); document.location.href =\'mailto:'.ROOT_MAIL.'?subject=Problems&body=\' + p.innerHTML; return false">mail me</a></li></ul>';
 
 		if ($e instanceof Exception)
 			$sRet .= '<p style="font-size:.8em">Triggered in <strong>' . $e->getFile() . '</strong> at line ' . $e->getLine() .'</p>';

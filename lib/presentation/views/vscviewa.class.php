@@ -102,7 +102,6 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	public function fetch ($includePath) {
 		if (empty($includePath)) {
 			throw new vscExceptionPath ('Template [' . $includePath . '] could not be located');
-			return '';
 		}
 
 		ob_start ();

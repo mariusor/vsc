@@ -121,10 +121,17 @@ abstract class vscSiteMapA extends vscObject {
 		return (substr ($sPath, -10) == '.class.php' && is_file ($sPath));
 	}
 
-	public function getClassName ($sPath) {
-		$sClassName	= substr(basename($sPath), 0, -10); // strlen('.class.php')
+	/**
+	 * Gets the class name of based on the included path
+	 * In order for it to work the file needs to be already include()-d
+	 * @param string $sPath
+	 * @return string
+	 */
+	static public function getClassName ($sPath) {
+		$sClassName	= basename($sPath, '.class.php');
 		$iKey		= array_search($sClassName, array_map('strtolower', get_declared_classes()));
 		$aClasses	= get_declared_classes();
+
 		return  $aClasses[$iKey];
 	}
 
