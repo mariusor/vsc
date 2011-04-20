@@ -6,9 +6,9 @@
  */
 import ('presentation/requests');
 import ('application/dispatchers');
-
+import (dirname(__FILE__));
 class vsc extends vscObject {
-    static private $oInstance;
+	static private $oInstance;
 	/**
 	 * @var vscHttpRequestA
 	 */
@@ -41,9 +41,9 @@ class vsc extends vscObject {
 	}
 
 	static public function getEnv () {
-        if (!(self::$oInstance instanceof self)) {
-            self::$oInstance = new self();
-        }
+		if (!(self::$oInstance instanceof self)) {
+			self::$oInstance = new self();
+		}
 		return self::$oInstance;
 	}
 
