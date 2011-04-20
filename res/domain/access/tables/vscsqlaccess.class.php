@@ -236,7 +236,7 @@ class vscSqlAccess extends vscSqlAccessA {
 					if ($this->getConnection()->getType() == vscDbType::mysql && !$bFullText && vscKeyFullText::isValid($oIndex)){
 						$bFullText	= true;
 						$sEngine	= 'MyISAM';
-					} else {
+					} elseif ($this->getConnection()->getType() == vscDbType::mysql) {
 						$sEngine	= $this->getConnection()->getEngine();
 					}
 					// this needs to be replaced with connection functionality : something like getConstraint (type, columns)
@@ -356,6 +356,11 @@ class vscSqlAccess extends vscSqlAccessA {
 	 */
 	public function loadByFilter () { // this shold be moved to the composite model
 		$aParameters = func_get_args();
+		if (count($aParameters) == 1 && is_array ($aParameters[0])) {
+			// in case we send the domain objects inside an array instead of sepparate parameters
+			$aParameters = $aParameters[0];
+		}
+
 		$aSelects = $aNames = array ();
 
 		foreach ($aParameters as $key => $oParameter) {
@@ -363,6 +368,7 @@ class vscSqlAccess extends vscSqlAccessA {
 				unset ($aParameters[$key]);
 			}
 		}
+
 		$aRet = array();
 		$aTotalValues =  array();
 
@@ -476,20 +482,27 @@ class vscSqlAccess extends vscSqlAccessA {
 	public function save (vscDomainObjectA $oDomainObject) {
 		$bInsert = false;
 		$oPk = $oDomainObject->getPrimaryKey();
-		foreach ($oPk->getFields() as $oField) {
-			if (vscFieldInteger::isValid($oField) && $oField->getAutoIncrement() == true)
-			$oAutoIncremeneted = $oField;
-			if (!$oField->hasValue()) {
-				$bInsert = true;
-				break;
+		if (vscKeyPrimary::isValid($oPk)) {
+			foreach ($oPk->getFields() as $oField) {
+				if (vscFieldInteger::isValid($oField) && $oField->getAutoIncrement() == true) {
+					$oAutoIncremeneted = $oField;
+				}
+
+				if (!$oField->hasValue()) {
+					$bInsert = true;
+					break;
+				}
 			}
+		} else {
+			$bInsert = true;
 		}
 
 		if ($bInsert) {
 			$this->insert ($oDomainObject);
 			// this is an ugly hack
-			if (vscFieldInteger::isValid($oAutoIncremeneted))
-			$oAutoIncremeneted->setValue ($this->getConnection()->getLastInsertId());
+			if (isset($oAutoIncremeneted) && vscFieldInteger::isValid($oAutoIncremeneted)) {
+				$oAutoIncremeneted->setValue ($this->getConnection()->getLastInsertId());
+			}
 		} else {
 			$this->update ($oDomainObject);
 		}

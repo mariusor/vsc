@@ -243,7 +243,7 @@ class postgreSql extends vscSqlDriverA {
 	}
 
 	public function _CREATE ($sIncName){
-		return ' CREATE ' . $sIncName;
+		return ' CREATE TABLE ' . $sIncName;
 	}
 
 	public function _SET(){
