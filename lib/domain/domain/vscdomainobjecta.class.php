@@ -142,7 +142,9 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 
 	protected function getField ($sName) {
 		$aFields = $this->getFields();
-		return $aFields[$sName];
+		if (key_exists($sName, $aFields)) return $aFields[$sName];
+
+		return false;
 	}
 
 	/**
@@ -201,8 +203,10 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 
 	public function getIndexes ($bWithPrimaryKey = false) {
 		$aIndexes = array ();
-		if ($bWithPrimaryKey)
-			$aIndexes[] = $this->getPrimaryKey();
+		$oPk = $this->getPrimaryKey();
+		if ($bWithPrimaryKey && vscKeyPrimary::isValid($oPk)) {
+			$aIndexes[] = $oPk;
+		}
 
 		$aIndexes = array_merge ($aIndexes, $this->aIndexes);
 		return $aIndexes;

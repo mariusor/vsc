@@ -1,8 +1,8 @@
 <?php
 interface vscFieldType {
 	const INTEGER	= 0;
-	const TEXT		= 1;
-	const ENUM 		= 2;
-	const DATETIME	= 3;
-
+	const DECIMAL	= 1;
+	const TEXT		= 2;
+	const ENUM 		= 3;
+	const DATETIME	= 4;
 }
