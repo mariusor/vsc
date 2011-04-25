@@ -6,19 +6,15 @@
  * @date 2010.05.20
  */
 
-interface vscCompositeDomainObjectI {
-	/**
-	 * @return vscFieldA[]
-	 */
-	public function getFields ();
+interface vscCompositeDomainObjectI extends vscDomainObjectI {
 	/**
 	 * Gets the component domain objects
 	 */
 	public function getDomainObjects ();
-	
+
 	/**
-	 * Gets the foreign key relations between the components 
-	 * Alias for self::getDomainObjectRelations 
+	 * Gets the foreign key relations between the components
+	 * Alias for self::getDomainObjectRelations
 	 */
 	public function getForeignKeys ();
 

@@ -7,6 +7,8 @@
  */
 
 interface vscDomainObjectI {
+	public function getFields();
+
 	/**
 	 * gets all the column names as an array
 	 * @return string[]
