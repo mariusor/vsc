@@ -9,7 +9,7 @@ class vscConnectionFactory {
 	/**
 	 * returning if the set DB type is supported
 	 *
-	 * @param string $type
+	 * @param string $iConnectionType
 	 * @return bool
 	 */
 	public static function validType ($iConnectionType) {
@@ -26,7 +26,11 @@ class vscConnectionFactory {
 		if(!vscConnectionA::isValid(self::$instance)) {
 			switch ($iConnectionType) {
 			case vscConnectionType::mysql:
-				self::$instance =  new mySqlIm ($dbHost, $dbUser, $dbPass, $dbName);
+				if (extension_loaded('mysqli')) {
+					self::$instance =  new mySqlIm ($dbHost, $dbUser, $dbPass, $dbName);
+				} else {
+					self::$instance =  new mySql ($dbHost, $dbUser, $dbPass, $dbName);
+				}
 				break;
 			case vscConnectionType::postgresql:
 				self::$instance = new postgreSql ($dbHost, $dbUser, $dbPass, $dbName);

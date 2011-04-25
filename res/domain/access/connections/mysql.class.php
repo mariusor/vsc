@@ -57,6 +57,10 @@ class mySql extends vscConnectionA {
 	public function __destruct() {
 	}
 
+	static public function isValidLink ($oLink) {
+		return (is_resource($oLink) && get_resource_type($oLink) == 'mysql link');
+	}
+
 	/**
 	 * wrapper for mysql_connect
 	 *
@@ -64,7 +68,7 @@ class mySql extends vscConnectionA {
 	 */
 	private function connect(){
 		$this->link	= mysql_connect($this->host, $this->user, $this->pass);
-		if(!isDBLink($this->link)) {
+		if(!self::isValidLink($this->link)) {
 			trigger_error(mysql_error(), E_USER_ERROR);
 			return false;
 		}
@@ -182,88 +186,133 @@ class mySql extends vscConnectionA {
 		return $retVal;
 	}
 
+	public function startTransaction ($bAutoCommit = false) {
+		if ($this->getEngine() != 'InnoDB')
+		throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
+
+		$sQuery = 'SET autocommit=' . ($bAutoCommit ? 1 : 0) . ';';
+		$this->query($sQuery);
+		$sQuery = 'START TRANSACTION;';
+		return $this->query($sQuery);
+	}
+
+	public function rollBackTransaction () {
+		if ($this->getEngine() != 'InnoDB')
+		throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
+
+		$sQuery = 'ROLLBACK;';
+		return $this->query($sQuery);
+	}
+
+	public function commitTransaction () {
+		if ($this->getEngine() != 'InnoDB')
+		throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
+
+		$sQuery = 'COMMIT;';
+		return $this->query($sQuery);
+	}
+
 	/**
 	 *
 	 * @param array $incObj = array (array('field1','alias1),array('field2','alias2),...)
 	 * @return unknown
 	 */
-	public function _SELECT($incObj){
+	public function _SELECT ($incObj){
 		if (empty ($incObj))
 			return '';
 
 		$retStr = 'SELECT ';
-		return $retStr.' '.$incObj.' ';
+		return $retStr . ' ' . $incObj . ' ';
 	}
 
-	public function _CREATE(){
-		return ' CREATE ';
+	public function _DELETE($sIncName) {
+		return ' DELETE FROM ' . $sIncName . ' ';
 	}
 
-	public function _INSERT(){
-		return ' INSERT ';
+	public function _CREATE ($sName){
+		return ' CREATE TABLE ' . $sName . ' ';
+	}
+
+	public function _SET(){
+		return ' SET ';
+	}
+
+	public function _INSERT ($incData){
+		if (empty ($incData))
+			return '';
+		return ' INSERT INTO '.$incData . ' ';
 	}
 
 	public function _VALUES ($incData) {
-		if (empty ($incData))
-			return '';
-		else {
-			if (is_array ($incData)) {
-				$ret = implode('", "', $incData);
-			}
-		}
-
-		return ' VALUES "' . $ret . '"';
+//		if (empty ($incData))
+//			return '';
+//		else {
+//			if (is_array ($incData)) {
+//				$ret = '';
+//				foreach ($incData as $value) {
+//					if (is_numeric($value))
+//						$ret .= $value . ', ';
+//					elseif (is_string($value))
+//						$ret .= "'" . $this->escape ($value) . "', ";
+//				}
+//				$ret = substr ($ret,0, -2);
+//			} elseif (is_string ($incData)) {
+//				$ret = $incData;
+//			}
+//		}
+		return ' VALUES ' . $incData;
 	}
 
-	public function _UPDATE($incOb){
-		if (!is_array($incOb))
-			$incOb[] = array ($incOb);
-		return ' UPDATE `'.$incOb[0].'`'.(!empty($incOb[1]) ? ' AS `'.$incOb[1].'`' : '');
+	public function _UPDATE ($sTable){
+		return ' UPDATE '. $sTable;
 	}
 
 	/**
-	 * returns the FROM `tabl...es` part of the query
+	 * returns the FROM tabl...es part of the query
 	 *
 	 * @param string or array of strings $incData - table names
 	 * @return string
 	 */
-	public function _FROM($incData){
-			if (empty ($incData))
+	public function _FROM ($incData){
+		if (empty ($incData))
 			return '';
 		if (is_array($incData))
-			$incData = implode('`, `',$incData);
+			$incData = implode(', ',$incData);
 
-		return ' FROM `'.$incData.'` ';
+		return ' FROM '.$incData.' ';
 	}
 
 	/**
 	 * @return string
 	 */
-	public function _AND(){
+	public function _AND (){
 		return ' AND ';
 	}
 
 	/**
 	 * @return string
 	 */
-	public function _OR(){
+	public function _OR (){
 		return ' OR ';
 	}
 	public function _JOIN ($type) {
-
+		return $type . ' JOIN ';
 	}
 
 	/**
 	 * @return string
 	 */
-	public function _AS($str){
+	public function _AS ($str){
 		return ' AS '.$str;
 	}
 
-	public function _LIMIT($start, $end = 0){
-//		if (!empty($start))
-			return ' LIMIT '.(int)$start.(!empty($end) ? ', '.(int)$end : '');
-//		return '';
+	public function _LIMIT ($start, $end = 0){
+		if (!empty($end))
+			return ' LIMIT '.(int)$start . ', '.(int)$end;
+		elseif (!empty ($start))
+			 return ' LIMIT '.(int)$start;
+		else
+			return '';
 	}
 
 	/**
@@ -273,8 +322,7 @@ class mySql extends vscConnectionA {
 	 * @param array of strings $colName
 	 * @return string
 	 */
-
-	public function _GROUP($incObj = null){
+	public function _GROUP ($incObj = null){
 		if (empty ($incObj))
 			return '';
 
@@ -282,7 +330,7 @@ class mySql extends vscConnectionA {
 		return $retStr.' '.$incObj;
 	}
 
-	public function _ORDER($orderBys = null){
+	public function _ORDER ($orderBys = null){
 		if (empty($orderBys))
 			return '';
 		$retStr = ' ORDER BY ';
@@ -292,5 +340,9 @@ class mySql extends vscConnectionA {
 
 	public function _WHERE ($clause) {
 		return ' WHERE '.$clause;
+	}
+
+	public function _NULL ($bIsNull = true) {
+		return (!$bIsNull ? ' NOT ' : ' ') . 'NULL';
 	}
 }

@@ -39,10 +39,9 @@ class mySqlIm extends vscConnectionA {
 
 	private		$defaultSocketPath =  '/var/run/mysqld/mysqld.sock';
 
-	static public function isValid ($oLink) {
+	static public function isValidLink ($oLink) {
 		return ($oLink instanceof mysqli);
 	}
-
 
 	public function __construct( $dbHost = null, $dbUser = null, $dbPass = null, $dbName = null ){
 		if (!extension_loaded('mysqli')) {
@@ -82,32 +81,6 @@ class mySqlIm extends vscConnectionA {
 		return vscConnectionType::mysql;
 	}
 
-	public function startTransaction ($bAutoCommit = false) {
-		if ($this->getEngine() != 'InnoDB')
-			throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
-
-		$sQuery = 'SET autocommit=' . ($bAutoCommit ? 1 : 0) . ';';
-		$this->query($sQuery);
-		$sQuery = 'START TRANSACTION;';
-		return $this->query($sQuery);
-	}
-
-	public function rollBackTransaction () {
-		if ($this->getEngine() != 'InnoDB')
-			throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
-
-		$sQuery = 'ROLLBACK;';
-		return $this->query($sQuery);
-	}
-
-	public function commitTransaction () {
-		if ($this->getEngine() != 'InnoDB')
-			throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
-
-		$sQuery = 'COMMIT;';
-		return $this->query($sQuery);
-	}
-
 	/**
 	 * wrapper for mysql_connect
 	 *
@@ -128,7 +101,7 @@ class mySqlIm extends vscConnectionA {
 	 * @return bool
 	 */
 	public function close (){
-		if (self::isValid($this->link))
+		if (self::isValidLink($this->link))
 			$this->link->close ();
 		// dunno how smart it is to nullify an mysqli object
 		$this->link = null;
@@ -143,7 +116,7 @@ class mySqlIm extends vscConnectionA {
 	 */
 	public function selectDatabase ($incData){
 		$this->name = $incData;
-		if (self::isValid($this->link) && $this->link->select_db($incData)) {
+		if (self::isValidLink($this->link) && $this->link->select_db($incData)) {
 			return true;
 		} else {
 			throw new vscExceptionConnection($this->link->error . ' ['.$this->link->errno . ']');
@@ -272,6 +245,32 @@ class mySqlIm extends vscConnectionA {
 		if (is_array($retVal))
 			$retVal = current($retVal);
 		return $retVal;
+	}
+
+	public function startTransaction ($bAutoCommit = false) {
+	if ($this->getEngine() != 'InnoDB')
+	throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
+
+	$sQuery = 'SET autocommit=' . ($bAutoCommit ? 1 : 0) . ';';
+	$this->query($sQuery);
+	$sQuery = 'START TRANSACTION;';
+			return $this->query($sQuery);
+	}
+
+	public function rollBackTransaction () {
+	if ($this->getEngine() != 'InnoDB')
+	throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
+
+	$sQuery = 'ROLLBACK;';
+	return $this->query($sQuery);
+	}
+
+	public function commitTransaction () {
+	if ($this->getEngine() != 'InnoDB')
+	throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
+
+	$sQuery = 'COMMIT;';
+			return $this->query($sQuery);
 	}
 
 	/**
