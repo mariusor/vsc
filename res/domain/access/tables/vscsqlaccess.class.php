@@ -14,7 +14,7 @@ import ('domain/domain/joins');
 class vscSqlAccess extends vscSqlAccessA {
 	private $aGroupBys	= array();
 	private $aOrderBys	= array();
-	private $aClauses		= array();
+	private $aClauses	= array();
 	private $aJoins		= array();
 	private $iStart;
 	private $iCount;
@@ -374,7 +374,7 @@ class vscSqlAccess extends vscSqlAccessA {
 
 		// this allows to call the self::outputSelectSql function with the parameters received
 		// replaces the previous call : $this->outputSelectSql($aParameters); // where $aParameters was an array
-		$sSelect = d($this->outputSelectSql($aParameters));
+		$sSelect = $this->outputSelectSql($aParameters);
 
 		$iNumRows = $this->getConnection()->query($sSelect);
 
