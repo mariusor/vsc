@@ -67,6 +67,13 @@ class vscAccessFactory extends vscObject {
 				}
 				return $this->oFieldEnum;
 				break;
+			case (vscFieldType::DECIMAL):
+				if (!($this->oFieldEnum instanceof vscFieldDecimalAccess)) {
+					$this->oFieldEnum = new vscFieldDecimalAccess();
+					$this->oFieldEnum->setConnection($this->getConnection());
+				}
+				return $this->oFieldEnum;
+				break;
 		}
 
 		return $oFieldAccess;

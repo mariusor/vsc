@@ -19,11 +19,11 @@ class vscJsonView extends vscViewA implements vscJsonViewI {
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#assign($tpl_var, $value)
 	 */
-    public function assign ($tpl_var, $value = null) {}
+	public function assign ($tpl_var, $value = null) {}
 
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#display($resource_name, $cache_id, $compile_id)
 	 */
-    public function display ($resource_name) {}
+	public function display ($resource_name) {}
 }

@@ -79,11 +79,11 @@ class vscUrlParserA implements vscUrlParserI {
 
 	public function setUrl ($sUrl) {
 		$this->sUrl 		= $sUrl;
-        try {
-        	$aParse = parse_url($sUrl);
-        	if (is_array($aParse)) {
-	            $this->aComponents  = array_merge(
-		            array (
+		try {
+			$aParse = parse_url($sUrl);
+			if (is_array($aParse)) {
+				$this->aComponents  = array_merge(
+				array (
 			            'scheme'	=> (vsc::getHttpRequest()->isSecure() ? 'https' : 'http'),
 						'host'		=> '',
 						'user'		=> '',
@@ -91,18 +91,19 @@ class vscUrlParserA implements vscUrlParserI {
 						'path'		=> '',
 						'query'		=> '',
 						'fragment'	=> ''
-		            ),
-		            $aParse
+				),
+				$aParse
 				);
-        	} else {
-        		throw new vscExceptionInfrastructure('URL ['. $sUrl . '] was not correctly parsed by parse_url');
-        	}
-            $this->aComponents['query'] = self::parseQuery($this->aComponents['query']);
-        } catch (vscExceptionError $e) {
-            $this->aComponents  = self::parse_url ($sUrl);
-        } catch (vscExceptionInfrastructure $e) {
-        	$this->aComponents  = self::parse_url ($sUrl);
-        }
+			} else {
+				import ('infrastructure');
+				throw new vscExceptionInfrastructure('URL ['. $sUrl . '] was not correctly parsed by parse_url');
+			}
+			$this->aComponents['query'] = self::parseQuery($this->aComponents['query']);
+		} catch (vscExceptionError $e) {
+			$this->aComponents  = self::parse_url ($sUrl);
+		} catch (vscExceptionInfrastructure $e) {
+			$this->aComponents  = self::parse_url ($sUrl);
+		}
 	}
 
 	public function getScheme () {

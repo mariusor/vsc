@@ -89,7 +89,7 @@ class vscRwDispatcher extends vscDispatcherA {
 			if ($this->getSiteMap()->isValidObject ($sPath)) {
 				include ($sPath);
 
-				$sControllerName = $this->getSiteMap()->getClassName($sPath);
+				$sControllerName = vscSiteMapA::getClassName($sPath);
 
 				/* @var $oFront vscFrontControllerA */
 				$this->oController = new $sControllerName();
@@ -135,7 +135,7 @@ class vscRwDispatcher extends vscDispatcherA {
 					}
 					include ($sPath);
 
-					$sProcessorName = $this->getSiteMap()->getClassName($sPath);
+					$sProcessorName = vscSiteMapA::getClassName($sPath);
 					/* @var $oProcessor vscProcessorA */
 					$this->oProcessor = new $sProcessorName();
 				} elseif ($this->getSiteMap()->isValidStatic ($sPath) ) {

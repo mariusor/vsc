@@ -29,7 +29,9 @@ class vscSqlClauseAccess extends vscObject {
 		} elseif ($oClause->getSubject() instanceof vscClause) {
 			$subStr = (string)$oClause->getSubject ();
 		} elseif ($oClause->getSubject() instanceof vscFieldA) {
-			$subStr =  ($oClause->getSubject()->getTableAlias() != 't' ? $oClause->getSubject()->getTableAlias().'.': '') . $oClause->getSubject()->getName();
+			$subStr =  ($oClause->getSubject()->getTableAlias() != 't' ?
+				$this->getConnection()->FIELD_OPEN_QUOTE . $oClause->getSubject()->getTableAlias() . $this->getConnection()->FIELD_CLOSE_QUOTE . '.': '') .
+				$this->getConnection()->FIELD_OPEN_QUOTE . $oClause->getSubject()->getName() . $this->getConnection()->FIELD_CLOSE_QUOTE;
 		} else {
 			return '';
 		}
@@ -37,22 +39,25 @@ class vscSqlClauseAccess extends vscObject {
 		if (is_null($oClause->getPredicative())) {
 			if ($oClause->validPredicate ($oClause->getPredicate())) {
 				$preStr = 'NULL';
-			} else
-			$preStr = '';
+			} else {
+				$preStr = '';
+			}
 		} elseif (is_numeric($oClause->getPredicative ())) {
 			$preStr = $oClause->getPredicative ();
 		} elseif (is_string($oClause->getPredicative ())) {
-			$preStr = $oClause->getPredicative ();
+			$preStr = $this->getConnection()->escape($oClause->getPredicative ());
 
 			if ($oClause->getPredicate() == 'LIKE') {
-				$preStr = '%'.$oClause->getPredicate().'%';
+				$preStr = '%'.$preStr.'%';
 			}
 
 			$preStr = (stripos($preStr, '"') !== 0 ? '"'.$preStr.'"' : $preStr);//'"'.$preStr.'"';
 		} elseif (is_array($oClause->getPredicative ())) {
+			//FIXME: escape elements of the predicative array
 			$preStr =  '("'.implode('", "',$oClause->getPredicative ()).'")';
 		} elseif ($oClause->getPredicative () instanceof vscFieldA) {
-			$preStr = ($oClause->getPredicative()->getTableAlias() != 't' ? $oClause->getPredicative()->getTableAlias().'.': '').$oClause->getPredicative()->getName();
+			$preStr = ($oClause->getPredicative()->getTableAlias() != 't' ? $this->getConnection()->FIELD_OPEN_QUOTE . $oClause->getPredicative()->getTableAlias() . $this->getConnection()->FIELD_CLOSE_QUOTE .'.': '').
+					$this->getConnection()->FIELD_OPEN_QUOTE . $oClause->getPredicative()->getName(). $this->getConnection()->FIELD_CLOSE_QUOTE;
 		} elseif ($oClause->getPredicative () instanceof vscClause) {
 			$subStr = $subStr;
 			$preStr = $oClause->getPredicative ();

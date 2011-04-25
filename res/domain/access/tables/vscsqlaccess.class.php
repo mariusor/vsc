@@ -180,8 +180,12 @@ class vscSqlAccess extends vscSqlAccessA {
 		$aParameters = func_get_args();
 		$aSelects = $aNames = array ();
 
+		if (is_array($aParameters) && count($aParameters) == 1 && is_array($aParameters[0])) {
+			$aParameters = $aParameters[0];
+		}
+
 		foreach ($aParameters as $key => $oParameter) {
-			if (!($oParameter instanceof vscDomainObjectI)) {
+			if (!vscDomainObjectA::isValid($oParameter)) {
 				unset ($aParameters[$key]);
 				continue;
 			}
@@ -370,7 +374,7 @@ class vscSqlAccess extends vscSqlAccessA {
 
 		// this allows to call the self::outputSelectSql function with the parameters received
 		// replaces the previous call : $this->outputSelectSql($aParameters); // where $aParameters was an array
-		$sSelect = $this->outputSelectSql($aParameters);
+		$sSelect = d($this->outputSelectSql($aParameters));
 
 		$iNumRows = $this->getConnection()->query($sSelect);
 
@@ -406,7 +410,7 @@ class vscSqlAccess extends vscSqlAccessA {
 	 * This has the only advantage over loadByFilter to ensure that the result returns a single entry
 	 * @param array $aFieldsArray
 	 * @throws vscExceptionDomain
-	 * @returns vscDomainObjectA
+	 * @returns int
 	 */
 	public function getByUniqueIndex (vscDomainObjectA $oDomainObject, $aFieldsArray = array()) {
 		$bValid = false;
@@ -417,22 +421,33 @@ class vscSqlAccess extends vscSqlAccessA {
 		$aIndexes = $oDomainObject->getIndexes(true);
 		/* @var $oIndex vscKeyUnique */
 		foreach ($aIndexes as $oIndex) {
-			if ($oIndex->getType() & vscIndexType::UNIQUE == vscIndexType::UNIQUE) {
+			if (($oIndex->getType() & vscIndexType::UNIQUE) == vscIndexType::UNIQUE) {
 				$aIndexFields 		= $oIndex->getFields();
-				$aIndexFieldNames	= array_keys($aIndexFields);
+				if (!empty ($aFieldNames)) {
+					// we passed the values as the second parameter
+					$aIndexFieldNames	= array_keys($aIndexFields);
 
-				// setting the value of each field of the index
-				if ($aIndexFieldNames == $aFieldNames) {
-					foreach ($aIndexFields as $sFieldName => $oField) {
-						$oField->setValue($aFieldsArray[$sFieldName]);
+					// setting the value of each field of the index
+					if ($aIndexFieldNames == $aFieldNames) {
+						foreach ($aIndexFields as $sFieldName => $oField) {
+							$oField->setValue($aFieldsArray[$sFieldName]);
+						}
+						$bValid = true;
 					}
-					$bValid = true;
+				} else {
+					// we check if the index fields have values
+					foreach ($aIndexFields as $sFieldName => $oField) {
+						if (!$oField->hasValue()) {
+							break;
+						}
+						$bValid = true;
+					}
 				}
 			}
 		}
 
 		if ($bValid) {
-			$sSql = $this->outputSelectSql($this->getDomainObject());
+			$sSql = $this->outputSelectSql($oDomainObject);
 
 			$this->getConnection()->query($sSql);
 			return $oDomainObject->fromArray($this->getConnection()->getAssoc());
@@ -441,6 +456,13 @@ class vscSqlAccess extends vscSqlAccessA {
 		}
 	}
 
+	/**
+	 *
+	 * This has the only advantage over loadByFilter to ensure that the result returns a single entry
+	 * @param array $aFieldsArray
+	 * @throws vscExceptionDomain
+	 * @returns int
+	 */
 	public function getByPrimaryKey (vscDomainObjectA $oDomainObject, $aIndexValues = array()) {
 		$bValid = false;
 		if ($oDomainObject->hasPrimaryKey()) {
@@ -464,8 +486,7 @@ class vscSqlAccess extends vscSqlAccessA {
 			$sSql = $this->outputSelectSql($oDomainObject);
 
 			$this->getConnection()->query($sSql);
-			$iStatus = $oDomainObject->fromArray($this->getConnection()->getAssoc());
-			return $oDomainObject;
+			return $oDomainObject->fromArray($this->getConnection()->getAssoc());
 		} else {
 			throw new vscExceptionDomain('None of the object\'s unique indexes has all the neccessary values to get an instance.');
 		}
@@ -508,7 +529,7 @@ class vscSqlAccess extends vscSqlAccessA {
 		if (($mSubject instanceof vscClause) && ($sPredicate == null || $mPredicative == null)) {
 			$w = $mSubject;
 		} elseif (!is_null ($mSubject)) {
-			$w = new vscClause($mSubject, $sPredicate, $mPredicative);
+			$w = new vscClause($mSubject, $this->getConnection()->escape($sPredicate), $mPredicative);
 		} else {
 			throw new vscException('Trying to add an empty where clause');
 		}

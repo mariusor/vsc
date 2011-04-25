@@ -127,11 +127,14 @@ abstract class vscFrontControllerA extends vscObject {
 			if (is_null($sViewPath)) {
 				$this->oView = $this->getDefaultView();
 			} else {
-				$sClassName = stristr(basename ($sViewPath), '.class.php', true);
+				//$sViewPath	= dirname($sViewPath);
 				include ($sViewPath);
-				// this is goddamn ugly - basing it on php's case insensitiveness
 
-				$this->oView = new $sClassName();
+				$sClassName	= vscSiteMapA::getClassName($sViewPath);
+
+				if (!empty($sClassName)) {
+					$this->oView = new $sClassName();
+				}
 			}
 		}
 		return $this->oView;

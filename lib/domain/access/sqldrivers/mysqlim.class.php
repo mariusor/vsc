@@ -67,9 +67,11 @@ class mySqlIm extends vscSqlDriverA {
 
 		try {
 			$this->connect ();
+		} catch (vscExceptionConnection $e) {
+			throw $e;
 		} catch (Exception $e) {
-			d($e);
-		}
+			// d($e);
+		} 
 	}
 
 	public function getEngine () {
@@ -115,7 +117,7 @@ class mySqlIm extends vscSqlDriverA {
 		$this->link	= new mysqli ($this->host, $this->user, $this->pass, $this->name, null, $this->defaultSocketPath);
 		if (!empty($this->link->connect_errno)) {
 			$this->error = $this->link->connect_errno . ' ' . $this->link->connect_error;
-			throw new vscConnectionException('mysqli : ' . $this->error);
+			throw new vscExceptionConnection('mysqli : ' . $this->error);
 		}
 		return true;
 	}
