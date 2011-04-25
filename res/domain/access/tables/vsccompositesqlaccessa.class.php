@@ -6,12 +6,6 @@
  * @date 2010.02.25
  */
 abstract class vscCompositeSqlAccessA extends vscObject {
-	static public $aTypes = array (
-		'INNER',
-		'LEFT',
-		'RIGHT',
-		);
-
 	protected	$state;
 	protected	$type;
 	/**
