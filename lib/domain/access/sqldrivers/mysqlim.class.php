@@ -47,7 +47,7 @@ class mySqlIm extends vscSqlDriverA {
 	public function __construct( $dbHost = null, $dbUser = null, $dbPass = null, $dbName = null ){
 		if (!extension_loaded('mysqli')) {
 			//return new nullSql();
-			throw new vscConnectionException ('Database engine missing: mysqlim');
+			throw new vscExceptionConnection ('Database engine missing: mysqlim');
 		}
 		if (!empty ($dbHost)) {
 			$this->host	= $dbHost;
@@ -58,7 +58,7 @@ class mySqlIm extends vscSqlDriverA {
 		if (!empty ($dbUser)) {
 			$this->user	= $dbUser;
 		} else {
-			throw new vscConnectionException ('Database connection data missing: [DB_USERNAME]');
+			throw new vscExceptionConnection ('Database connection data missing: [DB_USERNAME]');
 		}
 
 		if(!empty($dbPass)) {
@@ -146,7 +146,7 @@ class mySqlIm extends vscSqlDriverA {
 		if (self::isValid($this->link) && $this->link->select_db($incData)) {
 			return true;
 		} else {
-			throw new vscConnectionException($this->link->error . ' ['.$this->link->errno . ']');
+			throw new vscExceptionConnection($this->link->error . ' ['.$this->link->errno . ']');
 		}
 	}
 
@@ -185,7 +185,7 @@ class mySqlIm extends vscSqlDriverA {
 			return false;
 
 		if ($this->link->errno)	{
-			throw new vscConnectionException ($this->link->error. vscString::nl() . $query . vscString::nl ());
+			throw new vscExceptionConnection ($this->link->error. vscString::nl() . $query . vscString::nl ());
 			return false;
 		}
 
