@@ -15,7 +15,7 @@
  * OBS: maybe the static methods (_AND, _OR, sa.) can be conained into
  *  an external object. (??!)
  */
-class mySql extends vscSqlDriverA {
+class mySql extends vscConnectionA {
 	public 		$conn,
 				$link;
 	private 	$name,

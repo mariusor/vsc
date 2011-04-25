@@ -3,7 +3,7 @@
  * Pseudo null to be implemented (ehm, inherited) by the rest
  * of the DB classes.
  */
-class nullSql extends vscSqlDriverA {
+class nullSql extends vscConnectionA {
 	public 		$conn,
 				$link,
 				$STRING_OPEN_QUOTE = '',
@@ -18,7 +18,7 @@ class nullSql extends vscSqlDriverA {
 	 * an unsupported DB_TYPE connection (usually because of a config error)
 	 *
 	 * TODO: this can be done more elegantly using an exception in the
-	 * 		 sqlFactory class
+	 * 		 vscConnectionFactory class
 	 *
 	 * @param string $dbHost
 	 * @param string $dbUser

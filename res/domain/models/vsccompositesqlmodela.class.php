@@ -45,7 +45,7 @@ abstract class vscCompositeSqlModelA extends vscSimpleSqlModelA implements vscCo
 
 	public function getDomainObjectRelations () {}
 
-	public function setConnection (vscSqlDriverA $oConnection) {
+	public function setConnection (vscConnectionA $oConnection) {
 		$this->oConnection = $oConnection;
 	}
 
@@ -54,7 +54,7 @@ abstract class vscCompositeSqlModelA extends vscSimpleSqlModelA implements vscCo
 	}
 
 	public function __init(){
-		$this->oConnection = sqlFactory::connect(
+		$this->oConnection = vscConnectionFactory::connect(
 			$this->getDatabaseType(),
 			$this->getDatabaseHost(),
 			$this->getDatabaseUser(),

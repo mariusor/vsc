@@ -1,5 +1,5 @@
 <?php
-class postgreSql extends vscSqlDriverA {
+class postgreSql extends vscConnectionA {
 	public 		$conn,
 				$link,
 				$STRING_OPEN_QUOTE = '\'',

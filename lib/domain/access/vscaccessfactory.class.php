@@ -9,7 +9,7 @@
 class vscAccessFactory extends vscObject {
 	 private $oConnection;
 
-	 public function setConnection (vscSqlDriverA $oConnection) {
+	 public function setConnection (vscConnectionA $oConnection) {
 		$this->oConnection = $oConnection;
 	}
 

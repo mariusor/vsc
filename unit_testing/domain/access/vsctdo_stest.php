@@ -30,7 +30,7 @@ class vscTdoTest extends Snap_UnitTestCase {
 	}
 
 	public function testGetConnection () {
-		$this->connection->setConnection (sqlFactory::connect('mysql'));
+		$this->connection->setConnection (vscConnectionFactory::connect('mysql'));
 		$this->assertIsA($this->connection->getConnection(), 'mySqlIm');
 	}
 

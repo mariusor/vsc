@@ -15,7 +15,7 @@
  * OBS: maybe the static methods (_AND, _OR, sa.) can be conained into
  *  an external object. (??!)
  */
-class mySqlIm extends vscSqlDriverA {
+class mySqlIm extends vscConnectionA {
 	/**
 	 * @var mysqli_result
 	 */
@@ -71,7 +71,7 @@ class mySqlIm extends vscSqlDriverA {
 			throw $e;
 		} catch (Exception $e) {
 			// d($e);
-		} 
+		}
 	}
 
 	public function getEngine () {

@@ -8,15 +8,15 @@
 abstract class vscSqlJoinAccessA extends vscObject {
 	private $oConnection;
 	/**
-	 * @param vscSqlDriverA $oConnection
+	 * @param vscConnectionA $oConnection
 	 * @return void
 	 */
-	public function setConnection (vscSqlDriverA $oConnection) {
+	public function setConnection (vscConnectionA $oConnection) {
 		$this->oConnection = $oConnection;
 	}
 
 	/**
-	 * @return vscSqlDriverA
+	 * @return vscConnectionA
 	 */
 	public function getConnection () {
 		return $this->oConnection;

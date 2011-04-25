@@ -7,7 +7,7 @@
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.04.27
  */
-class mdb2 extends vscSqlDriverA {
+class mdb2 extends vscConnectionA {
 	public 		$conn,
 				$link,
 				$STRING_OPEN_QUOTE = '"',

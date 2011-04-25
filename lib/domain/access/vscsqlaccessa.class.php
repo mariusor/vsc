@@ -13,12 +13,12 @@ import ('domain/domain/indexes');
 
 abstract class vscSqlAccessA extends vscObject implements vscSqlAccessI {
 	/**
-	 * @var vscSqlDriverA
+	 * @var vscConnectionA
 	 */
 	private $oConnection;
 
 	public function __construct () {
-		$this->setConnection(sqlFactory::connect(
+		$this->setConnection(vscConnectionFactory::connect(
 			$this->getDatabaseType(),
 			$this->getDatabaseHost(),
 			$this->getDatabaseUser(),
@@ -35,15 +35,15 @@ abstract class vscSqlAccessA extends vscObject implements vscSqlAccessI {
 	abstract public function getDatabaseName();
 
 	/**
-	 * @param vscSqlDriverA $oConnection
+	 * @param vscConnectionA $oConnection
 	 * @return void
 	 */
-	public function setConnection (vscSqlDriverA $oConnection) {
+	public function setConnection (vscConnectionA $oConnection) {
 		$this->oConnection = $oConnection;
 	}
 
 	/**
-	 * @return vscSqlDriverA
+	 * @return vscConnectionA
 	 */
 	public function getConnection () {
 		if (!self::isValidConnection($this->oConnection))
@@ -52,8 +52,8 @@ abstract class vscSqlAccessA extends vscObject implements vscSqlAccessI {
 	}
 
 	static public function isValidConnection ($oConnection) {
-		if ($oConnection instanceof vscSqlDriverA) {
-			return sqlFactory::validType ($oConnection->getType());
+		if ($oConnection instanceof vscConnectionA) {
+			return vscConnectionFactory::validType ($oConnection->getType());
 		} else {
 			return false;
 		}

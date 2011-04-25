@@ -110,7 +110,7 @@ class vscSimpleSqlModelA extends vscModelA implements vscDomainObjectI {
 
 	public function getIndexes ($bWithPrimaryKey = false) {}
 
-	public function setConnection (vscSqlDriverA $oConnection) {
+	public function setConnection (vscConnectionA $oConnection) {
 		$this->oConnection = $oConnection;
 	}
 //	abstract public function getDomainObjects();

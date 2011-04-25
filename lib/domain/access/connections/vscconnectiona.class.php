@@ -3,7 +3,7 @@
  * Pseudo interface to be implemented (ehm, inherited) by the rest
  * of the DB classes.
  */
-abstract class vscSqlDriverA extends vscObject {
+abstract class vscConnectionA extends vscObject {
 	public 		$conn,
 				$error,
 				$link;
@@ -13,7 +13,7 @@ abstract class vscSqlDriverA extends vscObject {
 	 * an unsupported DB_TYPE connection (usually because of a config error)
 	 *
 	 * TODO: this can be done more elegantly using an exception in the
-	 * 		 sqlFactory class
+	 * 		 vscConnectionFactory class
 	 *
 	 * @param string $dbHost
 	 * @param string $dbUser
@@ -43,7 +43,9 @@ abstract class vscSqlDriverA extends vscObject {
 
 	public function close () {}
 
-//	static public function isValid();
+	static public function isValid($oIncomingConnection) {
+		return ($oIncomingConnection instanceof static);
+	}
 
 	abstract public function startTransaction ($bAutoCommit = false);
 
