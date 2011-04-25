@@ -53,6 +53,7 @@ abstract class vscConnectionA extends vscObject {
 
 	abstract public function commitTransaction ();
 
+	/*/
 	abstract public function _SELECT($incObj);
 
 	abstract public function _DELETE($sIncName);
@@ -86,4 +87,5 @@ abstract class vscConnectionA extends vscObject {
 	abstract public function _WHERE ($clause);
 
 	abstract public function _NULL ($bIsNull = true);
+	/**/
 }

@@ -25,7 +25,7 @@ class nullSql extends vscConnectionA {
 	 * @param string $dbPass
 	 */
 	public function __construct( $dbHost = null, $dbUser = null, $dbPass = null ) {
-		throw new vscExceptionUnimplemented('This site has all database functionality disabled.<br/> Please check for configuration errors');
+		throw new vscExceptionUnimplemented('This site has all database functionality disabled.'.vsc::nl().' Please check for configuration errors.');
 	}
 
 	public function getType () {
@@ -37,7 +37,7 @@ class nullSql extends vscConnectionA {
 	public function getScalar () {}
 
 	public function startTransaction ($bAutoCommit = false) {}
-
+/*/
 	public function rollBackTransaction () {}
 
 	public function commitTransaction () {}
@@ -75,4 +75,5 @@ class nullSql extends vscConnectionA {
 	public function _WHERE ($clause) {}
 
 	public function _NULL ($bIsNull = true) {}
+/**/
 }
