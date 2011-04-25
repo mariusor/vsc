@@ -6,4 +6,4 @@
  * @date 09.04.29
  */
 import ('domain');
-class vscConnectionException extends vscExceptionDomain {}
+class vscExceptionConnection extends vscExceptionDomain {}

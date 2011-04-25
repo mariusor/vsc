@@ -368,7 +368,7 @@ class vscSqlAccess extends vscSqlAccessA {
 
 		// this allows to call the self::outputSelectSql function with the parameters received
 		// replaces the previous call : $this->outputSelectSql($aParameters); // where $aParameters was an array
-		$sSelect = $this->outputSelectSql($aParameters);
+		$sSelect = d($this->outputSelectSql($aParameters));
 
 		$iNumRows = $this->getConnection()->query($sSelect);
 
