@@ -8,7 +8,7 @@ define ('DB_PASS', 				'ASD');
 define ('DB_NAME', 				'b');
 
 import ('models/vsc');
-import ('models/sqldrivers');
+import ('models/connections');
 import ('exceptions');
 
 include_once ('fixtures/dummytable.class.php'); // the definition of the entity

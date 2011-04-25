@@ -3,7 +3,7 @@
  * Yo dawg I heard you like wrappers
  * so I put a wrapper for the MDB2 wrapper
  * @package ts_model
- * @subpackage sqldrivers
+ * @subpackage connections
  * @author Marius Orcsik <marius@habarnam.ro>
  * @date 09.04.27
  */
