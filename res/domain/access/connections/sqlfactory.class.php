@@ -37,14 +37,14 @@ class sqlFactory {
 				}
 			} else {
 				switch ($incString) {
-				case vscDbType::mysql:
+				case vscConnectionType::mysql:
 					self::$instance =  new mySqlIm ($dbHost, $dbUser, $dbPass, $dbName);
 					break;
-				case vscDbType::postgresql:
+				case vscConnectionType::postgresql:
 					self::$instance = new postgreSql ($dbHost, $dbUser, $dbPass, $dbName);
 					break;
-				case vscDbType::sqlite:
-				case vscDbType::mssql:
+				case vscConnectionType::sqlite:
+				case vscConnectionType::mssql:
 					self::$instance = new nullSql (); // Sql server not implemented
 					break;
 				}

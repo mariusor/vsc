@@ -215,7 +215,7 @@ class vscSqlAccess extends vscSqlAccessA {
 	 * @return string
 	 */
 	public function outputCreateTableSQL (vscDomainObjectI $oDomainObject) {
-		if ($this->getConnection()->getType() == vscDbType::mysql){
+		if ($this->getConnection()->getType() == vscConnectionType::mysql){
 			$bFullText = false;
 		}
 
@@ -233,10 +233,10 @@ class vscSqlAccess extends vscSqlAccessA {
 			foreach ($aIndexes as $oIndex) {
 				if (vscIndexA::isValid($oIndex)) {
 					// checking for fulltext indexes
-					if ($this->getConnection()->getType() == vscDbType::mysql && !$bFullText && vscKeyFullText::isValid($oIndex)){
+					if ($this->getConnection()->getType() == vscConnectionType::mysql && !$bFullText && vscKeyFullText::isValid($oIndex)){
 						$bFullText	= true;
 						$sEngine	= 'MyISAM';
-					} elseif ($this->getConnection()->getType() == vscDbType::mysql) {
+					} elseif ($this->getConnection()->getType() == vscConnectionType::mysql) {
 						$sEngine	= $this->getConnection()->getEngine();
 					}
 					// this needs to be replaced with connection functionality : something like getConstraint (type, columns)
@@ -249,7 +249,7 @@ class vscSqlAccess extends vscSqlAccessA {
 
 		$sRet.= "\n" . ' ) ';
 
-		if ($this->getConnection()->getType() == vscDbType::mysql) {
+		if ($this->getConnection()->getType() == vscConnectionType::mysql) {
 			$sRet.= ' ENGINE ' . $sEngine;
 		}
 

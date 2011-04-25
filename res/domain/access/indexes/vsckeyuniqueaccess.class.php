@@ -13,8 +13,8 @@ class vscKeyUniqueAccess extends vscSqlIndexAccessA {
 	public function getDefinition (vscIndexA $oIndex) {
 		// this is totally wrong for PostgreSQL
 		return	'UNIQUE ' .
-		($this->getConnection()->getType() != vscDbType::postgresql ? 'INDEX ' : '').
-		($this->getConnection()->getType() != vscDbType::postgresql ? $oIndex->getName() : '').
+		($this->getConnection()->getType() != vscConnectionType::postgresql ? 'INDEX ' : '').
+		($this->getConnection()->getType() != vscConnectionType::postgresql ? $oIndex->getName() : '').
 		' (' . $oIndex->getIndexComponents(). ')';
 	}
 }

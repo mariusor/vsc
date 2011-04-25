@@ -20,9 +20,9 @@ class vscFieldIntegerAccess extends vscSqlFieldAccessA {
 		// this is totally wrong for PostgreSQL
 
 		return	$this->getType($oField) .
-				($this->getConnection()->getType() != vscDbType::postgresql ? ($oField->getMaxLength() ? '(' . $oField->getMaxLength() . ')' : '') : '').
+				($this->getConnection()->getType() != vscConnectionType::postgresql ? ($oField->getMaxLength() ? '(' . $oField->getMaxLength() . ')' : '') : '').
 				($oField->getDefaultValue() !== null || (!$oField->getIsNullable()) ? $this->getConnection()->_NULL($oField->getIsNullable()) : '').
 				($oField->hasDefaultValue() ? ' DEFAULT ' . ($oField->getDefaultValue() === null ? $this->getConnection()->_NULL(true) : $oField->getDefaultValue()) : '').
-				($this->getConnection()->getType() != vscDbType::postgresql ? ($oField->getAutoIncrement() ? ' AUTO_INCREMENT' : '') : '');
+				($this->getConnection()->getType() != vscConnectionType::postgresql ? ($oField->getAutoIncrement() ? ' AUTO_INCREMENT' : '') : '');
 	}
 }

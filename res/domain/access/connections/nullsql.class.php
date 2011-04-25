@@ -29,7 +29,7 @@ class nullSql extends vscSqlDriverA {
 	}
 
 	public function getType () {
-		return vscDbType::nullsql;
+		return vscConnectionType::nullsql;
 	}
 
 	public function close () {}

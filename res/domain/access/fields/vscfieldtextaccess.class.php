@@ -24,7 +24,7 @@ class vscFieldTextAccess extends vscSqlFieldAccessA {
 		// this is totally wrong for PostgreSQL
 		return	$this->getType($oField) .
 				($this->getType($oField) != 'TEXT' ? ($oField->getMaxLength() ? '(' . $oField->getMaxLength() . ')' : '') : '' ).
-				($this->getConnection()->getType() != vscDbType::postgresql ? ($oField->getEncoding() ? ' CHARACTER SET ' . $oField->getEncoding() : '') : '') .
+				($this->getConnection()->getType() != vscConnectionType::postgresql ? ($oField->getEncoding() ? ' CHARACTER SET ' . $oField->getEncoding() : '') : '') .
 				($oField->getDefaultValue() !== null || (!$oField->getIsNullable()) ? $this->getConnection()->_NULL($oField->getIsNullable()) : '').
 				($oField->hasDefaultValue() ? ' DEFAULT ' . ($oField->getDefaultValue() === null ? $this->getConnection()->_NULL(true) : $oField->getDefaultValue()) : '');
 	}

@@ -79,7 +79,7 @@ class mySqlIm extends vscSqlDriverA {
 	}
 
 	public function getType () {
-		return vscDbType::mysql;
+		return vscConnectionType::mysql;
 	}
 
 	public function startTransaction ($bAutoCommit = false) {

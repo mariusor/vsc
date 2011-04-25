@@ -45,7 +45,7 @@ class postgreSql extends vscSqlDriverA {
 	}
 
 	public function getType () {
-		return vscDbType::postgresql;
+		return vscConnectionType::postgresql;
 	}
 
 
