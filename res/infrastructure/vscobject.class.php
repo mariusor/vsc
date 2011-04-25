@@ -37,4 +37,8 @@ abstract class vscObject {
 			return new vscNull();
 		}
 	}
+
+	static public function isValid ($oIncomingObject) {
+		return ($oIncomingObject instanceof static);
+	}
 }
