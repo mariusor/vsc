@@ -6,7 +6,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @version 0.0.1
  */
-import ('domain/access/sqldrivers');
+import ('domain/access/drivers');
 import ('domain/access/fields');
 import ('domain/access/indexes');
 import ('domain/domain/indexes');

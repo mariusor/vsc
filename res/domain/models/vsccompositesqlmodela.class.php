@@ -8,7 +8,7 @@
 
 import ('domain/domain');
 import ('domain/models');
-import ('domain/access/sqldrivers');
+import ('domain/access/drivers');
 
 abstract class vscCompositeSqlModelA extends vscSimpleSqlModelA implements vscCompositeDomainObjectI {
 	private $oConnection;
