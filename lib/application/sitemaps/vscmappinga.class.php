@@ -239,13 +239,13 @@ class vscMappingA extends vscObject {
 		if (!$sRegex) {
 			throw new vscExceptionSitemap ('An URI must be present.');
 		}
+		$sPath = str_replace(array('/','\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),$sPath);
+
 		if (vscSiteMapA::isValidObject ($sPath)) {
 			$sKey = $sRegex;
 			if (!is_array($this->aControllerMaps) || !key_exists($sKey, $this->aControllerMaps)) {
 				$oNewMap 	= new vscControllerMap($sPath, $sKey);
 				$oNewMap->setModuleMap($this);
-				//				$oNewMap->merge($this); //? ?
-				//				d ($this);
 
 				$this->aControllerMaps[$sKey] = $oNewMap;
 
