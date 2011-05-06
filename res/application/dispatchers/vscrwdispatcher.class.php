@@ -65,7 +65,7 @@ class vscRwDispatcher extends vscDispatcherA {
 
 		// merging all controller maps found in the processor map's parent modules
 		while ($oModuleMap instanceof vscMappingA) {
-			$aMaps = array_merge ($aMaps, $oModuleMap->getControllerMaps());
+			$aMaps = array_merge ($oModuleMap->getControllerMaps(), $aMaps);
 			$oModuleMap = $oModuleMap->getModuleMap();
 		}
 

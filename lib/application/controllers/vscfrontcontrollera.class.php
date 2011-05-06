@@ -23,7 +23,7 @@ abstract class vscFrontControllerA extends vscObject {
 		if ($this->oCurrentMap instanceof vscControllerMap) {
 			return $this->oCurrentMap;
 		} else {
-			throw new vscExceptionView ('Make sure the current map is correctly set.');
+			throw new vscExceptionView ('Make sure the current Controller map is correctly set.');
 		}
 	}
 
@@ -84,13 +84,16 @@ abstract class vscFrontControllerA extends vscObject {
 
 		/* @var $oMyMap vscControllerMap */
 		$oMyMap	= $this->getMap();
-		if (($oProcessor instanceof vscProcessorI)) {
-			/* @var $oMap vscMappingA */
+		if (($oProcessor instanceof vscProcessorA) && !($oProcessor instanceof vsc404Processor)) {
+			/* @var $oMap vscProcessorMap */
 			$oMap = $oProcessor->getMap()->merge($oMyMap);
 			$oProcessorResponse = $oMap->getResponse();
+
 			if ($oProcessorResponse instanceof vscHttpResponseA) {
 				$oResponse = $oProcessorResponse;
 			}
+		} else {
+			$oMap = $oMyMap;
 		}
 
 		// setting the processor map
