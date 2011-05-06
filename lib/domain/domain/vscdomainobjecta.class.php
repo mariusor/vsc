@@ -77,7 +77,7 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 	public function setTableAlias ($sAlias) {
 		$this->sTableAlias = $sAlias;
         foreach ($this->getFields() as $oField) {
-            $oField->setAlias($sAlias . '.' . $oField->getName());
+            $oField->setAlias($sAlias . '_' . $oField->getName());
         }
 	}
 
@@ -141,9 +141,9 @@ abstract class vscDomainObjectA extends vscModelA implements vscDomainObjectI {
 			$oIncField->setParent($this);
 			$oRef = new ReflectionProperty($this, $oIncField->getName());
 			$oRef->setValue($object, $oIncField);
-			
+
 			$oRef->setAccessible(false);
-		} 
+		}
 	}
 
 	protected function getField ($sName) {
