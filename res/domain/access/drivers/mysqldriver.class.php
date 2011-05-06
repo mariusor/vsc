@@ -55,10 +55,12 @@ class mySQLDriver extends SQLGenericDriver {
 	 * @return string
 	 */
 	public function _FROM ($incData){
-		if (empty ($incData))
-		return '';
-		if (is_array($incData))
-		$incData = implode(', ',$incData);
+		if (empty ($incData)) {
+			return '';
+		}
+		if (is_array($incData)) {
+			$incData = implode("\n".', ',$incData);
+		}
 
 		return ' FROM '.$incData.' ';
 	}
