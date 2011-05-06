@@ -6,30 +6,30 @@
  * @date 2010.06.01
  */
 class vscSqlClauseAccess extends vscObject {
-	private $oConnection;
+	private $oGrammarHelper;
 	/**
 	 * @param vscConnectionA $oConnection
 	 * @return void
 	 */
-	public function setConnection (vscConnectionA $oConnection) {
-		$this->oConnection = $oConnection;
+	public function setGrammarHelper ($oGrammarHelper) {
+		$this->oGrammarHelper = $oGrammarHelper;
 	}
 
 	/**
 	 * @return vscConnectionA
 	 */
 	public function getConnection () {
-		return $this->oConnection;
+		return $this->oGrammarHelper;
 	}
 
 
 	public function getDefinition (vscClause $oClause) {
-		if ($oClause->getSubject() === '1' || is_string($oClause->getSubject())) {
-			return (string)$oClause->getSubject();
+		if (is_string($oClause->getSubject())) {
+			return $oClause->getSubject();
 		} elseif ($oClause->getSubject() instanceof vscClause) {
-			$subStr = (string)$oClause->getSubject ();
-		} elseif ($oClause->getSubject() instanceof vscFieldA) {
-			$subStr =  ($oClause->getSubject()->getTableAlias() != 't' ?
+			$subStr = $this->getDefinition($oClause->getSubject ());
+		} elseif (vscFieldA::isValid($oClause->getSubject())) {
+			$subStr =  ($oClause->getSubject()->getTableAlias() ?
 				$this->getConnection()->FIELD_OPEN_QUOTE . $oClause->getSubject()->getTableAlias() . $this->getConnection()->FIELD_CLOSE_QUOTE . '.': '') .
 				$this->getConnection()->FIELD_OPEN_QUOTE . $oClause->getSubject()->getName() . $this->getConnection()->FIELD_CLOSE_QUOTE;
 		} else {

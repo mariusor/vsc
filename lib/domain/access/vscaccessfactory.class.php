@@ -6,6 +6,8 @@
  * @subpackage access
  * @author marius orcsik <marius@habarnam.ro>
  */
+
+import ('access/drivers');
 class vscAccessFactory extends vscObject {
 	 private $oConnection;
 
@@ -31,6 +33,22 @@ class vscAccessFactory extends vscObject {
 
 	 private $oJoinInner;
 	 private $oJoinOuter;
+
+	 public function getGrammarHelper (vscConnectionA  $oConnection) {
+	 	switch ($oConnection->getType()) {
+	 		case vscConnectionType::mysql:
+	 			return new mySQLDriver();
+	 			break;
+	 		case vscConnectionType::postgresql:
+	 			return new postgreSQLDriver();
+	 			break;
+	 		case vscConnectionType::sqlite:
+	 		case vscConnectionType::mssql:
+	 		case vscConnectionType::nullsql:
+	 			break;
+
+	 	}
+	 }
 
 	 public function getField (vscFieldA $oField) {
 		switch ($oField->getType()) {

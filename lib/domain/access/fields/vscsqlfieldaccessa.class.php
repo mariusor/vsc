@@ -5,7 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2010.05.29
  */
-abstract class vscSqlFieldAccessA extends vscObject {
+class vscSqlFieldAccessA extends vscObject {
 	private $oConnection;
 
 	public function setConnection (vscConnectionA $oConnection) {
