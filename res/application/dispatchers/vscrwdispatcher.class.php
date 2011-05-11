@@ -24,12 +24,12 @@ class vscRwDispatcher extends vscDispatcherA {
 		$aRegexes	= array_keys($aMaps);
 		$aMatches 	= array();
 
-		mb_internal_encoding('utf-8');
 		$sUri = $this->getRequest()->getUri(true); // get it as a urldecoded string
+		$aMatches = array();
 		foreach ($aRegexes as $sRegex) {
-			$sFullRegex = '#' . str_replace('#', '\#', $sRegex). '#i';
+			$sFullRegex = '#' . str_replace('#', '\#', $sRegex). '#iu'; // i for insensitive, u for utf8
 			try {
-				$iMatch			= preg_match ($sFullRegex,  $sUri, $aMatches);
+				$iMatch			= preg_match_all($sFullRegex,  $sUri, $aMatches, PREG_SET_ORDER);
 			} catch (vscExceptionError $e) {
 				$f = new vscExceptionError(
 					$e->getMessage(). '<br/> Offending regular expression: <span style="font-weight:normal">'. $sFullRegex . '</span>',
@@ -37,7 +37,9 @@ class vscRwDispatcher extends vscDispatcherA {
 				throw $f;
 			}
 			if ($iMatch) {
-				array_shift($aMatches);
+				$aMatches = array_shift($aMatches);
+				$aMatches = array_slice($aMatches, 1);
+
 				/* @var $oProcessorMapping vscMappingA */
 				$oProcessorMapping  = $aMaps[$sRegex];
 				$oProcessorMapping->setTaintedVars($aMatches);
@@ -45,7 +47,6 @@ class vscRwDispatcher extends vscDispatcherA {
 				return $oProcessorMapping;
 			}
 		}
-
 		return new vscNull();
 	}
 
@@ -61,15 +62,18 @@ class vscRwDispatcher extends vscDispatcherA {
 		$oCurrentModule = $this->getCurrentModuleMap();
 		$oProcessorMap	= $this->getCurrentProcessorMap();
 		$oModuleMap		= $oProcessorMap->getModuleMap();
-		$aMaps 			= $oProcessorMap->getControllerMaps();
+		$aMaps 			= $oModuleMap->getControllerMaps();
+
+		$oCurrentMap	= $this->getCurrentMap($aMaps);
 
 		// merging all controller maps found in the processor map's parent modules
-		while ($oModuleMap instanceof vscMappingA) {
-			$aMaps = array_merge ($aMaps, $oModuleMap->getControllerMaps());
+		while (!($oCurrentMap instanceof vscMappingA)) {
 			$oModuleMap = $oModuleMap->getModuleMap();
+			$aMaps = $oModuleMap->getControllerMaps();
+			$oCurrentMap= $this->getCurrentMap($aMaps);
 		}
 
-		return $this->getCurrentMap($aMaps);
+		return $oCurrentMap;
 	}
 
 	/**
@@ -79,7 +83,7 @@ class vscRwDispatcher extends vscDispatcherA {
 		if (!($this->oController instanceof vscFrontControllerA)) {
 			$oControllerMapping	= $this->getCurrentControllerMap();
 
-			if (!($oControllerMapping instanceof vscMappingA)) {
+			if (!($oControllerMapping instanceof vscControllerMap)) {
 				// this mainly means nothing was matched to our url, or no mappings exist
 				$oControllerMapping = new vscControllerMap(VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.class.php', '');
 			}
@@ -133,6 +137,7 @@ class vscRwDispatcher extends vscDispatcherA {
 							// ooopps
 						}
 					}
+
 					include ($sPath);
 
 					$sProcessorName = vscSiteMapA::getClassName($sPath);

@@ -10,7 +10,7 @@
 class vscMappingA extends vscObject {
 	private $sRegex;
 	private $sPath;
-
+	private $sTemplate;
 	/**
 	 * the local template path - will be used to compose something like
 	 * this->sViewPath . view->typeOfView . this->sTemplate
@@ -22,8 +22,6 @@ class vscMappingA extends vscObject {
 	private $sTitle;
 	private $aResources = array();
 	private $bIsStatic = false;
-
-	private $sTemplate;
 
 	private $aControllerMaps = array();
 
@@ -70,18 +68,23 @@ class vscMappingA extends vscObject {
 	 */
 	protected function mergePaths ($oMap) {
 		$sParentPath = $oMap->getTemplatePath();
-		if ($sParentPath) {
+		if (!is_null($sParentPath) && is_null($this->getTemplatePath())) {
 			$this->setTemplatePath($sParentPath);
 		}
 
-		if ($this instanceof vscContentTypeMappingI) {
-			$sParentMainPath = $oMap->getMainTemplatePath();
-			if (!empty($sParentMainPath)) {
-				$this->setMainTemplatePath($sParentMainPath);
+		$sParentTemplate = $oMap->getTemplate();
+		if (!is_null($sParentTemplate)  && is_null($this->getTemplate())) {
+			$this->setTemplate($sParentTemplate);
+		}
+
+		if (($this instanceof vscContentTypeMappingI) && ($oMap instanceof vscContentTypeMappingI)) {
+			$sParentMainTemplatePath = $oMap->getMainTemplatePath();
+			if (!is_null($sParentMainTemplatePath) && is_null($this->getMainTemplatePath())) {
+				$this->setMainTemplatePath($sParentMainTemplatePath);
 			}
-			$sParentTemplate = $oMap->getMainTemplate();
-			if (!empty($sParentTemplate)) {
-				$this->setMainTemplate($sParentTemplate);
+			$sParentMainTemplate = $oMap->getMainTemplate();
+			if (!is_null($sParentMainTemplate)  && is_null($this->getMainTemplate())) {
+				$this->setMainTemplate($sParentMainTemplate);
 			}
 		}
 	}
@@ -239,13 +242,14 @@ class vscMappingA extends vscObject {
 		if (!$sRegex) {
 			throw new vscExceptionSitemap ('An URI must be present.');
 		}
+		$sPath = str_replace(array('/','\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),$sPath);
+
 		if (vscSiteMapA::isValidObject ($sPath)) {
 			$sKey = $sRegex;
 			if (!is_array($this->aControllerMaps) || !key_exists($sKey, $this->aControllerMaps)) {
 				$oNewMap 	= new vscControllerMap($sPath, $sKey);
 				$oNewMap->setModuleMap($this);
-				//				$oNewMap->merge($this); //? ?
-				//				d ($this);
+				$oNewMap->merge($this);
 
 				$this->aControllerMaps[$sKey] = $oNewMap;
 

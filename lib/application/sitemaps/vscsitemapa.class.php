@@ -166,6 +166,7 @@ abstract class vscSiteMapA extends vscObject {
 			throw new vscExceptionSitemap ('The path associated with ['.$sRegex.'] can\'t be empty or an invalid file.');
 		}
 
+		$sPath = str_replace(array('/','\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),$sPath);
 		if (self::isValidMap ($sPath)) {
 			// Valid site map
 			return $this->addModuleMap($sRegex, $sPath);
