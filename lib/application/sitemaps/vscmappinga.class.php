@@ -10,7 +10,7 @@
 class vscMappingA extends vscObject {
 	private $sRegex;
 	private $sPath;
-
+	private $sTemplate;
 	/**
 	 * the local template path - will be used to compose something like
 	 * this->sViewPath . view->typeOfView . this->sTemplate
@@ -22,8 +22,6 @@ class vscMappingA extends vscObject {
 	private $sTitle;
 	private $aResources = array();
 	private $bIsStatic = false;
-
-	private $sTemplate;
 
 	private $aControllerMaps = array();
 
@@ -74,14 +72,22 @@ class vscMappingA extends vscObject {
 			$this->setTemplatePath($sParentPath);
 		}
 
-		if ($this instanceof vscContentTypeMappingI) {
-			$sParentMainPath = $oMap->getMainTemplatePath();
-			if (!empty($sParentMainPath)) {
-				$this->setMainTemplatePath($sParentMainPath);
+		if (($this instanceof vscContentTypeMappingI) && ($oMap instanceof vscContentTypeMappingI)) {
+			$sParentMainTemplatePath = $oMap->getMainTemplatePath();
+			if (!empty($sParentMainTemplatePath) && !$this->getMainTemplatePath()) {
+				$this->setMainTemplatePath($sParentMainTemplatePath);
 			}
-			$sParentTemplate = $oMap->getMainTemplate();
-			if (!empty($sParentTemplate)) {
-				$this->setMainTemplate($sParentTemplate);
+			$sParentMainTemplate = $oMap->getMainTemplate();
+			if (!empty($sParentMainTemplate)  && !$this->getMainTemplate()) {
+				$this->setMainTemplate($sParentMainTemplate);
+			}
+			$sParentTemplatePath = $oMap->getTemplatePath();
+			if (!empty($sParentTemplatePath) && !$this->getTemplatePath()) {
+				$this->setTemplatePath($sParentTemplatePath);
+			}
+			$sParentTemplate = $oMap->getTemplate();
+			if (!empty($sParentTemplate)  && !$this->getTemplate()) {
+				$this->setTemplate($sParentTemplate);
 			}
 		}
 	}
@@ -246,6 +252,7 @@ class vscMappingA extends vscObject {
 			if (!is_array($this->aControllerMaps) || !key_exists($sKey, $this->aControllerMaps)) {
 				$oNewMap 	= new vscControllerMap($sPath, $sKey);
 				$oNewMap->setModuleMap($this);
+				$oNewMap->merge($this);
 
 				$this->aControllerMaps[$sKey] = $oNewMap;
 

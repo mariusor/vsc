@@ -23,7 +23,7 @@ abstract class vscFrontControllerA extends vscObject {
 		if ($this->oCurrentMap instanceof vscControllerMap) {
 			return $this->oCurrentMap;
 		} else {
-			throw new vscExceptionView ('Make sure the current map is correctly set.');
+			throw new vscExceptionView ('Make sure the current Controller map is correctly set.');
 		}
 	}
 
@@ -43,6 +43,8 @@ abstract class vscFrontControllerA extends vscObject {
 	public function getResponse (vscHttpRequestA $oRequest, $oProcessor = null) {
 		$oResponse = new vscHttpGenericResponse();
 		$oModel = null;
+		/* @var $oMyMap vscControllerMap */
+		$oMyMap	= $this->getMap();
 
 		if (($oProcessor instanceof vscProcessorI)) {
 			try {
@@ -57,24 +59,29 @@ abstract class vscFrontControllerA extends vscObject {
 			} catch (vscExceptionResponseError $e) {
 				// we had error in the controller
 				// @todo make more error processors
-				$oProcessor = new vsc404Processor();
 				$oModel = new vscEmptyModel();
-				$oModel->setPageTitle('404 - Not Found');
+				$oProcessor = new vscErrorProcessor();
+
+				$aStatusList = $oResponse->getStatusList();
+				$oModel->setPageTitle($e->getErrorCode() . ' - ' . $aStatusList[$e->getErrorCode()]);
 				$oModel->setPageContent($e->getMessage());
 
 				// hardcoding the 404 replies
-				$this->getMap()->setMainTemplatePath(VSC_RES_PATH . 'templates');
-				$this->getMap()->setMainTemplate('404.php');
+				$oMyMap->setMainTemplatePath(VSC_RES_PATH . 'templates');
+				$oMyMap->setMainTemplate('main.php');
+
+				if (!$oMyMap->getTemplate()) {
+					$oMyMap->setTemplatePath (VSC_RES_PATH . 'templates');
+					$oMyMap->setTemplate ('404.php');
+				}
 			} catch (Exception $e) {
 				throw $e;
 			}
 		}
 
 		if (!($oProcessor instanceof vscErrorProcessorI)) {
-//			$oResponse = new vscHttpSuccess();
 			$oResponse->setStatus (200);
 		} else {
-//			$oResponse = new vscHttpClientError();
 			$oResponse->setStatus($oProcessor->getErrorCode());
 		}
 
@@ -82,21 +89,21 @@ abstract class vscFrontControllerA extends vscObject {
 		// this means that the developer needs to provide his own views
 		$oView	= $this->getView();
 
-		/* @var $oMyMap vscControllerMap */
-		$oMyMap	= $this->getMap();
-		if (($oProcessor instanceof vscProcessorI)) {
-			/* @var $oMap vscMappingA */
-			$oMap = $oProcessor->getMap()->merge($oMyMap);
+		if (($oProcessor instanceof vscProcessorA) && !($oProcessor instanceof vsc404Processor)) {
+			/* @var $oMap vscProcessorMap */
+			$oMap = $oProcessor->getMap();
+			$oMap->merge($oMyMap);
 			$oProcessorResponse = $oMap->getResponse();
+
 			if ($oProcessorResponse instanceof vscHttpResponseA) {
 				$oResponse = $oProcessorResponse;
 			}
+
+			// setting the processor map
+			$oView->setMap ($oMap);
 		}
 
-		// setting the processor map
-		$oView->setMap ($oMap);
-
-		if (!$oMap->isStatic() && ($oMyMap instanceof vscContentTypeMappingI)) {
+		if ((($oMap instanceof vscProcessorMap) && !$oMap->isStatic()) || ($oMyMap instanceof vscControllerMap)) {
 			$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . $oView->getViewFolder() . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
 		}
 

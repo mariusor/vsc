@@ -8,12 +8,8 @@
 
 class vscHttpGenericResponse extends vscHttpResponseA {
 	public function getOutput () {
-		if (
-			$this->getContentLength() == 0
-		) {
-			// I still have no fracking clue if this works
-			$this->sResponseBody = null;
-		};
+		$this->setTransferEncoding('identity');
+		$this->setContentLength(mb_strlen($this->sResponseBody, '8bit')); // getting the length in bytes - not characters
 
 		$this->outputHeaders ();
 

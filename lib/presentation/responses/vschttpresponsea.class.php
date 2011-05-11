@@ -37,6 +37,7 @@ abstract class vscHttpResponseA extends vscObject {
 	private $sETag;
 	private $sExpires;
 	private $sLastModified;
+	private $sTransferEncoding;
 	private $sLocation;
 
 	private $aHeaders;
@@ -155,6 +156,14 @@ abstract class vscHttpResponseA extends vscObject {
 	}
 
 	/**
+	* @param string $sValue
+	* @return void
+	*/
+	public function setTransferEncoding ($sValue){
+		$this->sTransferEncoding = $sValue;
+	}
+
+	/**
 	 * @param string $sValue
 	 * @return void
 	 */
@@ -249,6 +258,13 @@ abstract class vscHttpResponseA extends vscObject {
 	/**
 	 * @return string
 	 */
+	public function getTransferEncoding (){
+		return $this->sTransferEncoding;
+	}
+
+	/**
+	 * @return string
+	 */
 	public function getLastModified (){
 		return $this->sLastModified;
 	}
@@ -299,7 +315,7 @@ abstract class vscHttpResponseA extends vscObject {
 			header ('Content-Language:' . $sContentLanguage);
 		}
 		$iContentLength = $this->getContentLength();
-		if ($iContentLength) {
+		if ($iContentLength !== null) {
 			header ('Content-Length:' . $iContentLength);
 		}
 		$sContentLocation = $this->getContentLocation();
@@ -320,7 +336,11 @@ abstract class vscHttpResponseA extends vscObject {
 		}
 		$sETag = $this->getETag();
 		if ($sETag) {
-			header ('ETag: "' . $sETag . '"'); // the ETag is enclosed in quotes (i imagine it's because it might contain \r's ?)
+			header ('ETag: "' . $sETag . '"'); // the ETag is enclosed in quotes (i imagine it's because it might contain EOL's ?)
+		}
+		$sTransferEncoding = $this->getTransferEncoding();
+		if ($sTransferEncoding) {
+			header ('Transfer-Encoding:' . $sTransferEncoding);
 		}
 		$sExpires = $this->getExpires();
 		if ($sExpires) {
@@ -344,12 +364,10 @@ abstract class vscHttpResponseA extends vscObject {
 	public function setView (vscViewA $oView) {
 		$this->setContentType($oView->getContentType());
 		if (vsc::getHttpRequest()->isHead()) {
-			$this->setContentLength(0);
 			$this->sResponseBody = null;
 		} else {
 			$this->sResponseBody = $oView->getOutput();
-			$this->setContentLength(strlen($this->sResponseBody));
-			$this->setETag(substr(sha1($this->sResponseBody),0,7));
+			$this->setETag(substr(sha1($this->sResponseBody),0,8));
 		}
 	}
 

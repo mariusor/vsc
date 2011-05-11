@@ -1,6 +1,6 @@
 <?php
 import ('domain/models');
-class vsc404Processor extends vscProcessorA implements vscErrorProcessorI {
+class vscErrorProcessor extends vscProcessorA implements vscErrorProcessorI {
 
 	public function init () {}
 
