@@ -68,26 +68,23 @@ class vscMappingA extends vscObject {
 	 */
 	protected function mergePaths ($oMap) {
 		$sParentPath = $oMap->getTemplatePath();
-		if ($sParentPath) {
+		if (!is_null($sParentPath) && is_null($this->getTemplatePath())) {
 			$this->setTemplatePath($sParentPath);
+		}
+
+		$sParentTemplate = $oMap->getTemplate();
+		if (!is_null($sParentTemplate)  && is_null($this->getTemplate())) {
+			$this->setTemplate($sParentTemplate);
 		}
 
 		if (($this instanceof vscContentTypeMappingI) && ($oMap instanceof vscContentTypeMappingI)) {
 			$sParentMainTemplatePath = $oMap->getMainTemplatePath();
-			if (!empty($sParentMainTemplatePath) && !$this->getMainTemplatePath()) {
+			if (!is_null($sParentMainTemplatePath) && is_null($this->getMainTemplatePath())) {
 				$this->setMainTemplatePath($sParentMainTemplatePath);
 			}
 			$sParentMainTemplate = $oMap->getMainTemplate();
-			if (!empty($sParentMainTemplate)  && !$this->getMainTemplate()) {
+			if (!is_null($sParentMainTemplate)  && is_null($this->getMainTemplate())) {
 				$this->setMainTemplate($sParentMainTemplate);
-			}
-			$sParentTemplatePath = $oMap->getTemplatePath();
-			if (!empty($sParentTemplatePath) && !$this->getTemplatePath()) {
-				$this->setTemplatePath($sParentTemplatePath);
-			}
-			$sParentTemplate = $oMap->getTemplate();
-			if (!empty($sParentTemplate)  && !$this->getTemplate()) {
-				$this->setTemplate($sParentTemplate);
 			}
 		}
 	}
