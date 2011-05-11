@@ -62,15 +62,18 @@ class vscRwDispatcher extends vscDispatcherA {
 		$oCurrentModule = $this->getCurrentModuleMap();
 		$oProcessorMap	= $this->getCurrentProcessorMap();
 		$oModuleMap		= $oProcessorMap->getModuleMap();
-		$aMaps 			= $oProcessorMap->getControllerMaps();
+		$aMaps 			= $oModuleMap->getControllerMaps();
+
+		$oCurrentMap	= $this->getCurrentMap($aMaps);
 
 		// merging all controller maps found in the processor map's parent modules
-		while ($oModuleMap instanceof vscMappingA) {
-			$aMaps = array_merge ($oModuleMap->getControllerMaps(), $aMaps);
+		while (!($oCurrentMap instanceof vscMappingA)) {
 			$oModuleMap = $oModuleMap->getModuleMap();
+			$aMaps = $oModuleMap->getControllerMaps();
+			$oCurrentMap= $this->getCurrentMap($aMaps);
 		}
 
-		return $this->getCurrentMap($aMaps);
+		return $oCurrentMap;
 	}
 
 	/**
@@ -80,7 +83,7 @@ class vscRwDispatcher extends vscDispatcherA {
 		if (!($this->oController instanceof vscFrontControllerA)) {
 			$oControllerMapping	= $this->getCurrentControllerMap();
 
-			if (!($oControllerMapping instanceof vscMappingA)) {
+			if (!($oControllerMapping instanceof vscControllerMap)) {
 				// this mainly means nothing was matched to our url, or no mappings exist
 				$oControllerMapping = new vscControllerMap(VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.class.php', '');
 			}
@@ -134,6 +137,7 @@ class vscRwDispatcher extends vscDispatcherA {
 							// ooopps
 						}
 					}
+
 					include ($sPath);
 
 					$sProcessorName = vscSiteMapA::getClassName($sPath);
