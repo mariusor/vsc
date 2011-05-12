@@ -20,7 +20,7 @@ abstract class vscFrontControllerA extends vscObject {
 	 * @return vscControllerMap
 	 */
 	public function getMap () {
-		if ($this->oCurrentMap instanceof vscControllerMap) {
+		if (vscControllerMap::isValid($this->oCurrentMap )) {
 			return $this->oCurrentMap;
 		} else {
 			throw new vscExceptionView ('Make sure the current Controller map is correctly set.');
@@ -46,7 +46,8 @@ abstract class vscFrontControllerA extends vscObject {
 		/* @var $oMyMap vscControllerMap */
 		$oMyMap	= $this->getMap();
 
-		if (($oProcessor instanceof vscProcessorI)) {
+		if (vscProcessorA::isValid($oProcessor)) {
+
 			try {
 				$oProcessor->init();
 
@@ -79,7 +80,7 @@ abstract class vscFrontControllerA extends vscObject {
 			}
 		}
 
-		if (!($oProcessor instanceof vscErrorProcessorI)) {
+		if (!vscErrorProcessor::isValid($oProcessor)) {
 			$oResponse->setStatus (200);
 		} else {
 			$oResponse->setStatus($oProcessor->getErrorCode());
@@ -89,13 +90,13 @@ abstract class vscFrontControllerA extends vscObject {
 		// this means that the developer needs to provide his own views
 		$oView	= $this->getView();
 
-		if (($oProcessor instanceof vscProcessorA) && !($oProcessor instanceof vsc404Processor)) {
+		if (vscProcessorA::isValid($oProcessor) && !vscErrorProcessor::isValid($oProcessor)) {
 			/* @var $oMap vscProcessorMap */
 			$oMap = $oProcessor->getMap();
 			$oMap->merge($oMyMap);
 			$oProcessorResponse = $oMap->getResponse();
 
-			if ($oProcessorResponse instanceof vscHttpResponseA) {
+			if (vscHttpResponseA::isValid($oProcessorResponse)) {
 				$oResponse = $oProcessorResponse;
 			}
 
@@ -103,11 +104,11 @@ abstract class vscFrontControllerA extends vscObject {
 			$oView->setMap ($oMap);
 		}
 
-		if ((($oMap instanceof vscProcessorMap) && !$oMap->isStatic()) && ($oMyMap instanceof vscControllerMap)) {
+		if ((vscProcessorMap::isValid($oMap) && !$oMap->isStatic()) && vscControllerMap::isValid($oMyMap)) {
 			$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . $oView->getViewFolder() . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
 		}
 
-		if (!($oModel instanceof vscModelA)) {
+		if (!vscModelA::isValid($oModel)) {
 			$oModel = new vscEmptyModel();
 			if (!($oMap->getTitle())) {
 				$oModel->setPageTitle ('Warning');
@@ -130,7 +131,7 @@ abstract class vscFrontControllerA extends vscObject {
 
 	public function getView () {
 		$sViewPath = $this->getMap()->getViewPath();
-		if (!($this->oView instanceof vscViewA)) {
+		if (!vscViewA::isValid($this->oView)) {
 			if (is_null($sViewPath)) {
 				$this->oView = $this->getDefaultView();
 			} else {

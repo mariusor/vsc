@@ -32,14 +32,14 @@ abstract class vscSiteMapA extends vscObject {
 	public function addMap ($sRegex, $sPath) {
 		$oModuleMap = $this->getCurrentModuleMap();
 
-		if ($oModuleMap instanceof vscMappingA) {
+		if (vscMappingA::isValid($oModuleMap)) {
 			$sRegex = $oModuleMap->getRegex() . $sRegex;
 		}
 
 		if (!key_exists($sRegex, $this->aMaps)) {
 			$oNewMap 	= new vscProcessorMap($sPath, $sRegex);
 
-			if ($oModuleMap instanceof vscMappingA) {
+			if (vscMappingA::isValid($oModuleMap)) {
 				$oNewMap->merge($oModuleMap);
 				$oNewMap->setModuleMap($oModuleMap);
 			}
@@ -61,7 +61,7 @@ abstract class vscSiteMapA extends vscObject {
 		$oModuleMap	= $this->getCurrentModuleMap();
 
 		// setting the parent module map to the existing one
-		if ($oModuleMap instanceof vscMappingA) {
+		if (vscMappingA::isValid($oModuleMap)) {
 			$sRegex				= $oModuleMap->getRegex() . $sRegex;
 
 			$oNewModuleMap		= new vscModuleMap($sPath, $sRegex);
@@ -139,7 +139,7 @@ abstract class vscSiteMapA extends vscObject {
 	 * @return vscMappingA
 	 */
 	public function getCurrentModuleMap () {
-		if ($this->oCurrentModuleMap instanceof vscMappingA) {
+		if (vscMappingA::isValid($this->oCurrentModuleMap)) {
 			return $this->oCurrentModuleMap;
 		} else {
 			return new vscNull();
@@ -147,7 +147,7 @@ abstract class vscSiteMapA extends vscObject {
 	}
 
 	public function getParentModuleMap () {
-		if ($this->oCurrentModuleMap instanceof vscMappingA) {
+		if (vscMappingA::isValid($this->oCurrentModuleMap)) {
 			return $this->oCurrentModuleMap->getModuleMap();
 		}
 	}

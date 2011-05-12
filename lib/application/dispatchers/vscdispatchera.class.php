@@ -59,7 +59,7 @@ abstract class vscDispatcherA extends vscObject {
 	 * @return vscSiteMapA
 	 */
 	public function getSiteMap () {
-		if ($this->oSiteMap instanceof vscSiteMapA){
+		if (vscSiteMapA::isValid($this->oSiteMap )){
 			return $this->oSiteMap;
 		} else {
 			throw new vscExceptionSitemap ('No sitemap loaded.');
@@ -70,7 +70,7 @@ abstract class vscDispatcherA extends vscObject {
 	 * @return vscHttpRequestA
 	 */
 	public function getRequest () {
-		if (!($this->oRequest instanceof vscHttpRequestA))
+		if (!vscHttpRequestA::isValid($this->oRequest))
 			$this->oRequest = vsc::getHttpRequest();
 		return $this->oRequest;
 	}

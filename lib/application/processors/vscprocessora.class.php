@@ -14,7 +14,7 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 	 * @return vscProcessorMap
 	 */
 	public function getMap () {
-		if ($this->oCurrentMap instanceof vscMappingA) {
+		if (vscMappingA::isValid($this->oCurrentMap)) {
 			return $this->oCurrentMap;
 		} else {
 			throw new vscExceptionView ('Make sure the current map is correctly set.');
