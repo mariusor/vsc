@@ -191,7 +191,8 @@ abstract class vscModelA extends vscNull implements vscModelI {
 	public function toArray () {
 		$aProperties = $this->getProperties(true);
 		foreach ($aProperties as $sName => $oProperty) {
-			if ($oProperty instanceof vscModelA) {
+			if (vscModelA::isValid($oProperty)) {
+				/* @var $oProerty vscModelA */
 				$aRet[$sName] = $oProperty->toArray();
 			} elseif (is_array($oProperty) || is_scalar($oProperty)) {
 				$aRet[$sName] = $oProperty;
