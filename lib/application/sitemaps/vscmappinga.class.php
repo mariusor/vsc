@@ -90,7 +90,7 @@ class vscMappingA extends vscObject {
 	}
 
 	public function merge ($oMap = null) {
-		if ($oMap instanceof vscMappingA) {
+		if (vscMappingA::isValid($oMap)) {
 			$this->mergeResources ($oMap);
 			$this->mergePaths ($oMap);
 		}
@@ -129,7 +129,7 @@ class vscMappingA extends vscObject {
 	 * @return vscModuleMap
 	 */
 	public function getModuleMap () {
-		if ($this->oParentMap instanceof vscMappingA) {
+		if (vscMappingA::isValid($this->oParentMap)) {
 			return $this->oParentMap;
 		} else {
 			return new vscNull();

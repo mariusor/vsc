@@ -1,5 +1,5 @@
 <?php
-if ($model instanceof vscModelA) {
+if (vscModelA::isValid($model)) {
 	/* @var $this vscViewA */
 	foreach ($model->toArray() as $sName => $mValue) {
 		if (is_scalar($mValue)) {
@@ -10,7 +10,7 @@ if ($model instanceof vscModelA) {
 			$mValue = new vscArrayModel ($mValue);
 		}
 
-		if ($mValue instanceof vscModelA) {
+		if (vscModelA::isValid($mValue)) {
 			$this->setModel ($mValue);
 			echo '<li> <strong>'.(is_int($sName) ? '#' : '').$sName.'</strong> [' . get_class ($mValue) . '] '.(isset($mValue->length) ? ' (' . $mValue->length . ')' : '')."\n";
 			echo '<ul>'."\n";

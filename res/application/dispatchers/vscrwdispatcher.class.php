@@ -67,10 +67,10 @@ class vscRwDispatcher extends vscDispatcherA {
 		$oCurrentMap	= $this->getCurrentMap($aMaps);
 
 		// merging all controller maps found in the processor map's parent modules
-		while (!($oCurrentMap instanceof vscMappingA)) {
-			$oModuleMap = $oModuleMap->getModuleMap();
-			$aMaps = $oModuleMap->getControllerMaps();
-			$oCurrentMap= $this->getCurrentMap($aMaps);
+		while (!vscControllerMap::isValid($oCurrentMap)) {
+			$oModuleMap		= $oModuleMap->getModuleMap();
+			$aMaps			= $oModuleMap->getControllerMaps();
+			$oCurrentMap	= $this->getCurrentMap($aMaps);
 		}
 
 		return $oCurrentMap;
@@ -80,10 +80,10 @@ class vscRwDispatcher extends vscDispatcherA {
 	 * @return vscFrontControllerA
 	 */
 	public function getFrontController () {
-		if (!($this->oController instanceof vscFrontControllerA)) {
+		if (!vscFrontControllerA::isValid($this->oController)) {
 			$oControllerMapping	= $this->getCurrentControllerMap();
 
-			if (!($oControllerMapping instanceof vscControllerMap)) {
+			if (!vscControllerMap::isValid($oControllerMapping)) {
 				// this mainly means nothing was matched to our url, or no mappings exist
 				$oControllerMapping = new vscControllerMap(VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.class.php', '');
 			}
@@ -111,9 +111,9 @@ class vscRwDispatcher extends vscDispatcherA {
 	 * @return vscProcessorA
 	 */
 	public function getProcessController () {
-		if (!($this->oProcessor instanceof vscProcessorA)) {
+		if (!vscProcessorA::isValid($this->oProcessor)) {
 			$oProcessorMapping	= $this->getCurrentProcessorMap();
-			if ($oProcessorMapping instanceof vscNull) {
+			if (!vscProcessorMap::isValid($oProcessorMapping)) {
 				// this mainly means nothing was matched to our url, or no mappings exist, so we're falling back to 404
 				$oProcessorMapping	= new vscProcessorMap(VSC_RES_PATH . 'application/processors/vsc404processor.class.php', '');
 				$oProcessorMapping->setTemplatePath(VSC_RES_PATH . 'templates');

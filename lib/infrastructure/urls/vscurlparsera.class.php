@@ -1,5 +1,5 @@
 <?php
-class vscUrlParserA implements vscUrlParserI {
+class vscUrlParserA extends vscObject implements vscUrlParserI {
 	private $sUrl;
 	private $aComponents;
 

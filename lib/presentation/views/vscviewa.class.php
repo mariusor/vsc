@@ -42,7 +42,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	}
 
 	public function getTitle () {
-		if ($this->getModel() instanceof vscEmptyModel && $this->getModel()->getPageTitle() != '') {
+		if (vscEmptyModel::isValid($this->getModel()) && $this->getModel()->getPageTitle() != '') {
 			return  $this->getModel()->getPageTitle();
 		}
 
@@ -60,7 +60,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	 * @return vscMappingA
 	 */
 	public function getMap () {
-		if ($this->oCurrentMap instanceof vscMappingA) {
+		if (vscMappingA::isValid($this->oCurrentMap)) {
 			return $this->oCurrentMap;
 		} else {
 			throw new vscExceptionView ('Make sure the current map is correctly set.');
@@ -88,7 +88,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	 * @return vscModelA
 	 */
 	public function getModel () {
-		if ($this->oModel instanceof vscModelA) {
+		if (vscModelA::isValid($this->oModel)) {
 			return $this->oModel;
 		} else {
 			throw new vscExceptionView('The current model is invalid');
@@ -171,7 +171,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	 * @return  vscUrlRWParser
 	 */
 	static public function getUriParser () {
-		if (!(self::$oUriParser instanceof vscUrlParserA)) {
+		if (!vscUrlParserA::isValid(self::$oUriParser)) {
 			self::$oUriParser = new vscUrlRWParser();
 		}
 		return self::$oUriParser;

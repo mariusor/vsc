@@ -14,7 +14,7 @@ foreach ($aArray as $sName => $mValue) {
 		$mValue = new vscArrayModel ($mValue);
 	}
 
-	if ($mValue instanceof vscModelA) {
+	if (vscModelA::isValid($mValue)) {
 		$this->setModel ($mValue);
 		vscString::_echo ("\t", $GLOBALS['depth']);
 		echo '"'.$sName.'": ';

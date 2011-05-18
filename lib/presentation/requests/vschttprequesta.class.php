@@ -390,7 +390,7 @@ abstract class vscHttpRequestA extends vscObject {
 	}
 
 	public function getUriObject() {
-		if (!($this->oUri instanceof vscUrlRWParser)) {
+		if (!vscUrlRWParser::isValid($this->oUri)) {
 			$this->oUri = new vscUrlRWParser($this->getUri());
 		}
 		return $this->oUri;

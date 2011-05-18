@@ -9,7 +9,7 @@ foreach ($model->toArray() as $sName => $mValue) {
 		$mValue = new vscArrayModel ($mValue);
 	}
 
-	if ($mValue instanceof vscModelA) {
+	if (vscModelA::isValid($mValue)) {
 		$this->setModel ($mValue);
 		echo '<li> <strong>'.(is_int($sName) ? '#' : '').$sName.'</strong> [' . get_class ($mValue) . '] '.(isset($mValue->length) ? ' (' . $mValue->length . ')' : '')."\n";
 		echo '<ul>'."\n";
