@@ -22,16 +22,7 @@ abstract class vscSqlAccessA extends vscObject implements vscSqlAccessI {
 	 */
 	private $oDriver;
 
-	public function __construct () {
-		$this->setConnection(vscConnectionFactory::connect(
-			$this->getDatabaseType(),
-			$this->getDatabaseHost(),
-			$this->getDatabaseUser(),
-			$this->getDatabasePassword()
-		));
-
-		$this->getConnection()->selectDatabase($this->getDatabaseName());
-	}
+	public function __construct () {}
 
 	abstract public function getDatabaseType();
 	abstract public function getDatabaseHost();
@@ -51,8 +42,19 @@ abstract class vscSqlAccessA extends vscObject implements vscSqlAccessI {
 	 * @return vscConnectionA
 	 */
 	public function getConnection () {
-		if (!self::isValidConnection($this->oConnection))
-			throw new vscInvalidTypeException ('Could not establish a valid DB connection - current resource type [' . get_class ($this->oConnection) . ']');
+		if (!self::isValidConnection($this->oConnection)) {
+			$this->setConnection(vscConnectionFactory::connect(
+				$this->getDatabaseType(),
+				$this->getDatabaseHost(),
+				$this->getDatabaseUser(),
+				$this->getDatabasePassword()
+			));
+
+			$this->getConnection()->selectDatabase($this->getDatabaseName());
+			if (!self::isValidConnection($this->oConnection)) {
+				throw new vscInvalidTypeException ('Could not establish a valid DB connection - current resource type [' . get_class ($this->oConnection) . ']');
+			}
+		}
 		return $this->oConnection;
 	}
 
