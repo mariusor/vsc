@@ -9,7 +9,7 @@
 import (VSC_LIB_PATH . 'domain/access/indexes');
 
 class vscKeyFullTextAccess extends vscSqlIndexAccessA {
-    public function getType(vscIndexA $oIndex) {}
+	public function getType(vscIndexA $oIndex) {}
 
 	/**
 	 * @todo make sure we don't take into account this type of index for other than mysql with myIsam

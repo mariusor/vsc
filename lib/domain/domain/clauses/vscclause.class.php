@@ -8,7 +8,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2010.06.01
  */
-class vscClause {
+class vscClause extends vscObject {
 	private	$mSubject;
 	private	$sPredicate;
 	private	$mPredicative;

@@ -5,7 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.03.19
  */
-abstract class vscIndexA implements vscFieldI  {
+abstract class vscIndexA extends vscObject implements vscFieldI  {
 	protected $name;
 	protected $fields = array();
 
