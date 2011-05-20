@@ -242,28 +242,28 @@ class mySqlIm extends vscConnectionA {
 	}
 
 	public function startTransaction ($bAutoCommit = false) {
-	if ($this->getEngine() != 'InnoDB')
-	throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
+		if ($this->getEngine() != 'InnoDB')
+		throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
 
-	$sQuery = 'SET autocommit=' . ($bAutoCommit ? 1 : 0) . ';';
-	$this->query($sQuery);
-	$sQuery = 'START TRANSACTION;';
-			return $this->query($sQuery);
+		$sQuery = 'SET autocommit=' . ($bAutoCommit ? 1 : 0) . ';';
+		$this->query($sQuery);
+		$sQuery = 'START TRANSACTION;';
+				return $this->query($sQuery);
 	}
 
 	public function rollBackTransaction () {
-	if ($this->getEngine() != 'InnoDB')
-	throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
+		if ($this->getEngine() != 'InnoDB')
+		throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
 
-	$sQuery = 'ROLLBACK;';
-	return $this->query($sQuery);
+		$sQuery = 'ROLLBACK;';
+		return $this->query($sQuery);
 	}
 
 	public function commitTransaction () {
-	if ($this->getEngine() != 'InnoDB')
-	throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
+		if ($this->getEngine() != 'InnoDB')
+		throw new vscExceptionUnimplemented ('Unable to use transactions for the current MySQL engine ['.$this->getEngine().'].');
 
-	$sQuery = 'COMMIT;';
-			return $this->query($sQuery);
+		$sQuery = 'COMMIT;';
+				return $this->query($sQuery);
 	}
 }

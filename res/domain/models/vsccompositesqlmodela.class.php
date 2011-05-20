@@ -72,6 +72,7 @@ abstract class vscCompositeSqlModelA extends vscSimpleSqlModelA implements vscCo
 	abstract public function getDatabasePassword();
 	abstract public function getDatabaseName();
 	*/
+
 	public function addJoin (vscDomainObjectA $oRightObj, vscFieldA $oRightField, vscDomainObjectA $oLeftObj, vscFieldA $oLeftField) {
 		$oRightObj->setTableAlias('t1');
 		$oLeftObj->setTableAlias('t2');
@@ -150,5 +151,7 @@ abstract class vscCompositeSqlModelA extends vscSimpleSqlModelA implements vscCo
 
 		d ($a->outputSelectSql($this->getDomainObjects()));
 	}
+
+	public function getForeignKeys () {}
 }
 

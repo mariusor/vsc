@@ -7,6 +7,7 @@
  * @version 0.0.1
  */
 import ('domain/connections');
+import ('domain/access/drivers');
 import ('domain/access/fields');
 import ('domain/access/indexes');
 import ('domain/domain/indexes');
@@ -16,6 +17,10 @@ abstract class vscSqlAccessA extends vscObject implements vscSqlAccessI {
 	 * @var vscConnectionA
 	 */
 	private $oConnection;
+	/**
+	 * var sqlDriverA
+	 */
+	private $oDriver;
 
 	public function __construct () {
 		$this->setConnection(vscConnectionFactory::connect(
@@ -49,6 +54,25 @@ abstract class vscSqlAccessA extends vscObject implements vscSqlAccessI {
 		if (!self::isValidConnection($this->oConnection))
 			throw new vscInvalidTypeException ('Could not establish a valid DB connection - current resource type [' . get_class ($this->oConnection) . ']');
 		return $this->oConnection;
+	}
+
+	public function getDriver () {
+		if (!sqlDriverA::isValid($this->oDriver)) {
+			$iDatabaseType = $this->getDatabaseType();
+			switch ($iDatabaseType) {
+				case vscConnectionType::postgresql:
+					$this->oDriver = new postgreSQLDriver();
+					break;
+				case vscConnectionType::mysql:
+					$this->oDriver = new mySQLDriver();
+					break;
+				case vscConnectionType::sqlite:
+				default:
+					$this->oDriver = new SQLGenericDriver();
+					break;
+			}
+		}
+		return $this->oDriver;
 	}
 
 	static public function isValidConnection ($oConnection) {
