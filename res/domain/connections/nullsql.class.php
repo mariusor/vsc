@@ -5,13 +5,7 @@
  */
 class nullSql extends vscConnectionA {
 	public 		$conn,
-				$link,
-				$STRING_OPEN_QUOTE = '',
-				$STRING_CLOSE_QUOTE = '',
-				$FIELD_OPEN_QUOTE = '',
-				$FIELD_CLOSE_QUOTE = '',
-				$TRUE = '',
-				$FALSE = '';
+				$link;
 
 	/**
 	 * just a function to trigger an error in the eventuality of using
@@ -37,43 +31,4 @@ class nullSql extends vscConnectionA {
 	public function getScalar () {}
 
 	public function startTransaction ($bAutoCommit = false) {}
-/*/
-	public function rollBackTransaction () {}
-
-	public function commitTransaction () {}
-
-	public function _SELECT ($incObj){}
-
-	public function _DELETE($sIncName) {}
-
-	public function _CREATE ($sIncName){}
-
-	public function _SET(){}
-
-	public function _INSERT ($incData){}
-
-	public function _VALUES ($incData) {}
-
-	public function _UPDATE ($incOb){}
-
-	public function _FROM ($incData){}
-
-	public function _AND (){}
-
-	public function _OR (){}
-
-	public function _JOIN ($type) {}
-
-	public function _AS ($str){}
-
-	public function _LIMIT ($start, $end = 0){}
-
-	public function _GROUP ($incObj = null){}
-
-	public function _ORDER ($orderBys = null){}
-
-	public function _WHERE ($clause) {}
-
-	public function _NULL ($bIsNull = true) {}
-/**/
 }

@@ -2,10 +2,6 @@
 class postgreSql extends vscConnectionA {
 	public 		$conn,
 				$link;
-	private 	$name,
-				$host,
-				$user,
-				$pass;
 
 	static public function isValid ($oLink) {
 		return true;// ($oLink instanceof mysqli);
@@ -48,9 +44,9 @@ class postgreSql extends vscConnectionA {
 	 *
 	 * @return bool
 	 */
-	private function connect () {
+	private function connect ($dbHost = null, $dbUser = null, $dbPass = null , $dbName = null ) {
 		try {
-			$this->link	= pg_connect('host='.$this->host.' user='.$this->user.' password='.$this->pass . (!empty ($this->name) ? 'dbname='.$this->name : '' ));
+			$this->link	= pg_connect('host='.$dbHost.' user='. $dbUser.' password='.$dbPass . (!empty ($dbName) ? 'dbname='.$dbName : '' ));
 		} catch (ErrorException $e) {
 			$this->error = $e->getMessage();
 			trigger_error ($this->link->error, E_USER_ERROR);

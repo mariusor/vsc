@@ -18,35 +18,18 @@
 class mySql extends vscConnectionA {
 	public 		$conn,
 				$link;
-	private 	$name,
-				$host,
-				$user,
-				$pass;
 
 	public function __construct( $dbHost = null, $dbUser = null, $dbPass = null ){
-		if (!empty ($dbHost))
-			$this->host	= $dbHost;
-		elseif (defined('DB_HOST'))
-			$this->host	= DB_HOST;
-		else
+		if (empty ($dbHost)) {
 			trigger_error('Database connection data missing!', E_USER_ERROR);
+		}
 
-		if (!empty ($dbUser))
-			$this->user	= $dbUser;
-		elseif (defined('DB_USER'))
-			$this->user	= DB_USER;
-		else
+		if (empty ($dbUser)) {
 			trigger_error('Database connection data missing!', E_USER_ERROR);
+		}
 
-		if(!empty($dbPass))
-			$this->pass	= $dbPass;
-		elseif (defined('DB_PASS'))
-			$this->pass	= DB_PASS;
-		else
-			trigger_error('Database connection data missing!', E_USER_ERROR);
-
-		if (!empty($this->host) && !empty($this->user) && !empty($this->pass)) {
-			$this->connect();
+		if (!empty($dbHost) && !empty( $dbUser) && !empty($dbPass)) {
+			$this->connect($dbHost, $dbUser, $dbPass);
 		}
 	}
 
@@ -66,8 +49,8 @@ class mySql extends vscConnectionA {
 	 *
 	 * @return bool
 	 */
-	private function connect(){
-		$this->link	= mysql_connect($this->host, $this->user, $this->pass);
+	private function connect($dbHost = null, $dbUser = null, $dbPass = null){
+		$this->link	= mysql_connect($dbHost, $dbUser, $dbPass);
 		if(!self::isValidLink($this->link)) {
 			trigger_error(mysql_error(), E_USER_ERROR);
 			return false;

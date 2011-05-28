@@ -25,11 +25,7 @@ class mySqlIm extends vscConnectionA {
 	 * @var mysqli
 	 */
 	public		$link;
-	private 	$name,
-				$host,
-				$user,
-				$pass,
-				$iLastInsertId;
+	private 	$iLastInsertId;
 
 	private		$defaultSocketPath =  '/var/run/mysqld/mysqld.sock';
 
@@ -39,27 +35,18 @@ class mySqlIm extends vscConnectionA {
 
 	public function __construct( $dbHost = null, $dbUser = null, $dbPass = null, $dbName = null ){
 		if (!extension_loaded('mysqli')) {
-			//return new nullSql();
 			throw new vscExceptionConnection ('Database engine missing: mysqlim');
 		}
-		if (!empty ($dbHost)) {
-			$this->host	= $dbHost;
-		} else {
-
+		if (empty ($dbHost)) {
+			throw new vscExceptionConnection ('Database connection data missing: [DB_HOSTNAME]');
 		}
 
-		if (!empty ($dbUser)) {
-			$this->user	= $dbUser;
-		} else {
+		if (empty ($dbUser)) {
 			throw new vscExceptionConnection ('Database connection data missing: [DB_USERNAME]');
 		}
 
-		if(!empty($dbPass)) {
-			$this->pass	= $dbPass;
-		}
-
 		try {
-			$this->connect ();
+			$this->connect ($dbHost, $dbUser, $dbPass, $dbName);
 		} catch (vscExceptionConnection $e) {
 			throw $e;
 		} catch (Exception $e) {
@@ -80,8 +67,8 @@ class mySqlIm extends vscConnectionA {
 	 *
 	 * @return bool
 	 */
-	private function connect () {
-		$this->link	= new mysqli ($this->host, $this->user, $this->pass, $this->name, null, $this->defaultSocketPath);
+	private function connect ($dbHost = null, $dbUser = null, $dbPass = null, $dbName = null ) {
+		$this->link	= new mysqli ($dbHost, $dbUser, $dbPass, $dbName, null, $this->defaultSocketPath);
 		if (!empty($this->link->connect_errno)) {
 			$this->error = $this->link->connect_errno . ' ' . $this->link->connect_error;
 			throw new vscExceptionConnection('mysqli : ' . $this->error);
@@ -109,7 +96,6 @@ class mySqlIm extends vscConnectionA {
 	 * @return bool
 	 */
 	public function selectDatabase ($incData){
-		$this->name = $incData;
 		if (self::isValidLink($this->link) && $this->link->select_db($incData)) {
 			return true;
 		} else {
