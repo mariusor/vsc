@@ -106,7 +106,7 @@ class vscMappingA extends vscObject {
 	}
 
 	public function setTemplatePath ($sPath) {
-		(string)$this->sViewPath .= $sPath;
+		(string)$this->sViewPath = $sPath;
 	}
 
 	public function getTemplatePath () {

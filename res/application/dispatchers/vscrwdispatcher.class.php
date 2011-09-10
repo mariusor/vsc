@@ -40,11 +40,11 @@ class vscRwDispatcher extends vscDispatcherA {
 				$aMatches = array_shift($aMatches);
 				$aMatches = array_slice($aMatches, 1);
 
-				/* @var $oProcessorMapping vscMappingA */
-				$oProcessorMapping  = $aMaps[$sRegex];
-				$oProcessorMapping->setTaintedVars($aMatches);
-				$oProcessorMapping->setUrl ($sUri);
-				return $oProcessorMapping;
+				/* @var $oProcessorMap vscMappingA */
+				$oProcessorMap  = $aMaps[$sRegex];
+				$oProcessorMap->setTaintedVars($aMatches);
+				$oProcessorMap->setUrl ($sUri);
+				return $oProcessorMap;
 			}
 		}
 		return new vscNull();
@@ -112,24 +112,24 @@ class vscRwDispatcher extends vscDispatcherA {
 	 */
 	public function getProcessController () {
 		if (!vscProcessorA::isValid($this->oProcessor)) {
-			$oProcessorMapping	= $this->getCurrentProcessorMap();
-			if (!vscProcessorMap::isValid($oProcessorMapping)) {
+			$oProcessorMap	= $this->getCurrentProcessorMap();
+			if (!vscProcessorMap::isValid($oProcessorMap)) {
 				// this mainly means nothing was matched to our url, or no mappings exist, so we're falling back to 404
-				$oProcessorMapping	= new vscProcessorMap(VSC_RES_PATH . 'application/processors/vsc404processor.class.php', '');
-				$oProcessorMapping->setTemplatePath(VSC_RES_PATH . 'templates');
-				$oProcessorMapping->setTemplate('404.php');
+				$oProcessorMap	= new vscProcessorMap(VSC_RES_PATH . 'application/processors/vsc404processor.class.php', '');
+				$oProcessorMap->setTemplatePath(VSC_RES_PATH . 'templates');
+				$oProcessorMap->setTemplate('404.php');
 			}
 
-			$sPath = $oProcessorMapping->getPath();
+			$sPath = $oProcessorMap->getPath();
 
 			try {
 				if ($this->getSiteMap()->isValidObject ($sPath) ) {
 					// dirty import of the module folder and important subfolders
-					$sModuleName = $oProcessorMapping->getModuleName();
-					if (is_dir($oProcessorMapping->getModulePath()) && !$oProcessorMapping->isStatic()) {
-						import ($oProcessorMapping->getModulePath());
+					$sModuleName = $oProcessorMap->getModuleName();
+					if (is_dir($oProcessorMap->getModulePath()) && !$oProcessorMap->isStatic()) {
+						import ($oProcessorMap->getModulePath());
 						try {
-							import ($sModuleName);
+// 							import ($sModuleName);
 							import ('application');
 							import ('domain');
 							import ('presentation');
@@ -158,7 +158,7 @@ class vscRwDispatcher extends vscDispatcherA {
 				$sContent = $oResponse->outputHeaders();
 			}
 			// adding the map to the processor, allows it to easy add resources (styles,scripts) from inside it
-			$this->oProcessor->setMap ($oProcessorMapping);
+			$this->oProcessor->setMap ($oProcessorMap);
 
 			// setting the variables defined in the processor into the tainted variables
 			$this->getRequest()->setTaintedVars ($this->oProcessor->getLocalVars()); // FIXME!!!
@@ -189,8 +189,8 @@ class vscRwDispatcher extends vscDispatcherA {
 
 	public function getTemplatePath () {
 		$aMaps				= $this->getSiteMap ()->getMaps();
-		$oProcessorMapping	= $this->getCurrentMap($aMaps);
+		$oProcessorMap	= $this->getCurrentMap($aMaps);
 
-		return $oProcessorMapping->getTemplate();
+		return $oProcessorMap->getTemplate();
 	}
 }

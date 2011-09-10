@@ -114,7 +114,7 @@ function cleanBuffers ($iLevel = null) {
 function addPath ($pkgPath, $sIncludePath = null) {
 	// removing the trailing / if it exists
 	if (substr($pkgPath,-1) == DIRECTORY_SEPARATOR) {
-		$pkgPath = substr ($pkgPath,0, -1);
+		$pkgPath = substr ($pkgPath,0, -strlen (DIRECTORY_SEPARATOR));
 	}
 
 	if (is_null($sIncludePath)) {
@@ -144,7 +144,6 @@ function import ($sIncPath) {
 	$bStatus 	= false;
 	$sPkgLower 	= strtolower ($sIncPath);
 	$sIncludePath 	= get_include_path();
-
 
 	if (is_dir ($sIncPath)) {
 		return addPath ($sIncPath, $sIncludePath);

@@ -13,7 +13,6 @@ require (VSC_PATH . 'res'. DIRECTORY_SEPARATOR .'functions.inc.php');
 $sVersion = phpversion();
 $iMajorVersion = (int)substr($sVersion, 0, 1);
 $iMinorVersion = (int)substr($sVersion, 2, 1);
-
 if ($iMajorVersion < 5 || $iMinorVersion < 3) {
 	$sMessage = 'libVSC requires PHP version >= 5.3. Your current version is: ' . $sVersion;
 
@@ -21,7 +20,7 @@ if ($iMajorVersion < 5 || $iMinorVersion < 3) {
 } else {
 	import (VSC_LIB_PATH);
 	import (VSC_RES_PATH);
-	
+
 	// including the infrastructure folder
 	import (VSC_RES_PATH . 'infrastructure');
 	require ('vsc.class.php');
