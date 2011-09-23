@@ -196,18 +196,20 @@ class vscMappingA extends vscObject {
 	public function addLink ($sType, $aData) {
 		if (key_exists('href', $aData)) {
 			$oUrl = new vscUrlRWParser($aData['href']);
-			if ($oUrl->isLocal()) // I had a bad habit of correcting external URL's
-			$sPath = $oUrl->getCompleteUri(true);
-			else
-			$sPath = $aData['href'];
+			if ($oUrl->isLocal()) { // I had a bad habit of correcting external URL's
+				$sPath = $oUrl->getCompleteUri(true);
+			} else {
+				$sPath = $aData['href'];
+			}
 			$aData['href'] = $sPath;
 		}
 		if (key_exists('src', $aData)) {
 			$oUrl = new vscUrlRWParser($aData['src']);
-			if ($oUrl->isLocal()) // I had a bad habit of correcting external URL's
-			$sPath = $oUrl->getCompleteUri(true);
-			else
-			$sPath = $aData['src'];
+			if ($oUrl->isLocal()) { // I had a bad habit of correcting external URL's
+				$sPath = $oUrl->getCompleteUri(true);
+			} else {
+				$sPath = $aData['src'];
+			}
 			$aData['src'] = $sPath;
 		}
 		$this->aResources['links'][$sType][] = $aData;
