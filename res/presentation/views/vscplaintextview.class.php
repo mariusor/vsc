@@ -31,6 +31,10 @@ class vscPlainTextView extends vscViewA implements vscViewI {
 	public function fetch ($includePath) {
 		$oModel = $this->getModel();
 		/* @var $oModel vscStaticFileModel */
-		return $oModel->getFileContent();
+		if (vscStaticFileModel::isValid($oModel)) {
+			return $oModel->getFileContent();
+		} else {
+			return parent::fetch($includePath);
+		}
 	}
 }
