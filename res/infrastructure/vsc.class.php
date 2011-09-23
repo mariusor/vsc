@@ -48,7 +48,7 @@ class vsc extends vscObject {
 	}
 
 	public function isDevelopment () {
-		return true;
+		return (stristr($_SERVER['REMOTE_ADDR'], '127.0.0.1') != false);
 	}
 
 	/**
