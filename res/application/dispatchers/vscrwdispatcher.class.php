@@ -40,11 +40,12 @@ class vscRwDispatcher extends vscDispatcherA {
 				$aMatches = array_shift($aMatches);
 				$aMatches = array_slice($aMatches, 1);
 
-				/* @var $oProcessorMap vscMappingA */
-				$oProcessorMap  = $aMaps[$sRegex];
-				$oProcessorMap->setTaintedVars($aMatches);
-				$oProcessorMap->setUrl ($sUri);
-				return $oProcessorMap;
+				/* @var $oProcessorMapping vscMappingA */
+				$oProcessorMapping  = $aMaps[$sRegex];
+				$oProcessorMapping->setTaintedVars($aMatches);
+				$oProcessorMapping->setUrl ($sUri);
+				$oProcessorMapping->getModuleMap()->setUrl($sUri);
+				return $oProcessorMapping;
 			}
 		}
 		return new vscNull();
@@ -59,16 +60,26 @@ class vscRwDispatcher extends vscDispatcherA {
 	}
 
 	public function getCurrentControllerMap () {
-		$oCurrentModule = $this->getCurrentModuleMap();
 		$oProcessorMap	= $this->getCurrentProcessorMap();
-		$oModuleMap		= $oProcessorMap->getModuleMap();
-		$aMaps 			= $oModuleMap->getControllerMaps();
 
-		$oCurrentMap	= $this->getCurrentMap($aMaps);
+		// check if the current processor has some set maps
+		$aProcessorMaps = $oProcessorMap->getControllerMaps();
+		$oCurrentMap	= $this->getCurrentMap($aProcessorMaps);
+		if (vscControllerMap::isValid($oCurrentMap)){
+			return $oCurrentMap;
+		}
+
+		// check the current module for maps
+		$oCurrentModule = $this->getCurrentModuleMap();
+		$aModuleMaps 	= $oCurrentModule->getControllerMaps();
+		$oCurrentMap	= $this->getCurrentMap($aModuleMaps);
+		if (vscControllerMap::isValid($oCurrentMap)){
+			return $oCurrentMap;
+		}
 
 		// merging all controller maps found in the processor map's parent modules
 		while (!vscControllerMap::isValid($oCurrentMap)) {
-			$oModuleMap		= $oModuleMap->getModuleMap();
+			$oModuleMap		= $oCurrentModule->getModuleMap();
 			$aMaps			= $oModuleMap->getControllerMaps();
 			$oCurrentMap	= $this->getCurrentMap($aMaps);
 		}

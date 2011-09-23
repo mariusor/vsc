@@ -7,23 +7,7 @@
  */
 
 interface vscDomainObjectI {
-	/**
-	 * @param vscFieldA[] $aFields
-	 * @param string $sAlias
-	 * @return void
-	 */
-	public function addFields ($aFields, $sAlias);
-
-	/**
-	 * @param array $aIncField
-	 * @return void
-	 */
-	public function addField ($aIncField);
-
-	/**
-	 * @return vscFieldA[]
-	 */
-	public function getFields ();
+	public function getFields();
 
 	/**
 	 * gets all the column names as an array
@@ -31,7 +15,6 @@ interface vscDomainObjectI {
 	 */
 	public function getFieldNames ($bWithAlias = false);
 
-	public function addIndex (vscIndexA $oIndex);
 
 	public function getIndexes ($bWithPrimaryKey = false);
 }

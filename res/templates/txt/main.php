@@ -5,9 +5,9 @@ try {
 } catch (vscExceptionPath $e) {
 	// the template could not be found
 }
-	if (!empty($sContent)) {
-		echo $sContent;
-	} else {
-		echo $this->fetch(dirname(__FILE__) . '/content.php');
-	}
+if (!empty($sContent)) {
+	echo $sContent;
+} else {
+	echo $this->fetch(dirname(__FILE__) . '/content.php');
+}
 
