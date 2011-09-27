@@ -37,7 +37,6 @@ abstract class vscHttpResponseA extends vscObject {
 	private $sETag;
 	private $sExpires;
 	private $sLastModified;
-	private $sTransferEncoding;
 	private $sLocation;
 
 	private $aHeaders;
@@ -156,14 +155,6 @@ abstract class vscHttpResponseA extends vscObject {
 	}
 
 	/**
-	* @param string $sValue
-	* @return void
-	*/
-	public function setTransferEncoding ($sValue){
-		$this->sTransferEncoding = $sValue;
-	}
-
-	/**
 	 * @param string $sValue
 	 * @return void
 	 */
@@ -258,13 +249,6 @@ abstract class vscHttpResponseA extends vscObject {
 	/**
 	 * @return string
 	 */
-	public function getTransferEncoding (){
-		return $this->sTransferEncoding;
-	}
-
-	/**
-	 * @return string
-	 */
 	public function getLastModified (){
 		return $this->sLastModified;
 	}
@@ -337,10 +321,6 @@ abstract class vscHttpResponseA extends vscObject {
 		$sETag = $this->getETag();
 		if ($sETag) {
 			header ('ETag: "' . $sETag . '"'); // the ETag is enclosed in quotes (i imagine it's because it might contain EOL's ?)
-		}
-		$sTransferEncoding = $this->getTransferEncoding();
-		if ($sTransferEncoding) {
-			header ('Transfer-Encoding:' . $sTransferEncoding);
 		}
 		$sExpires = $this->getExpires();
 		if ($sExpires) {
