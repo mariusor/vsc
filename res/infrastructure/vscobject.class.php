@@ -16,7 +16,7 @@ abstract class vscObject {
 
 	static public function __callStatic ($sMethodName, $aVars) {
 		if (vsc::getEnv()->isDevelopment()) {
-			throw new vscExceptionUnimplemented ('Method [' . get_class($this) .'::' . $sMethodName .'] not implemented for calling statically.');
+			throw new vscExceptionUnimplemented ('Method [' . get_class() .'::' . $sMethodName .'] not implemented for calling statically.');
 		} else {
 			return new vscNull();
 		}
