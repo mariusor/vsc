@@ -29,6 +29,7 @@ function isCli () {
 	return (php_sapi_name() == 'cli');
 }
 
+if (!function_exists('d') ) {
 function d () {
 	$aRgs = func_get_args();
 	$iExit = 1;
@@ -47,7 +48,8 @@ function d () {
 		// maybe I should just output the whole array $aRgs
 		try {
 			var_dump($object);
-		}catch (Exception $e) {
+			if (isCli()) echo "\n\n";
+		} catch (Exception $e) {
 			//
 		}
 	}
@@ -59,7 +61,7 @@ function d () {
 	}
 	exit ();
 }
-
+}
 
 /**
  * the __autoload automagic function for class instantiation,

@@ -48,7 +48,10 @@ class vsc extends vscObject {
 	}
 
 	public function isDevelopment () {
-		return (stristr($_SERVER['REMOTE_ADDR'], '127.0.0.1') != false);
+        return (
+            stristr($_SERVER['REMOTE_ADDR'], '127.0.0.1') != false ||
+            stristr($_SERVER['REMOTE_ADDR'], '192.168') != false
+        );
 	}
 
 	/**
@@ -68,5 +71,39 @@ class vsc extends vscObject {
 	 */
 	static public function nl () {
 		return isCli() ? "\n" : '<br/>' . "\n";
+	}
+
+	static public function d () {
+		$aRgs = func_get_args();
+		$iExit = 1;
+
+		$output = '';
+		for ($i = 0; $i < ob_get_level(); $i++) {
+			// cleaning the buffers
+			ob_end_clean();
+		}
+
+		foreach ($aRgs as $object) {
+			// maybe I should just output the whole array $aRgs
+			try {
+				ob_start();
+				var_dump ($object);
+				$output = ob_get_clean();
+			} catch (Exception $e) {
+				//
+			}
+		}
+		ob_start();
+		debug_print_backtrace();
+
+		$output .= ob_get_clean();
+
+		if (!isCli() && self::getHttpRequest()->accepts('text/html')) {
+			echo '<pre>' . $output . '</pre>';
+		} else {
+			echo vscString::stripTags(vscString::br2nl($output));
+		}
+
+		exit ();
 	}
 }

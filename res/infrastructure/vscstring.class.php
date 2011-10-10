@@ -6,6 +6,10 @@
  */
 class vscString {
 
+	static function br2nl ($sString) {
+		return preg_replace('/<br\/?>/i', "\n", $sString);
+	}
+
 	static function stripTags ($sString) {
 		return preg_replace("/<[a-z\/\":=]*>/i", '', $sString);
 	}
