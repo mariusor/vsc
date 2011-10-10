@@ -50,11 +50,15 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 				$sFragment	= substr ($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'],'#'));
 			}
 		} else {
+			if (stristr($sUrl, 'http://')) {
+// 				if (stristr($sUrl, 'post.audioscrobbler.net')) d ($sUrl);
+				$sUrl = substr($sUrl, 7);
+			}
 			$iQPos = strpos($sUrl, '?');
 			if ($iQPos) {
 				// we have a query part
-				$sPath		= substr ($sUrl, 0 , strpos('?'));
-				$sQuery		= substr ($sUrl, strpos('?') + 1);
+				$sPath		= substr ($sUrl, 0 , strpos($sUrl, '?'));
+				$sQuery		= substr ($sUrl, strpos($sUrl, '?') + 1);
 			} else {
 				$sPath		= stristr($sUrl,'/');
 				$sQuery 	= '';
@@ -62,8 +66,6 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 			if (stristr($sUrl, '#')) {
 				$sFragment	= substr ($sUrl, strpos('#'));
 			}
-
-//			if (stristr($sUrl, 'index')) d ($sUrl, $sPath);
 		}
 
 		return array (
@@ -79,31 +81,31 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 
 	public function setUrl ($sUrl) {
 		$this->sUrl 		= $sUrl;
-		try {
-			$aParse = parse_url($sUrl);
-			if (is_array($aParse)) {
-				$this->aComponents  = array_merge(
-				array (
-			            'scheme'	=> (vsc::getHttpRequest()->isSecure() ? 'https' : 'http'),
-						'host'		=> '',
-						'user'		=> '',
-						'pass'		=> '',
-						'path'		=> '',
-						'query'		=> '',
-						'fragment'	=> ''
-				),
-				$aParse
-				);
-			} else {
-				import ('infrastructure');
-				throw new vscExceptionInfrastructure('URL ['. $sUrl . '] was not correctly parsed by parse_url');
-			}
-			$this->aComponents['query'] = self::parseQuery($this->aComponents['query']);
-		} catch (vscExceptionError $e) {
-			$this->aComponents  = self::parse_url ($sUrl);
-		} catch (vscExceptionInfrastructure $e) {
-			$this->aComponents  = self::parse_url ($sUrl);
-		}
+// 		try {
+// 			$aParse = parse_url($sUrl);
+// 			if (is_array($aParse)) {
+// 				$this->aComponents  = array_merge(
+// 					array (
+// 						'scheme'	=> (vsc::getHttpRequest()->isSecure() ? 'https' : 'http'),
+// 						'host'		=> '',
+// 						'user'		=> '',
+// 						'pass'		=> '',
+// 						'path'		=> '',
+// 						'query'		=> '',
+// 						'fragment'	=> ''
+// 					),
+// 					$aParse
+// 				);
+// 			} else {
+// 				throw new vscExceptionInfrastructure('URL ['. $sUrl . '] was not correctly parsed by parse_url');
+// 			}
+// 			$this->aComponents['query'] = self::parseQuery($this->aComponents['query']);
+// 		} catch (vscExceptionError $e) {
+// 			$this->aComponents  = self::parse_url ($sUrl);
+// 		} catch (vscExceptionInfrastructure $e) {
+// 			$this->aComponents  = self::parse_url ($sUrl);
+// 		}
+		$this->aComponents  = self::parse_url ($sUrl);
 	}
 
 	public function getScheme () {
@@ -122,6 +124,38 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 		return $this->aComponents['port'];
 	}
 
+	private function getSubdomainOf ($sRootDomain) {
+		$sHost = strtolower($this->aComponents['host']);
+		$sSubDomains = stristr ($sHost, '.' . $sRootDomain, true);
+
+		return $this->getTldOf($sSubDomains);
+	}
+
+	private function getTldOf ($sHost) {
+		if (!strrpos ($sHost, '.')) {
+			return $sHost;
+		} else {
+			return substr($sHost, strrpos ($sHost, '.') + 1);
+		}
+	}
+
+	public function getSubdomain () {
+		return $this->getSubdomainOf($this->getDomain());
+	}
+
+	public function getDomain () {
+		$sTld = $this->getTLD();
+		return $this->getSubdomainOf($sTld) . '.' . $sTld;
+	}
+
+	public function getTLD ($sString = null) {
+		return $this->getTldOf($this->aComponents['host']);
+	}
+
+	static public function getCurrentHostName () {
+		return $_SERVER['HTTP_HOST'];
+	}
+
 	public function getHost () {
 		return strtolower($this->aComponents['host']);
 	}
@@ -136,14 +170,14 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 				$sPath = substr ($sPath, 2);
 			}
 			try {
-                $sParentPath = substr (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), 0 , -1);
-                if (substr($sParentPath, -1) != '/') {
-                	$sParentPath .= '/';
-                }
-            } catch (vscExceptionError $e) {
-                $sParentPath = '';
-            }
-            $sPath = $sParentPath . $sPath;
+				$sParentPath = substr (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), 0 , -1);
+				if (substr($sParentPath, -1) != '/') {
+					$sParentPath .= '/';
+				}
+			} catch (vscExceptionError $e) {
+				$sParentPath = '';
+			}
+			$sPath = $sParentPath . $sPath;
 		}
 
 		// removing the folders from the path if there are parent references (../)
@@ -309,5 +343,10 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 	static public function hasGoodTermination ($sUri) {
 		// last element should be an / or in the last part after / there should be a .
 		return (substr($sUri, -1) == '/' || stristr(substr($sUri, strrpos($sUri, '/')), '.'));
+	}
+
+	public function changeSubdomain ($sNewSubdomain) {
+		$this->aComponents['host'] = str_ireplace($this->getSubdomain(), $sNewSubdomain, $this->aComponents['host']);
+		return $this->aComponents['host'];
 	}
 }

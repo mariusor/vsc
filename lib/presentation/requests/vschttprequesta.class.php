@@ -349,6 +349,10 @@ abstract class vscHttpRequestA extends vscObject {
 		return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on');
 	}
 
+	public function accepts ($sMimeType) {
+		return (in_array ($sMimeType, $this->aAccept));
+	}
+
 	/**
 	 * Returns the REQUEST_URI which is used to get the URL Rewrite variables
 	 * This will also remove the part of the path that is actually an existing path

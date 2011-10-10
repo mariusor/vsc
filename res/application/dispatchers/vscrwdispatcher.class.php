@@ -82,6 +82,7 @@ class vscRwDispatcher extends vscDispatcherA {
 			$oModuleMap		= $oCurrentModule->getModuleMap();
 			$aMaps			= $oModuleMap->getControllerMaps();
 			$oCurrentMap	= $this->getCurrentMap($aMaps);
+			if ($oCurrentMap instanceof vscObject) throw new vscExceptionController('No controller maps loaded.');
 		}
 
 		return $oCurrentMap;
