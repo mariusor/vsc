@@ -45,9 +45,10 @@ class vscArrayModel extends vscModelA {
 		//parent::__construct();
 	}
 
-	public function __get ($sIncName) {
-		if (isset($this->aContent[$sIncName]))
+	public function __get ($sIncName = null) {
+		if (!is_null($sIncName) && isset($this->aContent[$sIncName])) {
 			return $this->aContent[$sIncName];
+		}
 		parent::__get ($sIncName);
 	}
 
