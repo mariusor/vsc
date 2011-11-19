@@ -64,7 +64,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 				$sQuery 	= '';
 			}
 			if (stristr($sUrl, '#')) {
-				$sFragment	= substr ($sUrl, strpos('#'));
+				$sFragment	= substr ($sUrl, strpos($sUrl, '#'));
 			}
 		}
 
