@@ -82,7 +82,9 @@ class vscRwDispatcher extends vscDispatcherA {
 			$oModuleMap		= $oCurrentModule->getModuleMap();
 			$aMaps			= $oModuleMap->getControllerMaps();
 			$oCurrentMap	= $this->getCurrentMap($aMaps);
-			if ($oCurrentMap instanceof vscObject) throw new vscExceptionController('No controller maps loaded.');
+			if ($oCurrentMap instanceof vscNull) {
+				return $oCurrentMap;
+			}
 		}
 
 		return $oCurrentMap;
@@ -162,6 +164,16 @@ class vscRwDispatcher extends vscDispatcherA {
 				} /*else {
 					$this->oProcessor = new vsc404Processor();
 				}*/
+				if (vscProcessorA::isValid($this->oProcessor)) {
+					// adding the map to the processor, allows it to easy add resources (styles,scripts) from inside it
+					$this->oProcessor->setMap ($oProcessorMap);
+
+					// setting the variables defined in the processor into the tainted variables
+					$this->getRequest()->setTaintedVars ($this->oProcessor->getLocalVars()); // FIXME!!!
+				} else {
+					// broken URL
+					throw new vscExceptionResponseError('Broken URL', 400);
+				}
 			} catch  (vscExceptionResponseRedirect $e) {
 				// get the response
 				$oResponse 			= new vscHttpRedirection ();
@@ -169,11 +181,6 @@ class vscRwDispatcher extends vscDispatcherA {
 				ob_end_flush();
 				$sContent = $oResponse->outputHeaders();
 			}
-			// adding the map to the processor, allows it to easy add resources (styles,scripts) from inside it
-			$this->oProcessor->setMap ($oProcessorMap);
-
-			// setting the variables defined in the processor into the tainted variables
-			$this->getRequest()->setTaintedVars ($this->oProcessor->getLocalVars()); // FIXME!!!
 		}
 
 		return $this->oProcessor;
