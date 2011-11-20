@@ -4,6 +4,10 @@ class vscHttpResponseType {
 		return isset (static::$aStatus[$iStatus]) ?  static::$aStatus[$iStatus] : static::$aStatus[500];
 	}
 
+	public static function isValidStatus ($iStatus) {
+		return key_exists($iStatus, static::$aStatus);
+	}
+
 	private static $aStatus = array (
 		200 => '200 OK',
 		204 => '204 No Content',

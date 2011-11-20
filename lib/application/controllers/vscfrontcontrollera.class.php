@@ -83,7 +83,12 @@ abstract class vscFrontControllerA extends vscObject {
 		if (!vscErrorProcessor::isValid($oProcessor)) {
 			$oResponse->setStatus (200);
 		} else {
-			$oResponse->setStatus($oProcessor->getErrorCode());
+			$iCode = $oProcessor->getErrorCode();
+			if (vscHttpResponseType::isValidStatus($iCode)) {
+				$oResponse->setStatus($iCode);
+			} else {
+				$oResponse->setStatus(500);
+			}
 		}
 
 		// we didn't set any special view
