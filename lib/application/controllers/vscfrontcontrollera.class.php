@@ -90,7 +90,7 @@ abstract class vscFrontControllerA extends vscObject {
 		// this means that the developer needs to provide his own views
 		$oView	= $this->getView();
 
-		if (vscProcessorA::isValid($oProcessor) && !vscErrorProcessor::isValid($oProcessor)) {
+		if (vscProcessorA::isValid($oProcessor) /* && !vscErrorProcessor::isValid($oProcessor) */) {
 			/* @var $oMap vscProcessorMap */
 			$oMap = $oProcessor->getMap();
 			$oMap->merge($oMyMap);
@@ -104,7 +104,7 @@ abstract class vscFrontControllerA extends vscObject {
 			$oView->setMap ($oMap);
 		}
 
-		if ((vscProcessorMap::isValid($oMap) && !$oMap->isStatic()) && vscControllerMap::isValid($oMyMap)) {
+		if (isset($oMap) && (vscProcessorMap::isValid($oMap) && !$oMap->isStatic()) && vscControllerMap::isValid($oMyMap)) {
 			$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . $oView->getViewFolder() . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
 		}
 
