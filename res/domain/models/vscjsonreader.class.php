@@ -25,7 +25,7 @@ class vscJsonReader extends vscModelA {
 		return $this->sJsonString;
 	}
 
-	public function __get ($sIncName) {
+	public function __get ($sIncName = null) {
 		try {
 			$oProperty = new ReflectionProperty($this, $sIncName);
 			if ($oProperty->isPublic()) {
@@ -56,7 +56,7 @@ class vscJsonReader extends vscModelA {
 		return $this->oPayload;
 	}
 
-	public function getError ($iError) {
+	static public function getError ($iError) {
 		switch($iError) {
 		case JSON_ERROR_DEPTH:
 			$sLastError = 'Maximum stack depth exceeded';
@@ -83,7 +83,7 @@ class vscJsonReader extends vscModelA {
 				$this->addProperty ($sName, $oStd, true);
 			}
 		} else {
-			throw new vscExceptionDomain('The JSON string contains errors: [' . $this->getError($iLastError) . ']');
+			throw new vscExceptionDomain('The JSON string contains errors: [' . static::getError($iLastError) . ']');
 		}
 	}
 }
