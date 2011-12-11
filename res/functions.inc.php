@@ -83,11 +83,7 @@ function __autoload ($className) {
 	if (!$fileIncluded) {
 		$fileIncluded = include ($sFilePath);
 	}
-    if ( !$fileIncluded ||
-        (!in_array($className,get_declared_classes()) &&
-         !in_array($className,get_declared_interfaces())
-        )
-    ) {
+	if ( !$fileIncluded || ( !in_array ($className,get_declared_classes()) && !in_array($className,get_declared_interfaces() ) ) ) {
 		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexception.class.php');
 		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexceptionpath.class.php');
 		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexceptionautoload.class.php');
@@ -95,7 +91,7 @@ function __autoload ($className) {
 		$sExport = var_export(getPaths(),true);
 		throw new vscExceptionAutoload('Could not load class ['.$className.'] in path: <pre style="font-weight:normal">' . $sExport . '</pre>');
 	}
-    return true;
+	return true;
 }
 
 function getPaths () {
