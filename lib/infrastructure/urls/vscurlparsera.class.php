@@ -50,8 +50,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 				$sFragment	= substr ($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'],'#'));
 			}
 		} else {
-			if (stristr($sUrl, 'http://')) {
-// 				if (stristr($sUrl, 'post.audioscrobbler.net')) d ($sUrl);
+			if (stristr($sUrl, 'http://') || stristr($sUrl, 'https://')) {
 				$sUrl = substr($sUrl, 7);
 			}
 			$iQPos = strpos($sUrl, '?');
