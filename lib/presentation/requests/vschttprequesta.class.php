@@ -249,6 +249,28 @@ abstract class vscHttpRequestA extends vscObject {
 		return null;
 	}
 
+	public function hasGetVar ($sVarName) {
+		return key_exists($sVarName, $this->aGetVars);
+	}
+	public function hasPostVar ($sVarName) {
+		return key_exists($sVarName, $this->aPostVars);
+	}
+	public function hasSessionVar ($sVarName) {
+		return key_exists($sVarName, $this->aSessionVars);
+	}
+	public function hasCookieVar ($sVarName) {
+		return key_exists($sVarName, $this->aCookieVars);
+	}
+
+	public function hasVar($sVarName) {
+		return (
+			$this->hasGetVar($sVarName) ||
+			$this->hasPostVar($sVarName) ||
+			$this->hasSessionVar($sVarName) ||
+			$this->hasCookieVar($sVarName)
+		);
+	}
+
 	/**
 	 *
 	 * @param string $sVarName

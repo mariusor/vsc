@@ -279,7 +279,8 @@ abstract class vscHttpResponseA extends vscObject {
 		$sLocation = $this->getLocation();
 		if ($sLocation) {
 			header ('Location:' . $sLocation);
-			return; // end headers
+			die();
+			// end headers
 		}
 
 		$sCacheControl = $this->getCacheControl();
@@ -329,10 +330,6 @@ abstract class vscHttpResponseA extends vscObject {
 		$sLastModified = $this->getLastModified();
 		if ($sLastModified) {
 			header ('Last-Modified:' . $sLastModified);
-		}
-		$sLocation = $this->getLocation();
-		if ($sLocation) {
-			header ('Location:' . $sLocation);
 		}
 	}
 	protected $sResponseBody;
