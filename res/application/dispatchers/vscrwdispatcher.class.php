@@ -140,10 +140,10 @@ class vscRwDispatcher extends vscDispatcherA {
 				if ($this->getSiteMap()->isValidObject ($sPath) ) {
 					// dirty import of the module folder and important subfolders
 					$sModuleName = $oProcessorMap->getModuleName();
-					if (is_dir($oProcessorMap->getModulePath()) && !$oProcessorMap->isStatic()) {
+					if ( is_dir ($oProcessorMap->getModulePath()) && !$oProcessorMap->isStatic() ) {
 						import ($oProcessorMap->getModulePath());
 						try {
-// 							import ($sModuleName);
+//							import ($sModuleName);
 							import ('application');
 							import ('domain');
 							import ('presentation');
@@ -151,12 +151,14 @@ class vscRwDispatcher extends vscDispatcherA {
 							// ooopps
 						}
 					}
-
 					include ($sPath);
 
-					$sProcessorName = vscSiteMapA::getClassName($sPath);
-					/* @var $oProcessor vscProcessorA */
-					$this->oProcessor = new $sProcessorName();
+					try {
+						$sProcessorName = vscSiteMapA::getClassName($sPath);
+						$this->oProcessor = new $sProcessorName();
+					} catch (Exception $e) {
+						$this->oProcessor = new vscErrorProcessor($e);
+					}
 				} elseif ($this->getSiteMap()->isValidStatic ($sPath) ) {
 					// static stuff
 					$this->oProcessor = new vscStaticFileProcessor();
@@ -164,6 +166,7 @@ class vscRwDispatcher extends vscDispatcherA {
 				} /*else {
 					$this->oProcessor = new vsc404Processor();
 				}*/
+
 				if (vscProcessorA::isValid($this->oProcessor)) {
 					// adding the map to the processor, allows it to easy add resources (styles,scripts) from inside it
 					$this->oProcessor->setMap ($oProcessorMap);
@@ -176,7 +179,7 @@ class vscRwDispatcher extends vscDispatcherA {
 				}
 			} catch  (vscExceptionResponseRedirect $e) {
 				// get the response
-				$oResponse 			= new vscHttpRedirection ();
+				$oResponse 			= new vscHttpResponse ();
 				$oResponse->setLocation ($e->getLocation());
 				ob_end_flush();
 				$sContent = $oResponse->outputHeaders();

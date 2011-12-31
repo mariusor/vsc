@@ -3,17 +3,13 @@
  * @package vsc_presentation
  * @subpackage responses
  * @author marius orcsik <marius@habarnam.ro>
- * @date 09.08.30
+ * @date 2011.02.23
  */
-class vscHttpSuccess extends vscHttpResponseA {
-	protected $aStatusList = array (
-		200 => '200 OK',
-		204 => '204 No Content',
-		304 => '304 Not Modified',
-	);
 
+class vscHttpResponse extends vscHttpResponseA {
 	public function getOutput () {
 		$this->outputHeaders ();
+
 		return $this->sResponseBody;
 	}
 }

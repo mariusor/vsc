@@ -41,7 +41,7 @@ abstract class vscFrontControllerA extends vscObject {
 	 * @return vscHttpResponseA
 	 */
 	public function getResponse (vscHttpRequestA $oRequest, $oProcessor = null) {
-		$oResponse = new vscHttpGenericResponse();
+		$oResponse = new vscHttpResponse();
 		$oModel = null;
 		/* @var $oMyMap vscControllerMap */
 		$oMyMap	= $this->getMap();

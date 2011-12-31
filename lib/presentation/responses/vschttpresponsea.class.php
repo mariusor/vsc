@@ -48,7 +48,7 @@ abstract class vscHttpResponseA extends vscObject {
 //	private $sResponseBody;
 
 	public function setStatus ($iStatus) {
-		if (!key_exists ($iStatus, $this->aStatusList)){
+		if (!isset ($this->aStatusList[$iStatus])){
 			throw new vscExceptionResponse('[' . $iStatus . '] is not a valid ' . $this->getServerProtocol() . ' status');
 		}
 
