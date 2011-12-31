@@ -80,30 +80,6 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 
 	public function setUrl ($sUrl) {
 		$this->sUrl 		= $sUrl;
-// 		try {
-// 			$aParse = parse_url($sUrl);
-// 			if (is_array($aParse)) {
-// 				$this->aComponents  = array_merge(
-// 					array (
-// 						'scheme'	=> (vsc::getHttpRequest()->isSecure() ? 'https' : 'http'),
-// 						'host'		=> '',
-// 						'user'		=> '',
-// 						'pass'		=> '',
-// 						'path'		=> '',
-// 						'query'		=> '',
-// 						'fragment'	=> ''
-// 					),
-// 					$aParse
-// 				);
-// 			} else {
-// 				throw new vscExceptionInfrastructure('URL ['. $sUrl . '] was not correctly parsed by parse_url');
-// 			}
-// 			$this->aComponents['query'] = self::parseQuery($this->aComponents['query']);
-// 		} catch (vscExceptionError $e) {
-// 			$this->aComponents  = self::parse_url ($sUrl);
-// 		} catch (vscExceptionInfrastructure $e) {
-// 			$this->aComponents  = self::parse_url ($sUrl);
-// 		}
 		$this->aComponents  = self::parse_url ($sUrl);
 	}
 
@@ -214,6 +190,10 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 		return $sPath;
 	}
 
+	public function setPath ($sPath) {
+		$this->aComponents['path'] = $sPath;
+	}
+
 	public function getPath () {
 		return $this->getParentPath(0);
 	}
@@ -241,11 +221,15 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 		return $this->aComponents['query'];
 	}
 
+	public function setQueryParameters ($aInc) {
+		$this->aComponents['query'] = $aInc;
+	}
+
 	public function getQueryString () {
 		$aQuery = array ();
 		if (is_array($this->aComponents['query'])) {
 			foreach ($this->aComponents['query'] as $sParameterName => $sParameterValue) {
-				$aQuery[] = $sParameterName . '=' . $sParameterValue;
+				$aQuery[] = $sParameterName .( !empty ($sParameterValue) ?  '=' . $sParameterValue : '');
 			}
 
 			$sQuery = implode ('&', $aQuery);
