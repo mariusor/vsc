@@ -7,8 +7,6 @@ class vscExceptionResponseRedirect extends vscException {
 	public function __construct ($sLocation, $iCode = 302) {
 		$this->iHttpRedirectCode = $iCode;
 		$this->sLocation = $sLocation;
-
-		parent::__construct ($sLocation, $iCode);
 	}
 
 	public function getRedirectCode () {
