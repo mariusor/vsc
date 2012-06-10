@@ -6,8 +6,8 @@ $sEndKey = key ($aArray);
 foreach ($aArray as $sName => $mValue) {
 	if (is_scalar($mValue)) {
 		vscString::_echo ("\t", $GLOBALS['depth']);
-		echo '"' . $sName.'": ';
-		echo '"' . vscString::stripEntities($mValue). '"' . ($sName != $sEndKey ? ',' : '') . "\n";
+		if (!is_int($sName)) echo '"' . $sName.'": ';
+		echo '"' . vscString::stripEntities(str_replace('"','\"', $mValue)). '"' . ($sName != $sEndKey ? ',' : '') . "\n";
 
 		continue;
 	} /**/elseif (is_array($mValue)) {

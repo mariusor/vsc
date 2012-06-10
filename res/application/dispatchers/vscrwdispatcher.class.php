@@ -9,6 +9,7 @@
 import ('application/controllers');
 import ('application/processors');
 import ('presentation/responses');
+import ('domain/models');
 import ('exceptions');
 
 class vscRwDispatcher extends vscDispatcherA {
@@ -135,7 +136,6 @@ class vscRwDispatcher extends vscDispatcherA {
 			}
 
 			$sPath = $oProcessorMap->getPath();
-
 			try {
 				if ($this->getSiteMap()->isValidObject ($sPath) ) {
 					// dirty import of the module folder and important subfolders

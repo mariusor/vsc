@@ -106,7 +106,14 @@ class vscMappingA extends vscObject {
 	}
 
 	public function setTemplatePath ($sPath) {
-		(string)$this->sViewPath = $sPath;
+		if (!is_dir($sPath)) {
+			$sPath = $this->getModulePath() . $sPath;
+		}
+		if (!is_dir($sPath)) {
+			throw new vscExceptionSitemap('Template path is not valid.');
+		}
+
+		$this->sViewPath = $sPath;
 	}
 
 	public function getTemplatePath () {
@@ -184,7 +191,7 @@ class vscMappingA extends vscObject {
 		$oUrl = new vscUrlRWParser($sPath);
 		$iMainKey = (int)$bInHead; // [1] in the <head> section; [0] at the end of the *HTML document
 		if ($oUrl->isLocal()) // I had a bad habit of correcting external URL's
-		$sPath = $oUrl->getCompleteUri(true);
+			$sPath = $oUrl->getCompleteUri(true);
 		$this->aResources['scripts'][$iMainKey][] 		= $sPath;
 	}
 
@@ -357,6 +364,8 @@ class vscMappingA extends vscObject {
 
 		if ($bHaveMatch) {
 			return new vscUrlRWParser($aMatches[0]);
+		} else {
+			return new vscNull();
 		}
 	}
 }

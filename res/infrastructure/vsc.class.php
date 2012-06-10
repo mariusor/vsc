@@ -48,10 +48,10 @@ class vsc extends vscObject {
 	}
 
 	public function isDevelopment () {
-        return (
-            stristr($_SERVER['REMOTE_ADDR'], '127.0.0.1') != false ||
-            stristr($_SERVER['REMOTE_ADDR'], '192.168') != false
-        );
+		return (
+			stristr($_SERVER['REMOTE_ADDR'], '127.0.0.1') != false ||
+			stristr($_SERVER['REMOTE_ADDR'], '192.168') != false
+		);
 	}
 
 	/**
@@ -105,5 +105,9 @@ class vsc extends vscObject {
 		}
 
 		exit ();
+	}
+
+	static function getIncludePaths() {
+		return explode (PATH_SEPARATOR, get_include_path());
 	}
 }

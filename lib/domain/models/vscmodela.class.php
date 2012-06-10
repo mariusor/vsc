@@ -80,7 +80,7 @@ abstract class vscModelA extends vscNull implements vscModelI {
 		return count ($this->getPropertyNames());
 	}
 
-	public function __get ($sIncName = null) {
+	public function __get ($sIncName) {
 		try {
 			$oProperty = new ReflectionProperty($this, $sIncName);
 			if (!$oProperty->isPublic()) {

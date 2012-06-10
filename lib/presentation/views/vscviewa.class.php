@@ -106,7 +106,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 
 		ob_start ();
 		if (!is_file ($includePath)) {
-			$includePath = $this->getMap()->getTemplatePath() . DIRECTORY_SEPARATOR . $this->getViewFolder() . DIRECTORY_SEPARATOR . $includePath;
+			$includePath = $this->getTemplatePath() . DIRECTORY_SEPARATOR . $includePath;
 			if (!is_file ($includePath)) {
 				ob_end_clean();
 				throw new vscExceptionPath ('Template [' . $includePath . '] could not be located');
@@ -121,9 +121,9 @@ abstract class vscViewA extends vscObject implements vscViewI {
 				'view'		=> $this,
 				'helper'	=> $this->getMap(),
 				'request'	=> vsc::getHttpRequest()
-			)
+			),
+			EXTR_SKIP
 		);
-
 		// this automatically excludes templating errors: I'm not quite sure yet it's OK to do it
 		$bIncluded = include ($includePath);
 
@@ -140,20 +140,24 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	public function getOutput() {
 		try {
 			// by default try to load the main template
-    		return $this->fetch ( $this->getMainTemplate() );
+			return $this->fetch ( $this->getMainTemplate() );
 		} catch (vscExceptionPath $e) {
 			// if it fails, we load the regular template.
 			try {
-	    		return $this->fetch ($this->getMap()->getTemplatePath() . DIRECTORY_SEPARATOR . $this->getMap()->getTemplate());
+				return $this->fetch ($this->getTemplatePath() . DIRECTORY_SEPARATOR . $this->getMap()->getTemplate());
 			} catch (vscExceptionPath $e) {
 				return '';
 			}
 		}
-    }
+	}
+
+	public function getTemplatePath() {
+		return $this->getMap()->getTemplatePath() . DIRECTORY_SEPARATOR . $this->getViewFolder() . DIRECTORY_SEPARATOR;
+	}
 
 	public function getTemplate() {
 		try {
-    		return $this->getMap()->getTemplate();
+			return $this->getMap()->getTemplate();
 		} catch (vscExceptionView $e) {
 			return '';
 		}
@@ -161,7 +165,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 
 	public function setTemplate($sPath) {
 		try {
-    		$this->getMap()->setTemplate($sPath);
+			$this->getMap()->setTemplate($sPath);
 		} catch (vscExceptionView $e) {
 			//
 		}

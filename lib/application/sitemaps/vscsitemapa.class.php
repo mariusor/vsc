@@ -162,7 +162,13 @@ abstract class vscSiteMapA extends vscObject {
 		if ($sRegex === null) {
 			throw new vscExceptionSitemap ('A regex URI must be present.');
 		}
-		if (empty($sPath) || !is_file($sPath)) {
+		if (!empty($sPath)) {
+			if (!is_file($sPath)) {
+				$sPath = $this->getCurrentModuleMap()->getModulePath() . $sPath;
+			}
+		}
+
+		if (!is_file($sPath)) {
 			throw new vscExceptionSitemap ('The path associated with ['.$sRegex.'] can\'t be empty or an invalid file.');
 		}
 

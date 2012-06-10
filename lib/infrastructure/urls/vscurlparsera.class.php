@@ -174,6 +174,8 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 				}
 				unset ($aPath[$iPrevKey]);
 //				if ($iCnt == 1) d (array($iPrevKey=>$sPrev), array($iKey=>$sFolder));
+			} else {
+				//$aPath[$iKey] = rawurlencode($sFolder);
 			}
 		}
 
