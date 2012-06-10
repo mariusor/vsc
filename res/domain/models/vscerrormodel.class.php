@@ -10,7 +10,10 @@ class vscErrorModel extends vscEmptyModel {
 	}
 
 	public function getPageTitle () {
-		return vscHttpResponseType::getStatus($this->getException()->getCode());
+		$e = $this->getException();
+		if ($e instanceof Exception) {
+			return vscHttpResponseType::getStatus($e->getCode());
+		}
 	}
 
 	public function getPageContent () {

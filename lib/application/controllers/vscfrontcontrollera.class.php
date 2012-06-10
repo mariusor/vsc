@@ -47,7 +47,6 @@ abstract class vscFrontControllerA extends vscObject {
 		$oMyMap	= $this->getMap();
 
 		if (vscProcessorA::isValid($oProcessor)) {
-
 			try {
 				$oProcessor->init();
 
@@ -61,12 +60,7 @@ abstract class vscFrontControllerA extends vscObject {
 			} catch (vscExceptionResponseError $e) {
 				// we had error in the controller
 				// @todo make more error processors
-				$oModel = new vscEmptyModel();
-				$oProcessor = new vscErrorProcessor();
-
-				$aStatusList = $oResponse->getStatusList();
-				$oModel->setPageTitle($e->getErrorCode() . ' - ' . $aStatusList[$e->getErrorCode()]);
-				$oModel->setPageContent($e->getMessage());
+				$oProcessor = new vscErrorProcessor($e);
 
 				// hardcoding the 404 replies
 				$oMyMap->setMainTemplatePath(VSC_RES_PATH . 'templates');
@@ -80,16 +74,15 @@ abstract class vscFrontControllerA extends vscObject {
 				throw $e;
 			}
 		}
-
-		if (!vscErrorProcessor::isValid($oProcessor)) {
-			$oResponse->setStatus (200);
-		} else {
+		if (vscErrorProcessor::isValid($oProcessor)) {
 			$iCode = $oProcessor->getErrorCode();
 			if (vscHttpResponseType::isValidStatus($iCode)) {
 				$oResponse->setStatus($iCode);
 			} else {
 				$oResponse->setStatus(500);
 			}
+		} else {
+			$oResponse->setStatus (200);
 		}
 
 		// we didn't set any special view
