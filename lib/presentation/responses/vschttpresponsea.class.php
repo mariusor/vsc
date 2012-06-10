@@ -45,7 +45,7 @@ abstract class vscHttpResponseA extends vscObject {
 		return $this->aStatusList;
 	}
 
-//	private $sResponseBody;
+	private $oView;
 
 	public function setStatus ($iStatus) {
 		if (!isset ($this->aStatusList[$iStatus])){
@@ -279,7 +279,7 @@ abstract class vscHttpResponseA extends vscObject {
 		$sLocation = $this->getLocation();
 		if ($sLocation) {
 			header ('Location:' . $sLocation);
-			die();
+			return;
 			// end headers
 		}
 
@@ -332,21 +332,23 @@ abstract class vscHttpResponseA extends vscObject {
 			header ('Last-Modified:' . $sLastModified);
 		}
 	}
-	protected $sResponseBody;
 
 	/**
 	 * @param $oBody vscViewA
 	 * @return string
 	 */
 	public function setView (vscViewA $oView) {
-		$this->setContentType($oView->getContentType());
-		if (vsc::getHttpRequest()->isHead()) {
-			$this->sResponseBody = null;
-		} else {
-			$this->sResponseBody = $oView->getOutput();
-			$this->setETag(substr(sha1($this->sResponseBody),0,8));
-		}
+		$this->oView = $oView;
 	}
 
-	abstract public function getOutput();
+	public function getOutput() {
+		$this->setContentType($this->oView->getContentType());
+
+		if (vsc::getHttpRequest()->isHead() || $this->getStatus() == 304) {
+			$sResponseBody = null;
+		} else {
+			$sResponseBody = $this->oView->getOutput();
+		}
+		return $sResponseBody;
+	}
 }

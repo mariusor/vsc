@@ -8,8 +8,10 @@
 
 class vscHttpResponse extends vscHttpResponseA {
 	public function getOutput () {
+		$sBody = parent::getOutput();
+
 		$this->outputHeaders ();
 
-		return $this->sResponseBody;
+		return $sBody;
 	}
 }
