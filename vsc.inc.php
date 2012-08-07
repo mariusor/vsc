@@ -3,10 +3,6 @@ if (!defined ('VSC_PATH')) {
 	define ('VSC_PATH', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 }
 
-if (!defined ('ROOT_MAIL')) {
-	define ('ROOT_MAIL', 'root@' . $_SERVER['HTTP_HOST']);
-}
-
 require (VSC_PATH . 'res'. DIRECTORY_SEPARATOR .'config.inc.php');
 require (VSC_PATH . 'res'. DIRECTORY_SEPARATOR .'functions.inc.php');
 
@@ -24,4 +20,11 @@ if ($iMajorVersion < 5 || $iMinorVersion < 3) {
 	// including the infrastructure folder
 	import (VSC_RES_PATH . 'infrastructure');
 	require ('vsc.class.php');
+}
+if (!defined ('ROOT_MAIL')) {
+	if (!isCli()) {
+		define ('ROOT_MAIL', 'root@' . $_SERVER['HTTP_HOST']);
+	} else {
+		define ('ROOT_MAIL', 'root@localhost');
+	}
 }
