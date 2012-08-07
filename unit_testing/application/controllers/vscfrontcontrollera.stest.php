@@ -4,10 +4,10 @@ import ('presentation/responses');
 import ('presentation/requests');
 import ('presentation/sitemaps');
 
-class vscRssFrontControllerTest extends Snap_UnitTestCase {
-	private $state;
+class vscFrontControllerATest extends Snap_UnitTestCase  {
+private $state;
 	public function setUp () {
-		$this->state = new vscRssController();
+		$this->state = new vscGenericFrontController();
 	}
 
 	public function tearDown () {

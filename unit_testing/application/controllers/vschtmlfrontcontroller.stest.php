@@ -2,6 +2,7 @@
 import ('res/application/controllers');
 import ('presentation/responses');
 import ('presentation/requests');
+import ('presentation/sitemaps');
 
 class vscHtmlFrontControllerTest extends Snap_UnitTestCase  {
 private $state;
