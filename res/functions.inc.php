@@ -67,7 +67,7 @@ function d () {
  * the __autoload automagic function for class instantiation,
  * @param string $className
  */
-function __autoload ($className) {
+function loadClass ($className) {
 	if (class_exists ($className, false)) {
 		return true;
 	}

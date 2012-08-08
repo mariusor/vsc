@@ -7,3 +7,7 @@ if (!defined ('VSC_RES_PATH'))
 
 if (!defined ('VSC_TEST_PATH'))
 	define ('VSC_TEST_PATH', VSC_PATH . 'unit_testing' . DIRECTORY_SEPARATOR);
+
+spl_autoload_register(function ($className) {
+	loadClass($className);
+});
