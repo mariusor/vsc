@@ -46,6 +46,12 @@ class vsc extends vscObject {
 		}
 	}
 
+	static public function setInstance ($vscObject) {
+		if ($vscObject instanceof self) {
+			self::$oInstance = $vscObject;
+		}
+	}
+	
 	/**
 	 * @return vscHttpRequestA
 	 */
