@@ -196,6 +196,8 @@ abstract class vscModelA extends vscNull implements vscModelI {
 				$aRet[$sName] = $oProperty->toArray();
 			} elseif (is_array($oProperty) || is_scalar($oProperty)) {
 				$aRet[$sName] = $oProperty;
+			} elseif (is_null ($oProperty)) {
+				$aRet[$sName] = $oProperty;
 			} else {
 				$aRet[$sName] = var_export($oProperty,true);
 			}
