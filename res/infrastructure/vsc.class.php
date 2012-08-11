@@ -8,49 +8,63 @@ import ('presentation/requests');
 import ('application/dispatchers');
 import (dirname(__FILE__));
 class vsc extends vscObject {
+	/**
+	 * @var vsc
+	 */
 	static private $oInstance;
+
 	/**
 	 * @var vscHttpRequestA
 	 */
-	static private $oRequest;
+	private $oRequest;
 
 	/**
 	 * @var vscDispatcherA
 	 */
-	static private $oDispatcher;
-
-	/**
-	 * @return vscHttpRequestA
-	 */
-	static public function getHttpRequest () {
-		if (!vscHttpRequestA::isValid(self::$oRequest)){
-			self::$oRequest = new vscRwHttpRequest();
-		}
-
-		return self::$oRequest;
-	}
+	private $oDispatcher;
 
 	static public function setInstance ($vscObject) {
 		if ($vscObject instanceof self) {
 			self::$oInstance = $vscObject;
 		}
 	}
-	
-	/**
-	 * @return vscHttpDispatcherA
-	 */
-	static public function getDispatcher () {
-		if (!vscDispatcherA::isValid(self::$oDispatcher)){
-			self::$oDispatcher = new vscRwDispatcher();
-		}
-		return self::$oDispatcher;
-	}
+
 
 	static public function getEnv () {
 		if (!(self::isValid(self::$oInstance))) {
-			self::$oInstance = new self();
+			self::$oInstance = new static();
 		}
 		return self::$oInstance;
+	}
+
+	/**
+	 * @param $oRequest vscHttpRequestA
+	 */
+	public function setHttpRequest (vscHttpRequestA $oRequest) {
+		if (!vscHttpRequestA::isValid($oRequest)){
+			$this->oRequest = $oRequest;
+		}
+	}
+
+	/**
+	 * @return vscHttpRequestA
+	 */
+	public function getHttpRequest () {
+		if (!vscHttpRequestA::isValid($this->oRequest)){
+			$this->oRequest = new vscRwHttpRequest();
+		}
+
+		return $this->oRequest;
+	}
+
+	/**
+	 * @return vscHttpDispatcherA
+	 */
+	public function getDispatcher () {
+		if (!vscDispatcherA::isValid($this->oDispatcher)){
+			$this->oDispatcher = new vscRwDispatcher();
+		}
+		return $this->oDispatcher;
 	}
 
 	public function isDevelopment () {

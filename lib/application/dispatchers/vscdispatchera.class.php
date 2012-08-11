@@ -71,7 +71,7 @@ abstract class vscDispatcherA extends vscObject {
 	 */
 	public function getRequest () {
 		if (!vscHttpRequestA::isValid($this->oRequest))
-			$this->oRequest = vsc::getHttpRequest();
+			$this->oRequest = vsc::getEnv()->getHttpRequest();
 		return $this->oRequest;
 	}
 

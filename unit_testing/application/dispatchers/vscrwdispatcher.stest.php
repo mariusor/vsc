@@ -10,7 +10,7 @@ class vscRwDispatcherTest  extends Snap_UnitTestCase {
 	}
 	public function tearDown () {
 		$this->state = null;
-		
+
 	}
 
 	public function testLoadSiteMap () {
@@ -22,7 +22,7 @@ class vscRwDispatcherTest  extends Snap_UnitTestCase {
 		$oReq = $this->state->getRequest();
 
 		import ('application');
-		$oBlaReq = vsc::getHttpRequest();
+		$oBlaReq = vsc::getEnv()->getHttpRequest();
 
 		return $this->assertIdentical ($oReq, $oBlaReq);
 	}
@@ -40,7 +40,7 @@ class vscRwDispatcherTest  extends Snap_UnitTestCase {
 		$this->state->loadSiteMap (BASE_PATH . '/config/map.php');
 
 		$oProcess = $this->state->getProcessController();
-		
+
 		return $this->assertIsA($oProcess, 'vsc404Processor');
 	}
 

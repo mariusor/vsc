@@ -120,7 +120,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 				'model' 	=> $this->getModel(),
 				'view'		=> $this,
 				'helper'	=> $this->getMap(),
-				'request'	=> vsc::getHttpRequest()
+				'request'	=> vsc::getEnv()->getHttpRequest()
 			),
 			EXTR_SKIP
 		);

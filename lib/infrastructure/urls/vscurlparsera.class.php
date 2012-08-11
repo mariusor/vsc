@@ -68,8 +68,8 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 		}
 
 		return array (
-			'scheme'	=> (vsc::getHttpRequest()->isSecure() ? 'https' : 'http'),
-			'host'		=> (vsc::getHttpRequest()->getServerName()),
+			'scheme'	=> (vsc::getEnv()->getHttpRequest()->isSecure() ? 'https' : 'http'),
+			'host'		=> (vsc::getEnv()->getHttpRequest()->getServerName()),
 			'user'		=> '',
 			'pass'		=> '',
 			'path'		=> $sPath,
