@@ -5,6 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.30
  */
+import ('presentation/views');
 abstract class vscHttpResponseA extends vscObject {
 	protected $aStatusList = array(
 		200 => '200 OK',
@@ -54,6 +55,7 @@ abstract class vscHttpResponseA extends vscObject {
 
 		$this->iStatus = $iStatus;
 	}
+
 	/**
 	 * @param string $sValue
 	 * @return void
@@ -341,13 +343,20 @@ abstract class vscHttpResponseA extends vscObject {
 		$this->oView = $oView;
 	}
 
-	public function getOutput() {
-		$this->setContentType($this->oView->getContentType());
+	public function getView() {
+		if (!vscViewA::isValid($this->oView)) {
+			$this->oView = new vscNull();
+		}
+		return $this->oView;
+	}
 
-		if (vsc::getHttpRequest()->isHead() || $this->getStatus() == 304) {
+	public function getOutput() {
+		$this->setContentType($this->getView()->getContentType());
+
+		if (vsc::getEnv()->getHttpRequest()->isHead() || $this->getStatus() == 304) {
 			$sResponseBody = null;
 		} else {
-			$sResponseBody = $this->oView->getOutput();
+			$sResponseBody = $this->getView()->getOutput();
 		}
 		return $sResponseBody;
 	}

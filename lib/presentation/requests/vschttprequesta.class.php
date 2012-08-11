@@ -45,6 +45,8 @@ abstract class vscHttpRequestA extends vscObject {
 	private $sReferer			= '';
 	private $sUserAgent			= '';
 
+	private $bDoNotTrack		= false;
+
 	public function __construct () {
 		if (isset($_GET))
 			$this->aGetVars		= $_GET;
@@ -84,6 +86,14 @@ abstract class vscHttpRequestA extends vscObject {
 
 		if (isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
 			$this->sIfNoneMatch = $_SERVER['HTTP_IF_NONE_MATCH'];
+		}
+
+		if (isset($_SERVER['CONTENT_TYPE'])) {
+			$this->sContentType = substr ($_SERVER['CONTENT_TYPE'], 0, stripos($_SERVER['CONTENT_TYPE'], ';'));
+		}
+
+		if (isset($_SERVER['DNT'])) {
+			$this->bDoNotTrack = (bool)$_SERVER['DNT'];
 		}
 	}
 
@@ -129,6 +139,13 @@ abstract class vscHttpRequestA extends vscObject {
 	 */
 	public function getHttpAcceptCharset () {
 		return $this->aAcceptCharset;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getContentType () {
+		return $this->sContentType;
 	}
 
 	/**
