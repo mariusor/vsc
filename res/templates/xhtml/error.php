@@ -2,7 +2,7 @@
 
 <?php $e = $model->getException(); ?>
 <strong>Internal Error <?php echo (!$e ? '' : ': '. $e->getMessage()); ?></strong>
-<address>&copy; VSC</address>
+<?php if (vsc::getEnv()->isDevelopment()) {?>
 <ul>
 	<li>
 		<a href="#" onclick="p = document.getElementById('trace'); if (p.style.display=='block') p.style.display='none';else p.style.display='block'; return false">toggle trace</a>
@@ -17,3 +17,5 @@
 <pre style="position:fixed;bottom:2em;display:none;font-size:.8em" id="trace">
 <?php echo $e->getTraceAsString(); ?>
 </pre>
+<?php } ?>
+<address>&copy; VSC</address>
