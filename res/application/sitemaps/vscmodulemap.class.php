@@ -11,6 +11,9 @@ class vscModuleMap extends vscMappingA implements vscContentTypeMappingI{
 	private $sMainTemplate;
 
 	public function setMainTemplatePath ($sPath) {
+		if (!is_dir($sPath)) {
+			$sPath = $this->getModulePath() . $sPath;
+		}
 		$this->sMainTemplatePath = $sPath;
 	}
 
