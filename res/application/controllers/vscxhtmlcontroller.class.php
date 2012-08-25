@@ -7,7 +7,7 @@
  */
 import ('presentation/views');
 import ('application/controllers');
-class vscXhtmlController extends vscFrontControllerA implements vscXhtmlControllerI {
+class vscXhtmlController extends vscCacheableControllerA implements vscXhtmlControllerI {
 	public function getDefaultView () {
 		return new vscXhtmlView();
 	}

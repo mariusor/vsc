@@ -7,7 +7,7 @@
  */
 import ('presentation/views');
 import ('application/controllers');
-class vscJsonController extends vscFrontControllerA implements vscJsonControllerI {
+class vscJsonController extends vscCacheableControllerA implements vscJsonControllerI {
 	public function getDefaultView () {
 		return new vscJsonView();
 	}

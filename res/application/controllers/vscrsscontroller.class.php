@@ -7,7 +7,7 @@
  */
 import ('presentation/views');
 import ('application/controllers');
-class vscRssController extends vscFrontControllerA implements vscRssControllerI {
+class vscRssController extends vscCacheableControllerA implements vscRssControllerI {
 	public function getDefaultView () {
 		return new vscRssView();
 	}

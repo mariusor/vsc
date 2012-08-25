@@ -7,7 +7,7 @@
  */
 import ('presentation/views');
 import ('application/controllers');
-class vscPlainTextController extends vscFrontControllerA implements vscPlainTextControllerI {
+class vscPlainTextController extends vscCacheableControllerA implements vscPlainTextControllerI {
 	public function getDefaultView () {
 		return new vscPlainTextView();
 	}
