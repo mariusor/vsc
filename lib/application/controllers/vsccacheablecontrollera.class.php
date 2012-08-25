@@ -16,33 +16,26 @@ abstract class vscCacheableControllerA extends vscFrontControllerA {
 	public function getResponse (vscHttpRequestA $oRequest, $oProcessor = null) {
 		$oResponse = parent::getResponse($oRequest, $oProcessor);
 
-		if ($oResponse->getStatus() >= 300) {
-			return $oResponse;
-		}
-
-		$aModel = $oResponse->getView()->getModel()->toArray();
-		$oResponse->setETag( md5 ( serialize($aModel) ) );
-
-		$iExpireTime = 86400;
-		$iNow = time();
-
-		// checking if the resource has not been modified so the user agent can serve from cache
-		if ($oRequest->getIfNoneMatch() == '"' . $oResponse->getETag() . '"') {
-			$oResponse->setStatus(304);
-			$oResponse->setContentLength(0);
-		}
-
-		if (vscCacheableViewA::isValid($this->getView())) {
-			// if the last modified date + max-age is lower than the current date we need to extend it with one more day
-			if ($iNow > $iExpireTime + $this->getView()->getMTime()) {
-				$iExpireTime += ($iNow - $this->getView()->getMTime());
-			}
+		$oResponse->setETag(substr(sha1(serialize($this->getView()->getModel())),0,8));
+		if (is_null($this->getView()->getModel()->created)) {
+			$oResponse->setCacheControl ('no-cache, no-store, must-revalidate');
 		} else {
-			$iExpireTime += $iNow;
+			$iExpireTime = 604800; // one week
+			$iNow = time();
+			$iLastModified = strtotime($this->getView()->getModel()->modified);
+
+			if ((
+				($oRequest->getIfNoneMatch() && ($oRequest->getIfNoneMatch() == '"'.$oResponse->getETag().'"'))) ||
+				($oRequest->getIfModifiedSince() && ($iLastModified > strtotime($oRequest->getIfModifiedSince()))
+			)) {
+				$oResponse->setStatus(304);
+			} else {
+				$oResponse->setCacheControl ('public, max-age='. $iExpireTime);
+				$oResponse->setExpires(strftime('%a, %d %b %Y %T GMT', max($iLastModified, $iNow) + $iExpireTime));
+
+				$oResponse->setLastModified(strftime('%a, %d %b %Y %T GMT', $iLastModified));
+			}
 		}
-
-		$oResponse->setCacheControl ('max-age='. $iExpireTime . ', must-revalidate');
-
 		return $oResponse;
 	}
 }
