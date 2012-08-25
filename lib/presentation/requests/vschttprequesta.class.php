@@ -253,7 +253,7 @@ abstract class vscHttpRequestA extends vscObject {
 				$mVal = $this->getPostVar($sVarName);
 				break;
 			case 'C':
-				$mVal = urldecode($this->getCookieVar($sVarName));
+				$mVal = $this->getCookieVar($sVarName);
 				break;
 			case 'S':
 //				$mVal = $this->getSeesionVar($sVarName);
@@ -330,7 +330,7 @@ abstract class vscHttpRequestA extends vscObject {
 	 */
 	protected function getCookieVar ($sVarName) {
 		if (key_exists($sVarName, $this->aCookieVars)) {
-			return $this->aCookieVars[$sVarName];
+			return self::getDecodedVar($this->aCookieVars[$sVarName]);
 		} else {
 			return null;
 		}
@@ -443,5 +443,16 @@ abstract class vscHttpRequestA extends vscObject {
 			$this->oUri = new vscUrlRWParser();
 		}
 		return $this->oUri;
+	}
+
+	static protected function getDecodedVar ($mVar) {
+		if (is_array($mVar)) {
+			foreach ($mVar as $key => $sValue) {
+				$mVar[$key] = urldecode($sValue);
+			}
+		} else {
+			$mVar = urldecode($mVar);
+		}
+		return $mVar;
 	}
 }

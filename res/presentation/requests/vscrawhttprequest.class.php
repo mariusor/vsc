@@ -24,7 +24,7 @@ class vscRawHttpRequest extends vscRwHttpRequest {
 
 	protected function getRawVar ($sVarName) {
 		if (key_exists($sVarName, $this->aRawVars)) {
-			return $this->aRawVars[$sVarName];
+			return self::getDecodedVar($this->aRawVars[$sVarName]);
 		} else {
 			return null;
 		}
@@ -37,7 +37,7 @@ class vscRawHttpRequest extends vscRwHttpRequest {
 	public function getVar ($sVarName) {
 		$mValue = parent::getVar($sVarName);
 		if (!$mValue) {
-			$mValue = urldecode($this->getRawVar($sVarName));
+			$mValue = $this->getRawVar($sVarName);
 		}
 		return $mValue;
 	}
@@ -69,7 +69,10 @@ class vscRawHttpRequest extends vscRwHttpRequest {
 				}
 				break;
 			case 'application/json':
-				$this->aRawVars = json_decode($sRawVars, true);
+				$vars = json_decode($sRawVars, true);
+				if (!empty ($vars)) {
+					$this->aRawVars = $vars;
+				}
 				break;
 		}
 	}

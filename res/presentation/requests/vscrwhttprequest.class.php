@@ -48,7 +48,7 @@ class vscRwHttpRequest extends vscHttpRequestA {
 
 	protected function getTaintedVar ($sVarName) {
 		if (key_exists($sVarName, $this->aTaintedVars)) {
-			return $this->aTaintedVars[$sVarName];
+			return self::getDecodedVar($this->aTaintedVars[$sVarName]);
 		} else {
 			return null;
 		}
@@ -61,7 +61,7 @@ class vscRwHttpRequest extends vscHttpRequestA {
 	public function getVar ($sVarName) {
 		$mValue = parent::getVar($sVarName);
 		if (!$mValue) {
-			$mValue = urldecode($this->getTaintedVar($sVarName));
+			$mValue = $this->getTaintedVar($sVarName);
 		}
 		return $mValue;
 	}
