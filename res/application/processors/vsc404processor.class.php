@@ -2,14 +2,15 @@
 import ('domain/models');
 
 class vsc404Processor extends vscErrorProcessor {
-	private $model;
-
-	public function getModel () {
-		return $this->model;
+	public function __construct () {
+		parent::__construct( new vscExceptionResponseError('Not found', 404));
 	}
 
-	public function __construct () {
-		$e = new vscExceptionResponseError('Not found', 404);
-		$this->model = new vscErrorModel($e);
+	public function handleRequest(vscHttpRequestA $oHttpRequest) {
+		$o404 = new vscHttpResponse();
+		$o404->setStatus(404);
+		$this->getMap()->setResponse($o404);
+
+		return parent::handleRequest($oHttpRequest);
 	}
 }

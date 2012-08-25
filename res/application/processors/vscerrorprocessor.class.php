@@ -6,7 +6,7 @@ class vscErrorProcessor extends vscProcessorA implements vscErrorProcessorI {
 
 	public function getErrorCode () {
 		$e = $this->getModel()->getException();
-		if ($e instanceof Exception) {
+		if ($e instanceof vscExceptionResponseError) {
 			return $e->getCode();
 		} else {
 			return 500;

@@ -57,21 +57,18 @@ abstract class vscFrontControllerA extends vscObject {
 
 				// stop processing
 				$oResponse->outputHeaders();
-			} catch (vscExceptionResponseError $e) {
+			} catch (Exception $e) {
 				// we had error in the controller
 				// @todo make more error processors
 				$oProcessor = new vscErrorProcessor($e);
 
-				// hardcoding the 404 replies
 				$oMyMap->setMainTemplatePath(VSC_RES_PATH . 'templates');
 				$oMyMap->setMainTemplate('main.php');
 
-				if (!$oMyMap->getTemplate()) {
-					$oMyMap->setTemplatePath (VSC_RES_PATH . 'templates');
-					$oMyMap->setTemplate ('404.php');
-				}
-			} catch (Exception $e) {
-				throw $e;
+				$oMyMap->setTemplatePath(VSC_RES_PATH . 'templates');
+				$oMyMap->setTemplate('error.php');
+
+				$oModel = $oProcessor->handleRequest($oRequest);
 			}
 		}
 		if (vscErrorProcessor::isValid($oProcessor)) {
@@ -88,7 +85,6 @@ abstract class vscFrontControllerA extends vscObject {
 		// we didn't set any special view
 		// this means that the developer needs to provide his own views
 		$oView	= $this->getView();
-
 		if (vscProcessorA::isValid($oProcessor) /* && !vscErrorProcessor::isValid($oProcessor) */) {
 			/* @var $oMap vscProcessorMap */
 			$oMap = $oProcessor->getMap();
