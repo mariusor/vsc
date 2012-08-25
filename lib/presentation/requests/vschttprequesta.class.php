@@ -395,7 +395,30 @@ abstract class vscHttpRequestA extends vscObject {
 	}
 
 	public function accepts ($sMimeType) {
-		return (in_array ($sMimeType, $this->aAccept));
+		$aGoodMimeTypes = array ($sMimeType, '*/*');
+		$aIncomingAcceptHeaders = $this->getHttpAccept();
+		$aContentTypes = array();
+		// 1. empty http-accept header
+		if (empty ($aIncomingAcceptHeaders)) {
+			$aGoodMimeTypes[] = 'text/html';
+			$aGoodMimeTypes[] = 'text/xml';
+		}
+		// 2. non-empty http-accept header
+		foreach ($aIncomingAcceptHeaders as $sEntry) {
+			$iSemicolonPosition = strpos($sEntry, ';');
+			if ($iSemicolonPosition > 0) {
+				$sContentType = substr ($sEntry, 0, $iSemicolonPosition);
+				$aContentTypes[] = $sContentType;
+			} else {
+				$aContentTypes[] = $sEntry;
+			}
+		}
+		foreach ($aGoodMimeTypes as $sPotentialContentType) {
+			if (in_array($sPotentialContentType, $aContentTypes)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

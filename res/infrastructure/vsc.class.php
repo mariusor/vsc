@@ -41,7 +41,7 @@ class vsc extends vscObject {
 	 * @param $oRequest vscHttpRequestA
 	 */
 	public function setHttpRequest (vscHttpRequestA $oRequest) {
-		if (!vscHttpRequestA::isValid($oRequest)){
+		if (vscHttpRequestA::isValid($oRequest)){
 			$this->oRequest = $oRequest;
 		}
 	}
