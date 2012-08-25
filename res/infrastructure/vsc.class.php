@@ -16,7 +16,7 @@ class vsc extends vscObject {
 	/**
 	 * @var vscHttpRequestA
 	 */
-	private $oRequest;
+	private $oRequest = null;
 
 	/**
 	 * @var vscDispatcherA
@@ -41,7 +41,7 @@ class vsc extends vscObject {
 	 * @param $oRequest vscHttpRequestA
 	 */
 	public function setHttpRequest (vscHttpRequestA $oRequest) {
-		if (vscHttpRequestA::isValid($oRequest)){
+		if (vscHttpRequestA::isValid($oRequest)  && get_class($this->oRequest) != get_class($oRequest)) {
 			$this->oRequest = $oRequest;
 		}
 	}
@@ -50,7 +50,7 @@ class vsc extends vscObject {
 	 * @return vscHttpRequestA
 	 */
 	public function getHttpRequest () {
-		if (!vscHttpRequestA::isValid($this->oRequest)){
+ 		if (is_null($this->oRequest)){
 			$this->oRequest = new vscRwHttpRequest();
 		}
 
@@ -118,7 +118,9 @@ class vsc extends vscObject {
 
 		$output .= ob_get_clean();
 
-		if (!isCli() && self::getHttpRequest()->accepts('text/html')) {
+		if (isCLi() || self::getHttpRequest()->accepts('application/json')) {
+			echo vscString::stripTags(vscString::br2nl($output));
+		} elseif (self::getHttpRequest()->accepts('text/html')) {
 			echo '<pre>' . $output . '</pre>';
 		} else {
 			echo vscString::stripTags(vscString::br2nl($output));

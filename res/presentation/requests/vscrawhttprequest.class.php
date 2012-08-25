@@ -51,6 +51,7 @@ class vscRawHttpRequest extends vscRwHttpRequest {
 		$sRawVars = file_get_contents('php://input');
 
 		$sContentType = $this->getContentType();
+
 		if (empty ($sContentType)) return;
 
 		$vars = array();
