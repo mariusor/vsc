@@ -1,5 +1,6 @@
 <?php
-
+import ('presentation');
+import ('requests');
 class vscRawHttpRequest extends vscRwHttpRequest {
 	protected $aRawVars = array();
 
@@ -49,31 +50,24 @@ class vscRawHttpRequest extends vscRwHttpRequest {
 	public function constructRawVars () {
 		$sRawVars = file_get_contents('php://input');
 
-		switch ($this->getContentType()) {
-			case 'application/x-www-form-urlencoded':
-				$aVars = explode('&',$sRawVars);
-				foreach ($aVars as $sValue) {
-					$key = substr($sValue, 0, stripos($sValue, '='));
-					$value = substr($sValue, stripos($sValue, '=')+1);
+		$sContentType = $this->getContentType();
+		if (empty ($sContentType)) return;
 
-					if (substr($key, -2, 2) == '[]') {
-						$key = substr($key, 0, -2);
-						if (key_exists($key, $this->aRawVars) && !is_array($this->aRawVars[$key])) {
-							$this->aRawVars[$key] = array ($value);
-						} else {
-							$this->aRawVars[$key][] = $value;
-						}
-					} else {
-						$this->aRawVars[$key] = $value;
-					}
-				}
+		$vars = array();
+		switch ($sContentType) {
+			case 'application/x-www-form-urlencoded':
+				parse_str($sRawVars, $vars);
 				break;
 			case 'application/json':
 				$vars = json_decode($sRawVars, true);
-				if (!empty ($vars)) {
-					$this->aRawVars = $vars;
-				}
 				break;
+			case 'application/xml':
+			default:
+				throw new vscExceptionRequest('This content-type ['.$sContentType.'] is not yet supported');
+				break;
+		}
+		if (!empty ($vars)) {
+			$this->aRawVars = $vars;
 		}
 	}
 }

@@ -1,6 +1,5 @@
 <?php
-import ('exceptions');
-class vscExceptionResponseError extends vscException {
+class vscExceptionResponseError extends vscExceptionResponse {
 	private $iHttpErrorCode;
 
 	public function __construct ($sMessage = null, $iCode = 500) {

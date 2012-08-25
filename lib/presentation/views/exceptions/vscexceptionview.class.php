@@ -1,4 +1,4 @@
 <?php
-import (VSC_LIB_PATH . 'exceptions');
+import ('exceptions');
 
-class vscExceptionView extends vscException {}
+class vscExceptionView extends vscExceptionPresentation {}
