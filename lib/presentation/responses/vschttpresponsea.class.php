@@ -57,6 +57,7 @@ abstract class vscHttpResponseA extends vscObject {
 	private $oView;
 
 	public function setStatus ($iStatus) {
+//		if ($iStatus == 304) d ('<pre>'.debug_print_backtrace());
 		if (!isset ($this->aStatusList[$iStatus])){
 			throw new vscExceptionResponse('[' . $iStatus . '] is not a valid ' . $this->getServerProtocol() . ' status');
 		}
@@ -293,6 +294,10 @@ abstract class vscHttpResponseA extends vscObject {
 			// end headers
 		}
 
+		$sContentType = $this->getContentType();
+		if ($sContentType) {
+			header ('Content-Type:' . $sContentType);
+		}
 		$sCacheControl = $this->getCacheControl();
 		if ($sCacheControl) {
 			header ('Cache-Control: ' . $sCacheControl);
@@ -320,10 +325,6 @@ abstract class vscHttpResponseA extends vscObject {
 		$sMd5 = $this->getContentMd5();
 		if ($sMd5) {
 			header ('Content-MD5:' . $sMd5);
-		}
-		$sContentType = $this->getContentType();
-		if ($sContentType) {
-			header ('Content-Type:' . $sContentType);
 		}
 		$sDate = $this->getDate();
 		if ($sDate) {

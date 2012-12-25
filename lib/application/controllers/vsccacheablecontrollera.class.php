@@ -5,7 +5,13 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2011.02.21
  */
-abstract class vscCacheableControllerA extends vscFrontControllerA {
+
+import ('infrastructure/caching');
+abstract class vscCacheableControllerA extends vscFrontControllerA implements vscCacheableI {
+
+	public function getLastModified () {
+		return false;
+	}
 
 	/**
 	 * @param vscHttpRequestA $oRequest
@@ -23,7 +29,7 @@ abstract class vscCacheableControllerA extends vscFrontControllerA {
 
 		if (vscCacheableModelA::isValid ($this->getView()->getModel())) {
 			$sLastModified = $this->getView()->getModel()->getLastModified();
-			if (!empty ($sLastModified)) {
+			try {
 				$oLastModified = new DateTime($sLastModified,  new DateTimeZone('GMT'));
 				$oResponse->setLastModified($oLastModified->format('r'));
 				$oMax = $oLastModified->getTimestamp() > $oNow->getTimestamp() ? $oLastModified : $oNow;
@@ -37,7 +43,7 @@ abstract class vscCacheableControllerA extends vscFrontControllerA {
 						$oResponse->setStatus(304);
 					}
 				}
-			} else {
+			} catch (Exception $e) {
 				$oMax = $oNow;
 			}
 			$oResponse->setExpires($oMax->add(new DateInterval('P2W'))->format('r')); // adding 2 weeks

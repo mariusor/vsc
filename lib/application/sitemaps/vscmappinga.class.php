@@ -253,6 +253,9 @@ class vscMappingA extends vscObject {
 		}
 		$sPath = str_replace(array('/','\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),$sPath);
 
+		if (!vscSiteMapA::isValidObject ($sPath)) {
+			$sPath = $this->getModulePath() . $sPath;
+		}
 		if (vscSiteMapA::isValidObject ($sPath)) {
 			$sKey = $sRegex;
 			if (!is_array($this->aControllerMaps) || !key_exists($sKey, $this->aControllerMaps)) {

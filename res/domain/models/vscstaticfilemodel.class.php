@@ -5,14 +5,14 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2011.02.21
  */
-class vscStaticFileModel extends vscModelA {
+class vscStaticFileModel extends vscCacheableModelA {
 	protected $sFilePath;
 	protected $sFileContent;
-	protected $iMTime;
+	protected $iLastModified;
 
 	public function setFilePath ($sPath) {
 		$this->sFilePath = $sPath;
-		$this->setMTime(filemtime($this->getFilePath()));
+		$this->setLastModified (filemtime($this->getFilePath()));
 	}
 
 	public function getFilePath () {
@@ -30,11 +30,11 @@ class vscStaticFileModel extends vscModelA {
 		return $this->sFileContent;
 	}
 
-	public function setMTime ($iMTime) {
-		$this->iMTime = $iMTime;
+	public function setLastModified ($iMTime) {
+		$this->iLastModified = $iMTime;
 	}
 
-	public function getMTime () {
-		return $this->iMTime;
+	public function getLastModified() {
+		return $this->iLastModified;
 	}
 }

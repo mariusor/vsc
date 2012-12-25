@@ -92,8 +92,8 @@ abstract class vscHttpRequestA extends vscObject {
 			$this->sContentType = substr ($_SERVER['CONTENT_TYPE'], 0, stripos($_SERVER['CONTENT_TYPE'], ';'));
 		}
 
-		if (isset($_SERVER['DNT'])) {
-			$this->bDoNotTrack = (bool)$_SERVER['DNT'];
+		if (isset($_SERVER['HTTP_DNT'])) {
+			$this->bDoNotTrack = (bool)$_SERVER['HTTP_DNT'];
 		}
 	}
 
