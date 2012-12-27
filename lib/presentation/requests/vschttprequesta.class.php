@@ -190,17 +190,21 @@ abstract class vscHttpRequestA extends vscObject {
 		return $this->sUserAgent;
 	}
 
-    public function getGetVars() {
-        return $this->aGetVars;
-    }
+	public function getGetVars() {
+		return $this->aGetVars;
+	}
 
-    public function getPostVars() {
-        return $this->aPostVars;
-    }
+	public function getPostVars() {
+		return $this->aPostVars;
+	}
 
-    public function getCookieVars() {
-        return $this->aCookieVars;
-    }
+	public function getCookieVars() {
+		return $this->aCookieVars;
+	}
+
+	public function getSessionVars() {
+		return $this->aSessionVars;
+	}
 
 	/**
 	 * @return []
@@ -285,6 +289,22 @@ abstract class vscHttpRequestA extends vscObject {
 		return key_exists($sVarName, $this->aCookieVars);
 	}
 
+	static public function startSession ($sSessionName = null) {
+		if (!session_id()) {
+			session_start();
+			if (!is_null($sSessionName)) {
+				session_name($sSessionName);
+			}
+
+			vsc::getEnv()->getHttpRequest()->sessionLoad();
+		}
+	}
+
+	public function sessionLoad() {
+		if (isset($_SESSION))
+			$this->aSessionVars	= $_SESSION;
+	}
+
 	public function hasVar($sVarName) {
 		return (
 			$this->hasGetVar($sVarName) ||
@@ -337,12 +357,35 @@ abstract class vscHttpRequestA extends vscObject {
 	}
 
 	/**
+	 *
+	 * @param string $sVarName
+	 * @throws vscException
+	 * @return mixed
+	 */
+	public function getSessionVar ($sVarName) {
+		if (key_exists($sVarName, $this->aSessionVars)) {
+			return self::getDecodedVar($this->aSessionVars[$sVarName]);
+		} else {
+			return null;
+		}
+	}
+
+	/**
 	 * @param string $sVarName
 	 * @param string $sVarValue
 	 * @return bool
 	 */
 	public function setCookieVar ($sVarName, $sVarValue) {
 		return setcookie ($sVarName, $sVarValue);
+	}
+
+	/**
+	 * @param string $sVarName
+	 * @param string $sVarValue
+	 * @return bool
+	 */
+	public function setSessionVar ($sVarName, $sVarValue) {
+		return $_SESSION[$sVarName] = $sVarValue;
 	}
 
 	public function getHttpMethod () {
@@ -473,7 +516,7 @@ abstract class vscHttpRequestA extends vscObject {
 			foreach ($mVar as $key => $sValue) {
 				$mVar[$key] = urldecode($sValue);
 			}
-		} else {
+		} elseif (is_string($mVar)) {
 			$mVar = urldecode($mVar);
 		}
 		return $mVar;
