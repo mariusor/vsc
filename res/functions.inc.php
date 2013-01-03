@@ -78,10 +78,10 @@ function loadClass ($className) {
 	$sFilePath	= $classNameLow . '.class.php';
 	if (stristr ($classNameLow, 'exception')) {
 		$sExceptionsFilePath = 'exceptions' . DIRECTORY_SEPARATOR . $sFilePath;
-		$fileIncluded = include ($sExceptionsFilePath);
+		$fileIncluded = include_once ($sExceptionsFilePath);
 	}
 	if (!$fileIncluded) {
-		$fileIncluded = include ($sFilePath);
+		$fileIncluded = include_once ($sFilePath);
 	}
 	if ( !$fileIncluded || ( !in_array ($className,get_declared_classes()) && !in_array($className,get_declared_interfaces() ) ) ) {
 		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexception.class.php');
@@ -217,7 +217,7 @@ if (!function_exists('_e')) {
 		$sRet .= '<body>';
 		$sRet .= '<strong>Internal Error' . (!$e ? '' : ': '. $e->getMessage()) . '</strong>';
 		$sRet .= '<address>&copy; VSC</address>';
-		$sRet .= '<ul><li><a href="#" onclick="p = document.getElementById(\'trace\'); if (p.style.display==\'block\') p.style.display=\'none\';else p.style.display=\'block\'; return false">toggle trace</a></li><li><a href="javascript: p = document.getElementById(\'trace\'); document.location.href =\'mailto:'.ROOT_MAIL.'?subject=Problems&body=\' + p.innerHTML; return false">mail me</a></li></ul>';
+		$sRet .= '<ul><li><a href="#" onclick="p = document.getElementById(\'trace\'); if (p.style.display==\'block\') p.style.display=\'none\';else p.style.display=\'block\'; return false">toggle trace</a></li><li><a href="javascript: p = document.getElementById(\'trace\'); document.location.href =\'mailto:'.ROOT_MAIL.'?subject=Problems&amp;body=\' + p.innerHTML; return false">mail me</a></li></ul>';
 
 		if ($e instanceof Exception)
 			$sRet .= '<p style="font-size:.8em">Triggered in <strong>' . $e->getFile() . '</strong> at line ' . $e->getLine() .'</p>';
