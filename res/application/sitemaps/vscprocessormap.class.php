@@ -14,6 +14,12 @@ class vscProcessorMap extends vscMappingA {
 	private $oResponse;
 
 	/**
+	 *
+	 * @var vscViewHelpersA[]
+	 */
+	private $oHelpers;
+
+	/**
 	 * @param vscHttpResponseA $oResponse
 	 */
 	public function setResponse (vscHttpResponseA $oResponse) {
@@ -41,5 +47,20 @@ class vscProcessorMap extends vscMappingA {
 			$sRegex = $this->getRegex();
 		}
 		return parent::mapController($sRegex, $sPath);
+	}
+
+	/**
+	 * @param vscViewHelperA $oHelper
+	 * @return void
+	 */
+	public function addViewHelper (vscViewHelperA $oHelper) {
+		$this->oHelpers[] = $oHelper;
+	}
+
+	/**
+	 * @return vscViewHelpersA[]
+	 */
+	public function getViewHelpers () {
+		return $this->oHelpers;
 	}
 }
