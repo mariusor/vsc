@@ -132,4 +132,11 @@ class vsc extends vscObject {
 	static function getIncludePaths() {
 		return explode (PATH_SEPARATOR, get_include_path());
 	}
+
+	/**
+	 * @return vscModuleMap
+	 */
+	public function getCurrentModuleMap () {
+		return $this->getDispatcher()->getCurrentModuleMap();
+	}
 }
