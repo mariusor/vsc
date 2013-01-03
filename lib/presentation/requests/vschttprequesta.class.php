@@ -225,17 +225,17 @@ abstract class vscHttpRequestA extends vscObject {
 		$aRet = array ();
 		foreach ($this->getVarOrder() as $sMethod) {
 			switch ($sMethod) {
-			case 'G':
-				$aRet = array_merge ($aRet, $this->aGetVars);
-				break;
-			case 'P':
-				$aRet = array_merge ($aRet, $this->aPostVars);
+			case 'S':
+				$aRet = array_merge ($aRet, $this->aSessionVars);
 				break;
 			case 'C':
 				$aRet = array_merge ($aRet, $this->aCookieVars);
 				break;
-			case 'S':
-				$aRet = array_merge ($aRet, $this->aSessionVars);
+			case 'P':
+				$aRet = array_merge ($aRet, $this->aPostVars);
+				break;
+			case 'G':
+				$aRet = array_merge ($aRet, $this->aGetVars);
 				break;
 			}
 		}
@@ -290,14 +290,29 @@ abstract class vscHttpRequestA extends vscObject {
 	}
 
 	static public function startSession ($sSessionName = null) {
-		if (!session_id()) {
+		if ( ((double)PHP_VERSION >= 5.4 && session_status() == PHP_SESSION_DISABLED) ) {
+			throw new vscExceptionRequest('Sessions are not available');
+		}
+
+		if ( ((double)PHP_VERSION >= 5.4 && session_status() == PHP_SESSION_NONE) || session_id() == "") {
+			$oRequest = vsc::getEnv()->getHttpRequest();
+			session_set_cookie_params(0, '/', $oRequest->getUriObject()->getDomain(), $oRequest->isSecure(), true);
 			session_start();
 			if (!is_null($sSessionName)) {
 				session_name($sSessionName);
 			}
 
-			vsc::getEnv()->getHttpRequest()->sessionLoad();
+			$oRequest->sessionLoad();
 		}
+	}
+
+	static public function destroySession () {
+		$aSessionCookieParams = session_get_cookie_params();
+
+		session_unset();
+		session_destroy();
+		session_write_close();
+		setcookie(session_name(), "", -1, $aSessionCookieParams['path'], $aSessionCookieParams['domain'], $aSessionCookieParams['secure'], $aSessionCookieParams['httponly']);
 	}
 
 	public function sessionLoad() {
