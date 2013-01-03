@@ -42,8 +42,12 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	}
 
 	public function getTitle () {
-		if (vscEmptyModel::isValid($this->getModel()) && $this->getModel()->getPageTitle() != '') {
-			return  $this->getModel()->getPageTitle();
+		try {
+			if ($this->getModel()->getPageTitle() != '') {
+				return  $this->getModel()->getPageTitle();
+			}
+		} catch (Exception $e) {
+			//
 		}
 
 		$sStaticTitle	= $this->getMap()->getTitle();
@@ -106,13 +110,12 @@ abstract class vscViewA extends vscObject implements vscViewI {
 
 		ob_start ();
 		if (!is_file ($includePath)) {
-			$includePath = $this->getTemplatePath() . DIRECTORY_SEPARATOR . $includePath;
+			$includePath = $this->getTemplatePath() . $includePath;
 			if (!is_file ($includePath)) {
 				ob_end_clean();
 				throw new vscExceptionPath ('Template [' . $includePath . '] could not be located');
 			}
 		}
-
 		$bIncluded = false;
 		// outputting the model's content into the local scope
 		extract(
@@ -124,6 +127,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 			),
 			EXTR_SKIP
 		);
+
 		// this automatically excludes templating errors: I'm not quite sure yet it's OK to do it
 		$bIncluded = include ($includePath);
 

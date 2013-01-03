@@ -55,8 +55,16 @@ abstract class vscFrontControllerA extends vscObject {
 				$oResponse->setStatus($e->getRedirectCode());
 				$oResponse->setLocation ($e->getLocation());
 
+				$oModel = new vscEmptyModel();
+				$oModel->setPageTitle($e->getCode());
+				$oModel->setPageContent($e->getMessage());
+				return $oModel;
+			} catch (vscExceptionResponseError $e) {
+				$oResponse->setStatus($e->getCode());
+
 				// stop processing
 				$oResponse->outputHeaders();
+				return $oModel;
 			} catch (Exception $e) {
 				// we had error in the controller
 				// @todo make more error processors
