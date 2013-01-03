@@ -20,6 +20,10 @@ class vscErrorModel extends vscEmptyModel {
 		return $this->getException()->getMessage();
 	}
 
+	public function getMessage () {
+		return $this->getException()->getMessage();
+	}
+
 	public function setException (Exception $e) {
 		$this->exception = $e;
 	}
