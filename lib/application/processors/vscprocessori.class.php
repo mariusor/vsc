@@ -18,4 +18,12 @@ interface vscProcessorI {
 	 * @return vscModelI
 	 */
 	public function handleRequest (vscHttpRequestA $oHttpRequest);
+	
+	
+	/**
+	 * To be used when delegating the request handling to another processor 
+	 * @param vscHttpRequestA $oHttpRequest
+	 * @return vscModelI
+	 */
+	public function delegateRequest (vscHttpRequestA $oHttpRequest, vscProcessorA $oNewProcessor);
 }

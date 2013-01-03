@@ -237,4 +237,15 @@ abstract class vscSiteMapA extends vscObject {
 		}
 		return $aC;
 	}
+	
+	public function findProcessorMap (vscProcessorI $oProcessor) {
+		$sNameLower = strtolower(get_class($oProcessor));
+		
+		/* @var $oProcessorMap vscProcessorMap */
+		foreach ($this->getMaps() as $sRegex => $oProcessorMap ) {
+			if (stristr($oProcessorMap->getPath(), $sNameLower)) {
+				return $oProcessorMap;
+			}
+		}
+	}
 }
