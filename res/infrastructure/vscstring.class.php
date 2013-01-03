@@ -11,7 +11,7 @@ class vscString {
 	}
 
 	static function stripTags ($sString) {
-		return preg_replace("/<[a-z\/\":=]*>/i", '', $sString);
+		return strip_tags($sString);
 	}
 
 	static function stripEntities ($sString) {
@@ -19,12 +19,12 @@ class vscString {
 	}
 
 	static function _echo ($sString, $iTimes = 1) {
-		for ($i = 0; $i <= $iTimes; $i++)
+		for ($i = 0; $i < $iTimes; $i++)
 			echo $sString;
 	}
 
 	static function stripScriptTags ($sString) {
-		return preg_replace('/<script.*\/script>/i', '', (string)$sString);
+		return preg_replace('/<script.*\/script>/mi', '', (string)$sString);
 	}
 
 	/**
@@ -41,7 +41,11 @@ class vscString {
 	 * @return string
 	 */
 	static public function allTrim ($sString) {
-		return trim (ereg_replace('/\s+/', ' ', $sString));
+		return trim (preg_replace('/\s+/m', ' ', $sString));
+	}
+
+	static public function encodeEntities ($sString) {
+		return htmlentities($sString, ENT_QUOTES, 'UTF-8');
 	}
 
 	static public function formatUri ($sUri) {
