@@ -73,4 +73,17 @@ class vscString {
 			return $sString;
 		}
 	}
+	
+	static public function truncate ($sString, $iLength, $sEtc = '...') {
+		if ($iLength == 0)
+			return '';
+
+		if (strlen($sString) > $iLength) {
+			$iLength -= strlen($sEtc);
+			$sString = preg_replace('/\s+?(\S+)?$/', '', substr($sString, 0, $iLength+1));
+			return substr($sString, 0, $iLength) . $sEtc;
+		} else {
+			return $sString;
+		}
+	}
 }
