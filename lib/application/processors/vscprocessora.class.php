@@ -98,7 +98,7 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 		
 		$this->setMap ($oMap);
 		
-		$this->setLocalVars($oNewProcessor->getLocalVars());
+		$oNewProcessor->setLocalVars($this->getLocalVars());
 		
 		return $oNewProcessor->handleRequest($oHttpRequest);
 	}
