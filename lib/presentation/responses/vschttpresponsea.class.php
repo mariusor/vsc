@@ -360,9 +360,13 @@ abstract class vscHttpResponseA extends vscObject {
 	}
 
 	public function getOutput() {
-		$this->setContentType($this->getView()->getContentType());
+		if (vscViewA::isValid($this->getView())) {
+			$this->setContentType($this->getView()->getContentType());
+		} else {
+			$this->setContentType('*/*');
+		}
 
-		if (vsc::getEnv()->getHttpRequest()->isHead() || $this->getStatus() == 304) {
+		if (vsc::getEnv()->getHttpRequest()->isHead() || ($this->getStatus() > 300 && $this->getStatus() < 400)) {
 			$sResponseBody = null;
 		} else {
 			$sResponseBody = $this->getView()->getOutput();
