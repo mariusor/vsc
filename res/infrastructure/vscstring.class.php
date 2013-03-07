@@ -51,14 +51,16 @@ class vscString {
 	static public function formatUri ($sUri) {
 		$aReplaceWhat	= array (
 			'/(&([^(amp;)]))/',
+			'/ {1,}/',
 		);
 		$aReplaceWith 	= array (
-			'&amp;\2'
+			'&amp;\2',
+			'+',
 		);
 
 		return preg_replace($aReplaceWhat, $aReplaceWith, $sUri);
 	}
-	
+
 	static public function truncate ($sString, $iLength, $sEtc = '...') {
 		if ($iLength == 0)
 			return '';
