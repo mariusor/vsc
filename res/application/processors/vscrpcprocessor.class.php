@@ -10,9 +10,10 @@ abstract class vscRPCProcessor extends vscProcessorA {
 		$this->oRequest		= new vscJsonRPCRequest();
 		$this->oResponse	= new vscJsonRPCResponse();
 
-		$oRequest = vsc::getEnv()->getHttpRequest();
 		$this->oResponse->id = $this->oRequest->id;
-		if (!$oRequest->accepts('application/json')) { }
+// 		if (!$oRequest->accepts('application/json')) {
+// 			// user-agent doesn't understand json
+// 		}
 	}
 
 	public function getRequest() {
@@ -29,21 +30,22 @@ abstract class vscRPCProcessor extends vscProcessorA {
 		if (empty ($sMethod) || empty ($oInterface)) return false;
 
 		$oReflectedInterface = new ReflectionObject($oInterface);
-		if (!$oReflectedInterface->hasMethod($sMethod)) {
-			return false;
-		} else {
+		if ($oReflectedInterface->hasMethod($sMethod)) {
 			/* @var $oReflectedMethod ReflectionMethod */
 			$oReflectedMethod = $oReflectedInterface->getMethod($sMethod);
-			if (!$oReflectedMethod->isPublic()) {
-				return false;
-			}
+			return $oReflectedMethod->isPublic();
 		}
-		return true;
+		return false;
 	}
 
 	public function callRPCMethod () {
 		$sRawMethod = $this->oRequest->method;
+
 		@list($sNameSpace, $sMethod) = explode ('.', $sRawMethod);
+		if (is_null($sMethod)) {
+			$sMethod = $sNameSpace;
+			$sNameSpace = 'wp';
+		}
 
 		$oInterface = $this->getRPCInterface($sNameSpace);
 		if (!$this->hasRPCMethod($oInterface, $sMethod)) {

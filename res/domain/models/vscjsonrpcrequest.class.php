@@ -5,6 +5,7 @@ class vscJsonRPCRequest extends vscModelA {
 	public $params = array();
 
 	public function __construct () {
+		/* @var $oRequest vscRawHttpRequest */
 		$oRequest = vsc::getEnv()->getHttpRequest();
 
 		$this->id		= $oRequest->getVar ('id');
