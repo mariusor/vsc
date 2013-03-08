@@ -41,4 +41,6 @@ class vscJsonView extends vscViewA implements vscJsonViewI {
 		}
 		return json_encode ($oModel, $flags);
 	}
+		return json_encode ($oModel, $flags);
+	}
 }
