@@ -373,4 +373,25 @@ abstract class vscHttpResponseA extends vscObject {
 		}
 		return $sResponseBody;
 	}
+	
+	public function isSuccess() {
+		return ($this->getStatus() == 200);
+	}
+	
+	public function isRedirect() {
+		return ($this->getStatus() >= 300 && $this->getStatus() < 400);
+	}
+
+	public function isUserError() {
+		return ($this->getStatus() >= 400 && $this->getStatus() < 500);
+	}
+	
+	public function isServerError() {
+		return ($this->getStatus() > 500 && $this->getStatus() < 600);
+	}
+
+	public function isError() {
+		return ($this->isUserError() || $this->isServerError());
+	}
+	
 }

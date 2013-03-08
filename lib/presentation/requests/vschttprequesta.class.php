@@ -289,6 +289,10 @@ abstract class vscHttpRequestA extends vscObject {
 		return key_exists($sVarName, $this->aCookieVars);
 	}
 
+	public function hasSession () {
+		return (session_id() == '');
+	}
+	
 	static public function startSession ($sSessionName = null) {
 		if ( ((double)PHP_VERSION >= 5.4 && session_status() == PHP_SESSION_DISABLED) ) {
 			throw new vscExceptionRequest('Sessions are not available');
