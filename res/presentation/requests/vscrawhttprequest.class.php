@@ -7,7 +7,7 @@ class vscRawHttpRequest extends vscRwHttpRequest {
 	public function __construct () {
 		parent::__construct();
 
-		if (isset ($_SERVER)) {
+		if (isset ($_SERVER) && !$this->isGet()) {
 			$this->constructRawVars ();
 		}
 	}

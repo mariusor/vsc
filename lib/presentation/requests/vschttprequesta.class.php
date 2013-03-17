@@ -27,7 +27,6 @@ abstract class vscHttpRequestA extends vscObject {
 	private $aGetVars			= array();
 	private $aPostVars			= array();
 	private $aCookieVars		= array();
-	private $aSessionVars		= array();
 	private $aFiles				= array();
 
 	private $aAccept			= array();
@@ -54,8 +53,6 @@ abstract class vscHttpRequestA extends vscObject {
 			$this->aPostVars	= $_POST;
 		if (isset($_COOKIE))
 			$this->aCookieVars	= $_COOKIE;
-		if (isset($_SESSION))
-			$this->aSessionVars	= $_SESSION;
 
 		if (isset($_SERVER)) {
 			$this->getServerProtocol();
@@ -89,7 +86,11 @@ abstract class vscHttpRequestA extends vscObject {
 		}
 
 		if (isset($_SERVER['CONTENT_TYPE'])) {
-			$this->sContentType = substr ($_SERVER['CONTENT_TYPE'], 0, stripos($_SERVER['CONTENT_TYPE'], ';'));
+			if ( stripos($_SERVER['CONTENT_TYPE'], ';') !== null ) {
+				$this->sContentType = substr ($_SERVER['CONTENT_TYPE'], 0, stripos($_SERVER['CONTENT_TYPE'], ';'));
+			} else {
+				$this->sContentType = $_SERVER['CONTENT_TYPE'];
+			}
 		}
 
 		if (isset($_SERVER['HTTP_DNT'])) {
@@ -203,7 +204,7 @@ abstract class vscHttpRequestA extends vscObject {
 	}
 
 	public function getSessionVars() {
-		return $this->aSessionVars;
+		return $_SESSION;
 	}
 
 	/**
@@ -226,7 +227,7 @@ abstract class vscHttpRequestA extends vscObject {
 		foreach ($this->getVarOrder() as $sMethod) {
 			switch ($sMethod) {
 			case 'S':
-				$aRet = array_merge ($aRet, $this->aSessionVars);
+				$aRet = array_merge ($aRet, $_SESSION);
 				break;
 			case 'C':
 				$aRet = array_merge ($aRet, $this->aCookieVars);
@@ -283,16 +284,16 @@ abstract class vscHttpRequestA extends vscObject {
 		return key_exists($sVarName, $this->aPostVars);
 	}
 	public function hasSessionVar ($sVarName) {
-		return key_exists($sVarName, $this->aSessionVars);
+		return key_exists($sVarName, $_SESSION);
 	}
 	public function hasCookieVar ($sVarName) {
 		return key_exists($sVarName, $this->aCookieVars);
 	}
 
 	public function hasSession () {
-		return (session_id() == '');
+		return (session_id() != '');
 	}
-	
+
 	static public function startSession ($sSessionName = null) {
 		if ( ((double)PHP_VERSION >= 5.4 && session_status() == PHP_SESSION_DISABLED) ) {
 			throw new vscExceptionRequest('Sessions are not available');
@@ -305,8 +306,6 @@ abstract class vscHttpRequestA extends vscObject {
 			if (!is_null($sSessionName)) {
 				session_name($sSessionName);
 			}
-
-			$oRequest->sessionLoad();
 		}
 	}
 
@@ -317,11 +316,6 @@ abstract class vscHttpRequestA extends vscObject {
 		session_destroy();
 		session_write_close();
 		setcookie(session_name(), "", -1, $aSessionCookieParams['path'], $aSessionCookieParams['domain'], $aSessionCookieParams['secure'], $aSessionCookieParams['httponly']);
-	}
-
-	public function sessionLoad() {
-		if (isset($_SESSION))
-			$this->aSessionVars	= $_SESSION;
 	}
 
 	public function hasVar($sVarName) {
@@ -382,8 +376,8 @@ abstract class vscHttpRequestA extends vscObject {
 	 * @return mixed
 	 */
 	public function getSessionVar ($sVarName) {
-		if (key_exists($sVarName, $this->aSessionVars)) {
-			return self::getDecodedVar($this->aSessionVars[$sVarName]);
+		if (key_exists($sVarName, $_SESSION)) {
+			return self::getDecodedVar($_SESSION[$sVarName]);
 		} else {
 			return null;
 		}
@@ -533,7 +527,7 @@ abstract class vscHttpRequestA extends vscObject {
 	static protected function getDecodedVar ($mVar) {
 		if (is_array($mVar)) {
 			foreach ($mVar as $key => $sValue) {
-				$mVar[$key] = urldecode($sValue);
+				$mVar[$key] = self::getDecodedVar($sValue);
 			}
 		} elseif (is_string($mVar)) {
 			$mVar = urldecode($mVar);
