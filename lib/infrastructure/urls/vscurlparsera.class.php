@@ -15,72 +15,103 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 		return $this->getCompleteUri(true);
 	}
 
-	static public function parseQuery ($sQuery) {
-		$aReturnParameters = array();
-		$aParameters = explode ('&', $sQuery);
-
-		if (is_array($aParameters)) {
-			foreach ($aParameters as $sParameterString) {
-				if (!empty($sParameterString) ) {
-					try {
-						list ($sParamName, $sParamValue) = explode ('=', $sParameterString);
-						$aReturnParameters[$sParamName] = $sParamValue;
-					} catch (vscExceptionError $e) {
-						// d ($e->getTraceAsString());
-					}
-				}
-			}
-		}
-
-		return $aReturnParameters;
-	}
-
-	static private function parse_url ($sUrl = null) {
-		$sFragment	= '';
+	/**
+	 * This exists as the php::parse_url function sometimes breaks inexplicably
+	 * @param string $sUrl
+	 * @return multitype:string multitype:
+	 */
+	static public function parse_url ($sUrl = null) {
 		if (is_null($sUrl)) {
-			$iQPos = strpos($_SERVER['REQUEST_URI'], '?');
-			if ($iQPos) {
-				$sPath		= substr ($_SERVER['REQUEST_URI'], 0 , $iQPos);
-				$sQuery		= substr ($_SERVER['REQUEST_URI'], $iQPos+1);
-			} else {
-				$sPath		= $_SERVER['REQUEST_URI'];
-				$sQuery		= '';
-			}
-			if (stristr($_SERVER['REQUEST_URI'], '#')) {
-				$sFragment	= substr ($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'],'#'));
-			}
-		} else {
-			if (stristr($sUrl, 'http://') || stristr($sUrl, 'https://')) {
-				$sUrl = substr($sUrl, 7);
-			}
-			$iQPos = strpos($sUrl, '?');
-			if ($iQPos) {
-				// we have a query part
-				$sPath		= substr ($sUrl, 0 , strpos($sUrl, '?'));
-				$sQuery		= substr ($sUrl, strpos($sUrl, '?') + 1);
-			} else {
-				$sPath		= stristr($sUrl,'/');
-				$sQuery 	= '';
-			}
-			if (stristr($sUrl, '#')) {
-				$sFragment	= substr ($sUrl, strpos($sUrl, '#'));
-			}
+			$sUrl = $_SERVER['REQUEST_URI'];
 		}
 
-		return array (
-			'scheme'	=> (vsc::getEnv()->getHttpRequest()->isSecure() ? 'https' : 'http'),
-			'host'		=> (vsc::getEnv()->getHttpRequest()->getServerName()),
+		$bIsSecure	= false;
+		$sHost		= '';
+		$sUser		= '';
+		$sPass		= '';
+		$sFragment	= '';
+		$aReturn	= array(
+			'scheme'	=> '',
+			'host'		=> '',
 			'user'		=> '',
 			'pass'		=> '',
+			'path'		=> '',
+			'query'		=> '',
+			'fragment'	=> ''
+		);
+
+		try {
+			$aParsed = parse_url ($sUrl);
+
+			if (array_key_exists('query', $aParsed)) {
+				$aQuery = array();
+				parse_str($aParsed['query'], $aQuery);
+
+				$aParsed['query'] = $aQuery;
+			}
+
+			return array_merge ($aReturn, $aParsed);
+		} catch (ErrorException $e) {
+			// failed php::parse_url
+		}
+
+		if (stristr($sUrl, 'https://')) {
+			$bIsSecure = true;
+		}
+		if (stristr($sUrl, 'http://')) {
+			// stripping the protocol
+			$sUrl = substr($sUrl, 7);
+		}
+		if (stristr($sUrl, 'https://')) {
+			// stripping the protocol
+			$sUrl = substr($sUrl, 8);
+		}
+		if (stristr($sUrl, '@')) {
+			// getting the username (and pass)
+			$sUser = substr($sUrl, 0, strpos ($sUrl, '@'));
+			if (stristr($sUser, ':')) {
+				$sPass = substr($sUser, strpos ($sUrl, ':')+1);
+				$sUser = substr($sUser,0, strpos ($sUrl, ':'));
+			}
+			$sUrl = substr($sUrl, strpos ($sUrl, '@') + 1);
+		}
+		if (stristr($sUrl, '/')) {
+			// getting the hostname
+			$sHost = substr($sUrl, 0, strpos ($sUrl, '/'));
+			$sUrl = substr($sUrl, strpos ($sUrl, '/') + 1 );
+		}
+
+		if (stristr($sUrl, '#')) {
+			$sFragment	= substr ($sUrl, strpos($sUrl, '#') + 1);
+			$sUrl = substr ($sUrl, 0, strpos($sUrl, '#'));
+		}
+
+		if (stristr($sUrl, '?')) {
+			// we have a query part
+			$sPath		= substr ($sUrl, 0 , strpos($sUrl, '?'));
+			$sQuery		= substr ($sUrl, strpos($sUrl, '?') + 1);
+		} else {
+			$sPath		= stristr($sUrl, '/');
+			$sQuery 	= '';
+		}
+
+		$aQuery = array();
+		parse_str($sQuery, $aQuery);
+
+		return array (
+			'scheme'	=> ($bIsSecure ? 'https' : 'http'),
+			'host'		=> $sHost,
+			'user'		=> $sUser,
+			'pass'		=> $sPass,
 			'path'		=> $sPath,
-			'query'		=> self::parseQuery($sQuery),
+			'query'		=> $aQuery,
 			'fragment'	=> $sFragment
 		);
 	}
 
 	public function setUrl ($sUrl) {
 		$this->sUrl 		= $sUrl;
-		$this->aComponents  = self::parse_url ($sUrl);
+		$this->aComponents	= self::parse_url ($sUrl);
 	}
 
 	public function getScheme () {
@@ -228,17 +259,14 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 	}
 
 	public function getQueryString () {
-		$aQuery = array ();
-		if (is_array($this->aComponents['query'])) {
-			foreach ($this->aComponents['query'] as $sParameterName => $sParameterValue) {
-				$aQuery[] = $sParameterName .( !empty ($sParameterValue) ?  '=' . $sParameterValue : '');
+		if (!empty($this->aComponents['query'])) {
+			try {
+			return urldecode (http_build_query ($this->aComponents['query']));
+			} catch (Exception $e) {
+				d ($this->aComponents);
 			}
-
-			$sQuery = implode ('&', $aQuery);
-		} else {
-			$sQuery = $this->aComponents['query'];
 		}
-		return $sQuery;
+		return '';
 	}
 
 	public function getFragment () {
@@ -310,7 +338,6 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 			}
 		}
 
-//		if (count ($this->getQuery()) > 0) d ($sPath, substr($sPath, -1));
 		if (substr($sPath, -1) != '/') {
 			$sPath .= '/';
 		}
