@@ -29,7 +29,7 @@ abstract class vscCacheableControllerA extends vscFrontControllerA implements vs
 			$oResponse->setDate($oNow->format('r'));
 
 			$oModel = $this->getView()->getModel();
-			if ( vscCacheableModelA::isValid ($oModel)) {
+			if ( vscCacheableModelA::isValid ($oModel) ) {
 				$sLastModified = $this->getView()->getModel()->getLastModified();
 				try {
 					$oLastModified = new DateTime($sLastModified,  new DateTimeZone('GMT'));
@@ -49,7 +49,7 @@ abstract class vscCacheableControllerA extends vscFrontControllerA implements vs
 				}
 				$oResponse->setExpires($oMax->add(new DateInterval('P2W'))->format('r')); // adding 2 weeks
 			} else {
-				$oResponse->setETag( substr(sha1(serialize($oModel)),0, 8) );
+				$oResponse->setETag( substr(sha1($oResponse->getOutput()), 0, 8) );
 				$oResponse->setCacheControl ('public, max-age='. $iExpireTime);
 
 				if ( $oRequest->getIfNoneMatch() == '"'.$oResponse->getETag().'"' ) {
