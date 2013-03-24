@@ -301,7 +301,7 @@ abstract class vscHttpRequestA extends vscObject {
 
 		if ( ((double)PHP_VERSION >= 5.4 && session_status() == PHP_SESSION_NONE) || session_id() == "") {
 			$oRequest = vsc::getEnv()->getHttpRequest();
-			session_set_cookie_params(0, '/', $oRequest->getUriObject()->getDomain(), $oRequest->isSecure(), true);
+			session_set_cookie_params(0, '/', $oRequest->getUriObject()->getDomain(), vscHttpRequestA::isSecure(), true);
 			session_start();
 			if (!is_null($sSessionName)) {
 				session_name($sSessionName);
@@ -446,7 +446,7 @@ abstract class vscHttpRequestA extends vscObject {
 	/**
 	 * @return bool
 	 */
-	public function isSecure () {
+	static public function isSecure () {
 		return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on');
 	}
 

@@ -5,10 +5,9 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 
 	public function __construct ($sUrl = null) {
 		if ($sUrl === null) {
-			$this->setUrl($_SERVER['REQUEST_URI']);
-		} else {
-			$this->setUrl($sUrl);
+			$sUrl = 'http' . (vscHttpRequestA::isSecure() ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 		}
+		$this->setUrl($sUrl);
 	}
 
 	public function __toString() {
