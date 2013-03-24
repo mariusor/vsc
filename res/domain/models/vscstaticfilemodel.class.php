@@ -12,7 +12,7 @@ class vscStaticFileModel extends vscCacheableModelA {
 
 	public function setFilePath ($sPath) {
 		$this->sFilePath = $sPath;
-		$this->setLastModified (filemtime($this->getFilePath()));
+		$this->setLastModified (date ('Y-m-d G:i:s', filemtime($this->getFilePath())));
 	}
 
 	public function getFilePath () {
