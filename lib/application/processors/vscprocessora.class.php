@@ -37,9 +37,13 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 	 * @param array $aVars
 	 * @return void
 	 */
-	public function setLocalVars ($aVars = array()) {
-		foreach ($this->aLocalVars as $sKey => $sValue) {
-			$this->aLocalVars[$sKey] = array_shift($aVars);
+	public function setLocalVars ($aVars = array(), $bPreserveKeys = false) {
+		if ($bPreserveKeys) {
+			$this->aLocalVars = array_merge ($this->aLocalVars, $aVars);
+		} else {
+			foreach ($this->aLocalVars as $sKey => $sValue) {
+				$this->aLocalVars[$sKey] = array_shift($aVars);
+			}
 		}
 	}
 
@@ -77,7 +81,7 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 	public function getValueNames () {
 		return $this->aLocalValueNames;
 	}
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see vscProcessorI::delegateRequest()
@@ -85,21 +89,21 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 	public function delegateRequest(vscHttpRequestA $oHttpRequest, vscProcessorA $oNewProcessor, vscHttpResponseA $oResponse = null) {
 		$oDispatcher = vsc::getEnv()->getDispatcher();
 		$oMap = $oDispatcher->getSiteMap()->findProcessorMap($oNewProcessor);
-		
+
 		$oNewProcessor->setMap($oMap);
 		$oNewProcessor->init();
-		
+
 		/* @var $oDispatcher vscRwDispatcher */
 		$oMap->merge ($this->getMap());
 
 		if (vscHttpResponse::isValid($oResponse)) {
 			$oMap->setResponse($oResponse);
 		}
-		
+
 		$this->setMap ($oMap);
-		
-		$oNewProcessor->setLocalVars($this->getLocalVars());
-		
+
+		$oNewProcessor->setLocalVars($this->getLocalVars(), true);
+
 		return $oNewProcessor->handleRequest($oHttpRequest);
 	}
 }

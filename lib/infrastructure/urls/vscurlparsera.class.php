@@ -224,6 +224,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 
 	public function setPath ($sPath) {
 		$this->aComponents['path'] = $sPath;
+		$sPath = $this->aComponents['path'];
 	}
 
 	public function getPath () {
@@ -260,9 +261,9 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 	public function getQueryString () {
 		if (!empty($this->aComponents['query'])) {
 			try {
-			return urldecode (http_build_query ($this->aComponents['query']));
+				return urldecode (http_build_query ($this->aComponents['query']));
 			} catch (Exception $e) {
-				d ($this->aComponents);
+				//d ($this->aComponents);
 			}
 		}
 		return '';
