@@ -9,6 +9,8 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	private $sTitle;
 	private $oModel;
 
+	private $aHelpers = array();
+	
 	private $sMainTemplate;
 
 	private $oCurrentMap;
@@ -61,7 +63,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	}
 
 	/**
-	 * @return vscMappingA
+	 * @return vscProcessorMap
 	 */
 	public function getMap () {
 		if (vscMappingA::isValid($this->oCurrentMap)) {
@@ -78,6 +80,22 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		$this->oCurrentMap = $oMap;
 	}
 
+	public function registerHelper (vscViewHelperA $oHelper) {
+		$this->getMap()->registerHelper( $oHelper ) ;
+	}
+	
+	public function __call ($sMethodName, $aParameters = array()) {
+		// to be used with helpers
+		foreach ($this->getMap()->getViewHelpers() as $key => $oHelper) {
+			$oReflection = new ReflectionClass ($oHelper);
+			if ($oReflection->hasMethod($sMethodName)) {
+				$oMethod = $oReflection->getMethod($sMethodName);
+				return $oMethod->invokeArgs($oHelper, $aParameters);
+			}
+		}
+		return $aParameters;
+	}
+	
 	public function __get ($sVarName) {
 		try {
 		// TODO: use proper reflection
