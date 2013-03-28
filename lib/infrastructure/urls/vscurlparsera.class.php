@@ -39,9 +39,11 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 			'fragment'	=> ''
 		);
 
+		if ( substr($sUrl,0,2) == '//' ) {
+			$sUrl = (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] ? 'https:' : 'http:') . $sUrl;
+		}
 		try {
 			$aParsed = parse_url ($sUrl);
-
 			if (array_key_exists('query', $aParsed)) {
 				$aQuery = array();
 				parse_str($aParsed['query'], $aQuery);
@@ -297,7 +299,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 
 
 	public function isLocal () {
-		return (!$this->getScheme() && $this->getPath());
+		return (!$this->getScheme() && !$this->getHost() && $this->getPath());
 	}
 
 	public static function isAbsolutePath ($sPath) {
