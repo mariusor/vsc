@@ -44,7 +44,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 				$sUrl = (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] ? 'https:' : 'http:') . $sUrl;
 			}
 
-			$aParsed = parse_url ($sLongUrl);
+			$aParsed = parse_url ($sUrl);
 
 			if (array_key_exists('query', $aParsed)) {
 				$aQuery = array();
