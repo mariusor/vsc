@@ -53,7 +53,7 @@ class vscProcessorMap extends vscMappingA {
 	 * @param vscViewHelperA $oHelper
 	 * @return void
 	 */
-	public function addViewHelper (vscViewHelperA $oHelper) {
+	public function registerHelper (vscViewHelperA $oHelper) {
 		$this->oHelpers[] = $oHelper;
 	}
 

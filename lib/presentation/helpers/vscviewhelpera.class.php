@@ -6,7 +6,7 @@
  * @date 13.01.02
  */
 
-class vscViewHelperA extends vscNullA /* implements vscViewI  */ {
+class vscViewHelperA extends vscNull /* implements vscViewI  */ {
 	private $sName;
 
 	/**
