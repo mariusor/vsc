@@ -39,6 +39,11 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 			'fragment'	=> ''
 		);
 
+		if ( is_file($sUrl) ) {
+			$aReturn['path'] = $sUrl;
+			return $aReturn;
+		}
+
 		try {
 			if ( substr($sUrl, 0, 2) == '//' ) {
 				$sUrl = (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] ? 'https:' : 'http:') . $sUrl;

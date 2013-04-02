@@ -190,8 +190,9 @@ class vscMappingA extends vscObject {
 	public function addScript ($sPath, $bInHead = false) {
 		$oUrl = new vscUrlRWParser($sPath);
 		$iMainKey = (int)$bInHead; // [1] in the <head> section; [0] at the end of the *HTML document
-		if ($oUrl->isLocal()) // I had a bad habit of correcting external URL's
-			$sPath = $oUrl->getCompleteUri(true);
+		if ($oUrl->isLocal()) {// I had a bad habit of correcting external URL's
+			$sPath = $oUrl->getCompleteUri();
+		}
 		$this->aResources['scripts'][$iMainKey][] 		= $sPath;
 	}
 
