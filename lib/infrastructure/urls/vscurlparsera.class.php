@@ -39,9 +39,13 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 			'fragment'	=> ''
 		);
 
-		if ( is_file($sUrl) ) {
-			$aReturn['path'] = $sUrl;
-			return $aReturn;
+		try {
+			if ( is_file($sUrl) ) {
+				$aReturn['path'] = $sUrl;
+				return $aReturn;
+			}
+		} catch (ErrorException $e) {
+			// possible open basedir restriction
 		}
 
 		try {
