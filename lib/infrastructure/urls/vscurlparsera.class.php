@@ -5,7 +5,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 	private $bUrlHasNoScheme = false;
 
 	public function __construct ($sUrl = null) {
-		if ($sUrl === null) {
+		if (is_null($sUrl)) {
 			$sUrl = 'http' . (vscHttpRequestA::isSecure() ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 		}
 		$this->setUrl($sUrl);
@@ -45,7 +45,8 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 		);
 
 		try {
-			if ( is_file($sUrl) ) {
+			if ( is_file ($sUrl) ) {
+				$aReturn['scheme'] = 'file';
 				$aReturn['path'] = $sUrl;
 				return $aReturn;
 			}
@@ -319,7 +320,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 
 
 	public function isLocal () {
-		return (!$this->getScheme() && !$this->getHost() && $this->getPath());
+		return ($this->getScheme() == 'file' && !$this->getHost() && $this->getPath());
 	}
 
 	public static function isAbsolutePath ($sPath) {
@@ -327,16 +328,18 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 	}
 
 	public function getSiteUri () {
-		$sUri = ($this->getScheme() ? $this->getScheme() : 'http') . '://';
 		// ff just tries to log you in... and removes the user:pass from the url :(
-		$sUri .= ($this->getUser() ? $this->getUser() . ($this->getPass() ? ':' . $this->getPass() : '') . '@' : '');
-		if (is_array($_SERVER) && array_key_exists('HTTP_HOST', $_SERVER)) {
-			$sUri .= ($this->getHost() ? $this->getHost() : $_SERVER['HTTP_HOST']);
+		$sUri = ($this->getUser() ? $this->getUser() . ($this->getPass() ? ':' . $this->getPass() : '') . '@' : '');
+		if ( $this->getHost() ) {
+			$sUri .= $this->getHost();
+		} elseif (is_array($_SERVER) && array_key_exists('HTTP_HOST', $_SERVER)) {
+			$sUri .= $_SERVER['HTTP_HOST'];
 		}
 
 		if ($sUri) {
 			return $sUri;
 		} else {
+			d ($this, $sUri);
 			throw new vscExceptionInfrastructure ('No host present...');
 		}
 	}
@@ -344,11 +347,13 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 	public function getCompleteParentUri ($bFull = false, $iSteps = 1) {
 		if (!$this->isLocal()) {
 			$bFull = true;
-		}
-		$sUrl = '';
-
-		if ($bFull) {
+			$sUrl = ($this->getScheme() ? $this->getScheme() . ':' : '') . '//';
 			$sUrl .= $this->getSiteUri();
+		} else {
+			$sUrl = '';
+			if ($bFull) {
+				$sUrl = ($this->getScheme() ? $this->getScheme() . ':' : '') . '//';
+			}
 		}
 
 		$sPath = $this->getParentPath($iSteps);
