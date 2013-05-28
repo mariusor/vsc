@@ -2,6 +2,7 @@
 class vscUrlParserA extends vscObject implements vscUrlParserI {
 	private $sUrl;
 	private $aComponents;
+	private $bUrlHasNoScheme = false;
 
 	public function __construct ($sUrl = null) {
 		if ($sUrl === null) {
@@ -14,13 +15,17 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 		return $this->getCompleteUri(true);
 	}
 
+	public function hasScheme () {
+		return $this->bUrlHasNoScheme;
+	}
+
 	/**
 	 * This exists as the php::parse_url function sometimes breaks inexplicably
 	 * @param string $sUrl
 	 * @return multitype:string multitype:
 	 */
 	static public function parse_url ($sUrl = null) {
-		if (is_null($sUrl)) {
+		if (is_null($sUrl) && is_array($_SERVER)) {
 			$sUrl = $_SERVER['REQUEST_URI'];
 		}
 
@@ -46,6 +51,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 			}
 		} catch (ErrorException $e) {
 			// possible open basedir restriction
+			echo ($e->getMessage());
 		}
 
 		try {
@@ -123,6 +129,9 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 
 	public function setUrl ($sUrl) {
 		$this->sUrl 		= $sUrl;
+		if ( substr($sUrl, 0, 2) == '//' ) {
+			$this->bUrlHasNoScheme = true;
+		}
 		$this->aComponents	= self::parse_url ($sUrl);
 	}
 
@@ -321,7 +330,9 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 		$sUri = ($this->getScheme() ? $this->getScheme() : 'http') . '://';
 		// ff just tries to log you in... and removes the user:pass from the url :(
 		$sUri .= ($this->getUser() ? $this->getUser() . ($this->getPass() ? ':' . $this->getPass() : '') . '@' : '');
-		$sUri .= ($this->getHost() ? $this->getHost() : $_SERVER['HTTP_HOST']);
+		if (is_array($_SERVER) && array_key_exists('HTTP_HOST', $_SERVER)) {
+			$sUri .= ($this->getHost() ? $this->getHost() : $_SERVER['HTTP_HOST']);
+		}
 
 		if ($sUri) {
 			return $sUri;

@@ -18,7 +18,7 @@ if ($iMajorVersion < 5 || $iMinorVersion < 3) {
 	import (VSC_RES_PATH);
 
 	// including the infrastructure folder
-	import (VSC_RES_PATH . 'infrastructure');
+	import ('infrastructure');
 	require ('vsc.class.php');
 }
 if (!defined ('ROOT_MAIL')) {
