@@ -214,21 +214,23 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 
 		$iCnt = 0;
 		foreach ($aPath as $iKey => $sFolder) {
-			if ($sFolder == '..') {
-				$iCnt++;
+			switch ($sFolder) {
+				case '..':
+					$iCnt++;
 
-				unset ($aPath[$iKey]);
-				if (key_exists($iKey-1,$aPath)) {
-					$iPrevKey = $iKey-1;
-					$sPrev = $aPath[$iPrevKey];
-				} else {
-					$sPrev = prev($aPath);
-					$iPrevKey = array_search ($sPrev, $aPath);
-				}
-				unset ($aPath[$iPrevKey]);
-//				if ($iCnt == 1) d (array($iPrevKey=>$sPrev), array($iKey=>$sFolder));
-			} else {
-				//$aPath[$iKey] = rawurlencode($sFolder);
+					unset ($aPath[$iKey]);
+					if (key_exists($iKey-1,$aPath)) {
+						$iPrevKey = $iKey-1;
+						$sPrev = $aPath[$iPrevKey];
+					} else {
+						$sPrev = prev($aPath);
+						$iPrevKey = array_search ($sPrev, $aPath);
+					}
+					unset ($aPath[$iPrevKey]);
+				break;
+				case '.':
+					unset ($aPath[$iKey]);
+				break;
 			}
 		}
 
@@ -339,8 +341,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 		if ($sUri) {
 			return $sUri;
 		} else {
-			d ($this, $sUri);
-			throw new vscExceptionInfrastructure ('No host present...');
+			return '';
 		}
 	}
 

@@ -40,4 +40,35 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 		return $this->assertTrue($oUrl->getCompleteUri(true) == 'http://localhost');
 	}
 
+	public function testAddPath () {
+		$sLocalHost = 'http://localhost';
+		$sStr = 'ana/are/mere';
+
+		$oUrl = new vscUrlRWParser($sLocalHost);
+		$oUrl->addPath($sStr);
+
+		return $this->assertEqual($oUrl->getCompleteUri(true), $sLocalHost . '/' . $sStr . '/');
+	}
+
+	public function testAddRelativePathWithParentDirectory () {
+		$sLocalHost = 'http://localhost';
+		$sStr = 'ana/../are/mere';
+
+		$oUrl = new vscUrlRWParser($sLocalHost);
+		$oUrl->addPath($sStr);
+
+		$sParentStr = substr($sStr, strpos($sStr, '../') + strlen ('../'));
+		return $this->assertEqual($oUrl->getCompleteUri(true), $sLocalHost . '/' . $sParentStr . '/');
+	}
+
+	public function testAddRelativePathWithCurrentDirectory () {
+		$sLocalHost = 'http://localhost';
+		$sStr = 'ana/./are/mere';
+
+		$oUrl = new vscUrlRWParser($sLocalHost);
+		$oUrl->addPath($sStr);
+
+		$sCurrentStr = str_replace('./', '', $sStr);
+		return $this->assertEqual($oUrl->getCompleteUri(true), $sLocalHost . '/' . $sCurrentStr . '/');
+	}
 }
