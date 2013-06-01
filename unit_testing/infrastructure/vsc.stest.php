@@ -39,13 +39,4 @@ class vscTest extends Snap_UnitTestCase {
 		return $this->assertEqual(vsc::getIncludePaths(), explode (PATH_SEPARATOR, get_include_path()));
 	}
 
-	public function testGetCurrentModuleMap () {
-		// useless
-		/* @var $oDispatcher vscRwDispatcher */
-		$oDispatcher = vsc::getEnv()->getDispatcher();
-		$oDispatcher->loadSiteMap ($this->sFixturesPath . 'map.php');
-
-		$oMap = vsc::getEnv()->get();
-		return $this->assertIsA(vsc::getEnv()->getCurrentModuleMap(), 'vscNull');
-	}
 }
