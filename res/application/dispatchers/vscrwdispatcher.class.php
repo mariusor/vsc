@@ -53,7 +53,11 @@ class vscRwDispatcher extends vscDispatcherA {
 	}
 
 	public function getCurrentModuleMap () {
-		return $this->getCurrentProcessorMap()->getModuleMap();
+		if (vscProcessorMap::isValid($this->getCurrentProcessorMap())) {
+			return $this->getCurrentProcessorMap()->getModuleMap();
+		} else {
+			return $this->getSiteMap()->getCurrentModuleMap();
+		}
 	}
 
 	public function getCurrentProcessorMap () {
@@ -172,7 +176,9 @@ class vscRwDispatcher extends vscDispatcherA {
 					$this->oProcessor->setMap ($oProcessorMap);
 
 					// setting the variables defined in the processor into the tainted variables
-					$this->getRequest()->setTaintedVars ($this->oProcessor->getLocalVars()); // FIXME!!!
+					if ($this->getRequest() instanceof vscRwHttpRequest) {
+						$this->getRequest()->setTaintedVars ($this->oProcessor->getLocalVars()); // FIXME!!!
+					}
 				} else {
 					// broken URL
 					throw new vscExceptionResponseError('Broken URL', 400);

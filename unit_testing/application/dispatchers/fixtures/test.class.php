@@ -1,6 +1,7 @@
 <?php
 import ('application/processors');
-class tsMainController extends vscProcessorA {
+
+class test extends vscProcessorA {
 	public function init () {}
 
 	public function handleRequest (vscHttpRequestA $oHttpRequest) {
