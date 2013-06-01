@@ -16,7 +16,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 	}
 
 	public function hasScheme () {
-		return $this->bUrlHasNoScheme;
+		return !$this->bUrlHasNoScheme;
 	}
 
 	/**
@@ -40,7 +40,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 			'user'		=> '',
 			'pass'		=> '',
 			'path'		=> '',
-			'query'		=> '',
+			'query'		=> array(),
 			'fragment'	=> ''
 		);
 
