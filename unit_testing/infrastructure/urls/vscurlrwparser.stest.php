@@ -9,18 +9,20 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 	public function tearDown () {
 		// @todo
 	}
-/*/
-	static public function makeUrl ($aUrlComponents) {
-		if (count($aUrlComponents['query']) > 1) {
+
+	static public function makeQuery ($aQueryComponents) {
+		$sQuery = '';
+		if (count($aQueryComponents) > 1) {
 			$aQuery = array();
-			foreach ($aUrlComponents['query'] as $key => $val) {
+			foreach ($aQueryComponents as $key => $val) {
 				$aQuery[] = $key . '=' . $val;
 			}
 			$sQuery = implode('&', $aQuery);
-		} else {
-			$sQuery = '';
 		}
+		return $sQuery;
+	}
 
+	static public function makeUrl ($aUrlComponents) {
 		$sUrl = '';
 		if (!empty ($aUrlComponents['scheme'])) {
 			$sUrl .= $aUrlComponents['scheme'] . '://';
@@ -38,6 +40,7 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 		if (!empty ($aUrlComponents['path'] )) {
 			$sUrl .= $aUrlComponents['path'];
 		}
+		$sQuery = self::makeQuery($aUrlComponents['query']);
 		if (!empty ($sQuery)) {
 			$sUrl .= '?' . $sQuery;
 		}
@@ -45,8 +48,8 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 
 			$sUrl .= '#' . $aUrlComponents['fragment'];
 		}
+		return $sUrl;
 	}
-/**/
 
 	public function testHasSchemeTrue () {
 		$oUrl = new vscUrlRWParser(__FILE__);
@@ -77,11 +80,8 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 			$aQuery[] = $key . '=' . $val;
 		}
 		$sQuery = implode('&', $aQuery);
-		$sUrl = $aUrlComponents['scheme'] . '://' .
-				$aUrlComponents['user'] . ':' . $aUrlComponents['pass'] . '@' .
-				$aUrlComponents['host'] . $aUrlComponents['path'] .
-				'?' . $sQuery . '#' . $aUrlComponents['fragment'];
 
+		$sUrl = self::makeUrl($aUrlComponents);
 		return $this->assertEqual($aUrlComponents, vscUrlParserA::parse_url($sUrl));
 	}
 
@@ -95,11 +95,11 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 			'query'		=> array(),
 			'fragment'	=> ''
 		);
-		$sUrl = $aUrlComponents['scheme'] . '://' . $aUrlComponents['host'] . $aUrlComponents['path'];
+		$sUrl = self::makeUrl($aUrlComponents);
 		return $this->assertEqual($aUrlComponents, vscUrlParserA::parse_url(__FILE__));
 	}
 
-	public function testParseUrlFullLocalPath () {
+	public function testParseUrlFullLocalhostPath () {
 		$aUrlComponents = array (
 				'scheme'	=> 'http',
 				'host'		=> 'localhost',
@@ -109,8 +109,8 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 				'query'		=> array(),
 				'fragment'	=> ''
 		);
-		$sUrl = $aUrlComponents['scheme'] . '://' . $aUrlComponents['host'] . $aUrlComponents['path'];
-		return $this->assertEqual($aUrlComponents, vscUrlParserA::parse_url(__FILE__));
+		$sUrl = self::makeUrl($aUrlComponents);
+		return $this->assertEqual($aUrlComponents, vscUrlParserA::parse_url($sUrl));
 	}
 
 	public function testLocalPath () {
@@ -124,7 +124,7 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 	}
 
 	public function testIsRemote() {
-		$oUrl = new vscUrlRWParser('goole.com');
+		$oUrl = new vscUrlRWParser('google.com');
 		return $this->assertFalse($oUrl->isLocal());
 	}
 
@@ -173,5 +173,110 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 
 		$sCurrentStr = str_replace('./', '', $sStr);
 		return $this->assertEqual($oUrl->getCompleteUri(true), $sLocalHost . '/' . $sCurrentStr . '/');
+	}
+
+	public function testGetParentPath () {
+		$aUrlComponents = array (
+			'scheme'	=> '',
+			'host'		=> '',
+			'user'		=> '',
+			'pass'		=> '',
+			'path'		=> __FILE__,
+			'query'		=> array(),
+			'fragment'	=> ''
+		);
+		$sUrl = self::makeUrl($aUrlComponents);
+		$oUrl = new vscUrlRWParser($sUrl);
+
+		return $this->assertEqual(dirname(__FILE__) . '/', $oUrl->getParentPath(1));
+	}
+
+	public function testGetPath () {
+		$aUrlComponents = array (
+			'scheme'	=> '',
+			'host'		=> '',
+			'user'		=> '',
+			'pass'		=> '',
+			'path'		=> __FILE__,
+			'query'		=> array(),
+			'fragment'	=> ''
+		);
+		$sUrl = self::makeUrl($aUrlComponents);
+		$oUrl = new vscUrlRWParser($sUrl);
+
+		return $this->assertEqual(__FILE__, $oUrl->getPath());
+	}
+
+	public function testGetPass () {
+		$aUrlComponents = array (
+			'scheme'	=> 'http',
+			'host'		=> 'localhost',
+			'user'		=> 'test',
+			'pass'		=> '123',
+			'path'		=> '',
+			'query'		=> array(),
+			'fragment'	=> ''
+		);
+		$sUrl = self::makeUrl($aUrlComponents);
+		$oUrl = new vscUrlRWParser($sUrl);
+
+		return $this->assertEqual($aUrlComponents['pass'], $oUrl->getPass());
+	}
+
+	public function testGetPort () {
+		$sPort = 8080;
+		$aUrlComponents = array (
+			'scheme'	=> 'http',
+			'host'		=> 'localhost:' . $sPort,
+			'user'		=> '',
+			'pass'		=> '',
+			'path'		=> '',
+			'query'		=> array(),
+			'fragment'	=> ''
+		);
+		$sUrl = self::makeUrl($aUrlComponents);
+		$oUrl = new vscUrlRWParser($sUrl);
+
+		return $this->assertEqual($sPort, $oUrl->getPort());
+	}
+
+	public function testGetQuery () {
+		$sPort = '8080';
+		$aUrlComponents = array (
+			'scheme'	=> 'http',
+			'host'		=> 'localhost',
+			'user'		=> '',
+			'pass'		=> '',
+			'path'		=> '',
+			'query'		=> array(
+				'test' => 123,
+				'ana' => 'mere'
+			),
+			'fragment'	=> ''
+		);
+		$sUrl = self::makeUrl($aUrlComponents);
+		$oUrl = new vscUrlRWParser($sUrl);
+
+		return $this->assertEqual($aUrlComponents['query'], $oUrl->getQuery());
+	}
+
+	public function testGetQueryPath () {
+		$sPort = '8080';
+		$aUrlComponents = array (
+			'scheme'	=> 'http',
+			'host'		=> 'localhost',
+			'user'		=> '',
+			'pass'		=> '',
+			'path'		=> '',
+			'query'		=> array(
+				'test' => 123,
+				'ana' => 'mere'
+			),
+			'fragment'	=> ''
+		);
+		$sUrl = self::makeUrl($aUrlComponents);
+		$oUrl = new vscUrlRWParser($sUrl);
+
+		return $this->assertEqual(self::makeQuery($aUrlComponents['query']), $oUrl->getQueryString());
 	}
 }

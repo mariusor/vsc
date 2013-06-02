@@ -25,7 +25,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 	 * @return multitype:string multitype:
 	 */
 	static public function parse_url ($sUrl = null) {
-		if (is_null($sUrl) && is_array($_SERVER)) {
+		if (is_null($sUrl) && is_array($_SERVER) && array_key_exists('REQUEST_URI', $_SERVER)) {
 			$sUrl = $_SERVER['REQUEST_URI'];
 		}
 
@@ -149,7 +149,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 	}
 
 	public function getPort () {
-		return $this->aComponents['port'];
+		return (array_key_exists('port', $this->aComponents) ?  $this->aComponents['port'] : null);
 	}
 
 	private function getSubdomainOf ($sRootDomain) {
@@ -190,6 +190,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 
 	public function getParentPath ($iSteps = 0) {
 		$sPath = $this->aComponents['path'];
+		$sParentPath = '';
 
 		if (empty ($sPath)) return '';
 
@@ -197,13 +198,15 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 			if (substr ($sPath, 0, 2) == './'){
 				$sPath = substr ($sPath, 2);
 			}
-			try {
-				$sParentPath = substr (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), 0 , -1);
-				if (substr($sParentPath, -1) != '/') {
-					$sParentPath .= '/';
+			if (!isCli()) {
+				try {
+					$sParentPath = substr (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), 0 , -1);
+					if (substr($sParentPath, -1) != '/') {
+						$sParentPath .= '/';
+					}
+				} catch (vscExceptionError $e) {
+					// err
 				}
-			} catch (vscExceptionError $e) {
-				$sParentPath = '';
 			}
 			$sPath = $sParentPath . $sPath;
 		}
@@ -241,7 +244,9 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 
 		$sPath = (count($aPath) > 0 ?  '/' . implode ('/', $aPath) : '');
 		$sLast = end ($aPath);
-		if (!self::hasGoodTermination($sPath)) { // we don't have a file as the last element in the path
+		// in case of actually getting the parent, we need to append the ending /
+		// as we don't have a file as the last element in the path - same case for paths without a good termination
+		if ($iSteps > 0 || !self::hasGoodTermination($sPath)) {
 			$sPath .= '/';
 		}
 		return $sPath;
