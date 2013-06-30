@@ -39,6 +39,6 @@ abstract class vscObject {
 	}
 
 	static public function isValid ($oIncomingObject) {
-		return ($oIncomingObject instanceof static);
+		return (!is_null($oIncomingObject) && $oIncomingObject instanceof static);
 	}
 }
