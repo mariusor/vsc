@@ -6,7 +6,7 @@ import (BASE_PATH);
 $sCurPath = realpath(dirname (__FILE__) . '/../../presentation/requests/fixtures/vscpopulatedrequest.class.php');
 include ($sCurPath);
 
-class vscRwDispatcherTest  extends Snap_UnitTestCase {
+class vscRwDispatcherTest extends Snap_UnitTestCase {
 	/**
 	 * @var vscRwDispatcher
 	 */
