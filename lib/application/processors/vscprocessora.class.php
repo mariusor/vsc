@@ -41,6 +41,9 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 		if ($bPreserveKeys) {
 			$this->aLocalVars = array_merge ($this->aLocalVars, $aVars);
 		} else {
+			// This needs improvement to take into account incoming arrays
+			//  containing both string keys - which exist or not in the $aLocalVars array
+			//  and numeric indexes
 			foreach ($this->aLocalVars as $sKey => $sValue) {
 				$this->aLocalVars[$sKey] = array_shift($aVars);
 			}
@@ -61,7 +64,9 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 	public function setVar ($sVar, $sValue) {
 		if (key_exists ($sVar, $this->aLocalVars)) {
 			$this->aLocalVars[$sVar] = $sValue;
+			return true;
 		}
+		return false;
 	}
 
 	/**
@@ -73,13 +78,6 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 		} else {
 			return null;
 		}
-	}
-
-	/**
-	 * @returns array
-	 */
-	public function getValueNames () {
-		return $this->aLocalValueNames;
 	}
 
 	/**
