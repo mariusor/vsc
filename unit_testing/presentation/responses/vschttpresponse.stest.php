@@ -1,6 +1,5 @@
 <?php
-
-class vscHttpSuccessTest extends Snap_UnitTestCase {
+class vscHttpResponseTest extends Snap_UnitTestCase {
 	public function setUp () {
 		// @todo
 	}
