@@ -1,8 +1,11 @@
 <?php
-import ('res/application/controllers');
-import ('presentation/responses');
-import ('presentation/requests');
-import ('presentation/sitemaps');
+import ('application');
+import ('controllers');
+import ('sitemaps');
+import ('presentation');
+import ('responses');
+import ('requests');
+
 
 class vscRssFrontControllerTest extends Snap_UnitTestCase {
 	private $state;
