@@ -45,14 +45,14 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 		);
 
 		try {
-			if ( is_file ($sUrl) ) {
+			if ( is_file ($sUrl) && is_readable($sUrl) ) {
 				$aReturn['scheme'] = 'file';
 				$aReturn['path'] = $sUrl;
 				return $aReturn;
 			}
 		} catch (ErrorException $e) {
 			// possible open basedir restriction
-			echo ($e->getMessage());
+			$aReturn['path'] = $sUrl;
 		}
 
 		try {
