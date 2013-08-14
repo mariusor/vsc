@@ -7,11 +7,11 @@ import ('presentation');
 import ('responses');
 import ('requests');
 
-define ('BASE_PATH', dirname (__FILE__) . '/fixtures/');
-import (BASE_PATH);
+$BASE_PATH = dirname (__FILE__) . '/fixtures/';
+import ($BASE_PATH);
 
 class vscFrontControllerATest extends PHPUnit_Framework_TestCase {
-private $state;
+	private $state;
 	public function setUp () {
 		$this->state = new vscGenericFrontController();
 
@@ -25,6 +25,6 @@ private $state;
 
 	public function testGetResponse() {
 		$oReq = new vscRwHttpRequest();
-		return $this->assertInstanceOf('vscHttpResponseA', $this->state->getResponse($oReq));
+		$this->assertInstanceOf('vscHttpResponseA', $this->state->getResponse($oReq));
 	}
 }

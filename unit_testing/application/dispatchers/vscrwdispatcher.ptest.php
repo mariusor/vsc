@@ -1,8 +1,10 @@
 <?php
-define ('BASE_PATH', dirname (__FILE__) . '/fixtures/');
 
 import ('application/dispatchers');
-import (BASE_PATH);
+
+$BASE_PATH = dirname (__FILE__) . '/fixtures/';
+import ($BASE_PATH);
+
 $sCurPath = realpath(dirname (__FILE__) . '/../../presentation/requests/fixtures/vscpopulatedrequest.class.php');
 include ($sCurPath);
 
@@ -14,7 +16,7 @@ class vscRwDispatcherTest extends PHPUnit_Framework_TestCase {
 	private $fixturePath;
 
 	public function setUp () {
-		$this->fixturePath = BASE_PATH;
+		$this->fixturePath = dirname (__FILE__) . '/fixtures/';
 		$this->state = vsc::getEnv()->getDispatcher();
 	}
 
@@ -47,7 +49,7 @@ class vscRwDispatcherTest extends PHPUnit_Framework_TestCase {
 		$this->state->loadSiteMap ($this->fixturePath . '/map.php');
 		$oProcess = $this->state->getProcessController();
 
-		return $this->assertIsA($oProcess, 'vsc404Processor');
+		return $this->assertInstanceOf('vsc404Processor', $oProcess);
 	}
 
 	public function testGetMapsMap () {

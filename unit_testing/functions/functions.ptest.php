@@ -18,7 +18,7 @@ class functions extends PHPUnit_Framework_TestCase {
 	public function testImportWithOutExceptionsReturnPath () {
 		set_include_path ('.');
 		import (VSC_LIB_PATH); // this should exist at all times
-		$sTestPath = substr (VSC_LIB_PATH,0,-1). PATH_SEPARATOR . '.';
+		$sTestPath = '.' . PATH_SEPARATOR . substr (VSC_LIB_PATH,0,-1);
 		
 		$this->assertEquals (get_include_path(), $sTestPath);
 	}

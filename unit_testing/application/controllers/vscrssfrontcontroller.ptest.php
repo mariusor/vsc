@@ -7,8 +7,8 @@ import ('presentation');
 import ('responses');
 import ('requests');
 
-define ('BASE_PATH', dirname (__FILE__) . '/fixtures/');
-import (BASE_PATH);
+$BASE_PATH = dirname (__FILE__) . '/fixtures/';
+import ($BASE_PATH);
 
 class vscRssFrontControllerTest extends PHPUnit_Framework_TestCase {
 	private $state;

@@ -1,5 +1,7 @@
 <?php
+$BASE_PATH = dirname(__FILE__) . '/';
+
 /* @var $this vscRwSiteMap */
-$this->getCurrentModuleMap()->setTemplatePath(dirname(__FILE__));
-$oMap = $this->map ('test\Z', BASE_PATH . 'test.class.php');
+$this->getCurrentModuleMap()->setTemplatePath($BASE_PATH);
+$oMap = $this->map ('test\Z', $BASE_PATH . 'test.class.php');
 

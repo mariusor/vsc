@@ -1,5 +1,6 @@
 <?php
-set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . DIRECTORY_SEPARATOR . 'fixtures');
+$BASE_PATH = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR;
+include ($BASE_PATH . 'vscemptyprocessor.class.php');
 
 import ('application');
 import ('sitemaps');
