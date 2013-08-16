@@ -1,6 +1,10 @@
 <phpunit
     bootstrap="./vsc_phpunittest_environment.php"
-    colors="true">
+    colors="true"
+    stopOnError="true"
+    stopOnFailure="false"
+    strict="true"
+    processIsolation="true">
     <testsuites>
         <testsuite name="my test suite">
             <directory suffix=".ptest.php">./</directory>
