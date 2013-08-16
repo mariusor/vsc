@@ -1,7 +1,7 @@
 <?php
 import ('urls');
 
-class vscUrlRWParserTest extends Snap_UnitTestCase {
+class vscUrlRWParserTest extends PHPUnit_Framework_TestCase {
 	public function setUp () {
 		// @todo
 	}
@@ -82,7 +82,7 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 		$sQuery = implode('&', $aQuery);
 
 		$sUrl = self::makeUrl($aUrlComponents);
-		return $this->assertEqual($aUrlComponents, vscUrlParserA::parse_url($sUrl));
+		return $this->assertEquals($aUrlComponents, vscUrlParserA::parse_url($sUrl));
 	}
 
 	public function testParseUrlFullLocalPath () {
@@ -96,7 +96,7 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 			'fragment'	=> ''
 		);
 		$sUrl = self::makeUrl($aUrlComponents);
-		return $this->assertEqual($aUrlComponents, vscUrlParserA::parse_url(__FILE__));
+		return $this->assertEquals($aUrlComponents, vscUrlParserA::parse_url(__FILE__));
 	}
 
 	public function testParseUrlFullLocalhostPath () {
@@ -110,7 +110,7 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 				'fragment'	=> ''
 		);
 		$sUrl = self::makeUrl($aUrlComponents);
-		return $this->assertEqual($aUrlComponents, vscUrlParserA::parse_url($sUrl));
+		return $this->assertEquals($aUrlComponents, vscUrlParserA::parse_url($sUrl));
 	}
 
 	public function testLocalPath () {
@@ -150,7 +150,7 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 		$oUrl = new vscUrlRWParser($sLocalHost);
 		$oUrl->addPath($sStr);
 
-		return $this->assertEqual($oUrl->getCompleteUri(true), $sLocalHost . '/' . $sStr . '/');
+		return $this->assertEquals($oUrl->getCompleteUri(true), $sLocalHost . '/' . $sStr . '/');
 	}
 
 	public function testAddRelativePathWithParentDirectory () {
@@ -161,7 +161,7 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 		$oUrl->addPath($sStr);
 
 		$sParentStr = substr($sStr, strpos($sStr, '../') + strlen ('../'));
-		return $this->assertEqual($oUrl->getCompleteUri(true), $sLocalHost . '/' . $sParentStr . '/');
+		return $this->assertEquals($oUrl->getCompleteUri(true), $sLocalHost . '/' . $sParentStr . '/');
 	}
 
 	public function testAddRelativePathWithCurrentDirectory () {
@@ -172,7 +172,7 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 		$oUrl->addPath($sStr);
 
 		$sCurrentStr = str_replace('./', '', $sStr);
-		return $this->assertEqual($oUrl->getCompleteUri(true), $sLocalHost . '/' . $sCurrentStr . '/');
+		return $this->assertEquals($oUrl->getCompleteUri(true), $sLocalHost . '/' . $sCurrentStr . '/');
 	}
 
 	public function testGetParentPath () {
@@ -188,7 +188,7 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 		$sUrl = self::makeUrl($aUrlComponents);
 		$oUrl = new vscUrlRWParser($sUrl);
 
-		return $this->assertEqual(dirname(__FILE__) . '/', $oUrl->getParentPath(1));
+		return $this->assertEquals(dirname(__FILE__) . '/', $oUrl->getParentPath(1));
 	}
 
 	public function testGetPath () {
@@ -204,7 +204,7 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 		$sUrl = self::makeUrl($aUrlComponents);
 		$oUrl = new vscUrlRWParser($sUrl);
 
-		return $this->assertEqual(__FILE__, $oUrl->getPath());
+		return $this->assertEquals(__FILE__, $oUrl->getPath());
 	}
 
 	public function testGetPass () {
@@ -220,7 +220,7 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 		$sUrl = self::makeUrl($aUrlComponents);
 		$oUrl = new vscUrlRWParser($sUrl);
 
-		return $this->assertEqual($aUrlComponents['pass'], $oUrl->getPass());
+		return $this->assertEquals($aUrlComponents['pass'], $oUrl->getPass());
 	}
 
 	public function testGetPort () {
@@ -237,7 +237,7 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 		$sUrl = self::makeUrl($aUrlComponents);
 		$oUrl = new vscUrlRWParser($sUrl);
 
-		return $this->assertEqual($sPort, $oUrl->getPort());
+		return $this->assertEquals($sPort, $oUrl->getPort());
 	}
 
 	public function testGetQuery () {
@@ -257,7 +257,7 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 		$sUrl = self::makeUrl($aUrlComponents);
 		$oUrl = new vscUrlRWParser($sUrl);
 
-		return $this->assertEqual($aUrlComponents['query'], $oUrl->getQuery());
+		return $this->assertEquals($aUrlComponents['query'], $oUrl->getQuery());
 	}
 
 	public function testGetQueryPath () {
@@ -277,6 +277,6 @@ class vscUrlRWParserTest extends Snap_UnitTestCase {
 		$sUrl = self::makeUrl($aUrlComponents);
 		$oUrl = new vscUrlRWParser($sUrl);
 
-		return $this->assertEqual(self::makeQuery($aUrlComponents['query']), $oUrl->getQueryString());
+		return $this->assertEquals(self::makeQuery($aUrlComponents['query']), $oUrl->getQueryString());
 	}
 }

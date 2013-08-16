@@ -1,5 +1,5 @@
 <?php
-class vscHttpClientErrorTest extends Snap_UnitTestCase {
+class vscHttpResponseTest extends PHPUnit_Framework_TestCase {
 	public function setUp () {
 		// @todo
 	}
@@ -8,6 +8,6 @@ class vscHttpClientErrorTest extends Snap_UnitTestCase {
 		// @todo
 	}
 	public function testToDo () {
-		$this->todo('Do me: ' . __METHOD__);
+// 		$this->todo('Do me: ' . __METHOD__);
 	}
 }

@@ -77,8 +77,10 @@ abstract class vscSiteMapA extends vscObject {
 
 		include ($sPath);
 
-		// 	after we finished parsing the new module, we set the previous module map as current
-		$this->oCurrentModuleMap = $oNewModuleMap->getModuleMap();
+		if (vscModuleMap::isValid($oNewModuleMap->getModuleMap())) {
+			// 	after we finished parsing the new module, we set the previous module map as current
+			$this->oCurrentModuleMap = $oNewModuleMap->getModuleMap();
+		}
 
 		return $oNewModuleMap;
 	}

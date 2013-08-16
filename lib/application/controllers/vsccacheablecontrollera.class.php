@@ -28,10 +28,15 @@ abstract class vscCacheableControllerA extends vscFrontControllerA implements vs
 			$oNow = new DateTime('now',  new DateTimeZone('GMT'));
 			$oResponse->setDate($oNow->format('r'));
 	
-			$oModel = $this->getView()->getModel();
+			try {
+				$oModel = $this->getView()->getModel();
+			} catch (vscExceptionView $v) {
+				$oModel = null;
+			}
 			if ( vscCacheableModelA::isValid ($oModel) ) {
-				$sLastModified = $this->getView()->getModel()->getLastModified();
 				try {
+					$sLastModified = $this->getView()->getModel()->getLastModified();
+
 					$oLastModified = new DateTime($sLastModified,  new DateTimeZone('GMT'));
 					$oResponse->setLastModified($oLastModified->format('r'));
 					$oMax = $oLastModified->getTimestamp() > $oNow->getTimestamp() ? $oLastModified : $oNow;
@@ -49,8 +54,12 @@ abstract class vscCacheableControllerA extends vscFrontControllerA implements vs
 				}
 				$oResponse->setExpires($oMax->add(new DateInterval('P2W'))->format('r')); // adding 2 weeks
 			} else {
-				$oResponse->setETag( substr(sha1($oResponse->getOutput()), 0, 8) );
-				$oResponse->setCacheControl ('public, max-age='. $iExpireTime);
+				try {
+					$oResponse->setETag( substr(sha1($oResponse->getOutput()), 0, 8) );
+					$oResponse->setCacheControl ('public, max-age='. $iExpireTime);
+				} catch (vscExceptionView $v) {
+					//
+				}
 	
 				if ( $oRequest->getIfNoneMatch() == '"'.$oResponse->getETag().'"' ) {
 					$oResponse->setStatus(304);

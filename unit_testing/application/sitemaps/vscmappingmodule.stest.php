@@ -1,5 +1,5 @@
 <?php
-class vscMappingModuleTest  extends Snap_UnitTestCase {
+class vscMappingModuleTest extends Snap_UnitTestCase {
 	public function setUp () {
 		// @todo
 	}

@@ -1,5 +1,5 @@
 <?php
-class vscMappingControllerTest extends Snap_UnitTestCase {
+class vscSiteMapTest extends PHPUnit_Framework_TestCase {
 	public function setUp () {
 		// @todo
 	}
@@ -7,8 +7,7 @@ class vscMappingControllerTest extends Snap_UnitTestCase {
 	public function tearDown () {
 		// @todo
 	}
-
 	public function testToDo () {
-		$this->todo('Do me: ' . __METHOD__);
+// 		$this->todo('Do me: ' . __METHOD__);
 	}
 }

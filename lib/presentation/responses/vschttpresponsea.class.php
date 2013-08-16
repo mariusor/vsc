@@ -348,7 +348,7 @@ abstract class vscHttpResponseA extends vscObject {
 	 * @param $oBody vscViewA
 	 * @return string
 	 */
-	public function setView (vscViewA $oView) {
+	public function setView (vscViewI $oView) {
 		$this->oView = $oView;
 	}
 
@@ -360,15 +360,14 @@ abstract class vscHttpResponseA extends vscObject {
 	}
 
 	public function getOutput() {
+		$sResponseBody = null;
 		if (vscViewA::isValid($this->getView())) {
 			$this->setContentType($this->getView()->getContentType());
 		} else {
 			$this->setContentType('*/*');
 		}
 
-		if (vsc::getEnv()->getHttpRequest()->isHead() || $this->isRedirect()) {
-			$sResponseBody = null;
-		} else {
+		if (!vsc::getEnv()->getHttpRequest()->isHead() && !$this->isRedirect()) {
 			$sResponseBody = $this->getView()->getOutput();
 		}
 		return $sResponseBody;

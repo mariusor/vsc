@@ -73,17 +73,25 @@ class vscString {
 			return $sString;
 		}
 	}
-	
-	static public function truncate ($sString, $iLength, $sEtc = '...') {
-		if ($iLength == 0)
-			return '';
 
-		if (strlen($sString) > $iLength) {
-			$iLength -= strlen($sEtc);
-			$sString = preg_replace('/\s+?(\S+)?$/', '', substr($sString, 0, $iLength+1));
-			return substr($sString, 0, $iLength) . $sEtc;
-		} else {
-			return $sString;
+	static public function baseEncode($val, $base=62, $chars='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
+		// can't handle numbers larger than 2^31-1 = 2147483647
+		$str = '';
+		do {
+			$i = $val % $base;
+			$str = $chars[$i] . $str;
+			$val = ($val - $i) / $base;
+		} while($val > 0);
+		return $str;
+	}
+
+	static public function baseDecode($str, $base=62, $chars='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
+		$len = strlen($str);
+		$val = 0;
+		$arr = array_flip(str_split($chars));
+		for($i = 0; $i < $len; ++$i) {
+			$val += $arr[$str[$i]] * pow($base, $len-$i-1);
 		}
+		return $val;
 	}
 }

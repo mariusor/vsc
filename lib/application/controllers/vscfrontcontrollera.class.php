@@ -5,7 +5,9 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.30
  */
+import (VSC_LIB_PATH . 'application/processors');
 import (VSC_LIB_PATH . 'presentation/responses');
+import (VSC_RES_PATH . 'application/processors');
 import (VSC_RES_PATH . 'domain/models');
 abstract class vscFrontControllerA extends vscObject {
 	private $oCurrentMap;
@@ -88,6 +90,7 @@ abstract class vscFrontControllerA extends vscObject {
 		// we didn't set any special view
 		// this means that the developer needs to provide his own views
 		$oView	= $this->getView();
+		$oMap = null;
 		if (vscProcessorA::isValid($oProcessor) /* && !vscErrorProcessor::isValid($oProcessor) */) {
 			/* @var $oMap vscProcessorMap */
 			$oMap = $oProcessor->getMap();
@@ -102,13 +105,13 @@ abstract class vscFrontControllerA extends vscObject {
 			$oView->setMap ($oMap);
 		}
 
-		if (isset($oMap) && (vscProcessorMap::isValid($oMap) && !$oMap->isStatic()) && vscControllerMap::isValid($oMyMap)) {
+		if ((vscProcessorMap::isValid($oMap) && !$oMap->isStatic()) && vscControllerMap::isValid($oMyMap)) {
 			$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . $oView->getViewFolder() . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
 		}
 
 		if (!vscModelA::isValid($oModel)) {
 			$oModel = new vscEmptyModel();
-			if (!($oMap->getTitle())) {
+			if (!vscProcessorMap::isValid ($oMap) || $oMap->getTitle() == '') {
 				$oModel->setPageTitle ('Warning');
 			}
 			$oModel->setPageContent ('Warning: the processor didn\'t return a valid model. This is probably an error');

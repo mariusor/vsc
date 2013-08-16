@@ -6,7 +6,8 @@ class vscJsonRPCRequest extends vscModelA {
 
 	public function __construct ($oRequest = null) {
 		/* @var $oRequest vscRawHttpRequest */
-		if (!vscRawHttpRequest::isValid($oRequest)) {
+
+		if (vscRawHttpRequest::isValid($oRequest)) {
 			$oRequest = vsc::getEnv()->getHttpRequest();
 		}
 

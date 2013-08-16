@@ -1,0 +1,9 @@
+<phpunit
+    bootstrap="./vsc_phpunittest_environment.php"
+    colors="true">
+    <testsuites>
+        <testsuite name="my test suite">
+            <directory suffix=".ptest.php">./</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

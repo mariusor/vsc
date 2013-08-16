@@ -7,15 +7,15 @@ import ('presentation');
 import ('responses');
 import ('requests');
 
-define ('BASE_PATH', dirname (__FILE__) . '/fixtures/');
-import (BASE_PATH);
+$BASE_PATH = dirname (__FILE__) . '/fixtures/';
+import ($BASE_PATH);
 
-class vscFrontControllerATest extends Snap_UnitTestCase  {
+class vscHtmlFrontControllerTest extends PHPUnit_Framework_TestCase  {
 private $state;
 	public function setUp () {
-		$this->state = new vscGenericFrontController();
+		$this->state = new vscXhtmlController();
 
-		$oMap = new vscControllerMap(__FILE__, '\A.*\Z');
+		$oMap = new vscControllerMap(__FILE__, '\A\Z');
 		$this->state->setMap($oMap);
 	}
 
@@ -25,6 +25,6 @@ private $state;
 
 	public function testGetResponse() {
 		$oReq = new vscRwHttpRequest();
-		return $this->assertIsA($this->state->getResponse($oReq),'vscHttpResponseA');
+		return $this->assertInstanceOf('vscHttpResponseA', $this->state->getResponse($oReq));
 	}
 }

@@ -194,7 +194,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	}
 
 	/**
-	 * @return  vscUrlRWParser
+	 * @return vscUrlRWParser
 	 */
 	static public function getUriParser () {
 		if (!vscUrlParserA::isValid(self::$oUriParser)) {

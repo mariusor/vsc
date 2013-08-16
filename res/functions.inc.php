@@ -81,7 +81,7 @@ function loadClass ($className) {
 		$fileIncluded = include_once ($sExceptionsFilePath);
 	}
 	if (!$fileIncluded) {
-		$fileIncluded = include_once ($sFilePath);
+		$fileIncluded = @include_once ($sFilePath);
 	}
 	if ( !$fileIncluded || ( !in_array ($className,get_declared_classes()) && !in_array($className,get_declared_interfaces() ) ) ) {
 		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexception.class.php');
@@ -89,7 +89,8 @@ function loadClass ($className) {
 		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexceptionautoload.class.php');
 
 		$sExport = var_export(getPaths(),true);
-		throw new vscExceptionAutoload('Could not load class ['.$className.'] in path: <pre style="font-weight:normal">' . $sExport . '</pre>');
+		//throw new vscExceptionAutoload('Could not load class ['.$className.'] in path: <pre style="font-weight:normal">' . $sExport . '</pre>');
+		return false;
 	}
 	return true;
 }
@@ -131,8 +132,8 @@ function addPath ($pkgPath, $sIncludePath = null) {
 	// checking to see if the path exists already in the included path
 	if (strpos ($sIncludePath, $pkgPath . PATH_SEPARATOR) === false) {
 		set_include_path (
-			$pkgPath . PATH_SEPARATOR .
-			$sIncludePath
+			$sIncludePath. PATH_SEPARATOR .
+			$pkgPath
 		);
 	}
 	return true;
@@ -153,7 +154,7 @@ function import ($sIncPath) {
 	$sIncludePath 	= get_include_path();
 
 	if (is_dir ($sIncPath)) {
-		return addPath ($sIncPath, $sIncludePath);
+		$bStatus |= addPath ($sIncPath, $sIncludePath);
 	}
 
 	$aPaths 		= explode(PATH_SEPARATOR, $sIncludePath);

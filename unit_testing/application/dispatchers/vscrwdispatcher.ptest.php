@@ -1,12 +1,14 @@
 <?php
-define ('BASE_PATH', dirname (__FILE__) . '/fixtures/');
 
 import ('application/dispatchers');
-import (BASE_PATH);
+
+$BASE_PATH = dirname (__FILE__) . '/fixtures/';
+import ($BASE_PATH);
+
 $sCurPath = realpath(dirname (__FILE__) . '/../../presentation/requests/fixtures/vscpopulatedrequest.class.php');
 include ($sCurPath);
 
-class vscRwDispatcherTest extends Snap_UnitTestCase {
+class vscRwDispatcherTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @var vscRwDispatcher
 	 */
@@ -14,7 +16,7 @@ class vscRwDispatcherTest extends Snap_UnitTestCase {
 	private $fixturePath;
 
 	public function setUp () {
-		$this->fixturePath = BASE_PATH;
+		$this->fixturePath = dirname (__FILE__) . '/fixtures/';
 		$this->state = vsc::getEnv()->getDispatcher();
 	}
 
@@ -24,7 +26,7 @@ class vscRwDispatcherTest extends Snap_UnitTestCase {
 
 	public function testLoadSiteMap () {
 		$this->state->loadSiteMap ($this->fixturePath . 'map.php');
-		return $this->assertIsA ($this->state->getSiteMap(), 'vscSiteMapA');
+		return $this->assertInstanceOf('vscSiteMapA',$this->state->getSiteMap());
 	}
 
 	public function testGetRequest () {
@@ -32,7 +34,7 @@ class vscRwDispatcherTest extends Snap_UnitTestCase {
 
 		$oBlaReq = vsc::getEnv()->getHttpRequest();
 
-		return $this->assertIdentical ($oReq, $oBlaReq);
+		return $this->assertSame($oReq, $oBlaReq);
 	}
 
 	public function testGetFrontController () {
@@ -40,20 +42,20 @@ class vscRwDispatcherTest extends Snap_UnitTestCase {
 
 		$oFront = $this->state->getFrontController();
 
-		return $this->assertIsA($oFront, 'vscFrontControllerA');
+		return $this->assertInstanceOf('vscFrontControllerA', $oFront);
 	}
 
 	public function testGetProcessController404 () {
 		$this->state->loadSiteMap ($this->fixturePath . '/map.php');
 		$oProcess = $this->state->getProcessController();
 
-		return $this->assertIsA($oProcess, 'vsc404Processor');
+		return $this->assertInstanceOf('vsc404Processor', $oProcess);
 	}
 
 	public function testGetMapsMap () {
 		$this->state->loadSiteMap ($this->fixturePath . 'map.php');
 
-		return $this->assertIsA ($this->state->getSiteMap(), 'vscSiteMapA');
+		return $this->assertInstanceOf ('vscSiteMapA', $this->state->getSiteMap());
 	}
 
 	public function testGetProcessorController () {
@@ -62,7 +64,7 @@ class vscRwDispatcherTest extends Snap_UnitTestCase {
 		$oReq  = new vscPopulatedRequest();
 		vsc::getEnv()->setHttpRequest($oReq);
 
-		return $this->assertIsA($this->state->getProcessController(), 'test');
+		return $this->assertInstanceOf('test', $this->state->getProcessController());
 	}
 
 	public function testTemplatePath () {
@@ -83,6 +85,6 @@ class vscRwDispatcherTest extends Snap_UnitTestCase {
 
 		$oProcessor = $this->state->getProcessController();
 
-		return $this->assertIsA($this->state->getCurrentModuleMap(), 'vscModuleMap');
+		return $this->assertInstanceOf('vscModuleMap', $this->state->getCurrentModuleMap());
 	}
 }

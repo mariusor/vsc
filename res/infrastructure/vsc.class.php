@@ -75,8 +75,10 @@ class vsc extends vscObject {
 
 	public function isDevelopment () {
 		return (
-			stristr($_SERVER['REMOTE_ADDR'], '127.0.0.1') != false ||
-			stristr($_SERVER['REMOTE_ADDR'], '192.168') != false
+			isCli() || (
+				stristr($_SERVER['REMOTE_ADDR'], '127.0.0.1') != false ||
+				stristr($_SERVER['REMOTE_ADDR'], '192.168') != false
+			)
 		);
 	}
 
@@ -144,5 +146,9 @@ class vsc extends vscObject {
 	 */
 	public function getCurrentModuleMap () {
 		return $this->getDispatcher()->getCurrentModuleMap();
+	}
+
+	static public function getPaths () {
+		return explode (PATH_SEPARATOR, get_include_path());
 	}
 }

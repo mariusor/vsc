@@ -2,9 +2,10 @@
 class vscUrlParserA extends vscObject implements vscUrlParserI {
 	private $sUrl;
 	private $aComponents;
+	private $bUrlHasNoScheme = false;
 
 	public function __construct ($sUrl = null) {
-		if ($sUrl === null) {
+		if (is_null($sUrl)) {
 			$sUrl = 'http' . (vscHttpRequestA::isSecure() ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 		}
 		$this->setUrl($sUrl);
@@ -14,13 +15,17 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 		return $this->getCompleteUri(true);
 	}
 
+	public function hasScheme () {
+		return !$this->bUrlHasNoScheme;
+	}
+
 	/**
 	 * This exists as the php::parse_url function sometimes breaks inexplicably
 	 * @param string $sUrl
 	 * @return multitype:string multitype:
 	 */
 	static public function parse_url ($sUrl = null) {
-		if (is_null($sUrl)) {
+		if (is_null($sUrl) && is_array($_SERVER) && array_key_exists('REQUEST_URI', $_SERVER)) {
 			$sUrl = $_SERVER['REQUEST_URI'];
 		}
 
@@ -35,7 +40,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 			'user'		=> '',
 			'pass'		=> '',
 			'path'		=> '',
-			'query'		=> '',
+			'query'		=> array(),
 			'fragment'	=> ''
 		);
 
@@ -43,6 +48,21 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 			$sUrl = (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] ? 'https:' : 'http:') . $sUrl;
 		}
 		try {
+			if ( is_file ($sUrl) && is_readable($sUrl) ) {
+				$aReturn['scheme'] = 'file';
+				$aReturn['path'] = $sUrl;
+				return $aReturn;
+			}
+		} catch (ErrorException $e) {
+			// possible open basedir restriction
+			$aReturn['path'] = $sUrl;
+		}
+
+		try {
+			if ( substr($sUrl, 0, 2) == '//' ) {
+				$sUrl = (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] ? 'https:' : 'http:') . $sUrl;
+			}
+
 			$aParsed = parse_url ($sUrl);
 			if (array_key_exists('query', $aParsed)) {
 				$aQuery = array();
@@ -112,6 +132,9 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 
 	public function setUrl ($sUrl) {
 		$this->sUrl 		= $sUrl;
+		if ( substr($sUrl, 0, 2) == '//' ) {
+			$this->bUrlHasNoScheme = true;
+		}
 		$this->aComponents	= self::parse_url ($sUrl);
 	}
 
@@ -128,7 +151,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 	}
 
 	public function getPort () {
-		return $this->aComponents['port'];
+		return (array_key_exists('port', $this->aComponents) ?  $this->aComponents['port'] : null);
 	}
 
 	private function getSubdomainOf ($sRootDomain) {
@@ -169,6 +192,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 
 	public function getParentPath ($iSteps = 0) {
 		$sPath = $this->aComponents['path'];
+		$sParentPath = '';
 
 		if (empty ($sPath)) return '';
 
@@ -176,13 +200,15 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 			if (substr ($sPath, 0, 2) == './'){
 				$sPath = substr ($sPath, 2);
 			}
-			try {
-				$sParentPath = substr (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), 0 , -1);
-				if (substr($sParentPath, -1) != '/') {
-					$sParentPath .= '/';
+			if (!isCli()) {
+				try {
+					$sParentPath = substr (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), 0 , -1);
+					if (substr($sParentPath, -1) != '/') {
+						$sParentPath .= '/';
+					}
+				} catch (vscExceptionError $e) {
+					// err
 				}
-			} catch (vscExceptionError $e) {
-				$sParentPath = '';
 			}
 			$sPath = $sParentPath . $sPath;
 		}
@@ -193,21 +219,23 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 
 		$iCnt = 0;
 		foreach ($aPath as $iKey => $sFolder) {
-			if ($sFolder == '..') {
-				$iCnt++;
+			switch ($sFolder) {
+				case '..':
+					$iCnt++;
 
-				unset ($aPath[$iKey]);
-				if (key_exists($iKey-1,$aPath)) {
-					$iPrevKey = $iKey-1;
-					$sPrev = $aPath[$iPrevKey];
-				} else {
-					$sPrev = prev($aPath);
-					$iPrevKey = array_search ($sPrev, $aPath);
-				}
-				unset ($aPath[$iPrevKey]);
-//				if ($iCnt == 1) d (array($iPrevKey=>$sPrev), array($iKey=>$sFolder));
-			} else {
-				//$aPath[$iKey] = rawurlencode($sFolder);
+					unset ($aPath[$iKey]);
+					if (key_exists($iKey-1,$aPath)) {
+						$iPrevKey = $iKey-1;
+						$sPrev = $aPath[$iPrevKey];
+					} else {
+						$sPrev = prev($aPath);
+						$iPrevKey = array_search ($sPrev, $aPath);
+					}
+					unset ($aPath[$iPrevKey]);
+				break;
+				case '.':
+					unset ($aPath[$iKey]);
+				break;
 			}
 		}
 
@@ -218,7 +246,9 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 
 		$sPath = (count($aPath) > 0 ?  '/' . implode ('/', $aPath) : '');
 		$sLast = end ($aPath);
-		if (!self::hasGoodTermination($sPath)) { // we don't have a file as the last element in the path
+		// in case of actually getting the parent, we need to append the ending /
+		// as we don't have a file as the last element in the path - same case for paths without a good termination
+		if ($iSteps > 0 || !self::hasGoodTermination($sPath)) {
 			$sPath .= '/';
 		}
 		return $sPath;
@@ -299,7 +329,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 
 
 	public function isLocal () {
-		return (!$this->getScheme() && !$this->getHost() && $this->getPath());
+		return ($this->getScheme() == 'file' && !$this->getHost() && $this->getPath());
 	}
 
 	public static function isAbsolutePath ($sPath) {
@@ -307,26 +337,31 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 	}
 
 	public function getSiteUri () {
-		$sUri = ($this->getScheme() ? $this->getScheme() : 'http') . '://';
 		// ff just tries to log you in... and removes the user:pass from the url :(
-		$sUri .= ($this->getUser() ? $this->getUser() . ($this->getPass() ? ':' . $this->getPass() : '') . '@' : '');
-		$sUri .= ($this->getHost() ? $this->getHost() : $_SERVER['HTTP_HOST']);
+		$sUri = ($this->getUser() ? $this->getUser() . ($this->getPass() ? ':' . $this->getPass() : '') . '@' : '');
+		if ( $this->getHost() ) {
+			$sUri .= $this->getHost();
+		} elseif (is_array($_SERVER) && array_key_exists('HTTP_HOST', $_SERVER)) {
+			$sUri .= $_SERVER['HTTP_HOST'];
+		}
 
 		if ($sUri) {
 			return $sUri;
 		} else {
-			throw new vscExceptionInfrastructure ('No host present...');
+			return '';
 		}
 	}
 
 	public function getCompleteParentUri ($bFull = false, $iSteps = 1) {
 		if (!$this->isLocal()) {
 			$bFull = true;
-		}
-		$sUrl = '';
-
-		if ($bFull) {
+			$sUrl = ($this->getScheme() ? $this->getScheme() . ':' : '') . '//';
 			$sUrl .= $this->getSiteUri();
+		} else {
+			$sUrl = '';
+			if ($bFull) {
+				$sUrl = ($this->getScheme() ? $this->getScheme() . ':' : '') . '//';
+			}
 		}
 
 		$sPath = $this->getParentPath($iSteps);

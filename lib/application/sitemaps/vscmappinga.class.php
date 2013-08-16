@@ -176,8 +176,9 @@ class vscMappingA extends vscObject {
 
 	public function addStyle ($sPath, $sMedia = 'screen') {
 		$oUrl = new vscUrlRWParser($sPath);
-		if ($oUrl->isLocal()) // I had a bad habit of correcting external URL's
-		$sPath = $oUrl->getCompleteUri(true);
+		if ($oUrl->isLocal()) {// I had a bad habit of correcting external URL's
+			$sPath = $oUrl->getCompleteUri();
+		}
 		$this->aResources['styles'][$sMedia][] = $sPath;
 	}
 
@@ -190,9 +191,10 @@ class vscMappingA extends vscObject {
 	public function addScript ($sPath, $bInHead = false) {
 		$oUrl = new vscUrlRWParser($sPath);
 		$iMainKey = (int)$bInHead; // [1] in the <head> section; [0] at the end of the *HTML document
-		if ($oUrl->isLocal()) // I had a bad habit of correcting external URL's
-			$sPath = $oUrl->getCompleteUri(true);
-		$this->aResources['scripts'][$iMainKey][] 		= $sPath;
+		if ($oUrl->isLocal() || $oUrl->hasScheme()) { // I had a bad habit of correcting external URL's
+			$sPath = $oUrl->getCompleteUri();
+		}
+		$this->aResources['scripts'][$iMainKey][]		= $sPath;
 	}
 
 	/**
@@ -204,7 +206,7 @@ class vscMappingA extends vscObject {
 		if (key_exists('href', $aData)) {
 			$oUrl = new vscUrlRWParser($aData['href']);
 			if ($oUrl->isLocal()) { // I had a bad habit of correcting external URL's
-				$sPath = $oUrl->getCompleteUri(true);
+				$sPath = $oUrl->getCompleteUri();
 			} else {
 				$sPath = $aData['href'];
 			}
@@ -213,7 +215,7 @@ class vscMappingA extends vscObject {
 		if (key_exists('src', $aData)) {
 			$oUrl = new vscUrlRWParser($aData['src']);
 			if ($oUrl->isLocal()) { // I had a bad habit of correcting external URL's
-				$sPath = $oUrl->getCompleteUri(true);
+				$sPath = $oUrl->getCompleteUri();
 			} else {
 				$sPath = $aData['src'];
 			}

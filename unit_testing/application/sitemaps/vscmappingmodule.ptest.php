@@ -1,6 +1,5 @@
 <?php
-
-class vscHttpSuccessTest extends Snap_UnitTestCase {
+class vscMappingModuleTest extends PHPUnit_Framework_TestCase {
 	public function setUp () {
 		// @todo
 	}
@@ -9,6 +8,6 @@ class vscHttpSuccessTest extends Snap_UnitTestCase {
 		// @todo
 	}
 	public function testToDo () {
-		$this->todo('Do me: ' . __METHOD__);
+// 		$this->todo('Do me: ' . __METHOD__);
 	}
 }
