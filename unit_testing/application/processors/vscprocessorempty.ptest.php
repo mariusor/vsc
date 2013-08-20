@@ -45,7 +45,18 @@ class vscProcessorEmptyTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testDelegateRequest () {
-// 		return $this->todo('Processor delegation needs more complicated set up');
-// 		d ($this->state->delegateRequest($oHttpRequest, $oNewProcessor))
+		$sFixtureMap = realpath(dirname (__FILE__) . '/../dispatchers/fixtures') . '/';
+		import ($sFixtureMap);
+		
+		$sValue = 'test';
+		
+		$oHttpRequest = new vscRwHttpRequest();
+		$oNewProcessor = new test();
+		$oNewProcessor->return = $sValue;
+		
+		$sMapPath = $sFixtureMap .'map.php';
+		vsc::getEnv()->getDispatcher()->loadSiteMap($sMapPath);
+		
+		$this->assertEquals($sValue, $this->state->delegateRequest($oHttpRequest, $oNewProcessor));
 	}
 }
