@@ -46,4 +46,8 @@ class functions extends PHPUnit_Framework_TestCase {
 			return $this->assertInstanceOf ('vscExceptionPackageImport', $e, 'The import function didn\'t throw the correct exception.');
 		}
 	}
+	
+	public function testIsCli () {
+		$this->assertEquals(php_sapi_name() == 'cli', isCli());
+	}
 }
