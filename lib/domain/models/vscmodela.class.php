@@ -13,15 +13,21 @@ abstract class vscModelA extends vscNull implements vscModelI {
 		if ($this->offsetExists($sOffset))
 			$this->sOffset = $sOffset;
 	}
+	
+	public function getOffset() {
+		return $this->sOffset;
+	}
 
 	// ArrayAccess interface
 	public function offsetSet($offset, $value) {
 		$this->__set($offset, $value);
 	}
-	public function offsetExists($offset) {
-		return isset($this->$offset);
+	
+	public function offsetExists($sOffset) {
+		return in_array($sOffset, $this->getPropertyNames());
 	}
-	public function offsetUnset($offset) {
+
+	public function offsetUnset($sOffset) {
 		if (!$oProperty->isPrivate()) {
 			unset ($this->$offset);
 		}

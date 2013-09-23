@@ -23,15 +23,19 @@ class functions extends PHPUnit_Framework_TestCase {
 		$this->assertEquals (get_include_path(), $sTestPath);
 	}
 
-//
-//	public function testImportWithExceptionsReturnPath () {
-//		return $this->todo('some problems with the exceptions importing');
-//		set_include_path ('.');
-//		import (VSC_LIB_PATH); // this should exist at all times
-//		import ('application/sitemaps'); // this should exist at all times and have exceptions
-//		$sTestPath = VSC_LIB_PATH . 'application/sitemaps'. PATH_SEPARATOR . substr (VSC_LIB_PATH,0,-1).PATH_SEPARATOR.'.';
-//		return $this->assertEqual (get_include_path(), $sTestPath);
-//	}
+
+	public function testImportWithExceptionsReturnPath () {
+		set_include_path ('.');
+		import (VSC_LIB_PATH); // this should exist at all times
+		$sLocalPackage = 'exceptions';
+		try {
+			import ($sLocalPackage); // this should exist at all times and have exceptions
+		} catch (Exception $e) {
+			
+		}
+		$sTestPath = '.' . PATH_SEPARATOR . substr (VSC_LIB_PATH,0,-1) . PATH_SEPARATOR . VSC_LIB_PATH . $sLocalPackage;
+		return $this->assertEquals ($sTestPath, get_include_path());
+	}
 
 	public function testImportBadPackage () {
 		$e = 0;
@@ -41,5 +45,9 @@ class functions extends PHPUnit_Framework_TestCase {
 		} catch (Exception $e) {
 			return $this->assertInstanceOf ('vscExceptionPackageImport', $e, 'The import function didn\'t throw the correct exception.');
 		}
+	}
+	
+	public function testIsCli () {
+		$this->assertEquals(php_sapi_name() == 'cli', isCli());
 	}
 }

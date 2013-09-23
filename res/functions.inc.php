@@ -153,8 +153,9 @@ function import ($sIncPath) {
 	$sPkgLower 	= strtolower ($sIncPath);
 	$sIncludePath 	= get_include_path();
 
-	if (is_dir ($sIncPath)) {
-		$bStatus |= addPath ($sIncPath, $sIncludePath);
+	if ( realpath($sIncPath) && is_dir ($sIncPath) ) {
+		// takes care of relative paths
+		$bStatus |= addPath (realpath($sIncPath), $sIncludePath);
 	}
 
 	$aPaths 		= explode(PATH_SEPARATOR, $sIncludePath);
@@ -175,6 +176,7 @@ function import ($sIncPath) {
 		include_once(VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexceptionpackageimport.class.php');
 
 		throw new vscExceptionPackageImport ('Bad package [' . $sIncPath . ']');
+// 		return false;
 	} else {
 		return true;
 	}

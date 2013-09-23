@@ -29,6 +29,15 @@ class vscTest extends PHPUnit_Framework_TestCase {
 		return $this->assertInstanceOf('vscDispatcherA', $oDispatcher);
 	}
 
+	public function testSetDispatcher () {
+		/* @var $oDispatcher vscRwDispatcher */
+		$oDispatcher = new vscRwDispatcher();
+// 		$oDispatcher->loadSiteMap ($this->sFixturesPath . 'map.php');
+		
+		vsc::getEnv()->setDispatcher($oDispatcher);
+		return $this->assertSame($oDispatcher, vsc::getEnv()->getDispatcher());
+	}
+
 	public function testGetRequest () {
 		return $this->assertInstanceOf('vscHttpRequestA', vsc::getEnv()->getHttpRequest());
 	}

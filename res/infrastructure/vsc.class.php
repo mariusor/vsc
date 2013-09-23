@@ -64,6 +64,15 @@ class vsc extends vscObject {
 	}
 
 	/**
+	 * @param $oDispatcher vscHttpDispatcherA
+	 */
+	public function setDispatcher ($oDispatcher) {
+		if (vscDispatcherA::isValid($oDispatcher)){
+			$this->oDispatcher = $oDispatcher;
+		}
+	}
+	
+	/**
 	 * @return vscHttpDispatcherA
 	 */
 	public function getDispatcher () {
@@ -73,6 +82,10 @@ class vsc extends vscObject {
 		return $this->oDispatcher;
 	}
 
+	/**
+	 * 
+	 * @return boolean
+	 */
 	public function isDevelopment () {
 		return (
 			isCli() || (
