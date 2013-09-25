@@ -121,10 +121,10 @@ function cleanBuffers ($iLevel = null) {
 
 function addPath ($pkgPath, $sIncludePath = null) {
 	// removing the trailing / if it exists
+
 	if (substr($pkgPath,-1) == DIRECTORY_SEPARATOR) {
 		$pkgPath = substr ($pkgPath,0, -strlen (DIRECTORY_SEPARATOR));
 	}
-
 	if (is_null($sIncludePath)) {
 		$sIncludePath 	= get_include_path();
 	}
@@ -153,9 +153,10 @@ function import ($sIncPath) {
 	$sPkgLower 	= strtolower ($sIncPath);
 	$sIncludePath 	= get_include_path();
 
-	if ( realpath($sIncPath) && is_dir ($sIncPath) ) {
+	$sIncPathIsFolder = realpath($sIncPath);
+	if ( is_dir ($sIncPathIsFolder) ) {
 		// takes care of relative paths
-		$bStatus |= addPath (realpath($sIncPath), $sIncludePath);
+		$bStatus |= addPath ($sIncPathIsFolder, $sIncludePath);
 	}
 
 	$aPaths 		= explode(PATH_SEPARATOR, $sIncludePath);
@@ -163,8 +164,8 @@ function import ($sIncPath) {
 
 	// this definitely needs improvement
 	foreach ($aPaths as $sPath) {
-		$pkgPath 	= $sPath . DIRECTORY_SEPARATOR . $sPkgLower;
-		if (is_dir($pkgPath)) {
+		$pkgPath 	= realpath($sPath . DIRECTORY_SEPARATOR . $sPkgLower);
+		if ( is_dir($pkgPath) ) {
 			$bStatus |= addPath ($pkgPath);
 		}
 	}

@@ -9,6 +9,5 @@ class vscMappingControllerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testToDo () {
-// 		$this->todo('Do me: ' . __METHOD__);
 	}
 }

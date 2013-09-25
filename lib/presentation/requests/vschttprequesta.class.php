@@ -8,14 +8,6 @@
 
 import ('infrastructure/urls');
 
-class vscHttpRequestTypes {
-	const GET		= 'GET';
-	const HEAD		= 'HEAD';
-	const POST		= 'POST';
-	const PUT		= 'PUT';
-	const DELETE	= 'DELETE';
-}
-
 abstract class vscHttpRequestA extends vscObject {
 	private $sUri		= null;
 	private $oUri;
