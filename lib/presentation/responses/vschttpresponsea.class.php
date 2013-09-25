@@ -5,7 +5,9 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.30
  */
-import ('presentation/views');
+import ('presentation');
+import ('requests');
+import ('views');
 abstract class vscHttpResponseA extends vscObject {
 	protected $aStatusList = array(
 		200 => '200 OK',
@@ -55,9 +57,16 @@ abstract class vscHttpResponseA extends vscObject {
 	}
 
 	private $oView;
+	
+	public function __construct () {
+		if (is_array($_SERVER)) {
+			if (array_key_exists('SERVER_PROTOCOL', $_SERVER)) {
+				$this->sServerProtocol = $_SERVER['SERVER_PROTOCOL'];
+			}
+		}
+	}
 
 	public function setStatus ($iStatus) {
-//		if ($iStatus == 304) d ('<pre>'.debug_print_backtrace());
 		if (!isset ($this->aStatusList[$iStatus])){
 			throw new vscExceptionResponse('[' . $iStatus . '] is not a valid ' . $this->getServerProtocol() . ' status');
 		}
@@ -268,10 +277,6 @@ abstract class vscHttpResponseA extends vscObject {
 	 * @return string
 	 */
 	public function getServerProtocol () {
-		if (!$this->sServerProtocol) {
-			$this->sServerProtocol = $_SERVER['SERVER_PROTOCOL'];
-		}
-
 		return $this->sServerProtocol;
 	}
 
