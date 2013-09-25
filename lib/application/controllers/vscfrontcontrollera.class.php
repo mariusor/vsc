@@ -59,9 +59,14 @@ abstract class vscFrontControllerA extends vscObject {
 
 				return $oResponse;
 			} catch (vscExceptionResponseError $e) {
-				$oResponse->setStatus($e->getCode());
+				$oResponse->setStatus($e->getErrorCode());
 
-				return $oResponse;
+				$oProcessor = new vscErrorProcessor($e);
+
+				$oMyMap->setMainTemplatePath(VSC_RES_PATH . 'templates');
+				$oMyMap->setMainTemplate('error.tpl.php');
+
+				$oModel = $oProcessor->handleRequest($oRequest);
 			} catch (Exception $e) {
 				// we had error in the controller
 				// @todo make more error processors
