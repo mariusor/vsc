@@ -6,7 +6,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2012-08-25
  */
-abstract class vscRestProcessorA extends vscProcessorA {
+abstract class vscRESTProcessorA extends vscProcessorA {
 
 	abstract public function handleGet (vscHttpRequestA $oRequest);
 	abstract public function handleHead (vscHttpRequestA $oRequest);
@@ -17,7 +17,7 @@ abstract class vscRestProcessorA extends vscProcessorA {
 	public function handleRequest (vscHttpRequestA $oRequest) {
 		if ( !$oRequest->isGet() && !vscRawHttpRequest::isValid($oRequest)) {
 			$oRequest = new vscRawHttpRequest();
-				vsc::getEnv()->setHttpRequest($oRequest);
+			vsc::getEnv()->setHttpRequest($oRequest);
 		}
 
 		switch ($oRequest->getHttpMethod()) {
