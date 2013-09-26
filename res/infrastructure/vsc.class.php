@@ -50,10 +50,17 @@ class vsc extends vscObject {
 	 * @return vscHttpRequestA
 	 */
 	public function getHttpRequest () {
- 		if (is_null($this->oRequest)){
-			$this->oRequest = new vscRwHttpRequest();
+		if ( is_null($this->oRequest) ){
+			if ( !vsc::isCli() ) {
+				if (!vscHttpRequestA::hasContentType()) {
+					$this->oRequest = new vscRwHttpRequest();
+				} else {
+					$this->oRequest = new vscRawHttpRequest();
+				}
+			} else {
+				$this->oRequest = new vscCLIRequest();
+			}
 		}
-
 		return $this->oRequest;
 	}
 
@@ -65,7 +72,7 @@ class vsc extends vscObject {
 			$this->oDispatcher = $oDispatcher;
 		}
 	}
-	
+
 	/**
 	 * @return vscHttpDispatcherA
 	 */
@@ -77,7 +84,7 @@ class vsc extends vscObject {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public function isDevelopment () {
