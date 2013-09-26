@@ -43,7 +43,7 @@ abstract class vscFrontControllerA extends vscObject {
 	 * @return vscHttpResponseA
 	 */
 	public function getResponse (vscHttpRequestA $oRequest, $oProcessor = null) {
-		$oResponse = new vscHttpResponse();
+		$oResponse = new vscHttpResponse(); // this needs changing for REST stuff
 		$oModel = null;
 		/* @var $oMyMap vscControllerMap */
 		$oMyMap	= $this->getMap();
@@ -58,25 +58,19 @@ abstract class vscFrontControllerA extends vscObject {
 				$oResponse->setLocation ($e->getLocation());
 
 				return $oResponse;
-			} catch (vscExceptionResponseError $e) {
-				$oResponse->setStatus($e->getErrorCode());
-
-				$oProcessor = new vscErrorProcessor($e);
-
-				$oMyMap->setMainTemplatePath(VSC_RES_PATH . 'templates');
-				$oMyMap->setMainTemplate('error.tpl.php');
-
-				$oModel = $oProcessor->handleRequest($oRequest);
 			} catch (Exception $e) {
 				// we had error in the controller
 				// @todo make more error processors
+				if ( $e instanceof vscExceptionResponseError ) {
+					$oResponse->setStatus($e->getErrorCode());
+				}
 				$oProcessor = new vscErrorProcessor($e);
 
 				$oMyMap->setMainTemplatePath(VSC_RES_PATH . 'templates');
 				$oMyMap->setMainTemplate('main.php');
 
 				$oMyMap->setTemplatePath(VSC_RES_PATH . 'templates');
-				$oMyMap->setTemplate('error.php');
+				$oMyMap->setTemplate('error.tpl.php');
 
 				$oModel = $oProcessor->handleRequest($oRequest);
 			}

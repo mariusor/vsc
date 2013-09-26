@@ -5,4 +5,6 @@ abstract class vscHttpRequestTypes {
 	const POST		= 'POST';
 	const PUT		= 'PUT';
 	const DELETE	= 'DELETE';
+	const TRACE     = 'TRACE';
+	const OPTIONS	= 'OPTIONS';
 }

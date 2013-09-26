@@ -9,11 +9,11 @@ class vscHttpResponseTest extends PHPUnit_Framework_TestCase {
 	public function tearDown () {
 		// @todo
 	}
-	
+
 	public function testSetGetStatus () {
 		$state = new vscHttpResponse();
 		$iStatus = 300;
-		
+
 		try {
 			$state->setStatus($iStatus);
 		} catch (vscException $e) {
@@ -28,18 +28,18 @@ class vscHttpResponseTest extends PHPUnit_Framework_TestCase {
 	public function testSetGetLocation () {
 		$state = new vscHttpResponse();
 		$sLocation = '/';
-		
+
 		$state->setLocation($sLocation);
 		$this->assertEquals($sLocation, $state->getLocation());
 	}
-	
+
 	public function testGetOutput () {
 		$state = new vscHttpResponse();
 		ob_start();
-		
+
 		$t = $state->getOutput();
 		$content = ob_get_flush();
-		
+
 		//d ($t, $content);
 	}
 }

@@ -28,6 +28,9 @@ class vscErrorModel extends vscEmptyModel {
 		$this->exception = $e;
 	}
 
+	/**
+	 * @return vscExceptionResponseError
+	 */
 	public function getException () {
 		return $this->exception;
 	}
