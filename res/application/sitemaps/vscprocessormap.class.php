@@ -17,7 +17,7 @@ class vscProcessorMap extends vscMappingA {
 	 *
 	 * @var vscViewHelpersA[]
 	 */
-	private $oHelpers;
+	private $aHelpers = array();
 
 	/**
 	 * @param vscHttpResponseA $oResponse
@@ -54,13 +54,13 @@ class vscProcessorMap extends vscMappingA {
 	 * @return void
 	 */
 	public function registerHelper (vscViewHelperA $oHelper) {
-		$this->oHelpers[] = $oHelper;
+		$this->aHelpers[] = $oHelper;
 	}
 
 	/**
 	 * @return vscViewHelpersA[]
 	 */
 	public function getViewHelpers () {
-		return $this->oHelpers;
+		return $this->aHelpers;
 	}
 }
