@@ -8,11 +8,37 @@
  */
 abstract class vscRESTProcessorA extends vscProcessorA {
 
+	public function validRequestMethod ($sRequestMethod) {
+		return ($sRequestMethod == vscHttpRequestTypes::OPTIONS);
+	}
+
 	abstract public function handleGet (vscHttpRequestA $oRequest);
 	abstract public function handleHead (vscHttpRequestA $oRequest);
 	abstract public function handlePost (vscHttpRequestA $oRequest);
 	abstract public function handlePut (vscRawHttpRequest $oRequest);
 	abstract public function handleDelete (vscRawHttpRequest $oRequest);
+
+	public function handleOptions (vscHttpRequestA $oRequest) {
+		$oMirror = new ReflectionClass($this);
+
+		$aMethods = $oMirror->getMethods(ReflectionProperty::IS_PUBLIC);
+		$aReflectionDocComments = array();
+		foreach ($aMethods as $key => $oReflectionMethod) {
+			/* @var $oReflectionMethod ReflectionMethod */
+			if ( stristr($oReflectionMethod->getName(), 'handle') !== false) {
+				$sDocumentation = $oReflectionMethod->getDocComment();
+				if (!empty($sDocumentation)) {
+					// this needs some phpdoc parser
+					$aReflectionDocComments[$oReflectionMethod->getName()] = $sDocumentation;
+				}
+			}
+		}
+
+		$this->getMap()->setTemplatePath(VSC_RES_PATH . 'templates');
+		$this->getMap()->setTemplate('introspection.tpl.php');
+
+		return new vscArrayModel ($aReflectionDocComments);
+	}
 
 	public function handleRequest (vscHttpRequestA $oRequest) {
 		if ( !$oRequest->isGet() && !vscRawHttpRequest::isValid($oRequest)) {
@@ -36,6 +62,12 @@ abstract class vscRESTProcessorA extends vscProcessorA {
 			case vscHttpRequestTypes::DELETE:
 				return $this->handleDelete ($oRequest);
 				break;
+			case vscHttpRequestTypes::OPTIONS:
+				// mainly used for introspection
+				return $this->handleOptions ($oRequest);
+				break;
+			default:
+				throw new vscExceptionResponseError ('Method ['.$oRequest->getHttpMethod().'] is unavailable.', 405);
 		}
 	}
 }

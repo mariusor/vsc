@@ -28,7 +28,7 @@ abstract class vscHttpRequestA extends vscObject {
 
 	private $sAuthorization		= '';
 	private $iContentLength		= 0; // ? I don't think I'm interested in the length of the request
-	private $sContentType		= '';
+	protected $sContentType		= '';
 
 	private $sIfModifiedSince	= '';
 	private $sIfNoneMatch		= '';
@@ -219,7 +219,9 @@ abstract class vscHttpRequestA extends vscObject {
 		foreach ($this->getVarOrder() as $sMethod) {
 			switch ($sMethod) {
 			case 'S':
-				$aRet = array_merge ($aRet, $_SESSION);
+				if (self::hasSession()) {
+					$aRet = array_merge ($aRet, $_SESSION);
+				}
 				break;
 			case 'C':
 				$aRet = array_merge ($aRet, $this->aCookieVars);
@@ -261,6 +263,14 @@ abstract class vscHttpRequestA extends vscObject {
 			}
 		}
 		return null;
+	}
+
+	static public function hasContentType () {
+		return array_key_exists('CONTENT_TYPE', $_SERVER);
+	}
+
+	static public function validContentType ($sContentType) {
+		return true;
 	}
 
 	public function hasGetVars () {

@@ -43,7 +43,7 @@ abstract class vscHttpResponseA extends vscObject {
 	private $sContentLocation;
 	private $sContentDisposition;
 	private $sContentMd5;
-	private $sContentType;
+	protected $sContentType;
 	private $sDate;
 	private $sETag;
 	private $sExpires;
@@ -57,7 +57,7 @@ abstract class vscHttpResponseA extends vscObject {
 	}
 
 	private $oView;
-	
+
 	public function __construct () {
 		if (is_array($_SERVER)) {
 			if (array_key_exists('SERVER_PROTOCOL', $_SERVER)) {
@@ -372,7 +372,8 @@ abstract class vscHttpResponseA extends vscObject {
 			$this->setContentType('*/*');
 		}
 
-		if (!vsc::getEnv()->getHttpRequest()->isHead() && !$this->isRedirect()) {
+		$oRequest = vsc::getEnv()->getHttpRequest();
+		if (vscCLIRequest::isValid($oRequest) || !$oRequest->isHead() && !$this->isRedirect()) {
 			$sResponseBody = $this->getView()->getOutput();
 		}
 		return $sResponseBody;
