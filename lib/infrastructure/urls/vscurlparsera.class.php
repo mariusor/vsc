@@ -44,6 +44,9 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 			'fragment'	=> ''
 		);
 
+		if ( substr($sUrl,0,2) == '//' ) {
+			$sUrl = (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] ? 'https:' : 'http:') . $sUrl;
+		}
 		try {
 			if ( is_file ($sUrl) && is_readable($sUrl) ) {
 				$aReturn['scheme'] = 'file';
