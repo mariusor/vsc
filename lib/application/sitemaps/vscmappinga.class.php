@@ -35,9 +35,9 @@ class vscMappingA extends vscObject {
 	private $sMatchingUrl;
 
 	/**
-	 * @var boolean
+	 * @var string
 	 */
-	private $bNeedsAuthentication;
+	private $sAuthenticationType;
 
 	public function __construct ($sPath, $sRegex) {
 		$this->sPath	= $sPath;
@@ -379,17 +379,21 @@ class vscMappingA extends vscObject {
 		}
 	}
 
+	public function setAuthenticationType ($sAuthenticationType = null) {
+		$this->sAuthenticationType = $sAuthenticationType;
+	}
+
 	/**
-	 * @param bool $bItDoes
+	 * @return string
 	 */
-	public function setRequiresAuthentication ($bItDoes = true) {
-		$this->bNeedsAuthentication = $bItDoes;
+	public function getAuthenticationType () {
+		return $this->sAuthenticationType;
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function requiresAuthentication () {
-		return $this->bNeedsAuthentication;
+		return (!is_null($this->sAuthenticationType));
 	}
 }
