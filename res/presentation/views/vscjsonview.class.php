@@ -39,7 +39,11 @@ class vscJsonView extends vscViewA implements vscJsonViewI {
 				$flags |= JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES;
 			}
 		}
-		return json_encode ($oModel, $flags);
+		if (vscModelA::isValid($oModel)) {
+			return json_encode ($oModel->toArray(), $flags );
+		} else {
+			return json_encode ($oModel, $flags );
+		}
 	}
 		return json_encode ($oModel, $flags);
 	}

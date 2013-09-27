@@ -37,6 +37,7 @@ abstract class vscHttpRequestA extends vscObject {
 	private $sUserAgent			= '';
 
 	private $bDoNotTrack		= false;
+	private $oAuth;
 
 	public function __construct () {
 		if (isset($_GET))
@@ -63,6 +64,12 @@ abstract class vscHttpRequestA extends vscObject {
 			$this->sUserAgent			= $_SERVER['HTTP_USER_AGENT'];
 			if (isset ($_SERVER['HTTP_REFERER']))
 				$this->sReferer			= $_SERVER['HTTP_REFERER'];
+			if (isset($_SERVER['PHP_AUTH_DIGEST'])) {
+				// DIGEST authorization attempt
+			}
+			if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
+				$this->oAuth = new vscBasicHttpAuthentication($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
+			}
 		}
 
 		if (count ($_FILES) >= 1 ) {
@@ -197,6 +204,14 @@ abstract class vscHttpRequestA extends vscObject {
 
 	public function getSessionVars() {
 		return $_SESSION;
+	}
+
+	public function hasAuthenticationData () {
+		return vscHttpAuthenticationA::isValid($this->oAuth);
+	}
+
+	public function getAuthentication () {
+		return $this->oAuth;
 	}
 
 	/**

@@ -15,6 +15,12 @@ class vscErrorProcessor extends vscProcessorA implements vscErrorProcessorI {
 
 	public function __construct (Exception $e) {
 		$this->setException ($e);
+
+		$oErrorMap = new vscErrorMap();
+		$oErrorMap->setTemplatePath(VSC_RES_PATH . 'templates');
+		$oErrorMap->setTemplate('error.tpl.php');
+
+		$this->setMap ($oErrorMap);
 	}
 
 	public function getModel () {

@@ -195,7 +195,7 @@ abstract class vscModelA extends vscNull implements vscModelI {
 	 * recursively transform all properties into arrays
 	 */
 	public function toArray () {
-		$aProperties = $this->getProperties(true);
+		$aProperties = $this->getProperties();
 		foreach ($aProperties as $sName => $oProperty) {
 			if (vscModelA::isValid($oProperty)) {
 				/* @var $oProerty vscModelA */

@@ -29,7 +29,6 @@ class vsc extends vscObject {
 		}
 	}
 
-
 	static public function getEnv () {
 		if (!(self::isValid(self::$oInstance))) {
 			self::$oInstance = new static();

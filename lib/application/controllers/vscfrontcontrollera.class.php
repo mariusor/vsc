@@ -69,9 +69,6 @@ abstract class vscFrontControllerA extends vscObject {
 				$oMyMap->setMainTemplatePath(VSC_RES_PATH . 'templates');
 				$oMyMap->setMainTemplate('main.php');
 
-				$oMyMap->setTemplatePath(VSC_RES_PATH . 'templates');
-				$oMyMap->setTemplate('error.tpl.php');
-
 				$oModel = $oProcessor->handleRequest($oRequest);
 			}
 		}

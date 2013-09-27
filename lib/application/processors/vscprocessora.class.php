@@ -88,17 +88,17 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 		$oDispatcher = vsc::getEnv()->getDispatcher();
 		$oMap = $oDispatcher->getSiteMap()->findProcessorMap($oNewProcessor);
 
-		$oNewProcessor->setMap($oMap);
 		$oNewProcessor->init();
+		if (vscMappingA::isValid($oMap)) {
+			$oNewProcessor->setMap($oMap);
+			/* @var $oDispatcher vscRwDispatcher */
+			$oMap->merge ($this->getMap());
 
-		/* @var $oDispatcher vscRwDispatcher */
-		$oMap->merge ($this->getMap());
-
-		if (vscHttpResponse::isValid($oResponse)) {
-			$oMap->setResponse($oResponse);
+			if (vscHttpResponse::isValid($oResponse)) {
+				$oMap->setResponse($oResponse);
+			}
+			$this->setMap ($oMap);
 		}
-
-		$this->setMap ($oMap);
 
 		$oNewProcessor->setLocalVars($this->getLocalVars(), true);
 

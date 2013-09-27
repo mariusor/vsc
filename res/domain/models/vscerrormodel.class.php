@@ -4,6 +4,9 @@ import ('presentation/responses');
 class vscErrorModel extends vscEmptyModel {
 	private $exception;
 
+	public $message;
+	public $error_code;
+	
 	public function __construct(Exception $e) {
 		$this->setException($e);
 		parent::__construct();
@@ -26,6 +29,11 @@ class vscErrorModel extends vscEmptyModel {
 
 	public function setException (Exception $e) {
 		$this->exception = $e;
+		$this->message = $e->getMessage();
+		
+		if (vscExceptionResponseError::isValid($e)) {
+			$this->error_code = $e->getErrorCode();
+		}
 	}
 
 	/**
