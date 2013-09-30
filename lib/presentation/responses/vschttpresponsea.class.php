@@ -347,6 +347,11 @@ abstract class vscHttpResponseA extends vscObject {
 		if ($sLastModified) {
 			header ('Last-Modified:' . $sLastModified);
 		}
+		if (is_array($this->aHeaders )) {
+			foreach ($this->aHeaders as $sHeaderName => $sHeaderValue) {
+				header ($sHeaderName . ':' . $sHeaderValue);
+			}
+		}
 	}
 
 	/**

@@ -35,9 +35,9 @@ class vscMappingA extends vscObject {
 	private $sMatchingUrl;
 
 	/**
-	 * @var string
+	 * @var int
 	 */
-	private $sAuthenticationType;
+	private $iAuthenticationType = 0;
 
 	public function __construct ($sPath, $sRegex) {
 		$this->sPath	= $sPath;
@@ -379,21 +379,25 @@ class vscMappingA extends vscObject {
 		}
 	}
 
-	public function setAuthenticationType ($sAuthenticationType = null) {
-		$this->sAuthenticationType = $sAuthenticationType;
+	public function setAuthenticationType ($iAuthenticationType) {
+		$this->iAuthenticationType |= $iAuthenticationType;
+	}
+
+	public function getAuthenticationType () {
+		return $this->iAuthenticationType;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getAuthenticationType () {
-		return $this->sAuthenticationType;
+	public function getValidAuthenticationSchemas () {
+		return vscHttpAuthenticationA::getAuthenticationSchemas($this->iAuthenticationType);
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function requiresAuthentication () {
-		return (!is_null($this->sAuthenticationType));
+		return ($this->iAuthenticationType | vscHttpAuthenticationA::NONE);
 	}
 }
