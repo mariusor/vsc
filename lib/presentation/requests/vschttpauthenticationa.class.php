@@ -1,29 +1,38 @@
 <?php
 abstract class vscHttpAuthenticationA extends vscObject {
-	const DIGEST = 'Digest';
-	const BASIC = 'Basic';
+	const NONE = 0;
+	const BASIC = 1;
+	const DIGEST = 2;
 
-	private $sType = self::BASIC;
+	protected $Type;
 
-	private $sUser;
-	private $sPassword;
+	public $username;
+	public $password;
 
 	public function setType($sType) {
-		$this->sType = $sType;
+		$this->Type = $sType;
 	}
+
 	public function getType() {
-		return $this->sType;
+		return $this->Type;
 	}
-	public function setUser($sUser) {
-		$this->sUser = $sUser;
-	}
+
 	public function getUser() {
-		return $this->sUser;
+		return $this->username;
 	}
-	public function setPassword($sPassword) {
-		$this->sPassword = $sPassword;
-	}
+
 	public function getPassword() {
-		return $this->sPassword;
+		return $this->password;
+	}
+
+	static public function getAuthenticationSchemas ($iType) {
+		$aSchemas = array();
+		if ($iType && self::BASIC == $iType) {
+			$aSchemas[] = 'Basic';
+		}
+		if ($iType && self::DIGEST == $iType) {
+				$aSchemas[] = 'Digest';
+		}
+		return $aSchemas;
 	}
 }

@@ -64,8 +64,29 @@ abstract class vscHttpRequestA extends vscObject {
 			$this->sUserAgent			= $_SERVER['HTTP_USER_AGENT'];
 			if (isset ($_SERVER['HTTP_REFERER']))
 				$this->sReferer			= $_SERVER['HTTP_REFERER'];
+
+			if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
+				$this->sIfModifiedSince = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
+			}
+
+			if (isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
+				$this->sIfNoneMatch = $_SERVER['HTTP_IF_NONE_MATCH'];
+			}
+
+			if (isset($_SERVER['CONTENT_TYPE'])) {
+				if ( stripos($_SERVER['CONTENT_TYPE'], ';') !== null ) {
+					$this->sContentType = substr ($_SERVER['CONTENT_TYPE'], 0, stripos($_SERVER['CONTENT_TYPE'], ';'));
+				} else {
+					$this->sContentType = $_SERVER['CONTENT_TYPE'];
+				}
+			}
+
+			if (isset($_SERVER['HTTP_DNT'])) {
+				$this->bDoNotTrack = (bool)$_SERVER['HTTP_DNT'];
+			}
 			if (isset($_SERVER['PHP_AUTH_DIGEST'])) {
 				// DIGEST authorization attempt
+				$this->oAuth = new vscDigestHttpAuthentication($_SERVER['PHP_AUTH_DIGEST'], $_SERVER['REQUEST_METHOD']);
 			}
 			if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
 				$this->oAuth = new vscBasicHttpAuthentication($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
@@ -76,25 +97,6 @@ abstract class vscHttpRequestA extends vscObject {
 			$this->aFiles = $_FILES;
 		}
 
-		if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
-			$this->sIfModifiedSince = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
-		}
-
-		if (isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
-			$this->sIfNoneMatch = $_SERVER['HTTP_IF_NONE_MATCH'];
-		}
-
-		if (isset($_SERVER['CONTENT_TYPE'])) {
-			if ( stripos($_SERVER['CONTENT_TYPE'], ';') !== null ) {
-				$this->sContentType = substr ($_SERVER['CONTENT_TYPE'], 0, stripos($_SERVER['CONTENT_TYPE'], ';'));
-			} else {
-				$this->sContentType = $_SERVER['CONTENT_TYPE'];
-			}
-		}
-
-		if (isset($_SERVER['HTTP_DNT'])) {
-			$this->bDoNotTrack = (bool)$_SERVER['HTTP_DNT'];
-		}
 	}
 
 	public function hasFiles () {
