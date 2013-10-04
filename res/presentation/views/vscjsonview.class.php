@@ -28,7 +28,7 @@ class vscJsonView extends vscViewA implements vscJsonViewI {
 	public function display ($resource_name) {}
 
 	public function outputModel ($oModel) {
-		$flags = JSON_FORCE_OBJECT;
+		$flags = 0;//JSON_FORCE_OBJECT;
 
 		if (phpversion() > '5.3.3') {
 			$flags |= JSON_NUMERIC_CHECK;
@@ -40,6 +40,7 @@ class vscJsonView extends vscViewA implements vscJsonViewI {
 			}
 		}
 		if (vscModelA::isValid($oModel)) {
+			/* @var $oModel vscModelA */
 			return json_encode ($oModel->toArray(), $flags );
 		} else {
 			return json_encode ($oModel, $flags );
