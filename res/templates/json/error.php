@@ -8,4 +8,4 @@ if (vsc::getEnv()->isDevelopment()) {
 	$error['location'] = $e->getFile().':'.$e->getLine();
 	$error['trace'] = $e->getTrace();
 }
-echo $this->outputModel($model);
+echo $this->outputModel ($error);
