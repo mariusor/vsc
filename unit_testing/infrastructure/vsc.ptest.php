@@ -33,13 +33,13 @@ class vscTest extends PHPUnit_Framework_TestCase {
 		/* @var $oDispatcher vscRwDispatcher */
 		$oDispatcher = new vscRwDispatcher();
 // 		$oDispatcher->loadSiteMap ($this->sFixturesPath . 'map.php');
-		
+
 		vsc::getEnv()->setDispatcher($oDispatcher);
 		return $this->assertSame($oDispatcher, vsc::getEnv()->getDispatcher());
 	}
 
 	public function testGetRequest () {
-		return $this->assertInstanceOf('vscHttpRequestA', vsc::getEnv()->getHttpRequest());
+		return $this->assertInstanceOf('vscRequestA', vsc::getEnv()->getHttpRequest());
 	}
 
 	public function testGetIncludePaths () {

@@ -50,7 +50,7 @@ class vsc extends vscObject {
 	 */
 	public function getHttpRequest () {
 		if ( is_null($this->oRequest) ){
-			if ( !vsc::isCli() ) {
+			if ( !self::isCli() ) {
 				if (!vscHttpRequestA::hasContentType()) {
 					$this->oRequest = new vscRwHttpRequest();
 				} else {
@@ -77,7 +77,11 @@ class vsc extends vscObject {
 	 */
 	public function getDispatcher () {
 		if (!vscDispatcherA::isValid($this->oDispatcher)){
-			$this->oDispatcher = new vscRwDispatcher();
+			if ( !self::isCli() ) {
+				$this->oDispatcher = new vscRwDispatcher();
+			} else {
+				$this->oDispatcher = new vscNull();
+			}
 		}
 		return $this->oDispatcher;
 	}
@@ -88,7 +92,7 @@ class vsc extends vscObject {
 	 */
 	public function isDevelopment () {
 		return (
-			isCli() || (
+			self::isCli() || (
 				stristr($_SERVER['REMOTE_ADDR'], '127.0.0.1') != false ||
 				stristr($_SERVER['REMOTE_ADDR'], '192.168') != false
 			)
@@ -111,7 +115,7 @@ class vsc extends vscObject {
 	 * @return string
 	 */
 	static public function nl () {
-		return isCli() ? "\n" : '<br/>' . "\n";
+		return self::isCli() ? "\n" : '<br/>' . "\n";
 	}
 
 	static public function d () {
