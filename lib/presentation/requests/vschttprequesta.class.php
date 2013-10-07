@@ -73,7 +73,7 @@ abstract class vscHttpRequestA extends vscObject {
 				$this->sIfNoneMatch = $_SERVER['HTTP_IF_NONE_MATCH'];
 			}
 
-			if (isset($_SERVER['CONTENT_TYPE'])) {
+			if ($this->hasContentType()) {
 				if ( stripos($_SERVER['CONTENT_TYPE'], ';') !== null ) {
 					$this->sContentType = substr ($_SERVER['CONTENT_TYPE'], 0, stripos($_SERVER['CONTENT_TYPE'], ';'));
 				} else {
@@ -86,10 +86,10 @@ abstract class vscHttpRequestA extends vscObject {
 			}
 			if (isset($_SERVER['PHP_AUTH_DIGEST'])) {
 				// DIGEST authorization attempt
-				$this->oAuth = new vscDigestHttpAuthentication($_SERVER['PHP_AUTH_DIGEST'], $_SERVER['REQUEST_METHOD']);
+				$this->setAuthentication( new vscDigestHttpAuthentication($_SERVER['PHP_AUTH_DIGEST'], $_SERVER['REQUEST_METHOD']));
 			}
 			if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
-				$this->oAuth = new vscBasicHttpAuthentication($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
+				$this->setAuthentication(  new vscBasicHttpAuthentication($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']) );
 			}
 		}
 
@@ -283,7 +283,7 @@ abstract class vscHttpRequestA extends vscObject {
 	}
 
 	static public function hasContentType () {
-		return array_key_exists('CONTENT_TYPE', $_SERVER);
+		return (array_key_exists('CONTENT_TYPE', $_SERVER) && strlen($_SERVER['CONTENT_TYPE']) > 0);
 	}
 
 	static public function validContentType ($sContentType) {
@@ -400,6 +400,10 @@ abstract class vscHttpRequestA extends vscObject {
 		} else {
 			return null;
 		}
+	}
+
+	protected function setAuthentication (vscHttpAuthenticationA $oHttpAuthentication) {
+		$this->oAuth = $oHttpAuthentication;
 	}
 
 	/**
