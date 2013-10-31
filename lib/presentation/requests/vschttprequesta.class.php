@@ -74,7 +74,7 @@ abstract class vscHttpRequestA extends vscObject {
 			}
 
 			if ($this->hasContentType()) {
-				if ( stripos($_SERVER['CONTENT_TYPE'], ';') !== null ) {
+				if ( stripos($_SERVER['CONTENT_TYPE'], ';') !== false ) {
 					$this->sContentType = substr ($_SERVER['CONTENT_TYPE'], 0, stripos($_SERVER['CONTENT_TYPE'], ';'));
 				} else {
 					$this->sContentType = $_SERVER['CONTENT_TYPE'];
