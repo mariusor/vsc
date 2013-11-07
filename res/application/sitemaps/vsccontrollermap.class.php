@@ -13,7 +13,7 @@ class vscControllerMap extends vscMappingA implements vscContentTypeMappingI {
 	private $sViewPath;
 
 	public function setMainTemplatePath ($sPath) {
-		$this->sMainTemplatePath = $sPath;
+		$this->sMainTemplatePath = realpath($sPath);
 	}
 
 	public function getMainTemplatePath () {
