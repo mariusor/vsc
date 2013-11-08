@@ -102,7 +102,7 @@ class vscMappingA extends vscObject {
 		if (vscMappingA::isValid($oMap)) {
 			$this->mergeResources ($oMap);
 			$this->mergePaths ($oMap);
-			
+
 			$this->iAuthenticationType |= $oMap->getAuthenticationType();
 		}
 		return $this;
@@ -181,6 +181,15 @@ class vscMappingA extends vscObject {
 	 * @param $sVal
 	 * @return void
 	 */
+	public function addHeader ($sVar, $sVal) {
+		$this->aResources['headers'][$sVar] = $sVal;
+	}
+
+	/**
+	 * @param $sVar
+	 * @param $sVal
+	 * @return void
+	 */
 	public function addSetting ($sVar, $sVal) {
 		$this->aResources['settings'][$sVar] = $sVal;
 	}
@@ -241,7 +250,7 @@ class vscMappingA extends vscObject {
 
 	public function getResources ($sType = null) {
 		if (!is_null($sType)) {
-			if (key_exists($sType, $this->aResources)) {
+			if (array_key_exists($sType, $this->aResources)) {
 				$aResources = $this->aResources[$sType];
 			} else {
 				$aResources = array();
@@ -357,6 +366,10 @@ class vscMappingA extends vscObject {
 		} else {
 			return '';
 		}
+	}
+
+	public function getHeaders() {
+		return $this->getResources('headers');
 	}
 
 	public function setTaintedVars ($aVars) {
