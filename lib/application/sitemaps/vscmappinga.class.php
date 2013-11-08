@@ -94,10 +94,16 @@ class vscMappingA extends vscObject {
 		}
 	}
 
+	/**
+	 * @param vscMappingA $oMap
+	 * @return $this
+	 */
 	public function merge ($oMap = null) {
 		if (vscMappingA::isValid($oMap)) {
 			$this->mergeResources ($oMap);
 			$this->mergePaths ($oMap);
+			
+			$this->iAuthenticationType |= $oMap->getAuthenticationType();
 		}
 		return $this;
 	}
