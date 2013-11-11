@@ -349,7 +349,11 @@ abstract class vscHttpResponseA extends vscObject {
 		}
 		if (is_array($this->aHeaders )) {
 			foreach ($this->aHeaders as $sHeaderName => $sHeaderValue) {
-				header ($sHeaderName . ':' . $sHeaderValue);
+				if (is_null($sHeaderValue)) {
+					header_remove($sHeaderName);
+				} else {
+					header ($sHeaderName . ':' . $sHeaderValue);
+				}
 			}
 		}
 	}

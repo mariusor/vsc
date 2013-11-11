@@ -178,6 +178,14 @@ class vscMappingA extends vscObject {
 
 	/**
 	 * @param $sVar
+	 * @return void
+	 */
+	public function removeHeader ($sVar) {
+		$this->aResources['headers'][$sVar] = null;
+	}
+
+	/**
+	 * @param $sVar
 	 * @param $sVal
 	 * @return void
 	 */
