@@ -294,7 +294,7 @@ abstract class vscHttpRequestA extends vscObject {
 		return (count($this->aGetVars) > 0);
 	}
 	public function hasGetVar ($sVarName) {
-		return key_exists($sVarName, $this->aGetVars);
+		return array_key_exists($sVarName, $this->aGetVars);
 	}
 	public function hasPostVars () {
 		return (count( $this->aPostVars) > 0);

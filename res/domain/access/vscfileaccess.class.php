@@ -4,6 +4,7 @@ class vscFileAccess extends vscObject {
 	private $sUri;
 
 	private $sCachePath;
+	protected $saveToCache = true;
 
 	public function __construct ($sUri) {
 		$this->sUri = $sUri;
@@ -56,19 +57,23 @@ class vscFileAccess extends vscObject {
 		return is_file ($this->sUri);
 	}
 
+	public function getFile ($sPath) {
+		return file_get_contents($sPath);
+	}
+
 	public function load () {
 		if ($this->isLocalFile($this->sUri) || !$this->inCache ($this->sUri)){
 			// @todo: use curl when file_get_contents doesn't work with urls
-			$sContent	= file_get_contents ($this->sUri);
+			$sContent	= $this->getFile ($this->sUri);
 
 			try {
-				if (!$this->isLocalFile($this->sUri)) {
+				if (!$this->isLocalFile($this->sUri) && $this->saveToCache) {
 					$this->cacheFile ($this->sUri, $sContent);
 				}
 			} catch (vscExceptionAccess $e) {
 				// no cache dir
 			} catch (vscExceptionError $e) {
-// 				d ($e->getTraceAsString());
+ 				//_e ($e->getTraceAsString());
 			}
 
 			return $sContent;

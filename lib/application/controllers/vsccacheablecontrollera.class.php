@@ -21,13 +21,13 @@ abstract class vscCacheableControllerA extends vscFrontControllerA implements vs
 	 */
 	public function getResponse (vscHttpRequestA $oRequest, $oProcessor = null) {
 		$oResponse = parent::getResponse($oRequest, $oProcessor);
-
+		
 		if ( !($oResponse->isRedirect() || $oResponse->isError()) ) {
 			$iNow = time();
 			$iExpireTime = 600; // ten minute
 			$oNow = new DateTime('now',  new DateTimeZone('GMT'));
 			$oResponse->setDate($oNow->format('r'));
-
+	
 			try {
 				$oModel = $this->getView()->getModel();
 			} catch (vscExceptionView $v) {
@@ -40,11 +40,11 @@ abstract class vscCacheableControllerA extends vscFrontControllerA implements vs
 					$oLastModified = new DateTime($sLastModified,  new DateTimeZone('GMT'));
 					$oResponse->setLastModified($oLastModified->format('r'));
 					$oMax = $oLastModified->getTimestamp() > $oNow->getTimestamp() ? $oLastModified : $oNow;
-
+	
 					$sModifiedSince = $oRequest->getIfModifiedSince();
 					if (!empty ($sModifiedSince)) {
 						$oModifiedSince =  new DateTime($sModifiedSince, new DateTimeZone('GMT'));
-
+	
 						if ($oLastModified->getTimestamp() <= $oModifiedSince->getTimestamp()) {
 							$oResponse->setStatus(304);
 						}
@@ -60,7 +60,7 @@ abstract class vscCacheableControllerA extends vscFrontControllerA implements vs
 				} catch (vscExceptionView $v) {
 					//
 				}
-
+	
 				if ( $oRequest->getIfNoneMatch() == '"'.$oResponse->getETag().'"' ) {
 					$oResponse->setStatus(304);
 				}
