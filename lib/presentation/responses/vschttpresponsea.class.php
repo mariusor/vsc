@@ -9,7 +9,7 @@ import ('presentation');
 import ('requests');
 import ('views');
 abstract class vscHttpResponseA extends vscObject {
-	protected $aStatusList = array(
+	static protected $aStatusList = array(
 		200 => '200 OK',
 		204 => '204 No Content',
 		301 => '301 Moved Permanently',
@@ -53,7 +53,7 @@ abstract class vscHttpResponseA extends vscObject {
 	private $aHeaders;
 
 	public function getStatusList () {
-		return $this->aStatusList;
+		return self::$aStatusList;
 	}
 
 	private $oView;
@@ -67,7 +67,7 @@ abstract class vscHttpResponseA extends vscObject {
 	}
 
 	public function setStatus ($iStatus) {
-		if (!isset ($this->aStatusList[$iStatus])){
+		if (!isset (self::$aStatusList[$iStatus])){
 			throw new vscExceptionResponse('[' . $iStatus . '] is not a valid ' . $this->getServerProtocol() . ' status');
 		}
 
@@ -280,8 +280,8 @@ abstract class vscHttpResponseA extends vscObject {
 		return $this->sServerProtocol;
 	}
 
-	public function getHttpStatusString () {
-		return $this->getServerProtocol() . ' ' . $this->aStatusList[$this->getStatus()];
+	static public function getHttpStatusString ($sProtocol, $iStatus) {
+		return $sProtocol . ' ' . self::$aStatusList[$iStatus];
 	}
 
 	public function getStatus () {
@@ -290,7 +290,7 @@ abstract class vscHttpResponseA extends vscObject {
 
 	public function outputHeaders () {
 		if ($this->getStatus())
-			header ($this->getHttpStatusString ());
+			header (self::getHttpStatusString ($this->getServerProtocol(), $this->getStatus()));
 
 		$sLocation = $this->getLocation();
 		if ($sLocation) {
@@ -349,7 +349,11 @@ abstract class vscHttpResponseA extends vscObject {
 		}
 		if (is_array($this->aHeaders )) {
 			foreach ($this->aHeaders as $sHeaderName => $sHeaderValue) {
-				header ($sHeaderName . ':' . $sHeaderValue);
+				if (is_null($sHeaderValue)) {
+					header_remove($sHeaderName);
+				} else {
+					header ($sHeaderName . ':' . $sHeaderValue);
+				}
 			}
 		}
 	}
