@@ -115,6 +115,12 @@ abstract class vscFrontControllerA extends vscObject {
 		$oView->setModel($oModel);
 
 		$oResponse->setView ($oView);
+		$aHeaders = $oMap->getHeaders();
+		if (count($aHeaders) > 0) {
+			foreach ($aHeaders as $sName => $sHeader) {
+				$oResponse->addHeader($sName, $sHeader);
+			}
+		}
 		return $oResponse;
 	}
 
