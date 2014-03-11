@@ -27,10 +27,10 @@ abstract class vscHttpAuthenticationA extends vscObject {
 
 	static public function getAuthenticationSchemas ($iType) {
 		$aSchemas = array();
-		if ($iType && self::BASIC == $iType) {
+		if ($iType & self::BASIC == $iType) {
 			$aSchemas[] = 'Basic';
 		}
-		if ($iType && self::DIGEST == $iType) {
+		if ($iType & self::DIGEST == $iType) {
 				$aSchemas[] = 'Digest';
 		}
 		return $aSchemas;
