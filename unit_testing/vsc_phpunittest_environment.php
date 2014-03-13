@@ -14,10 +14,3 @@ if (!defined('VSC_PATH')) {
 	error_reporting(E_ALL);
 	ini_set('display_errors', '1');
 }
-
-//if (!defined('PHPUNIT_PATH')) {
-//	define ('PHPUNIT_PATH', '/usr/share/pear/PHPUnit/');
-//	set_include_path (PHPUNIT_PATH . PATH_SEPARATOR . get_include_path());
-//	require (PHPUNIT_PATH . 'Autoload.php');
-//}
-
