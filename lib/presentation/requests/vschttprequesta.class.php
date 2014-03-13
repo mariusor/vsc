@@ -474,16 +474,8 @@ abstract class vscHttpRequestA extends vscObject {
 	}
 
 	public function accepts ($sMimeType) {
-		$aGoodMimeTypes = array ($sMimeType, '*/*');
-		$aIncomingAcceptHeaders = $this->getHttpAccept();
 		$aContentTypes = array();
-		// 1. empty http-accept header
-		if (empty ($aIncomingAcceptHeaders)) {
-			$aGoodMimeTypes[] = 'text/html';
-			$aGoodMimeTypes[] = 'text/xml';
-		}
-		// 2. non-empty http-accept header
-		foreach ($aIncomingAcceptHeaders as $sEntry) {
+		foreach ($this->getHttpAccept() as $sEntry) {
 			$iSemicolonPosition = strpos($sEntry, ';');
 			if ($iSemicolonPosition > 0) {
 				$sContentType = substr ($sEntry, 0, $iSemicolonPosition);
@@ -492,10 +484,12 @@ abstract class vscHttpRequestA extends vscObject {
 				$aContentTypes[] = $sEntry;
 			}
 		}
-		foreach ($aGoodMimeTypes as $sPotentialContentType) {
-			if (in_array($sPotentialContentType, $aContentTypes)) {
-				return true;
-			}
+		list ($sType, $sSubtype) = explode('/', $sMimeType);
+		foreach ($aContentTypes as $sAcceptedContentType) {
+			list ($sAcceptedType, $sAcceptedSubtype) = explode('/', $sAcceptedContentType);
+			if ($sType == $sAcceptedType && $sSubtype == $sAcceptedSubtype) return true;
+			if ($sType == $sAcceptedType && $sAcceptedSubtype == '*') return true;
+			if ($sAcceptedType == '*' && $sAcceptedSubtype == '*') return true;
 		}
 		return false;
 	}
