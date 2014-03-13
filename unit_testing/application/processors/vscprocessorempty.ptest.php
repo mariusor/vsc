@@ -1,9 +1,11 @@
 <?php
 $BASE_PATH = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR;
-include ($BASE_PATH . 'vscemptyprocessor.class.php');
+//include ($BASE_PATH . 'vscemptyprocessor.class.php');
 
 import ('application');
+import ('processors');
 import ('sitemaps');
+
 class vscProcessorEmptyTest extends PHPUnit_Framework_TestCase {
 	private $state;
 	public function setUp () {
@@ -47,16 +49,16 @@ class vscProcessorEmptyTest extends PHPUnit_Framework_TestCase {
 	public function testDelegateRequest () {
 		$sFixtureMap = realpath(dirname (__FILE__) . '/../dispatchers/fixtures') . '/';
 		import ($sFixtureMap);
-		
+
 		$sValue = 'test';
-		
+
 		$oHttpRequest = new vscRwHttpRequest();
 		$oNewProcessor = new test();
 		$oNewProcessor->return = $sValue;
-		
+
 		$sMapPath = $sFixtureMap .'map.php';
 		vsc::getEnv()->getDispatcher()->loadSiteMap($sMapPath);
-		
+
 		$this->assertEquals($sValue, $this->state->delegateRequest($oHttpRequest, $oNewProcessor));
 	}
 }
