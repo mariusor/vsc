@@ -10,6 +10,10 @@ class vscFileAccess extends vscObject {
 		$this->sUri = $sUri;
 	}
 
+	public function getUri () {
+		return $this->sUri;
+	}
+
 	public function getCachePath () {
 		return $this->sCachePath;
 	}
@@ -17,11 +21,13 @@ class vscFileAccess extends vscObject {
 	public function setCachePath ($sPath) {
 		if (is_dir($sPath)) {
 			$this->sCachePath = $sPath;
+		} else {
+			throw new vscExceptionAccess ('Path ['.$sPath.'] is invalid for cache');
 		}
 	}
 
 	public function getLocalPath ($sFile) {
-		return  $this->sCachePath . DIRECTORY_SEPARATOR . $sFile;
+		return $this->sCachePath . DIRECTORY_SEPARATOR . $sFile;
 	}
 
 	public function getSignature ($sUri) {
@@ -42,7 +48,6 @@ class vscFileAccess extends vscObject {
 
 	public function cacheFile ($sUri, $sContent) {
 		$sFileName = $this->getLocalPath($this->getSignature ($sUri));
-
 		// creating the file
 		touch($sFileName);
 
