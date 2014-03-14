@@ -291,6 +291,7 @@ abstract class vscHttpResponseA extends vscObject {
 	}
 
 	public function outputHeaders () {
+		if (headers_sent()) return true;
 		if ($this->getStatus())
 			header (self::getHttpStatusString ($this->getServerProtocol(), $this->getStatus()));
 
