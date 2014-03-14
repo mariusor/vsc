@@ -218,7 +218,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 			if (substr ($sPath, 0, 2) == './'){
 				$sPath = substr ($sPath, 2);
 			}
-			if (!isCli()) {
+			if (!vsc::isCli()) {
 				try {
 					$sParentPath = substr (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), 0 , -1);
 					if (substr($sParentPath, -1) != '/') {
