@@ -47,7 +47,7 @@ class vscRwHttpRequest extends vscHttpRequestA {
 	}
 
 	protected function getTaintedVar ($sVarName) {
-		if (key_exists($sVarName, $this->aTaintedVars)) {
+		if (array_key_exists($sVarName, $this->aTaintedVars)) {
 			return self::getDecodedVar($this->aTaintedVars[$sVarName]);
 		} else {
 			return null;
