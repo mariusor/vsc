@@ -37,7 +37,7 @@ class vscMappingA extends vscObject {
 	/**
 	 * @var int
 	 */
-	private $iAuthenticationType = 0;
+	private $iAuthenticationType = null;
 
 	public function __construct ($sPath, $sRegex) {
 		$this->sPath	= $sPath;
@@ -231,7 +231,7 @@ class vscMappingA extends vscObject {
 	 * @return void
 	 */
 	public function addLink ($sType, $aData) {
-		if (key_exists('href', $aData)) {
+		if (array_key_exists('href', $aData)) {
 			$oUrl = new vscUrlRWParser($aData['href']);
 			if ($oUrl->isLocal()) { // I had a bad habit of correcting external URL's
 				$sPath = $oUrl->getCompleteUri();
@@ -240,7 +240,7 @@ class vscMappingA extends vscObject {
 			}
 			$aData['href'] = $sPath;
 		}
-		if (key_exists('src', $aData)) {
+		if (array_key_exists('src', $aData)) {
 			$oUrl = new vscUrlRWParser($aData['src']);
 			if ($oUrl->isLocal()) { // I had a bad habit of correcting external URL's
 				$sPath = $oUrl->getCompleteUri();
@@ -288,7 +288,7 @@ class vscMappingA extends vscObject {
 		}
 		if (vscSiteMapA::isValidObject ($sPath)) {
 			$sKey = $sRegex;
-			if (!is_array($this->aControllerMaps) || !key_exists($sKey, $this->aControllerMaps)) {
+			if (!is_array($this->aControllerMaps) || !array_key_exists($sKey, $this->aControllerMaps)) {
 				$oNewMap 	= new vscControllerMap($sPath, $sKey);
 				$oNewMap->setModuleMap($this);
 				$oNewMap->merge($this);
@@ -314,7 +314,7 @@ class vscMappingA extends vscObject {
 		$aStyles					= $this->getResources('styles');
 		if (!is_null($sMedia)) {
 			$aMediaStyles[$sMedia]	= $aStyles[$sMedia];
-			return key_exists ($sMedia, $aStyles) ? $aMediaStyles : null;
+			return array_key_exists ($sMedia, $aStyles) ? $aMediaStyles : null;
 		} else {
 			return $aStyles;
 		}
@@ -323,7 +323,7 @@ class vscMappingA extends vscObject {
 	public function getMetas ($sName = null) {
 		$aMetas =  $this->getResources('meta');
 		if (!is_null($sName)) {
-			return key_exists ($sName,$aMetas) ?  $aMetas[$sName] : '';
+			return array_key_exists ($sName,$aMetas) ?  $aMetas[$sName] : '';
 		} else {
 			return $aMetas;
 		}
@@ -331,11 +331,11 @@ class vscMappingA extends vscObject {
 
 	public function getScripts ($bInHead = false) {
 		$aAllScripts = $this->getResources('scripts');
-		if ($bInHead && key_exists(1, $aAllScripts)) {
+		if ($bInHead && array_key_exists(1, $aAllScripts)) {
 			return $aAllScripts[1];
 		}
 
-		if (!$bInHead && key_exists(0, $aAllScripts))  {
+		if (!$bInHead && array_key_exists(0, $aAllScripts))  {
 			return $aAllScripts[0]; // [1] -> script goes in the <head> [0] - script is loaded at the end of the source
 		}
 	}
@@ -352,7 +352,7 @@ class vscMappingA extends vscObject {
 		$aLinks = $this->getResources ('links');
 
 		if (!is_null($sType)) {
-			if (key_exists($sType, $aLinks)) {
+			if (array_key_exists($sType, $aLinks)) {
 				$aTLinks[$sType] = $aLinks[$sType];
 				$aLinks = $aTLinks;
 			} else {
@@ -369,7 +369,7 @@ class vscMappingA extends vscObject {
 	public function getSetting ($sVar) {
 		$aSettings = $this->getResources ('settings');
 
-		if (key_exists($sVar, $aSettings)) {
+		if (array_key_exists($sVar, $aSettings)) {
 			return $aSettings[$sVar];
 		} else {
 			return '';
@@ -407,7 +407,7 @@ class vscMappingA extends vscObject {
 	}
 
 	public function setAuthenticationType ($iAuthenticationType) {
-		$this->iAuthenticationType |= $iAuthenticationType;
+		$this->iAuthenticationType = $iAuthenticationType;
 	}
 
 	public function getAuthenticationType () {
@@ -425,6 +425,6 @@ class vscMappingA extends vscObject {
 	 * @return bool
 	 */
 	public function requiresAuthentication () {
-		return ($this->iAuthenticationType | vscHttpAuthenticationA::NONE);
+		return ($this->iAuthenticationType != vscHttpAuthenticationA::NONE);
 	}
 }
