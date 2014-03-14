@@ -11,7 +11,7 @@ $BASE_PATH = dirname (__FILE__) . '/fixtures/';
 import ($BASE_PATH);
 
 class vscHtmlFrontControllerTest extends PHPUnit_Framework_TestCase  {
-private $state;
+	private $state;
 	public function setUp () {
 		$this->state = new vscXhtmlController();
 

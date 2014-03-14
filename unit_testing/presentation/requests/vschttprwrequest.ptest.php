@@ -59,4 +59,9 @@ class vscHttpRwRequestTest extends PHPUnit_Framework_TestCase {
 	public function testAcceptsImagePng () {
 		return $this->assertTrue($this->state->accepts('image/png'));
 	}
+
+//	public function testHasBasicAuhtentication () {}
+//	public function testHasDigestAuhtentication () {}
+//	public function testHasNoAuhtentication () {}
+//	public function testSetNoAuhtentication () {}
 }

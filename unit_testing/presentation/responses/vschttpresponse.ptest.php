@@ -35,11 +35,9 @@ class vscHttpResponseTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetOutput () {
 		$state = new vscHttpResponse();
-		ob_start();
-
 		$t = $state->getOutput();
-		$content = ob_get_flush();
+		d ($state);
 
-		//d ($t, $content);
+		$this->assertTrue ($t, '');
 	}
 }

@@ -39,6 +39,9 @@
 			<exclude>./application</exclude>
 			<exclude>./presentation</exclude>
 		</testsuite>
+        <testsuite name="sitemaps">
+            <directory suffix=".ptest.php">./application/sitemaps/</directory>
+        </testsuite>
 	</testsuites>
 	<php>
 		<ini />
