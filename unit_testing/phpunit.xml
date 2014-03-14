@@ -45,5 +45,6 @@
 	</testsuites>
 	<php>
 		<ini />
+        <server name="SCRIPT_NAME" value="test.php"/>
 	</php>
 </phpunit>
