@@ -88,45 +88,20 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 		$oDispatcher = vsc::getEnv()->getDispatcher();
 		$oMap = $oDispatcher->getSiteMap()->findProcessorMap($oNewProcessor);
 
-		$oNewProcessor->init();
-		if (vscMappingA::isValid($oMap)) {
-			$oNewProcessor->setMap($oMap);
-			/* @var $oDispatcher vscRwDispatcher */
-			$oMap->merge ($this->getMap());
-
-			if (vscHttpResponse::isValid($oResponse)) {
-				$oMap->setResponse($oResponse);
-			}
-			$this->setMap ($oMap);
-		}
-
-		$oNewProcessor->setLocalVars($this->getLocalVars(), true);
-
-		return $oNewProcessor->handleRequest($oHttpRequest);
-	}
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see vscProcessorI::delegateRequest()
-	 */
-	public function delegateRequest(vscHttpRequestA $oHttpRequest, vscProcessorA $oNewProcessor, vscHttpResponseA $oResponse = null) {
-		$oDispatcher = vsc::getEnv()->getDispatcher();
-		$oMap = $oDispatcher->getSiteMap()->findProcessorMap($oNewProcessor);
-		
 		$oNewProcessor->setMap($oMap);
 		$oNewProcessor->init();
-		
+
 		/* @var $oDispatcher vscRwDispatcher */
 		$oMap->merge ($this->getMap());
 
 		if (vscHttpResponse::isValid($oResponse)) {
 			$oMap->setResponse($oResponse);
 		}
-		
+
 		$this->setMap ($oMap);
-		
+
 		$oNewProcessor->setLocalVars($this->getLocalVars());
-		
+
 		return $oNewProcessor->handleRequest($oHttpRequest);
 	}
 }
