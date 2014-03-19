@@ -33,7 +33,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 	 * @param string $sUrl
 	 * @return multitype:string multitype:
 	 */
-	static public function parse_url ($sUrl = null, $bWithScheme = true) {
+	static public function parse_url ($sUrl = null) {
 		if (is_null($sUrl) && is_array($_SERVER) && array_key_exists('REQUEST_URI', $_SERVER)) {
 			$sUrl = self::getCurrentUrl();
 		}
@@ -53,10 +53,6 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 			'fragment'	=> ''
 		);
 
-		if ( $bWithScheme && !self::urlHasScheme($sUrl) ) {
-			$sUrl = (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] ? 'https:' : 'http:') . $sUrl;
-		}
-
 		try {
 			if ( is_file ($sUrl) && is_readable($sUrl) ) {
 				$aReturn['scheme'] = 'file';
@@ -68,8 +64,12 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 			$aReturn['path'] = $sUrl;
 		}
 
+		if ( !self::urlHasScheme($sUrl) ) {
+			$sUrl = (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] ? 'https:' : 'http:') . $sUrl;
+		}
+
 		try {
-			if ( $bWithScheme && !self::urlHasScheme($sUrl) ) {
+			if ( !self::urlHasScheme($sUrl) ) {
 				$sUrl = (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] ? 'https:' : 'http:') . $sUrl;
 			}
 
@@ -134,7 +134,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 
 		$aQuery = array();
 		parse_str($sQuery, $aQuery);
-		if ( $bWithScheme ) {
+		if ( self::urlHasScheme($sUrl) ) {
 			$sScheme = $bIsSecure ? 'https' : 'http';
 		}
 		return array (
@@ -150,10 +150,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 
 	public function setUrl ($sUrl) {
 		$this->sUrl 		= $sUrl;
-		if ( !self::urlHasScheme($sUrl) ) {
-			$this->bUrlHasNoScheme = true;
-		}
-		$this->aComponents	= self::parse_url ($sUrl, !$this->bUrlHasNoScheme);
+		$this->aComponents	= self::parse_url ($sUrl);
 	}
 
 	public function getScheme () {

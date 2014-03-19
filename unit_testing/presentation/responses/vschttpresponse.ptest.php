@@ -36,8 +36,7 @@ class vscHttpResponseTest extends PHPUnit_Framework_TestCase {
 	public function testGetOutput () {
 		$state = new vscHttpResponse();
 		$t = $state->getOutput();
-		d ($state);
 
-		$this->assertTrue ($t, '');
+		$this->assertEquals($t, '');
 	}
 }
