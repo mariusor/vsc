@@ -1,7 +1,15 @@
 <?php
 class vscUrlParserA extends vscObject implements vscUrlParserI {
 	private $sUrl;
-	private $aComponents;
+	private $aComponents = array(
+		'scheme'	=> '',
+		'host'		=> '',
+		'user'		=> '',
+		'pass'		=> '',
+		'path'		=> '',
+		'query'		=> array(),
+		'fragment'	=> ''
+	);
 	private $bUrlHasNoScheme = false;
 	static private $validSchemes = array( 'http', 'https', 'file' );
 
