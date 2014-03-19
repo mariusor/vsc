@@ -21,7 +21,6 @@ function exceptions_error_handler ($iSeverity, $sMessage, $sFilename, $iLineNo) 
 		throw new vscExceptionError ($sMessage, 0, $iSeverity, $sFilename, $iLineNo);
 	}
 }
-
 /**
  * @return bool
  */

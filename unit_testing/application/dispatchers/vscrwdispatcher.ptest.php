@@ -17,7 +17,7 @@ class vscRwDispatcherTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp () {
 		$this->fixturePath = dirname (__FILE__) . '/fixtures/';
-		$this->state = vsc::getEnv()->getDispatcher();
+		$this->state = new vscRwDispatcher();
 	}
 
 	public function tearDown () {
