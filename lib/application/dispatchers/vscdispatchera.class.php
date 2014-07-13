@@ -56,6 +56,7 @@ abstract class vscDispatcherA extends vscObject {
 	}
 
 	/**
+	 * @throws vscExceptionSitemap
 	 * @return vscSiteMapA
 	 */
 	public function getSiteMap () {
