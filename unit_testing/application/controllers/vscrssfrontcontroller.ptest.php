@@ -1,4 +1,6 @@
 <?php
+import (VSC_FIXTURE_PATH);
+
 import ('application');
 import ('controllers');
 import ('processors');
@@ -6,9 +8,6 @@ import ('sitemaps');
 import ('presentation');
 import ('responses');
 import ('requests');
-
-$BASE_PATH = dirname (__FILE__) . '/fixtures/';
-import ($BASE_PATH);
 
 class vscRssFrontControllerTest extends PHPUnit_Framework_TestCase {
 	private $state;
@@ -25,8 +24,8 @@ class vscRssFrontControllerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetResponse() {
+		$this->markTestSkipped ('Need to finish this');
 		$oReq = new vscRwHttpRequest();
-
 		return $this->assertInstanceOf('vscHttpResponseA', $this->state->getResponse($oReq));
 	}
 }

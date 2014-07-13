@@ -14,3 +14,7 @@ if (!defined('VSC_PATH')) {
 	error_reporting(E_ALL);
 	ini_set('display_errors', '1');
 }
+
+if (defined ('VSC_TEST_PATH') && !defined ('VSC_FIXTURE_PATH')) {
+	define ('VSC_FIXTURE_PATH', VSC_TEST_PATH . '_fixtures' . DIRECTORY_SEPARATOR);
+}
