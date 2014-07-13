@@ -12,7 +12,7 @@ import ('presentation/responses');
 import ('domain/models');
 import ('exceptions');
 
-class vscRwDispatcher extends vscDispatcherA {
+class vscRwDispatcher extends vscHttpDispatcherA {
 	/**
 	 * @param array $aMaps
 	 * @throws vscExceptionError
