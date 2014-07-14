@@ -294,19 +294,19 @@ abstract class vscHttpRequestA extends vscObject {
 		return (count($this->aGetVars) > 0);
 	}
 	public function hasGetVar ($sVarName) {
-		return key_exists($sVarName, $this->aGetVars);
+		return array_key_exists($sVarName, $this->aGetVars);
 	}
 	public function hasPostVars () {
 		return (count( $this->aPostVars) > 0);
 	}
 	public function hasPostVar ($sVarName) {
-		return key_exists($sVarName, $this->aPostVars);
+		return array_key_exists($sVarName, $this->aPostVars);
 	}
 	public function hasSessionVar ($sVarName) {
-		return key_exists($sVarName, $_SESSION);
+		return array_key_exists($sVarName, $_SESSION);
 	}
 	public function hasCookieVar ($sVarName) {
-		return key_exists($sVarName, $this->aCookieVars);
+		return array_key_exists($sVarName, $this->aCookieVars);
 	}
 
 	public function hasSession () {
@@ -353,7 +353,7 @@ abstract class vscHttpRequestA extends vscObject {
 	 * @return mixed
 	 */
 	protected function getGetVar ($sVarName) {
-		if (key_exists($sVarName, $this->aGetVars)) {
+		if (array_key_exists($sVarName, $this->aGetVars)) {
 			return $this->aGetVars[$sVarName];
 		} else {
 			return null;
@@ -367,7 +367,7 @@ abstract class vscHttpRequestA extends vscObject {
 	 * @return mixed
 	 */
 	protected function getPostVar ($sVarName) {
-		if (key_exists($sVarName, $this->aPostVars)) {
+		if (array_key_exists($sVarName, $this->aPostVars)) {
 			return $this->aPostVars[$sVarName];
 		} else {
 			return null;
@@ -381,7 +381,7 @@ abstract class vscHttpRequestA extends vscObject {
 	 * @return mixed
 	 */
 	protected function getCookieVar ($sVarName) {
-		if (key_exists($sVarName, $this->aCookieVars)) {
+		if (array_key_exists($sVarName, $this->aCookieVars)) {
 			return self::getDecodedVar($this->aCookieVars[$sVarName]);
 		} else {
 			return null;
@@ -395,7 +395,7 @@ abstract class vscHttpRequestA extends vscObject {
 	 * @return mixed
 	 */
 	public function getSessionVar ($sVarName) {
-		if (key_exists($sVarName, $_SESSION)) {
+		if (array_key_exists($sVarName, $_SESSION)) {
 			return self::getDecodedVar($_SESSION[$sVarName]);
 		} else {
 			return null;
@@ -474,16 +474,8 @@ abstract class vscHttpRequestA extends vscObject {
 	}
 
 	public function accepts ($sMimeType) {
-		$aGoodMimeTypes = array ($sMimeType, '*/*');
-		$aIncomingAcceptHeaders = $this->getHttpAccept();
 		$aContentTypes = array();
-		// 1. empty http-accept header
-		if (empty ($aIncomingAcceptHeaders)) {
-			$aGoodMimeTypes[] = 'text/html';
-			$aGoodMimeTypes[] = 'text/xml';
-		}
-		// 2. non-empty http-accept header
-		foreach ($aIncomingAcceptHeaders as $sEntry) {
+		foreach ($this->getHttpAccept() as $sEntry) {
 			$iSemicolonPosition = strpos($sEntry, ';');
 			if ($iSemicolonPosition > 0) {
 				$sContentType = substr ($sEntry, 0, $iSemicolonPosition);
@@ -492,10 +484,13 @@ abstract class vscHttpRequestA extends vscObject {
 				$aContentTypes[] = $sEntry;
 			}
 		}
-		foreach ($aGoodMimeTypes as $sPotentialContentType) {
-			if (in_array($sPotentialContentType, $aContentTypes)) {
-				return true;
-			}
+		list ($sType, $sSubtype) = explode('/', $sMimeType);
+		foreach ($aContentTypes as $sAcceptedContentType) {
+			list ($sAcceptedType, $sAcceptedSubtype) = explode('/', $sAcceptedContentType);
+
+			if ($sType == $sAcceptedType && $sSubtype == $sAcceptedSubtype) return true;
+			if ($sType == $sAcceptedType && $sAcceptedSubtype == '*') return true;
+			if ($sAcceptedType == '*' && $sAcceptedSubtype == '*') return true;
 		}
 		return false;
 	}

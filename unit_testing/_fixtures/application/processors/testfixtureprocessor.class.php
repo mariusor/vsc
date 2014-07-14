@@ -1,8 +1,9 @@
 <?php
 import ('application/processors');
 
-class test extends vscProcessorA {
+class testFixtureProcessor extends vscProcessorA {
 	public $return;
+	protected $aLocalVars = array ('test' => null);
 	
 	public function init () {}
 

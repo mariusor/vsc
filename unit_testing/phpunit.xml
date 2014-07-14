@@ -4,7 +4,8 @@
 	stopOnIncomplete="true"
 	stopOnError="true"
 	stopOnFailure="true"
-	stopOnSkipped="true"
+	stopOnRisky="true"
+	stopOnSkipped="false"
 	strict="true"
 	processIsolation="true">
 	<testsuites>
@@ -31,5 +32,21 @@
 			<exclude>./application</exclude>
 			<exclude>./presentation</exclude>
 		</testsuite>
+		<testsuite name="sitemaps">
+			<directory suffix=".ptest.php">./application/sitemaps/</directory>
+		</testsuite>
+		<testsuite name="all">
+			<directory suffix=".ptest.php">./</directory>
+			<directory suffix=".ptest.php">./functions/</directory>
+			<directory suffix=".ptest.php">./infrastructure/</directory>
+			<directory suffix=".ptest.php">./domain/</directory>
+			<directory suffix=".ptest.php">./application/</directory>
+			<directory suffix=".ptest.php">./presentation/</directory>
+		</testsuite>
 	</testsuites>
+	<php>
+		<ini />
+		<server name="SCRIPT_NAME" value="test.php"/>
+		<env name="XDEBUG_CONFIG" value="idekey=eclipse_xdebug"/>
+	</php>
 </phpunit>

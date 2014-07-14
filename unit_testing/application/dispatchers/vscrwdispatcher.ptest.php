@@ -1,12 +1,10 @@
 <?php
+import (VSC_FIXTURE_PATH);
 
 import ('application/dispatchers');
 
-$BASE_PATH = dirname (__FILE__) . '/fixtures/';
-import ($BASE_PATH);
-
-$sCurPath = realpath(dirname (__FILE__) . '/../../presentation/requests/fixtures/vscpopulatedrequest.class.php');
-include ($sCurPath);
+//$sCurPath = realpath(dirname (__FILE__) . '/../../presentation/requests/_fixtures/vscpopulatedrequest.class.php');
+//require ($sCurPath);
 
 class vscRwDispatcherTest extends PHPUnit_Framework_TestCase {
 	/**
@@ -16,8 +14,8 @@ class vscRwDispatcherTest extends PHPUnit_Framework_TestCase {
 	private $fixturePath;
 
 	public function setUp () {
-		$this->fixturePath = dirname (__FILE__) . '/fixtures/';
-		$this->state = vsc::getEnv()->getDispatcher();
+		$this->fixturePath = VSC_FIXTURE_PATH . 'application' . DIRECTORY_SEPARATOR . 'dispatchers' . DIRECTORY_SEPARATOR;
+		$this->state = new vscRwDispatcher();
 	}
 
 	public function tearDown () {
@@ -26,7 +24,7 @@ class vscRwDispatcherTest extends PHPUnit_Framework_TestCase {
 
 	public function testLoadSiteMap () {
 		$this->state->loadSiteMap ($this->fixturePath . 'map.php');
-		return $this->assertInstanceOf('vscSiteMapA',$this->state->getSiteMap());
+		return $this->assertInstanceOf('vscSiteMapA', $this->state->getSiteMap());
 	}
 
 	public function testGetRequest () {
@@ -46,7 +44,7 @@ class vscRwDispatcherTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetProcessController404 () {
-		$this->state->loadSiteMap ($this->fixturePath . '/map.php');
+		$this->state->loadSiteMap ($this->fixturePath . 'map.php');
 		$oProcess = $this->state->getProcessController();
 
 		return $this->assertInstanceOf('vsc404Processor', $oProcess);
@@ -64,7 +62,7 @@ class vscRwDispatcherTest extends PHPUnit_Framework_TestCase {
 		$oReq  = new vscPopulatedRequest();
 		vsc::getEnv()->setHttpRequest($oReq);
 
-		return $this->assertInstanceOf('test', $this->state->getProcessController());
+		return $this->assertInstanceOf('testFixtureProcessor', $this->state->getProcessController());
 	}
 
 	public function testTemplatePath () {

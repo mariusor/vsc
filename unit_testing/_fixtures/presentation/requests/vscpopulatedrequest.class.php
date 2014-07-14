@@ -17,7 +17,7 @@ class vscPopulatedRequest extends vscHttpRequestA {
 	private $aPostVars		= array();
 	private $aCookieVars	= array('user' => 'asddsasdad234');
 
-	private $sReferer		= 'http://localhost/fixtures/index.html?module=test';
+	private $sReferer		= 'http://localhost/_fixtures/index.html?module=test';
 	private $sUserAgent		= 'WGET 2/3';
 
 	public function getUri ($bUrlDecode = false) {

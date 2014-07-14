@@ -10,6 +10,10 @@ class vscCLIRequest extends vscRequestA {
 	public function getVars () {
 	}
 
+	public function getUri () {
+		return array_key_exists('PHP_SELF', $_SERVER) ? $_SERVER['PHP_SELF'] : '';
+	}
+
 	public function getVar ($sVarName) {
 		$mValue = parent::getVar($sVarName);
 		return $mValue;

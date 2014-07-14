@@ -19,7 +19,7 @@ class functions extends PHPUnit_Framework_TestCase {
 		set_include_path ('.');
 		import (VSC_LIB_PATH); // this should exist at all times
 		$sTestPath = '.' . PATH_SEPARATOR . substr (VSC_LIB_PATH,0,-1);
-		
+
 		$this->assertEquals (get_include_path(), $sTestPath);
 	}
 
@@ -31,7 +31,7 @@ class functions extends PHPUnit_Framework_TestCase {
 		try {
 			import ($sLocalPackage); // this should exist at all times and have exceptions
 		} catch (Exception $e) {
-			
+
 		}
 		$sTestPath = '.' . PATH_SEPARATOR . substr (VSC_LIB_PATH,0,-1) . PATH_SEPARATOR . VSC_LIB_PATH . $sLocalPackage;
 		return $this->assertEquals ($sTestPath, get_include_path());
@@ -45,9 +45,5 @@ class functions extends PHPUnit_Framework_TestCase {
 		} catch (Exception $e) {
 			return $this->assertInstanceOf ('vscExceptionPackageImport', $e, 'The import function didn\'t throw the correct exception.');
 		}
-	}
-	
-	public function testIsCli () {
-		$this->assertEquals(php_sapi_name() == 'cli', isCli());
 	}
 }

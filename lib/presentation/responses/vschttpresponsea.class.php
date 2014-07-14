@@ -11,6 +11,8 @@ import ('views');
 abstract class vscHttpResponseA extends vscObject {
 	static protected $aStatusList = array(
 		200 => '200 OK',
+		201 => '201 Created',
+		202 => '202 Accepted',
 		204 => '204 No Content',
 		301 => '301 Moved Permanently',
 		302 => '302 Found',
@@ -289,6 +291,7 @@ abstract class vscHttpResponseA extends vscObject {
 	}
 
 	public function outputHeaders () {
+		if (headers_sent()) return true;
 		if ($this->getStatus())
 			header (self::getHttpStatusString ($this->getServerProtocol(), $this->getStatus()));
 
@@ -366,6 +369,9 @@ abstract class vscHttpResponseA extends vscObject {
 		$this->oView = $oView;
 	}
 
+	/**
+	 * @return vscViewA
+	 */
 	public function getView() {
 		if (!vscViewA::isValid($this->oView)) {
 			$this->oView = new vscNull();
@@ -382,8 +388,16 @@ abstract class vscHttpResponseA extends vscObject {
 		}
 
 		$oRequest = vsc::getEnv()->getHttpRequest();
-		if (vscCLIRequest::isValid($oRequest) || !$oRequest->isHead() && !$this->isRedirect()) {
-			$sResponseBody = $this->getView()->getOutput();
+		try {
+			if (vscCLIRequest::isValid($oRequest) || !$oRequest->isHead() && !$this->isRedirect()) {
+				$oView = $this->getView();
+				$sResponseBody = $oView->getOutput();
+			}
+		} catch (vscExceptionResponseError $r) {
+			$this->setStatus($r->getCode());
+			$oView->setModel(new vscErrorModel($r));
+
+			$sResponseBody = $oView->getOutput();
 		}
 		return $sResponseBody;
 	}
@@ -407,5 +421,4 @@ abstract class vscHttpResponseA extends vscObject {
 	public function isError() {
 		return ($this->isUserError() || $this->isServerError());
 	}
-
 }

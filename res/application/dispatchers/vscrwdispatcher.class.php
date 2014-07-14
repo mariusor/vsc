@@ -12,9 +12,10 @@ import ('presentation/responses');
 import ('domain/models');
 import ('exceptions');
 
-class vscRwDispatcher extends vscDispatcherA {
+class vscRwDispatcher extends vscHttpDispatcherA {
 	/**
 	 * @param array $aMaps
+	 * @throws vscExceptionError
 	 * @return vscMappingA
 	 */
 	public function getCurrentMap ($aMaps) {
@@ -198,10 +199,12 @@ class vscRwDispatcher extends vscDispatcherA {
 	/**
 	 *
 	 * @param string $sIncPath
-	 * @throws vscExceptionPath
+	 * @throws Exception
+	 * @throws vscExceptionSitemap
 	 * @return void
 	 */
 	public function loadSiteMap ($sIncPath) {
+		// @FIXME: this needs to be refactored with some getters/settes
 		$this->setSiteMap (new vscRwSiteMap ());
 		try {
 			// hic sunt leones
