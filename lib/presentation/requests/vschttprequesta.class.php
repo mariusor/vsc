@@ -516,7 +516,8 @@ abstract class vscHttpRequestA extends vscObject {
 				$sReqUri = $_SERVER['REQUEST_URI'];
 				$this->sUri = str_replace ($sCurrentScriptDir, '', $sReqUri);
 			} elseif (stristr($sServerType, 'apache')) {
-				$sReqUri = $_SERVER['REQUEST_URI'];
+				$sCurrentScriptDir = dirname ($_SERVER['SCRIPT_FILENAME']) != '/' ? dirname ($_SERVER['SCRIPT_FILENAME']) : '';
+				$sReqUri = $_SERVER['SCRIPT_URL']; // apache 2.4 with mod_rewrite
 				$this->sUri = str_replace ($sCurrentScriptDir, '', $sReqUri);
 			} elseif (stristr($sServerType, 'cherokee')) {
 				// TODO
