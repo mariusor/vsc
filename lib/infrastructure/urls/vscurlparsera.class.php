@@ -412,9 +412,9 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 		return $this->getCompleteParentUri($bFull, 0);
 	}
 
-	static public function hasGoodTermination ($sUri) {
+	static public function hasGoodTermination ($sUri, $sTermination = '/') {
 		// last element should be an / or in the last part after / there should be a .
-		return (substr($sUri, -1) == '/' || stristr(substr($sUri, strrpos($sUri, '/')), '.'));
+		return (substr($sUri, -1) == $sTermination || stristr(substr($sUri, strrpos($sUri, $sTermination)), '.'));
 	}
 
 	public function changeSubdomain ($sNewSubdomain) {
