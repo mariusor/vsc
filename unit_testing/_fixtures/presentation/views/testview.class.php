@@ -1,5 +1,12 @@
 <?php
 class testView extends vscViewA {
+	/**
+	 * This is a helper method to allow us to set a non-public parameter
+	 * @param string $sFolder
+	 */
+	public function setFolder ($sFolder) {
+		$this->sFolder = $sFolder;
+	}
 
 	/**
 	 * appends values to template variables
