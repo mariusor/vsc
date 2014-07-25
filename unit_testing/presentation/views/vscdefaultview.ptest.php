@@ -84,7 +84,89 @@ class vscDefaultViewTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetViewFolder() {
-		$this->assertEmpty($this->state->getViewFolder());
+		$t = 'test';
+		$this->state->setFolder($t);
+		$this->assertEquals($t, $this->state->getViewFolder());
+	}
+
+	public function testGetModelEmpty () {
+		try {
+			$this->state->getModel ();
+		} catch (Exception $e) {
+			$this->assertInstanceOf('vscExceptionView', $e);
+		}
+	}
+
+	public function testSetGetModel () {
+		$f = new vscModelFixture();
+		$this->state->setModel ($f);
+
+		$m = $this->state->getModel();
+
+		$this->assertInstanceOf('vscModelA', $m);
+		$this->assertInstanceOf('vscModelFixture', $m);
+		$this->assertEquals($f, $m);
+	}
+
+	public function testGetTitleFromMap() {
+		try {
+			$this->assertEmpty ( $this->state->getTitle () );
+		} catch (Exception $e) {
+			// catching a model exception
+		}
+		$oMap = new vscProcessorMap(__FILE__, '\A.*\Z');
+
+		$oMap->setTemplatePath(VSC_FIXTURE_PATH . 'templates/');
+		$oMap->setTemplate('main.tpl.php');
+
+		$this->state->setMap($oMap);
+		$this->assertEmpty ( $this->state->getTitle () );
+
+		$t = uniqid('test:');
+		$oMap->setTitle($t);
+		$this->assertEquals ($t, $this->state->getTitle () );
+	}
+
+	public function testGetTitleFromModel() {
+		try {
+			$this->assertEmpty ( $this->state->getTitle () );
+		} catch (Exception $e) {
+			// catching a model exception
+		}
+
+		$oMap = new vscProcessorMap(__FILE__, '\A.*\Z');
+
+		$oMap->setTemplatePath(VSC_FIXTURE_PATH . 'templates/');
+		$oMap->setTemplate('main.tpl.php');
+
+		$this->state->setMap($oMap);
+		$f = new vscEmptyModel();
+		$this->state->setModel ($f);
+
+		$this->assertEmpty ( $this->state->getTitle () );
+
+		$t = uniqid('test:');
+		$f->setPageTitle($t);
+		$this->assertEquals ($t, $this->state->getTitle () );
+	}
+
+	public function testFetch () {
+		$t = '';
+		try {
+			$this->state->fetch ( $t );
+		} catch (Exception $e) {
+			$this->assertInstanceOf ('vscExceptionPath', $e);
+		}
+
+		$oMap = new vscProcessorMap(__FILE__, '\A.*\Z');
+
+		$oMap->setTemplatePath(VSC_FIXTURE_PATH . 'templates/');
+		$oMap->setTemplate('main.tpl.php');
+
+		$this->state->setMap($oMap);
+
+		$t = 'main.tpl.php';
+		$this->state->fetch($t);
 	}
 }
 

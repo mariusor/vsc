@@ -7,6 +7,8 @@
  */
 import ('infrastructure');
 import ('urls');
+import ('domain');
+import ('models');
 
 abstract class vscViewA extends vscObject implements vscViewI {
 	/**
