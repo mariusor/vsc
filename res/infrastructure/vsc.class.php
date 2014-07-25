@@ -6,7 +6,8 @@
  */
 import ('presentation/requests');
 import ('application/dispatchers');
-import (dirname(__FILE__));
+//import (dirname(__FILE__));
+
 class vsc extends vscObject {
 	/**
 	 * @var vsc

@@ -9,6 +9,14 @@
 	strict="true"
 	processIsolation="true">
 	<testsuites>
+		<testsuite name="all">
+			<directory suffix=".ptest.php">./</directory>
+			<directory suffix=".ptest.php">./functions/</directory>
+			<directory suffix=".ptest.php">./infrastructure/</directory>
+			<directory suffix=".ptest.php">./domain/</directory>
+			<directory suffix=".ptest.php">./application/</directory>
+			<directory suffix=".ptest.php">./presentation/</directory>
+		</testsuite>
 		<testsuite name="functions">
 			<directory suffix=".ptest.php">./functions/</directory>
 		</testsuite>

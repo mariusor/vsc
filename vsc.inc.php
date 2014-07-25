@@ -14,15 +14,15 @@ if ($iMajorVersion < 5 || $iMinorVersion < 3) {
 
 	throw new ErrorException ($sMessage, E_USER_ERROR);
 } else {
-	import (VSC_LIB_PATH);
-	import (VSC_RES_PATH);
+	vsc\import (VSC_LIB_PATH);
+	vsc\import (VSC_RES_PATH);
 
 	// including the infrastructure folder
-	import ('infrastructure');
+	vsc\import ('infrastructure');
 	require ('vsc.class.php');
 }
 if (!defined ('ROOT_MAIL')) {
-	if (!isCli()) {
+	if (!vsc::isCli()) {
 		define ('ROOT_MAIL', 'root@' . $_SERVER['HTTP_HOST']);
 	} else {
 		define ('ROOT_MAIL', 'root@localhost');

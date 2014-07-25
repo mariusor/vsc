@@ -16,6 +16,10 @@ class vscXmlView extends vscViewA implements vscXmlViewI {
 		return '';
 	}
 
+	public function getMetaHeaders() {
+		return '';
+	}
+
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#append($tpl_var, $value, $merge)

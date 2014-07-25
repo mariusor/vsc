@@ -490,7 +490,7 @@ abstract class vscHttpRequestA extends vscObject {
 
 			if ($sType == $sAcceptedType && $sSubtype == $sAcceptedSubtype) return true;
 			if ($sType == $sAcceptedType && $sAcceptedSubtype == '*') return true;
-			if ($sAcceptedType == '*' && $sAcceptedSubtype == '*') return true;
+			//if ($sAcceptedType == '*' && $sAcceptedSubtype == '*') return true;
 		}
 		return false;
 	}

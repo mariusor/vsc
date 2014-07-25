@@ -24,7 +24,7 @@ class vscRawHttpRequest extends vscRwHttpRequest {
 	}
 
 	protected function getRawVar ($sVarName) {
-		if (key_exists($sVarName, $this->aRawVars)) {
+		if (array_key_exists($sVarName, $this->aRawVars)) {
 			return self::getDecodedVar($this->aRawVars[$sVarName]);
 		} else {
 			return null;
@@ -49,7 +49,6 @@ class vscRawHttpRequest extends vscRwHttpRequest {
 	 */
 	public function constructRawVars () {
 		$sRawVars = file_get_contents('php://input');
-
 		$sContentType = $this->getContentType();
 
 		if (empty ($sContentType)) return;
@@ -64,7 +63,7 @@ class vscRawHttpRequest extends vscRwHttpRequest {
 				break;
 			case 'application/xml':
 			default:
-				throw new vscExceptionRequest('This content-type ['.$sContentType.'] is not yet supported');
+				throw new vscExceptionRequest('This content-type ['.$sContentType.'] is not yet supported as an input type');
 				break;
 		}
 		if (!empty ($vars)) {

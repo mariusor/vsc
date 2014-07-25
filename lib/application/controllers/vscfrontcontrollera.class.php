@@ -101,7 +101,7 @@ abstract class vscFrontControllerA extends vscObject {
 			$oView->setMap ($oMap);
 		}
 
-		if ((vscProcessorMap::isValid($oMap) && !$oMap->isStatic()) && vscControllerMap::isValid($oMyMap)) {
+		if ((vscProcessorMap::isValid($oMap) && !$oMap->isStatic() && !$oMyMap->isStatic()) && vscControllerMap::isValid($oMyMap)) {
 			$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . $oView->getViewFolder() . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
 		}
 
