@@ -4,9 +4,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.31
  */
-import ('presentation/requests');
-import ('application/dispatchers');
-//import (dirname(__FILE__));
+vsc\import ('presentation/requests');
+vsc\import ('application/dispatchers');
 
 class vsc extends vscObject {
 	/**

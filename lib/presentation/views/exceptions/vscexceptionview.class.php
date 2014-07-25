@@ -1,4 +1,4 @@
 <?php
-import ('exceptions');
+vsc\import ('exceptions');
 
 class vscExceptionView extends vscExceptionPresentation {}

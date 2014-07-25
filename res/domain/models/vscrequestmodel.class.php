@@ -3,7 +3,7 @@
  * @package vsc_models
  * @author morcsik
  */
-import ('infrastructure');
+vsc\import ('infrastructure');
 class vscRequestModel extends vscEmptyModel {
 	public function __get ($sVarName) {
 		$sVal = vsc::getEnv()->getHttpRequest()->getVar($sVarName);

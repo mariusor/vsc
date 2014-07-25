@@ -1,5 +1,5 @@
 <?php
-import ('res/application/controllers');
+vsc\import ('res/application/controllers');
 
 class vscGenericFrontController extends vscFrontControllerA {
 	public function getDefaultView() {

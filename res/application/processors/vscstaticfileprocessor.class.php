@@ -6,7 +6,7 @@
  * @date 2011.02.21
  */
 
-import ('domain/models');
+vsc\import ('domain/models');
 class vscStaticFileProcessor extends vscProcessorA {
 	private $sFilePath;
 

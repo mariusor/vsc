@@ -1,6 +1,6 @@
 <?php
-import ('domain');
-import ('access');
+vsc\import ('domain');
+vsc\import ('access');
 abstract class vscRPCProcessor extends vscProcessorA {
 	private $oRequest;
 	private $oResponse;

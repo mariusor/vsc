@@ -5,7 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2010.04.09
  */
-import ('presentation/views');
+vsc\import ('presentation/views');
 class vscJsonView extends vscViewA implements vscJsonViewI {
 	protected $sContentType = 'application/json';
 	protected $sFolder = 'json';

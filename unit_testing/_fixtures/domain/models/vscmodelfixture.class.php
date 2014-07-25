@@ -1,6 +1,6 @@
 <?php
-import ('domain');
-import ('models');
+vsc\import ('domain');
+vsc\import ('models');
 
 class vscModelFixture extends vscModelA {
 	public $test = 666;

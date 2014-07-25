@@ -6,7 +6,7 @@
  * @date 09.07.13
  */
 
-import ('infrastructure/urls');
+vsc\import ('infrastructure/urls');
 
 abstract class vscHttpRequestA extends vscObject {
 	private $sUri		= null;

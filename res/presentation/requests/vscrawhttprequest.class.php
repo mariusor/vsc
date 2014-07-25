@@ -1,6 +1,6 @@
 <?php
-import ('presentation');
-import ('requests');
+vsc\import ('presentation');
+vsc\import ('requests');
 class vscRawHttpRequest extends vscRwHttpRequest {
 	protected $aRawVars = array();
 

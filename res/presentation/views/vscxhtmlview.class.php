@@ -5,8 +5,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.09.07
  */
-import ('presentation/views');
-import ('presentation/views/exceptions');
+vsc\import ('presentation/views');
+vsc\import ('presentation/views/exceptions');
 
 class vscXhtmlView extends vscViewA implements vscXhtmlViewI {
 	protected $sContentType = 'application/xhtml+xml';

@@ -5,7 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2010.04.13
  */
-import (VSC_RES_PATH . 'domain/domain');
+vsc\import (VSC_RES_PATH . 'domain/domain');
 class vscRssReader extends vscXmlReader {
 	public $title;
 	public $link;

@@ -1,3 +1,3 @@
 <?php
-import ('exceptions');
+vsc\import ('exceptions');
 class vscExceptionModuleImport extends vscExceptionPackageImport {}

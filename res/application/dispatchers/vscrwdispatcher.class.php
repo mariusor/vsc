@@ -6,11 +6,11 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.09.24
  */
-import ('application/controllers');
-import ('application/processors');
-import ('presentation/responses');
-import ('domain/models');
-import ('exceptions');
+vsc\import ('application/controllers');
+vsc\import ('application/processors');
+vsc\import ('presentation/responses');
+vsc\import ('domain/models');
+vsc\import ('exceptions');
 
 class vscRwDispatcher extends vscHttpDispatcherA {
 	/**

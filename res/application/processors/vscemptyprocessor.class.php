@@ -1,5 +1,5 @@
 <?php
-import ('domain/models');
+vsc\import ('domain/models');
 class vscEmptyProcessor extends vscProcessorA {
 
 	public function init () {}

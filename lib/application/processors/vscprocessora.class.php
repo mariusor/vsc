@@ -5,7 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.31
  */
-import ('presentation/views');
+vsc\import ('presentation/views');
 abstract class vscProcessorA extends vscObject implements vscProcessorI {
 	private $oCurrentMap;
 	protected $aLocalVars = array();

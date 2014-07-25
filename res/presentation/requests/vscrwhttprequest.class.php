@@ -5,7 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.07.13
  */
-import ('exceptions');
+vsc\import ('exceptions');
 class vscRwHttpRequest extends vscHttpRequestA {
 	protected $aTaintedVars = array();
 

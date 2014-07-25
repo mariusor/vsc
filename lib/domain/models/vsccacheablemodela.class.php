@@ -5,7 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2012.08.26
  */
-import ('infrastructure/caching');
+vsc\import ('infrastructure/caching');
 abstract class vscCacheableModelA extends vscModelA implements vscCacheableI {
 	abstract public function getLastModified ();
 }

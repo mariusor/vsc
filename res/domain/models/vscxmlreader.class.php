@@ -5,8 +5,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2010.04.13
  */
-import ('domain/models');
-import ('domain/exceptions');
+vsc\import ('domain/models');
+vsc\import ('domain/exceptions');
 class vscXmlReader extends vscModelA {
 	private $sXmlString;
 	private $oDOM;

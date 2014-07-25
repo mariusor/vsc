@@ -1,5 +1,5 @@
 <?php
-import ('presentation/requests');
+vsc\import ('presentation/requests');
 $_GET		= array ('ana' => 'are', 'mere' => '');
 $_POST		= array ('postone' => 'are', 'ana' => '');
 $_SERVER	= array ('SERVER_SOFTWARE' => 'lighttpd', 'PHP_SELF' => '/', 'REQUEST_URI' => '/ana:are/test:123/');

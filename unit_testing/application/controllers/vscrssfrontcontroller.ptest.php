@@ -1,13 +1,13 @@
 <?php
-import (VSC_FIXTURE_PATH);
+vsc\import (VSC_FIXTURE_PATH);
 
-import ('application');
-import ('controllers');
-import ('processors');
-import ('sitemaps');
-import ('presentation');
-import ('responses');
-import ('requests');
+vsc\import ('application');
+vsc\import ('controllers');
+vsc\import ('processors');
+vsc\import ('sitemaps');
+vsc\import ('presentation');
+vsc\import ('responses');
+vsc\import ('requests');
 
 class vscRssFrontControllerTest extends PHPUnit_Framework_TestCase {
 	private $state;
