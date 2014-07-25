@@ -165,6 +165,9 @@ class vscDefaultViewTest extends PHPUnit_Framework_TestCase {
 
 		$this->state->setMap($oMap);
 
+		$f = new vscModelFixture();
+		$this->state->setModel ($f);
+
 		$t = 'main.tpl.php';
 		$this->state->fetch($t);
 	}
