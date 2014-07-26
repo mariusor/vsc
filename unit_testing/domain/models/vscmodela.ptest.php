@@ -76,6 +76,9 @@ class vscModelATest extends PHPUnit_Framework_TestCase
 	public function testOffsetUnset()
 	{
 		// this method has not yet been implemented correctly
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
 	}
 
 	/**
@@ -126,7 +129,13 @@ class vscModelATest extends PHPUnit_Framework_TestCase
 	 */
 	public function testNext()
 	{
-		
+		$oMirror = new ReflectionClass($this->object);
+		$properties = $oMirror->getProperties();
+
+		foreach ($this->object as $name => $value) {
+			$this->assertNotEmpty($name);
+			$this->assertEquals($name, $this->object->getOffset());
+		}
 	}
 
 	/**
@@ -134,7 +143,16 @@ class vscModelATest extends PHPUnit_Framework_TestCase
 	 */
 	public function testRewind()
 	{
-		
+		$oMirror = new ReflectionClass($this->object);
+		$properties = $oMirror->getProperties();
+
+		$fp = array_shift($properties);
+		foreach ($this->object as $name => $value) {
+			$this->assertNotEmpty($name);
+		}
+		$this->object->rewind();
+
+		$this->assertEquals($fp->getName(), $this->object->getOffset());
 	}
 
 	/**
@@ -143,10 +161,14 @@ class vscModelATest extends PHPUnit_Framework_TestCase
 	 */
 	public function testValid()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-		  'This test has not been implemented yet.'
-		);
+		$oMirror = new ReflectionClass($this->object);
+		$properties = $oMirror->getProperties();
+		foreach ($properties as $key => $property) {
+			$this->assertTrue($this->object->valid($property->getName()));
+		}
+
+		$rand = uniqid('tst:');
+		$this->assertFalse($this->object->valid($rand));
 	}
 
 	/**
@@ -158,11 +180,11 @@ class vscModelATest extends PHPUnit_Framework_TestCase
 	 */
 	public function testImplementsIterable()
 	{
-		$oMirror = new ReflectionClass(get_class($this->object));
-		$aProperties = $oMirror->getProperties();
-		
+		$oMirror = new ReflectionClass($this->object);
+
 		foreach($this->object as $key => $value) {
-			var_dump($key, $value);
+			$this->assertTrue($oMirror->hasProperty($key));
+			$this->assertEquals($value, $oMirror->getProperty($key)->getValue($this->object));
 		}
 	}
 

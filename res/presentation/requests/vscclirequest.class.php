@@ -1,5 +1,5 @@
 <?php
-import ('requests');
+
 class vscCLIRequest extends vscRequestA {
 	protected $aVars = array();
 

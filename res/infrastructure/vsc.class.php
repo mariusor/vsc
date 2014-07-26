@@ -80,7 +80,7 @@ class vsc extends vscObject {
 			if ( !self::isCli() ) {
 				$this->oDispatcher = new vscRwDispatcher();
 			} else {
-				$this->oDispatcher = new vscNull();
+				$this->oDispatcher = new vscGenericCLIDispatcher();
 			}
 		}
 		return $this->oDispatcher;

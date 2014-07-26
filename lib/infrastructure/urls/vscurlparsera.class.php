@@ -10,7 +10,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 		'query'		=> array(),
 		'fragment'	=> ''
 	);
-	private $bUrlHasNoScheme = false;
+
 	static private $validSchemes = array( 'http', 'https', 'file' );
 
 	public function __construct ($sUrl = null) {
@@ -28,7 +28,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 	}
 
 	public function hasScheme () {
-		return !$this->bUrlHasNoScheme;
+		return self::urlHasScheme($this->getUrl());
 	}
 
 	static public function urlHasScheme ($sUrl) {
