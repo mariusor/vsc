@@ -167,7 +167,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		if (vscModelA::isValid($this->oModel)) {
 			return $this->oModel;
 		} else {
-			throw new vscExceptionView('The current model is invalid');
+			return new vscNull();
 		}
 	}
 
@@ -196,9 +196,10 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		}
 		$bIncluded = false;
 		// outputting the model's content into the local scope
+		$model = $this->getModel();
 		extract(
 			array(
-				'model' 	=> $this->getModel(),
+				'model' 	=> $model,
 				'view'		=> $this,
 				'helper'	=> $this->getMap(),
 				'request'	=> vsc::getEnv()->getHttpRequest()
@@ -206,8 +207,13 @@ abstract class vscViewA extends vscObject implements vscViewI {
 			EXTR_SKIP
 		);
 
-		// this automatically excludes templating errors: I'm not quite sure yet it's OK to do it
-		$bIncluded = include ($includePath);
+		try {
+			$bIncluded = include ($includePath);
+		} catch (ErrorException $ee) {
+
+		} catch (Exception $e) {
+
+		}
 
 		if (!$bIncluded) {
 			ob_end_clean();
