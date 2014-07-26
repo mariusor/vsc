@@ -89,15 +89,14 @@ class vscDefaultViewTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($t, $this->state->getViewFolder());
 	}
 
-	public function testGetModelEmpty () {
+	public function testGetModel () {
 		try {
+			// empty
 			$this->state->getModel ();
 		} catch (Exception $e) {
 			$this->assertInstanceOf('vscExceptionView', $e);
 		}
-	}
 
-	public function testSetGetModel () {
 		$f = new vscModelFixture();
 		$this->state->setModel ($f);
 
@@ -158,18 +157,50 @@ class vscDefaultViewTest extends PHPUnit_Framework_TestCase {
 			$this->assertInstanceOf ('vscExceptionPath', $e);
 		}
 
+		$t = 'main.tpl.php';
 		$oMap = new vscProcessorMap(__FILE__, '\A.*\Z');
 
 		$oMap->setTemplatePath(VSC_FIXTURE_PATH . 'templates/');
-		$oMap->setTemplate('main.tpl.php');
+		$oMap->setTemplate($t);
 
 		$this->state->setMap($oMap);
 
 		$f = new vscModelFixture();
 		$this->state->setModel ($f);
 
+		$output = $this->state->fetch($t);
+		$this->assertEquals(file_get_contents(VSC_FIXTURE_PATH . 'templates/' . $t), $output);
+	}
+
+	public function testGetOutput() {
+		try {
+			$this->state->getOutput();
+		} catch (Exception $e) {
+			$this->assertInstanceOf ('vscExceptionView', $e);
+		}
+
 		$t = 'main.tpl.php';
-		$this->state->fetch($t);
+		$oMap = new vscProcessorMap(__FILE__, '\A.*\Z');
+		$oMap->setTemplatePath(VSC_FIXTURE_PATH . 'templates/');
+		$oMap->setTemplate($t);
+
+		$this->state->setMap($oMap);
+
+		$f = new vscModelFixture();
+		$this->state->setModel ($f);
+
+		$output = $this->state->getOutput();
+		$this->assertEquals(file_get_contents(VSC_FIXTURE_PATH . 'templates/' . $t), $output);
+	}
+
+	public function testGetUriParser() {
+		$p = $this->state->getUriParser();
+
+		$this->assertInstanceOf('vscUrlParserA', $p);
+	}
+
+	public function testStaticGetCurrentSiteUri () {
+		$this->assertEmpty(vscViewA::getCurrentSiteUri());
 	}
 }
 

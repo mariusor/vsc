@@ -304,7 +304,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	 * @return string
 	 */
 	static public function getCurrentUri() {
-		return htmlspecialchars(self::getUriParser()->getCompleteUri(true));
+		return htmlspecialchars(vsc::getEnv()->getHttpRequest()->getUri(true));
 	}
 
 	/**
