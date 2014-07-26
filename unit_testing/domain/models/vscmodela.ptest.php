@@ -75,10 +75,18 @@ class vscModelATest extends PHPUnit_Framework_TestCase
 	 */
 	public function testOffsetUnset()
 	{
-		// this method has not yet been implemented correctly
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$oMirror = new ReflectionClass($this->object);
+		$properties = $oMirror->getProperties();
+		$first = array_shift($properties);
+		$name = $first->getName();
+
+		// exists
+		$this->assertEquals($first->getValue($this->object), $this->object[$name]);
+
+		$this->object->offsetUnset($name);
+
+		// doesn't exist anymore
+		$this->assertNull($this->object[$name]);
 	}
 
 	/**
@@ -116,7 +124,7 @@ class vscModelATest extends PHPUnit_Framework_TestCase
 	 */
 	public function testKeyAtInitialization()
 	{
-		$oMirror = new ReflectionClass(get_class($this->object));
+		$oMirror = new ReflectionClass($this->object);
 		$aProperties = $oMirror->getProperties();
 		
 		$oReflectionKey = array_shift($aProperties);
@@ -194,10 +202,11 @@ class vscModelATest extends PHPUnit_Framework_TestCase
 	 */
 	public function testCount()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-		  'This test has not been implemented yet.'
-		);
+		$oMirror = new ReflectionClass($this->object);
+		$properties = $oMirror->getProperties();
+
+		$this->assertEquals(count($properties), $this->object->count());
+		$this->assertEquals(count($properties), count($this->object));
 	}
 
 	/**
@@ -206,10 +215,15 @@ class vscModelATest extends PHPUnit_Framework_TestCase
 	 */
 	public function test__get()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-		  'This test has not been implemented yet.'
-		);
+		$oMirror = new ReflectionClass($this->object);
+		$properties = $oMirror->getProperties();
+
+		foreach($properties as $key => $property) {
+			$name = $property->getName();
+			$value = $property->getValue($this->object);
+			$this->assertEquals($value, $this->object->__get($name));
+			$this->assertEquals($value, $this->object[$name]);
+		}
 	}
 
 	/**
@@ -218,10 +232,24 @@ class vscModelATest extends PHPUnit_Framework_TestCase
 	 */
 	public function test__set()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-		  'This test has not been implemented yet.'
-		);
+		$oMirror = new ReflectionClass($this->object);
+		$properties = $oMirror->getProperties();
+
+		foreach($properties as $key => $property) {
+			$name = $property->getName();
+			$value = uniqid($property . ':__set:');
+			$this->object->__set($name, $value);
+			$this->assertEquals($value, $this->object->__get($name));
+			$this->assertEquals($value, $this->object[$name]);
+		}
+
+		foreach($properties as $key => $property) {
+			$name = $property->getName();
+			$value = uniqid($property . ':[]:');
+			$this->object[$name] = $value;
+			$this->assertEquals($value, $this->object->__get($name));
+			$this->assertEquals($value, $this->object[$name]);
+		}
 	}
 
 	/**
@@ -230,9 +258,23 @@ class vscModelATest extends PHPUnit_Framework_TestCase
 	 */
 	public function testToArray()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-		  'This test has not been implemented yet.'
-		);
+		$oMirror = new ReflectionClass($this->object);
+		$properties = $oMirror->getProperties();
+
+		$array = $this->object->toArray();
+
+		$this->assertEquals(count($properties), count($array));
+		foreach($properties as $key => $property) {
+			$name = $property->getName();
+
+			$this->assertArrayHasKey($name, $array);
+			$this->assertEquals($oMirror->getProperty($name)->getValue($this->object), $array[$name]);
+		}
+
+		foreach($array as $name => $value) {
+			$this->assertTrue($oMirror->hasProperty($name));
+			$this->assertEquals($value, $oMirror->getProperty($name)->getValue($this->object));
+		}
+
 	}
 }
