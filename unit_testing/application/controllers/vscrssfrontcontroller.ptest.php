@@ -6,6 +6,7 @@ import ('controllers');
 import ('processors');
 import ('sitemaps');
 import ('presentation');
+import ('views');
 import ('responses');
 import ('requests');
 
@@ -24,8 +25,13 @@ class vscRssFrontControllerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetResponse() {
-		$this->markTestSkipped ('Need to finish this');
 		$oReq = new vscRwHttpRequest();
-		return $this->assertInstanceOf('vscHttpResponseA', $this->state->getResponse($oReq));
+		$this->assertInstanceOf('vscHttpResponseA', $this->state->getResponse($oReq));
+	}
+
+	public function testGetDefaultView() {
+		$v = $this->state->getDefaultView();
+		$this->assertInstanceOf('vscViewA', $v);
+		$this->assertInstanceOf('vscRssView', $v);
 	}
 }

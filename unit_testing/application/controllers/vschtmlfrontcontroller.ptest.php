@@ -6,15 +6,20 @@ import ('controllers');
 import ('processors');
 import ('sitemaps');
 import ('presentation');
+import ('views');
 import ('responses');
 import ('requests');
 
 class vscHtmlFrontControllerTest extends PHPUnit_Framework_TestCase  {
+	/**
+	 * @var vscXhtmlController
+	 */
 	private $state;
+
 	public function setUp () {
 		$this->state = new vscXhtmlController();
 
-		$oMap = new vscControllerMap(__FILE__, '\A\Z');
+		$oMap = new vscControllerMap(__FILE__, '\A.*\Z');
 		$this->state->setMap($oMap);
 	}
 
@@ -23,8 +28,13 @@ class vscHtmlFrontControllerTest extends PHPUnit_Framework_TestCase  {
 	}
 
 	public function testGetResponse() {
-		$this->markTestSkipped ('Need to finish this');
-		$oReq = new vscRwHttpRequest();
-		return $this->assertInstanceOf('vscHttpResponseA', $this->state->getResponse($oReq));
+		$oReq = new vscPopulatedRequest();
+		$this->assertInstanceOf('vscHttpResponseA', $this->state->getResponse($oReq));
+	}
+
+	public function testGetDefaultView() {
+		$v = $this->state->getDefaultView();
+		$this->assertInstanceOf('vscViewA', $v);
+		$this->assertInstanceOf('vscXhtmlView', $v);
 	}
 }
