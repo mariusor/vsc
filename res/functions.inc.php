@@ -183,7 +183,7 @@ function import ($sIncPath) {
 		include_once(VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexceptionpath.class.php');
 		include_once(VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexceptionpackageimport.class.php');
 
-		throw new vscExceptionPackageImport ('Bad package [' . $sIncPath . ']');
+		throw new \vscExceptionPackageImport ('Bad package [' . $sIncPath . ']');
 // 		return false;
 	} else {
 		return true;

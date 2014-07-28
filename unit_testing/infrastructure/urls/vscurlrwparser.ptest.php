@@ -57,7 +57,7 @@ class vscUrlRWParserTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testHasSchemeFalse () {
-		$this->markTestSkipped('Need to implement hasScheme vs. displayScheme');
+		//$this->markTestSkipped('Need to implement hasScheme vs. displayScheme');
 		$oUrl = new vscUrlRWParser('//localhost');
 		return $this->assertFalse ($oUrl->hasScheme());
 	}

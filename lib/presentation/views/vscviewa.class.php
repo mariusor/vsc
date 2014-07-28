@@ -5,14 +5,35 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.30
  */
+vsc\import ('infrastructure');
+vsc\import ('urls');
+vsc\import ('domain');
+vsc\import ('models');
+
 abstract class vscViewA extends vscObject implements vscViewI {
+	/**
+	 * @var string
+	 */
 	private $sTitle;
+
+	/**
+	 * @var vscModelA
+	 */
 	private $oModel;
 
+	/**
+	 * @var vscViewHelperA[]
+	 */
 	private $aHelpers = array();
 
+	/**
+	 * @var string
+	 */
 	private $sMainTemplate;
 
+	/**
+	 * @var vscProcessorMap
+	 */
 	private $oCurrentMap;
 
 	/**
@@ -20,10 +41,21 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	 * @var string
 	 */
 	protected $sContentType;
+
+	/**
+	 * @var string
+	 */
 	protected $sFolder;
 
+	/**
+	 * @var vscUrlParserA
+	 */
 	static private $oUriParser;
 
+	/**
+	 * @param $sPath
+	 * @throws vscExceptionPath
+	 */
 	public function setMainTemplate ($sPath) {
 		if (!is_file($sPath))
 			throw new vscExceptionPath('The main template ['.$sPath.'] is not accessible.');
@@ -31,18 +63,31 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		$this->sMainTemplate = $sPath;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getMainTemplate () {
 		return $this->sMainTemplate;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getContentType() {
 		return $this->sContentType;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getViewFolder() {
 		return $this->sFolder;
 	}
 
+	/**
+	 * @return string
+	 * @throws vscExceptionView
+	 */
 	public function getTitle () {
 		try {
 			if ($this->getModel()->getPageTitle() != '') {
@@ -58,11 +103,15 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		return $this->sTitle;
 	}
 
+	/**
+	 * @param vscModelA $oModel
+	 */
 	public function setModel (vscModelA $oModel) {
 		$this->oModel = $oModel;
 	}
 
 	/**
+	 * @throws vscExceptionView
 	 * @return vscProcessorMap
 	 */
 	public function getMap () {
@@ -96,6 +145,10 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		return $aParameters;
 	}
 
+	/**
+	 * @param $sVarName
+	 * @return void|vscNull
+	 */
 	public function __get ($sVarName) {
 		try {
 		// TODO: use proper reflection
@@ -107,13 +160,14 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	}
 
 	/**
+	 * @throws vscExceptionView
 	 * @return vscModelA
 	 */
 	public function getModel () {
 		if (vscModelA::isValid($this->oModel)) {
 			return $this->oModel;
 		} else {
-			throw new vscExceptionView('The current model is invalid');
+			return new vscNull();
 		}
 	}
 
@@ -121,6 +175,12 @@ abstract class vscViewA extends vscObject implements vscViewI {
 //		$this->sBody = $sText;
 //	}
 
+	/**
+	 * @param string $includePath
+	 * @return string
+	 * @throws vscExceptionPath
+	 * @throws vscExceptionView
+	 */
 	public function fetch ($includePath) {
 		if (empty($includePath)) {
 			throw new vscExceptionPath ('Template [' . $includePath . '] could not be located');
@@ -136,9 +196,10 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		}
 		$bIncluded = false;
 		// outputting the model's content into the local scope
+		$model = $this->getModel();
 		extract(
 			array(
-				'model' 	=> $this->getModel(),
+				'model' 	=> $model,
 				'view'		=> $this,
 				'helper'	=> $this->getMap(),
 				'request'	=> vsc::getEnv()->getHttpRequest()
@@ -146,8 +207,13 @@ abstract class vscViewA extends vscObject implements vscViewI {
 			EXTR_SKIP
 		);
 
-		// this automatically excludes templating errors: I'm not quite sure yet it's OK to do it
-		$bIncluded = include ($includePath);
+		try {
+			$bIncluded = include ($includePath);
+		} catch (ErrorException $ee) {
+
+		} catch (Exception $e) {
+
+		}
 
 		if (!$bIncluded) {
 			ob_end_clean();
@@ -159,6 +225,10 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		}
 	}
 
+	/**
+	 * @return string
+	 * @throws vscExceptionView
+	 */
 	public function getOutput() {
 		try {
 			// by default try to load the main template
@@ -173,10 +243,27 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		}
 	}
 
+	/**
+	 * @return string
+	 * @throws vscExceptionView
+	 */
 	public function getTemplatePath() {
-		return $this->getMap()->getTemplatePath() . DIRECTORY_SEPARATOR . $this->getViewFolder() . DIRECTORY_SEPARATOR;
+		$sTemplatePath = $this->getMap()->getTemplatePath();
+		$sViewFolder = $this->getViewFolder();
+
+		if (!empty($sViewFolder)) {
+			$sTemplatePath .= DIRECTORY_SEPARATOR . $sViewFolder;
+		}
+
+		if (!vscUrlRWParser::hasGoodTermination($sTemplatePath, DIRECTORY_SEPARATOR)) {
+			$sTemplatePath .= DIRECTORY_SEPARATOR;
+		}
+		return $sTemplatePath;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getTemplate() {
 		try {
 			return $this->getMap()->getTemplate();
@@ -185,6 +272,9 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		}
 	}
 
+	/**
+	 * @param string $sPath
+	 */
 	public function setTemplate($sPath) {
 		try {
 			$this->getMap()->setTemplate($sPath);
@@ -203,14 +293,24 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		return self::$oUriParser;
 	}
 
+	/**
+	 * @return string
+	 */
 	static public function getCurrentSiteUri () {
 		return htmlspecialchars(self::getUriParser()->getSiteUri());
 	}
 
+	/**
+	 * @return string
+	 */
 	static public function getCurrentUri() {
-		return htmlspecialchars(self::getUriParser()->getCompleteUri(true));
+		return htmlspecialchars(vsc::getEnv()->getHttpRequest()->getUri(true));
 	}
 
+	/**
+	 * @param int $iParent
+	 * @return string
+	 */
 	static public function getParentUri ($iParent = 1) {
 		return htmlspecialchars(self::getUriParser()->getCompleteParentUri(true, $iParent));
 	}

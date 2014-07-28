@@ -15,7 +15,7 @@ class vscHttpRwRequestTest extends PHPUnit_Framework_TestCase {
 			'HTTP_ACCEPT' => 'application/html,text/html;charset=UTF8,image/*'
 		);
 
-		import ('presentation/requests');
+		vsc\import ('presentation/requests');
 		$this->state = new vscRwHttpRequest();
 	}
 

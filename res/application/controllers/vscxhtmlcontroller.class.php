@@ -7,6 +7,9 @@
  */
 vsc\import ('presentation/views');
 vsc\import ('application/controllers');
+vsc\import ('presentation');
+vsc\import ('views');
+
 class vscXhtmlController extends vscCacheableControllerA implements vscXhtmlControllerI {
 	public function getDefaultView () {
 		return new vscXhtmlView();

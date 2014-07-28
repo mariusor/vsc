@@ -146,12 +146,12 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 					// dirty import of the module folder and important subfolders
 					$sModuleName = $oProcessorMap->getModuleName();
 					if ( is_dir ($oProcessorMap->getModulePath()) && !$oProcessorMap->isStatic() ) {
-						import ($oProcessorMap->getModulePath());
+						vsc\import ($oProcessorMap->getModulePath());
 						try {
 //							import ($sModuleName);
-							import ('application');
-							import ('domain');
-							import ('presentation');
+							vsc\import ('application');
+							vsc\import ('domain');
+							vsc\import ('presentation');
 						} catch (vscExceptionPath $e) {
 							// ooopps
 						}
