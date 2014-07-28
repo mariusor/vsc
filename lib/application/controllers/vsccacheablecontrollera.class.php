@@ -16,7 +16,8 @@ abstract class vscCacheableControllerA extends vscFrontControllerA implements vs
 	/**
 	 * @param vscHttpRequestA $oRequest
 	 * @param vscProcessorA $oProcessor
-	 * @param vscViewA $oView
+	 * @throws vscExceptionResponse
+	 * @internal param vscViewA $oView
 	 * @return vscHttpResponseA
 	 */
 	public function getResponse (vscHttpRequestA $oRequest, $oProcessor = null) {
