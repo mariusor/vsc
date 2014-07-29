@@ -6,42 +6,73 @@
  * @date 09.11.19
  */
 abstract class vscModelA extends vscNull implements vscModelI {
+	/**
+	 * @var string
+	 */
 	private $sOffset;
 
-
+	/**
+	 * @param string $sOffset
+	 */
 	public function setOffset($sOffset) {
 		if ($this->offsetExists($sOffset))
 			$this->sOffset = $sOffset;
 	}
-	
+
+	/**
+	 * @return string
+	 */
 	public function getOffset() {
 		return $this->sOffset;
 	}
 
-	// ArrayAccess interface
-	public function offsetSet($offset, $value) {
-		$this->__set($offset, $value);
+	/**
+	 * ArrayAccess interface
+	 * @param mixed $sOffset
+	 * @param mixed $mValue
+	 * @throws
+	 */
+	public function offsetSet($sOffset, $mValue) {
+		$this->__set($sOffset, $mValue);
 	}
-	
+
+	/**
+	 * @param string $sOffset
+	 * @return bool
+	 */
 	public function offsetExists($sOffset) {
 		return in_array($sOffset, $this->getPropertyNames());
 	}
 
+	/**
+	 * @param string $sOffset
+	 */
 	public function offsetUnset($sOffset) {
-		if (!$oProperty->isPrivate()) {
-			unset ($this->$offset);
+		$oProperty = new ReflectionProperty($this, $sOffset);
+		if ($oProperty->isPublic()) {
+			unset ($this->$sOffset);
 		}
 	}
 
-	public function offsetGet($offset) {
-		return $this->__get($offset);
+	/**
+	 * @param string $sOffset
+	 * @return mixed
+	 */
+	public function offsetGet($sOffset) {
+		return $this->__get($sOffset);
 	}
 
-	// Iterator interface
+	/**
+	 * Iterator interface
+	 * @return mixed
+	 */
 	public function current  () {
 		return $this->__get($this->sOffset);
 	}
 
+	/**
+	 * @return string
+	 */
 	public function key () {
 		return $this->sOffset;
 	}

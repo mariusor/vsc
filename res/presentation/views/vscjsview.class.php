@@ -5,7 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2010.04.09
  */
-import ('presentation/views');
+vsc\import ('presentation/views');
 class vscJsView extends vscPlainTextView {
 	protected $sContentType = 'application/x-javascript';
 	protected $sFolder = 'js';

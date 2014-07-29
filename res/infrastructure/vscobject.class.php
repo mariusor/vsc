@@ -4,7 +4,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2010.03.30
  */
-import (VSC_LIB_PATH . 'exceptions');
+vsc\import (VSC_LIB_PATH . 'exceptions');
 abstract class vscObject {
 	public function __call ($sMethodName, $aVars) {
 		if (vsc::getEnv()->isDevelopment()) {

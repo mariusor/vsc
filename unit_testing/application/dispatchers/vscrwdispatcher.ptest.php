@@ -1,7 +1,7 @@
 <?php
-import (VSC_FIXTURE_PATH);
+vsc\import (VSC_FIXTURE_PATH);
 
-import ('application/dispatchers');
+vsc\import ('application/dispatchers');
 
 //$sCurPath = realpath(dirname (__FILE__) . '/../../presentation/requests/_fixtures/vscpopulatedrequest.class.php');
 //require ($sCurPath);

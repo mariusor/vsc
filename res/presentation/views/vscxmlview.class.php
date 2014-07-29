@@ -5,14 +5,18 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2012.08.26
  */
-import ('presentation/views');
-import ('presentation/views/exceptions');
+vsc\import ('presentation/views');
+vsc\import ('presentation/views/exceptions');
 
 class vscXmlView extends vscViewA implements vscXmlViewI {
 	protected $sContentType = 'application/xml';
 	protected $sFolder = 'xml';
 
 	public function getContent () {
+		return '';
+	}
+
+	public function getMetaHeaders() {
 		return '';
 	}
 

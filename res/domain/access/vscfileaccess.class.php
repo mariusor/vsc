@@ -1,5 +1,5 @@
 <?php
-import ('domain/access');
+vsc\import ('domain/access');
 class vscFileAccess extends vscObject {
 	private $sUri;
 

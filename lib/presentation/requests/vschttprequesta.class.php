@@ -6,7 +6,7 @@
  * @date 09.07.13
  */
 
-import ('infrastructure/urls');
+vsc\import ('infrastructure/urls');
 
 abstract class vscHttpRequestA extends vscObject {
 	private $sUri		= null;
@@ -490,7 +490,7 @@ abstract class vscHttpRequestA extends vscObject {
 
 			if ($sType == $sAcceptedType && $sSubtype == $sAcceptedSubtype) return true;
 			if ($sType == $sAcceptedType && $sAcceptedSubtype == '*') return true;
-			if ($sAcceptedType == '*' && $sAcceptedSubtype == '*') return true;
+			//if ($sAcceptedType == '*' && $sAcceptedSubtype == '*') return true;
 		}
 		return false;
 	}
@@ -516,7 +516,8 @@ abstract class vscHttpRequestA extends vscObject {
 				$sReqUri = $_SERVER['REQUEST_URI'];
 				$this->sUri = str_replace ($sCurrentScriptDir, '', $sReqUri);
 			} elseif (stristr($sServerType, 'apache')) {
-				$sReqUri = $_SERVER['REQUEST_URI'];
+				$sCurrentScriptDir = dirname ($_SERVER['SCRIPT_FILENAME']) != '/' ? dirname ($_SERVER['SCRIPT_FILENAME']) : '';
+				$sReqUri = $_SERVER['SCRIPT_URL']; // apache 2.4 with mod_rewrite
 				$this->sUri = str_replace ($sCurrentScriptDir, '', $sReqUri);
 			} elseif (stristr($sServerType, 'cherokee')) {
 				// TODO

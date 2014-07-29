@@ -5,7 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.11.19
  */
-import ('presentation/views');
+vsc\import ('presentation/views');
 class vscRssView extends vscViewA implements vscRssViewI {
 	protected $sContentType = 'application/rss+xml';
 	protected $sFolder = 'rss';

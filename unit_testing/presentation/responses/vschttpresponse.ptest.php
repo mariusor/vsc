@@ -1,6 +1,6 @@
 <?php
-import ('presentation');
-import ('responses');
+vsc\import ('presentation');
+vsc\import ('responses');
 class vscHttpResponseTest extends PHPUnit_Framework_TestCase {
 	public function setUp () {
 		// @todo

@@ -1,5 +1,5 @@
 <?php
-import (VSC_FIXTURE_PATH);
+vsc\import (VSC_FIXTURE_PATH);
 
 class vscProcessorEmptyTest extends PHPUnit_Framework_TestCase {
 	/**

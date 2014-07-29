@@ -6,11 +6,11 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.09.24
  */
-import ('application/controllers');
-import ('application/processors');
-import ('presentation/responses');
-import ('domain/models');
-import ('exceptions');
+vsc\import ('application/controllers');
+vsc\import ('application/processors');
+vsc\import ('presentation/responses');
+vsc\import ('domain/models');
+vsc\import ('exceptions');
 
 class vscRwDispatcher extends vscHttpDispatcherA {
 	/**
@@ -146,12 +146,12 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 					// dirty import of the module folder and important subfolders
 					$sModuleName = $oProcessorMap->getModuleName();
 					if ( is_dir ($oProcessorMap->getModulePath()) && !$oProcessorMap->isStatic() ) {
-						import ($oProcessorMap->getModulePath());
+						vsc\import ($oProcessorMap->getModulePath());
 						try {
 //							import ($sModuleName);
-							import ('application');
-							import ('domain');
-							import ('presentation');
+							vsc\import ('application');
+							vsc\import ('domain');
+							vsc\import ('presentation');
 						} catch (vscExceptionPath $e) {
 							// ooopps
 						}

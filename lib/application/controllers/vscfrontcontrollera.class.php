@@ -5,12 +5,24 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.30
  */
-import (VSC_LIB_PATH . 'application/processors');
-import (VSC_LIB_PATH . 'presentation/responses');
-import (VSC_RES_PATH . 'application/processors');
-import (VSC_RES_PATH . 'domain/models');
+vsc\import (VSC_LIB_PATH . 'application/processors');
+vsc\import (VSC_LIB_PATH . 'presentation/responses');
+vsc\import (VSC_RES_PATH . 'application/processors');
+vsc\import (VSC_RES_PATH . 'domain/models');
 abstract class vscFrontControllerA extends vscObject {
+	/**
+	 * @var string
+	 */
+	private $sTemplatePath;
+
+	/**
+	 * @var vscControllerA
+	 */
 	private $oCurrentMap;
+
+	/**
+	 * @var vscViewA
+	 */
 	private $oView;
 
 	/**
@@ -19,6 +31,7 @@ abstract class vscFrontControllerA extends vscObject {
 	abstract public function getDefaultView();
 
 	/**
+	 * @throws vscExceptionView
 	 * @return vscControllerMap
 	 */
 	public function getMap () {
@@ -37,9 +50,24 @@ abstract class vscFrontControllerA extends vscObject {
 	}
 
 	/**
+	 * @param $sIncPath
+	 * @throws vscExceptionController
+	 */
+	public function setTemplatePath ($sIncPath) {
+		if (is_dir($sIncPath)) {
+			$this->sTemplatePath = $sIncPath;
+		} else {
+			throw new vscExceptionController('The template path ['.$sIncPath.'] is not a valid folder.');
+		}
+	}
+
+	/**
 	 * @param vscHttpRequestA $oRequest
 	 * @param vscProcessorA $oProcessor
-	 * @param vscViewA $oView
+	 * @throws vscExceptionPath
+	 * @throws vscExceptionResponse
+	 * @throws vscExceptionView
+	 * @internal param vscViewA $oView
 	 * @return vscHttpResponseA
 	 */
 	public function getResponse (vscHttpRequestA $oRequest, $oProcessor = null) {
@@ -101,7 +129,7 @@ abstract class vscFrontControllerA extends vscObject {
 			$oView->setMap ($oMap);
 		}
 
-		if ((vscProcessorMap::isValid($oMap) && !$oMap->isStatic()) && vscControllerMap::isValid($oMyMap)) {
+		if ((vscProcessorMap::isValid($oMap) && !$oMap->isStatic() && !$oMyMap->isStatic()) && vscControllerMap::isValid($oMyMap)) {
 			$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . $oView->getViewFolder() . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
 		}
 
@@ -115,23 +143,21 @@ abstract class vscFrontControllerA extends vscObject {
 		$oView->setModel($oModel);
 
 		$oResponse->setView ($oView);
-		$aHeaders = $oMap->getHeaders();
-		if (count($aHeaders) > 0) {
-			foreach ($aHeaders as $sName => $sHeader) {
-				$oResponse->addHeader($sName, $sHeader);
+		if ( vscMappingA::isValid($oMap) ) {
+			$aHeaders = $oMap->getHeaders ();
+			if ( count ( $aHeaders ) > 0 ) {
+				foreach ( $aHeaders as $sName => $sHeader ) {
+					$oResponse->addHeader ( $sName, $sHeader );
+				}
 			}
 		}
 		return $oResponse;
 	}
 
-	public function setTemplatePath ($sIncPath) {
-		if (is_dir($sIncPath)) {
-			$this->sTemplatePath = $sIncPath;
-		} else {
-			throw new vscExceptionController('The template path ['.$sIncPath.'] is not a valid folder.');
-		}
-	}
-
+	/**
+	 * @return vscViewA
+	 * @throws vscExceptionView
+	 */
 	public function getView () {
 		$sViewPath = $this->getMap()->getViewPath();
 		if (!vscViewA::isValid($this->oView)) {

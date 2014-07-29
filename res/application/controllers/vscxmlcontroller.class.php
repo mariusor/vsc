@@ -5,8 +5,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2012.08.26
  */
-import ('presentation/views');
-import ('application/controllers');
+vsc\import ('presentation/views');
+vsc\import ('application/controllers');
 class vscXmlController extends vscCacheableControllerA implements vscXmlControllerI {
 	public function getDefaultView () {
 		return new vscXmlView();

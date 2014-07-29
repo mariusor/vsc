@@ -5,9 +5,9 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.30
  */
-import ('presentation');
-import ('requests');
-import ('views');
+vsc\import ('presentation');
+vsc\import ('requests');
+vsc\import ('views');
 abstract class vscHttpResponseA extends vscObject {
 	static protected $aStatusList = array(
 		200 => '200 OK',

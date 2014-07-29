@@ -4,9 +4,9 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.31
  */
-import ('presentation/requests');
-import ('application/dispatchers');
-import (dirname(__FILE__));
+vsc\import ('presentation/requests');
+vsc\import ('application/dispatchers');
+
 class vsc extends vscObject {
 	/**
 	 * @var vsc
@@ -80,7 +80,7 @@ class vsc extends vscObject {
 			if ( !self::isCli() ) {
 				$this->oDispatcher = new vscRwDispatcher();
 			} else {
-				$this->oDispatcher = new vscNull();
+				$this->oDispatcher = new vscGenericCLIDispatcher();
 			}
 		}
 		return $this->oDispatcher;

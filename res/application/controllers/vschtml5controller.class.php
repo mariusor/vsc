@@ -6,8 +6,8 @@
  * @date 2010.10.15
  */
 
-import ('application/controllers');
-import ('presentation/views');
+vsc\import ('application/controllers');
+vsc\import ('presentation/views');
 
 class vscHtml5Controller extends vscXhtmlController {
 	public function getDefaultView () {

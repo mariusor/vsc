@@ -1,5 +1,5 @@
 <?php
-import ('domain/models');
+vsc\import ('domain/models');
 
 class vsc404Processor extends vscErrorProcessor {
 	public function __construct () {

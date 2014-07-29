@@ -6,7 +6,7 @@
  * @date 09.11.19
  */
 
-import ('domain/models');
+vsc\import ('domain/models');
 class vscEmptyModel extends vscModelA {
 	protected $sPageTitle = null;
 	protected $sPageContent = null;

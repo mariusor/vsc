@@ -1,6 +1,6 @@
 <?php
-import ('domain/models');
-import ('presentation/responses');
+vsc\import ('domain/models');
+vsc\import ('presentation/responses');
 class vscErrorModel extends vscEmptyModel {
 	private $exception;
 

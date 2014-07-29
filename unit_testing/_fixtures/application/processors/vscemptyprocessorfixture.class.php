@@ -1,6 +1,6 @@
 <?php
-import ('application');
-import ('processors');
+vsc\import ('application');
+vsc\import ('processors');
 class vscEmptyProcessorFixture extends vscProcessorA {
 	protected $aLocalVars = array ('test' => null);
 

@@ -8,6 +8,7 @@
 class vscStaticFileModel extends vscCacheableModelA {
 	protected $sFilePath;
 	protected $sFileContent;
+	protected $sFileName;
 	protected $iLastModified;
 
 	public function setFilePath ($sPath) {
@@ -17,6 +18,14 @@ class vscStaticFileModel extends vscCacheableModelA {
 
 	public function getFilePath () {
 		return $this->sFilePath;
+	}
+	
+	public function setFileName ($sName) {
+		$this->sFileName = $sName;
+	}
+
+	public function getFileName () {
+		return $this->sFileName;
 	}
 
 	public function setFileContent ($sContent) {

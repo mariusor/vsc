@@ -6,7 +6,7 @@
  * @date 2011.02.21
  */
 
-import ('infrastructure/caching');
+vsc\import ('infrastructure/caching');
 abstract class vscCacheableControllerA extends vscFrontControllerA implements vscCacheableI {
 
 	public function getLastModified () {

@@ -1,5 +1,5 @@
 <?php
-import ('domain/models');
+vsc\import ('domain/models');
 
 class vscErrorProcessor extends vscProcessorA implements vscErrorProcessorI {
 	private $model;

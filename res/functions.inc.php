@@ -1,13 +1,14 @@
 <?php
+namespace vsc;
 /**
  * Function to turn the triggered errors into exceptions
  * @author troelskn at gmail dot com
  * @see http://php.net/manual/en/class.errorexception.php
- * @param $severity
- * @param $message
- * @param $filename
- * @param $lineno
- * @throws vscExceptionError
+ * @param $iSeverity
+ * @param $sMessage
+ * @param $sFilename
+ * @param $iLineNo
+ * @throws \vscExceptionError
  * @return void
  */
 function exceptions_error_handler ($iSeverity, $sMessage, $sFilename, $iLineNo) {
@@ -18,14 +19,8 @@ function exceptions_error_handler ($iSeverity, $sMessage, $sFilename, $iLineNo) 
 	if (error_reporting() & $iSeverity) {
 		// the __autoload seems not to be working here
 		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexceptionerror.class.php'));
-		throw new vscExceptionError ($sMessage, 0, $iSeverity, $sFilename, $iLineNo);
+		throw new \vscExceptionError ($sMessage, 0, $iSeverity, $sFilename, $iLineNo);
 	}
-}
-/**
- * @return bool
- */
-function isCli () {
-	return (php_sapi_name() == 'cli');
 }
 
 if (!function_exists('d') ) {
@@ -65,11 +60,20 @@ function d () {
 /**
  * the __autoload automagic function for class instantiation,
  * @param string $className
+ * @return bool
  */
 function loadClass ($className) {
 	if (class_exists ($className, false)) {
 		return true;
 	}
+	if (stristr ($className, '\\')) {
+		$aPaths = explode('\\', $className);
+		$className = array_pop ($aPaths);
+
+		// converting versioning namespaces vX_Y to vX.Y folders - for the API
+		$sPath = preg_replace('/v(\d)_(\d)/', 'v$1.$2', implode(DIRECTORY_SEPARATOR, $aPaths)) . DIRECTORY_SEPARATOR;
+	}
+
 	$fileIncluded = false;
 
 	$classNameLow = strtolower($className);
@@ -78,6 +82,10 @@ function loadClass ($className) {
 	if (stristr ($classNameLow, 'exception')) {
 		$sExceptionsFilePath = 'exceptions' . DIRECTORY_SEPARATOR . $sFilePath;
 		$fileIncluded = include_once ($sExceptionsFilePath);
+	}
+	if (!$fileIncluded) {
+		$sNamespaceFilePath = (!empty($sPath) ? $sPath : '') . $sFilePath;
+		$fileIncluded = @include_once ($sNamespaceFilePath);
 	}
 	if (!$fileIncluded) {
 		$fileIncluded = @include_once ($sFilePath);
@@ -175,35 +183,11 @@ function import ($sIncPath) {
 		include_once(VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexceptionpath.class.php');
 		include_once(VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexceptionpackageimport.class.php');
 
-		throw new vscExceptionPackageImport ('Bad package [' . $sIncPath . ']');
+		throw new \vscExceptionPackageImport ('Bad package [' . $sIncPath . ']');
 // 		return false;
 	} else {
 		return true;
 	}
-}
-
-
-function getDirFiles ( $dir, $showHidden = false){
-	$files =  array();
-	if (!is_dir($dir)){
-		trigger_error('Can not find : '.$dir);
-		return false;
-	}
-
-	if ( $root = @opendir($dir) ){
-		while ($file = readdir ($root)){
-			if ( ($file == '.' || $file == '..') || ($showHidden == false && stripos($file, '.') === 0)){continue;}
-
-			if (substr($dir, -1) != '/') $dir .= '/';
-
-			if( is_dir ($dir . $file) ){
-				$files = array_merge($files, getDirFiles($dir . $file));
-			} else {
-				/*if ( stristr($file, 'tpl') )*/ $files[] = $dir . $file;
-			}
-		}
-	}
-	return $files;
 }
 
 if (!function_exists('_e')) {
@@ -234,7 +218,7 @@ if (!function_exists('_e')) {
 
 	function _e ($e) {
 		$aErrors = cleanBuffers();
-
+		$sRet = '';
 		if (!isCli()) {
 			header ('HTTP/1.1 500 Internal Server Error');
 			echo getErrorHeaderOutput ($e);

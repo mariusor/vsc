@@ -23,7 +23,6 @@ class vscTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetDispatcher () {
-		$this->markTestSkipped('Need proper CLI Dispatcher');
 		/* @var $oDispatcher vscRwDispatcher */
 		$oDispatcher = vsc::getEnv()->getDispatcher();
 		$oDispatcher->loadSiteMap ($this->sFixturesPath . 'map.php');
