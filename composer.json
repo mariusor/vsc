@@ -16,7 +16,6 @@
 	},
 	"minimum-stability": "stable",
 	"license": "MIT",
-	"version": "0.2",
 	"authors": [
 		{
 			"name": "Marius Orcsik",
@@ -25,6 +24,6 @@
 		}
 	],
 	"autoload": {
-		"psr-4" : {"vsc\\" : ["lib/", "res/"]}
+		"psr-0" : {"vsc\\" : ["lib/", "res/"]}
 	}
 }
