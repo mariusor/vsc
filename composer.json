@@ -1,0 +1,30 @@
+{
+	"name": "vsc/vsc",
+	"type": "library",
+	"description": "A small collection of PHP classes for RESTful development",
+	"repositories" : [
+		{
+			"type": "vcs",
+			"url": "https://github.com/lpbm/vsc"
+		}
+	],
+	"require": {
+		"php": ">=5.3.0"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "*"
+	},
+	"minimum-stability": "stable",
+	"license": "MIT",
+	"version": "0.2",
+	"authors": [
+		{
+			"name": "Marius Orcsik",
+			"email": "marius@habarnam.ro",
+			"role": "developer"
+		}
+	],
+	"autoload": {
+		"psr-4" : {"vsc\\" : ["lib/", "res/"]}
+	}
+}
