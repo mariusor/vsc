@@ -2,12 +2,6 @@
 	"name": "vsc/vsc",
 	"type": "library",
 	"description": "A small collection of PHP classes for RESTful development",
-	"repositories" : [
-		{
-			"type": "vcs",
-			"url": "https://github.com/lpbm/vsc"
-		}
-	],
 	"require": {
 		"php": ">=5.3.0"
 	},
@@ -24,11 +18,11 @@
 		}
 	],
 	"autoload": {
-		"psr-4" : {"vsc\\" : ["lib/", "res/"]}
+		"psr-4" : { "vsc\\" : ["lib/", "res/"]}
 	},
 	"autoload-dev": {
 		"classmap": [
 			"tests/"
 		]
-	},
+	}
 }
