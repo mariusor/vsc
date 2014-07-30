@@ -4,6 +4,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.30
  */
+namespace vsc;
+
 class vscExceptionPath extends vscException {
 	public function getPath () {
 		return get_include_path();

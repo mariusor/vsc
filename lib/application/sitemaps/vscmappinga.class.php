@@ -5,7 +5,7 @@
  * @author marius orcisk <marius@habarnam.ro>
  * @date 09.11.29
  */
-//import ('infrastructure/urls');
+namespace vsc\application\sitemaps;
 
 class vscMappingA extends vscObject {
 	private $sRegex;

@@ -1,4 +1,10 @@
 <?php
+/**
+ * @package presentation/requests
+ * @author marius orcsik <marius@habarnam.ro>
+ * @date 2013.10.04
+ */
+namespace vsc\presentation\requests;
 
 class vscRESTRequest extends vscRawHttpRequest {
 

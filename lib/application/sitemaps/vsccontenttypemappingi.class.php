@@ -1,4 +1,6 @@
 <?php
+namespace vsc\application\sitemaps;
+
 interface vscContentTypeMappingI {
 	public function setMainTemplatePath ($sPath) ;
 

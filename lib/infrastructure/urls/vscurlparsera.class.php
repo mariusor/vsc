@@ -1,4 +1,6 @@
 <?php
+namespace vsc\infrastructure\urls;
+
 class vscUrlParserA extends vscObject implements vscUrlParserI {
 	private $sUrl;
 	private $aComponents = array(

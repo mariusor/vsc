@@ -1,4 +1,6 @@
 <?php
+namespace vsc\presentation\responses;
+
 class vscExceptionDigestAuthenticationChallenge extends vscExceptionAuthenticationNeeded {
 	private $sRealm;
 	private $sNonce;

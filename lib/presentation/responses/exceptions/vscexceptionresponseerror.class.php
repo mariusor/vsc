@@ -1,4 +1,6 @@
 <?php
+namespace vsc\presentation\responses;
+
 class vscExceptionResponseError extends vscExceptionResponse {
 	private $iHttpErrorCode;
 

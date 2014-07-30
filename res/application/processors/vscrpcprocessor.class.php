@@ -1,4 +1,12 @@
 <?php
+/**
+ * @package vsc_presentation
+ * @subpackage processors
+ * @author marius orcsik <marius@habarnam.ro>
+ * @date 12.08.25
+ */
+namespace vsc\application\processors;
+
 vsc\import ('domain');
 vsc\import ('access');
 abstract class vscRPCProcessor extends vscProcessorA {

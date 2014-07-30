@@ -5,6 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.07.13
  */
+namespace vsc\presentation\requests;
 
 abstract class vscRequestA extends vscObject {
 

@@ -5,6 +5,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.30
  */
+namespace vsc\presentation\views;
+
 vsc\import ('infrastructure');
 vsc\import ('urls');
 vsc\import ('domain');

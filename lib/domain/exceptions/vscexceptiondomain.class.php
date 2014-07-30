@@ -5,5 +5,6 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2010.01.28
  */
+namespace vsc\domain;
 vsc\import ('exceptions');
 class vscExceptionDomain extends vscException {}

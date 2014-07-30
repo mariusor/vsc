@@ -5,6 +5,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2011.02.17
  */
+namespace vsc\presentation\views;
+
 vsc\import ('presentation/views');
 class vscPlainTextView extends vscViewA implements vscViewI {
 	protected $sContentType = 'text/plain';

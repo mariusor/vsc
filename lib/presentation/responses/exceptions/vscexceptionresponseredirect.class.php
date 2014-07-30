@@ -1,4 +1,6 @@
 <?php
+namespace vsc\presentation\responses;
+
 class vscExceptionResponseRedirect extends vscExceptionResponse {
 	private $sLocation;
 	private $iHttpRedirectCode;

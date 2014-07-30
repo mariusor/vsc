@@ -5,6 +5,7 @@
  * @author marius orcisk <marius@habarnam.ro>
  * @date 2010.12.05
  */
+namespace vsc\application\sitemaps;
 
 class vscModuleMap extends vscMappingA implements vscContentTypeMappingI{
 	private $sMainTemplatePath;

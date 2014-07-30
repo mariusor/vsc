@@ -1,4 +1,12 @@
 <?php
+/**
+ * @package vsc_presentation
+ * @subpackage requests
+ * @author marius orcsik <marius@habarnam.ro>
+ * @date 2013.09.26
+ */
+namespace vsc\presentation\requests;
+
 class vscDigestHttpAuthentication extends vscHttpAuthenticationA {
 	public $username;
 

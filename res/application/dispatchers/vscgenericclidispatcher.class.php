@@ -6,6 +6,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 14.07.26
  */
+namespace vsc\application\dispatchers;
 
 class vscGenericCLIDispatcher extends vscCLIDispatcherA {
 	/**

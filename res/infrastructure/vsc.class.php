@@ -4,6 +4,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.31
  */
+namespace vsc\infrastructure;
+
 vsc\import ('presentation/requests');
 vsc\import ('application/dispatchers');
 

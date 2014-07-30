@@ -1,4 +1,5 @@
 <?php
+namespace vsc\presentation\responses;
 
 class vscResponseA extends vscNull {
 

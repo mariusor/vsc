@@ -1,4 +1,6 @@
 <?php
+namespace vsc\presentation\requests;
+
 abstract class vscHttpAuthenticationA extends vscObject {
 	const NONE = 0;
 	const BASIC = 1;

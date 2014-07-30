@@ -4,6 +4,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2010.03.30
  */
+namespace vsc\infrastructure;
+
 vsc\import (VSC_LIB_PATH . 'exceptions');
 abstract class vscObject {
 	public function __call ($sMethodName, $aVars) {

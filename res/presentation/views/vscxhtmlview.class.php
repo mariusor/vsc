@@ -5,6 +5,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.09.07
  */
+namespace vsc\presentation\views;
+
 vsc\import ('presentation/views');
 vsc\import ('presentation/views/exceptions');
 

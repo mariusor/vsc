@@ -5,6 +5,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2010.04.14
  */
+namespace vsc\domain\domain;
+
 class vscRssItem extends vscModelA {
 	public $title;
 	public $link;

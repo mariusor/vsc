@@ -4,6 +4,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2010.03.30
  */
+namespace vsc\infrastructure;
+
 class vscNull extends vscObject {
 	public function __call ($sMethodName, $aVars) {
 		if (stristr($sMethodName, 'get')) {

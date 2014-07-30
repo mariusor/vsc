@@ -5,6 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2011.02.21
  */
+namespace vsc\application\controllers;
 
 vsc\import ('infrastructure/caching');
 abstract class vscCacheableControllerA extends vscFrontControllerA implements vscCacheableI {

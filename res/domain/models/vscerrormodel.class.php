@@ -1,4 +1,12 @@
 <?php
+/**
+ * @package vsc_domain
+ * @subpackage models
+ * @author marius orcsik <marius@habarnam.ro>
+ * @date 2011.11.20
+ */
+namespace vsc\domain\models;
+
 vsc\import ('domain/models');
 vsc\import ('presentation/responses');
 class vscErrorModel extends vscEmptyModel {

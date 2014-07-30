@@ -5,6 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2010.04.15
  */
+namespace vsc\domain\models;
 
 vsc\import ('domain/models');
 class vscArrayModel extends vscModelA {

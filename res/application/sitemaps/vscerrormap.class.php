@@ -5,6 +5,7 @@
  * @author marius orcisk <marius@habarnam.ro>
  * @date 2011.11.20
  */
+namespace vsc\application\sitemaps;
 
 class vscErrorMap extends vscProcessorMap {
 	public function __construct () {

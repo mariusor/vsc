@@ -1,4 +1,12 @@
 <?php
+/**
+ * @package vsc_presentation
+ * @subpackage requests
+ * @author marius orcsik <marius@habarnam.ro>
+ * @date 2011.08.11
+ */
+namespace vsc\presentation\requests;
+
 vsc\import ('presentation');
 vsc\import ('requests');
 class vscRawHttpRequest extends vscRwHttpRequest {

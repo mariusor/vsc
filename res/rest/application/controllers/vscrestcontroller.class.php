@@ -1,4 +1,12 @@
 <?php
+/**
+ * A controller for RESTful calls
+ *
+ * @package application/controllers
+ * @author marius orcsik <marius@habarnam.ro>
+ * @date 2013.10.04
+ */
+namespace vsc\application\controllers;
 
 class vscRESTController extends vscJsonController {
 	public function getResponse (vscHttpRequestA $oRequest, $oProcessor = null) {

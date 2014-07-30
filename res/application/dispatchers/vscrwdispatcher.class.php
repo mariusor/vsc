@@ -6,6 +6,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.09.24
  */
+namespace vsc\application\dispatchers;
+
 vsc\import ('application/controllers');
 vsc\import ('application/processors');
 vsc\import ('presentation/responses');

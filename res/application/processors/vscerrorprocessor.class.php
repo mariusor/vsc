@@ -1,4 +1,12 @@
 <?php
+/**
+ * @package vsc_presentation
+ * @subpackage processors
+ * @author marius orcsik <marius@habarnam.ro>
+ * @date 11.05.17
+ */
+namespace vsc\application\processors;
+
 vsc\import ('domain/models');
 
 class vscErrorProcessor extends vscProcessorA implements vscErrorProcessorI {

@@ -5,6 +5,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.09.24
  */
+namespace vsc\application\sitemaps;
+
 abstract class vscSiteMapA extends vscObject {
 	/**
 	 * the base regex for the current map

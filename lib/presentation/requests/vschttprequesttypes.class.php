@@ -1,4 +1,6 @@
 <?php
+namespace vsc\presentation\requests;
+
 abstract class vscHttpRequestTypes {
 	const GET		= 'GET';
 	const HEAD		= 'HEAD';

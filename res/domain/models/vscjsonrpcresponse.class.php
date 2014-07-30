@@ -1,4 +1,12 @@
 <?php
+/**
+ * @package vsc_domain
+ * @subpackage models
+ * @author marius orcsik <marius@habarnam.ro>
+ * @date 2012.08.25
+ */
+namespace vsc\domain\models;
+
 class vscJsonRPCResponse extends vscModelA {
 	public $id = null;
 	public $result = null;

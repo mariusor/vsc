@@ -5,6 +5,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2011.02.21
  */
+namespace vsc\domain\models;
+
 class vscStaticFileModel extends vscCacheableModelA {
 	protected $sFilePath;
 	protected $sFileContent;

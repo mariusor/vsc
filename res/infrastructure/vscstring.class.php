@@ -4,6 +4,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2010.04.16
  */
+namespace vsc\infrastructure;
+
 class vscString {
 
 	static function br2nl ($sString) {

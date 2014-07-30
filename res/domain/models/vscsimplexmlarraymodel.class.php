@@ -1,4 +1,11 @@
 <?php
+/**
+ * @package vsc_domain
+ * @subpackage models
+ * @author marius orcsik <marius@habarnam.ro>
+ * @date 2012.12.25
+ */
+namespace vsc\domain\models;
 
 vsc\import ('domain/models');
 class vscSimpleXMLArrayModel extends vscModelA {

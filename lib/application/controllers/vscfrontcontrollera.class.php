@@ -5,6 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.30
  */
+namespace vsc\application\controllers;
 vsc\import (VSC_LIB_PATH . 'application/processors');
 vsc\import (VSC_LIB_PATH . 'presentation/responses');
 vsc\import (VSC_RES_PATH . 'application/processors');

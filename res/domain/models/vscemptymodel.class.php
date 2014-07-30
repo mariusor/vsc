@@ -5,6 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.11.19
  */
+namespace vsc\domain\models;
 
 vsc\import ('domain/models');
 class vscEmptyModel extends vscModelA {

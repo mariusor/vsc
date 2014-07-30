@@ -5,6 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2011.02.21
  */
+namespace vsc\application\processors;
 
 vsc\import ('domain/models');
 class vscStaticFileProcessor extends vscProcessorA {

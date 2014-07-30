@@ -1,4 +1,6 @@
 <?php
+namespace vsc\presentation\responses;
+
 class vscExceptionAuthenticationNeeded extends vscExceptionResponseError {
 	private $sRealm;
 

@@ -1,4 +1,6 @@
 <?php
+namespace vsc\presentation\responses;
+
 class vscHttpResponseType {
 	public static function getStatus ($iStatus) {
 		return isset (static::$aStatusList[$iStatus]) ?  static::$aStatusList[$iStatus] : static::$aStatusList[500];

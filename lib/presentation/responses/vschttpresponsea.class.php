@@ -5,6 +5,8 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.30
  */
+namespace vsc\presentation\responses;
+
 vsc\import ('presentation');
 vsc\import ('requests');
 vsc\import ('views');

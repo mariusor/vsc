@@ -4,8 +4,9 @@
  *
  * @package application/processors
  * @author marius orcsik <marius@habarnam.ro>
- * @date 2012-08-25
+ * @date 2013.10.04
  */
+namespace vsc\application\controllers;
 abstract class vscRESTProcessorA extends vscProcessorA {
 	protected $validRequestMethods = array ( );
 

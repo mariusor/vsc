@@ -5,6 +5,7 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 13.01.02
  */
+namespace vsc\presentation\helpers;
 
 class vscViewHelperA extends vscNull /* implements vscViewI  */ {
 	private $sName;

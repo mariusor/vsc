@@ -1,8 +1,12 @@
 <?php
 /**
- * @package vsc_models
- * @author morcsik
+ * @package vsc_domain
+ * @subpackage models
+ * @author marius orcsik <marius@habarnam.ro>
+ * @date 11.12.01
  */
+namespace vsc\domain\models;
+
 vsc\import ('infrastructure');
 class vscRequestModel extends vscEmptyModel {
 	public function __get ($sVarName) {
