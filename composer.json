@@ -21,8 +21,6 @@
 		"psr-4" : { "vsc\\" : ["lib/", "res/"]}
 	},
 	"autoload-dev": {
-		"classmap": [
-			"tests/"
-		]
+		"psr-4" : { "_fixtures\\" : "test/fixtures"}
 	}
 }

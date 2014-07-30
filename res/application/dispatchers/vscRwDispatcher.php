@@ -138,7 +138,7 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 
 			if (!vscControllerMap::isValid($oControllerMapping)) {
 				// this mainly means nothing was matched to our url, or no mappings exist
-				$oControllerMapping = new vscControllerMap(VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.class.php', '');
+				$oControllerMapping = new vscControllerMap(VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.php', '');
 			}
 
 			$sPath 	= $oControllerMapping->getPath();

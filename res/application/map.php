@@ -17,24 +17,24 @@ $this->getParentModuleMap()->setMainTemplatePath(VSC_RES_PATH . 'templates');
 $this->getParentModuleMap()->setMainTemplate('main.php');
 $this->getCurrentModuleMap()->setTemplatePath (VSC_RES_PATH . 'templates');
 
-//$oMap = $this->map ('vsc/\Z', VSC_RES_PATH . 'application/processors/vscemptyprocessor.class.php');
+//$oMap = $this->map ('vsc/\Z', VSC_RES_PATH . 'application/processors/vscemptyprocessor.php');
 //$oMap->setTemplate ('content.php');
 
 // @TODO
-//$oMap = $this->map ('vsc:test/\Z', VSC_RES_PATH . 'application/processors/vsctestprocessor.class.php');
+//$oMap = $this->map ('vsc:test/\Z', VSC_RES_PATH . 'application/processors/vsctestprocessor.php');
 //$oMap->setTemplate ('tmain.php');
 
-//$oMap = $this->map ('.+', VSC_RES_PATH . 'application/processors/vscemptyprocessor.class.php');
+//$oMap = $this->map ('.+', VSC_RES_PATH . 'application/processors/vscemptyprocessor.php');
 //$oMap->setTemplate ('content.php');
 
 // fallback 404 processor for everything
-$oMap = $this->map ('(.+)\Z', VSC_RES_PATH . 'application/processors/vscemptyprocessor.class.php');
+$oMap = $this->map ('(.+)\Z', VSC_RES_PATH . 'application/processors/vscemptyprocessor.php');
 $oMap->setTemplate ('404.php');
 
 // front controllers
-//$this->getCurrentModuleMap()->mapController ('\.json$', VSC_RES_PATH . 'application/controllers/vscjsoncontroller.class.php');
-$this->getCurrentModuleMap()->mapController ('\.rss$', VSC_RES_PATH . 'application/controllers/vscrsscontroller.class.php');
-$this->getCurrentModuleMap()->mapController ('\.txt$', VSC_RES_PATH . 'application/controllers/vscplaintextcontroller.class.php');
-$this->getCurrentModuleMap()->mapController ('^.*$', VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.class.php');
+//$this->getCurrentModuleMap()->mapController ('\.json$', VSC_RES_PATH . 'application/controllers/vscjsoncontroller.php');
+$this->getCurrentModuleMap()->mapController ('\.rss$', VSC_RES_PATH . 'application/controllers/vscrsscontroller.php');
+$this->getCurrentModuleMap()->mapController ('\.txt$', VSC_RES_PATH . 'application/controllers/vscplaintextcontroller.php');
+$this->getCurrentModuleMap()->mapController ('^.*$', VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.php');
 
 // d ($oMap->getModuleMap(), $this->getCurrentModuleMap());

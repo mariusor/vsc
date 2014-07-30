@@ -8,6 +8,7 @@
 
 if (!defined('VSC_PATH')) {
 	define ( 'VSC_PATH', realpath( dirname (__FILE__) . '/../') . DIRECTORY_SEPARATOR );
+	define ( 'VSC_RES_PATH', VSC_PATH . DIRECTORY_SEPARATOR . 'res' . DIRECTORY_SEPARATOR);
 	set_include_path (VSC_PATH . PATH_SEPARATOR . get_include_path());
 	require ('vsc.inc.php');
 
@@ -24,5 +25,5 @@ chdir(dirname(__FILE__) . '/../');
 if ( file_exists('vendor/autoload.php') ) {
     $loader = include_once 'vendor/autoload.php';
 } else {
-    throw new RuntimeException('Unable to load the autoloader. Run `php composer.phar install`.');
+	throw new RuntimeException('Unable to load the autoloader. Run `php composer.phar install`.');
 }

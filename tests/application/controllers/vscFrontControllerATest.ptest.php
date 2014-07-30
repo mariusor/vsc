@@ -16,6 +16,8 @@ use vsc\application\sitemaps\vscControllerMap;
 use vsc\presentation\responses\vscHttpResponseA;
 use vsc\application\controllers\vscFrontControllerA;
 use _fixtures\application\controllers\vscGenericFrontController;
+use _fixtures\presentation\requests\vscPopulatedRequest;
+use _fixtures\application\processors\testFixtureProcessor;
 
 class vscFrontControllerATest extends \PHPUnit_Framework_TestCase {
 	/**
@@ -27,7 +29,7 @@ class vscFrontControllerATest extends \PHPUnit_Framework_TestCase {
 		$this->state = new vscGenericFrontController();
 
 		$oMap = new vscControllerMap(__FILE__, '\A.*\Z');
-		$oMap->setView(VSC_FIXTURE_PATH . 'presentation/views/testView.class.php');
+		$oMap->setView(VSC_FIXTURE_PATH . 'presentation/views/testView.php');
 
 		$oMap->setMainTemplatePath(VSC_FIXTURE_PATH . 'templates');
 		$oMap->setMainTemplate('main.tpl.php');
@@ -64,7 +66,7 @@ class vscFrontControllerATest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testSetGetMap() {
-		$s = new vscControllerMap('\A.*\Z', VSC_FIXTURE_PATH . 'application/controllers/vscgenericfrontcontroller.class.php');
+		$s = new vscControllerMap('\A.*\Z', VSC_FIXTURE_PATH . 'application/controllers/vscGenericFrontcontroller.php');
 		$this->state->setMap($s);
 
 		$m = $this->state->getMap();

@@ -134,7 +134,7 @@ abstract class vscSiteMapA extends vscObject {
 	}
 
 	static public function isValidObject ($sPath) {
-		return (substr ($sPath, -10) == '.class.php' && is_file ($sPath));
+		return (substr ($sPath, -10) == '.php' && is_file ($sPath));
 	}
 
 	/**
@@ -144,7 +144,7 @@ abstract class vscSiteMapA extends vscObject {
 	 * @return string
 	 */
 	static public function getClassName ($sPath) {
-		$sClassName	= basename($sPath, '.class.php');
+		$sClassName	= basename($sPath, '.php');
 		$iKey		= array_search($sClassName, array_map('strtolower', get_declared_classes()));
 		$aClasses	= get_declared_classes();
 

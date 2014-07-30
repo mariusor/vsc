@@ -9,6 +9,6 @@ namespace vsc\application\sitemaps;
 
 class vscErrorControllerMap extends vscControllerMap {
 	public function __construct () {
-		parent::__construct(VSC_RES_PATH . 'application/controllers/vschtml5controller.class.php' , '\A.*\Z');
+		parent::__construct(VSC_RES_PATH . 'application/controllers/vschtml5controller.php' , '\A.*\Z');
 	}
 }
