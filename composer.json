@@ -25,5 +25,10 @@
 	],
 	"autoload": {
 		"psr-4" : {"vsc\\" : ["lib/", "res/"]}
-	}
+	},
+	"autoload-dev": {
+		"classmap": [
+			"tests/"
+		]
+	},
 }

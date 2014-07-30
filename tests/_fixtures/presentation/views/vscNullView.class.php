@@ -1,4 +1,5 @@
 <?php
+namespace _fixtures\presentation\views;
 use vsc\presentation\views\vscViewA;
 
 class vscNullView extends vscViewA {

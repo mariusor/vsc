@@ -27,7 +27,7 @@ class vscFrontControllerATest extends \PHPUnit_Framework_TestCase {
 		$this->state = new vscGenericFrontController();
 
 		$oMap = new vscControllerMap(__FILE__, '\A.*\Z');
-		$oMap->setView(VSC_FIXTURE_PATH . 'presentation/views/testview.class.php');
+		$oMap->setView(VSC_FIXTURE_PATH . 'presentation/views/testView.class.php');
 
 		$oMap->setMainTemplatePath(VSC_FIXTURE_PATH . 'templates');
 		$oMap->setMainTemplate('main.tpl.php');

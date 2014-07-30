@@ -1,4 +1,6 @@
 <?php
+namespace _fixtures\domain\models ;
+
 // \vsc\import ('domain');
 // \vsc\import ('models');
 use \vsc\domain\models\vscModelA;

@@ -16,6 +16,8 @@ use vsc\presentation\responses\vscHttpResponseA;
 use vsc\application\controllers\vscXhtmlController;
 use vsc\application\sitemaps\vscControllerMap;
 
+use _fixtures\presentation\requests\vscPopulatedRequest;
+
 class vscHtmlFrontControllerTest extends \PHPUnit_Framework_TestCase  {
 	/**
 	 * @var vscXhtmlController

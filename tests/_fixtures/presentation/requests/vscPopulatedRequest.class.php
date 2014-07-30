@@ -1,4 +1,5 @@
 <?php
+namespace _fixtures\presentation\requests;
 // \vsc\import ('presentation/requests');
 $_GET		= array ('ana' => 'are', 'mere' => '');
 $_POST		= array ('postone' => 'are', 'ana' => '');
