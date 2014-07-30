@@ -1,7 +1,11 @@
-<?php /* @var $this vscRssView */ ?>
+<?php
+/* @var $this \vsc\presentation\views\vscRssView */
+/* @var $item vsc\domain\domain\vscRssItem */
+use vsc\infrastructure\vsc;
+?>
 		<item>
 			<title>Default RSS template</title>
-			<link><?php echo self::getCurrentUri(); ?></link>
+			<link><?php echo $this->getCurrentUri(); ?></link>
 			<author><?php echo 'admin@' . $_SERVER['HTTP_HOST']; ?></author>
 			<description><![CDATA[ This is the default RSS template from the <?php echo vsc::name(); ?> framework.<br/>
 In order to add content, you need to:

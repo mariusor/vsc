@@ -7,8 +7,8 @@
  */
 namespace vsc\presentation\views;
 
-vsc\import ('presentation/views');
-vsc\import ('presentation/views/exceptions');
+// \vsc\import ('presentation/views');
+// \vsc\import ('presentation/views/exceptions');
 
 class vscXhtmlView extends vscViewA implements vscXhtmlViewI {
 	protected $sContentType = 'application/xhtml+xml';
@@ -38,9 +38,9 @@ class vscXhtmlView extends vscViewA implements vscXhtmlViewI {
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#display($resource_name, $cache_id, $compile_id)
 	 */
-    public function display ($resource_name) {
-    	d ($resource_name);
-    }
+	public function display ($resource_name) {
+		\vsc\d ($resource_name);
+	}
 
    	public function getScripts($bInHead = false) {
    		try {

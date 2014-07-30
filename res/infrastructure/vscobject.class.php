@@ -6,7 +6,9 @@
  */
 namespace vsc\infrastructure;
 
-vsc\import (VSC_LIB_PATH . 'exceptions');
+// \vsc\import (VSC_LIB_PATH . 'exceptions');
+use vsc\vscExceptionUnimplemented;
+
 abstract class vscObject {
 	public function __call ($sMethodName, $aVars) {
 		if (vsc::getEnv()->isDevelopment()) {

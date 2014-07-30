@@ -6,5 +6,7 @@
  * @date 2010.01.28
  */
 namespace vsc\domain;
-vsc\import ('exceptions');
+// \vsc\import ('exceptions');
+use vsc\vscException;
+
 class vscExceptionDomain extends vscException {}

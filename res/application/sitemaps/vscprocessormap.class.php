@@ -7,6 +7,9 @@
  */
 namespace vsc\application\sitemaps;
 
+use vsc\presentation\helpers\vscViewHelperA;
+use vsc\presentation\responses\vscHttpResponseA;
+
 class vscProcessorMap extends vscMappingA {
 	/**
 	 *
@@ -16,7 +19,7 @@ class vscProcessorMap extends vscMappingA {
 
 	/**
 	 *
-	 * @var vscViewHelpersA[]
+	 * @var vscViewHelperA[]
 	 */
 	private $aHelpers = array();
 
@@ -59,7 +62,7 @@ class vscProcessorMap extends vscMappingA {
 	}
 
 	/**
-	 * @return vscViewHelpersA[]
+	 * @return vscViewHelperA[]
 	 */
 	public function getViewHelpers () {
 		return $this->aHelpers;

@@ -1,4 +1,6 @@
-<?php /* @var $this vscJsonViewA  */
+<?php /* @var $this \vsc\presentation\views\vscJsonView  */
+use vsc\vscException;
+
 try {
 	$GLOBALS['depth'] = 1;
 	echo '{'."\n";
@@ -7,6 +9,6 @@ try {
 	echo "\t" . '}'."\n";
 	echo '}'."\n";
 } catch (vscException $e) {
-	d ($e);
+	\vsc\d ($e);
 }
 

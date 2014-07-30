@@ -6,7 +6,15 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2013.10.04
  */
-namespace vsc\application\controllers;
+namespace vsc\application\processors;
+
+use vsc\domain\models\vscArrayModel;
+use vsc\infrastructure\vsc;
+use vsc\presentation\requests\vscHttpRequestA;
+use vsc\presentation\requests\vscHttpRequestTypes;
+use vsc\presentation\requests\vscRawHttpRequest;
+use vsc\presentation\responses\vscExceptionResponseError;
+
 abstract class vscRESTProcessorA extends vscProcessorA {
 	protected $validRequestMethods = array ( );
 
@@ -25,12 +33,12 @@ abstract class vscRESTProcessorA extends vscProcessorA {
 	abstract public function handleDelete (vscRawHttpRequest $oRequest);
 
 	public function handleOptions (vscHttpRequestA $oRequest) {
-		$oMirror = new ReflectionClass($this);
+		$oMirror = new \ReflectionClass($this);
 
-		$aMethods = $oMirror->getMethods(ReflectionProperty::IS_PUBLIC);
+		$aMethods = $oMirror->getMethods(\ReflectionProperty::IS_PUBLIC);
 		$aReflectionDocComments = array();
 		foreach ($aMethods as $key => $oReflectionMethod) {
-			/* @var $oReflectionMethod ReflectionMethod */
+			/* @var $oReflectionMethod \ReflectionMethod */
 			if ( stristr($oReflectionMethod->getName(), 'handle') !== false) {
 				$sDocumentation = $oReflectionMethod->getDocComment();
 				if (!empty($sDocumentation)) {
@@ -43,7 +51,7 @@ abstract class vscRESTProcessorA extends vscProcessorA {
 		$this->getMap()->setTemplatePath(VSC_RES_PATH . 'templates');
 		$this->getMap()->setTemplate('introspection.tpl.php');
 
-		return new vscArrayModel ($aReflectionDocComments);
+		return new vscArrayModel($aReflectionDocComments);
 	}
 
 	public function handleRequest (vscHttpRequestA $oRequest) {

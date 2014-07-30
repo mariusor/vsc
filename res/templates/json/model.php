@@ -1,5 +1,10 @@
 <?php
-/* @var $this vscJsonViewA */
+use vsc\infrastructure\vscString;
+use vsc\domain\models\vscArrayModel;
+use vsc\domain\models\vscModelA;
+/* @var vscModelA $model */
+
+/* @var $this \vsc\presentation\views\vscJsonView  */
 $aArray = $model->toArray();
 $mEnd = end ($aArray);
 $sEndKey = key ($aArray);

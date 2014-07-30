@@ -7,8 +7,10 @@
  */
 namespace vsc\application\controllers;
 
-vsc\import ('application/controllers');
-vsc\import ('presentation/views');
+use \vsc\presentation\views\vscHtml5View;
+
+// \vsc\import ('application/controllers');
+// \vsc\import ('presentation/views');
 
 class vscHtml5Controller extends vscXhtmlController {
 	public function getDefaultView () {

@@ -7,7 +7,7 @@
  */
 namespace vsc\domain\models;
 
-vsc\import ('domain/models');
+// \vsc\import ('domain/models');
 class vscEmptyModel extends vscModelA {
 	protected $sPageTitle = null;
 	protected $sPageContent = null;

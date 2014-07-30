@@ -7,6 +7,10 @@
  */
 namespace vsc\presentation\helpers;
 
+use vsc\domain\models\vscModelA;
+use vsc\infrastructure\vscNull;
+use vsc\presentation\views\vscViewA;
+
 class vscViewHelperA extends vscNull /* implements vscViewI  */ {
 	private $sName;
 

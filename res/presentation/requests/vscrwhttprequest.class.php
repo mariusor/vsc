@@ -7,7 +7,7 @@
  */
 namespace vsc\presentation\requests;
 
-vsc\import ('exceptions');
+// \vsc\import ('exceptions');
 class vscRwHttpRequest extends vscHttpRequestA {
 	protected $aTaintedVars = array();
 

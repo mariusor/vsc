@@ -1,16 +1,22 @@
 <?php
-vsc\import (VSC_FIXTURE_PATH);
+// \vsc\import (VSC_FIXTURE_PATH);
 
-vsc\import ('application');
-vsc\import ('controllers');
-vsc\import ('processors');
-vsc\import ('sitemaps');
-vsc\import ('presentation');
-vsc\import ('responses');
-vsc\import ('requests');
-vsc\import ('views');
+// \vsc\import ('application');
+// \vsc\import ('controllers');
+// \vsc\import ('processors');
+// \vsc\import ('sitemaps');
+// \vsc\import ('presentation');
+// \vsc\import ('responses');
+// \vsc\import ('requests');
+// \vsc\import ('views');
 
-class vscRssFrontControllerTest extends PHPUnit_Framework_TestCase {
+use vsc\application\controllers\vscRssController;
+use vsc\presentation\requests\vscRwHttpRequest;
+use vsc\application\sitemaps\vscControllerMap;
+use vsc\presentation\responses\vscHttpResponseA;
+use vsc\presentation\views\vscRssView;
+
+class vscRssFrontControllerTest extends \PHPUnit_Framework_TestCase {
 	private $state;
 
 	public function setUp () {

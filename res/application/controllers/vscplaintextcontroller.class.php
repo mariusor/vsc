@@ -7,8 +7,10 @@
  */
 namespace vsc\application\controllers;
 
-vsc\import ('presentation/views');
-vsc\import ('application/controllers');
+use \vsc\presentation\views\vscPlainTextView;
+
+// \vsc\import ('presentation/views');
+// \vsc\import ('application/controllers');
 class vscPlainTextController extends vscCacheableControllerA implements vscPlainTextControllerI {
 	public function getDefaultView () {
 		return new vscPlainTextView();

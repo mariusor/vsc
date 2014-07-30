@@ -1,5 +1,10 @@
 <?php
-/* @var $this vscTxtViewA */
+use \vsc\domain\models\vscArrayModel;
+use \vsc\infrastructure\vscString;
+use \vsc\domain\models\vscModelA;
+/* @var vscModelA $model */
+
+/* @var $this \vsc\presentation\views\vscTxtView */
 foreach ($model->toArray() as $sName => $mValue) {
 	if (is_scalar($mValue)) {
 		vscString::_echo ("\t", $GLOBALS['depth']);
@@ -7,7 +12,7 @@ foreach ($model->toArray() as $sName => $mValue) {
 		echo $mValue . "\n";
 		continue;
 	} elseif (is_array($mValue)) {
-		$mValue = new vscArrayModel ($mValue);
+		$mValue = new vscArrayModel($mValue);
 	}
 
 	if (vscModelA::isValid($mValue)) {

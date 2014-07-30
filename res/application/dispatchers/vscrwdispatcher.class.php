@@ -8,17 +8,35 @@
  */
 namespace vsc\application\dispatchers;
 
-vsc\import ('application/controllers');
-vsc\import ('application/processors');
-vsc\import ('presentation/responses');
-vsc\import ('domain/models');
-vsc\import ('exceptions');
+// \vsc\import ('application/controllers');
+// \vsc\import ('application/processors');
+// \vsc\import ('presentation/responses');
+// \vsc\import ('domain/models');
+// \vsc\import ('exceptions');
+
+use vsc\application\controllers\vscFrontControllerA;
+use vsc\application\processors\vscErrorProcessor;
+use vsc\application\processors\vscProcessorA;
+use vsc\application\processors\vscStaticFileProcessor;
+use vsc\application\sitemaps\vscControllerMap;
+use vsc\application\sitemaps\vscExceptionSitemap;
+use vsc\application\sitemaps\vscModuleMap;
+use vsc\application\sitemaps\vscProcessorMap;
+use vsc\application\sitemaps\vscRwSiteMap;
+use vsc\application\sitemaps\vscSiteMapA;
+use vsc\presentation\requests\vscRwHttpRequest;
+use vsc\presentation\responses\vscExceptionResponseError;
+use vsc\presentation\responses\vscExceptionResponseRedirect;
+use vsc\presentation\responses\vscHttpResponse;
+use vsc\infrastructure\vscNull;
+use vsc\vscExceptionError;
+use vsc\vscExceptionPath;
 
 class vscRwDispatcher extends vscHttpDispatcherA {
 	/**
 	 * @param array $aMaps
 	 * @throws vscExceptionError
-	 * @return vscMappingA
+	 * @return vscProcessorMap
 	 */
 	public function getCurrentMap ($aMaps) {
 		if (!is_array($aMaps) || empty($aMaps)) {
@@ -44,7 +62,7 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 				$aMatches = array_shift($aMatches);
 				$aMatches = array_slice($aMatches, 1);
 
-				/* @var $oProcessorMapping vscMappingA */
+				/* @var $oProcessorMapping vscProcessorMap */
 				$oProcessorMapping  = $aMaps[$sRegex];
 				$oProcessorMapping->setTaintedVars($aMatches);
 				$oProcessorMapping->setUrl ($sUri);
@@ -55,6 +73,10 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 		return new vscNull();
 	}
 
+	/**
+	 * @return vscModuleMap
+	 * @throws vscExceptionSitemap
+	 */
 	public function getCurrentModuleMap () {
 		if (vscProcessorMap::isValid($this->getCurrentProcessorMap())) {
 			return $this->getCurrentProcessorMap()->getModuleMap();
@@ -63,10 +85,19 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 		}
 	}
 
+	/**
+	 * @return vscProcessorMap
+	 * @throws vscExceptionSitemap
+	 * @throws vscExceptionError
+	 */
 	public function getCurrentProcessorMap () {
 		return $this->getCurrentMap($this->getSiteMap()->getMaps());
 	}
 
+	/**
+	 * @return vscControllerMap
+	 * @throws vscExceptionError
+	 */
 	public function getCurrentControllerMap () {
 		$oProcessorMap	= $this->getCurrentProcessorMap();
 
@@ -117,7 +148,7 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 
 				$sControllerName = vscSiteMapA::getClassName($sPath);
 
-				/* @var $oFront vscFrontControllerA */
+				/* @var $this->oController vscFrontControllerA  */
 				$this->oController = new $sControllerName();
 				// adding the map to the controller, allows it to add resources (styles,scripts) from inside it
 				$this->oController->setMap ($oControllerMapping);
@@ -130,6 +161,8 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/presentation/dispatchers/vscDispatcherA#getProcessController()
+	 * @throws vscExceptionSitemap
+	 * @throws vscExceptionResponseError
 	 * @return vscProcessorA
 	 */
 	public function getProcessController () {
@@ -148,12 +181,12 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 					// dirty import of the module folder and important subfolders
 					$sModuleName = $oProcessorMap->getModuleName();
 					if ( is_dir ($oProcessorMap->getModulePath()) && !$oProcessorMap->isStatic() ) {
-						vsc\import ($oProcessorMap->getModulePath());
+						// \vsc\import ($oProcessorMap->getModulePath());
 						try {
 //							import ($sModuleName);
-							vsc\import ('application');
-							vsc\import ('domain');
-							vsc\import ('presentation');
+							// \vsc\import ('application');
+							// \vsc\import ('domain');
+							// \vsc\import ('presentation');
 						} catch (vscExceptionPath $e) {
 							// ooopps
 						}
@@ -163,7 +196,7 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 					try {
 						$sProcessorName = vscSiteMapA::getClassName($sPath);
 						$this->oProcessor = new $sProcessorName();
-					} catch (Exception $e) {
+					} catch (\Exception $e) {
 						$this->oProcessor = new vscErrorProcessor($e);
 					}
 				} elseif ($this->getSiteMap()->isValidStatic ($sPath) ) {
@@ -179,8 +212,10 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 					$this->oProcessor->setMap ($oProcessorMap);
 
 					// setting the variables defined in the processor into the tainted variables
-					if ($this->getRequest() instanceof vscRwHttpRequest) {
-						$this->getRequest()->setTaintedVars ($this->oProcessor->getLocalVars()); // FIXME!!!
+					/** @var vscRwHttpRequest $oRawRequest */
+					$oRawRequest = $this->getRequest();
+					if (vscRwHttpRequest::isValid($oRawRequest)) {
+						$oRawRequest->setTaintedVars ($this->oProcessor->getLocalVars()); // FIXME!!!
 					}
 				} else {
 					// broken URL
@@ -201,13 +236,13 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 	/**
 	 *
 	 * @param string $sIncPath
-	 * @throws Exception
+	 * @throws \Exception
 	 * @throws vscExceptionSitemap
 	 * @return void
 	 */
 	public function loadSiteMap ($sIncPath) {
 		// @FIXME: this needs to be refactored with some getters/settes
-		$this->setSiteMap (new vscRwSiteMap ());
+		$this->setSiteMap (new vscRwSiteMap());
 		try {
 			// hic sunt leones
 			$oMap = $this->getSiteMap()->map ('\A/', $sIncPath);

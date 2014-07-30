@@ -7,7 +7,9 @@
  */
 namespace vsc\presentation\views;
 
-vsc\import ('presentation/views');
+// \vsc\import ('presentation/views');
+use vsc\domain\models\vscStaticFileModel;
+
 class vscPlainTextView extends vscViewA implements vscViewI {
 	protected $sContentType = 'text/plain';
 	protected $sFolder = 'txt';

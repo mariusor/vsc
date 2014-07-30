@@ -7,7 +7,7 @@
  */
 namespace vsc\presentation\views;
 
-vsc\import ('presentation/views');
+// \vsc\import ('presentation/views');
 class vscHtml5View extends vscXhtmlView {
 	protected $sContentType = 'text/html';
 	protected $sFolder = 'html5';

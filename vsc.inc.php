@@ -1,4 +1,6 @@
 <?php
+use vsc\infrastructure\vsc;
+
 if (!defined ('VSC_PATH')) {
 	define ('VSC_PATH', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 }
@@ -13,11 +15,11 @@ if ($iMajorVersion < 5 || $iMinorVersion < 3) {
 
 	throw new ErrorException ($sMessage, E_USER_ERROR);
 } else {
-	vsc\import (VSC_LIB_PATH);
-	vsc\import (VSC_RES_PATH);
+	 \vsc\import (VSC_LIB_PATH);
+	 \vsc\import (VSC_RES_PATH);
 
 	// including the infrastructure folder
-	vsc\import ('infrastructure');
+	 \vsc\import ('infrastructure');
 
 	require ('vsc.class.php');
 }

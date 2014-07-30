@@ -1,4 +1,5 @@
 <?php
+/* @var \vsc\domain\models\vscModelA $model */
 $t = array();
 
 foreach ($model as $key => $data) {

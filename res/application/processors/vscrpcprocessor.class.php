@@ -7,8 +7,15 @@
  */
 namespace vsc\application\processors;
 
-vsc\import ('domain');
-vsc\import ('access');
+// \vsc\import ('domain');
+// \vsc\import ('access');
+use vsc\domain\models\vscJsonRPCRequest;
+use vsc\domain\models\vscJsonRPCResponse;
+use vsc\presentation\requests\vscHttpRequestA;
+use vsc\presentation\responses\vscExceptionResponseError;
+use vsc\presentation\responses\vscHttpResponse;
+use vsc\vscException;
+
 abstract class vscRPCProcessor extends vscProcessorA {
 	private $oRequest;
 	private $oResponse;
@@ -37,9 +44,9 @@ abstract class vscRPCProcessor extends vscProcessorA {
 	public function hasRPCMethod ($oInterface, $sMethod) {
 		if (empty ($sMethod) || empty ($oInterface)) return false;
 
-		$oReflectedInterface = new ReflectionObject($oInterface);
+		$oReflectedInterface = new \ReflectionObject($oInterface);
 		if ($oReflectedInterface->hasMethod($sMethod)) {
-			/* @var $oReflectedMethod ReflectionMethod */
+			/* @var $oReflectedMethod \ReflectionMethod */
 			$oReflectedMethod = $oReflectedInterface->getMethod($sMethod);
 			return $oReflectedMethod->isPublic();
 		}
@@ -63,9 +70,9 @@ abstract class vscRPCProcessor extends vscProcessorA {
 				throw new vscExceptionResponseError('Invalid RPC request: missing parameters');
 			}
 
-			$oReflectedInterface = new ReflectionObject($oInterface);
+			$oReflectedInterface = new \ReflectionObject($oInterface);
 			if ($oReflectedInterface->hasMethod($sMethod)) {
-				/* @var $oReflectedMethod ReflectionMethod */
+				/* @var $oReflectedMethod \ReflectionMethod */
 				$oReflectedMethod = $oReflectedInterface->getMethod($sMethod);
 				if ( $oReflectedMethod->isPublic() ) {
 					return $oReflectedMethod->invokeArgs($oInterface, $this->oRequest->params);

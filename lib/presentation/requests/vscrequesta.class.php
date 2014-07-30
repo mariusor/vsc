@@ -7,7 +7,16 @@
  */
 namespace vsc\presentation\requests;
 
+use vsc\infrastructure\vsc;
+use vsc\infrastructure\vscObject;
+use vsc\vscException;
+
 abstract class vscRequestA extends vscObject {
+	private $aVarOrder;
+
+	abstract public function getServerProtocol();
+	abstract public function getHttpMethod();
+	abstract public function getHttpAccept();
 
 	public function __construct () {
 		if (isset($_SERVER)) {
@@ -24,7 +33,7 @@ abstract class vscRequestA extends vscObject {
 				$this->aAcceptCharset	= explode (',', $_SERVER['HTTP_ACCEPT_CHARSET']);
 
 			if (isset ($_SERVER['HTTP_USER_AGENT']))
-			$this->sUserAgent			= $_SERVER['HTTP_USER_AGENT'];
+				$this->sUserAgent			= $_SERVER['HTTP_USER_AGENT'];
 			if (isset ($_SERVER['HTTP_REFERER']))
 				$this->sReferer			= $_SERVER['HTTP_REFERER'];
 		}
@@ -35,7 +44,7 @@ abstract class vscRequestA extends vscObject {
 	}
 
 	/**
-	 * @return []
+	 * @return string[]
 	 */
 	public function getVarOrder () {
 		if (count($this->aVarOrder) != 4){
@@ -72,7 +81,7 @@ abstract class vscRequestA extends vscObject {
 		foreach ($this->getVarOrder() as $sMethod) {
 			switch ($sMethod) {
 			case 'S':
-				$mVal = $this->getSeesionVar($sVarName);
+				$mVal = $this->getSessionVar($sVarName);
 				break;
 			}
 			if ($mVal) {
@@ -83,7 +92,7 @@ abstract class vscRequestA extends vscObject {
 	}
 
 	public function hasSessionVar ($sVarName) {
-		return key_exists($sVarName, $_SESSION);
+		return array_key_exists($sVarName, $_SESSION);
 	}
 
 	public function hasSession () {
@@ -127,7 +136,7 @@ abstract class vscRequestA extends vscObject {
 	 * @return mixed
 	 */
 	public function getSessionVar ($sVarName) {
-		if (key_exists($sVarName, $_SESSION)) {
+		if (array_key_exists($sVarName, $_SESSION)) {
 			return self::getDecodedVar($_SESSION[$sVarName]);
 		} else {
 			return null;

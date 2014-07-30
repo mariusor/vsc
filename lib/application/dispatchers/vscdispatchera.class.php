@@ -8,7 +8,18 @@
  */
 namespace vsc\application\dispatchers;
 
-vsc\import ('application/sitemaps');
+// \vsc\import ('application/sitemaps');
+use vsc\application\controllers\vscFrontControllerA;
+use vsc\application\processors\vscProcessorA;
+use vsc\application\sitemaps\vscExceptionSitemap;
+use vsc\application\sitemaps\vscSiteMapA;
+use vsc\infrastructure\vsc;
+use vsc\infrastructure\vscObject;
+use vsc\presentation\requests\vscHttpRequestA;
+use vsc\vscExceptionPath;
+use vsc\application\sitemaps\vscControllerMap;
+use vsc\application\sitemaps\vscProcessorMap;
+
 abstract class vscDispatcherA extends vscObject {
 	/**
 	 * @var vscHttpRequestA
@@ -20,12 +31,12 @@ abstract class vscDispatcherA extends vscObject {
 	private $oSiteMap;
 
 	/**
-	 * @var vscProcessorA
+	 * @var vscProcessorMap
 	 */
 	protected $oProcessor;
 
 	/**
-	 * @var vscControllerA
+	 * @var vscControllerMap
 	 */
 	protected $oController;
 

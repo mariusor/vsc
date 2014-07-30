@@ -1,4 +1,10 @@
 <?php
+/**
+ * @package vsc_presentation
+ * @subpackage responses
+ * @author marius orcsik <marius@habarnam.ro>
+ * @date 2011.11.20
+ */
 namespace vsc\presentation\responses;
 
 class vscHttpResponseType {
@@ -7,7 +13,7 @@ class vscHttpResponseType {
 	}
 
 	public static function isValidStatus ($iStatus) {
-		return key_exists($iStatus, static::$aStatusList);
+		return array_key_exists($iStatus, static::$aStatusList);
 	}
 
 	static protected $aStatusList = array(

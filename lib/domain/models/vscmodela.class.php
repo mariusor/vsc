@@ -7,6 +7,9 @@
  */
 namespace vsc\domain\models;
 
+use vsc\infrastructure\vscNull;
+use vsc\vscExceptionUnimplemented;
+
 abstract class vscModelA extends vscNull implements vscModelI {
 	/**
 	 * @var string
@@ -50,7 +53,7 @@ abstract class vscModelA extends vscNull implements vscModelI {
 	 * @param string $sOffset
 	 */
 	public function offsetUnset($sOffset) {
-		$oProperty = new ReflectionProperty($this, $sOffset);
+		$oProperty = new \ReflectionProperty($this, $sOffset);
 		if ($oProperty->isPublic()) {
 			unset ($this->$sOffset);
 		}
@@ -121,11 +124,11 @@ abstract class vscModelA extends vscNull implements vscModelI {
 
 	public function __get ($sIncName) {
 		try {
-			$oProperty = new ReflectionProperty($this, $sIncName);
+			$oProperty = new \ReflectionProperty($this, $sIncName);
 			if (!$oProperty->isPublic()) {
 				// try for a getter method
 				$sGetterName = 'get'.ucfirst($sIncName);
-				$oGetter = new ReflectionMethod($this, $sGetterName);
+				$oGetter = new \ReflectionMethod($this, $sGetterName);
 
 				$this->sOffset = $sIncName; // ?? I wonder if setting the offset to the current read position is the right way
 				return $oGetter->invoke($this, $sIncName);
@@ -133,7 +136,7 @@ abstract class vscModelA extends vscNull implements vscModelI {
 				$this->sOffset = $sIncName; // ?? I wonder if setting the offset to the current read position is the right way
 				return $oProperty->getValue($this);
 			}
-		} catch (ReflectionException $e) {
+		} catch (\ReflectionException $e) {
 //			d ($e);
 //			$this->sOffset = $sIncName;
 //			return $this->$sIncName;
@@ -144,14 +147,14 @@ abstract class vscModelA extends vscNull implements vscModelI {
 
 	public function __set($sIncName, $value) {
 		if (is_null($sIncName)) {
-			throw ReflectionError ('Can\'t set a value to a null property on the current object ['. get_class ($this).']');
+			throw new \ReflectionException ('Can\'t set a value to a null property on the current object ['. get_class ($this).']');
 		}
 		try {
-			$oProperty = new ReflectionProperty($this, $sIncName);
+			$oProperty = new \ReflectionProperty($this, $sIncName);
 			if (!$oProperty->isPublic()) {
 				// trying for a setter
 				$sSetterName = 'set'.ucfirst($sIncName);
-				$oSetter = new ReflectionMethod($this, $sSetterName);
+				$oSetter = new \ReflectionMethod($this, $sSetterName);
 
 				$oSetter->invoke($this, $value);
 			} else {
@@ -160,7 +163,7 @@ abstract class vscModelA extends vscNull implements vscModelI {
 
 			$this->sOffset = $sIncName;
 			return;
-		} catch (ReflectionException $e) {
+		} catch (\ReflectionException $e) {
 //			$this->sOffset = $sIncName;
 //			$this->$sIncName = $value;
 		}
@@ -189,10 +192,10 @@ abstract class vscModelA extends vscNull implements vscModelI {
 
 	protected function getPropertyNames ($bAll = false) {
 		$aRet = array();
-		$t = new ReflectionObject($this);
+		$t = new \ReflectionObject($this);
 		$aProperties = $t->getProperties();
 
-		/* @var $oProperty ReflectionProperty */
+		/* @var $oProperty \ReflectionProperty */
 		foreach ($aProperties as $oProperty) {
 			if ($bAll || (!$bAll && $oProperty->isPublic() )) {
 				$aRet[] = $oProperty->getName();
@@ -205,13 +208,14 @@ abstract class vscModelA extends vscNull implements vscModelI {
 	 *
 	 * Enter description here ...
 	 * @param bool $bIncludeNonPublic
+	 * @return array
 	 */
 	protected function getProperties ($bIncludeNonPublic = false) {
 		$aRet = array();
-		$t = new ReflectionObject($this);
+		$t = new \ReflectionObject($this);
 		$aProperties = $t->getProperties();
 
-		/* @var $oProperty ReflectionProperty */
+		/* @var $oProperty \ReflectionProperty */
 		foreach ($aProperties as $oProperty) {
 			$sName = $oProperty->getName();
 			if ($oProperty->isPublic()) {
@@ -231,7 +235,7 @@ abstract class vscModelA extends vscNull implements vscModelI {
 		$aProperties = $this->getProperties();
 		foreach ($aProperties as $sName => $oProperty) {
 			if (vscModelA::isValid($oProperty)) {
-				/* @var $oProerty vscModelA */
+				/* @var $oProperty vscModelA */
 				$aRet[$sName] = $oProperty->toArray();
 			} elseif (is_array($oProperty) || is_scalar($oProperty)) {
 				$aRet[$sName] = $oProperty;

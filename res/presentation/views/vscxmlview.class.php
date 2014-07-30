@@ -7,8 +7,8 @@
  */
 namespace vsc\presentation\views;
 
-vsc\import ('presentation/views');
-vsc\import ('presentation/views/exceptions');
+// \vsc\import ('presentation/views');
+// \vsc\import ('presentation/views/exceptions');
 
 class vscXmlView extends vscViewA implements vscXmlViewI {
 	protected $sContentType = 'application/xml';
@@ -43,6 +43,6 @@ class vscXmlView extends vscViewA implements vscXmlViewI {
 	 * @see lib/presentation/views/vscViewI#display($resource_name, $cache_id, $compile_id)
 	 */
 	public function display ($resource_name) {
-		d ($resource_name);
+		\vsc\d ($resource_name);
 	}
 }

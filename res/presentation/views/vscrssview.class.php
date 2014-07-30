@@ -7,7 +7,7 @@
  */
 namespace vsc\presentation\views;
 
-vsc\import ('presentation/views');
+// \vsc\import ('presentation/views');
 class vscRssView extends vscViewA implements vscRssViewI {
 	protected $sContentType = 'application/rss+xml';
 	protected $sFolder = 'rss';
@@ -30,7 +30,22 @@ class vscRssView extends vscViewA implements vscRssViewI {
 	 */
     public function display($resource_name) {}
 
-	public function getDescription(){}
-	public function getLanguage(){}
-	public function getLastBuildDate(){}
+	/**
+	 * @return string
+	 */
+	public function getDescription() {
+		return '';
+	}
+	/**
+	 * @return string
+	 */
+	public function getLanguage() {
+		return '';
+	}
+	/**
+	 * @return string
+	 */
+	public function getLastBuildDate() {
+		return '';
+	}
 }

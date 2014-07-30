@@ -34,12 +34,12 @@ class vscString {
 	 * @return string
 	 */
 	static public function nl () {
-		return isCli() ? "\n" : '<br/>' . "\n";
+		return vsc::isCli() ? "\n" : '<br/>' . "\n";
 	}
 
 	/**
 	 * Removes all extra spaces from a string
-	 * @param string $s
+	 * @param string $sString
 	 * @return string
 	 */
 	static public function allTrim ($sString) {

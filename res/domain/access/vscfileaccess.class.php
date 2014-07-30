@@ -7,7 +7,10 @@
  */
 namespace vsc\domain\access;
 
-vsc\import ('domain/access');
+// \vsc\import ('domain/access');
+use vsc\infrastructure\vscObject;
+use vsc\vscExceptionError;
+
 class vscFileAccess extends vscObject {
 	private $sUri;
 

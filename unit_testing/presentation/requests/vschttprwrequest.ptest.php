@@ -1,5 +1,5 @@
 <?php
-class vscHttpRwRequestTest extends PHPUnit_Framework_TestCase {
+class vscHttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @var vscHttpRequestA
 	 */
@@ -15,7 +15,7 @@ class vscHttpRwRequestTest extends PHPUnit_Framework_TestCase {
 			'HTTP_ACCEPT' => 'application/html,text/html;charset=UTF8,image/*'
 		);
 
-		vsc\import ('presentation/requests');
+		// \vsc\import ('presentation/requests');
 		$this->state = new vscRwHttpRequest();
 	}
 

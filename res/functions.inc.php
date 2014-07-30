@@ -1,5 +1,7 @@
 <?php
 namespace vsc;
+use vsc\infrastructure\vsc;
+
 /**
  * Function to turn the triggered errors into exceptions
  * @author troelskn at gmail dot com
@@ -8,7 +10,7 @@ namespace vsc;
  * @param $sMessage
  * @param $sFilename
  * @param $iLineNo
- * @throws \vscExceptionError
+ * @throws vscExceptionError
  * @return void
  */
 function exceptions_error_handler ($iSeverity, $sMessage, $sFilename, $iLineNo) {
@@ -19,7 +21,7 @@ function exceptions_error_handler ($iSeverity, $sMessage, $sFilename, $iLineNo) 
 	if (error_reporting() & $iSeverity) {
 		// the __autoload seems not to be working here
 		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexceptionerror.class.php'));
-		throw new \vscExceptionError ($sMessage, 0, $iSeverity, $sFilename, $iLineNo);
+		throw new vscExceptionError ($sMessage, 0, $iSeverity, $sFilename, $iLineNo);
 	}
 }
 
@@ -33,7 +35,7 @@ function d () {
 		ob_end_clean();
 	}
 
-	if (!isCli()) {
+	if (!vsc::isCli()) {
 		// not running in console
 		echo '<pre>';
 	}
@@ -42,14 +44,14 @@ function d () {
 		// maybe I should just output the whole array $aRgs
 		try {
 			var_dump($object);
-			if (isCli()) echo "\n\n";
-		} catch (Exception $e) {
+			if (vsc::isCli()) echo "\n\n";
+		} catch (\Exception $e) {
 			//
 		}
 	}
 	debug_print_backtrace();
 
-	if (!isCli()) {
+	if (!vsc::isCli()) {
 		// not running in console
 		echo '</pre>';
 	}
@@ -150,8 +152,8 @@ function addPath ($pkgPath, $sIncludePath = null) {
  * Adds the package name to the include path
  * Also we are checking if an existing import exists, which would define some application specific import rules
  * @param string $sIncPath
- * @return bool
  * @throws vscExceptionPackageImport
+ * @return bool
  */
 function import ($sIncPath) {
 	// fixing the paths to be fully compliant with the OS - indifferently how they are set
@@ -183,7 +185,7 @@ function import ($sIncPath) {
 		include_once(VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexceptionpath.class.php');
 		include_once(VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexceptionpackageimport.class.php');
 
-		throw new \vscExceptionPackageImport ('Bad package [' . $sIncPath . ']');
+		throw new vscExceptionPackageImport ('Bad package [' . $sIncPath . ']');
 // 		return false;
 	} else {
 		return true;
@@ -192,7 +194,7 @@ function import ($sIncPath) {
 
 if (!function_exists('_e')) {
 	function getErrorHeaderOutput ($e = null) {
-		if (!isCli()) {
+		if (!vsc::isCli()) {
 			header ('HTTP/1.1 500 Internal Server Error');
 			$sRet = '<?xml version="1.0" encoding="utf-8"?>';
 			$sRet .= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"';
@@ -200,14 +202,14 @@ if (!function_exists('_e')) {
 			$sRet .= '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">';
 			$sRet .= '<head>';
 			$sRet .= '<style>ul {padding:0; font-size:0.8em} li {padding:0.2em;display:inline} address {position:fixed;bottom:0;}</style>';
-			$sRet .= '<title>Internal Error' . (!($e instanceof Exception) ? '' : ': '. substr($e->getMessage(), 0, 20) . '...') . '</title>';
+			$sRet .= '<title>Internal Error' . (!($e instanceof \Exception) ? '' : ': '. substr($e->getMessage(), 0, 20) . '...') . '</title>';
 			$sRet .= '</head>';
 			$sRet .= '<body>';
-			$sRet .= '<strong>Internal Error' . (!($e instanceof Exception) ? '' : ': '. $e->getMessage()) . '</strong>';
+			$sRet .= '<strong>Internal Error' . (!($e instanceof \Exception) ? '' : ': '. $e->getMessage()) . '</strong>';
 			$sRet .= '<address>&copy; VSC</address>';
 			$sRet .= '<ul><li><a href="#" onclick="p = document.getElementById(\'trace\'); if (p.style.display==\'block\') p.style.display=\'none\';else p.style.display=\'block\'; return false">toggle trace</a></li><li><a href="javascript: p = document.getElementById(\'trace\'); document.location.href =\'mailto:'.ROOT_MAIL.'?subject=Problems&amp;body=\' + p.innerHTML; return false">mail me</a></li></ul>';
 
-			if ($e instanceof Exception)
+			if ($e instanceof \Exception)
 				$sRet .= '<p style="font-size:.8em">Triggered in <strong>' . $e->getFile() . '</strong> at line ' . $e->getLine() .'</p>';
 
 			$sRet .= '<pre style="position:fixed;bottom:2em;display:none;font-size:.8em" id="trace">';
@@ -219,34 +221,40 @@ if (!function_exists('_e')) {
 	function _e ($e) {
 		$aErrors = cleanBuffers();
 		$sRet = '';
-		if (!isCli()) {
+		if (!vsc::isCli()) {
 			header ('HTTP/1.1 500 Internal Server Error');
 			echo getErrorHeaderOutput ($e);
 		}
 
 		if ( isDebug() ) {
-			echo ($e instanceof Exception) ? $e->getTraceAsString() : '';
+			echo ($e instanceof \Exception) ? $e->getTraceAsString() : '';
 		}
 
 		if (count($aErrors) > 0) {
-			if (!isCli()) { echo '<h2>'; }
+			if (!vsc::isCli()) { echo '<h2>'; }
 			echo 'Previous Errors';
-			if (!isCli()) { echo '</h2>'; }
-			if (!isCli()) { echo '<p>'; }
-			echo implode ($aErrors, isCli() ? "\n" : '<br/>');
-			if (!isCli()) { echo '</p>'; }
+			if (!vsc::isCli()) { echo '</h2>'; }
+			if (!vsc::isCli()) { echo '<p>'; }
+			echo implode ($aErrors, vsc::isCli() ? "\n" : '<br/>');
+			if (!vsc::isCli()) { echo '</p>'; }
 		}
 
-		if (!isCli()) {
+		if (!vsc::isCli()) {
 			echo '</pre>';
 			echo '</body>';
 			echo '</html>';
 		} else {
-			if ($e instanceof Exception) {
+			if ($e instanceof \Exception) {
 				$e->getMessage() . "\n";
 				$sRet .= "\t". $e->getFile() . ' at line ' . $e->getLine() . "\n";
 			}
 		}
 		exit (0);
+	}
+}
+
+if (!function_exists('isDebug')) {
+	function isDebug() {
+		return true;
 	}
 }

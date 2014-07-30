@@ -7,13 +7,20 @@
  */
 namespace vsc\application\processors;
 
-vsc\import ('domain/models');
+// \vsc\import ('domain/models');
+
+use vsc\application\sitemaps\vscErrorMap;
+use vsc\domain\models\vscErrorModel;
+use vsc\presentation\requests\vscHttpRequestA;
+use vsc\presentation\responses\vscExceptionResponseError;
 
 class vscErrorProcessor extends vscProcessorA implements vscErrorProcessorI {
 	private $model;
 
 	public function getErrorCode () {
-		$e = $this->getModel()->getException();
+		/** @var vscErrorModel $oErrorModel */
+		$oErrorModel = $this->getModel();
+		$e = $oErrorModel->getException();
 		if ($e instanceof vscExceptionResponseError) {
 			return $e->getCode();
 		} else {
@@ -21,7 +28,7 @@ class vscErrorProcessor extends vscProcessorA implements vscErrorProcessorI {
 		}
 	}
 
-	public function __construct (Exception $e) {
+	public function __construct (\Exception $e) {
 		$this->setException ($e);
 
 		$oErrorMap = new vscErrorMap();
@@ -37,7 +44,7 @@ class vscErrorProcessor extends vscProcessorA implements vscErrorProcessorI {
 
 	public function init () {}
 
-	public function setException (Exception $e) {
+	public function setException (\Exception $e) {
 		$this->model = new vscErrorModel($e);
 	}
 

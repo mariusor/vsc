@@ -7,7 +7,10 @@
  */
 namespace vsc\application\processors;
 
-vsc\import ('domain/models');
+// \vsc\import ('domain/models');
+use vsc\domain\models\vscStaticFileModel;
+use vsc\presentation\requests\vscHttpRequestA;
+
 class vscStaticFileProcessor extends vscProcessorA {
 	private $sFilePath;
 

@@ -7,6 +7,9 @@
  */
 namespace vsc\domain\models;
 
+use vsc\infrastructure\vsc;
+use vsc\presentation\requests\vscRawHttpRequest;
+
 class vscJsonRPCRequest extends vscModelA {
 	public $id = null;
 	public $method = '';

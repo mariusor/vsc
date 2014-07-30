@@ -1,5 +1,7 @@
 <?php
-vsc\import ('application/processors');
+// \vsc\import ('application/processors');
+use vsc\application\processors\vscProcessorA;
+use vsc\presentation\requests\vscHttpRequestA;
 
 class testFixtureProcessor extends vscProcessorA {
 	public $return;

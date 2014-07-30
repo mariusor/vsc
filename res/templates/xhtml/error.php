@@ -1,8 +1,11 @@
+<?php
+/* @var \vsc\domain\models\vscErrorModel $model */
+?>
 <style>ul {padding:0; font-size:0.8em} li {padding:0.2em;display:inline} address {position:fixed;bottom:0;}</style>
 
 <?php $e = $model->getException(); ?>
 <strong>Internal Error <?php echo (!$e ? '' : ': '. $e->getMessage()); ?></strong>
-<?php if (vsc::getEnv()->isDevelopment()) {?>
+<?php if (\vsc\infrastructure\vsc::getEnv()->isDevelopment()) {?>
 <ul>
 	<li>
 		<a href="#" onclick="p = document.getElementById('trace'); if (p.style.display=='block') p.style.display='none';else p.style.display='block'; return false">toggle trace</a>

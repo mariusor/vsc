@@ -7,7 +7,7 @@
  */
 namespace vsc\presentation\requests;
 
-vsc\import ('requests');
+// \vsc\import ('requests');
 class vscCLIRequest extends vscRequestA {
 	protected $aVars = array();
 
@@ -32,6 +32,6 @@ class vscCLIRequest extends vscRequestA {
 	 * @return void
 	 */
 	public function constructVars () {
-		$this->aVars = parse_str($_SERVER['argv']);
+		parse_str($_SERVER['argv'], $this->aVars);
 	}
 }

@@ -1,5 +1,7 @@
 <?php
 namespace vsc\presentation;
 
-vsc\import ('exceptions');
+// \vsc\import ('exceptions');
+use vsc\vscException;
+
 class vscExceptionPresentation extends vscException {}

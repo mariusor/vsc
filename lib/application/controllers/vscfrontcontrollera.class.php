@@ -6,10 +6,31 @@
  * @date 09.08.30
  */
 namespace vsc\application\controllers;
-vsc\import (VSC_LIB_PATH . 'application/processors');
-vsc\import (VSC_LIB_PATH . 'presentation/responses');
-vsc\import (VSC_RES_PATH . 'application/processors');
-vsc\import (VSC_RES_PATH . 'domain/models');
+// \vsc\import (VSC_LIB_PATH . 'application/processors');
+// \vsc\import (VSC_LIB_PATH . 'presentation/responses');
+// \vsc\import (VSC_RES_PATH . 'application/processors');
+// \vsc\import (VSC_RES_PATH . 'domain/models');
+
+use vsc\application\processors\vscErrorProcessor;
+use vsc\application\processors\vscProcessorA;
+use vsc\application\sitemaps\vscControllerMap;
+use vsc\application\sitemaps\vscMappingA;
+use vsc\application\sitemaps\vscProcessorMap;
+use vsc\application\sitemaps\vscSiteMapA;
+use vsc\domain\models\vscEmptyModel;
+use vsc\domain\models\vscModelA;
+use vsc\infrastructure\vscObject;
+use vsc\presentation\responses\vscExceptionResponseError;
+use vsc\presentation\responses\vscExceptionResponseRedirect;
+use vsc\presentation\responses\vscHttpResponseA;
+use vsc\presentation\responses\vscHttpResponseType;
+use vsc\presentation\views\vscExceptionView;
+use vsc\presentation\requests\vscHttpRequestA;
+use vsc\presentation\responses\vscHttpResponse;
+use vsc\presentation\views\vscViewA;
+use vsc\vscExceptionPath;
+use vsc\presentation\responses\vscExceptionResponse;
+
 abstract class vscFrontControllerA extends vscObject {
 	/**
 	 * @var string
@@ -17,7 +38,7 @@ abstract class vscFrontControllerA extends vscObject {
 	private $sTemplatePath;
 
 	/**
-	 * @var vscControllerA
+	 * @var vscControllerMap
 	 */
 	private $oCurrentMap;
 
@@ -87,7 +108,7 @@ abstract class vscFrontControllerA extends vscObject {
 				$oResponse->setLocation ($e->getLocation());
 
 				return $oResponse;
-			} catch (Exception $e) {
+			} catch (\Exception $e) {
 				// we had error in the controller
 				// @todo make more error processors
 				if ( $e instanceof vscExceptionResponseError ) {

@@ -7,6 +7,9 @@
  */
 namespace vsc\domain\domain;
 
+use vsc\domain\models\vscModelA;
+use vsc\vscExceptionUnimplemented;
+
 class vscRssItem extends vscModelA {
 	public $title;
 	public $link;
@@ -15,12 +18,12 @@ class vscRssItem extends vscModelA {
 	public $pubDate;
 	public $guid;
 
-	public function __construct (DOMNode $oNode) {
+	public function __construct (\DOMNode $oNode) {
 		$this->buildObj ($oNode);
 	}
 
-	public function buildObj (DOMNode $oNode) {
-		if ( $oNode->nodeName == 'item' && $oNode->childNodes instanceof DOMNodeList) {
+	public function buildObj (\DOMNode $oNode) {
+		if ( $oNode->nodeName == 'item' && $oNode->childNodes instanceof \DOMNodeList) {
 			foreach ($oNode->childNodes as $oChildNode) {
 				$sName = $oChildNode->nodeName;
 				if (

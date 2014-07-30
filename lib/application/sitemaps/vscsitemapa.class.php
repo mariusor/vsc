@@ -7,6 +7,11 @@
  */
 namespace vsc\application\sitemaps;
 
+use vsc\application\controllers\vscFrontControllerA;
+use vsc\application\processors\vscProcessorA;
+use vsc\infrastructure\vscNull;
+use vsc\infrastructure\vscObject;
+
 abstract class vscSiteMapA extends vscObject {
 	/**
 	 * the base regex for the current map
@@ -14,6 +19,9 @@ abstract class vscSiteMapA extends vscObject {
 	 * @var string
 	 */
 	private $aMaps = array();
+	/**
+	 * @var vscModuleMap
+	 */
 	private $oCurrentModuleMap;
 
 	public function __construct () {}
@@ -38,7 +46,7 @@ abstract class vscSiteMapA extends vscObject {
 			$sRegex = $oModuleMap->getRegex() . $sRegex;
 		}
 
-		if (!key_exists($sRegex, $this->aMaps)) {
+		if (!array_key_exists($sRegex, $this->aMaps)) {
 			$oNewMap 	= new vscProcessorMap($sPath, $sRegex);
 
 			if (vscMappingA::isValid($oModuleMap)) {
@@ -101,12 +109,16 @@ abstract class vscSiteMapA extends vscObject {
 	}
 
 	/**
-	 * @return array
+	 * @return vscProcessorMap[]
 	 */
 	public function getMaps () {
 		return $this->aMaps;
 	}
 
+	/**
+	 * @param $sPath
+	 * @return bool
+	 */
 	static public function isValidStatic ($sPath) {
 		return (is_file ($sPath) && !stristr($sPath, 'php'));
 	}
@@ -160,6 +172,7 @@ abstract class vscSiteMapA extends vscObject {
 	 *
 	 * @param string $sRegex
 	 * @param string $sPath
+	 * @throws vscExceptionSitemap
 	 * @return vscMappingA
 	 */
 	public function map ($sRegex, $sPath) {
@@ -191,6 +204,9 @@ abstract class vscSiteMapA extends vscObject {
 		throw new vscExceptionSitemap('The file ['.$sPath.'] could not be loaded.');
 	}
 
+	/**
+	 * @return vscModuleMap[]
+	 */
 	private function getAllModules () {
 		$aProcessorMaps = $this->getMaps();
 		$aModuleMaps = array();
@@ -207,6 +223,9 @@ abstract class vscSiteMapA extends vscObject {
 		return $aModuleMaps;
 	}
 
+	/**
+	 * @return vscControllerMap[]
+	 */
 	private function getAllControllers () {
 		$aProcessorMaps = $this->getMaps();
 		$aControllerMaps = array();
@@ -227,22 +246,23 @@ abstract class vscSiteMapA extends vscObject {
 	}
 
 	public function getModuleMappings () {
-		/* @var $oModule vscModuleMapping */
 		foreach($this->getAllModules() as $sKey => $oModule) {
 			$aC[$sKey] = $oModule->getPath();
 		}
 		return $aC;
 	}
 
+	/**
+	 * @return vscProcessorMap[]
+	 */
 	public function getProcessorMappings () {
-		/* @var $oModule vscModuleMapping */
 		foreach($this->getMaps() as $sKey => $oProcessor) {
 			$aC[$sKey] = $oProcessor->getPath();
 		}
 		return $aC;
 	}
 
-	public function findProcessorMap (vscProcessorI $oProcessor) {
+	public function findProcessorMap (vscProcessorA $oProcessor) {
 		$sNameLower = strtolower(get_class($oProcessor));
 
 		/* @var $oProcessorMap vscProcessorMap */

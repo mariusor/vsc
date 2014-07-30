@@ -1,4 +1,9 @@
-<?php /* @var $this vscJsonTxtA  */ ?>
+<?php
+use vsc\infrastructure\vscString;
+use vsc\infrastructure\vsc;
+use \vsc\vscException;
+
+/* @var $this \vsc\presentation\views\vscTxtView  */ ?>
 Default TXT template
 
 This is the default txt template from the <?php echo vscString::stripTags(vsc::name()); ?> framework.
@@ -28,6 +33,6 @@ try {
 	echo $this->fetch (dirname(__FILE__) . '/model.php');
 	echo "\n";
 } catch (vscException $e) {
-	d ($e);
+	\vsc\d ($e);
 }
 ?>

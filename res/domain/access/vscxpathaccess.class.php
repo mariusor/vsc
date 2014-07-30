@@ -7,6 +7,8 @@
  */
 namespace vsc\domain\access;
 
+use vsc\infrastructure\vscObject;
+
 class vscXPathAccess extends vscObject {
 	private $xml;
 }

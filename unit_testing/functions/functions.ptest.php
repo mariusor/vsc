@@ -1,5 +1,5 @@
 <?php
-class functions extends PHPUnit_Framework_TestCase {
+class functions extends \PHPUnit_Framework_TestCase {
 
 	private $state;
 
@@ -17,7 +17,7 @@ class functions extends PHPUnit_Framework_TestCase {
 	 */
 	public function testImportWithOutExceptionsReturnPath () {
 		set_include_path ('.');
-		vsc\import (VSC_LIB_PATH); // this should exist at all times
+		// \vsc\import (VSC_LIB_PATH); // this should exist at all times
 		$sTestPath = '.' . PATH_SEPARATOR . substr (VSC_LIB_PATH,0,-1);
 
 		$this->assertEquals (get_include_path(), $sTestPath);
@@ -26,10 +26,10 @@ class functions extends PHPUnit_Framework_TestCase {
 
 	public function testImportWithExceptionsReturnPath () {
 		set_include_path ('.');
-		vsc\import (VSC_LIB_PATH); // this should exist at all times
+		// \vsc\import (VSC_LIB_PATH); // this should exist at all times
 		$sLocalPackage = 'exceptions';
 		try {
-			vsc\import ($sLocalPackage); // this should exist at all times and have exceptions
+			// \vsc\import ($sLocalPackage); // this should exist at all times and have exceptions
 		} catch (Exception $e) {
 
 		}
@@ -41,7 +41,7 @@ class functions extends PHPUnit_Framework_TestCase {
 		$e = 0;
 		$sPackageName = '...';
 		try {
-			vsc\import ($sPackageName);
+			// \vsc\import ($sPackageName);
 		} catch (Exception $e) {
 			return $this->assertInstanceOf ('vscExceptionPackageImport', $e, 'The import function didn\'t throw the correct exception.');
 		}

@@ -1,4 +1,6 @@
 <?php
+use vsc\presentation\views\vscViewA;
+
 class testView extends vscViewA {
 	/**
 	 * This is a helper method to allow us to set a non-public parameter

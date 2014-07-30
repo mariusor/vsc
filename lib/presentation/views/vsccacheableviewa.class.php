@@ -7,6 +7,8 @@
  */
 namespace vsc\presentation\views;
 
+use vsc\infrastructure\caching\vscCacheableI;
+
 abstract class vscCacheableViewA extends vscViewA implements vscCacheableI {
 	abstract public function getMTime ();
 }

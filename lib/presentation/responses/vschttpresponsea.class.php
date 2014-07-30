@@ -7,9 +7,17 @@
  */
 namespace vsc\presentation\responses;
 
-vsc\import ('presentation');
-vsc\import ('requests');
-vsc\import ('views');
+// \vsc\import ('presentation');
+// \vsc\import ('requests');
+// \vsc\import ('views');
+use vsc\domain\models\vscErrorModel;
+use vsc\infrastructure\vsc;
+use vsc\infrastructure\vscNull;
+use vsc\infrastructure\vscObject;
+use vsc\presentation\requests\vscCLIRequest;
+use vsc\presentation\requests\vscHttpRequestTypes;
+use vsc\presentation\views\vscViewA;
+
 abstract class vscHttpResponseA extends vscObject {
 	static protected $aStatusList = array(
 		200 => '200 OK',
@@ -115,7 +123,8 @@ abstract class vscHttpResponseA extends vscObject {
 	}
 
 	/**
-	 * @param string $sValue
+	 * @param $iValue
+	 * @internal param string $sValue
 	 * @return void
 	 */
 	public function setContentLength ($iValue){
@@ -364,10 +373,10 @@ abstract class vscHttpResponseA extends vscObject {
 	}
 
 	/**
-	 * @param $oBody vscViewA
+	 * @param vscViewA $oView
 	 * @return string
 	 */
-	public function setView (vscViewI $oView) {
+	public function setView (vscViewA $oView) {
 		$this->oView = $oView;
 	}
 

@@ -1,6 +1,11 @@
 <?php
 namespace vsc\infrastructure\urls;
 
+use vsc\infrastructure\vsc;
+use vsc\infrastructure\vscObject;
+use vsc\presentation\requests\vscHttpRequestA;
+use vsc\vscExceptionError;
+
 class vscUrlParserA extends vscObject implements vscUrlParserI {
 	private $sUrl;
 	private $aComponents = array(
@@ -41,7 +46,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 	/**
 	 * This exists as the php::parse_url function sometimes breaks inexplicably
 	 * @param string $sUrl
-	 * @return multitype:string multitype:
+	 * @return string[]
 	 */
 	static public function parse_url ($sUrl = null) {
 		if (is_null($sUrl) && is_array($_SERVER) && array_key_exists('REQUEST_URI', $_SERVER)) {
@@ -69,7 +74,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 				$aReturn['path'] = $sUrl;
 				return $aReturn;
 			}
-		} catch (ErrorException $e) {
+		} catch (\ErrorException $e) {
 			// possible open basedir restriction
 			$aReturn['path'] = $sUrl;
 		}
@@ -98,7 +103,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 			}
 
 			return array_merge ($aReturn, $aParsed);
-		} catch (ErrorException $e) {
+		} catch (\ErrorException $e) {
 			// failed php::parse_url
 		}
 
@@ -319,7 +324,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 		if (!empty($this->aComponents['query'])) {
 			try {
 				return urldecode (http_build_query ($this->aComponents['query']));
-			} catch (Exception $e) {
+			} catch (\Exception $e) {
 				//d ($this->aComponents);
 			}
 		}
@@ -396,7 +401,7 @@ class vscUrlParserA extends vscObject implements vscUrlParserI {
 			try {
 				$sUrl .= $this->aComponents['path'] . $sPath;
 			} catch (vscExceptionError $e) {
-				d ($e->getTraceAsString());
+				\vsc\d ($e->getTraceAsString());
 			}
 		}
 

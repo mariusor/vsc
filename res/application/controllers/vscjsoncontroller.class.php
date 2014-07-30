@@ -7,8 +7,10 @@
  */
 namespace vsc\application\controllers;
 
-vsc\import ('presentation/views');
-vsc\import ('application/controllers');
+use \vsc\presentation\views\vscJsonView;
+
+// \vsc\import ('presentation/views');
+// \vsc\import ('application/controllers');
 class vscJsonController extends vscCacheableControllerA implements vscJsonControllerI {
 	public function getDefaultView () {
 		return new vscJsonView();

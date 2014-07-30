@@ -7,7 +7,9 @@
  */
 namespace vsc\domain\models;
 
-vsc\import ('infrastructure');
+use vsc\infrastructure\vsc;
+
+// \vsc\import ('infrastructure');
 class vscRequestModel extends vscEmptyModel {
 	public function __get ($sVarName) {
 		$sVal = vsc::getEnv()->getHttpRequest()->getVar($sVarName);

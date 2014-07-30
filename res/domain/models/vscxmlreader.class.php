@@ -7,8 +7,10 @@
  */
 namespace vsc\domain\models;
 
-vsc\import ('domain/models');
-vsc\import ('domain/exceptions');
+// \vsc\import ('domain/models');
+// \vsc\import ('domain/exceptions');
+use vsc\vscExceptionUnimplemented;
+
 class vscXmlReader extends vscModelA {
 	private $sXmlString;
 	private $oDOM;
@@ -28,12 +30,15 @@ class vscXmlReader extends vscModelA {
 		return $this->sXmlString;
 	}
 
+	/**
+	 * @return \DOMDocument
+	 */
 	public function getDom () {
 		return $this->oDOM;
 	}
 
 	public function buildObj () {
-		$this->oDOM = new DOMDocument();
+		$this->oDOM = new \DOMDocument();
 		$this->oDOM->strictErrorChecking = false;
 
 

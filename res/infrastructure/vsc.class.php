@@ -6,8 +6,18 @@
  */
 namespace vsc\infrastructure;
 
-vsc\import ('presentation/requests');
-vsc\import ('application/dispatchers');
+// \vsc\import ('presentation/requests');
+// \vsc\import ('application/dispatchers');
+
+use vsc\application\dispatchers\vscDispatcherA;
+use vsc\application\dispatchers\vscGenericCLIDispatcher;
+use vsc\application\dispatchers\vscHttpDispatcherA;
+use vsc\application\dispatchers\vscRwDispatcher;
+use vsc\application\sitemaps\vscModuleMap;
+use vsc\presentation\requests\vscCLIRequest;
+use vsc\presentation\requests\vscHttpRequestA;
+use vsc\presentation\requests\vscRawHttpRequest;
+use vsc\presentation\requests\vscRwHttpRequest;
 
 class vsc extends vscObject {
 	/**
@@ -136,7 +146,7 @@ class vsc extends vscObject {
 				ob_start();
 				var_dump ($object);
 				$output = ob_get_clean();
-			} catch (Exception $e) {
+			} catch (\Exception $e) {
 				//
 			}
 		}
@@ -145,7 +155,7 @@ class vsc extends vscObject {
 
 		$output .= ob_get_clean();
 
-		if (isCLi() || self::getHttpRequest()->accepts('application/json')) {
+		if (vsc::isCLi() || self::getHttpRequest()->accepts('application/json')) {
 			echo vscString::stripTags(vscString::br2nl($output));
 		} elseif (self::getHttpRequest()->accepts('text/html')) {
 			echo '<pre>' . $output . '</pre>';

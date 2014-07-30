@@ -1,16 +1,23 @@
 <?php
-vsc\import (VSC_FIXTURE_PATH);
+// \vsc\import (VSC_FIXTURE_PATH);
 
-vsc\import ('application');
-vsc\import ('controllers');
-vsc\import ('processors');
-vsc\import ('sitemaps');
-vsc\import ('presentation');
-vsc\import ('responses');
-vsc\import ('requests');
-vsc\import ('views');
+// \vsc\import ('application');
+// \vsc\import ('controllers');
+// \vsc\import ('processors');
+// \vsc\import ('sitemaps');
+// \vsc\import ('presentation');
+// \vsc\import ('responses');
+// \vsc\import ('requests');
+// \vsc\import ('views');
 
-class vscFrontControllerATest extends PHPUnit_Framework_TestCase {
+\vsc\import ('_fixtures');
+
+use vsc\presentation\views\vscViewA;
+use vsc\application\sitemaps\vscMappingA;
+use vsc\application\sitemaps\vscControllerMap;
+use vsc\presentation\responses\vscHttpResponseA;
+
+class vscFrontControllerATest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @var vscFrontControllerA
 	 */

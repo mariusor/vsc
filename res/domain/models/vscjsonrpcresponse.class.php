@@ -14,15 +14,15 @@ class vscJsonRPCResponse extends vscModelA {
 
 	/**
 	 *
-	 * Enter description here ...
 	 * @param bool $bIncludeNonPublic
+	 * @return array
 	 */
 	protected function getProperties ($bIncludeNonPublic = false) {
 		$aRet = array();
-		$t = new ReflectionObject($this);
+		$t = new \ReflectionObject($this);
 		$aProperties = $t->getProperties();
 
-		/* @var $oProperty ReflectionProperty */
+		/* @var $oProperty \ReflectionProperty */
 		foreach ($aProperties as $oProperty) {
 			$sName = $oProperty->getName();
 			if ($oProperty->isPublic()) {

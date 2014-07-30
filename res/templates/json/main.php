@@ -1,4 +1,6 @@
-<?php /* @var $this vscJsonView */
+<?php
+use vsc\vscExceptionPath;
+/* @var $this \vsc\presentation\views\vscJsonView */
 try {
 	$sContent = $this->fetch ($this->getTemplate());
 } catch (vscExceptionPath $e) {

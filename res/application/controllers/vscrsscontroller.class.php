@@ -7,8 +7,10 @@
  */
 namespace vsc\application\controllers;
 
-vsc\import ('presentation/views');
-vsc\import ('application/controllers');
+use \vsc\presentation\views\vscRssView;
+
+// \vsc\import ('presentation/views');
+// \vsc\import ('application/controllers');
 class vscRssController extends vscCacheableControllerA implements vscRssControllerI {
 	public function getDefaultView () {
 		return new vscRssView();

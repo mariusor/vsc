@@ -7,10 +7,22 @@
  */
 namespace vsc\presentation\views;
 
-vsc\import ('infrastructure');
-vsc\import ('urls');
-vsc\import ('domain');
-vsc\import ('models');
+// \vsc\import ('infrastructure');
+// \vsc\import ('urls');
+// \vsc\import ('domain');
+// \vsc\import ('models');
+
+use vsc\application\sitemaps\vscMappingA;
+use vsc\application\sitemaps\vscProcessorMap;
+use vsc\domain\models\vscEmptyModel;
+use vsc\domain\models\vscModelA;
+use vsc\infrastructure\urls\vscUrlParserA;
+use vsc\infrastructure\urls\vscUrlRWParser;
+use vsc\infrastructure\vsc;
+use vsc\infrastructure\vscNull;
+use vsc\infrastructure\vscObject;
+use vsc\presentation\helpers\vscViewHelperA;
+use vsc\vscExceptionPath;
 
 abstract class vscViewA extends vscObject implements vscViewI {
 	/**
@@ -92,10 +104,12 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	 */
 	public function getTitle () {
 		try {
-			if ($this->getModel()->getPageTitle() != '') {
-				return  $this->getModel()->getPageTitle();
+			/** @var vscEmptyModel $oModel */
+			$oModel = $this->getModel();
+			if (vscEmptyModel::isValid($oModel) && $oModel->getPageTitle() != '') {
+				return  $oModel->getPageTitle();
 			}
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			//
 		}
 
@@ -138,7 +152,7 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	public function __call ($sMethodName, $aParameters = array()) {
 		// to be used with helpers
 		foreach ($this->getMap()->getViewHelpers() as $key => $oHelper) {
-			$oReflection = new ReflectionClass ($oHelper);
+			$oReflection = new \ReflectionClass ($oHelper);
 			if ($oReflection->hasMethod($sMethodName)) {
 				$oMethod = $oReflection->getMethod($sMethodName);
 				return $oMethod->invokeArgs($oHelper, $aParameters);
@@ -155,9 +169,9 @@ abstract class vscViewA extends vscObject implements vscViewI {
 		try {
 		// TODO: use proper reflection
 			return $this->getModel()->$sVarName;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			// most likely the variable doesn't exist
-			d ($e->getTraceAsString());
+			\vsc\d ($e->getTraceAsString());
 		}
 	}
 
@@ -211,9 +225,9 @@ abstract class vscViewA extends vscObject implements vscViewI {
 
 		try {
 			$bIncluded = include ($includePath);
-		} catch (ErrorException $ee) {
+		} catch (\ErrorException $ee) {
 
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 
 		}
 

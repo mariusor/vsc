@@ -7,7 +7,17 @@
  */
 namespace vsc\application\processors;
 
-vsc\import ('presentation/views');
+// \vsc\import ('presentation/views');
+use vsc\application\sitemaps\vscMappingA;
+use vsc\application\sitemaps\vscProcessorMap;
+use vsc\domain\models\vscModelA;
+use vsc\infrastructure\vsc;
+use vsc\infrastructure\vscObject;
+use vsc\presentation\requests\vscHttpRequestA;
+use vsc\presentation\responses\vscHttpResponse;
+use vsc\presentation\responses\vscHttpResponseA;
+use vsc\application\dispatchers\vscRwDispatcher;
+
 abstract class vscProcessorA extends vscObject implements vscProcessorI {
 	private $oCurrentMap;
 	protected $aLocalVars = array();
@@ -91,7 +101,7 @@ abstract class vscProcessorA extends vscObject implements vscProcessorI {
 	 * @param vscHttpRequestA $oHttpRequest
 	 * @param vscProcessorA $oNewProcessor
 	 * @param vscHttpResponseA $oResponse
-	 * @return \vscModelI
+	 * @return vscModelA
 	 */
 	public function delegateRequest(vscHttpRequestA $oHttpRequest, vscProcessorA $oNewProcessor, vscHttpResponseA $oResponse = null) {
 		$oDispatcher = vsc::getEnv()->getDispatcher();

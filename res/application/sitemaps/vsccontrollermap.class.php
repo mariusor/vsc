@@ -7,6 +7,8 @@
  */
 namespace vsc\application\sitemaps;
 
+use vsc\vscExceptionPath;
+
 class vscControllerMap extends vscMappingA implements vscContentTypeMappingI {
 	private $sMainTemplatePath;
 	private $sMainTemplate;
@@ -54,6 +56,7 @@ class vscControllerMap extends vscMappingA implements vscContentTypeMappingI {
 	 *
 	 * To allow a single controller type to return a different type of view
 	 * @param string $sPath
+	 * @throws vscExceptionPath
 	 */
 	public function setView ($sPath) {
 		if (vscSiteMapA::isValidObject($sPath)) {

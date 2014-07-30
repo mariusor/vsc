@@ -1,4 +1,6 @@
-<?php /* @var $this vscTxtView */
+<?php
+use vsc\vscExceptionPath;
+/* @var $this \vsc\presentation\views\vscTxtView */
 
 try {
 	$sContent = $this->fetch ($this->getTemplate());

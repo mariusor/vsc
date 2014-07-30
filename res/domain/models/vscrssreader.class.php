@@ -7,7 +7,11 @@
  */
 namespace vsc\domain\models;
 
-vsc\import (VSC_RES_PATH . 'domain/domain');
+// \vsc\import (VSC_RES_PATH . 'domain/domain');
+use vsc\domain\domain\vscRssItem;
+use vsc\infrastructure\vscNull;
+use vsc\vscExceptionUnimplemented;
+
 class vscRssReader extends vscXmlReader {
 	public $title;
 	public $link;
@@ -43,18 +47,18 @@ class vscRssReader extends vscXmlReader {
 		parent::buildObj();
 
 		$oNode = $this->getDom()->getElementsByTagName('channel')->item(0);
-		if ($oNode instanceof DOMElement) {
+		if ($oNode instanceof \DOMElement) {
 			$this->parseToEntity ($oNode->childNodes);
 		}
 	}
 
 	public function parseToEntity ($aChildNodes) {
-		if ($aChildNodes instanceof DOMNodeList) {
+		if ($aChildNodes instanceof \DOMNodeList) {
 			foreach ($aChildNodes as $oChildNode) {
 				$sNodeName = $oChildNode->nodeName;
 				if ($oChildNode->nodeType == XML_ELEMENT_NODE) {
 					if ($sNodeName == 'item') {
-						$oRssItem = new vscRssItem ($oChildNode);
+						$oRssItem = new vscRssItem($oChildNode);
 						$this->addItem ($oRssItem);
 					} elseif ($this->valid($sNodeName)) {
 						try {

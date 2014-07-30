@@ -7,7 +7,9 @@
  */
 namespace vsc\domain\models;
 
-vsc\import ('infrastructure/caching');
+// \vsc\import ('infrastructure/caching');
+use vsc\infrastructure\caching\vscCacheableI;
+
 abstract class vscCacheableModelA extends vscModelA implements vscCacheableI {
 	abstract public function getLastModified ();
 }

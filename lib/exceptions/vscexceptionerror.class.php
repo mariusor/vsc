@@ -1,7 +1,7 @@
 <?php
 namespace vsc;
 
-class vscExceptionError extends ErrorException {
+class vscExceptionError extends \ErrorException {
 	private $aErrorTypes = array (
 		1		=> 'E_ERROR',
 		2		=> 'E_WARNING',

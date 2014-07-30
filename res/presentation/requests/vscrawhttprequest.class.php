@@ -7,8 +7,8 @@
  */
 namespace vsc\presentation\requests;
 
-vsc\import ('presentation');
-vsc\import ('requests');
+// \vsc\import ('presentation');
+// \vsc\import ('requests');
 class vscRawHttpRequest extends vscRwHttpRequest {
 	protected $aRawVars = array();
 
@@ -53,6 +53,7 @@ class vscRawHttpRequest extends vscRwHttpRequest {
 
 	/**
 	 * @todo this has to be moved in the rw url handler
+	 * @throws vscExceptionRequest
 	 * @return void
 	 */
 	public function constructRawVars () {

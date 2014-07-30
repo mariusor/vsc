@@ -9,6 +9,9 @@ namespace vsc\application\processors;
 
 //import ('presentation/processors');
 
+use vsc\domain\models\vscEmptyModel;
+use vsc\presentation\requests\vscHttpRequestA;
+
 define ('SNAPTEST_ROOT', realpath('/home/habarnam/abs/snaptest/') . DIRECTORY_SEPARATOR);
 // snaptest web interface
 

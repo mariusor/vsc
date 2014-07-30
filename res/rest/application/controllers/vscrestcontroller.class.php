@@ -8,7 +8,27 @@
  */
 namespace vsc\application\controllers;
 
+use vsc\application\processors\vscAuthenticatedProcessorI;
+use vsc\application\processors\vscErrorProcessor;
+use vsc\application\processors\vscRESTProcessorA;
+use vsc\presentation\requests\vscHttpRequestA;
+use vsc\presentation\requests\vscRESTRequest;
+use vsc\presentation\responses\vscExceptionAuthenticationNeeded;
+use vsc\presentation\responses\vscExceptionResponseError;
+use vsc\presentation\responses\vscHttpResponse;
+use vsc\application\sitemaps\vscControllerMap;
+use vsc\presentation\responses\vscHttpResponseA;
+
 class vscRESTController extends vscJsonController {
+	/**
+	 * @param vscHttpRequestA $oRequest
+	 * @param vscRESTProcessorA $oProcessor
+	 * @return vscHttpResponseA
+	 * @throws \vsc\presentation\responses\vscExceptionResponse
+	 * @throws \vsc\presentation\responses\vscExceptionResponseError
+	 * @throws \vsc\presentation\views\vscExceptionView
+	 * @throws vscExceptionResponseError
+	 */
 	public function getResponse (vscHttpRequestA $oRequest, $oProcessor = null) {
 		$oResponse = new vscHttpResponse(); // this needs changing for REST stuff
 		$oModel = null;
@@ -54,7 +74,7 @@ class vscRESTController extends vscJsonController {
 					return $oResponse;
 				}
 			}
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			// we had error in the controller
 			// @todo make more error processors
 			if ( $e instanceof vscExceptionResponseError ) {

@@ -7,7 +7,15 @@
  */
 namespace vsc\application\controllers;
 
-vsc\import ('infrastructure/caching');
+// \vsc\import ('infrastructure/caching');
+use vsc\domain\models\vscCacheableModelA;
+use vsc\infrastructure\caching\vscCacheableI;
+use vsc\presentation\requests\vscHttpRequestA;
+use vsc\presentation\responses\vscHttpResponseA;
+use vsc\presentation\views\vscCacheableViewA;
+use vsc\presentation\views\vscExceptionView;
+use vsc\application\processors\vscProcessorA;
+
 abstract class vscCacheableControllerA extends vscFrontControllerA implements vscCacheableI {
 
 	public function getLastModified () {
@@ -17,7 +25,7 @@ abstract class vscCacheableControllerA extends vscFrontControllerA implements vs
 	/**
 	 * @param vscHttpRequestA $oRequest
 	 * @param vscProcessorA $oProcessor
-	 * @param vscViewA $oView
+	 * @internal param vscViewA $oView
 	 * @return vscHttpResponseA
 	 */
 	public function getResponse (vscHttpRequestA $oRequest, $oProcessor = null) {
@@ -26,7 +34,7 @@ abstract class vscCacheableControllerA extends vscFrontControllerA implements vs
 		if ( !($oResponse->isRedirect() || $oResponse->isError()) ) {
 			$iNow = time();
 			$iExpireTime = 600; // ten minute
-			$oNow = new DateTime('now',  new DateTimeZone('GMT'));
+			$oNow = new \DateTime('now',  new \DateTimeZone('GMT'));
 			$oResponse->setDate($oNow->format('r'));
 	
 			try {
@@ -36,24 +44,26 @@ abstract class vscCacheableControllerA extends vscFrontControllerA implements vs
 			}
 			if ( vscCacheableModelA::isValid ($oModel) ) {
 				try {
-					$sLastModified = $this->getView()->getModel()->getLastModified();
+					/** @var vscCacheableViewA $oView */
+					$oView = $this->getView()->getModel();
+					$sLastModified = $oView->getLastModified();
 
-					$oLastModified = new DateTime($sLastModified,  new DateTimeZone('GMT'));
+					$oLastModified = new \DateTime($sLastModified,  new \DateTimeZone('GMT'));
 					$oResponse->setLastModified($oLastModified->format('r'));
 					$oMax = $oLastModified->getTimestamp() > $oNow->getTimestamp() ? $oLastModified : $oNow;
 	
 					$sModifiedSince = $oRequest->getIfModifiedSince();
 					if (!empty ($sModifiedSince)) {
-						$oModifiedSince =  new DateTime($sModifiedSince, new DateTimeZone('GMT'));
+						$oModifiedSince =  new \DateTime($sModifiedSince, new \DateTimeZone('GMT'));
 	
 						if ($oLastModified->getTimestamp() <= $oModifiedSince->getTimestamp()) {
 							$oResponse->setStatus(304);
 						}
 					}
-				} catch (Exception $e) {
+				} catch (\Exception $e) {
 					$oMax = $oNow;
 				}
-				$oResponse->setExpires($oMax->add(new DateInterval('P2W'))->format('r')); // adding 2 weeks
+				$oResponse->setExpires($oMax->add(new \DateInterval('P2W'))->format('r')); // adding 2 weeks
 			} else {
 				try {
 					$oResponse->setETag( substr(sha1($oResponse->getOutput()), 0, 8) );

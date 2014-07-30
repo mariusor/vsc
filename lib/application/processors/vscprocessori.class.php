@@ -7,6 +7,10 @@
  */
 namespace vsc\application\processors;
 
+use vsc\domain\models\vscModelA;
+use vsc\presentation\requests\vscHttpRequestA;
+use vsc\presentation\responses\vscHttpResponseA;
+
 interface vscProcessorI {
 
 	/**
@@ -17,15 +21,18 @@ interface vscProcessorI {
 	/**
 	 * Returns a data model, which can be used in the view
 	 * @param vscHttpRequestA $oHttpRequest
-	 * @return vscModelI
+	 * @return vscModelA
 	 */
 	public function handleRequest (vscHttpRequestA $oHttpRequest);
-	
-	
+
+
 	/**
-	 * To be used when delegating the request handling to another processor 
+	 *
+	 * @see vscProcessorI::delegateRequest()
 	 * @param vscHttpRequestA $oHttpRequest
-	 * @return vscModelI
+	 * @param vscProcessorA $oNewProcessor
+	 * @param vscHttpResponseA $oResponse
+	 * @return vscModelA
 	 */
-	public function delegateRequest (vscHttpRequestA $oHttpRequest, vscProcessorA $oNewProcessor);
+	public function delegateRequest(vscHttpRequestA $oHttpRequest, vscProcessorA $oNewProcessor, vscHttpResponseA $oResponse = null);
 }

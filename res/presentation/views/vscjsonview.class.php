@@ -7,7 +7,10 @@
  */
 namespace vsc\presentation\views;
 
-vsc\import ('presentation/views');
+// \vsc\import ('presentation/views');
+use vsc\domain\models\vscModelA;
+use vsc\infrastructure\vsc;
+
 class vscJsonView extends vscViewA implements vscJsonViewI {
 	protected $sContentType = 'application/json';
 	protected $sFolder = 'json';
@@ -37,7 +40,7 @@ class vscJsonView extends vscViewA implements vscJsonViewI {
 		}
 		if (phpversion() > '5.4.0') {
 			$flags |= JSON_UNESCAPED_UNICODE;
-			if (isDebug()) {
+			if (\vsc\isDebug()) {
 				$flags |= JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES;
 			}
 		}

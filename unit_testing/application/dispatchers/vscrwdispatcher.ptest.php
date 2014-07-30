@@ -1,12 +1,15 @@
 <?php
-vsc\import (VSC_FIXTURE_PATH);
+// \vsc\import (VSC_FIXTURE_PATH);
 
-vsc\import ('application/dispatchers');
+// \vsc\import ('application/dispatchers');
 
 //$sCurPath = realpath(dirname (__FILE__) . '/../../presentation/requests/_fixtures/vscpopulatedrequest.class.php');
 //require ($sCurPath);
 
-class vscRwDispatcherTest extends PHPUnit_Framework_TestCase {
+use vsc\application\dispatchers\vscRwDispatcher;
+use vsc\application\sitemaps\vscSiteMapA;
+
+class vscRwDispatcherTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @var vscRwDispatcher
 	 */

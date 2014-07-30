@@ -7,8 +7,11 @@
  */
 namespace vsc\domain\models;
 
-vsc\import ('domain/models');
-vsc\import ('domain/exceptions');
+// \vsc\import ('domain/models');
+// \vsc\import ('domain/exceptions');
+use vsc\domain\vscExceptionDomain;
+use vsc\vscExceptionUnimplemented;
+
 class vscJsonReader extends vscModelA {
 	private $sJsonString;
 
@@ -29,11 +32,11 @@ class vscJsonReader extends vscModelA {
 
 	public function __get ($sIncName = null) {
 		try {
-			$oProperty = new ReflectionProperty($this, $sIncName);
+			$oProperty = new \ReflectionProperty($this, $sIncName);
 			if ($oProperty->isPublic()) {
 				return $oProperty->getValue($this);
 			}
-		} catch (ReflectionException $e) {
+		} catch (\ReflectionException $e) {
 			//
 		}
 		parent::__get ($sIncName);
@@ -41,15 +44,15 @@ class vscJsonReader extends vscModelA {
 
 	public function __set($sIncName, $mValue) {
 		if (is_null($sIncName)) {
-			throw ReflectionError ('Can\'t set a value to a null property on the current object ['. get_class ($this).']');
+			throw new \ReflectionException ('Can\'t set a value to a null property on the current object ['. get_class ($this).']');
 		}
 		try {
-			$oProperty = new ReflectionProperty($this->oPayload, $sIncName);
+			$oProperty = new \ReflectionProperty($this->oPayload, $sIncName);
 			if ($oProperty->isPublic()) {
 				$oProperty->setValue($this->oPayload, $mValue);
 			}
 			return;
-		} catch (ReflectionException $e) {
+		} catch (\ReflectionException $e) {
 			$this->$sIncName = $mValue;
 		}
 	}

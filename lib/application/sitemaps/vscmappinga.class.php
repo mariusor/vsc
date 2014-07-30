@@ -7,6 +7,13 @@
  */
 namespace vsc\application\sitemaps;
 
+use vsc\application\controllers\vscExceptionController;
+use vsc\infrastructure\urls\vscUrlParserA;
+use vsc\infrastructure\urls\vscUrlRWParser;
+use vsc\infrastructure\vscNull;
+use vsc\infrastructure\vscObject;
+use vsc\presentation\requests\vscHttpAuthenticationA;
+
 class vscMappingA extends vscObject {
 	private $sRegex;
 	private $sPath;
@@ -59,6 +66,9 @@ class vscMappingA extends vscObject {
 		$this->aResources = $aResources;
 	}
 
+	/**
+	 * @param vscMappingA $oMap
+	 */
 	protected function mergeResources ($oMap) {
 		$aLocalResources	= $this->getResources();
 		$aParentResources	= $oMap->getResources();
@@ -69,7 +79,7 @@ class vscMappingA extends vscObject {
 	}
 
 	/**
-	 * @param vscControllerMap $oMap
+	 * @param vscMappingA $oMap
 	 */
 	protected function mergePaths ($oMap) {
 		$sParentPath = $oMap->getTemplatePath();
@@ -274,6 +284,7 @@ class vscMappingA extends vscObject {
 	 *
 	 * @param string $sRegex
 	 * @param string $sPath
+	 * @throws vscExceptionController
 	 * @throws vscExceptionSitemap
 	 * @return vscControllerMap
 	 */

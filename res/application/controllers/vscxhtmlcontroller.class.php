@@ -7,10 +7,12 @@
  */
 namespace vsc\application\controllers;
 
-vsc\import ('presentation/views');
-vsc\import ('application/controllers');
-vsc\import ('presentation');
-vsc\import ('views');
+use \vsc\presentation\views\vscXhtmlView;
+
+// \vsc\import ('presentation/views');
+// \vsc\import ('application/controllers');
+// \vsc\import ('presentation');
+// \vsc\import ('views');
 
 class vscXhtmlController extends vscCacheableControllerA implements vscXhtmlControllerI {
 	public function getDefaultView () {

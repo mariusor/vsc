@@ -1,7 +1,7 @@
 <?php
-vsc\import ('domain');
-vsc\import ('models');
-
+// \vsc\import ('domain');
+// \vsc\import ('models');
+use \vsc\domain\models\vscModelA;
 class vscModelFixture extends vscModelA {
 	public $test = 666;
 	public $cucu;
@@ -27,11 +27,11 @@ class vscModelFixture extends vscModelA {
 	public function getPropertyNames ($bAll = false) {
 		return parent::getPropertyNames($bAll);
 	}
-	
+
 	/**
 	 *
-	 * Enter description here ...
 	 * @param bool $bIncludeNonPublic
+	 * @return array
 	 */
 	public function getProperties ($bIncludeNonPublic = false) {
 		return parent::getProperties($bIncludeNonPublic);

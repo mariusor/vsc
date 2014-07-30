@@ -8,6 +8,11 @@
  */
 namespace vsc\application\dispatchers;
 
+use vsc\application\controllers\vscFrontControllerA;
+use vsc\application\processors\vscProcessorA;
+use vsc\presentation\views\vscViewA;
+use vsc\vscExceptionPath;
+
 class vscGenericCLIDispatcher extends vscCLIDispatcherA {
 	/**
 	 * @return vscFrontControllerA
@@ -23,6 +28,9 @@ class vscGenericCLIDispatcher extends vscCLIDispatcherA {
 		// TODO: Implement getProcessController() method.
 	}
 
+	/**
+	 * @return vscViewA
+	 */
 	public function getView () {
 		// TODO: Implement getView() method.
 	}

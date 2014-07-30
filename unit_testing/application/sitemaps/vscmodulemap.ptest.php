@@ -1,5 +1,5 @@
 <?php
-class vscMappingModuleTest extends PHPUnit_Framework_TestCase {
+class vscMappingModuleTest extends \PHPUnit_Framework_TestCase {
 	public function setUp () {
 		// @todo
 	}

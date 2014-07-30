@@ -7,6 +7,8 @@
  */
 namespace vsc\application\processors;
 
+use vsc\presentation\requests\vscHttpAuthenticationA;
+
 interface vscAuthenticatedProcessorI {
 	public function handleAuthentication (vscHttpAuthenticationA $oHttpAuthentication);
 }

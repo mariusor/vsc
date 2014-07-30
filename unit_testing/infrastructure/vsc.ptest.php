@@ -1,5 +1,6 @@
 <?php
-class vscTest extends PHPUnit_Framework_TestCase {
+
+class vscTest extends \PHPUnit_Framework_TestCase {
 	private $sFixturesPath;
 
 	public function setUp () {

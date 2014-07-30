@@ -1,5 +1,9 @@
 <?php
-/* @var $this vscViewA */
+use vsc\domain\models\vscModelA;
+use vsc\domain\models\vscArrayModel;
+/* @var vscModelA $model */
+
+/* @var $this \vsc\presentation\views\vscViewA */
 foreach ($model->toArray() as $sName => $mValue) {
 	if (is_scalar($mValue)) {
 		echo '<li><strong>' . $sName.'</strong> ➞ '."\n";

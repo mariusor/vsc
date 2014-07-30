@@ -18,3 +18,12 @@ if (!defined('VSC_PATH')) {
 if (defined ('VSC_TEST_PATH') && !defined ('VSC_FIXTURE_PATH')) {
 	define ('VSC_FIXTURE_PATH', VSC_TEST_PATH . '_fixtures' . DIRECTORY_SEPARATOR);
 }
+chdir(dirname(__FILE__) . '/../');
+
+\vsc\import (VSC_TEST_PATH);
+// Composer autoloading.
+if ( file_exists('vendor/autoload.php') ) {
+    $loader = include_once 'vendor/autoload.php';
+} else {
+    throw new RuntimeException('Unable to load the autoloader. Run `php composer.phar install`.');
+}

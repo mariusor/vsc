@@ -1,23 +1,27 @@
 <?php
-vsc\import (VSC_FIXTURE_PATH);
+// \vsc\import (VSC_FIXTURE_PATH);
 
-vsc\import ('application');
-vsc\import ('controllers');
-vsc\import ('processors');
-vsc\import ('sitemaps');
-vsc\import ('presentation');
-vsc\import ('responses');
-vsc\import ('requests');
-vsc\import ('views');
+// \vsc\import ('application');
+// \vsc\import ('controllers');
+// \vsc\import ('processors');
+// \vsc\import ('sitemaps');
+// \vsc\import ('presentation');
+// \vsc\import ('responses');
+// \vsc\import ('requests');
+// \vsc\import ('views');
 
-class vscHtmlFrontControllerTest extends PHPUnit_Framework_TestCase  {
+use vsc\presentation\views\vscViewA;
+use vsc\presentation\views\vscXhtmlView;
+use vsc\presentation\responses\vscHttpResponseA;
+
+class vscHtmlFrontControllerTest extends \PHPUnit_Framework_TestCase  {
 	/**
 	 * @var vscXhtmlController
 	 */
 	private $state;
 
 	public function setUp () {
-		$this->state = new vscXhtmlController();
+		$this->state = new \vsc\application\controllers\vscXhtmlController();
 
 		$oMap = new vscControllerMap(__FILE__, '\A.*\Z');
 		$this->state->setMap($oMap);

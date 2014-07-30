@@ -7,7 +7,12 @@
  */
 namespace vsc\presentation\requests;
 
-vsc\import ('infrastructure/urls');
+// \vsc\import ('infrastructure/urls');
+
+use vsc\infrastructure\urls\vscUrlRWParser;
+use vsc\infrastructure\vscObject;
+use vsc\infrastructure\vsc;
+use vsc\vscException;
 
 abstract class vscHttpRequestA extends vscObject {
 	private $sUri		= null;
@@ -213,6 +218,9 @@ abstract class vscHttpRequestA extends vscObject {
 		return vscHttpAuthenticationA::isValid($this->oAuth);
 	}
 
+	/**
+	 * @return vscHttpAuthenticationA
+	 */
 	public function getAuthentication () {
 		return $this->oAuth;
 	}
