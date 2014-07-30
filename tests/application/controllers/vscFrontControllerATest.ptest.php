@@ -10,8 +10,6 @@
 // \vsc\import ('requests');
 // \vsc\import ('views');
 
-use vsc\presentation\views\vscViewA;
-use vsc\application\sitemaps\vscMappingA;
 use vsc\application\sitemaps\vscControllerMap;
 use vsc\presentation\responses\vscHttpResponseA;
 use vsc\application\controllers\vscFrontControllerA;
@@ -43,25 +41,25 @@ class vscFrontControllerATest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetDefaultView() {
 		$v = $this->state->getDefaultView();
-		$this->assertInstanceOf('vscViewA', $v);
+		$this->assertInstanceOf('vsc\\presentation\\views\\vscViewA', $v);
 	}
 
 
 	public function testGetView() {
 		$v = $this->state->getView();
-		$this->assertInstanceOf('vscViewA', $v);
+		$this->assertInstanceOf('vsc\\presentation\\views\\vscViewA', $v);
 	}
 
 	public function testSetGetView() {
 		$v = $this->state->getView();
 
-		$this->assertInstanceOf('vscViewA', $v);
+		$this->assertInstanceOf('vsc\\presentation\\views\\vscViewA', $v);
 		$this->assertInstanceOf('testView', $v);
 	}
 
 	public function testGetMap() {
 		$m = $this->state->getMap();
-		$this->assertInstanceOf('vscMappingA', $m);
+		$this->assertInstanceOf('vsc\\application\\sitemaps\\vscMappingA', $m);
 		$this->assertInstanceOf('vscControllerMap', $m);
 	}
 
@@ -70,7 +68,7 @@ class vscFrontControllerATest extends \PHPUnit_Framework_TestCase {
 		$this->state->setMap($s);
 
 		$m = $this->state->getMap();
-		$this->assertInstanceOf('vscMappingA', $m);
+		$this->assertInstanceOf('vsc\\application\\sitemaps\\vscMappingA', $m);
 		$this->assertInstanceOf('vscControllerMap', $m);
 		$this->assertEquals($s, $m);
 	}
