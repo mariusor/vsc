@@ -2,6 +2,7 @@
 // \vsc\import ('domain');
 // \vsc\import ('models');
 use \vsc\domain\models\vscModelA;
+
 class vscModelFixture extends vscModelA {
 	public $test = 666;
 	public $cucu;

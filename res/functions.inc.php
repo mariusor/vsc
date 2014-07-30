@@ -78,10 +78,8 @@ function loadClass ($className) {
 
 	$fileIncluded = false;
 
-	$classNameLow = strtolower($className);
-
-	$sFilePath	= $classNameLow . '.class.php';
-	if (stristr ($classNameLow, 'exception')) {
+	$sFilePath	= $className . '.class.php';
+	if (stristr ($className, 'exception')) {
 		$sExceptionsFilePath = 'exceptions' . DIRECTORY_SEPARATOR . $sFilePath;
 		$fileIncluded = include_once ($sExceptionsFilePath);
 	}
@@ -93,9 +91,9 @@ function loadClass ($className) {
 		$fileIncluded = @include_once ($sFilePath);
 	}
 	if ( !$fileIncluded || ( !in_array ($className,get_declared_classes()) && !in_array($className,get_declared_interfaces() ) ) ) {
-		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexception.class.php');
-		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexceptionpath.class.php');
-		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexceptionautoload.class.php');
+		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscException.class.php');
+		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscExceptionPath.class.php');
+		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscExceptionAutoload.class.php');
 
 		$sExport = var_export(getPaths(),true);
 		//throw new vscExceptionAutoload('Could not load class ['.$className.'] in path: <pre style="font-weight:normal">' . $sExport . '</pre>');
@@ -181,9 +179,9 @@ function import ($sIncPath) {
 
 	if (!$bStatus) {
 		// to avoid an infinite loop, we include these execeptions manually
-		include_once(VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexception.class.php');
-		include_once(VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexceptionpath.class.php');
-		include_once(VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscexceptionpackageimport.class.php');
+		include_once(VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscException.class.php');
+		include_once(VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscExceptionPath.class.php');
+		include_once(VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscExceptionPackageImport.class.php');
 
 		throw new vscExceptionPackageImport ('Bad package [' . $sIncPath . ']');
 // 		return false;

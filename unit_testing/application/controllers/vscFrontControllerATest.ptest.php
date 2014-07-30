@@ -10,12 +10,12 @@
 // \vsc\import ('requests');
 // \vsc\import ('views');
 
-\vsc\import ('_fixtures');
-
 use vsc\presentation\views\vscViewA;
 use vsc\application\sitemaps\vscMappingA;
 use vsc\application\sitemaps\vscControllerMap;
 use vsc\presentation\responses\vscHttpResponseA;
+use vsc\application\controllers\vscFrontControllerA;
+use _fixtures\application\controllers\vscGenericFrontController;
 
 class vscFrontControllerATest extends \PHPUnit_Framework_TestCase {
 	/**

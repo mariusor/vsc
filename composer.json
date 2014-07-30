@@ -24,6 +24,6 @@
 		}
 	],
 	"autoload": {
-		"psr-0" : {"vsc\\" : ["lib/", "res/"]}
+		"psr-4" : {"vsc\\" : ["lib/", "res/"]}
 	}
 }

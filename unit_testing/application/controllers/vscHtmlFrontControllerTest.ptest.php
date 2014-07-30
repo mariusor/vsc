@@ -13,6 +13,8 @@
 use vsc\presentation\views\vscViewA;
 use vsc\presentation\views\vscXhtmlView;
 use vsc\presentation\responses\vscHttpResponseA;
+use vsc\application\controllers\vscXhtmlController;
+use vsc\application\sitemaps\vscControllerMap;
 
 class vscHtmlFrontControllerTest extends \PHPUnit_Framework_TestCase  {
 	/**
@@ -21,7 +23,7 @@ class vscHtmlFrontControllerTest extends \PHPUnit_Framework_TestCase  {
 	private $state;
 
 	public function setUp () {
-		$this->state = new \vsc\application\controllers\vscXhtmlController();
+		$this->state = new vscXhtmlController();
 
 		$oMap = new vscControllerMap(__FILE__, '\A.*\Z');
 		$this->state->setMap($oMap);

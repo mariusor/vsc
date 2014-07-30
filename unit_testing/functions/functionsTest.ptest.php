@@ -1,5 +1,5 @@
 <?php
-class functions extends \PHPUnit_Framework_TestCase {
+class functionsTest extends \PHPUnit_Framework_TestCase {
 
 	private $state;
 
