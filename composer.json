@@ -21,6 +21,6 @@
 		"psr-4" : { "vsc\\" : ["lib/", "res/"]}
 	},
 	"autoload-dev": {
-		"psr-4" : { "_fixtures\\" : "test/fixtures"}
+		"psr-4" : { "_fixtures\\" : "tests/_fixtures"}
 	}
 }

@@ -15,15 +15,8 @@ if ($iMajorVersion < 5 || $iMinorVersion < 3) {
 	$sMessage = 'libVSC requires PHP version >= 5.3. Your current version is: ' . $sVersion;
 
 	throw new ErrorException ($sMessage, E_USER_ERROR);
-} else {
-	 \vsc\import (VSC_LIB_PATH);
-	 \vsc\import (VSC_RES_PATH);
-
-	// including the infrastructure folder
-	 \vsc\import ('infrastructure');
-
-	require ('vsc.php');
 }
+
 if (!defined ('ROOT_MAIL')) {
 	if (!vsc::isCli()) {
 		define ('ROOT_MAIL', 'root@' . $_SERVER['HTTP_HOST']);
