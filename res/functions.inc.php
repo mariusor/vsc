@@ -178,13 +178,7 @@ function import ($sIncPath) {
 	}
 
 	if (!$bStatus) {
-		// to avoid an infinite loop, we include these execeptions manually
-		include_once(VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscException.php');
-		include_once(VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscExceptionPath.php');
-		include_once(VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscExceptionPackageImport.php');
-
 		throw new vscExceptionPackageImport ('Bad package [' . $sIncPath . ']');
-// 		return false;
 	} else {
 		return true;
 	}

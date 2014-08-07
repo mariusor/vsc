@@ -1,5 +1,6 @@
 <?php
 namespace _fixtures\presentation\views;
+
 use vsc\presentation\views\vscViewA;
 
 class testView extends vscViewA {
@@ -40,3 +41,4 @@ class testView extends vscViewA {
 		// TODO: Implement display() method.
 	}
 }
+

@@ -7,7 +7,7 @@
  */
 namespace vsc\application\sitemaps;
 
-class vscModuleMap extends vscMappingA implements vscContentTypeMappingI{
+class vscModuleMap extends vscMappingA implements vscContentTypeMappingI {
 	private $sMainTemplatePath;
 	private $sMainTemplate;
 
@@ -28,5 +28,9 @@ class vscModuleMap extends vscMappingA implements vscContentTypeMappingI{
 
 	public function getMainTemplate () {
 		return $this->sMainTemplate;
+	}
+
+	public function getNamespace () {
+		return '';
 	}
 }

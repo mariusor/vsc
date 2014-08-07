@@ -14,6 +14,7 @@ class vscPopulatedRequest extends vscHttpRequestA {
 		'height'	=> 143
 	);
 
+	protected $returnUri = '/test';
 	private $sHttpMethod	= 'GET';
 
 	private $aGetVars		= array('cucu' => 'pasare');
@@ -23,7 +24,11 @@ class vscPopulatedRequest extends vscHttpRequestA {
 	private $sReferer		= 'http://localhost/_fixtures/index.html?module=test';
 	private $sUserAgent		= 'WGET 2/3';
 
+	public function setReturnUri ($sUri) {
+		$this->returnUri = $sUri;
+	}
+
 	public function getUri ($bUrlDecode = false) {
-		return '/test';
+		return $this->returnUri;
 	}
 }

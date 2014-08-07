@@ -8,15 +8,21 @@
 namespace vsc\application\sitemaps;
 
 use vsc\vscExceptionPath;
+use vsc\presentation\views\vscViewA;
 
 class vscControllerMap extends vscMappingA implements vscContentTypeMappingI {
 	private $sMainTemplatePath;
 	private $sMainTemplate;
 
 	private $sViewPath;
+	private $oView;
 
 	public function setMainTemplatePath ($sPath) {
 		$this->sMainTemplatePath = realpath($sPath);
+		if ( !is_dir($this->sMainTemplatePath) ) {
+			$this->sMainTemplatePath = null;
+			throw new vscExceptionPath (sprintf('Path [%s] does not exist', $sPath));
+		}
 	}
 
 	public function getMainTemplatePath () {
@@ -55,18 +61,43 @@ class vscControllerMap extends vscMappingA implements vscContentTypeMappingI {
 	/**
 	 *
 	 * To allow a single controller type to return a different type of view
-	 * @param string $sPath
+	 * @param string|object $mView
 	 * @throws vscExceptionPath
 	 */
-	public function setView ($sPath) {
-		if (vscSiteMapA::isValidObject($sPath)) {
-			$this->sViewPath = $sPath;
+	public function setView ($mView) {
+		if (vscViewA::isValid($mView)) {
+			$this->oView = $mView;
+		} elseif (stristr(basename($mView), '.') === false && !is_file($mView)) {
+			// namespaced class name
+			$this->sViewPath = $mView;
+		} elseif (vscSiteMapA::isValidObject($mView)) {
+			$this->sViewPath = $mView;
 		} else {
-			throw new vscExceptionPath ('View path ['.$sPath.'] is not valid.');
+			throw new vscExceptionPath ('View path [' . $mView . '] is not valid.');
 		}
 	}
 
-	public function getViewPath(){
+	public function getViewPath() {
 		return $this->sViewPath;
+	}
+
+	public function getView() {
+		if ( !vscViewA::isValid($this->oView) && !is_null($this->sViewPath)){
+			if (stristr(basename($this->sViewPath), '.') === false && !is_file($this->sViewPath)) {
+				$sClassName = $this->sViewPath;
+			} elseif (is_file($this->sViewPath)) {
+				$sViewPath = $this->getViewPath();
+				try {
+					include ($sViewPath);
+				} catch (\Exception $e) {
+					_e($e);
+				}
+				$sClassName = vscSiteMapA::getClassName($sViewPath);
+			}
+		}
+		if (!empty($sClassName)) {
+			$this->oView = new $sClassName();
+		}
+		return $this->oView;
 	}
 }

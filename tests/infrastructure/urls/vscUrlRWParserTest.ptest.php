@@ -1,5 +1,7 @@
 <?php
 // \vsc\import ('urls');
+use \vsc\infrastructure\urls\vscUrlRWParser;
+use \vsc\infrastructure\urls\vscUrlParserA;
 
 class vscUrlRWParserTest extends \PHPUnit_Framework_TestCase {
 	public function setUp () {

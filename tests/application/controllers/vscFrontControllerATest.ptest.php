@@ -16,6 +16,7 @@ use vsc\application\controllers\vscFrontControllerA;
 use _fixtures\application\controllers\vscGenericFrontController;
 use _fixtures\presentation\requests\vscPopulatedRequest;
 use _fixtures\application\processors\testFixtureProcessor;
+use _fixtures\presentation\views\testView;
 
 class vscFrontControllerATest extends \PHPUnit_Framework_TestCase {
 	/**
@@ -27,7 +28,7 @@ class vscFrontControllerATest extends \PHPUnit_Framework_TestCase {
 		$this->state = new vscGenericFrontController();
 
 		$oMap = new vscControllerMap(__FILE__, '\A.*\Z');
-		$oMap->setView(VSC_FIXTURE_PATH . 'presentation/views/testView.php');
+		$oMap->setView('_fixtures\\presentation\\views\\testView');
 
 		$oMap->setMainTemplatePath(VSC_FIXTURE_PATH . 'templates');
 		$oMap->setMainTemplate('main.tpl.php');
@@ -47,6 +48,7 @@ class vscFrontControllerATest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetView() {
 		$v = $this->state->getView();
+
 		$this->assertInstanceOf('vsc\\presentation\\views\\vscViewA', $v);
 	}
 
@@ -54,35 +56,35 @@ class vscFrontControllerATest extends \PHPUnit_Framework_TestCase {
 		$v = $this->state->getView();
 
 		$this->assertInstanceOf('vsc\\presentation\\views\\vscViewA', $v);
-		$this->assertInstanceOf('testView', $v);
+		$this->assertInstanceOf('_fixtures\\presentation\\views\\testView', $v);
 	}
 
 	public function testGetMap() {
 		$m = $this->state->getMap();
 		$this->assertInstanceOf('vsc\\application\\sitemaps\\vscMappingA', $m);
-		$this->assertInstanceOf('vscControllerMap', $m);
+		$this->assertInstanceOf('vsc\\application\\sitemaps\\vscControllerMap', $m);
 	}
 
 	public function testSetGetMap() {
-		$s = new vscControllerMap('\A.*\Z', VSC_FIXTURE_PATH . 'application/controllers/vscGenericFrontcontroller.php');
+		$s = new vscControllerMap('application/controllers/vscGenericFrontcontroller.php', '\A.*\Z');
 		$this->state->setMap($s);
 
 		$m = $this->state->getMap();
 		$this->assertInstanceOf('vsc\\application\\sitemaps\\vscMappingA', $m);
-		$this->assertInstanceOf('vscControllerMap', $m);
+		$this->assertInstanceOf('vsc\\application\\sitemaps\\vscControllerMap', $m);
 		$this->assertEquals($s, $m);
 	}
 
 	public function testGetResponse() {
 		$r = new vscPopulatedRequest();
-		$this->assertInstanceOf('vscHttpResponseA', $this->state->getResponse($r));
+		$this->assertInstanceOf('vsc\\presentation\\responses\\vscHttpResponseA', $this->state->getResponse($r));
 	}
 
 	public function testGetResponseWithProcessor () {
 		$r = new vscPopulatedRequest();
 		$p = new testFixtureProcessor();
 
-		$this->assertInstanceOf('vscHttpResponseA', $this->state->getResponse($r, $p));
+		$this->assertInstanceOf('vsc\\presentation\\responses\\vscHttpResponseA', $this->state->getResponse($r, $p));
 	}
 
 

@@ -10,9 +10,6 @@
 // \vsc\import ('requests');
 // \vsc\import ('views');
 
-use vsc\presentation\views\vscViewA;
-use vsc\presentation\views\vscXhtmlView;
-use vsc\presentation\responses\vscHttpResponseA;
 use vsc\application\controllers\vscXhtmlController;
 use vsc\application\sitemaps\vscControllerMap;
 
@@ -37,12 +34,12 @@ class vscHtmlFrontControllerTest extends \PHPUnit_Framework_TestCase  {
 
 	public function testGetResponse() {
 		$oReq = new vscPopulatedRequest();
-		$this->assertInstanceOf('vscHttpResponseA', $this->state->getResponse($oReq));
+		$this->assertInstanceOf('vsc\\presentation\\responses\\vscHttpResponseA', $this->state->getResponse($oReq));
 	}
 
 	public function testGetDefaultView() {
 		$v = $this->state->getDefaultView();
-		$this->assertInstanceOf('vscViewA', $v);
-		$this->assertInstanceOf('vscXhtmlView', $v);
+		$this->assertInstanceOf('vsc\\presentation\\views\\vscViewA', $v);
+		$this->assertInstanceOf('vsc\\presentation\\views\\vscXhtmlView', $v);
 	}
 }

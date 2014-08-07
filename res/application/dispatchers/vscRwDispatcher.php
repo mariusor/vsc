@@ -18,8 +18,10 @@ use vsc\application\controllers\vscFrontControllerA;
 use vsc\application\processors\vscErrorProcessor;
 use vsc\application\processors\vscProcessorA;
 use vsc\application\processors\vscStaticFileProcessor;
+use vsc\application\sitemaps\vscClassMap;
 use vsc\application\sitemaps\vscControllerMap;
 use vsc\application\sitemaps\vscExceptionSitemap;
+use vsc\application\sitemaps\vscMappingA;
 use vsc\application\sitemaps\vscModuleMap;
 use vsc\application\sitemaps\vscProcessorMap;
 use vsc\application\sitemaps\vscRwSiteMap;
@@ -51,7 +53,7 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 		foreach ($aRegexes as $sRegex) {
 			$sFullRegex = '#' . str_replace('#', '\#', $sRegex). '#iu'; // i for insensitive, u for utf8
 			try {
-				$iMatch			= preg_match_all($sFullRegex,  $sUri, $aMatches, PREG_SET_ORDER);
+				$iMatch			= preg_match_all($sFullRegex, $sUri, $aMatches, PREG_SET_ORDER);
 			} catch (vscExceptionError $e) {
 				$f = new vscExceptionError(
 					$e->getMessage(). '<br/> Offending regular expression: <span style="font-weight:normal">'. $sFullRegex . '</span>',
@@ -62,15 +64,17 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 				$aMatches = array_shift($aMatches);
 				$aMatches = array_slice($aMatches, 1);
 
-				/* @var $oProcessorMapping vscProcessorMap */
-				$oProcessorMapping  = $aMaps[$sRegex];
-				$oProcessorMapping->setTaintedVars($aMatches);
-				$oProcessorMapping->setUrl ($sUri);
-				$oProcessorMapping->getModuleMap()->setUrl($sUri);
-				return $oProcessorMapping;
+				/* @var $oProcessorMapping vscMappingA */
+				$oMapping  = $aMaps[$sRegex];
+				$oMapping->setTaintedVars($aMatches);
+				$oMapping->setUrl ($sUri);
+				$oMapping->getModuleMap()->setUrl($sUri);
+				return $oMapping;
+			} else {
+
 			}
 		}
-		return new vscNull();
+//		return new vscNull();
 	}
 
 	/**
@@ -104,7 +108,7 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 		// check if the current processor has some set maps
 		$aProcessorMaps = $oProcessorMap->getControllerMaps();
 		$oCurrentMap	= $this->getCurrentMap($aProcessorMaps);
-		if (vscControllerMap::isValid($oCurrentMap)){
+		if (vscControllerMap::isValid($oCurrentMap) || vscClassMap::isValid($oCurrentMap) ) {
 			return $oCurrentMap;
 		}
 
@@ -112,7 +116,7 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 		$oCurrentModule = $this->getCurrentModuleMap();
 		$aModuleMaps 	= $oCurrentModule->getControllerMaps();
 		$oCurrentMap	= $this->getCurrentMap($aModuleMaps);
-		if (vscControllerMap::isValid($oCurrentMap)){
+		if (vscControllerMap::isValid($oCurrentMap) || vscClassMap::isValid($oCurrentMap) ) {
 			return $oCurrentMap;
 		}
 
@@ -136,22 +140,28 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 		if (!vscFrontControllerA::isValid($this->oController)) {
 			$oControllerMapping	= $this->getCurrentControllerMap();
 
-			if (!vscControllerMap::isValid($oControllerMapping)) {
-				// this mainly means nothing was matched to our url, or no mappings exist
-				$oControllerMapping = new vscControllerMap(VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.php', '');
+//			if (!vscControllerMap::isValid($oControllerMapping)) {
+//				// this mainly means nothing was matched to our url, or no mappings exist
+//				$oControllerMapping = new vscControllerMap(VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.php', '');
+//			}
+
+			if (vscControllerMap::isValid($oControllerMapping)) {
+				$sPath = $oControllerMapping->getPath();
+				if ($this->getSiteMap()->isValidObject($sPath)) {
+					include($sPath);
+
+					$sControllerName = vscSiteMapA::getClassName($sPath);
+				}
+			}
+			if (vscClassMap::isValid($oControllerMapping)) {
+				$sControllerName = $sPath = $oControllerMapping->getPath();;
 			}
 
-			$sPath 	= $oControllerMapping->getPath();
-
-			if ($this->getSiteMap()->isValidObject ($sPath)) {
-				include ($sPath);
-
-				$sControllerName = vscSiteMapA::getClassName($sPath);
-
-				/* @var $this->oController vscFrontControllerA  */
-				$this->oController = new $sControllerName();
+			/* @var $this->oController vscFrontControllerA */
+			$this->oController = new $sControllerName();
+			if (vscFrontControllerA::isValid($this->oController)) {
 				// adding the map to the controller, allows it to add resources (styles,scripts) from inside it
-				$this->oController->setMap ($oControllerMapping);
+				$this->oController->setMap($oControllerMapping);
 			}
 		}
 //		d ($oControllerMapping);
@@ -168,33 +178,42 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 	public function getProcessController () {
 		if (!vscProcessorA::isValid($this->oProcessor)) {
 			$oProcessorMap	= $this->getCurrentProcessorMap();
-			if (!vscProcessorMap::isValid($oProcessorMap)) {
+			if (!vscProcessorMap::isValid($oProcessorMap) && !vscClassMap::isValid($oProcessorMap)) {
 				// this mainly means nothing was matched to our url, or no mappings exist, so we're falling back to 404
-				$oProcessorMap	= new vscProcessorMap(VSC_RES_PATH . 'application/processors/vsc404processor.class.php', '');
+				$oProcessorMap	= new vscProcessorMap('vsc\\application\\processors\\vsc404Processor', '.*');
 				$oProcessorMap->setTemplatePath(VSC_RES_PATH . 'templates');
 				$oProcessorMap->setTemplate('404.php');
 			}
 
 			$sPath = $oProcessorMap->getPath();
 			try {
-				if ($this->getSiteMap()->isValidObject ($sPath) ) {
+				if ( $this->getSiteMap()->isValidObject ($sPath) || (stristr(basename($sPath), '.') === false && !is_file($sPath))) {
 					// dirty import of the module folder and important subfolders
 					$sModuleName = $oProcessorMap->getModuleName();
-					if ( is_dir ($oProcessorMap->getModulePath()) && !$oProcessorMap->isStatic() ) {
-						// \vsc\import ($oProcessorMap->getModulePath());
-						try {
+//					if ( is_dir ($oProcessorMap->getModulePath()) && !$oProcessorMap->isStatic() ) {
+//						 \vsc\import ($oProcessorMap->getModulePath());
+//						try {
 //							import ($sModuleName);
-							// \vsc\import ('application');
-							// \vsc\import ('domain');
-							// \vsc\import ('presentation');
-						} catch (vscExceptionPath $e) {
-							// ooopps
+//							\vsc\import ('application');
+//							\vsc\import ('domain');
+//							\vsc\import ('presentation');
+//						} catch (vscExceptionPath $e) {
+//							// ooopps
+//						}
+//					}
+					if ( stristr(basename($sPath), '.') === false && !is_file($sPath) ) {
+						// namespaced class name
+						$sProcessorName = $sPath;
+					} elseif (is_file($sPath)) {
+						try {
+							include ($sPath);
+						} catch (\Exception $e) {
+							_e($e);
 						}
+						$sProcessorName = vscSiteMapA::getClassName($sPath);
 					}
-					include ($sPath);
 
 					try {
-						$sProcessorName = vscSiteMapA::getClassName($sPath);
 						$this->oProcessor = new $sProcessorName();
 					} catch (\Exception $e) {
 						$this->oProcessor = new vscErrorProcessor($e);
@@ -218,6 +237,8 @@ class vscRwDispatcher extends vscHttpDispatcherA {
 						$oRawRequest->setTaintedVars ($this->oProcessor->getLocalVars()); // FIXME!!!
 					}
 				} else {
+//					\vsc\d($sPath, $this->oProcessor);
+//					\vsc\d($this->oProcessor);
 					// broken URL
 					throw new vscExceptionResponseError('Broken URL', 400);
 				}

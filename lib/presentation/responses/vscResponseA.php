@@ -20,13 +20,13 @@ abstract class vscResponseA extends vscNull {
 	/**
 	 * @return boolean
 	 */
-	abstract function isRedirect();
+//	abstract function isRedirect();
 
 	/**
 	 * @param string $sContentType
 	 * @return void
 	 */
-	abstract function setContentType($sContentType);
+//	abstract function setContentType($sContentType);
 
 	/**
 	 * @param vscViewA $oView

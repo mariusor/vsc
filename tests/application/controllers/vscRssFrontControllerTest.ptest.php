@@ -32,12 +32,12 @@ class vscRssFrontControllerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetResponse() {
 		$oReq = new vscRwHttpRequest();
-		$this->assertInstanceOf('vscHttpResponseA', $this->state->getResponse($oReq));
+		$this->assertInstanceOf('vsc\\presentation\\responses\\vscHttpResponseA', $this->state->getResponse($oReq));
 	}
 
 	public function testGetDefaultView() {
 		$v = $this->state->getDefaultView();
-		$this->assertInstanceOf('vscViewA', $v);
-		$this->assertInstanceOf('vscRssView', $v);
+		$this->assertInstanceOf('vsc\\presentation\\views\\vscViewA', $v);
+		$this->assertInstanceOf('vsc\\presentation\\views\\vscRssView', $v);
 	}
 }

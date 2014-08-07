@@ -1,4 +1,6 @@
 <?php
+use \vsc\application\sitemaps\vscProcessorMap;
+
 class vscProcessorMapTest extends \PHPUnit_Framework_TestCase {
 	public function setUp () {
 		// @todo

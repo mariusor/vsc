@@ -14,9 +14,9 @@ use vsc\vscException;
 abstract class vscRequestA extends vscObject {
 	private $aVarOrder;
 
-	abstract public function getServerProtocol();
-	abstract public function getHttpMethod();
-	abstract public function getHttpAccept();
+//	abstract public function getServerProtocol();
+//	abstract public function getHttpMethod();
+//	abstract public function getHttpAccept();
 
 	public function __construct () {
 		if (isset($_SERVER)) {

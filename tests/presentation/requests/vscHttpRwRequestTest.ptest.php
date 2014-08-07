@@ -1,4 +1,7 @@
 <?php
+use vsc\presentation\requests\vscHttpRequestA;
+use vsc\presentation\requests\vscRwHttpRequest;
+
 class vscHttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @var vscHttpRequestA

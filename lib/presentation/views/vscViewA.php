@@ -71,8 +71,9 @@ abstract class vscViewA extends vscObject implements vscViewI {
 	 * @throws vscExceptionPath
 	 */
 	public function setMainTemplate ($sPath) {
-		if (!is_file($sPath))
-			throw new vscExceptionPath('The main template ['.$sPath.'] is not accessible.');
+		if ( !is_file($sPath) ) {
+			throw new vscExceptionPath('The main template [' . $sPath . '] is not accessible.');
+		}
 
 		$this->sMainTemplate = $sPath;
 	}

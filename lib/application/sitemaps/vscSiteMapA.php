@@ -62,6 +62,33 @@ abstract class vscSiteMapA extends vscObject {
 	}
 
 	/**
+	 * @param string $sRegex
+	 * @param string $sPath
+	 * @throws vscExceptionSitemap
+	 * @return vscMappingA
+	 */
+	protected function addClassMap($sRegex, $sPath) {
+		$oModuleMap = $this->getCurrentModuleMap();
+		$oNewMap 	= null;
+
+		if (vscMappingA::isValid($oModuleMap)) {
+			$sRegex = $oModuleMap->getRegex() . $sRegex;
+		}
+
+		if (!array_key_exists($sRegex, $this->aMaps)) {
+			$oNewMap 	= new vscClassMap($sPath, $sRegex);
+
+			if (vscMappingA::isValid($oModuleMap)) {
+				$oNewMap->merge($oModuleMap);
+				$oNewMap->setModuleMap($oModuleMap);
+			}
+
+			$this->aMaps[$sRegex] = $oNewMap;
+		}
+		return $oNewMap;
+	}
+
+	/**
 	 *
 	 * @param string $sRegex
 	 * @param string $sPath
@@ -105,7 +132,6 @@ abstract class vscSiteMapA extends vscObject {
 		$oStaticMap = $this->addMap ($sRegex, $sPath);
 		$oStaticMap->setIsStatic(true);
 		return $oStaticMap;
-
 	}
 
 	/**
@@ -145,6 +171,8 @@ abstract class vscSiteMapA extends vscObject {
 	 */
 	static public function getClassName ($sPath) {
 		$sClassName	= basename($sPath, '.php');
+//		$sClassName	= substr($sPath, 0, -4);
+
 		$iKey		= array_search($sClassName, array_map('strtolower', get_declared_classes()));
 		$aClasses	= get_declared_classes();
 
@@ -179,29 +207,35 @@ abstract class vscSiteMapA extends vscObject {
 		if ($sRegex === null) {
 			throw new vscExceptionSitemap ('A regex URI must be present.');
 		}
-		if (!empty($sPath)) {
-			if (!is_file($sPath)) {
+		if (empty($sPath)) {
+			throw new vscExceptionSitemap ('A path must be present.');
+		}
+
+		if ( stristr(basename($sPath), '.') === false && !is_file($sPath)) {
+			// instead of a path we have a namespace
+			return $this->addClassMap($sRegex, $sPath);
+		} else {
+			if  (!is_file($sPath)) {
 				$sPath = $this->getCurrentModuleMap()->getModulePath() . $sPath;
 			}
-		}
 
-		if (!is_file($sPath)) {
-			throw new vscExceptionSitemap ('The path associated with ['.$sRegex.'] can\'t be empty or an invalid file.');
-		}
+			if (!is_file($sPath)) {
+				throw new vscExceptionSitemap ('The path associated with [' . $sRegex . '] can\'t be empty or an invalid file.');
+			}
 
-		$sPath = str_replace(array('/','\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),$sPath);
-		if (self::isValidMap ($sPath)) {
-			// Valid site map
-			return $this->addModuleMap($sRegex, $sPath);
-		} elseif (self::isValidObject ($sPath)) {
-			// Valid processor
-			return $this->addMap ($sRegex, $sPath);
-		} elseif (self::isValidStatic($sPath)) {
-			// Valid static file
-			return $this->addStaticMap ($sRegex, $sPath);
+			$sPath = str_replace(array('/','\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),$sPath);
+			if (self::isValidMap ($sPath)) {
+				// Valid site map
+				return $this->addModuleMap($sRegex, $sPath);
+			} elseif (self::isValidObject ($sPath)) {
+				// Valid processor
+				return $this->addMap ($sRegex, $sPath);
+			} elseif (self::isValidStatic($sPath)) {
+				// Valid static file
+				return $this->addStaticMap ($sRegex, $sPath);
+			}
+			throw new vscExceptionSitemap('The file [' . $sPath . '] could not be loaded.');
 		}
-
-		throw new vscExceptionSitemap('The file ['.$sPath.'] could not be loaded.');
 	}
 
 	/**

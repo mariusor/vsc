@@ -1,13 +1,5 @@
 <?php
-// \vsc\import (VSC_FIXTURE_PATH);
-
-// \vsc\import ('application/dispatchers');
-
-//$sCurPath = realpath(dirname (__FILE__) . '/../../presentation/requests/_fixtures/vscpopulatedrequest.class.php');
-//require ($sCurPath);
-
 use vsc\application\dispatchers\vscRwDispatcher;
-use vsc\application\sitemaps\vscSiteMapA;
 
 class vscRwDispatcherTest extends \PHPUnit_Framework_TestCase {
 	/**
@@ -17,7 +9,7 @@ class vscRwDispatcherTest extends \PHPUnit_Framework_TestCase {
 	private $fixturePath;
 
 	public function setUp () {
-		$this->fixturePath = VSC_FIXTURE_PATH . 'application' . DIRECTORY_SEPARATOR . 'dispatchers' . DIRECTORY_SEPARATOR;
+		$this->fixturePath = VSC_FIXTURE_PATH . 'config' . DIRECTORY_SEPARATOR;
 		$this->state = new vscRwDispatcher();
 	}
 
@@ -27,52 +19,60 @@ class vscRwDispatcherTest extends \PHPUnit_Framework_TestCase {
 
 	public function testLoadSiteMap () {
 		$this->state->loadSiteMap ($this->fixturePath . 'map.php');
-		return $this->assertInstanceOf('vscSiteMapA', $this->state->getSiteMap());
+		return $this->assertInstanceOf('vsc\\application\\sitemaps\\vscSiteMapA', $this->state->getSiteMap());
 	}
 
 	public function testGetRequest () {
-		$oReq = $this->state->getRequest();
+		$oRequest = $this->state->getRequest();
 
-		$oBlaReq = vsc::getEnv()->getHttpRequest();
+		$oBlaReq = \vsc\infrastructure\vsc::getEnv()->getHttpRequest();
 
-		return $this->assertSame($oReq, $oBlaReq);
+		return $this->assertSame($oRequest, $oBlaReq);
 	}
 
 	public function testGetFrontController () {
 		$this->state->loadSiteMap ($this->fixturePath . 'map.php');
 
+		$oRequest = new \_fixtures\presentation\requests\vscPopulatedRequest();
+		\vsc\infrastructure\vsc::getEnv()->setHttpRequest($oRequest);
+
 		$oFront = $this->state->getFrontController();
 
-		return $this->assertInstanceOf('vscFrontControllerA', $oFront);
+		return $this->assertInstanceOf('vsc\\application\\controllers\\vscFrontControllerA', $oFront);
 	}
 
 	public function testGetProcessController404 () {
 		$this->state->loadSiteMap ($this->fixturePath . 'map.php');
+
+		$oRequest = new \_fixtures\presentation\requests\vscPopulatedRequest();
+		$oRequest->setReturnUri(uniqid('TESTREQ:'));
+		\vsc\infrastructure\vsc::getEnv()->setHttpRequest($oRequest);
+
 		$oProcess = $this->state->getProcessController();
 
-		return $this->assertInstanceOf('vsc404Processor', $oProcess);
+		return $this->assertInstanceOf('vsc\\application\\processors\\vsc404Processor', $oProcess);
 	}
 
 	public function testGetMapsMap () {
 		$this->state->loadSiteMap ($this->fixturePath . 'map.php');
 
-		return $this->assertInstanceOf ('vscSiteMapA', $this->state->getSiteMap());
+		return $this->assertInstanceOf ('vsc\\application\\sitemaps\\vscSiteMapA', $this->state->getSiteMap());
 	}
 
 	public function testGetProcessorController () {
 		$this->state->loadSiteMap($this->fixturePath . 'map.php');
 
-		$oReq  = new vscPopulatedRequest();
-		vsc::getEnv()->setHttpRequest($oReq);
+		$oRequest  = new \_fixtures\presentation\requests\vscPopulatedRequest();
+		\vsc\infrastructure\vsc::getEnv()->setHttpRequest($oRequest);
 
-		return $this->assertInstanceOf('testFixtureProcessor', $this->state->getProcessController());
+		return $this->assertInstanceOf('_fixtures\\application\\processors\\testFixtureProcessor', $this->state->getProcessController());
 	}
 
 	public function testTemplatePath () {
 		$this->state->loadSiteMap($this->fixturePath . 'map.php');
 
-		$oReq  = new vscPopulatedRequest();
-		vsc::getEnv()->setHttpRequest($oReq);
+		$oRequest  = new \_fixtures\presentation\requests\vscPopulatedRequest();
+		\vsc\infrastructure\vsc::getEnv()->setHttpRequest($oRequest);
 
 		return $this->assertNull($this->state->getTemplatePath());
 	}
@@ -80,12 +80,11 @@ class vscRwDispatcherTest extends \PHPUnit_Framework_TestCase {
 	public function testGetCurrentModuleMap () {
 		$this->state->loadSiteMap($this->fixturePath . 'map.php');
 
-
-		$oReq  = new vscPopulatedRequest();
-		vsc::getEnv()->setHttpRequest($oReq);
+		$oRequest  = new \_fixtures\presentation\requests\vscPopulatedRequest();
+		\vsc\infrastructure\vsc::getEnv()->setHttpRequest($oRequest);
 
 		$oProcessor = $this->state->getProcessController();
 
-		return $this->assertInstanceOf('vscModuleMap', $this->state->getCurrentModuleMap());
+		return $this->assertInstanceOf('vsc\\application\\sitemaps\\vscModuleMap', $this->state->getCurrentModuleMap());
 	}
 }

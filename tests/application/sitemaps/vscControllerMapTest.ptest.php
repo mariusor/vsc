@@ -1,4 +1,6 @@
 <?php
+use \vsc\application\sitemaps\vscControllerMap;
+
 class vscControllerMapTest extends \PHPUnit_Framework_TestCase {
 	public function setUp () {
 		// @todo

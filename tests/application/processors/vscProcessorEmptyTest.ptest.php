@@ -1,5 +1,8 @@
 <?php
 // \vsc\import (VSC_FIXTURE_PATH);
+use _fixtures\application\processors\testFixtureProcessor;
+use vsc\application\sitemaps\vscModuleMap;
+use vsc\application\dispatchers\vscRwDispatcher;
 
 class vscProcessorEmptyTest extends \PHPUnit_Framework_TestCase {
 	/**
@@ -43,20 +46,20 @@ class vscProcessorEmptyTest extends \PHPUnit_Framework_TestCase {
 		return $this->assertSame ($oMap, $this->state->getMap());
 	}
 	public function testGetMap () {
-		return $this->assertInstanceOf('vscProcessorMap', $this->state->getMap());
+		return $this->assertInstanceOf('\\vsc\\application\\sitemaps\\vscProcessorMap', $this->state->getMap());
 	}
 
 	public function testDelegateRequest () {
 		$sValue = 'test';
 
-		$oHttpRequest = new vscRwHttpRequest();
+		$oHttpRequest = new \_fixtures\presentation\requests\vscPopulatedRequest();
 		$oNewProcessor = new testFixtureProcessor();
 		$oNewProcessor->return = $sValue;
 
-		$sMapPath = VSC_FIXTURE_PATH . 'application' . DIRECTORY_SEPARATOR . 'dispatchers' . DIRECTORY_SEPARATOR .'map.php';
+		$sMapPath = VSC_FIXTURE_PATH . 'config' . DIRECTORY_SEPARATOR .'map.php';
 
-		vsc::getEnv()->setDispatcher(new vscRwDispatcher());
-		vsc::getEnv()->getDispatcher()->loadSiteMap($sMapPath);
+		\vsc\infrastructure\vsc::getEnv()->setDispatcher(new vscRwDispatcher());
+		\vsc\infrastructure\vsc::getEnv()->getDispatcher()->loadSiteMap($sMapPath);
 
 		$this->assertEquals($sValue, $this->state->delegateRequest($oHttpRequest, $oNewProcessor));
 	}

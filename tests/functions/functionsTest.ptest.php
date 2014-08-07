@@ -17,7 +17,7 @@ class functionsTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testImportWithOutExceptionsReturnPath () {
 		set_include_path ('.');
-		// \vsc\import (VSC_LIB_PATH); // this should exist at all times
+		\vsc\import (VSC_LIB_PATH); // this should exist at all times
 		$sTestPath = '.' . PATH_SEPARATOR . substr (VSC_LIB_PATH,0,-1);
 
 		$this->assertEquals (get_include_path(), $sTestPath);
@@ -25,11 +25,12 @@ class functionsTest extends \PHPUnit_Framework_TestCase {
 
 
 	public function testImportWithExceptionsReturnPath () {
+		$this->markTestSkipped('Dropping exceptions in separate folder');
 		set_include_path ('.');
-		// \vsc\import (VSC_LIB_PATH); // this should exist at all times
+		\vsc\import (VSC_LIB_PATH); // this should exist at all times
 		$sLocalPackage = 'exceptions';
 		try {
-			// \vsc\import ($sLocalPackage); // this should exist at all times and have exceptions
+			\vsc\import ($sLocalPackage); // this should exist at all times and have exceptions
 		} catch (Exception $e) {
 
 		}
@@ -39,11 +40,11 @@ class functionsTest extends \PHPUnit_Framework_TestCase {
 
 	public function testImportBadPackage () {
 		$e = 0;
-		$sPackageName = '...';
+		$sPackageName = uniqid(':#~');
 		try {
-			// \vsc\import ($sPackageName);
-		} catch (Exception $e) {
-			return $this->assertInstanceOf ('vscExceptionPackageImport', $e, 'The import function didn\'t throw the correct exception.');
+			\vsc\import ($sPackageName);
+		} catch (\Exception $e) {
+			return $this->assertInstanceOf ('\\vsc\\vscExceptionPackageImport', $e, 'The import function didn\'t throw the correct exception.');
 		}
 	}
 }

@@ -1,6 +1,7 @@
 <?php
-// \vsc\import ('presentation');
-// \vsc\import ('responses');
+use vsc\presentation\responses\vscHttpResponse;
+use vsc\vscException;
+
 class vscHttpResponseTest extends \PHPUnit_Framework_TestCase {
 	public function setUp () {
 		// @todo
@@ -17,7 +18,7 @@ class vscHttpResponseTest extends \PHPUnit_Framework_TestCase {
 		try {
 			$state->setStatus($iStatus);
 		} catch (vscException $e) {
-			$this->assertInstanceOf('vscExceptionResponse', $e);
+			$this->assertInstanceOf('\\vsc\\presentation\\responses\\vscExceptionResponse', $e);
 			$this->assertEquals('['.$iStatus.'] is not a valid  status', $e->getMessage());
 		}
 		$iStatus = 304;

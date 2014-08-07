@@ -1,14 +1,10 @@
 <?php
-// \vsc\import (VSC_FIXTURE_PATH);
+use vsc\application\sitemaps\vscProcessorMap;
+use vsc\domain\models\vscEmptyModel;
+use vsc\presentation\views\vscViewA;
 
-// \vsc\import ('application');
-// \vsc\import ('controllers');
-// \vsc\import ('processors');
-// \vsc\import ('sitemaps');
-// \vsc\import ('presentation');
-// \vsc\import ('responses');
-// \vsc\import ('requests');
-// \vsc\import ('views');
+use _fixtures\presentation\views\testView;
+use _fixtures\domain\models\vscModelFixture;
 
 class vscDefaultViewTest extends \PHPUnit_Framework_TestCase {
 	/**
@@ -41,7 +37,7 @@ class vscDefaultViewTest extends \PHPUnit_Framework_TestCase {
 		try {
 			$this->state->setMainTemplate ( $t );
 		} catch (Exception $e) {
-			$this->assertInstanceOf('vscExceptionPath', $e);
+			$this->assertInstanceOf('\\vsc\\vscExceptionPath', $e);
 		}
 
 		$this->assertEmpty($this->state->getMainTemplate());
@@ -69,7 +65,7 @@ class vscDefaultViewTest extends \PHPUnit_Framework_TestCase {
 		try {
 			$this->state->setTemplate ( $t );
 		} catch (Exception $e) {
-			$this->assertInstanceOf('vscExceptionPath', $e);
+			$this->assertInstanceOf('\\vsc\\vscExceptionPath', $e);
 		}
 
 		$this->assertEmpty($this->state->getTemplate());
@@ -94,7 +90,7 @@ class vscDefaultViewTest extends \PHPUnit_Framework_TestCase {
 			// empty
 			$this->state->getModel ();
 		} catch (Exception $e) {
-			$this->assertInstanceOf('vscExceptionView', $e);
+			$this->assertInstanceOf('\\vsc\\presentation\\views\\vscExceptionView', $e);
 		}
 
 		$f = new vscModelFixture();
@@ -102,8 +98,8 @@ class vscDefaultViewTest extends \PHPUnit_Framework_TestCase {
 
 		$m = $this->state->getModel();
 
-		$this->assertInstanceOf('vscModelA', $m);
-		$this->assertInstanceOf('vscModelFixture', $m);
+		$this->assertInstanceOf('\\vsc\\domain\\models\\vscModelA', $m);
+		$this->assertInstanceOf('\\_fixtures\\domain\\models\\vscModelFixture', $m);
 		$this->assertEquals($f, $m);
 	}
 
@@ -154,7 +150,7 @@ class vscDefaultViewTest extends \PHPUnit_Framework_TestCase {
 		try {
 			$this->state->fetch ( $t );
 		} catch (Exception $e) {
-			$this->assertInstanceOf ('vscExceptionPath', $e);
+			$this->assertInstanceOf ('\\vsc\\vscExceptionPath', $e);
 		}
 
 		$t = 'main.tpl.php';
@@ -176,7 +172,7 @@ class vscDefaultViewTest extends \PHPUnit_Framework_TestCase {
 		try {
 			$this->state->getOutput();
 		} catch (Exception $e) {
-			$this->assertInstanceOf ('vscExceptionView', $e);
+			$this->assertInstanceOf ('\\vsc\\presentation\\views\\vscExceptionView', $e);
 		}
 
 		$t = 'main.tpl.php';
@@ -196,7 +192,7 @@ class vscDefaultViewTest extends \PHPUnit_Framework_TestCase {
 	public function testGetUriParser() {
 		$p = $this->state->getUriParser();
 
-		$this->assertInstanceOf('vscUrlParserA', $p);
+		$this->assertInstanceOf('\\vsc\\infrastructure\\urls\\vscUrlParserA', $p);
 	}
 
 	public function testStaticGetCurrentSiteUri () {

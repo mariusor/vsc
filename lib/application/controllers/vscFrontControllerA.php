@@ -65,9 +65,9 @@ abstract class vscFrontControllerA extends vscObject {
 	}
 
 	/**
-	 * @param vscControllerMap $oMap
+	 * @param vscMappingA $oMap
 	 */
-	public function setMap (vscControllerMap $oMap) {
+	public function setMap (vscMappingA $oMap) {
 		$this->oCurrentMap = $oMap;
 	}
 
@@ -181,21 +181,13 @@ abstract class vscFrontControllerA extends vscObject {
 	 * @throws vscExceptionView
 	 */
 	public function getView () {
-		$sViewPath = $this->getMap()->getViewPath();
-		if (!vscViewA::isValid($this->oView)) {
-			if (is_null($sViewPath)) {
-				$this->oView = $this->getDefaultView();
-			} else {
-				//$sViewPath	= dirname($sViewPath);
-				include ($sViewPath);
-
-				$sClassName	= vscSiteMapA::getClassName($sViewPath);
-
-				if (!empty($sClassName)) {
-					$this->oView = new $sClassName();
-				}
-			}
+		if (vscViewA::isValid($this->oView)) {
+			return $this->oView;
 		}
+		if (vscViewA::isValid($this->getMap()->getView())) {
+			return $this->getMap()->getView();
+		}
+		$this->oView = $this->getDefaultView();
 		return $this->oView;
 	}
 }

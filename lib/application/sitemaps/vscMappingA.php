@@ -292,15 +292,11 @@ class vscMappingA extends vscObject {
 		if (!$sRegex) {
 			throw new vscExceptionSitemap ('An URI must be present.');
 		}
-		$sPath = str_replace(array('/','\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),$sPath);
-
-		if (!vscSiteMapA::isValidObject ($sPath)) {
-			$sPath = $this->getModulePath() . $sPath;
-		}
-		if (vscSiteMapA::isValidObject ($sPath)) {
+		if ( stristr(basename($sPath), '.') === false && !is_file($sPath) ) {
+			// instead of a path we have a namespace
 			$sKey = $sRegex;
 			if (!is_array($this->aControllerMaps) || !array_key_exists($sKey, $this->aControllerMaps)) {
-				$oNewMap 	= new vscControllerMap($sPath, $sKey);
+				$oNewMap 	= new vscClassMap($sPath, $sKey);
 				$oNewMap->setModuleMap($this);
 				$oNewMap->merge($this);
 
@@ -309,9 +305,27 @@ class vscMappingA extends vscObject {
 				return $oNewMap;
 			}
 		} else {
-			throw new vscExceptionController('Controller ['.$sPath.'] is invalid.');
+			$sPath = str_replace(array('/','\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),$sPath);
+
+			if (!vscSiteMapA::isValidObject ($sPath)) {
+				$sPath = $this->getModulePath() . $sPath;
+			}
+			if (vscSiteMapA::isValidObject ($sPath)) {
+				$sKey = $sRegex;
+				if (!is_array($this->aControllerMaps) || !array_key_exists($sKey, $this->aControllerMaps)) {
+					$oNewMap 	= new vscControllerMap($sPath, $sKey);
+					$oNewMap->setModuleMap($this);
+					$oNewMap->merge($this);
+
+					$this->aControllerMaps[$sKey] = $oNewMap;
+
+					return $oNewMap;
+				}
+			} else {
+				throw new vscExceptionController('Controller ['.$sPath.'] is invalid.');
+			}
 		}
-		return new vscNull();
+//		return new vscNull();
 	}
 
 	/**
