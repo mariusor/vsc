@@ -28,13 +28,13 @@ $this->getCurrentModuleMap()->setTemplatePath (VSC_RES_PATH . 'templates');
 //$oMap->setTemplate ('content.php');
 
 // fallback 404 processor for everything
-$oMap = $this->map ('(.+)\Z', VSC_RES_PATH . 'application/processors/vscemptyprocessor.php');
+$oMap = $this->map ('(.+)\Z', '\\vsc\\application\\processors\\EmptyProcessor');
 $oMap->setTemplate ('404.php');
 
 // front controllers
-//$this->getCurrentModuleMap()->mapController ('\.json$', VSC_RES_PATH . 'application/controllers/vscjsoncontroller.php');
-$this->getCurrentModuleMap()->mapController ('\.rss$', VSC_RES_PATH . 'application/controllers/vscrsscontroller.php');
-$this->getCurrentModuleMap()->mapController ('\.txt$', VSC_RES_PATH . 'application/controllers/vscplaintextcontroller.php');
-$this->getCurrentModuleMap()->mapController ('^.*$', VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.php');
+$this->getCurrentModuleMap()->mapController ('\.json$', '\\vsc\\application\\controllers\\JsonController');
+$this->getCurrentModuleMap()->mapController ('\.rss$', '\\vsc\\application\\controllers\\RssController');
+$this->getCurrentModuleMap()->mapController ('\.txt$', '\\vsc\\application\\controllers\\PlainTextController');
+$this->getCurrentModuleMap()->mapController ('^.*$', '\\vsc\\application\\controllers\\XhtmlController');
 
 // d ($oMap->getModuleMap(), $this->getCurrentModuleMap());
