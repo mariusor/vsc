@@ -59,49 +59,6 @@ function d () {
 }
 }
 
-/**
- * the __autoload automagic function for class instantiation,
- * @param string $className
- * @return bool
- */
-function loadClass ($className) {
-	if (class_exists ($className, false)) {
-		return true;
-	}
-	if (stristr ($className, '\\')) {
-		$aPaths = explode('\\', $className);
-		$className = array_pop ($aPaths);
-
-		// converting versioning namespaces vX_Y to vX.Y folders - for the API
-		$sPath = preg_replace('/v(\d)_(\d)/', 'v$1.$2', implode(DIRECTORY_SEPARATOR, $aPaths)) . DIRECTORY_SEPARATOR;
-	}
-
-	$fileIncluded = false;
-
-	$sFilePath	= $className . '.php';
-	if (stristr ($className, 'exception')) {
-		$sExceptionsFilePath = 'exceptions' . DIRECTORY_SEPARATOR . $sFilePath;
-		$fileIncluded = include_once ($sExceptionsFilePath);
-	}
-	if (!$fileIncluded) {
-		$sNamespaceFilePath = (!empty($sPath) ? $sPath : '') . $sFilePath;
-		$fileIncluded = @include_once ($sNamespaceFilePath);
-	}
-	if (!$fileIncluded) {
-		$fileIncluded = @include_once ($sFilePath);
-	}
-	if ( !$fileIncluded || ( !in_array ($className,get_declared_classes()) && !in_array($className,get_declared_interfaces() ) ) ) {
-		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscException.php');
-		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscExceptionPath.php');
-		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscExceptionAutoload.php');
-
-		$sExport = var_export(getPaths(),true);
-		//throw new ExceptionAutoload('Could not load class ['.$className.'] in path: <pre style="font-weight:normal">' . $sExport . '</pre>');
-		return false;
-	}
-	return true;
-}
-
 function getPaths () {
 	return explode (PATH_SEPARATOR, get_include_path());
 }
@@ -126,63 +83,6 @@ function cleanBuffers ($iLevel = null) {
 	return $aErrors;
 }
 
-function addPath ($pkgPath, $sIncludePath = null) {
-	// removing the trailing / if it exists
-
-	if (substr($pkgPath,-1) == DIRECTORY_SEPARATOR) {
-		$pkgPath = substr ($pkgPath,0, -strlen (DIRECTORY_SEPARATOR));
-	}
-	if (is_null($sIncludePath)) {
-		$sIncludePath 	= get_include_path();
-	}
-
-	// checking to see if the path exists already in the included path
-	if (strpos ($sIncludePath, $pkgPath . PATH_SEPARATOR) === false) {
-		set_include_path (
-			$sIncludePath. PATH_SEPARATOR .
-			$pkgPath
-		);
-	}
-	return true;
-}
-
-/**
- * Adds the package name to the include path
- * Also we are checking if an existing import exists, which would define some application specific import rules
- * @param string $sIncPath
- * @throws ExceptionPackageImport
- * @return bool
- */
-function import ($sIncPath) {
-	// fixing the paths to be fully compliant with the OS - indifferently how they are set
-	$sIncPath	= str_replace(array('/','\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),$sIncPath);
-	$bStatus 	= false;
-	$sPkgLower 	= strtolower ($sIncPath);
-	$sIncludePath 	= get_include_path();
-
-	$sIncPathIsFolder = realpath($sIncPath);
-	if ( is_dir ($sIncPathIsFolder) ) {
-		// takes care of relative paths
-		$bStatus |= addPath ($sIncPathIsFolder, $sIncludePath);
-	}
-
-	$aPaths 		= explode(PATH_SEPARATOR, $sIncludePath);
-	krsort ($aPaths);
-
-	// this definitely needs improvement
-	foreach ($aPaths as $sPath) {
-		$pkgPath 	= realpath($sPath . DIRECTORY_SEPARATOR . $sPkgLower);
-		if ( is_dir($pkgPath) ) {
-			$bStatus |= addPath ($pkgPath);
-		}
-	}
-
-	if (!$bStatus) {
-		throw new ExceptionPackageImport ('Bad package [' . $sIncPath . ']');
-	} else {
-		return true;
-	}
-}
 
 if (!function_exists('_e')) {
 	function getErrorHeaderOutput ($e = null) {
