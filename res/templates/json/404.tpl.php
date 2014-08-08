@@ -1,6 +1,6 @@
 <?php
-/* @var \vsc\domain\models\vscErrorModel $model */
-/* @var $this \vsc\presentation\views\vscJsonView */
+/* @var \vsc\domain\models\ErrorModel $model */
+/* @var $this \vsc\presentation\views\JsonView */
 $e = $model->getException();
 
 $error = array (

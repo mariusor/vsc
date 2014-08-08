@@ -1,4 +1,4 @@
-<?php /* @var $this \vsc\presentation\views\vscHtml5View */ ?>
+<?php /* @var $this \vsc\presentation\views\Html5View */ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +51,7 @@ if (is_array ($this->getLinks()) && count($this->getLinks()) >= 1) {
 <?php
 try {
 	$sContent = $this->fetch ($this->getTemplate());
-} catch (\vsc\vscExceptionPath $e) {
+} catch (\vsc\ExceptionPath $e) {
 	// the template could not be found
 }
 	if (!empty($sContent)) {

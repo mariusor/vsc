@@ -1,9 +1,9 @@
 <?php
 namespace _fixtures\presentation\views;
 
-use vsc\presentation\views\vscViewA;
+use vsc\presentation\views\ViewA;
 
-class testView extends vscViewA {
+class testView extends ViewA {
 	/**
 	 * This is a helper method to allow us to set a non-public parameter
 	 * @param string $sFolder

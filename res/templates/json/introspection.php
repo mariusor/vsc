@@ -1,5 +1,5 @@
 <?php
-/* @var \vsc\domain\models\vscModelA $model */
+/* @var \vsc\domain\models\ModelA $model */
 $t = array();
 
 foreach ($model as $key => $data) {

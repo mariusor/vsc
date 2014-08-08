@@ -10,7 +10,7 @@ use vsc\infrastructure\vsc;
  * @param $sMessage
  * @param $sFilename
  * @param $iLineNo
- * @throws vscExceptionError
+ * @throws ExceptionError
  * @return void
  */
 function exceptions_error_handler ($iSeverity, $sMessage, $sFilename, $iLineNo) {
@@ -21,7 +21,7 @@ function exceptions_error_handler ($iSeverity, $sMessage, $sFilename, $iLineNo) 
 	if (error_reporting() & $iSeverity) {
 		// the __autoload seems not to be working here
 		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexceptionerror.php'));
-		throw new vscExceptionError ($sMessage, 0, $iSeverity, $sFilename, $iLineNo);
+		throw new ExceptionError ($sMessage, 0, $iSeverity, $sFilename, $iLineNo);
 	}
 }
 
@@ -96,7 +96,7 @@ function loadClass ($className) {
 		include_once (VSC_LIB_PATH . 'exceptions'.DIRECTORY_SEPARATOR.'vscExceptionAutoload.php');
 
 		$sExport = var_export(getPaths(),true);
-		//throw new vscExceptionAutoload('Could not load class ['.$className.'] in path: <pre style="font-weight:normal">' . $sExport . '</pre>');
+		//throw new ExceptionAutoload('Could not load class ['.$className.'] in path: <pre style="font-weight:normal">' . $sExport . '</pre>');
 		return false;
 	}
 	return true;
@@ -150,7 +150,7 @@ function addPath ($pkgPath, $sIncludePath = null) {
  * Adds the package name to the include path
  * Also we are checking if an existing import exists, which would define some application specific import rules
  * @param string $sIncPath
- * @throws vscExceptionPackageImport
+ * @throws ExceptionPackageImport
  * @return bool
  */
 function import ($sIncPath) {
@@ -178,7 +178,7 @@ function import ($sIncPath) {
 	}
 
 	if (!$bStatus) {
-		throw new vscExceptionPackageImport ('Bad package [' . $sIncPath . ']');
+		throw new ExceptionPackageImport ('Bad package [' . $sIncPath . ']');
 	} else {
 		return true;
 	}

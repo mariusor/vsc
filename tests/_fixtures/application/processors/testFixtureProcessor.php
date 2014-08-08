@@ -2,16 +2,16 @@
 namespace _fixtures\application\processors;
 
 // \vsc\import ('application/processors');
-use vsc\application\processors\vscProcessorA;
-use vsc\presentation\requests\vscHttpRequestA;
+use vsc\application\processors\ProcessorA;
+use vsc\presentation\requests\HttpRequestA;
 
-class testFixtureProcessor extends vscProcessorA {
+class testFixtureProcessor extends ProcessorA {
 	public $return;
 	protected $aLocalVars = array ('test' => null);
-	
+
 	public function init () {}
 
-	public function handleRequest (vscHttpRequestA $oHttpRequest) {
+	public function handleRequest (HttpRequestA $oHttpRequest) {
 		return $this->return;
 	}
 }

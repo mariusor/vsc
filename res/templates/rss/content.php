@@ -1,6 +1,6 @@
 <?php
-/* @var $this \vsc\presentation\views\vscRssView */
-/* @var $item vsc\domain\domain\vscRssItem */
+/* @var $this \vsc\presentation\views\RssView */
+/* @var $item \vsc\domain\domain\RssItem */
 use vsc\infrastructure\vsc;
 ?>
 		<item>

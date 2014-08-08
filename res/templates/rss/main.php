@@ -1,5 +1,5 @@
 <?php
-/* @var $this \vsc\presentation\views\vscRssView */
+/* @var $this \vsc\presentation\views\RssView */
 ?>
 <?php echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -14,7 +14,7 @@
 <?php
 try {
 	$sContent = $this->fetch ($this->getTemplate());
-} catch (\vsc\vscExceptionPath $e) {
+} catch (\vsc\ExceptionPath $e) {
 	// the template could not be found
 }
 	if (!empty($sContent)) {

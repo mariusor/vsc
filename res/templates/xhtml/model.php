@@ -1,20 +1,20 @@
 <?php
-use \vsc\domain\models\vscModelA;
-use \vsc\domain\models\vscArrayModel;
-/* @var vscModelA $model */
+use \vsc\domain\models\ModelA;
+use \vsc\domain\models\ArrayModel;
+/* @var ModelA $model */
 
-if (vscModelA::isValid($model)) {
-	/* @var $this \vsc\presentation\views\vscViewA */
+if (ModelA::isValid($model)) {
+	/* @var $this \vsc\presentation\views\ViewA */
 	foreach ($model->toArray() as $sName => $mValue) {
 		if (is_scalar($mValue)) {
 			echo '<li><strong>' . $sName.'</strong> ➞ '."\n";
 			echo $mValue.'</li>'."\n";
 			continue;
 		} /**/elseif (is_array($mValue)) {
-			$mValue = new vscArrayModel ($mValue);
+			$mValue = new ArrayModel ($mValue);
 		}
 
-		if (vscModelA::isValid($mValue)) {
+		if (ModelA::isValid($mValue)) {
 			$this->setModel ($mValue);
 			echo '<li> <strong>'.(is_int($sName) ? '#' : '').$sName.'</strong> [' . get_class ($mValue) . '] '.(isset($mValue->length) ? ' (' . $mValue->length . ')' : '')."\n";
 			echo '<ul>'."\n";

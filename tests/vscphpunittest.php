@@ -1,5 +1,5 @@
 <?php
-class vscPHPUnitTest extends \PHPUnit_Framework_TestCase {
+class PHPUnitTest extends \PHPUnit_Framework_TestCase {
 
 	public function __construct () {
 		// this file resides in <vsc_dir>/unit_tests and we require the path to <vsc_dir>

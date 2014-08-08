@@ -1,10 +1,10 @@
 <?php
-use vsc\vscExceptionPath;
-/* @var $this \vsc\presentation\views\vscTxtView */
+use vsc\ExceptionPath;
+/* @var $this \vsc\presentation\views\TxtView */
 
 try {
 	$sContent = $this->fetch ($this->getTemplate());
-} catch (vscExceptionPath $e) {
+} catch (ExceptionPath $e) {
 	// the template could not be found
 }
 if (!empty($sContent)) {

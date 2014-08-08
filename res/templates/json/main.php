@@ -1,9 +1,9 @@
 <?php
-use vsc\vscExceptionPath;
-/* @var $this \vsc\presentation\views\vscJsonView */
+use vsc\ExceptionPath;
+/* @var $this \vsc\presentation\views\JsonView */
 try {
 	$sContent = $this->fetch ($this->getTemplate());
-} catch (vscExceptionPath $e) {
+} catch (ExceptionPath $e) {
 	// the template could not be found
 }
 if (!empty($sContent)) {

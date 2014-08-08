@@ -10,7 +10,7 @@
  * @date 09.09.16
  */
 
-/* @var $this \vsc\application\sitemaps\vscRwSiteMap */
+/* @var $this \vsc\application\sitemaps\RwSiteMap */
 
 // this will break if the current map is the first loaded
 $this->getParentModuleMap()->setMainTemplatePath(VSC_RES_PATH . 'templates');

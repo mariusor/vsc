@@ -1,8 +1,8 @@
 <?php
-use vsc\infrastructure\vsc;
-use \vsc\vscException;
+use \vsc\infrastructure\vsc;
+use \vsc\Exception;
 
-/* @var $this \vsc\presentation\views\vscViewA  */ ?>
+/* @var $this \vsc\presentation\views\ViewA  */ ?>
 <section>
 <h2>Default HTML5 template</h2>
 This is the default HTML5 template from the <?php echo vsc::name(); ?> framework.<br/>
@@ -27,7 +27,7 @@ try {
 	echo '<li style="list-style:none; margin-left:-2em">Model type: <strong>' . get_class($this->getModel()) . '</strong></li>'."\n";
 	echo $this->fetch (dirname(__FILE__) . '/model.php');
 	echo '</ul>'."\n";
-} catch (vscException $e) {
+} catch (Exception $e) {
 	\vsc\d ($e);
 }
 

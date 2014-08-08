@@ -1,37 +1,34 @@
 <?php
 /**
- * @package vsc_infrastructure
+ * @package infrastructure
  * @author marius orcsik <marius@habarnam.ro>
  * @date 09.08.31
  */
 namespace vsc\infrastructure;
 
-// \vsc\import ('presentation/requests');
-// \vsc\import ('application/dispatchers');
+use vsc\application\dispatchers\DispatcherA;
+use vsc\application\dispatchers\GenericCLIDispatcher;
+use vsc\application\dispatchers\HttpDispatcherA;
+use vsc\application\dispatchers\RwDispatcher;
+use vsc\application\sitemaps\ModuleMap;
+use vsc\presentation\requests\CLIRequest;
+use vsc\presentation\requests\HttpRequestA;
+use vsc\presentation\requests\RawHttpRequest;
+use vsc\presentation\requests\RwHttpRequest;
 
-use vsc\application\dispatchers\vscDispatcherA;
-use vsc\application\dispatchers\vscGenericCLIDispatcher;
-use vsc\application\dispatchers\vscHttpDispatcherA;
-use vsc\application\dispatchers\vscRwDispatcher;
-use vsc\application\sitemaps\vscModuleMap;
-use vsc\presentation\requests\vscCLIRequest;
-use vsc\presentation\requests\vscHttpRequestA;
-use vsc\presentation\requests\vscRawHttpRequest;
-use vsc\presentation\requests\vscRwHttpRequest;
-
-class vsc extends vscObject {
+class vsc extends Object {
 	/**
-	 * @var vsc
+	 * @var
 	 */
 	static private $oInstance;
 
 	/**
-	 * @var vscHttpRequestA
+	 * @var HttpRequestA
 	 */
 	private $oRequest = null;
 
 	/**
-	 * @var vscDispatcherA
+	 * @var DispatcherA
 	 */
 	private $oDispatcher;
 
@@ -49,50 +46,50 @@ class vsc extends vscObject {
 	}
 
 	/**
-	 * @param $oRequest vscHttpRequestA
+	 * @param HttpRequestA $oRequest
 	 */
-	public function setHttpRequest (vscHttpRequestA $oRequest) {
-		if (vscHttpRequestA::isValid($oRequest)  && get_class($this->oRequest) != get_class($oRequest)) {
+	public function setHttpRequest (HttpRequestA $oRequest) {
+		if (HttpRequestA::isValid($oRequest)  && get_class($this->oRequest) != get_class($oRequest)) {
 			$this->oRequest = $oRequest;
 		}
 	}
 
 	/**
-	 * @return vscHttpRequestA
+	 * @returns HttpRequestA
 	 */
 	public function getHttpRequest () {
 		if ( is_null($this->oRequest) ){
 			if ( !self::isCli() ) {
-				if (!vscHttpRequestA::hasContentType()) {
-					$this->oRequest = new vscRwHttpRequest();
+				if (!HttpRequestA::hasContentType()) {
+					$this->oRequest = new RwHttpRequest();
 				} else {
-					$this->oRequest = new vscRawHttpRequest();
+					$this->oRequest = new RawHttpRequest();
 				}
 			} else {
-				$this->oRequest = new vscCLIRequest();
+				$this->oRequest = new CLIRequest();
 			}
 		}
 		return $this->oRequest;
 	}
 
 	/**
-	 * @param $oDispatcher vscHttpDispatcherA
+	 * @param HttpDispatcherA $oDispatcher
 	 */
 	public function setDispatcher ($oDispatcher) {
-		if (vscDispatcherA::isValid($oDispatcher)){
+		if (DispatcherA::isValid($oDispatcher)){
 			$this->oDispatcher = $oDispatcher;
 		}
 	}
 
 	/**
-	 * @return vscHttpDispatcherA
+	 * @returns HttpDispatcherA
 	 */
 	public function getDispatcher () {
-		if (!vscDispatcherA::isValid($this->oDispatcher)){
+		if (!DispatcherA::isValid($this->oDispatcher)){
 			if ( !self::isCli() ) {
-				$this->oDispatcher = new vscRwDispatcher();
+				$this->oDispatcher = new RwDispatcher();
 			} else {
-				$this->oDispatcher = new vscGenericCLIDispatcher();
+				$this->oDispatcher = new GenericCLIDispatcher();
 			}
 		}
 		return $this->oDispatcher;
@@ -155,12 +152,12 @@ class vsc extends vscObject {
 
 		$output .= ob_get_clean();
 
-		if (vsc::isCLi() || self::getHttpRequest()->accepts('application/json')) {
-			echo vscString::stripTags(vscString::br2nl($output));
+		if (self::isCLi() || self::getHttpRequest()->accepts('application/json')) {
+			echo String::stripTags(String::br2nl($output));
 		} elseif (self::getHttpRequest()->accepts('text/html')) {
 			echo '<pre>' . $output . '</pre>';
 		} else {
-			echo vscString::stripTags(vscString::br2nl($output));
+			echo String::stripTags(String::br2nl($output));
 		}
 
 		exit ();
@@ -171,7 +168,7 @@ class vsc extends vscObject {
 	}
 
 	/**
-	 * @return vscModuleMap
+	 * @returns ModuleMap
 	 */
 	public function getCurrentModuleMap () {
 		return $this->getDispatcher()->getCurrentModuleMap();

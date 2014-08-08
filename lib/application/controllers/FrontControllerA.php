@@ -1,0 +1,193 @@
+<?php
+/**
+ * @package application
+ * @subpackage controllers
+ * @author marius orcsik <marius@habarnam.ro>
+ * @date 09.08.30
+ */
+namespace vsc\application\controllers;
+// \vsc\import (VSC_LIB_PATH . 'application/processors');
+// \vsc\import (VSC_LIB_PATH . 'presentation/responses');
+// \vsc\import (VSC_RES_PATH . 'application/processors');
+// \vsc\import (VSC_RES_PATH . 'domain/models');
+
+use vsc\application\processors\ErrorProcessor;
+use vsc\application\processors\ProcessorA;
+use vsc\application\sitemaps\ControllerMap;
+use vsc\application\sitemaps\MappingA;
+use vsc\application\sitemaps\ProcessorMap;
+use vsc\application\sitemaps\SiteMapA;
+use vsc\domain\models\EmptyModel;
+use vsc\domain\models\ModelA;
+use vsc\infrastructure\Object;
+use vsc\presentation\responses\ExceptionResponseError;
+use vsc\presentation\responses\ExceptionResponseRedirect;
+use vsc\presentation\responses\HttpResponseA;
+use vsc\presentation\responses\HttpResponseType;
+use vsc\presentation\views\ExceptionView;
+use vsc\presentation\requests\HttpRequestA;
+use vsc\presentation\responses\HttpResponse;
+use vsc\presentation\views\ViewA;
+use vsc\ExceptionPath;
+use vsc\presentation\responses\ExceptionResponse;
+
+abstract class FrontControllerA extends Object {
+	/**
+	 * @var string
+	 */
+	private $sTemplatePath;
+
+	/**
+	 * @var ControllerMap
+	 */
+	private $oCurrentMap;
+
+	/**
+	 * @var ViewA
+	 */
+	private $oView;
+
+	/**
+	 * @returns ViewA
+	 */
+	abstract public function getDefaultView();
+
+	/**
+	 * @throws ExceptionView
+	 * @returns ControllerMap
+	 */
+	public function getMap () {
+		if (ControllerMap::isValid($this->oCurrentMap )) {
+			return $this->oCurrentMap;
+		} else {
+			throw new ExceptionView ('Make sure the current Controller map is correctly set.');
+		}
+	}
+
+	/**
+	 * @param MappingA $oMap
+	 */
+	public function setMap (MappingA $oMap) {
+		$this->oCurrentMap = $oMap;
+	}
+
+	/**
+	 * @param $sIncPath
+	 * @throws ExceptionController
+	 */
+	public function setTemplatePath ($sIncPath) {
+		if (is_dir($sIncPath)) {
+			$this->sTemplatePath = $sIncPath;
+		} else {
+			throw new ExceptionController('The template path ['.$sIncPath.'] is not a valid folder.');
+		}
+	}
+
+	/**
+	 * @param HttpRequestA $oRequest
+	 * @param ProcessorA $oProcessor
+	 * @throws ExceptionPath
+	 * @throws ExceptionResponse
+	 * @throws ExceptionView
+	 * @internal param vscViewA $oView
+	 * @returns HttpResponseA
+	 */
+	public function getResponse (HttpRequestA $oRequest, $oProcessor = null) {
+		$oResponse = new HttpResponse(); // this needs changing for REST stuff
+		$oModel = null;
+		/* @var ControllerMap $oMyMap */
+		$oMyMap	= $this->getMap();
+
+		if (ProcessorA::isValid($oProcessor)) {
+			try {
+				$oProcessor->init();
+
+				$oModel = $oProcessor->handleRequest($oRequest);
+			} catch (ExceptionResponseRedirect $e) {
+				$oResponse->setStatus($e->getRedirectCode());
+				$oResponse->setLocation ($e->getLocation());
+
+				return $oResponse;
+			} catch (\Exception $e) {
+				// we had error in the controller
+				// @todo make more error processors
+				if ( $e instanceof ExceptionResponseError ) {
+					$oResponse->setStatus($e->getErrorCode());
+				}
+				$oProcessor = new ErrorProcessor($e);
+
+				$oMyMap->setMainTemplatePath(VSC_RES_PATH . 'templates');
+				$oMyMap->setMainTemplate('main.php');
+
+				$oModel = $oProcessor->handleRequest($oRequest);
+			}
+		}
+		if (ErrorProcessor::isValid($oProcessor)) {
+			$iCode = $oProcessor->getErrorCode();
+			if (HttpResponseType::isValidStatus($iCode)) {
+				$oResponse->setStatus($iCode);
+			} else {
+				$oResponse->setStatus(500);
+			}
+		} else {
+			$oResponse->setStatus (200);
+		}
+
+		// we didn't set any special view
+		// this means that the developer needs to provide his own views
+		$oView	= $this->getView();
+		$oMap = null;
+		if (ProcessorA::isValid($oProcessor) /* && !ErrorProcessor::isValid($oProcessor) */) {
+			/* @var ProcessorMap $oMap */
+			$oMap = $oProcessor->getMap();
+			$oMap->merge($oMyMap);
+			$oProcessorResponse = $oMap->getResponse();
+
+			if (HttpResponseA::isValid($oProcessorResponse)) {
+				$oResponse = $oProcessorResponse;
+			}
+
+			// setting the processor map
+			$oView->setMap ($oMap);
+		}
+
+		if ((ProcessorMap::isValid($oMap) && !$oMap->isStatic() && !$oMyMap->isStatic()) && ControllerMap::isValid($oMyMap)) {
+			$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . $oView->getViewFolder() . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
+		}
+
+		if (!ModelA::isValid($oModel)) {
+			$oModel = new EmptyModel();
+			if (!ProcessorMap::isValid ($oMap) || $oMap->getTitle() == '') {
+				$oModel->setPageTitle ('Warning');
+			}
+			$oModel->setPageContent ('Warning: the processor didn\'t return a valid model. This is probably an error');
+		}
+		$oView->setModel($oModel);
+
+		$oResponse->setView ($oView);
+		if ( MappingA::isValid($oMap) ) {
+			$aHeaders = $oMap->getHeaders ();
+			if ( count ( $aHeaders ) > 0 ) {
+				foreach ( $aHeaders as $sName => $sHeader ) {
+					$oResponse->addHeader ( $sName, $sHeader );
+				}
+			}
+		}
+		return $oResponse;
+	}
+
+	/**
+	 * @returns ViewA
+	 * @throws ExceptionView
+	 */
+	public function getView () {
+		if (ViewA::isValid($this->oView)) {
+			return $this->oView;
+		}
+		if (ViewA::isValid($this->getMap()->getView())) {
+			return $this->getMap()->getView();
+		}
+		$this->oView = $this->getDefaultView();
+		return $this->oView;
+	}
+}

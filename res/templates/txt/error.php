@@ -1,6 +1,6 @@
 <?php
-use vsc\infrastructure\vsc;
-/** @var \vsc\domain\models\vscErrorModel $model */
+use \vsc\infrastructure\vsc;
+/** @var \vsc\domain\models\ErrorModel $model */
 $e = $model->getException(); ?>
 Internal Error <?php echo $e->getMessage(); ?>
 <?php if (vsc::getEnv()->isDevelopment()) {?>

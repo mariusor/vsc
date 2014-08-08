@@ -1,6 +1,6 @@
 <?php
-/* @var \vsc\domain\models\vscErrorModel $model */
-use vsc\infrastructure\vsc;
+/* @var \vsc\domain\models\ErrorModel $model */
+use \vsc\infrastructure\vsc;
 ?>
 <style>ul {padding:0; font-size:0.8em} li {padding:0.2em;display:inline} address {position:fixed;bottom:0;}</style>
 

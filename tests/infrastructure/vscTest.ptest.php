@@ -1,6 +1,6 @@
 <?php
 use vsc\infrastructure\vsc;
-use vsc\application\dispatchers\vscRwDispatcher;
+use vsc\application\dispatchers\RwDispatcher;
 
 class vscTest extends \PHPUnit_Framework_TestCase {
 	private $sFixturesPath;
@@ -26,15 +26,15 @@ class vscTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetDispatcher () {
-		/* @var $oDispatcher vscRwDispatcher */
+		/* @var RwDispatcher $oDispatcher */
 		$oDispatcher = vsc::getEnv()->getDispatcher();
 		$oDispatcher->loadSiteMap ($this->sFixturesPath . 'map.php');
-		return $this->assertInstanceOf('\\vsc\\application\\dispatchers\\vscDispatcherA', $oDispatcher);
+		return $this->assertInstanceOf('\\vsc\\application\\dispatchers\\DispatcherA', $oDispatcher);
 	}
 
 	public function testSetDispatcher () {
-		/* @var $oDispatcher vscRwDispatcher */
-		$oDispatcher = new vscRwDispatcher();
+		/* @var RwDispatcher $oDispatcher */
+		$oDispatcher = new RwDispatcher();
  		$oDispatcher->loadSiteMap ($this->sFixturesPath . 'map.php');
 
 		vsc::getEnv()->setDispatcher($oDispatcher);
@@ -42,7 +42,7 @@ class vscTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetRequest () {
-		return $this->assertInstanceOf('\\vsc\\presentation\\requests\\vscRequestA', vsc::getEnv()->getHttpRequest());
+		return $this->assertInstanceOf('\\vsc\\presentation\\requests\\RequestA', vsc::getEnv()->getHttpRequest());
 	}
 
 	public function testGetIncludePaths () {

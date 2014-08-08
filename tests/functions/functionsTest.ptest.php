@@ -13,7 +13,6 @@ class functionsTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * This tests the importing of a package without exceptions
-	 * @return unknown_type
 	 */
 	public function testImportWithOutExceptionsReturnPath () {
 		set_include_path ('.');
@@ -44,7 +43,7 @@ class functionsTest extends \PHPUnit_Framework_TestCase {
 		try {
 			\vsc\import ($sPackageName);
 		} catch (\Exception $e) {
-			return $this->assertInstanceOf ('\\vsc\\vscExceptionPackageImport', $e, 'The import function didn\'t throw the correct exception.');
+			return $this->assertInstanceOf ('\\vsc\\ExceptionPackageImport', $e, 'The import function didn\'t throw the correct exception.');
 		}
 	}
 }
