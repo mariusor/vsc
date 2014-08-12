@@ -4,7 +4,9 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2013.10.04
  */
-namespace vsc\presentation\requests;
+namespace vsc\rest\presentation\requests;
+
+use vsc\presentation\requests\RawHttpRequest;
 
 class RESTRequest extends RawHttpRequest {
 

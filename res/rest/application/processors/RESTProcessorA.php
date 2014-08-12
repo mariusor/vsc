@@ -6,8 +6,9 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2013.10.04
  */
-namespace vsc\application\processors;
+namespace vsc\rest\application\processors;
 
+use vsc\application\processors\ProcessorA;
 use vsc\domain\models\ArrayModel;
 use vsc\infrastructure\vsc;
 use vsc\presentation\requests\HttpRequestA;

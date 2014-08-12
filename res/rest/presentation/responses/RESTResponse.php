@@ -4,7 +4,9 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2013.10.04
  */
-namespace vsc\presentation\responses;
+namespace vsc\rest\presentation\responses;
+
+use vsc\presentation\responses\HttpResponseA;
 
 class RESTResponse extends HttpResponseA {
 	protected $sContentType = 'application/json';
