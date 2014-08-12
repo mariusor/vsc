@@ -1,6 +1,4 @@
 <?php
-use vsc\infrastructure\vsc;
-
 if (!defined ('VSC_PATH')) {
 	define ('VSC_PATH', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 }
@@ -18,11 +16,3 @@ if ($iMajorVersion < 5 || $iMinorVersion < 3) {
 
 	throw new ErrorException ($sMessage, E_USER_ERROR);
 }
-
-//if (!defined ('ROOT_MAIL')) {
-//	if (!vsc::isCli()) {
-//		define ('ROOT_MAIL', 'root@' . $_SERVER['HTTP_HOST']);
-//	} else {
-//		define ('ROOT_MAIL', 'root@localhost');
-//	}
-//}
