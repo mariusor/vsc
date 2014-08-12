@@ -28,7 +28,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscModelA::setOffset
+	 * @covers ModelA::setOffset
 	 */
 	public function testGetSetOffset()
 	{
@@ -38,7 +38,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscModelA::offsetSet
+	 * @covers ModelA::offsetSet
 	 */
 	public function testOffsetSet()
 	{
@@ -50,7 +50,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscModelA::offsetExists
+	 * @covers ModelA::offsetExists
 	 */
 	public function testOffsetExists()
 	{
@@ -59,7 +59,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscModelA::offsetExists
+	 * @covers ModelA::offsetExists
 	 */
 	public function testOffsetDoesntExist()
 	{
@@ -68,7 +68,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscModelA::offsetUnset
+	 * @covers ModelA::offsetUnset
 	 * @todo   Implement testOffsetUnset().
 	 */
 	public function testOffsetUnset()
@@ -88,7 +88,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscModelA::current
+	 * @covers ModelA::current
 	 */
 	public function testCurrentAtInitialization()
 	{
@@ -96,7 +96,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscModelA::current
+	 * @covers ModelA::current
 	 */
 	public function testCurrentAtAttribution()
 	{
@@ -107,7 +107,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscModelA::current
+	 * @covers ModelA::current
 	 */
 	public function testCurrentAtAttributionUsingBraketOperator()
 	{
@@ -118,7 +118,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscModelA::key()
+	 * @covers ModelA::key()
 	 */
 	public function testKeyAtInitialization()
 	{
@@ -131,7 +131,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscModelA::next
+	 * @covers ModelA::next
 	 */
 	public function testNext()
 	{
@@ -145,7 +145,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscModelA::rewind
+	 * @covers ModelA::rewind
 	 */
 	public function testRewind()
 	{
@@ -162,7 +162,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscModelA::valid
+	 * @covers ModelA::valid
 	 * @todo   Implement testValid().
 	 */
 	public function testValid()
@@ -178,11 +178,11 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscModelA::current
-	 * @covers vscModelA::next
-	 * @covers vscModelA::rewind
-	 * @covers vscModelA::key
-	 * @covers vscModelA::valid
+	 * @covers ModelA::current
+	 * @covers ModelA::next
+	 * @covers ModelA::rewind
+	 * @covers ModelA::key
+	 * @covers ModelA::valid
 	 */
 	public function testImplementsIterable()
 	{
@@ -195,7 +195,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscModelA::count
+	 * @covers ModelA::count
 	 * @todo   Implement testCount().
 	 */
 	public function testCount()
@@ -208,7 +208,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscModelA::__get
+	 * @covers ModelA::__get
 	 * @todo   Implement test__get().
 	 */
 	public function test__get()
@@ -225,7 +225,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscModelA::__set
+	 * @covers ModelA::__set
 	 * @todo   Implement test__set().
 	 */
 	public function test__set()
@@ -251,7 +251,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscModelA::toArray
+	 * @covers ModelA::toArray
 	 * @todo   Implement testToArray().
 	 */
 	public function testToArray()
