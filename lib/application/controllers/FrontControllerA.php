@@ -6,13 +6,10 @@
  * @date 09.08.30
  */
 namespace vsc\application\controllers;
-// \vsc\import (VSC_LIB_PATH . 'application/processors');
-// \vsc\import (VSC_LIB_PATH . 'presentation/responses');
-// \vsc\import (VSC_RES_PATH . 'application/processors');
-// \vsc\import (VSC_RES_PATH . 'domain/models');
 
 use vsc\application\processors\ErrorProcessor;
 use vsc\application\processors\ProcessorA;
+use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\ControllerMap;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ProcessorMap;
@@ -57,7 +54,7 @@ abstract class FrontControllerA extends Object {
 	 * @returns ControllerMap
 	 */
 	public function getMap () {
-		if (ControllerMap::isValid($this->oCurrentMap )) {
+		if (ControllerMap::isValid($this->oCurrentMap) || ClassMap::isValid($this->oCurrentMap)) {
 			return $this->oCurrentMap;
 		} else {
 			throw new ExceptionView ('Make sure the current Controller map is correctly set.');

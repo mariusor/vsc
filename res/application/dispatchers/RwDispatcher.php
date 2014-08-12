@@ -107,9 +107,11 @@ class RwDispatcher extends HttpDispatcherA {
 
 		// check if the current processor has some set maps
 		$aProcessorMaps = $oProcessorMap->getControllerMaps();
-		$oCurrentMap	= $this->getCurrentMap($aProcessorMaps);
-		if (ControllerMap::isValid($oCurrentMap) || ClassMap::isValid($oCurrentMap) ) {
-			return $oCurrentMap;
+		if (count ($aProcessorMaps) > 0 ) {
+			$oCurrentMap	= $this->getCurrentMap($aProcessorMaps);
+			if (ControllerMap::isValid($oCurrentMap) || ClassMap::isValid($oCurrentMap) ) {
+				return $oCurrentMap;
+			}
 		}
 
 		// check the current module for maps
@@ -121,7 +123,7 @@ class RwDispatcher extends HttpDispatcherA {
 		}
 
 		// merging all controller maps found in the processor map's parent modules
-		while (!ControllerMap::isValid($oCurrentMap)) {
+		while (!ControllerMap::isValid($oCurrentMap) && !ClassMap::isValid($oCurrentMap)) {
 			$oModuleMap		= $oCurrentModule->getModuleMap();
 			$aMaps			= $oModuleMap->getControllerMaps();
 			$oCurrentMap	= $this->getCurrentMap($aMaps);
@@ -142,7 +144,7 @@ class RwDispatcher extends HttpDispatcherA {
 
 //			if (!ControllerMap::isValid($oControllerMapping)) {
 //				// this mainly means nothing was matched to our url, or no mappings exist
-//				$oControllerMapping = new ControllerMap(VSC_RES_PATH . 'application/controllers/vscxhtmlcontroller.php', '');
+//				$oControllerMapping = new ClassMap('\\vsc\\application\\controllers\\XhtmlController', '');
 //			}
 
 			if (ControllerMap::isValid($oControllerMapping)) {
@@ -154,7 +156,7 @@ class RwDispatcher extends HttpDispatcherA {
 				}
 			}
 			if (ClassMap::isValid($oControllerMapping)) {
-				$sControllerName = $sPath = $oControllerMapping->getPath();;
+				$sControllerName = $oControllerMapping->getPath();
 			}
 
 			/* @var $this->oController vscFrontControllerA */

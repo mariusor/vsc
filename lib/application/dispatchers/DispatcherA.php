@@ -8,7 +8,6 @@
  */
 namespace vsc\application\dispatchers;
 
-// \vsc\import ('application/sitemaps');
 use vsc\application\controllers\FrontControllerA;
 use vsc\application\processors\ProcessorA;
 use vsc\application\sitemaps\ExceptionSitemap;
@@ -36,7 +35,7 @@ abstract class DispatcherA extends Object {
 	protected $oProcessor;
 
 	/**
-	 * @var ControllerMap
+	 * @var FrontControllerA
 	 */
 	protected $oController;
 
