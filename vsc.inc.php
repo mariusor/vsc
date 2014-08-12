@@ -4,7 +4,9 @@ use vsc\infrastructure\vsc;
 if (!defined ('VSC_PATH')) {
 	define ('VSC_PATH', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 }
-
+if (!defined('VSC_RES_PATH')) {
+	define ( 'VSC_RES_PATH', VSC_PATH . 'res' . DIRECTORY_SEPARATOR );
+}
 require (VSC_RES_PATH . 'config.inc.php');
 require (VSC_RES_PATH . 'functions.inc.php');
 
