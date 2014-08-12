@@ -27,8 +27,7 @@ interface ProcessorI {
 
 
 	/**
-	 *
-	 * @see vscProcessorI::delegateRequest()
+	 * Redirects the current request to a different processor
 	 * @param HttpRequestA $oHttpRequest
 	 * @param ProcessorA $oNewProcessor
 	 * @param HttpResponseA $oResponse

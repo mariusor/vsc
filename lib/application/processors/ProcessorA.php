@@ -97,7 +97,7 @@ abstract class ProcessorA extends Object implements ProcessorI {
 
 	/**
 	 *
-	 * @see vscProcessorI::delegateRequest()
+	 * @see ProcessorI::delegateRequest()
 	 * @param HttpRequestA $oHttpRequest
 	 * @param ProcessorA $oNewProcessor
 	 * @param HttpResponseA $oResponse
