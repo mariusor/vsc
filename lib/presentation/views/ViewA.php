@@ -7,11 +7,6 @@
  */
 namespace vsc\presentation\views;
 
-// \vsc\import ('infrastructure');
-// \vsc\import ('urls');
-// \vsc\import ('domain');
-// \vsc\import ('models');
-
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ProcessorMap;
 use vsc\domain\models\EmptyModel;

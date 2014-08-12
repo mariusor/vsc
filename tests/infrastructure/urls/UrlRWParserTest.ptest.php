@@ -1,5 +1,4 @@
 <?php
-// \vsc\import ('urls');
 use \vsc\infrastructure\urls\UrlRWParser;
 use \vsc\infrastructure\urls\UrlParserA;
 

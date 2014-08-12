@@ -9,8 +9,6 @@ namespace vsc\application\controllers;
 
 use \vsc\presentation\views\JsonView;
 
-// \vsc\import ('presentation/views');
-// \vsc\import ('application/controllers');
 class JsonController extends CacheableControllerA implements JsonControllerI {
 	public function getDefaultView () {
 		return new JsonView();

@@ -1,8 +1,6 @@
 <?php
 namespace _fixtures\domain\models ;
 
-// \vsc\import ('domain');
-// \vsc\import ('models');
 use \vsc\domain\models\ModelA;
 
 class ModelFixture extends ModelA {

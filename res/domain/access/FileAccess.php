@@ -7,7 +7,6 @@
  */
 namespace vsc\domain\access;
 
-// \vsc\import ('domain/access');
 use vsc\infrastructure\Object;
 use vsc\ExceptionError;
 

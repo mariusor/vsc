@@ -7,7 +7,6 @@
  */
 namespace vsc\domain\models;
 
-// \vsc\import (VSC_RES_PATH . 'domain/domain');
 use vsc\domain\domain\RssItem;
 use vsc\infrastructure\Null;
 use vsc\ExceptionUnimplemented;

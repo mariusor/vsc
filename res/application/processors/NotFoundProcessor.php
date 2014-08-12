@@ -6,7 +6,6 @@
  * @date 09.11.18
  */
 namespace vsc\application\processors;
-// \vsc\import ('domain/models');
 
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\responses\ExceptionResponseError;

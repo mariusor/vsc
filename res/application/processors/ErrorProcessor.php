@@ -7,8 +7,6 @@
  */
 namespace vsc\application\processors;
 
-// \vsc\import ('domain/models');
-
 use vsc\application\sitemaps\ErrorMap;
 use vsc\domain\models\ErrorModel;
 use vsc\presentation\requests\HttpRequestA;

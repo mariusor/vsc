@@ -7,7 +7,6 @@
  */
 namespace vsc\domain\models;
 
-// \vsc\import ('domain/models');
 class SimpleXMLArrayModel extends ModelA {
 	private $oSimpleXML;
 

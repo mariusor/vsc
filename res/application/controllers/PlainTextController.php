@@ -9,8 +9,6 @@ namespace vsc\application\controllers;
 
 use \vsc\presentation\views\PlainTextView;
 
-// \vsc\import ('presentation/views');
-// \vsc\import ('application/controllers');
 class PlainTextController extends CacheableControllerA implements PlainTextControllerI {
 	public function getDefaultView () {
 		return new PlainTextView();

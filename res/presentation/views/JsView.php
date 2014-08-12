@@ -7,7 +7,6 @@
  */
 namespace vsc\presentation\views;
 
-// \vsc\import ('presentation/views');
 class JsView extends PlainTextView {
 	protected $sContentType = 'application/x-javascript';
 	protected $sFolder = 'js';

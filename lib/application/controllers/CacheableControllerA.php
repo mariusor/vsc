@@ -7,7 +7,6 @@
  */
 namespace vsc\application\controllers;
 
-// \vsc\import ('infrastructure/caching');
 use vsc\domain\models\CacheableModelA;
 use vsc\infrastructure\caching\CacheableI;
 use vsc\presentation\requests\HttpRequestA;

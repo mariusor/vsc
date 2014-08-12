@@ -7,7 +7,6 @@
  */
 namespace vsc\application\processors;
 
-// \vsc\import ('domain/models');
 use vsc\domain\models\EmptyModel;
 use vsc\presentation\requests\HttpRequestA;
 

@@ -7,7 +7,6 @@
  */
 namespace vsc\domain\models;
 
-// \vsc\import ('domain/models');
 class ArrayModel extends ModelA {
 	protected $aContent = array();
 	private $length;

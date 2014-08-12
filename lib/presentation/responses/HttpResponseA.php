@@ -7,9 +7,6 @@
  */
 namespace vsc\presentation\responses;
 
-// \vsc\import ('presentation');
-// \vsc\import ('requests');
-// \vsc\import ('views');
 use vsc\domain\models\ErrorModel;
 use vsc\infrastructure\vsc;
 use vsc\infrastructure\Null;

@@ -6,7 +6,6 @@
  */
 namespace vsc\infrastructure;
 
-// \vsc\import (VSC_LIB_PATH . 'exceptions');
 use vsc\ExceptionUnimplemented;
 
 abstract class Object {

@@ -7,7 +7,6 @@
  */
 namespace vsc\application\processors;
 
-// \vsc\import ('presentation/views');
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ProcessorMap;
 use vsc\domain\models\ModelA;

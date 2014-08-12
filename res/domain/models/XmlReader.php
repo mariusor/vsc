@@ -7,8 +7,6 @@
  */
 namespace vsc\domain\models;
 
-// \vsc\import ('domain/models');
-// \vsc\import ('domain/exceptions');
 use vsc\ExceptionUnimplemented;
 
 class XmlReader extends ModelA {

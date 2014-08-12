@@ -1,14 +1,4 @@
 <?php
-// \vsc\import (VSC_FIXTURE_PATH);
-
-// \vsc\import ('application');
-// \vsc\import ('controllers');
-// \vsc\import ('processors');
-// \vsc\import ('sitemaps');
-// \vsc\import ('presentation');
-// \vsc\import ('responses');
-// \vsc\import ('requests');
-// \vsc\import ('views');
 
 use vsc\application\sitemaps\ControllerMap;
 use vsc\presentation\responses\HttpResponseA;

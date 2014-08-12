@@ -8,12 +8,6 @@
  */
 namespace vsc\application\dispatchers;
 
-// \vsc\import ('application/controllers');
-// \vsc\import ('application/processors');
-// \vsc\import ('presentation/responses');
-// \vsc\import ('domain/models');
-// \vsc\import ('exceptions');
-
 use vsc\application\controllers\FrontControllerA;
 use vsc\application\processors\ErrorProcessor;
 use vsc\application\processors\ProcessorA;
@@ -193,12 +187,8 @@ class RwDispatcher extends HttpDispatcherA {
 					// dirty import of the module folder and important subfolders
 					$sModuleName = $oProcessorMap->getModuleName();
 //					if ( is_dir ($oProcessorMap->getModulePath()) && !$oProcessorMap->isStatic() ) {
-//						 \vsc\import ($oProcessorMap->getModulePath());
 //						try {
 //							import ($sModuleName);
-//							\vsc\import ('application');
-//							\vsc\import ('domain');
-//							\vsc\import ('presentation');
 //						} catch (ExceptionPath $e) {
 //							// ooopps
 //						}

@@ -7,8 +7,6 @@
  */
 namespace vsc\presentation\requests;
 
-// \vsc\import ('infrastructure/urls');
-
 use vsc\infrastructure\urls\UrlRWParser;
 use vsc\infrastructure\Object;
 use vsc\infrastructure\vsc;

@@ -7,7 +7,6 @@
  */
 namespace vsc\presentation\views;
 
-// \vsc\import ('presentation/views');
 use vsc\domain\models\StaticFileModel;
 
 class PlainTextView extends ViewA implements ViewI {

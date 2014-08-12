@@ -7,8 +7,6 @@
  */
 namespace vsc\presentation\requests;
 
-// \vsc\import ('presentation');
-// \vsc\import ('requests');
 class RawHttpRequest extends RwHttpRequest {
 	protected $aRawVars = array();
 

@@ -1,5 +1,4 @@
 <?php
-// \vsc\import (VSC_FIXTURE_PATH);
 use _fixtures\application\processors\testFixtureProcessor;
 use vsc\application\sitemaps\ModuleMap;
 use vsc\application\dispatchers\RwDispatcher;

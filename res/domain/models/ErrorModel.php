@@ -7,8 +7,6 @@
  */
 namespace vsc\domain\models;
 
-// \vsc\import ('domain/models');
-// \vsc\import ('presentation/responses');
 use vsc\presentation\responses\ExceptionResponseError;
 use vsc\presentation\responses\HttpResponseType;
 

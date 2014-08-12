@@ -7,7 +7,6 @@
  */
 namespace vsc\domain\models;
 
-// \vsc\import ('infrastructure/caching');
 use vsc\infrastructure\caching\CacheableI;
 
 abstract class CacheableModelA extends ModelA implements CacheableI {

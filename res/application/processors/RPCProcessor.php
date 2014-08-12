@@ -7,8 +7,6 @@
  */
 namespace vsc\application\processors;
 
-// \vsc\import ('domain');
-// \vsc\import ('access');
 use vsc\domain\models\JsonRPCRequest;
 use vsc\domain\models\JsonRPCResponse;
 use vsc\presentation\requests\HttpRequestA;

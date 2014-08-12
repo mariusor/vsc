@@ -7,7 +7,6 @@
  */
 namespace vsc\presentation\requests;
 
-// \vsc\import ('requests');
 class CLIRequest extends RequestA {
 	protected $aVars = array();
 

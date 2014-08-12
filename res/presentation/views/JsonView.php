@@ -7,7 +7,6 @@
  */
 namespace vsc\presentation\views;
 
-// \vsc\import ('presentation/views');
 use vsc\domain\models\ModelA;
 use vsc\infrastructure\vsc;
 

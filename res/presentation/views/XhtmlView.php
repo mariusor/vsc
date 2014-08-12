@@ -7,9 +7,6 @@
  */
 namespace vsc\presentation\views;
 
-// \vsc\import ('presentation/views');
-// \vsc\import ('presentation/views/exceptions');
-
 class XhtmlView extends ViewA implements XhtmlViewI {
 	protected $sContentType = 'application/xhtml+xml';
 	protected $sFolder = 'xhtml';

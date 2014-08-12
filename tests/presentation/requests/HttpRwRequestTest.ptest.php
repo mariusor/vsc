@@ -18,7 +18,6 @@ class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 			'HTTP_ACCEPT' => 'application/html,text/html;charset=UTF8,image/*'
 		);
 
-		// \vsc\import ('presentation/requests');
 		$this->state = new RwHttpRequest();
 	}
 

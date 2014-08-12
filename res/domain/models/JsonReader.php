@@ -7,8 +7,6 @@
  */
 namespace vsc\domain\models;
 
-// \vsc\import ('domain/models');
-// \vsc\import ('domain/exceptions');
 use vsc\domain\ExceptionDomain;
 use vsc\ExceptionUnimplemented;
 
