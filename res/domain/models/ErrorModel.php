@@ -8,9 +8,10 @@
 namespace vsc\domain\models;
 
 use vsc\presentation\responses\ExceptionResponseError;
+use vsc\presentation\responses\HttpResponseA;
 use vsc\presentation\responses\HttpResponseType;
 
-class ErrorModel extends EmptyModel {
+class ErrorModel extends ModelA {
 	private $exception;
 
 	public $message;
@@ -19,17 +20,6 @@ class ErrorModel extends EmptyModel {
 	public function __construct(\Exception $e) {
 		$this->setException($e);
 		parent::__construct();
-	}
-
-	public function getPageTitle () {
-		$e = $this->getException();
-		if ($e instanceof \Exception) {
-			return HttpResponseType::getStatus($e->getCode());
-		}
-	}
-
-	public function getPageContent () {
-		return $this->getException()->getMessage();
 	}
 
 	public function getMessage () {
@@ -51,5 +41,13 @@ class ErrorModel extends EmptyModel {
 	 */
 	public function getException () {
 		return $this->exception;
+	}
+
+	public function getHttpStatus() {
+		if (is_numeric($this->error_code)) {
+			return $this->error_code;
+		} else {
+			return HttpResponseType::INTERNAL_ERROR;
+		}
 	}
 }

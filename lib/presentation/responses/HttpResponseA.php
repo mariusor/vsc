@@ -411,7 +411,7 @@ abstract class HttpResponseA extends Object {
 	}
 
 	public function isSuccess() {
-		return ($this->getStatus() == 200);
+		return ($this->getStatus() == HttpResponseType::OK);
 	}
 
 	public function isRedirect() {
