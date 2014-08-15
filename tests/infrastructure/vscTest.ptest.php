@@ -14,22 +14,22 @@ class vscTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testIsCli () {
-		return $this->assertTrue(vsc::isCli());
+		$this->assertTrue(vsc::isCli());
 	}
 
 	public function testIsDevel () {
-		return $this->assertTrue (vsc::getEnv()->isDevelopment());
+		$this->assertTrue (vsc::getEnv()->isDevelopment());
 	}
 
 	public function testGetEnv () {
-		return $this->assertInstanceOf('\\vsc\\infrastructure\\vsc', vsc::getEnv());
+		$this->assertInstanceOf('\\vsc\\infrastructure\\vsc', vsc::getEnv());
 	}
 
 	public function testGetDispatcher () {
 		/* @var RwDispatcher $oDispatcher */
 		$oDispatcher = vsc::getEnv()->getDispatcher();
 		$oDispatcher->loadSiteMap ($this->sFixturesPath . 'map.php');
-		return $this->assertInstanceOf('\\vsc\\application\\dispatchers\\DispatcherA', $oDispatcher);
+		$this->assertInstanceOf('\\vsc\\application\\dispatchers\\DispatcherA', $oDispatcher);
 	}
 
 	public function testSetDispatcher () {
@@ -38,16 +38,30 @@ class vscTest extends \PHPUnit_Framework_TestCase {
  		$oDispatcher->loadSiteMap ($this->sFixturesPath . 'map.php');
 
 		vsc::getEnv()->setDispatcher($oDispatcher);
-		return $this->assertSame($oDispatcher, vsc::getEnv()->getDispatcher());
+		$this->assertSame($oDispatcher, vsc::getEnv()->getDispatcher());
 	}
 
 	public function testGetRequest () {
-		return $this->assertInstanceOf('\\vsc\\presentation\\requests\\RequestA', vsc::getEnv()->getHttpRequest());
+		$this->assertInstanceOf('\\vsc\\presentation\\requests\\RequestA', vsc::getEnv()->getHttpRequest());
 	}
 
 	public function testGetIncludePaths () {
 		// =))
-		return $this->assertEquals(vsc::getIncludePaths(), explode (PATH_SEPARATOR, get_include_path()));
+		$this->assertEquals(vsc::getIncludePaths(), explode (PATH_SEPARATOR, get_include_path()));
+	}
+
+	public function testDNull() {
+		$nullOutput = vsc::d ( null );
+
+		$this->assertNotNull($nullOutput);
+		$this->assertEquals("NULL\n", $nullOutput );
+	}
+
+	public function testDString() {
+		$testOutput = vsc::d ('test');
+
+		$this->assertNotNull($testOutput);
+		$this->assertEquals("test\n", $testOutput);
 	}
 
 }

@@ -129,7 +129,6 @@ class vsc extends Object {
 
 	static public function d () {
 		$aRgs = func_get_args();
-		$iExit = 1;
 
 		$output = '';
 		for ($i = 0; $i < ob_get_level(); $i++) {
@@ -137,30 +136,37 @@ class vsc extends Object {
 			ob_end_clean();
 		}
 
-		foreach ($aRgs as $object) {
-			// maybe I should just output the whole array $aRgs
-			try {
-				ob_start();
-				var_dump ($object);
-				$output = ob_get_clean();
-			} catch (\Exception $e) {
-				//
+		if (!self::isCLi() && self::getEnv()->getHttpRequest()->accepts('application/json')) {
+			$output = json_encode($aRgs);
+		} elseif (self::isCLi() || self::getEnv()->getHttpRequest()->accepts('text/html')) {
+			foreach ($aRgs as $object) {
+				ob_start ();
+				var_dump ( $object );
+				$output .= ob_get_clean ();
+
+				if (!self::isCli()) {
+					$output .= '<hr/>' . "\n";
+				}
 			}
 		}
-		ob_start();
-		debug_print_backtrace();
 
-		$output .= ob_get_clean();
+		if (!stristr($_SERVER['PHP_SELF'], 'phpunit')) {
+			ob_start();
+			debug_print_backtrace();
+			$output .= ob_get_clean();
 
-		if (self::isCLi() || self::getHttpRequest()->accepts('application/json')) {
-			echo String::stripTags(String::br2nl($output));
-		} elseif (self::getHttpRequest()->accepts('text/html')) {
-			echo '<pre>' . $output . '</pre>';
+			if (self::isCLi() || self::getEnv()->getHttpRequest()->accepts('application/json')) {
+				echo String::stripTags(String::br2nl($output));
+			} elseif (self::getEnv()->getHttpRequest()->accepts('text/html')) {
+				echo '<pre>' . $output . '</pre>';
+			} else {
+				echo String::stripTags(String::br2nl($output));
+			}
+
+			exit ();
 		} else {
-			echo String::stripTags(String::br2nl($output));
+			return $output;
 		}
-
-		exit ();
 	}
 
 	static function getIncludePaths() {
