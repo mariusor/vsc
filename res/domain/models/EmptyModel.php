@@ -7,7 +7,7 @@
  */
 namespace vsc\domain\models;
 
-class EmptyModel extends ModelA {
+class EmptyModel extends ModelA implements HttpModelI{
 	protected $sPageTitle = null;
 	protected $sPageContent = null;
 
