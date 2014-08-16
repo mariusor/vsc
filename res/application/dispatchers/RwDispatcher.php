@@ -40,7 +40,6 @@ class RwDispatcher extends HttpDispatcherA {
 		if (!is_array($aMaps) || empty($aMaps)) {
 			return new Null();
 		}
-
 		$aRegexes	= array_keys($aMaps);
 		$aMatches 	= array();
 
@@ -78,7 +77,8 @@ class RwDispatcher extends HttpDispatcherA {
 	 * @throws ExceptionSitemap
 	 */
 	public function getCurrentModuleMap () {
-		if (ProcessorMap::isValid($this->getCurrentProcessorMap())) {
+		$oProcessorMap = $this->getCurrentProcessorMap();
+		if (ProcessorMap::isValid($oProcessorMap) || ClassMap::isValid($oProcessorMap)) {
 			return $this->getCurrentProcessorMap()->getModuleMap();
 		} else {
 			return $this->getSiteMap()->getCurrentModuleMap();

@@ -8,4 +8,6 @@
  */
 namespace vsc\application\dispatchers;
 
-abstract class HttpDispatcherA extends DispatcherA {}
+abstract class HttpDispatcherA extends DispatcherA {
+	abstract public function getCurrentModuleMap();
+}

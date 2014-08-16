@@ -14,6 +14,7 @@ use vsc\presentation\views\ViewA;
 use vsc\ExceptionPath;
 
 class GenericCLIDispatcher extends CLIDispatcherA {
+	public function getCurrentModuleMap() {}
 	/**
 	 * @returns FrontControllerA
 	 */
