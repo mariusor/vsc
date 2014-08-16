@@ -39,15 +39,18 @@ class ControllerMap extends MappingA implements ContentTypeMappingI {
 	 */
 	public function getMainTemplatePath () {
 		// if we didn't provide the controller with a main template path we check the module
-		if ( is_null($this->sMainTemplatePath)) {
+		if ( is_null($this->sMainTemplatePath) ) {
 			if ( $this->getModuleMap() instanceof ContentTypeMappingI) {
 				$this->sMainTemplatePath = $this->getModuleMap()->getMainTemplatePath();
 			}
 		}
 
-		if ( is_null($this->sMainTemplatePath)) {
+		if ( is_null($this->sMainTemplatePath) ) {
 			// back-up
 			$this->sMainTemplatePath = VSC_RES_PATH . 'templates';
+		}
+		if ( substr($this->sMainTemplatePath, 0, -1) != DIRECTORY_SEPARATOR ) {
+			$this->sMainTemplatePath .= DIRECTORY_SEPARATOR;
 		}
 		return $this->sMainTemplatePath;
 	}
@@ -88,7 +91,7 @@ class ControllerMap extends MappingA implements ContentTypeMappingI {
 		} elseif (stristr(basename($mView), '.') === false && !is_file($mView)) {
 			// namespaced class name
 			$this->sViewPath = $mView;
-		} elseif (SiteMapA::isValidObject($mView)) {
+		} elseif (SiteMapA::isValidObjectPath($mView)) {
 			$this->sViewPath = $mView;
 		} else {
 			throw new ExceptionPath ('View path [' . $mView . '] is not valid.');

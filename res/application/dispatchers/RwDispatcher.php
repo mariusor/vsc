@@ -147,7 +147,7 @@ class RwDispatcher extends HttpDispatcherA {
 
 			if (ControllerMap::isValid($oControllerMapping)) {
 				$sPath = $oControllerMapping->getPath();
-				if ($this->getSiteMap()->isValidObject($sPath)) {
+				if ($this->getSiteMap()->isValidObjectPath($sPath)) {
 					include($sPath);
 
 					$sControllerName = SiteMapA::getClassName($sPath);
@@ -192,7 +192,7 @@ class RwDispatcher extends HttpDispatcherA {
 
 			$sPath = $oProcessorMap->getPath();
 			try {
-				if ( $this->getSiteMap()->isValidObject ($sPath) || (stristr(basename($sPath), '.') === false && !is_file($sPath))) {
+				if ( $this->getSiteMap()->isValidObjectPath ($sPath) || (stristr(basename($sPath), '.') === false && !is_file($sPath))) {
 					// dirty import of the module folder and important subfolders
 					$sModuleName = $oProcessorMap->getModuleName();
 //					if ( is_dir ($oProcessorMap->getModulePath()) && !$oProcessorMap->isStatic() ) {
@@ -219,7 +219,7 @@ class RwDispatcher extends HttpDispatcherA {
 					} catch (\Exception $e) {
 						$this->oProcessor = new ErrorProcessor($e);
 					}
-				} elseif ($this->getSiteMap()->isValidStatic ($sPath) ) {
+				} elseif ($this->getSiteMap()->isValidStaticPath ($sPath) ) {
 					// static stuff
 					$this->oProcessor = new StaticFileProcessor();
 					$this->oProcessor->setFilePath($sPath);

@@ -137,7 +137,7 @@ class ClassMap extends MappingA {
 		} elseif (stristr(basename($mView), '.') === false && !is_file($mView)) {
 			// namespaced class name
 			$this->sViewPath = $mView;
-		} elseif (SiteMapA::isValidObject($mView)) {
+		} elseif (SiteMapA::isValidObjectPath($mView)) {
 			$this->sViewPath = $mView;
 		} else {
 			throw new ExceptionPath ('View path [' . $mView . '] is not valid.');

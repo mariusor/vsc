@@ -129,6 +129,9 @@ class MappingA extends Object {
 
 	public function setTemplatePath ($sPath) {
 		if (!is_dir($sPath)) {
+			if (!ModuleMap::isValid($this) && !ModuleMap::isValid($this->getModuleMap())) {
+				throw new ExceptionSitemap('No reference module path to use for relative paths');
+			}
 			$sPath = $this->getModulePath() . $sPath;
 		}
 		if (!is_dir($sPath)) {
@@ -165,24 +168,37 @@ class MappingA extends Object {
 		}
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getModulePath () {
-		$sModulePath = $this->getPath();
-		if (!SiteMapA::isValidMap($sModulePath) && SiteMapA::isValidObject($sModulePath)) {
-			$sModulePath = $this->getModuleMap()->getPath();
-		}
+		if (ModuleMap::isValid($this)) {
+			$sModulePath = $this->getPath();
+			if (!SiteMapA::isValidMapPath($sModulePath) && SiteMapA::isValidObjectPath($sModulePath)) {
+				$sModulePath = $this->getModuleMap()->getModulePath ();
+			}
 
-		$sModulePath = realpath(dirname($sModulePath));
-		if (basename ($sModulePath) == 'config') {
-			$sModulePath = substr ($sModulePath, 0, -7);
+			$sModulePath = realpath ( dirname ( $sModulePath ) );
+			if ( basename ( $sModulePath ) == 'config' ) {
+				$sModulePath = substr ( $sModulePath, 0, -7 );
+			}
+		} else {
+			return $this->getModuleMap()->getModulePath();
 		}
 		return $sModulePath . DIRECTORY_SEPARATOR;
 
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getModuleName() {
 		return $this->getModulePath() ? basename ($this->getModulePath()) : null;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getPath () {
 		return $this->sPath;
 	}
@@ -214,8 +230,8 @@ class MappingA extends Object {
 	}
 
 	private function getResourcePath ($sPath) {
-		if ( is_file($this->getModulePath() . DIRECTORY_SEPARATOR . $sPath) ) {
-			$sPath = $this->getModulePath() . DIRECTORY_SEPARATOR . $sPath;
+		if ( is_file($this->getModulePath() . $sPath) ) {
+			$sPath = $this->getModulePath() . $sPath;
 		}
 		$oUrl = new UrlRWParser( $sPath );
 		if ( $oUrl->isLocal () ) {
@@ -300,10 +316,10 @@ class MappingA extends Object {
 		} else {
 			$sPath = str_replace(array('/','\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),$sPath);
 
-			if (!SiteMapA::isValidObject ($sPath)) {
+			if (!SiteMapA::isValidObjectPath ($sPath)) {
 				$sPath = $this->getModulePath() . $sPath;
 			}
-			if (SiteMapA::isValidObject ($sPath)) {
+			if (SiteMapA::isValidObjectPath ($sPath)) {
 				$sKey = $sRegex;
 				if (!is_array($this->aControllerMaps) || !array_key_exists($sKey, $this->aControllerMaps)) {
 					$oNewMap 	= new ControllerMap($sPath, $sKey);

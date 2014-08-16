@@ -142,11 +142,11 @@ abstract class SiteMapA extends Object {
 	}
 
 	/**
-	 * @param $sPath
+	 * @param string $sPath
 	 * @return bool
 	 */
-	static public function isValidStatic ($sPath) {
-		return (is_file ($sPath) && !stristr($sPath, 'php'));
+	static public function isValidStaticPath ($sPath) {
+		return (!stristr($sPath, 'php') && is_file ($sPath));
 	}
 
 	/**
@@ -155,11 +155,11 @@ abstract class SiteMapA extends Object {
 	 * @param string $sPath
 	 * @return bool
 	 */
-	static public function isValidMap ($sPath) {
+	static public function isValidMapPath ($sPath) {
 		return (basename ($sPath) == 'map.php' && is_file ($sPath));
 	}
 
-	static public function isValidObject ($sPath) {
+	static public function isValidObjectPath ($sPath) {
 		return (substr ($sPath, -4) == '.php' && is_file ($sPath));
 	}
 
@@ -224,13 +224,13 @@ abstract class SiteMapA extends Object {
 			}
 
 			$sPath = str_replace(array('/','\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),$sPath);
-			if (self::isValidMap ($sPath)) {
+			if (self::isValidMapPath ($sPath)) {
 				// Valid site map
 				return $this->addModuleMap($sRegex, $sPath);
-			} elseif (self::isValidObject ($sPath)) {
+			} elseif (self::isValidObjectPath ($sPath)) {
 				// Valid processor
 				return $this->addMap ($sRegex, $sPath);
-			} elseif (self::isValidStatic($sPath)) {
+			} elseif (self::isValidStaticPath($sPath)) {
 				// Valid static file
 				return $this->addStaticMap ($sRegex, $sPath);
 			}
