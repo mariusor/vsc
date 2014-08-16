@@ -72,7 +72,7 @@ if (!function_exists('_e')) {
 			if ($e instanceof \Exception)
 				$sRet .= '<p style="font-size:.8em">Triggered in <strong>' . $e->getFile() . '</strong> at line ' . $e->getLine() .'</p>';
 
-			$sRet .= '<pre style="position:fixed;bottom:2em;display:none;font-size:.8em" id="trace">';
+			$sRet .= '<pre style="position:fixed;bottom:2em;display:'.(vsc::getEnv()->isDevelopment() ? 'block' : 'none').';font-size:.8em" id="trace">';
 		}
 
 		return $sRet;
