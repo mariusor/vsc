@@ -12,6 +12,7 @@ use vsc\infrastructure\urls\UrlParserA;
 use vsc\infrastructure\urls\UrlRWParser;
 use vsc\infrastructure\Null;
 use vsc\infrastructure\Object;
+use vsc\infrastructure\vsc;
 use vsc\presentation\requests\HttpAuthenticationA;
 
 class MappingA extends Object {
@@ -212,12 +213,20 @@ class MappingA extends Object {
 		$this->aResources['settings'][$sVar] = $sVal;
 	}
 
-	public function addStyle ($sPath, $sMedia = 'screen') {
-		$oUrl = new UrlRWParser($sPath);
-		if ($oUrl->isLocal()) {// I had a bad habit of correcting external URL's
-			$sPath = $oUrl->getCompleteUri();
+	private function getResourcePath ($sPath) {
+		if ( is_file($this->getModulePath() . DIRECTORY_SEPARATOR . $sPath) ) {
+			$sPath = $this->getModulePath() . DIRECTORY_SEPARATOR . $sPath;
 		}
-		$this->aResources['styles'][$sMedia][] = $sPath;
+		$oUrl = new UrlRWParser( $sPath );
+		if ( $oUrl->isLocal () ) {
+			// I had a bad habit of correcting external URL's
+			$sPath = $oUrl->getCompleteUri ();
+		}
+		return $sPath;
+	}
+
+	public function addStyle ($sPath, $sMedia = 'screen') {
+		$this->aResources['styles'][$sMedia][] = $this->getResourcePath($sPath);
 	}
 
 	/**
@@ -227,12 +236,8 @@ class MappingA extends Object {
 	 * @param bool $bInHead
 	 */
 	public function addScript ($sPath, $bInHead = false) {
-		$oUrl = new UrlRWParser($sPath);
 		$iMainKey = (int)$bInHead; // [1] in the <head> section; [0] at the end of the *HTML document
-		if ($oUrl->isLocal() || $oUrl->hasScheme()) { // I had a bad habit of correcting external URL's
-			$sPath = $oUrl->getCompleteUri();
-		}
-		$this->aResources['scripts'][$iMainKey][]		= $sPath;
+		$this->aResources['scripts'][$iMainKey][]		= $this->getResourcePath($sPath);
 	}
 
 	/**
@@ -242,22 +247,10 @@ class MappingA extends Object {
 	 */
 	public function addLink ($sType, $aData) {
 		if (array_key_exists('href', $aData)) {
-			$oUrl = new UrlRWParser($aData['href']);
-			if ($oUrl->isLocal()) { // I had a bad habit of correcting external URL's
-				$sPath = $oUrl->getCompleteUri();
-			} else {
-				$sPath = $aData['href'];
-			}
-			$aData['href'] = $sPath;
+			$aData['href'] = $this->getResourcePath($aData['href']);
 		}
 		if (array_key_exists('src', $aData)) {
-			$oUrl = new UrlRWParser($aData['src']);
-			if ($oUrl->isLocal()) { // I had a bad habit of correcting external URL's
-				$sPath = $oUrl->getCompleteUri();
-			} else {
-				$sPath = $aData['src'];
-			}
-			$aData['src'] = $sPath;
+			$aData['src'] = $this->getResourcePath($aData['src']);;
 		}
 		$this->aResources['links'][$sType][] = $aData;
 	}
