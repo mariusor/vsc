@@ -19,44 +19,8 @@ function exceptions_error_handler ($iSeverity, $sMessage, $sFilename, $iLineNo) 
 	}
 
 	if (error_reporting() & $iSeverity) {
-		// the __autoload seems not to be working here
-		include_once(realpath(VSC_LIB_PATH . 'exceptions/vscexceptionerror.php'));
 		throw new ExceptionError ($sMessage, 0, $iSeverity, $sFilename, $iLineNo);
 	}
-}
-
-if (!function_exists('d') ) {
-function d () {
-	$aRgs = func_get_args();
-	$iExit = 1;
-
-	for ($i = 0; $i < ob_get_level(); $i++) {
-		// cleaning the buffers
-		ob_end_clean();
-	}
-
-	if (!vsc::isCli()) {
-		// not running in console
-		echo '<pre>';
-	}
-
-	foreach ($aRgs as $object) {
-		// maybe I should just output the whole array $aRgs
-		try {
-			var_dump($object);
-			if (vsc::isCli()) echo "\n\n";
-		} catch (\Exception $e) {
-			//
-		}
-	}
-	debug_print_backtrace();
-
-	if (!vsc::isCli()) {
-		// not running in console
-		echo '</pre>';
-	}
-	exit ();
-}
 }
 
 function getPaths () {
@@ -82,7 +46,6 @@ function cleanBuffers ($iLevel = null) {
 
 	return $aErrors;
 }
-
 
 if (!function_exists('_e')) {
 	function getErrorHeaderOutput ($e = null) {
