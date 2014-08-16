@@ -70,7 +70,6 @@ abstract class ViewA extends Object implements ViewI {
 		if ( !is_file($sPath) ) {
 			throw new ExceptionPath('The main template [' . $sPath . '] is not accessible.');
 		}
-
 		$this->sMainTemplate = $sPath;
 	}
 
@@ -196,7 +195,7 @@ abstract class ViewA extends Object implements ViewI {
 	 */
 	public function fetch ($includePath) {
 		if (empty($includePath)) {
-			throw new ExceptionPath ('Template [' . $includePath . '] could not be located');
+			throw new ExceptionPath ('Template could not be located');
 		}
 
 		ob_start ();
@@ -212,21 +211,15 @@ abstract class ViewA extends Object implements ViewI {
 		$model = $this->getModel();
 		extract(
 			array(
-				'model' 	=> $model,
-				'view'		=> $this,
-				'helper'	=> $this->getMap(),
-				'request'	=> vsc::getEnv()->getHttpRequest()
+				'model'     => $model,
+				'view'      => $this,
+				'helper'    => $this->getMap(),
+				'request'   => vsc::getEnv()->getHttpRequest()
 			),
 			EXTR_SKIP
 		);
 
-		try {
-			$bIncluded = include ($includePath);
-		} catch (\ErrorException $ee) {
-
-		} catch (\Exception $e) {
-
-		}
+		$bIncluded = include ($includePath);
 
 		if (!$bIncluded) {
 			ob_end_clean();
