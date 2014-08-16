@@ -7,4 +7,4 @@
  */
 namespace vsc\application\controllers;
 
-interface XhtmlControllerI {}
+interface HtmlControllerI {}
