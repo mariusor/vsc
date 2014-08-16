@@ -9,6 +9,6 @@ namespace vsc\application\sitemaps;
 
 class ErrorMap extends ProcessorMap {
 	public function __construct () {
-		parent::__construct(VSC_RES_PATH . 'application/processors/vscerrorprocessor.php' , '\A.*\Z');
+		parent::__construct('\\vsc\\application\\processors\\ErrorProcessor' , '\A.*\Z');
 	}
 }
