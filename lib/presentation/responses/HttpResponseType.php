@@ -9,7 +9,7 @@ namespace vsc\presentation\responses;
 
 class HttpResponseType {
 	public static function getStatus ($iStatus) {
-		return isset (static::$aStatusList[$iStatus]) ?  static::$aStatusList[$iStatus] : static::$aStatusList[500];
+		return (is_int($iStatus) && array_key_exists($iStatus, static::$aStatusList)) ? static::$aStatusList[$iStatus] : static::$aStatusList[500];
 	}
 
 	public static function isValidStatus ($iStatus) {

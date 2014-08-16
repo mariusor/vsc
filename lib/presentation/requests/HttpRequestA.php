@@ -477,7 +477,7 @@ abstract class HttpRequestA extends Object {
 	 * @return bool
 	 */
 	static public function isSecure () {
-		return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on');
+		return (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] == 'on');
 	}
 
 	public function accepts ($sMimeType) {

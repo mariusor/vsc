@@ -31,7 +31,7 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	static public function getCurrentUrl () {
-		return 'http' . (HttpRequestA::isSecure() ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+		return new UrlRWParser('http' . (HttpRequestA::isSecure() ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
 	}
 
 	public function hasScheme () {
@@ -79,13 +79,9 @@ class UrlParserA extends Object implements UrlParserI {
 			$aReturn['path'] = $sUrl;
 		}
 
-		if ( !self::urlHasScheme($sUrl) ) {
-			$sUrl = (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] ? 'https:' : 'http:') . $sUrl;
-		}
-
 		try {
 			if ( !self::urlHasScheme($sUrl) ) {
-				$sUrl = (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] ? 'https:' : 'http:') . $sUrl;
+				$sUrl = (HttpRequestA::isSecure()  ? 'https:' : 'http:') . $sUrl;
 			}
 
 			if ( substr($sUrl, 0, 2) == '//' ) {
