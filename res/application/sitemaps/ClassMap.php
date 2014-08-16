@@ -76,12 +76,20 @@ class ClassMap extends MappingA {
 		return $this->aHelpers;
 	}
 
+	/**
+	 * @param string $sPath
+	 * @throws \vsc\ExceptionPath
+	 */
 	public function setMainTemplatePath ($sPath) {
-		$this->sMainTemplatePath = realpath($sPath);
-		if ( !is_dir($this->sMainTemplatePath) ) {
-			$this->sMainTemplatePath = null;
+		$sMainTemplatePath = realpath($sPath);
+		if ( !is_dir($sMainTemplatePath) ) {
+			$sMainTemplatePath = realpath($this->getModuleMap()->getModulePath() . DIRECTORY_SEPARATOR . $sPath);
+		}
+		if ( !is_dir($sMainTemplatePath) ) {
 			throw new ExceptionPath (sprintf('Path [%s] does not exist', $sPath));
 		}
+		$this->sMainTemplatePath = $sMainTemplatePath;
+
 	}
 
 	public function getMainTemplatePath () {

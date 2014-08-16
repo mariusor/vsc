@@ -215,7 +215,7 @@ abstract class SiteMapA extends Object {
 			// instead of a path we have a namespace
 			return $this->addClassMap($sRegex, $sPath);
 		} else {
-			if  (!is_file($sPath)) {
+			if (!is_file($sPath)) {
 				$sPath = $this->getCurrentModuleMap()->getModulePath() . $sPath;
 			}
 

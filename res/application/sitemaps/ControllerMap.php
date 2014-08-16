@@ -8,6 +8,7 @@
 namespace vsc\application\sitemaps;
 
 use vsc\ExceptionPath;
+use vsc\infrastructure\vsc;
 use vsc\presentation\views\ViewA;
 
 class ControllerMap extends MappingA implements ContentTypeMappingI {
@@ -17,14 +18,25 @@ class ControllerMap extends MappingA implements ContentTypeMappingI {
 	private $sViewPath;
 	private $oView;
 
+	/**
+	 * @param string $sPath
+	 * @throws \vsc\ExceptionPath
+	 */
 	public function setMainTemplatePath ($sPath) {
-		$this->sMainTemplatePath = realpath($sPath);
-		if ( !is_dir($this->sMainTemplatePath) ) {
-			$this->sMainTemplatePath = null;
+		$sMainTemplatePath = realpath($sPath);
+		if ( !is_dir($sMainTemplatePath) ) {
+			$sMainTemplatePath = realpath($this->getModuleMap()->getModulePath() . DIRECTORY_SEPARATOR . $sPath);
+		}
+		if ( !is_dir($sMainTemplatePath) ) {
 			throw new ExceptionPath (sprintf('Path [%s] does not exist', $sPath));
 		}
+		$this->sMainTemplatePath = $sMainTemplatePath;
+
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getMainTemplatePath () {
 		// if we didn't provide the controller with a main template path we check the module
 		if ( is_null($this->sMainTemplatePath)) {
@@ -40,10 +52,16 @@ class ControllerMap extends MappingA implements ContentTypeMappingI {
 		return $this->sMainTemplatePath;
 	}
 
+	/**
+	 * @param string $sPath
+	 */
 	public function setMainTemplate ($sPath) {
 		$this->sMainTemplate = $sPath;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getMainTemplate () {
 		// if we didn't provide the controller with a main template path we check the module
 		if ( is_null($this->sMainTemplate ) ) {
