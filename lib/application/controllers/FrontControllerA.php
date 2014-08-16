@@ -133,7 +133,7 @@ abstract class FrontControllerA extends Object {
 			$oView->setMap ($oMap);
 		}
 
-		if ((ProcessorMap::isValid($oMap) && !$oMap->isStatic() && !$oMyMap->isStatic()) && ControllerMap::isValid($oMyMap)) {
+		if (((ProcessorMap::isValid($oMap) || ClassMap::isValid($oMap)) && !$oMap->isStatic() && !$oMyMap->isStatic()) && (ControllerMap::isValid($oMyMap) || ClassMap::isValid($oMyMap))) {
 			$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . $oView->getViewFolder() . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
 		}
 
