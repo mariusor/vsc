@@ -316,21 +316,27 @@ abstract class HttpRequestA extends Object {
 		return array_key_exists($sVarName, $this->aCookieVars);
 	}
 
-	public function hasSession () {
+	static public function hasSession () {
 		return (session_id() != '');
 	}
 
-	static public function startSession ($sSessionName = null) {
-		if ( ((double)PHP_VERSION >= 5.4 && session_status() == PHP_SESSION_DISABLED) ) {
-			throw new ExceptionRequest('Sessions are not available');
-		}
+	static public function getSessionName () {
+		return session_id();
+	}
 
-		if ( ((double)PHP_VERSION >= 5.4 && session_status() == PHP_SESSION_NONE) || session_id() == "") {
-			$oRequest = vsc::getEnv()->getHttpRequest();
-			session_set_cookie_params(0, '/', $oRequest->getUriObject()->getDomain(), HttpRequestA::isSecure(), true);
-			session_start();
-			if (!is_null($sSessionName)) {
-				session_name($sSessionName);
+	static public function startSession ($sSessionName = null) {
+		if (!static::hasSession()) {
+			if ( ((double)PHP_VERSION >= 5.4 && session_status () == PHP_SESSION_DISABLED) ) {
+				throw new ExceptionRequest( 'Sessions are not available' );
+			}
+
+			if ( ((double)PHP_VERSION >= 5.4 && session_status () == PHP_SESSION_NONE) || session_id () == "" ) {
+				$oRequest = vsc::getEnv ()->getHttpRequest ();
+//				session_set_cookie_params ( 0, '/', $oRequest->getUriObject ()->getDomain (), HttpRequestA::isSecure (), true );
+				session_start ();
+				if ( !is_null ( $sSessionName ) ) {
+					session_id ( $sSessionName );
+				}
 			}
 		}
 	}
