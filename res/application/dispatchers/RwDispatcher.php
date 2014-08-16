@@ -20,6 +20,7 @@ use vsc\application\sitemaps\ModuleMap;
 use vsc\application\sitemaps\ProcessorMap;
 use vsc\application\sitemaps\RwSiteMap;
 use vsc\application\sitemaps\SiteMapA;
+use vsc\infrastructure\vsc;
 use vsc\presentation\requests\RwHttpRequest;
 use vsc\presentation\responses\ExceptionResponseError;
 use vsc\presentation\responses\ExceptionResponseRedirect;
@@ -27,6 +28,7 @@ use vsc\presentation\responses\HttpResponse;
 use vsc\infrastructure\Null;
 use vsc\ExceptionError;
 use vsc\ExceptionPath;
+use vsc\presentation\responses\HttpResponseType;
 
 class RwDispatcher extends HttpDispatcherA {
 	/**
@@ -109,7 +111,7 @@ class RwDispatcher extends HttpDispatcherA {
 		}
 
 		// check the current module for maps
-		$oCurrentModule = $this->getCurrentModuleMap();
+		$oCurrentModule = $oProcessorMap->getModuleMap();
 		$aModuleMaps 	= $oCurrentModule->getControllerMaps();
 		$oCurrentMap	= $this->getCurrentMap($aModuleMaps);
 		if (ControllerMap::isValid($oCurrentMap) || ClassMap::isValid($oCurrentMap) ) {
@@ -130,6 +132,8 @@ class RwDispatcher extends HttpDispatcherA {
 	}
 
 	/**
+	 * @throws \vsc\application\sitemaps\ExceptionSitemap
+	 * @throws \vsc\presentation\responses\ExceptionResponseError
 	 * @returns FrontControllerA
 	 */
 	public function getFrontController () {
@@ -153,7 +157,12 @@ class RwDispatcher extends HttpDispatcherA {
 				$sControllerName = $oControllerMapping->getPath();
 			}
 
-			/* @var $this->oController vscFrontControllerA */
+
+			if (empty($sControllerName)) {
+				throw new ExceptionResponseError('Could not find the correct front controller', HttpResponseType::NOT_FOUND);
+			}
+
+			/* @var $this->oController FrontControllerA */
 			$this->oController = new $sControllerName();
 			if (FrontControllerA::isValid($this->oController)) {
 				// adding the map to the controller, allows it to add resources (styles,scripts) from inside it
