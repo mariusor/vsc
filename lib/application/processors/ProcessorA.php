@@ -118,7 +118,7 @@ abstract class ProcessorA extends Object implements ProcessorI {
 
 		$this->setMap ($oMap);
 
-		$oNewProcessor->setLocalVars($this->getLocalVars());
+		$oNewProcessor->setLocalVars($this->getLocalVars(), true);
 
 		return $oNewProcessor->handleRequest($oHttpRequest);
 	}
