@@ -10,6 +10,7 @@ namespace vsc\presentation\views;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ProcessorMap;
 use vsc\domain\models\EmptyModel;
+use vsc\domain\models\HttpModelI;
 use vsc\domain\models\ModelA;
 use vsc\infrastructure\urls\UrlParserA;
 use vsc\infrastructure\urls\UrlRWParser;
@@ -102,7 +103,7 @@ abstract class ViewA extends Object implements ViewI {
 		try {
 			/** @var EmptyModel $oModel */
 			$oModel = $this->getModel();
-			if (EmptyModel::isValid($oModel) && $oModel->getPageTitle() != '') {
+			if (($oModel instanceof HttpModelI) && $oModel->getPageTitle() != '') {
 				return  $oModel->getPageTitle();
 			}
 		} catch (\Exception $e) {
