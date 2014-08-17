@@ -7,6 +7,9 @@ use vsc\presentation\responses\HttpResponseA;
 use vsc\presentation\views\RssView;
 
 class RssFrontControllerTest extends \PHPUnit_Framework_TestCase {
+	/**
+	 * @var RssController
+	 */
 	private $state;
 
 	public function setUp () {

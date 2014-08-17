@@ -8,7 +8,7 @@ use _fixtures\domain\models\ModelFixture;
 
 class DefaultViewTest extends \PHPUnit_Framework_TestCase {
 	/**
-	 * @var ViewA
+	 * @var testView
 	 */
 	public $state;
 
