@@ -56,7 +56,7 @@ class FrontControllerATest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testSetGetMap() {
-		$s = new ControllerMap('application/controllers/vscGenericFrontcontroller.php', '\A.*\Z');
+		$s = new ControllerMap('\\_fixtures\\application\\controllers\\GenericFrontController', '\A.*\Z');
 		$this->state->setMap($s);
 
 		$m = $this->state->getMap();
