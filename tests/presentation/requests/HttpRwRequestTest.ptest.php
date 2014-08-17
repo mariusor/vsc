@@ -29,8 +29,7 @@ class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 		return $this->assertEquals($_GET['ana'], $this->state->getVar('ana'));
 	}
 
-	public function testGetGetVarInorrect() {
-// 		$this->willThrow('vscException');
+	public function testGetGetVarIncorrect() {
 		return $this->assertEquals($this->state->getVar('asdf'), '');
 	}
 

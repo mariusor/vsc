@@ -14,31 +14,6 @@ use vsc\Exception;
 abstract class RequestA extends Object {
 	private $aVarOrder;
 
-//	abstract public function getServerProtocol();
-//	abstract public function getHttpMethod();
-//	abstract public function getHttpAccept();
-
-	public function __construct () {
-		if (isset($_SERVER)) {
-//			$this->getServerProtocol();
-//			$this->getHttpMethod();
-
-			if (isset ($_SERVER['HTTP_ACCEPT']))
-				$this->aAccept			= explode (',', $_SERVER['HTTP_ACCEPT']);
-			if (isset ($_SERVER['HTTP_ACCEPT_LANGUAGE']))
-				$this->aAcceptLanguage	= explode (',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-			if (isset ($_SERVER['HTTP_ACCEPT_ENCODING']))
-				$this->aAcceptEncoding	= explode (',', $_SERVER['HTTP_ACCEPT_ENCODING']);
-			if (isset ($_SERVER['HTTP_ACCEPT_CHARSET']))
-				$this->aAcceptCharset	= explode (',', $_SERVER['HTTP_ACCEPT_CHARSET']);
-
-			if (isset ($_SERVER['HTTP_USER_AGENT']))
-				$this->sUserAgent			= $_SERVER['HTTP_USER_AGENT'];
-			if (isset ($_SERVER['HTTP_REFERER']))
-				$this->sReferer			= $_SERVER['HTTP_REFERER'];
-		}
-	}
-
 	public function getSessionVars() {
 		return $_SESSION;
 	}
@@ -150,33 +125,6 @@ abstract class RequestA extends Object {
 	 */
 	public function setSessionVar ($sVarName, $sVarValue) {
 		return $_SESSION[$sVarName] = $sVarValue;
-	}
-
-	public function accepts ($sMimeType) {
-		$aGoodMimeTypes = array ($sMimeType, '*/*');
-		$aIncomingAcceptHeaders = $this->getHttpAccept();
-		$aContentTypes = array();
-		// 1. empty http-accept header
-		if (empty ($aIncomingAcceptHeaders)) {
-			$aGoodMimeTypes[] = 'text/html';
-			$aGoodMimeTypes[] = 'text/xml';
-		}
-		// 2. non-empty http-accept header
-		foreach ($aIncomingAcceptHeaders as $sEntry) {
-			$iSemicolonPosition = strpos($sEntry, ';');
-			if ($iSemicolonPosition > 0) {
-				$sContentType = substr ($sEntry, 0, $iSemicolonPosition);
-				$aContentTypes[] = $sContentType;
-			} else {
-				$aContentTypes[] = $sEntry;
-			}
-		}
-		foreach ($aGoodMimeTypes as $sPotentialContentType) {
-			if (in_array($sPotentialContentType, $aContentTypes)) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	static protected function getDecodedVar ($mVar) {

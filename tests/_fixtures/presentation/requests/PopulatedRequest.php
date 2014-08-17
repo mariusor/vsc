@@ -14,10 +14,16 @@ class PopulatedRequest extends HttpRequestA {
 	);
 
 	protected $returnUri = '/test';
+	private $aAccept =  array (
+		'SERVER_SOFTWARE' => 'lighttpd',
+		'PHP_SELF' => '/',
+		'REQUEST_URI' => '/ana:are/test:123/',
+		'HTTP_ACCEPT' => 'application/html,text/html;charset=UTF8,image/*'
+	);
 	private $sHttpMethod	= 'GET';
 
-	private $aGetVars		= array('cucu' => 'pasare');
-	private $aPostVars		= array();
+	private $aGetVars		= array('cucu' => 'pasare','ana' => 'are', 'mere' => '');
+	private $aPostVars		= array('postone' => 'are', 'ana' => '');
 	private $aCookieVars	= array('user' => 'asddsasdad234');
 
 	private $sReferer		= 'http://localhost/_fixtures/index.html?module=test';

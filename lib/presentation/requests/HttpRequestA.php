@@ -134,14 +134,14 @@ abstract class HttpRequestA extends Object {
 	}
 
 	/**
-	 * @return []
+	 * @return string[]
 	 */
 	public function getHttpAccept () {
 		return $this->aAccept;
 	}
 
 	/**
-	 * @return []
+	 * @return string[]
 	 */
 	public function getHttpAcceptCharset () {
 		return $this->aAcceptCharset;
@@ -155,14 +155,14 @@ abstract class HttpRequestA extends Object {
 	}
 
 	/**
-	 * @return []
+	 * @return string[]
 	 */
 	public function getHttpAcceptEncoding () {
 		return $this->aAcceptEncoding;
 	}
 
 	/**
-	 * @return []
+	 * @return string[]
 	 */
 	public function getHttpAcceptLanguage () {
 		return $this->aAcceptLanguage;
@@ -486,6 +486,10 @@ abstract class HttpRequestA extends Object {
 		return (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] == 'on');
 	}
 
+	/**
+	 * @param string $sMimeType
+	 * @return bool
+	 */
 	public function accepts ($sMimeType) {
 		$aContentTypes = array();
 		foreach ($this->getHttpAccept() as $sEntry) {
@@ -503,7 +507,7 @@ abstract class HttpRequestA extends Object {
 
 			if ($sType == $sAcceptedType && $sSubtype == $sAcceptedSubtype) return true;
 			if ($sType == $sAcceptedType && $sAcceptedSubtype == '*') return true;
-			//if ($sAcceptedType == '*' && $sAcceptedSubtype == '*') return true;
+			if ($sAcceptedType == '*' && $sAcceptedSubtype == '*') return true;
 		}
 		return false;
 	}
