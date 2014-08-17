@@ -7,8 +7,8 @@
  */
 namespace vsc\presentation\requests;
 
-use vsc\infrastructure\urls\UrlRWParser;
 use vsc\infrastructure\Object;
+use vsc\infrastructure\urls\UrlRWParser;
 use vsc\infrastructure\vsc;
 use vsc\Exception;
 
@@ -282,7 +282,7 @@ abstract class HttpRequestA extends Object {
 //				$mVal = $this->getSeesionVar($sVarName);
 				break;
 			}
-			if ($mVal) {
+			if (isset($mVal)) {
 				return $mVal;
 			}
 		}
@@ -332,7 +332,7 @@ abstract class HttpRequestA extends Object {
 
 			if ( ((double)PHP_VERSION >= 5.4 && session_status () == PHP_SESSION_NONE) || session_id () == "" ) {
 				$oRequest = vsc::getEnv ()->getHttpRequest ();
-//				session_set_cookie_params ( 0, '/', $oRequest->getUriObject ()->getDomain (), HttpRequestA::isSecure (), true );
+				session_set_cookie_params ( 0, '/', $oRequest->getUriObject ()->getDomain (), HttpRequestA::isSecure (), true );
 				session_start ();
 				if ( !is_null ( $sSessionName ) ) {
 					session_id ( $sSessionName );

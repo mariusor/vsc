@@ -7,11 +7,9 @@
 namespace vsc\infrastructure;
 
 use vsc\application\dispatchers\DispatcherA;
-use vsc\application\dispatchers\GenericCLIDispatcher;
 use vsc\application\dispatchers\HttpDispatcherA;
 use vsc\application\dispatchers\RwDispatcher;
 use vsc\application\sitemaps\ModuleMap;
-use vsc\presentation\requests\CLIRequest;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\RawHttpRequest;
 use vsc\presentation\requests\RwHttpRequest;
@@ -59,14 +57,10 @@ class vsc extends Object {
 	 */
 	public function getHttpRequest () {
 		if ( is_null($this->oRequest) ){
-			if ( !self::isCli() ) {
-				if (!HttpRequestA::hasContentType()) {
-					$this->oRequest = new RwHttpRequest();
-				} else {
-					$this->oRequest = new RawHttpRequest();
-				}
+			if (!HttpRequestA::hasContentType()) {
+				$this->oRequest = new RwHttpRequest();
 			} else {
-				$this->oRequest = new CLIRequest();
+				$this->oRequest = new RawHttpRequest();
 			}
 		}
 		return $this->oRequest;
@@ -86,11 +80,7 @@ class vsc extends Object {
 	 */
 	public function getDispatcher () {
 		if (!DispatcherA::isValid($this->oDispatcher)){
-			if ( !self::isCli() ) {
-				$this->oDispatcher = new RwDispatcher();
-			} else {
-				$this->oDispatcher = new GenericCLIDispatcher();
-			}
+			$this->oDispatcher = new RwDispatcher();
 		}
 		return $this->oDispatcher;
 	}

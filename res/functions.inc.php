@@ -49,6 +49,7 @@ function cleanBuffers ($iLevel = null) {
 }
 
 function getErrorHeaderOutput ($e = null) {
+	$sRet = '';
 	if (!vsc::isCli()) {
 		header ('HTTP/1.1 500 Internal Server Error');
 		$sRet = '<?xml version="1.0" encoding="utf-8"?>';

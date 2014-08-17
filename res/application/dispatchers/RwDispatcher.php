@@ -192,6 +192,7 @@ class RwDispatcher extends HttpDispatcherA {
 
 			$sPath = $oProcessorMap->getPath();
 			try {
+				$sProcessorName = null;
 				if ( $this->getSiteMap()->isValidObjectPath ($sPath) || (stristr(basename($sPath), '.') === false && !is_file($sPath))) {
 					// dirty import of the module folder and important subfolders
 					$sModuleName = $oProcessorMap->getModuleName();

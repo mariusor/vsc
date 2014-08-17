@@ -42,26 +42,11 @@ class vscTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetRequest () {
-		$this->assertInstanceOf('\\vsc\\presentation\\requests\\RequestA', vsc::getEnv()->getHttpRequest());
+		$this->assertInstanceOf('\\vsc\\presentation\\requests\\HttpRequestA', vsc::getEnv()->getHttpRequest());
 	}
 
 	public function testGetIncludePaths () {
 		// =))
 		$this->assertEquals(vsc::getIncludePaths(), explode (PATH_SEPARATOR, get_include_path()));
 	}
-
-	public function testDNull() {
-		$nullOutput = vsc::d ( null );
-
-		$this->assertNotNull($nullOutput);
-		$this->assertEquals("NULL\n", $nullOutput );
-	}
-
-	public function testDString() {
-		$testOutput = vsc::d ('test');
-
-		$this->assertNotNull($testOutput);
-		$this->assertEquals("test\n", $testOutput);
-	}
-
 }

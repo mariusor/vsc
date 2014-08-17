@@ -11,7 +11,6 @@ use vsc\domain\models\ErrorModel;
 use vsc\infrastructure\vsc;
 use vsc\infrastructure\Null;
 use vsc\infrastructure\Object;
-use vsc\presentation\requests\CLIRequest;
 use vsc\presentation\requests\HttpRequestTypes;
 use vsc\presentation\views\ViewA;
 
@@ -397,7 +396,7 @@ abstract class HttpResponseA extends Object {
 
 		$oRequest = vsc::getEnv()->getHttpRequest();
 		try {
-			if (CLIRequest::isValid($oRequest) || !$oRequest->isHead() && !$this->isRedirect()) {
+			if ( !$oRequest->isHead() && !$this->isRedirect()) {
 				$oView = $this->getView();
 				$sResponseBody = $oView->getOutput();
 			}
