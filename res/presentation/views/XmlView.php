@@ -7,6 +7,8 @@
  */
 namespace vsc\presentation\views;
 
+use vsc\infrastructure\vsc;
+
 class XmlView extends ViewA implements XmlViewI {
 	protected $sContentType = 'application/xml';
 	protected $sFolder = 'xml';
@@ -40,6 +42,6 @@ class XmlView extends ViewA implements XmlViewI {
 	 * @see lib/presentation/views/vscViewI#display($resource_name, $cache_id, $compile_id)
 	 */
 	public function display ($resource_name) {
-		\vsc\d ($resource_name);
+		vsc::d ($resource_name);
 	}
 }

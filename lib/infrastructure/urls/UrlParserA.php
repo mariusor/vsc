@@ -397,7 +397,7 @@ class UrlParserA extends Object implements UrlParserI {
 			try {
 				$sUrl .= $this->aComponents['path'] . $sPath;
 			} catch (ExceptionError $e) {
-				\vsc\d ($e->getTraceAsString());
+				vsc::d ($e->getTraceAsString());
 			}
 		}
 

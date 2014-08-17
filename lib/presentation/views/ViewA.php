@@ -167,7 +167,7 @@ abstract class ViewA extends Object implements ViewI {
 			return $this->getModel()->$sVarName;
 		} catch (\Exception $e) {
 			// most likely the variable doesn't exist
-			\vsc\d ($e->getTraceAsString());
+			vsc::d ($e->getTraceAsString());
 		}
 	}
 

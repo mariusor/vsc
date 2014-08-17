@@ -33,6 +33,6 @@ try {
 	echo $this->fetch (dirname(__FILE__) . '/model.php');
 	echo "\n";
 } catch (Exception $e) {
-	\vsc\d ($e);
+	vsc::d ($e);
 }
 ?>

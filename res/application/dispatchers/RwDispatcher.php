@@ -59,7 +59,7 @@ class RwDispatcher extends HttpDispatcherA {
 				$aMatches = array_shift($aMatches);
 				$aMatches = array_slice($aMatches, 1);
 
-				/* @var MappingA $oProcessorMapping */
+				/* @var MappingA $oMapping */
 				$oMapping  = $aMaps[$sRegex];
 				$oMapping->setTaintedVars($aMatches);
 				$oMapping->setUrl ($sUri);

@@ -7,6 +7,8 @@
  */
 namespace vsc\presentation\views;
 
+use vsc\infrastructure\vsc;
+
 class XhtmlView extends ViewA implements XhtmlViewI {
 	protected $sContentType = 'application/xhtml+xml';
 	protected $sFolder = 'xhtml';
@@ -36,7 +38,7 @@ class XhtmlView extends ViewA implements XhtmlViewI {
 	 * @see lib/presentation/views/vscViewI#display($resource_name, $cache_id, $compile_id)
 	 */
 	public function display ($resource_name) {
-		\vsc\d ($resource_name);
+		vsc::d ($resource_name);
 	}
 
    	public function getScripts($bInHead = false) {

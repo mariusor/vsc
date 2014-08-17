@@ -1,5 +1,6 @@
 <?php /* @var $this \vsc\presentation\views\JsonView  */
 use vsc\Exception;
+use vsc\infrastructure\vsc;
 
 try {
 	$GLOBALS['depth'] = 1;
@@ -9,6 +10,6 @@ try {
 	echo "\t" . '}'."\n";
 	echo '}'."\n";
 } catch (Exception $e) {
-	\vsc\d ($e);
+	vsc::d ($e);
 }
 
