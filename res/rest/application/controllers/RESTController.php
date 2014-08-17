@@ -10,9 +10,9 @@ namespace vsc\application\controllers;
 
 use vsc\application\processors\AuthenticatedProcessorI;
 use vsc\application\processors\ErrorProcessor;
-use vsc\application\processors\RESTProcessorA;
+use vsc\rest\application\processors\RESTProcessorA;
 use vsc\presentation\requests\HttpRequestA;
-use vsc\presentation\requests\RESTRequest;
+use vsc\rest\presentation\requests\RESTRequest;
 use vsc\presentation\responses\ExceptionAuthenticationNeeded;
 use vsc\presentation\responses\ExceptionResponseError;
 use vsc\presentation\responses\HttpResponse;
