@@ -1,7 +1,12 @@
-<?php /* @var $this vscJsonTxtA  */ ?>
+<?php
+use vsc\infrastructure\String;
+use vsc\infrastructure\vsc;
+use \vsc\Exception;
+
+/* @var $this \vsc\presentation\views\TxtView  */ ?>
 Default TXT template
 
-This is the default txt template from the <?php echo vscString::stripTags(vsc::name()); ?> framework.
+This is the default txt template from the <?php echo String::stripTags(vsc::name()); ?> framework.
 In order to add content, you need to:
 
 	- add the <?php echo $this->getViewFolder() ?> folder in your module's template folder: <?php echo $this->getMap()->getTemplatePath(); ?>
@@ -27,7 +32,7 @@ try {
 	echo 'Model type: ' . get_class($this->getModel()) . "\n";
 	echo $this->fetch (dirname(__FILE__) . '/model.php');
 	echo "\n";
-} catch (vscException $e) {
-	d ($e);
+} catch (Exception $e) {
+	\vsc\d ($e);
 }
 ?>

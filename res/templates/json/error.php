@@ -1,5 +1,8 @@
 <?php
-/* @var $this vscJsonView */
+/* @var \vsc\domain\models\ErrorModel $model */
+/* @var $this \vsc\presentation\views\JsonView */
+use \vsc\infrastructure\vsc;
+
 $e = $model->getException();
 $error = array (
 	'message' => $e->getCode() . ' ' . $e->getMessage(),

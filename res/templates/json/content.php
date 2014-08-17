@@ -1,4 +1,6 @@
-<?php /* @var $this vscJsonViewA  */
+<?php /* @var $this \vsc\presentation\views\JsonView  */
+use vsc\Exception;
+
 try {
 	$GLOBALS['depth'] = 1;
 	echo '{'."\n";
@@ -6,7 +8,7 @@ try {
 	echo $this->fetch (dirname(__FILE__) . '/model.php');
 	echo "\t" . '}'."\n";
 	echo '}'."\n";
-} catch (vscException $e) {
-	d ($e);
+} catch (Exception $e) {
+	\vsc\d ($e);
 }
 

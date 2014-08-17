@@ -1,0 +1,62 @@
+<phpunit
+	bootstrap="./vsc_phpunittest_environment.php"
+	colors="true"
+	stopOnIncomplete="true"
+	stopOnError="true"
+	stopOnFailure="true"
+	stopOnRisky="true"
+	stopOnSkipped="true"
+	strict="true"
+	processIsolation="true">
+	<testsuites>
+		<testsuite name="all">
+			<directory suffix=".ptest.php">./</directory>
+			<directory suffix=".ptest.php">./functions/</directory>
+			<directory suffix=".ptest.php">./infrastructure/</directory>
+			<directory suffix=".ptest.php">./domain/</directory>
+			<directory suffix=".ptest.php">./application/</directory>
+			<directory suffix=".ptest.php">./presentation/</directory>
+		</testsuite>
+		<testsuite name="functions">
+			<directory suffix=".ptest.php">./functions/</directory>
+		</testsuite>
+		<testsuite name="infrastructure">
+			<directory suffix=".ptest.php">./infrastructure/</directory>
+		</testsuite>
+		<testsuite name="domain">
+			<directory suffix=".ptest.php">./domain/</directory>
+		</testsuite>
+		<testsuite name="application">
+			<directory suffix=".ptest.php">./application/</directory>
+		</testsuite>
+		<testsuite name="presentation">
+			<directory suffix=".ptest.php">./presentation/</directory>
+		</testsuite>
+		<testsuite name="all_the_rest">
+			<directory suffix=".ptest.php">./</directory>
+			<exclude>./functions</exclude>
+			<exclude>./infrastructure</exclude>
+			<exclude>./domain</exclude>
+			<exclude>./application</exclude>
+			<exclude>./presentation</exclude>
+		</testsuite>
+		<testsuite name="sitemaps">
+			<directory suffix=".ptest.php">./application/sitemaps/</directory>
+		</testsuite>
+		<testsuite name="all">
+			<directory suffix=".ptest.php">./</directory>
+			<directory suffix=".ptest.php">./functions/</directory>
+			<directory suffix=".ptest.php">./infrastructure/</directory>
+			<directory suffix=".ptest.php">./domain/</directory>
+			<directory suffix=".ptest.php">./application/</directory>
+			<directory suffix=".ptest.php">./presentation/</directory>
+		</testsuite>
+	</testsuites>
+	<php>
+		<ini />
+		<server name="SCRIPT_NAME" value="test.php"/>
+		<env name="SCRIPT_NAME" value="test.php"/>
+		<env name="XDEBUG_CONFIG" value="idekey=eclipse_xdebug"/>
+		<!-- <const name="VSC_FIXTURE_PATH" value="./_fixtures/"/> -->
+	</php>
+</phpunit>

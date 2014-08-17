@@ -1,4 +1,4 @@
 <?php
 
-include ('error.tpl.php');
+include ('error.php');
 

@@ -1,4 +1,6 @@
-<?php /* @var $this vscViewA  */ ?>
+<?php
+use vsc\infrastructure\vsc;
+/* @var $this \vsc\presentation\views\ViewA  */ ?>
 <h2>Default XHTML template</h2>
 <div> This is the default XHTML template from the <?php echo vsc::name(); ?> framework.<br/>
 In order to add content, you need to:
@@ -22,7 +24,7 @@ try {
 	echo '<li style="list-style:none; margin-left:-2em">Model type: <strong>' . get_class($this->getModel()) . '</strong></li>'."\n";
 	echo $this->fetch (dirname(__FILE__) . '/model.php');
 	echo '</ul>'."\n";
-} catch (vscException $f) {
+} catch (\vsc\Exception $f) {
 	//d ($f);
 }
 ?>
