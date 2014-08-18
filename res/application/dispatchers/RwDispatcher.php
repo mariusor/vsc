@@ -229,8 +229,10 @@ class RwDispatcher extends HttpDispatcherA {
 				}*/
 
 				if (ProcessorA::isValid($this->oProcessor)) {
-					// adding the map to the processor, allows it to easy add resources (styles,scripts) from inside it
-					$this->oProcessor->setMap ($oProcessorMap);
+					if ( !(ErrorProcessor::isValid($this->oProcessor) && MappingA::isValid($this->oProcessor->getMap())) ) {
+						// @TODO: this should be a MappingA->merge() when the processor already has a map
+						$this->oProcessor->setMap($oProcessorMap);
+					}
 
 					// setting the variables defined in the processor into the tainted variables
 					/** @var RwHttpRequest $oRawRequest */

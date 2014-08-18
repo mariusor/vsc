@@ -30,7 +30,7 @@ abstract class DispatcherA extends Object {
 	private $oSiteMap;
 
 	/**
-	 * @var ProcessorMap
+	 * @var ProcessorA
 	 */
 	protected $oProcessor;
 
