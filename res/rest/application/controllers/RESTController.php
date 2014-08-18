@@ -6,8 +6,9 @@
  * @author marius orcsik <marius@habarnam.ro>
  * @date 2013.10.04
  */
-namespace vsc\application\controllers;
+namespace vsc\rest\application\controllers;
 
+use vsc\application\controllers\JsonController;
 use vsc\application\processors\AuthenticatedProcessorI;
 use vsc\application\processors\ErrorProcessor;
 use vsc\rest\application\processors\RESTProcessorA;
