@@ -33,28 +33,6 @@ abstract class RESTProcessorA extends ProcessorA {
 	abstract public function handlePut (RawHttpRequest $oRequest);
 	abstract public function handleDelete (RawHttpRequest $oRequest);
 
-	public function handleOptions (HttpRequestA $oRequest) {
-		$oMirror = new \ReflectionClass($this);
-
-		$aMethods = $oMirror->getMethods(\ReflectionProperty::IS_PUBLIC);
-		$aReflectionDocComments = array();
-		foreach ($aMethods as $key => $oReflectionMethod) {
-			/* @var $oReflectionMethod \ReflectionMethod */
-			if ( stristr($oReflectionMethod->getName(), 'handle') !== false) {
-				$sDocumentation = $oReflectionMethod->getDocComment();
-				if (!empty($sDocumentation)) {
-					// this needs some phpdoc parser
-					$aReflectionDocComments[$oReflectionMethod->getName()] = $sDocumentation;
-				}
-			}
-		}
-
-		$this->getMap()->setTemplatePath(VSC_RES_PATH . 'templates');
-		$this->getMap()->setTemplate('introspection.tpl.php');
-
-		return new ArrayModel($aReflectionDocComments);
-	}
-
 	public function handleRequest (HttpRequestA $oRequest) {
 		if ( !$oRequest->isGet() && !RawHttpRequest::isValid($oRequest)) {
 			$oRequest = new RawHttpRequest();
@@ -76,10 +54,6 @@ abstract class RESTProcessorA extends ProcessorA {
 				break;
 			case HttpRequestTypes::DELETE:
 				return $this->handleDelete ($oRequest);
-				break;
-			case HttpRequestTypes::OPTIONS:
-				// mainly used for introspection
-				return $this->handleOptions ($oRequest);
 				break;
 			default:
 				throw new ExceptionResponseError ('Method ['.$oRequest->getHttpMethod().'] is unavailable.', 405);
