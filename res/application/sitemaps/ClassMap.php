@@ -6,11 +6,11 @@
  */
 namespace vsc\application\sitemaps;
 
-
 use vsc\application\processors\ProcessorA;
 use vsc\ExceptionPath;
 use vsc\presentation\helpers\ViewHelperA;
 use vsc\presentation\responses\HttpResponseA;
+use vsc\presentation\responses\HttpResponseType;
 use vsc\presentation\views\ViewA;
 
 class ClassMap extends MappingA {
@@ -30,6 +30,11 @@ class ClassMap extends MappingA {
 	 * @var ViewHelperA[]
 	 */
 	private $aHelpers = array();
+
+	/**
+	 * @var int
+	 */
+	private $iHttpStatus;
 
 	/**
 	 * @param HttpResponseA $oResponse
@@ -166,5 +171,21 @@ class ClassMap extends MappingA {
 			$this->oView = new $sClassName();
 		}
 		return $this->oView;
+	}
+
+	/**
+	 * @param int $iStatus
+	 */
+	public function setResponseStatus ($iStatus) {
+		if (HttpResponseType::isValidStatus($iStatus)) {
+			$this->iHttpStatus = $iStatus;
+		}
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getResponseStatus () {
+		return $this->iHttpStatus;
 	}
 }

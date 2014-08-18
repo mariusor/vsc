@@ -8,7 +8,9 @@
 namespace vsc\application\sitemaps;
 
 use vsc\presentation\helpers\ViewHelperA;
+use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\responses\HttpResponseA;
+use vsc\presentation\responses\HttpResponseType;
 
 class ProcessorMap extends MappingA {
 	/**
@@ -22,6 +24,11 @@ class ProcessorMap extends MappingA {
 	 * @var ViewHelperA[]
 	 */
 	private $aHelpers = array();
+
+	/**
+	 * @var int
+	 */
+	private $iHttpStatus;
 
 	/**
 	 * @param HttpResponseA $oResponse
@@ -66,5 +73,21 @@ class ProcessorMap extends MappingA {
 	 */
 	public function getViewHelpers () {
 		return $this->aHelpers;
+	}
+
+	/**
+	 * @param int $iStatus
+	 */
+	public function setResponseStatus ($iStatus) {
+		if (HttpResponseType::isValidStatus($iStatus)) {
+			$this->iHttpStatus = $iStatus;
+		}
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getResponseStatus () {
+		return $this->iHttpStatus;
 	}
 }

@@ -154,6 +154,10 @@ abstract class FrontControllerA extends Object {
 					$oResponse->addHeader ( $sName, $sHeader );
 				}
 			}
+			$iProcessorSetStatus = $oMap->getResponseStatus();
+			if (HttpResponseType::isValidStatus($iProcessorSetStatus)) {
+				$oResponse->setStatus($iProcessorSetStatus);
+			}
 		}
 		return $oResponse;
 	}

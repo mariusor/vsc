@@ -15,34 +15,8 @@ use vsc\presentation\requests\HttpRequestTypes;
 use vsc\presentation\views\ViewA;
 
 abstract class HttpResponseA extends Object {
-	static protected $aStatusList = array(
-		200 => '200 OK',
-		201 => '201 Created',
-		202 => '202 Accepted',
-		204 => '204 No Content',
-		301 => '301 Moved Permanently',
-		302 => '302 Found',
-		303 => '303 See Other',
-		304 => '304 Not Modified',
-		400 => '400 Bad Request',
-		401 => '401 Unauthorized',
-		402 => '402 Payment Required',
-		403 => '403 Forbidden',
-		404 => '404 Not Found',
-		405 => '405 Method Not Allowed',
-		406 => '406 Not Acceptable',
-		408 => '408 Request Timeout',
-		409 => '409 Conflict',
-		410 => '410 Gone',
-		415 => '415 Unsupported Media Type',
-		426 => '426 Update Required',
-		500 => '500 Internal Server Error',
-		501 => '501 Not Implemented',
-	);
 	private $sServerProtocol;
-
 	private $iStatus;
-
 	private $aAllow					= array (HttpRequestTypes::GET, HttpRequestTypes::POST, HttpRequestTypes::PUT, HttpRequestTypes::DELETE);
 	private $sCacheControl;
 	private $sContentEncoding;
@@ -51,20 +25,16 @@ abstract class HttpResponseA extends Object {
 	private $sContentLocation;
 	private $sContentDisposition;
 	private $sContentMd5;
-	protected $sContentType;
 	private $sDate;
 	private $sETag;
 	private $sExpires;
 	private $sLastModified;
 	private $sLocation;
-
 	private $aHeaders;
 
-	public function getStatusList () {
-		return self::$aStatusList;
-	}
-
 	private $oView;
+
+	protected $sContentType;
 
 	public function __construct () {
 		if (is_array($_SERVER)) {
@@ -75,7 +45,7 @@ abstract class HttpResponseA extends Object {
 	}
 
 	public function setStatus ($iStatus) {
-		if (!isset (self::$aStatusList[$iStatus])){
+		if ( !HttpResponseType::isValidStatus($iStatus) ){
 			throw new ExceptionResponse('[' . $iStatus . '] is not a valid ' . $this->getServerProtocol() . ' status');
 		}
 
@@ -290,7 +260,7 @@ abstract class HttpResponseA extends Object {
 	}
 
 	static public function getHttpStatusString ($sProtocol, $iStatus) {
-		return $sProtocol . ' ' . self::$aStatusList[$iStatus];
+		return $sProtocol . ' ' . HttpResponseType::getStatus($iStatus);
 	}
 
 	public function getStatus () {

@@ -18,6 +18,8 @@ class HttpResponseType {
 
 	static protected $aStatusList = array(
 		200 => '200 OK',
+		201 => '201 Created',
+		202 => '202 Accepted',
 		204 => '204 No Content',
 		301 => '301 Moved Permanently',
 		302 => '302 Found',
@@ -40,6 +42,9 @@ class HttpResponseType {
 	);
 
 	const OK = 200;
+	const CREATED = 201;
+	const ACCEPTED = 202;
+	const NO_CONTENT = 204;
 	const CLIENT_ERROR = 400;
 	const NOT_AUTHORIZED = 401;
 	const FORBIDDEN = 403;
