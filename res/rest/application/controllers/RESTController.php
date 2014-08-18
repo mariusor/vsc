@@ -11,6 +11,8 @@ namespace vsc\rest\application\controllers;
 use vsc\application\controllers\JsonController;
 use vsc\application\processors\AuthenticatedProcessorI;
 use vsc\application\processors\ErrorProcessor;
+use vsc\application\sitemaps\MappingA;
+use vsc\presentation\responses\HttpResponseType;
 use vsc\rest\application\processors\RESTProcessorA;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\rest\presentation\requests\RESTRequest;
@@ -68,28 +70,12 @@ class RESTController extends JsonController {
 						throw new ExceptionAuthenticationNeeded ('This resource requires authentication but doesn\'t support any authorization scheme');
 					}
 				} catch (ExceptionAuthenticationNeeded $e) {
-					$oErrorProcessor = new ErrorProcessor($e);
-
-					$oResponse = parent::getResponse($oRequest, $oErrorProcessor);
-					$oResponse->addHeader('WWW-Authorization', $e->getChallenge());
-					return $oResponse;
+					return $this->getErrorResponse($e);
 				}
 			}
 		} catch (\Exception $e) {
-			// we had error in the controller
-			// @todo make more error processors
-			if ( $e instanceof ExceptionResponseError ) {
-				$oResponse->setStatus($e->getErrorCode());
-			}
-			$oProcessor = new ErrorProcessor($e);
-
-			$oMyMap->setMainTemplatePath(VSC_RES_PATH . 'templates');
-			$oMyMap->setMainTemplate('main.php');
-
-			$oModel = $oProcessor->handleRequest($oRequest);
+			return $this->getErrorResponse($e);
 		}
-		$oResponse = parent::getResponse($oRequest, $oProcessor);
-
-		return $oResponse;
+		return parent::getResponse($oRequest, $oProcessor);
 	}
 }
