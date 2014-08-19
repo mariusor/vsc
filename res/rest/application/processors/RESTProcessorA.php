@@ -15,6 +15,7 @@ use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\HttpRequestTypes;
 use vsc\presentation\requests\RawHttpRequest;
 use vsc\presentation\responses\ExceptionResponseError;
+use vsc\presentation\responses\HttpResponseType;
 
 abstract class RESTProcessorA extends ProcessorA {
 	protected $validRequestMethods = array ( );
@@ -33,6 +34,11 @@ abstract class RESTProcessorA extends ProcessorA {
 	abstract public function handlePut (RawHttpRequest $oRequest);
 	abstract public function handleDelete (RawHttpRequest $oRequest);
 
+	/**
+	 * @param HttpRequestA $oRequest
+	 * @return \vsc\domain\models\ModelA
+	 * @throws \vsc\presentation\responses\ExceptionResponseError
+	 */
 	public function handleRequest (HttpRequestA $oRequest) {
 		if ( !$oRequest->isGet() && !RawHttpRequest::isValid($oRequest)) {
 			$oRequest = new RawHttpRequest();
@@ -41,22 +47,23 @@ abstract class RESTProcessorA extends ProcessorA {
 
 		switch ($oRequest->getHttpMethod()) {
 			case HttpRequestTypes::GET:
-				return $this->handleGet ($oRequest);
+				$oModel = $this->handleGet ($oRequest);
 				break;
 			case HttpRequestTypes::HEAD:
-				return $this->handleHead ($oRequest);
+				$oModel = $this->handleHead ($oRequest);
 				break;
 			case HttpRequestTypes::POST:
-				return $this->handlePost ($oRequest);
+				$oModel = $this->handlePost ($oRequest);
 				break;
 			case HttpRequestTypes::PUT:
-				return $this->handlePut ($oRequest);
+				$oModel = $this->handlePut ($oRequest);
 				break;
 			case HttpRequestTypes::DELETE:
-				return $this->handleDelete ($oRequest);
+				$oModel = $this->handleDelete ($oRequest);
 				break;
 			default:
-				throw new ExceptionResponseError ('Method ['.$oRequest->getHttpMethod().'] is unavailable.', 405);
+				throw new ExceptionResponseError ('Method ['.$oRequest->getHttpMethod().'] is unavailable.', HttpResponseType::METHOD_NOT_ALLOWED);
 		}
+		return $oModel;
 	}
 }
