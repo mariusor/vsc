@@ -268,7 +268,9 @@ abstract class HttpResponseA extends Object {
 	}
 
 	public function outputHeaders () {
-		if (headers_sent()) return true;
+		if (headers_sent()) {
+			header_remove();
+		}
 		if ($this->getStatus())
 			header (self::getHttpStatusString ($this->getServerProtocol(), $this->getStatus()));
 
@@ -281,7 +283,7 @@ abstract class HttpResponseA extends Object {
 
 		$sContentType = $this->getContentType();
 		if ($sContentType) {
-			header ('Content-Type:' . $sContentType);
+			header ('Content-Type: ' . $sContentType);
 		}
 		$sCacheControl = $this->getCacheControl();
 		if ($sCacheControl) {
@@ -293,27 +295,27 @@ abstract class HttpResponseA extends Object {
 		}
 		$sContentEncoding = $this->getContentEncoding();
 		if ($sContentEncoding) {
-			header ('Content-Encoding:' . $sContentEncoding);
+			header ('Content-Encoding: ' . $sContentEncoding);
 		}
 		$sContentLanguage = $this->getContentLanguage();
 		if ($sContentLanguage) {
-			header ('Content-Language:' . $sContentLanguage);
+			header ('Content-Language: ' . $sContentLanguage);
 		}
 		$iContentLength = $this->getContentLength();
 		if ($iContentLength !== null) {
-			header ('Content-Length:' . $iContentLength);
+			header ('Content-Length: ' . $iContentLength);
 		}
 		$sContentLocation = $this->getContentLocation();
 		if ($sContentLocation) {
-			header ('Content-Location:' . $sContentLocation);
+			header ('Content-Location: ' . $sContentLocation);
 		}
 		$sMd5 = $this->getContentMd5();
 		if ($sMd5) {
-			header ('Content-MD5:' . $sMd5);
+			header ('Content-MD5: ' . $sMd5);
 		}
 		$sDate = $this->getDate();
 		if ($sDate) {
-			header ('Date:' . $sDate);
+			header ('Date: ' . $sDate);
 		}
 		$sETag = $this->getETag();
 		if ($sETag) {
@@ -321,18 +323,18 @@ abstract class HttpResponseA extends Object {
 		}
 		$sExpires = $this->getExpires();
 		if ($sExpires) {
-			header ('Expires:' . $sExpires);
+			header ('Expires: ' . $sExpires);
 		}
 		$sLastModified = $this->getLastModified();
 		if ($sLastModified) {
-			header ('Last-Modified:' . $sLastModified);
+			header ('Last-Modified: ' . $sLastModified);
 		}
 		if (is_array($this->aHeaders )) {
 			foreach ($this->aHeaders as $sHeaderName => $sHeaderValue) {
 				if (is_null($sHeaderValue)) {
 					header_remove($sHeaderName);
 				} else {
-					header ($sHeaderName . ':' . $sHeaderValue);
+					header ($sHeaderName . ': ' . $sHeaderValue);
 				}
 			}
 		}
@@ -369,6 +371,8 @@ abstract class HttpResponseA extends Object {
 			if ( !$oRequest->isHead() && !$this->isRedirect()) {
 				$oView = $this->getView();
 				$sResponseBody = $oView->getOutput();
+			} else {
+				$this->setContentLength(0);
 			}
 		} catch (ExceptionResponseError $r) {
 			$this->setStatus($r->getCode());
