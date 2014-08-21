@@ -54,8 +54,10 @@ class RawHttpRequest extends RwHttpRequest {
 	 * @throws ExceptionRequest
 	 * @return void
 	 */
-	public function constructRawVars () {
-		$sRawVars = file_get_contents('php://input');
+	public function constructRawVars ($sRawInput = null) {
+		if (is_null($sRawInput)) {
+			$sRawInput = file_get_contents('php://input');
+		}
 		$sContentType = $this->getContentType();
 
 		if (empty ($sContentType)) return;
@@ -63,10 +65,10 @@ class RawHttpRequest extends RwHttpRequest {
 		$vars = array();
 		switch ($sContentType) {
 			case 'application/x-www-form-urlencoded':
-				parse_str($sRawVars, $vars);
+				parse_str($sRawInput, $vars);
 				break;
 			case 'application/json':
-				$vars = json_decode($sRawVars, true);
+				$vars = json_decode($sRawInput, true);
 				break;
 			case 'application/xml':
 			default:

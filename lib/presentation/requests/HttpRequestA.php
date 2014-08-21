@@ -310,7 +310,7 @@ abstract class HttpRequestA extends Object {
 		return array_key_exists($sVarName, $this->aPostVars);
 	}
 	public function hasSessionVar ($sVarName) {
-		return array_key_exists($sVarName, $_SESSION);
+		return (self::hasSession() && array_key_exists($sVarName, $_SESSION));
 	}
 	public function hasCookieVar ($sVarName) {
 		return array_key_exists($sVarName, $this->aCookieVars);
