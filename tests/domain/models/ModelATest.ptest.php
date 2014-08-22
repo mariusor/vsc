@@ -1,6 +1,6 @@
 <?php
 use \vsc\domain\models\EmptyModel;
-use _fixtures\domain\models\ModelFixture;
+use fixtures\domain\models\ModelFixture;
 
 class ModelATest extends \PHPUnit_Framework_TestCase
 {

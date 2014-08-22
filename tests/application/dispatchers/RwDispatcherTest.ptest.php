@@ -33,7 +33,7 @@ class RwDispatcherTest extends \PHPUnit_Framework_TestCase {
 	public function testGetFrontController () {
 		$this->state->loadSiteMap ($this->fixturePath . 'map.php');
 
-		$oRequest = new \_fixtures\presentation\requests\PopulatedRequest();
+		$oRequest = new \fixtures\presentation\requests\PopulatedRequest();
 		\vsc\infrastructure\vsc::getEnv()->setHttpRequest($oRequest);
 
 		$oFront = $this->state->getFrontController();
@@ -44,7 +44,7 @@ class RwDispatcherTest extends \PHPUnit_Framework_TestCase {
 	public function testGetProcessController404 () {
 		$this->state->loadSiteMap ($this->fixturePath . 'map.php');
 
-		$oRequest = new \_fixtures\presentation\requests\PopulatedRequest();
+		$oRequest = new \fixtures\presentation\requests\PopulatedRequest();
 		$oRequest->setReturnUri(uniqid('TESTREQ:'));
 		\vsc\infrastructure\vsc::getEnv()->setHttpRequest($oRequest);
 
@@ -62,16 +62,16 @@ class RwDispatcherTest extends \PHPUnit_Framework_TestCase {
 	public function testGetProcessorController () {
 		$this->state->loadSiteMap($this->fixturePath . 'map.php');
 
-		$oRequest  = new \_fixtures\presentation\requests\PopulatedRequest();
+		$oRequest  = new \fixtures\presentation\requests\PopulatedRequest();
 		\vsc\infrastructure\vsc::getEnv()->setHttpRequest($oRequest);
 
-		return $this->assertInstanceOf('\\_fixtures\\application\\processors\\testFixtureProcessor', $this->state->getProcessController());
+		return $this->assertInstanceOf('\\fixtures\\application\\processors\\testFixtureProcessor', $this->state->getProcessController());
 	}
 
 	public function testTemplatePath () {
 		$this->state->loadSiteMap($this->fixturePath . 'map.php');
 
-		$oRequest  = new \_fixtures\presentation\requests\PopulatedRequest();
+		$oRequest  = new \fixtures\presentation\requests\PopulatedRequest();
 		\vsc\infrastructure\vsc::getEnv()->setHttpRequest($oRequest);
 
 		return $this->assertNull($this->state->getTemplatePath());
@@ -80,7 +80,7 @@ class RwDispatcherTest extends \PHPUnit_Framework_TestCase {
 	public function testGetCurrentModuleMap () {
 		$this->state->loadSiteMap($this->fixturePath . 'map.php');
 
-		$oRequest  = new \_fixtures\presentation\requests\PopulatedRequest();
+		$oRequest  = new \fixtures\presentation\requests\PopulatedRequest();
 		\vsc\infrastructure\vsc::getEnv()->setHttpRequest($oRequest);
 
 		$oProcessor = $this->state->getProcessController();

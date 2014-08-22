@@ -3,10 +3,10 @@
 use vsc\application\sitemaps\ControllerMap;
 use vsc\presentation\responses\HttpResponseA;
 use vsc\application\controllers\FrontControllerA;
-use _fixtures\application\controllers\GenericFrontController;
-use _fixtures\presentation\requests\PopulatedRequest;
-use _fixtures\application\processors\testFixtureProcessor;
-use _fixtures\presentation\views\testView;
+use fixtures\application\controllers\GenericFrontController;
+use fixtures\presentation\requests\PopulatedRequest;
+use fixtures\application\processors\testFixtureProcessor;
+use fixtures\presentation\views\testView;
 
 class FrontControllerATest extends \PHPUnit_Framework_TestCase {
 	/**
@@ -18,7 +18,7 @@ class FrontControllerATest extends \PHPUnit_Framework_TestCase {
 		$this->state = new GenericFrontController();
 
 		$oMap = new ControllerMap(__FILE__, '\A.*\Z');
-		$oMap->setView('_fixtures\\presentation\\views\\testView');
+		$oMap->setView('fixtures\\presentation\\views\\testView');
 
 		$oMap->setMainTemplatePath(VSC_FIXTURE_PATH . 'templates');
 		$oMap->setMainTemplate('main.tpl.php');
@@ -46,7 +46,7 @@ class FrontControllerATest extends \PHPUnit_Framework_TestCase {
 		$v = $this->state->getView();
 
 		$this->assertInstanceOf('\\vsc\\presentation\\views\\ViewA', $v);
-		$this->assertInstanceOf('_fixtures\\presentation\\views\\testView', $v);
+		$this->assertInstanceOf('\\fixtures\\presentation\\views\\testView', $v);
 	}
 
 	public function testGetMap() {
@@ -56,7 +56,7 @@ class FrontControllerATest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testSetGetMap() {
-		$s = new ControllerMap('\\_fixtures\\application\\controllers\\GenericFrontController', '\A.*\Z');
+		$s = new ControllerMap('\\fixtures\\application\\controllers\\GenericFrontController', '\A.*\Z');
 		$this->state->setMap($s);
 
 		$m = $this->state->getMap();

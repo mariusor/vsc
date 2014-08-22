@@ -1,6 +1,5 @@
 <?php
-use _fixtures\presentation\requests\PopulatedRESTRequest;
-use avangate\presentation\responses\ExceptionResponseError;
+use fixtures\presentation\requests\PopulatedRESTRequest;
 use vsc\presentation\responses\HttpResponseType;
 
 class RESTRequestTest extends PHPUnit_Framework_TestCase {

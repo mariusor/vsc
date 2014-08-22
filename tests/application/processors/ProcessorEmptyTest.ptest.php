@@ -1,5 +1,5 @@
 <?php
-use _fixtures\application\processors\testFixtureProcessor;
+use fixtures\application\processors\testFixtureProcessor;
 use vsc\application\sitemaps\ModuleMap;
 use vsc\application\dispatchers\RwDispatcher;
 use vsc\application\processors\EmptyProcessor;
@@ -53,7 +53,7 @@ class ProcessorEmptyTest extends \PHPUnit_Framework_TestCase {
 	public function testDelegateRequest () {
 		$sValue = 'test';
 
-		$oHttpRequest = new \_fixtures\presentation\requests\PopulatedRequest();
+		$oHttpRequest = new \fixtures\presentation\requests\PopulatedRequest();
 		$oNewProcessor = new testFixtureProcessor();
 		$oNewProcessor->return = $sValue;
 

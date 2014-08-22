@@ -3,8 +3,8 @@ use vsc\application\sitemaps\ProcessorMap;
 use vsc\domain\models\EmptyModel;
 use vsc\presentation\views\ViewA;
 
-use _fixtures\presentation\views\testView;
-use _fixtures\domain\models\ModelFixture;
+use fixtures\presentation\views\testView;
+use fixtures\domain\models\ModelFixture;
 
 class DefaultViewTest extends \PHPUnit_Framework_TestCase {
 	/**
@@ -99,7 +99,7 @@ class DefaultViewTest extends \PHPUnit_Framework_TestCase {
 		$m = $this->state->getModel();
 
 		$this->assertInstanceOf('\\vsc\\domain\\models\\ModelA', $m);
-		$this->assertInstanceOf('\\_fixtures\\domain\\models\\ModelFixture', $m);
+		$this->assertInstanceOf('\\fixtures\\domain\\models\\ModelFixture', $m);
 		$this->assertEquals($f, $m);
 	}
 

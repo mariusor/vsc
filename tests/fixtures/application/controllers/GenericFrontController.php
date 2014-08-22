@@ -1,8 +1,8 @@
 <?php
-namespace _fixtures\application\controllers;
+namespace fixtures\application\controllers;
 
 use vsc\application\controllers\FrontControllerA;
-use _fixtures\presentation\views\NullView;
+use fixtures\presentation\views\NullView;
 
 class GenericFrontController extends FrontControllerA {
 	public function getDefaultView() {

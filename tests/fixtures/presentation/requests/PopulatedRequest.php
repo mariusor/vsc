@@ -1,5 +1,5 @@
 <?php
-namespace _fixtures\presentation\requests;
+namespace fixtures\presentation\requests;
 $_GET		= array ('ana' => 'are', 'mere' => '');
 $_POST		= array ('postone' => 'are', 'ana' => '');
 $_SERVER	= array ('SERVER_SOFTWARE' => 'lighttpd', 'PHP_SELF' => '/', 'REQUEST_URI' => '/ana:are/test:123/', 'SCRIPT_NAME' => 'test.php');
@@ -25,7 +25,7 @@ class PopulatedRequest extends HttpRequestA {
 	private $aPostVars		= array('postone' => 'are', 'ana' => '');
 	private $aCookieVars	= array('user' => 'asddsasdad234');
 
-	private $sReferer		= 'http://localhost/_fixtures/index.html?module=test';
+	private $sReferer		= 'http://localhost/fixtures/index.html?module=test';
 	private $sUserAgent		= 'WGET 2/3';
 
 	public function setReturnUri ($sUri) {

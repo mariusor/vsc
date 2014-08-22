@@ -1,7 +1,7 @@
 <?php
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\RwHttpRequest;
-use \_fixtures\presentation\requests\PopulatedRequest;
+use fixtures\presentation\requests\PopulatedRequest;
 
 class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 	/**

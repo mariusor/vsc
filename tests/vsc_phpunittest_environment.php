@@ -16,7 +16,7 @@ if (!defined('VSC_PATH')) {
 }
 
 if (defined ('VSC_TEST_PATH') && !defined ('VSC_FIXTURE_PATH')) {
-	define ('VSC_FIXTURE_PATH', VSC_TEST_PATH . '_fixtures' . DIRECTORY_SEPARATOR);
+	define ('VSC_FIXTURE_PATH', VSC_TEST_PATH . 'fixtures' . DIRECTORY_SEPARATOR);
 //	set_include_path (VSC_TEST_PATH);
 }
 

@@ -1,5 +1,5 @@
 <?php
-namespace _fixtures\presentation\requests;
+namespace fixtures\presentation\requests;
 
 use vsc\rest\presentation\requests\RESTRequest;
 

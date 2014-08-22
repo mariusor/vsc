@@ -3,7 +3,7 @@
 use vsc\application\controllers\XhtmlController;
 use vsc\application\sitemaps\ControllerMap;
 
-use _fixtures\presentation\requests\PopulatedRequest;
+use fixtures\presentation\requests\PopulatedRequest;
 
 class HtmlFrontControllerTest extends \PHPUnit_Framework_TestCase  {
 	/**

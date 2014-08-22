@@ -1,5 +1,5 @@
 <?php
-namespace _fixtures\application\processors;
+namespace fixtures\application\processors;
 
 use vsc\application\processors\ProcessorA;
 use vsc\presentation\requests\HttpRequestA;

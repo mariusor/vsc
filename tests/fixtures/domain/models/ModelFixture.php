@@ -1,5 +1,5 @@
 <?php
-namespace _fixtures\domain\models ;
+namespace fixtures\domain\models ;
 
 use \vsc\domain\models\ModelA;
 

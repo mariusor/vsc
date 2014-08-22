@@ -1,5 +1,5 @@
 <?php
-namespace _fixtures\presentation\views;
+namespace fixtures\presentation\views;
 use vsc\presentation\views\ViewA;
 
 class NullView extends ViewA {
