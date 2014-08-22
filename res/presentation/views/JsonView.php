@@ -45,9 +45,15 @@ class JsonView extends ViewA implements JsonViewI {
 		}
 		if (ModelA::isValid($oModel)) {
 			/* @var ModelA $oModel */
-			return json_encode ($oModel->toArray(), $flags );
+			$sOutput = json_encode ($oModel->toArray(), $flags );
 		} else {
-			return json_encode ($oModel, $flags );
+			$sOutput = json_encode ($oModel, $flags );
+		}
+
+		if (!json_last_error()) {
+			return $sOutput;
+		} else {
+			throw new ExceptionView (json_last_error_msg());
 		}
 	}
 }
