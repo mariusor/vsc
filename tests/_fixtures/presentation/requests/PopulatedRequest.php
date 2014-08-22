@@ -15,10 +15,9 @@ class PopulatedRequest extends HttpRequestA {
 
 	protected $returnUri = '/test';
 	private $aAccept =  array (
-		'SERVER_SOFTWARE' => 'lighttpd',
-		'PHP_SELF' => '/',
-		'REQUEST_URI' => '/ana:are/test:123/',
-		'HTTP_ACCEPT' => 'application/html,text/html;charset=UTF8,image/*'
+		'application/html',
+		'text/html;charset=UTF8',
+		'image/*'
 	);
 	private $sHttpMethod	= 'GET';
 
@@ -31,6 +30,10 @@ class PopulatedRequest extends HttpRequestA {
 
 	public function setReturnUri ($sUri) {
 		$this->returnUri = $sUri;
+	}
+
+	public function addHttpAccept($sAccepts) {
+		$this->aAccept = array ($sAccepts);
 	}
 
 	public function getUri ($bUrlDecode = false) {
