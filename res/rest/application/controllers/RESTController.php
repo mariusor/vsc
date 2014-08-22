@@ -8,9 +8,11 @@
  */
 namespace vsc\rest\application\controllers;
 
+use vsc\application\controllers\ExceptionController;
 use vsc\application\controllers\JsonController;
 use vsc\application\processors\AuthenticatedProcessorI;
 use vsc\application\processors\ErrorProcessor;
+use vsc\application\processors\ProcessorA;
 use vsc\application\sitemaps\MappingA;
 use vsc\presentation\responses\HttpResponseType;
 use vsc\rest\application\processors\RESTProcessorA;
@@ -44,26 +46,28 @@ class RESTController extends JsonController {
 					throw new ExceptionResponseError ('Invalid request.', 415);
 				}
 				if ( RESTRequest::hasContentType() && !RESTRequest::validContentType($oRequest->getContentType()) ) {
-					throw new ExceptionResponseError ('Invalid request content type.', 415);
+					throw new ExceptionResponseError ('Invalid request content type', 415);
 				}
 			}
-
+			if (ProcessorA::isValid($oProcessor)) {
+				throw new ExceptionController ('Invalid request processor');
+			}
 			/* @var RESTProcessorA $oProcessor */
 			if (RESTProcessorA::isValid($oProcessor) && !$oProcessor->validRequestMethod($oRequest->getHttpMethod())) {
-				throw new ExceptionResponseError ('Invalid request method.', 405);
+				throw new ExceptionResponseError ('Invalid request method', 405);
 			}
 			$oMap = $oProcessor->getMap();
-			if ( $oMap->requiresAuthentication() ) {
+			if ($oMap->requiresAuthentication()) {
 				try {
-					if ( $oProcessor instanceof AuthenticatedProcessorI ) {
+					if ($oProcessor instanceof AuthenticatedProcessorI) {
 						/* @var AuthenticatedProcessorI $oProcessor */
-						if ( !$oRequest->hasAuthenticationData() ) {
+						if (!$oRequest->hasAuthenticationData()) {
 							throw new ExceptionAuthenticationNeeded ('This resource needs authentication');
 						}
-						if ( $oRequest->getAuthentication()->getType() & $oMap->getAuthenticationType() == $oRequest->getAuthentication()->getType()) {
+						if ($oRequest->getAuthentication()->getType() & $oMap->getAuthenticationType() == $oRequest->getAuthentication()->getType()) {
 							throw new ExceptionAuthenticationNeeded ('Invalid authorization scheme. Supported schemes: ' . implode(', ', $oMap->getValidAuthenticationSchemas()));
 						}
-						if ( !$oProcessor->handleAuthentication ($oRequest->getAuthentication()) ) {
+						if (!$oProcessor->handleAuthentication($oRequest->getAuthentication())) {
 							throw new ExceptionAuthenticationNeeded ('Invalid authentication data', 'testrealm');
 						}
 					} else {
