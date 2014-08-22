@@ -91,6 +91,9 @@ class UrlParserA extends Object implements UrlParserI {
 			}
 
 			$aParsed = parse_url ($sUrl);
+			if (!is_array($aParsed)) {
+				return array();
+			}
 			if (array_key_exists('query', $aParsed)) {
 				$aQuery = array();
 				parse_str($aParsed['query'], $aQuery);
