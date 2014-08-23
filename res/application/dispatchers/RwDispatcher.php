@@ -10,6 +10,7 @@ namespace vsc\application\dispatchers;
 
 use vsc\application\controllers\FrontControllerA;
 use vsc\application\processors\ErrorProcessor;
+use vsc\application\processors\NotFoundProcessor;
 use vsc\application\processors\ProcessorA;
 use vsc\application\processors\StaticFileProcessor;
 use vsc\application\sitemaps\ClassMap;
@@ -38,7 +39,7 @@ class RwDispatcher extends HttpDispatcherA {
 	 */
 	public function getCurrentMap ($aMaps) {
 		if (!is_array($aMaps) || empty($aMaps)) {
-			return new Null();
+			return new ClassMap('', '');
 		}
 		$aRegexes	= array_keys($aMaps);
 		$aMatches 	= array();
@@ -49,7 +50,7 @@ class RwDispatcher extends HttpDispatcherA {
 			$sFullRegex = '#' . str_replace('#', '\#', $sRegex). '#iu'; // i for insensitive, u for utf8
 			try {
 				$iMatch			= preg_match_all($sFullRegex, $sUri, $aMatches, PREG_SET_ORDER);
-			} catch (ExceptionError $e) {
+			} catch (\ExceptionError $e) {
 				$f = new ExceptionError(
 					$e->getMessage(). '<br/> Offending regular expression: <span style="font-weight:normal">'. $sFullRegex . '</span>',
 					$e->getCode());
@@ -66,10 +67,9 @@ class RwDispatcher extends HttpDispatcherA {
 				$oMapping->getModuleMap()->setUrl($sUri);
 				return $oMapping;
 			} else {
-
 			}
 		}
-//		return new Null();
+		return new ClassMap('', '');
 	}
 
 	/**
@@ -216,7 +216,11 @@ class RwDispatcher extends HttpDispatcherA {
 					}
 
 					try {
-						$this->oProcessor = new $sProcessorName();
+						if (class_exists($sProcessorName)) {
+							$this->oProcessor = new $sProcessorName();
+						} else {
+							$this->oProcessor = new NotFoundProcessor();
+						}
 					} catch (\Exception $e) {
 						$this->oProcessor = new ErrorProcessor($e);
 					}
@@ -266,7 +270,7 @@ class RwDispatcher extends HttpDispatcherA {
 	 * @return void
 	 */
 	public function loadSiteMap ($sIncPath) {
-		// @FIXME: this needs to be refactored with some getters/settes
+		// @FIXME: this needs to be refactored with some getters/setters
 		$this->setSiteMap (new RwSiteMap());
 		try {
 			// hic sunt leones
@@ -276,6 +280,7 @@ class RwDispatcher extends HttpDispatcherA {
 			// this will probably result in a incomplete parsed sitemap tree
 			throw ($e);
 		}
+		return true;
 	}
 
 	public function getView () {}

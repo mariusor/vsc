@@ -114,6 +114,11 @@ class MappingA extends Object {
 			$this->mergeResources ($oMap);
 			$this->mergePaths ($oMap);
 
+			$sTitle = $this->getTitle();
+			$sMapTitle = $oMap->getTitle();
+			if (empty($sTitle) && !empty($sMapTitle)) {
+				$this->setTitle($sMapTitle);
+			}
 			$this->iAuthenticationType |= $oMap->getAuthenticationType();
 		}
 		return $this;

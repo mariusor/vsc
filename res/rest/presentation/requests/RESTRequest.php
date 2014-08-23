@@ -22,12 +22,13 @@ class RESTRequest extends RawHttpRequest {
 	}
 
 	public function hasRawVar ($sVarName) {
-		return array_key_exists($sVarName, $this->aRawVars);
+		return array_key_exists($sVarName, $this->getRawVars());
 	}
 
 	public function getRawVar ($sVarName) {
-		if (array_key_exists($sVarName, $this->aRawVars)) {
-			return self::getDecodedVar($this->aRawVars[$sVarName]);
+		$aRawVars = $this->getRawVars();
+		if ($this->hasRawVar($sVarName)) {
+			return self::getDecodedVar($aRawVars[$sVarName]);
 		}
 		return null;
 	}

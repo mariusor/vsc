@@ -11,13 +11,10 @@ if (!defined('VSC_PATH')) {
 	define ( 'VSC_RES_PATH', VSC_PATH . 'res' . DIRECTORY_SEPARATOR);
 	set_include_path (VSC_PATH . PATH_SEPARATOR . get_include_path());
 	require ('vsc.inc.php');
-	error_reporting(E_ALL);
-	ini_set('display_errors ', '1');
 }
 
 if (defined ('VSC_TEST_PATH') && !defined ('VSC_FIXTURE_PATH')) {
 	define ('VSC_FIXTURE_PATH', VSC_TEST_PATH . 'fixtures' . DIRECTORY_SEPARATOR);
-//	set_include_path (VSC_TEST_PATH);
 }
 
 

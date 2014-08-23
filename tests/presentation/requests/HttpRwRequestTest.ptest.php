@@ -1,6 +1,5 @@
 <?php
 use vsc\presentation\requests\HttpRequestA;
-use vsc\presentation\requests\RwHttpRequest;
 use fixtures\presentation\requests\PopulatedRequest;
 
 class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
@@ -10,16 +9,7 @@ class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 	private $state;
 
 	public function setUp () {
-		$_GET		= array ('ana' => 'are', 'mere' => '');
-		$_POST		= array ('postone' => 'are', 'ana' => '');
-		$_SERVER	= array (
-			'SERVER_SOFTWARE' => 'lighttpd',
-			'PHP_SELF' => '/',
-			'REQUEST_URI' => '/ana:are/test:123/',
-			'HTTP_ACCEPT' => 'application/html,text/html;charset=UTF8,image/*'
-		);
-
-		$this->state = new RwHttpRequest();
+		$this->state = new PopulatedRequest();
 	}
 
 	public function tearDown () {
@@ -63,29 +53,24 @@ class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testAccepts () {
-		$this->markTestSkipped('Still to decide the accepts() logic');
-		$oRequest = new PopulatedRequest();
-
 		$Everything = '*/*';
-
 		$Image = 'image/*';
 		$Png = 'image/png';
 		$Gif = 'image/gif';
-
 		$Application = 'application/*';
 		$Xml = 'application/xml';
 		$Json = 'application/json';
 
-		$oRequest->addHttpAccept($Png);
+		$this->state->setHttpAccept($Png);
 		$this->assertFalse($this->state->accepts($Everything));
 		$this->assertFalse($this->state->accepts($Application));
 		$this->assertFalse($this->state->accepts($Xml));
 		$this->assertFalse($this->state->accepts($Json));
-		$this->assertTrue($this->state->accepts($Image));
+		$this->assertFalse($this->state->accepts($Image));
 		$this->assertTrue($this->state->accepts($Png));
 		$this->assertFalse($this->state->accepts($Gif));
 
-		$oRequest->addHttpAccept($Gif);
+		$this->state->setHttpAccept($Gif);
 		$this->assertFalse($this->state->accepts($Everything));
 		$this->assertFalse($this->state->accepts($Application));
 		$this->assertFalse($this->state->accepts($Xml));
@@ -94,7 +79,7 @@ class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse($this->state->accepts($Png));
 		$this->assertTrue($this->state->accepts($Gif));
 
-		$oRequest->addHttpAccept($Image);
+		$this->state->setHttpAccept($Image);
 		$this->assertFalse($this->state->accepts($Everything));
 		$this->assertFalse($this->state->accepts($Application));
 		$this->assertFalse($this->state->accepts($Xml));
@@ -103,7 +88,7 @@ class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue($this->state->accepts($Png));
 		$this->assertTrue($this->state->accepts($Gif));
 
-		$oRequest->addHttpAccept($Application);
+		$this->state->setHttpAccept($Application);
 		$this->assertFalse($this->state->accepts($Everything));
 		$this->assertTrue($this->state->accepts($Application));
 		$this->assertTrue($this->state->accepts($Xml));
@@ -112,7 +97,7 @@ class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse($this->state->accepts($Png));
 		$this->assertFalse($this->state->accepts($Gif));
 
-		$oRequest->addHttpAccept($Json);
+		$this->state->setHttpAccept($Json);
 		$this->assertFalse($this->state->accepts($Everything));
 		$this->assertFalse($this->state->accepts($Application));
 		$this->assertFalse($this->state->accepts($Xml));
@@ -121,7 +106,7 @@ class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse($this->state->accepts($Png));
 		$this->assertFalse($this->state->accepts($Gif));
 
-		$oRequest->addHttpAccept($Xml);
+		$this->state->setHttpAccept($Xml);
 		$this->assertFalse($this->state->accepts($Everything));
 		$this->assertFalse($this->state->accepts($Application));
 		$this->assertTrue($this->state->accepts($Xml));
@@ -130,7 +115,7 @@ class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse($this->state->accepts($Png));
 		$this->assertFalse($this->state->accepts($Gif));
 
-		$oRequest->addHttpAccept($Everything);
+		$this->state->setHttpAccept($Everything);
 		$this->assertTrue($this->state->accepts($Everything));
 		$this->assertTrue($this->state->accepts($Application));
 		$this->assertTrue($this->state->accepts($Xml));

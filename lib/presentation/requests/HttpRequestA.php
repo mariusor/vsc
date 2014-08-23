@@ -13,35 +13,35 @@ use vsc\infrastructure\vsc;
 use vsc\Exception;
 
 abstract class HttpRequestA extends Object {
-	private $sUri		= null;
-	private $oUri;
-	private $sHttpMethod;
-	private $sServerName;
-	private $sServerProtocol;
-	private $aVarOrder;
+	protected $sUri		= null;
+	protected $oUri;
+	protected $sHttpMethod;
+	protected $sServerName;
+	protected $sServerProtocol;
+	protected $aVarOrder;
 
-	private $aGetVars			= array();
-	private $aPostVars			= array();
-	private $aCookieVars		= array();
-	private $aFiles				= array();
+	protected $aGetVars			= array();
+	protected $aPostVars		= array();
+	protected $aCookieVars		= array();
+	protected $aFiles			= array();
 
-	private $aAccept			= array();
-	private $aAcceptCharset		= array();
-	private $aAcceptEncoding	= array();
-	private $aAcceptLanguage	= array();
+	protected $aAccept			= array();
+	protected $aAcceptCharset	= array();
+	protected $aAcceptEncoding	= array();
+	protected $aAcceptLanguage	= array();
 
-	private $sAuthorization		= '';
-	private $iContentLength		= 0; // ? I don't think I'm interested in the length of the request
+	protected $sAuthorization	= '';
+	protected $iContentLength	= 0; // ? I don't think I'm interested in the length of the request
 	protected $sContentType		= '';
 
-	private $sIfModifiedSince	= '';
-	private $sIfNoneMatch		= '';
+	protected $sIfModifiedSince	= '';
+	protected $sIfNoneMatch		= '';
 
-	private $sReferer			= '';
-	private $sUserAgent			= '';
+	protected $sReferrer		= '';
+	protected $sUserAgent		= '';
 
-	private $bDoNotTrack		= false;
-	private $oAuth;
+	protected $bDoNotTrack		= false;
+	protected $oAuth;
 
 	public function __construct () {
 		if (isset($_GET))
@@ -185,8 +185,8 @@ abstract class HttpRequestA extends Object {
 	/**
 	 * @return string
 	 */
-	public function getHttpReferer () {
-		return $this->sReferer;
+	public function getHttpReferrer () {
+		return $this->sReferrer;
 	}
 
 	/**

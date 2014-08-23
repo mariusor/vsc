@@ -1,6 +1,7 @@
 <?php
 use fixtures\presentation\requests\PopulatedRESTRequest;
 use vsc\presentation\responses\HttpResponseType;
+use vsc\Exception;
 
 class RESTRequestTest extends PHPUnit_Framework_TestCase {
 	/**
@@ -21,15 +22,12 @@ class RESTRequestTest extends PHPUnit_Framework_TestCase {
 
 		try {
 			$this->state->getRawVars();
-		} catch (ExceptionResponseError $e) {
+		} catch (Exception $e) {
 			$this->assertInstanceOf('\\vsc\\Exception', $e);
 			$this->assertInstanceOf('\\vsc\\presentation\\ExceptionPresentation', $e);
-			$this->assertInstanceOf('\\vsc\\presentation\\responses\\ExceptionResponse', $e);
-			$this->assertInstanceOf('\\vsc\\presentation\\responses\\ExceptionResponseError', $e);
+			$this->assertInstanceOf('\\vsc\\presentation\\requests\\ExceptionRequest', $e);
 
-			$this->assertEquals('The content-type shouldn\'t be empty', $e->getMessage());
-			$this->assertEquals('INPUT_ERROR', $e->getAPIErrorCode());
-			$this->assertEquals(HttpResponseType::CLIENT_ERROR, $e->getErrorCode());
+			$this->assertEquals('Can not process a request with an empty content-type', $e->getMessage());
 		}
 	}
 
@@ -37,15 +35,12 @@ class RESTRequestTest extends PHPUnit_Framework_TestCase {
 		try {
 			$this->state->setContentType('application/xml');
 			$this->state->getRawVars();
-		} catch (ExceptionResponseError $e) {
+		} catch (Exception $e) {
 			$this->assertInstanceOf('\\vsc\\Exception', $e);
 			$this->assertInstanceOf('\\vsc\\presentation\\ExceptionPresentation', $e);
-			$this->assertInstanceOf('\\vsc\\presentation\\responses\\ExceptionResponse', $e);
-			$this->assertInstanceOf('\\vsc\\presentation\\responses\\ExceptionResponseError', $e);
+			$this->assertInstanceOf('\\vsc\\presentation\\requests\\ExceptionRequest', $e);
 
-			$this->assertEquals('This request content-type [application/xml] is not supported', $e->getMessage());
-			$this->assertEquals('INPUT_ERROR', $e->getAPIErrorCode());
-			$this->assertEquals(HttpResponseType::CLIENT_ERROR, $e->getErrorCode());
+			$this->assertEquals('This content-type [application/xml] is not supported', $e->getMessage());
 		}
 	}
 
@@ -79,6 +74,18 @@ class RESTRequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($testVal['ana'], $this->state->getRawVar('ana'));
 		$this->assertEquals($testVal['gigel'], $this->state->getRawVar('gigel'));
 		$this->assertEquals($testVal['random'], $this->state->getRawVar('random'));
+
+		$testVal = new stdClass();
+		$testVal->ana = 'mere';
+		$testVal->gigel = 'pere';
+		$testVal->random = uniqid('test:');
+
+		$this->state->setContentType('application/json');
+		$this->state->constructRawVars(json_encode($testVal));
+
+		$this->assertEquals($testVal->ana, $this->state->getRawVar('ana'));
+		$this->assertEquals($testVal->gigel, $this->state->getRawVar('gigel'));
+		$this->assertEquals($testVal->random, $this->state->getRawVar('random'));
 	}
 
 	public function testHasVarJsonData()
@@ -94,6 +101,91 @@ class RESTRequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue($this->state->hasVar('ana'));
 		$this->assertTrue($this->state->hasVar('gigel'));
 		$this->assertTrue($this->state->hasVar('random'));
+
+		$testVal = new stdClass();
+		$testVal->ana = 'mere';
+		$testVal->gigel = 'pere';
+		$testVal->random = uniqid('test:');
+
+		$this->state->setContentType('application/json');
+		$this->state->constructRawVars(json_encode($testVal));
+
+		$this->assertTrue($this->state->hasVar('ana'));
+		$this->assertTrue($this->state->hasVar('gigel'));
+		$this->assertTrue($this->state->hasVar('random'));
+	}
+
+	public function testAccepts () {
+		$Everything = '*/*';
+		$Image = 'image/*';
+		$Png = 'image/png';
+		$Gif = 'image/gif';
+		$Application = 'application/*';
+		$Xml = 'application/xml';
+		$Json = 'application/json';
+
+		$this->state->setHttpAccept($Png);
+		$this->assertFalse($this->state->accepts($Everything));
+		$this->assertFalse($this->state->accepts($Application));
+		$this->assertFalse($this->state->accepts($Xml));
+		$this->assertFalse($this->state->accepts($Json));
+		$this->assertFalse($this->state->accepts($Image));
+		$this->assertTrue($this->state->accepts($Png));
+		$this->assertFalse($this->state->accepts($Gif));
+
+		$this->state->setHttpAccept($Gif);
+		$this->assertFalse($this->state->accepts($Everything));
+		$this->assertFalse($this->state->accepts($Application));
+		$this->assertFalse($this->state->accepts($Xml));
+		$this->assertFalse($this->state->accepts($Json));
+		$this->assertFalse($this->state->accepts($Image));
+		$this->assertFalse($this->state->accepts($Png));
+		$this->assertTrue($this->state->accepts($Gif));
+
+		$this->state->setHttpAccept($Image);
+		$this->assertFalse($this->state->accepts($Everything));
+		$this->assertFalse($this->state->accepts($Application));
+		$this->assertFalse($this->state->accepts($Xml));
+		$this->assertFalse($this->state->accepts($Json));
+		$this->assertTrue($this->state->accepts($Image));
+		$this->assertTrue($this->state->accepts($Png));
+		$this->assertTrue($this->state->accepts($Gif));
+
+		$this->state->setHttpAccept($Application);
+		$this->assertFalse($this->state->accepts($Everything));
+		$this->assertTrue($this->state->accepts($Application));
+		$this->assertTrue($this->state->accepts($Xml));
+		$this->assertTrue($this->state->accepts($Json));
+		$this->assertFalse($this->state->accepts($Image));
+		$this->assertFalse($this->state->accepts($Png));
+		$this->assertFalse($this->state->accepts($Gif));
+
+		$this->state->setHttpAccept($Json);
+		$this->assertFalse($this->state->accepts($Everything));
+		$this->assertFalse($this->state->accepts($Application));
+		$this->assertFalse($this->state->accepts($Xml));
+		$this->assertTrue($this->state->accepts($Json));
+		$this->assertFalse($this->state->accepts($Image));
+		$this->assertFalse($this->state->accepts($Png));
+		$this->assertFalse($this->state->accepts($Gif));
+
+		$this->state->setHttpAccept($Xml);
+		$this->assertFalse($this->state->accepts($Everything));
+		$this->assertFalse($this->state->accepts($Application));
+		$this->assertTrue($this->state->accepts($Xml));
+		$this->assertFalse($this->state->accepts($Json));
+		$this->assertFalse($this->state->accepts($Image));
+		$this->assertFalse($this->state->accepts($Png));
+		$this->assertFalse($this->state->accepts($Gif));
+
+		$this->state->setHttpAccept($Everything);
+		$this->assertTrue($this->state->accepts($Everything));
+		$this->assertTrue($this->state->accepts($Application));
+		$this->assertTrue($this->state->accepts($Xml));
+		$this->assertTrue($this->state->accepts($Json));
+		$this->assertTrue($this->state->accepts($Image));
+		$this->assertTrue($this->state->accepts($Png));
+		$this->assertTrue($this->state->accepts($Gif));
 	}
 }
  

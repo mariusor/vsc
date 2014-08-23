@@ -9,6 +9,7 @@ namespace vsc\presentation\requests;
 
 class RawHttpRequest extends RwHttpRequest {
 	protected $aRawVars = array();
+	protected $sRawInput;
 
 	public function __construct () {
 		parent::__construct();
@@ -26,19 +27,45 @@ class RawHttpRequest extends RwHttpRequest {
 	}
 
 	public function getRawVars () {
+		if (!empty($this->aRawVars)) {
+			return $this->aRawVars;
+		}
+		$sContentType = $this->getContentType();
+
+		if (empty($sContentType)) {
+			throw new ExceptionRequest('Can not process a request with an empty content-type');
+		}
+
+		$vars = array();
+		switch ($sContentType) {
+			case 'application/x-www-form-urlencoded':
+				parse_str($this->sRawInput, $vars);
+				break;
+			case 'application/json':
+				$vars = json_decode($this->sRawInput, true);
+				break;
+			case 'application/xml':
+			default:
+				throw new ExceptionRequest('This content-type [' . $sContentType . '] is not supported');
+				break;
+		}
+		if (!empty ($vars)) {
+			$this->aRawVars = $vars;
+		}
 		return $this->aRawVars;
 	}
 
 	protected function getRawVar ($sVarName) {
-		if (array_key_exists($sVarName, $this->aRawVars)) {
-			return self::getDecodedVar($this->aRawVars[$sVarName]);
+		$aRawVars = $this->getRawVars();
+		if (array_key_exists($sVarName, $aRawVars)) {
+			return self::getDecodedVar($aRawVars[$sVarName]);
 		} else {
 			return null;
 		}
 	}
 
 	public function getVars () {
-		return array_merge ($this->aRawVars, parent::getVars());
+		return array_merge ($this->getRawVars(), parent::getVars());
 	}
 
 	public function getVar ($sVarName) {
@@ -54,29 +81,12 @@ class RawHttpRequest extends RwHttpRequest {
 	 * @throws ExceptionRequest
 	 * @return void
 	 */
-	public function constructRawVars ($sRawInput = null) {
+	protected function constructRawVars ($sRawInput = null) {
 		if (is_null($sRawInput)) {
-			$sRawInput = file_get_contents('php://input');
+			$this->sRawInput = file_get_contents('php://input');
+		} else {
+			$this->sRawInput = $sRawInput;
 		}
-		$sContentType = $this->getContentType();
-
-		if (empty ($sContentType)) return;
-
-		$vars = array();
-		switch ($sContentType) {
-			case 'application/x-www-form-urlencoded':
-				parse_str($sRawInput, $vars);
-				break;
-			case 'application/json':
-				$vars = json_decode($sRawInput, true);
-				break;
-			case 'application/xml':
-			default:
-				throw new ExceptionRequest('This content-type ['.$sContentType.'] is not yet supported as an input type');
-				break;
-		}
-		if (!empty ($vars)) {
-			$this->aRawVars = $vars;
-		}
+		$this->aRawVars = null;
 	}
 }
