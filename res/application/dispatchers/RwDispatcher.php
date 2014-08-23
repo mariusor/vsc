@@ -50,7 +50,7 @@ class RwDispatcher extends HttpDispatcherA {
 			$sFullRegex = '#' . str_replace('#', '\#', $sRegex). '#iu'; // i for insensitive, u for utf8
 			try {
 				$iMatch			= preg_match_all($sFullRegex, $sUri, $aMatches, PREG_SET_ORDER);
-			} catch (\ExceptionError $e) {
+			} catch (ExceptionError $e) {
 				$f = new ExceptionError(
 					$e->getMessage(). '<br/> Offending regular expression: <span style="font-weight:normal">'. $sFullRegex . '</span>',
 					$e->getCode());

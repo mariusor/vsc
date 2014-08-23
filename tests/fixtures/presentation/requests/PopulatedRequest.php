@@ -31,7 +31,7 @@ class PopulatedRequest extends RwHttpRequest {
 	protected $aPostVars	= array('postone' => 'are', 'ana' => '');
 	protected $aCookieVars	= array('user' => 'asddsasdad234');
 
-	protected $sReferrer	= 'http://localhost/fixturesf/index.html?module=test';
+	protected $sReferer	= 'http://localhost/fixturesf/index.html?module=test';
 	protected $sUserAgent	= 'WGET 2/3';
 
 	public function setUri ($sUri) {

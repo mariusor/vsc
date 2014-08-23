@@ -37,7 +37,7 @@ abstract class HttpRequestA extends Object {
 	protected $sIfModifiedSince	= '';
 	protected $sIfNoneMatch		= '';
 
-	protected $sReferrer		= '';
+	protected $sReferer		= '';
 	protected $sUserAgent		= '';
 
 	protected $bDoNotTrack		= false;
@@ -66,7 +66,7 @@ abstract class HttpRequestA extends Object {
 
 			if (isset ($_SERVER['HTTP_USER_AGENT']))
 			$this->sUserAgent			= $_SERVER['HTTP_USER_AGENT'];
-			if (isset ($_SERVER['HTTP_REFERER']))
+			if (isset ($_SERVER['HTTP_REFEER']))
 				$this->sReferer			= $_SERVER['HTTP_REFERER'];
 
 			if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
@@ -185,8 +185,8 @@ abstract class HttpRequestA extends Object {
 	/**
 	 * @return string
 	 */
-	public function getHttpReferrer () {
-		return $this->sReferrer;
+	public function getHttpReferer () {
+		return $this->sReferer;
 	}
 
 	/**
