@@ -279,7 +279,9 @@ abstract class HttpRequestA extends Object {
 				$mVal = $this->getCookieVar($sVarName);
 				break;
 			case 'S':
-//				$mVal = $this->getSeesionVar($sVarName);
+				if (self::hasSession()) {
+					$mVal = $this->getSessionVar ( $sVarName );
+				}
 				break;
 			}
 			if (isset($mVal)) {

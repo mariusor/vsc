@@ -55,7 +55,7 @@ class RawHttpRequest extends RwHttpRequest {
 		return $this->aRawVars;
 	}
 
-	protected function getRawVar ($sVarName) {
+	public function getRawVar ($sVarName) {
 		$aRawVars = $this->getRawVars();
 		if (array_key_exists($sVarName, $aRawVars)) {
 			return self::getDecodedVar($aRawVars[$sVarName]);
@@ -66,6 +66,18 @@ class RawHttpRequest extends RwHttpRequest {
 
 	public function getVars () {
 		return array_merge ($this->getRawVars(), parent::getVars());
+	}
+
+	public function hasVar($sVarName) {
+		return (
+			$this->hasRawVar($sVarName) ||
+			parent::hasVar($sVarName)
+		);
+	}
+
+	public function hasRawVar ($sVarName) {
+		$aRawVars = $this->getRawVars();
+		return (is_array($aRawVars) && array_key_exists($sVarName, $aRawVars));
 	}
 
 	public function getVar ($sVarName) {

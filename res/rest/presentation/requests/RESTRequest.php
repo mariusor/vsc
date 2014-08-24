@@ -14,25 +14,6 @@ class RESTRequest extends RawHttpRequest {
 		'application/json'
 	);
 
-	public function hasVar($sVarName) {
-		return (
-			$this->hasRawVar($sVarName) ||
-			parent::hasVar($sVarName)
-		);
-	}
-
-	public function hasRawVar ($sVarName) {
-		return array_key_exists($sVarName, $this->getRawVars());
-	}
-
-	public function getRawVar ($sVarName) {
-		$aRawVars = $this->getRawVars();
-		if ($this->hasRawVar($sVarName)) {
-			return self::getDecodedVar($aRawVars[$sVarName]);
-		}
-		return null;
-	}
-
 	static public function validContentType ($sContentType) {
 		return in_array($sContentType, self::$validContentTypes);
 	}

@@ -1,13 +1,15 @@
 <?php
 namespace fixtures\presentation\requests;
-$_GET		= array ('ana' => 'are', 'mere' => '');
+$_GET		= array ('cucu' => 'pasare','ana' => 'are', 'mere' => '', 'test' => 123);
 $_POST		= array ('postone' => 'are', 'ana' => '');
+$_COOKIE	= array ('user' => 'asddsasdad234');
 $_SERVER	= array (
 	'SERVER_SOFTWARE' => 'lighttpd',
 	'PHP_SELF' => '/',
 	'REQUEST_URI' => '/test/ana:are/test:123/',
 	'HTTP_ACCEPT' => 'application/html,text/html;charset=UTF8,image/*'
 );
+
 use vsc\presentation\requests\RwHttpRequest;
 
 class PopulatedRequest extends RwHttpRequest {

@@ -128,4 +128,72 @@ class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 //	public function testHasDigestAuhtentication () {}
 //	public function testHasNoAuhtentication () {}
 //	public function testSetNoAuhtentication () {}
+
+	public function testHasGetVar() {
+		// GET var
+		$this->assertTrue($this->state->hasGetVar('cucu')); // 'cucu' => 'pasare','ana' => 'are', 'mere' => '', 'test' => 123
+		$this->assertTrue($this->state->hasGetVar('ana'));
+		$this->assertTrue($this->state->hasGetVar('test'));
+	}
+
+	public function testHasPostVar() {
+		// POST var
+		$this->assertTrue($this->state->hasPostVar('postone')); // 'postone' => 'are', 'ana' => ''
+		$this->assertTrue($this->state->hasPostVar('ana'));
+	}
+
+	public function testHasCookieVar() {
+		// Cookie var
+		$this->assertTrue($this->state->hasCookieVar('user')); // 'user' => 'asddsasdad234'
+	}
+
+	public function testHasSessionVar() {
+		PopulatedRequest::startSession();
+
+		$_SESSION['ala'] = uniqid('ala:');
+		$_SESSION['bala'] = '##';
+		// Session var
+		$this->assertTrue($this->state->hasSessionVar('ala')); // 'ala' => uniqid('ala:'), 'bala' => '##'
+		$this->assertTrue($this->state->hasSessionVar('bala'));
+	}
+
+	public function testHasVar() {
+		// GET var
+		$this->assertTrue($this->state->hasVar('cucu')); // 'cucu' => 'pasare','ana' => 'are', 'mere' => '', 'test' => 123
+		$this->assertTrue($this->state->hasVar('ana'));
+		$this->assertTrue($this->state->hasVar('test'));
+		// POST var
+		$this->assertTrue($this->state->hasVar('postone')); // 'postone' => 'are', 'ana' => ''
+		$this->assertTrue($this->state->hasVar('ana'));
+		// Cookie var
+		$this->assertTrue($this->state->hasVar('user')); // 'user' => 'asddsasdad234'
+
+		PopulatedRequest::startSession();
+
+		$_SESSION['ala'] = uniqid('ala:');
+		$_SESSION['bala'] = '##';
+		// Session var
+		$this->assertTrue($this->state->hasVar('ala')); // 'ala' => uniqid('ala:'), 'bala' => '##'
+		$this->assertTrue($this->state->hasVar('bala'));
+	}
+
+	public function testGetVar() {
+		// GET var
+		$this->assertEquals('pasare', $this->state->getVar('cucu')); // 'cucu' => 'pasare','ana' => 'are', 'mere' => '', 'test' => 123
+		$this->assertEquals('are', $this->state->getVar('ana'));
+		$this->assertEquals('', $this->state->getVar('mere'));
+		$this->assertEquals(123, $this->state->getVar('test'));
+		// POST var
+		$this->assertEquals('are', $this->state->getVar('postone')); // 'postone' => 'are', 'ana' => ''
+		// Cookie var
+		$this->assertEquals('asddsasdad234', $this->state->getVar('user')); // 'user' => 'asddsasdad234'
+
+		// Session var
+		PopulatedRequest::startSession();
+
+		$_SESSION['ala'] = uniqid('ala:');
+		$_SESSION['bala'] = '##';
+		$this->assertEquals($_SESSION['ala'], $this->state->getVar('ala')); // 'ala' => uniqid('ala:'), 'bala' => '##'
+		$this->assertEquals($_SESSION['bala'], $this->state->getVar('bala'));
+	}
 }
