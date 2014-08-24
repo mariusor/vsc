@@ -143,7 +143,7 @@ class MappingA extends Object {
 			throw new ExceptionSitemap('Template path is not valid.');
 		}
 
-		$this->sViewPath = $sPath;
+		$this->sViewPath = realpath($sPath) . DIRECTORY_SEPARATOR;
 	}
 
 	public function getTemplatePath () {
