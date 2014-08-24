@@ -1,5 +1,4 @@
 <?php
-use \vsc\domain\models\EmptyModel;
 use fixtures\domain\models\ModelFixture;
 
 class ModelATest extends \PHPUnit_Framework_TestCase
@@ -28,7 +27,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers ModelA::setOffset
+	 * @covers \vsc\domain\models\ModelA::setOffset
 	 */
 	public function testGetSetOffset()
 	{
@@ -38,7 +37,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers ModelA::offsetSet
+	 * @covers \vsc\domain\models\ModelA::offsetSet
 	 */
 	public function testOffsetSet()
 	{
@@ -50,7 +49,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers ModelA::offsetExists
+	 * @covers \vsc\domain\models\ModelA::offsetExists
 	 */
 	public function testOffsetExists()
 	{
@@ -59,7 +58,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers ModelA::offsetExists
+	 * @covers \vsc\domain\models\ModelA::offsetExists
 	 */
 	public function testOffsetDoesntExist()
 	{
@@ -68,8 +67,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers ModelA::offsetUnset
-	 * @todo   Implement testOffsetUnset().
+	 * @covers \vsc\domain\models\ModelA::offsetUnset
 	 */
 	public function testOffsetUnset()
 	{
@@ -88,7 +86,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers ModelA::current
+	 * @covers \vsc\domain\models\ModelA::current
 	 */
 	public function testCurrentAtInitialization()
 	{
@@ -96,7 +94,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers ModelA::current
+	 * @covers \vsc\domain\models\ModelA::current
 	 */
 	public function testCurrentAtAttribution()
 	{
@@ -107,7 +105,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers ModelA::current
+	 * @covers \vsc\domain\models\ModelA::current
 	 */
 	public function testCurrentAtAttributionUsingBraketOperator()
 	{
@@ -118,7 +116,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers ModelA::key()
+	 * @covers \vsc\domain\models\ModelA::key()
 	 */
 	public function testKeyAtInitialization()
 	{
@@ -131,7 +129,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers ModelA::next
+	 * @covers \vsc\domain\models\ModelA::next
 	 */
 	public function testNext()
 	{
@@ -145,7 +143,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers ModelA::rewind
+	 * @covers \vsc\domain\models\ModelA::rewind
 	 */
 	public function testRewind()
 	{
@@ -162,8 +160,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers ModelA::valid
-	 * @todo   Implement testValid().
+	 * @covers \vsc\domain\models\ModelA::valid
 	 */
 	public function testValid()
 	{
@@ -178,11 +175,11 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers ModelA::current
-	 * @covers ModelA::next
-	 * @covers ModelA::rewind
-	 * @covers ModelA::key
-	 * @covers ModelA::valid
+	 * @covers \vsc\domain\models\ModelA::current
+	 * @covers \vsc\domain\models\ModelA::next
+	 * @covers \vsc\domain\models\ModelA::rewind
+	 * @covers \vsc\domain\models\ModelA::key
+	 * @covers \vsc\domain\models\ModelA::valid
 	 */
 	public function testImplementsIterable()
 	{
@@ -195,8 +192,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers ModelA::count
-	 * @todo   Implement testCount().
+	 * @covers \vsc\domain\models\ModelA::count
 	 */
 	public function testCount()
 	{
@@ -208,8 +204,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers ModelA::__get
-	 * @todo   Implement test__get().
+	 * @covers \vsc\domain\models\ModelA::__get
 	 */
 	public function test__get()
 	{
@@ -225,8 +220,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers ModelA::__set
-	 * @todo   Implement test__set().
+	 * @covers \vsc\domain\models\ModelA::__set
 	 */
 	public function test__set()
 	{
@@ -251,8 +245,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers ModelA::toArray
-	 * @todo   Implement testToArray().
+	 * @covers \vsc\domain\models\ModelA::toArray
 	 */
 	public function testToArray()
 	{

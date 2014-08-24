@@ -26,8 +26,7 @@ class EmptyModelTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscEmptyModel::setPageTitle
-	 * @todo   Implement testSetPageTitle().
+	 * @covers \vsc\domain\models\EmptyModel::setPageTitle
 	 */
 	public function testSetGetPageTitle()
 	{
@@ -38,8 +37,7 @@ class EmptyModelTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @covers vscEmptyModel::setPageContent
-	 * @todo   Implement testSetPageContent().
+	 * @covers \vsc\domain\models\EmptyModel::setPageContent
 	 */
 	public function testSetGetPageContent()
 	{
