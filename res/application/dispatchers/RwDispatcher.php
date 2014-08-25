@@ -157,7 +157,6 @@ class RwDispatcher extends HttpDispatcherA {
 				$sControllerName = $oControllerMapping->getPath();
 			}
 
-
 			if (empty($sControllerName)) {
 				throw new ExceptionResponseError('Could not find the correct front controller', HttpResponseType::NOT_FOUND);
 			}

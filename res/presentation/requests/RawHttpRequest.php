@@ -90,7 +90,7 @@ class RawHttpRequest extends RwHttpRequest {
 
 	/**
 	 * @todo this has to be moved in the rw url handler
-	 * @throws ExceptionRequest
+	 * @param string $sRawInput
 	 * @return void
 	 */
 	protected function constructRawVars ($sRawInput = null) {

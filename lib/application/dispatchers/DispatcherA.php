@@ -49,7 +49,6 @@ abstract class DispatcherA extends Object {
 	 */
 	abstract public function getProcessController ();
 
-
 	abstract public function getView ();
 
 	/**
