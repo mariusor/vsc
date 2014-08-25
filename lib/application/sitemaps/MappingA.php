@@ -160,6 +160,12 @@ class MappingA extends Object {
 
 	public function setModuleMap (MappingA $oMap) {
 		$this->oParentMap = $oMap;
+
+		foreach ($oMap->getControllerMaps() as $sRegex => $oControllerMap) {
+			if (!array_key_exists($sRegex, $this->aControllerMaps) && (ControllerMap::isValid($oControllerMap) || ClassMap::isValid($oControllerMap))) {
+				$this->aControllerMaps[$sRegex] = $oControllerMap;
+			}
+		}
 	}
 
 	/**
@@ -306,44 +312,41 @@ class MappingA extends Object {
 		if (!$sRegex) {
 			throw new ExceptionSitemap ('An URI must be present.');
 		}
-		if ( stristr(basename($sPath), '.') === false && !is_file($sPath) ) {
+
+		$sKey = $sRegex;
+		if (array_key_exists($sKey, $this->aControllerMaps)) {
+			unset($this->aControllerMaps[$sKey]);
+		}
+		if ( class_exists($sPath) ) {
 			// instead of a path we have a namespace
-			$sKey = $sRegex;
-			if (!is_array($this->aControllerMaps) || !array_key_exists($sKey, $this->aControllerMaps)) {
-				$oNewMap 	= new ClassMap($sPath, $sKey);
+			$oNewMap 	= new ClassMap($sPath, $sKey);
+			$oNewMap->setModuleMap($this);
+			$oNewMap->merge($this);
+
+			$this->aControllerMaps[$sKey] = $oNewMap;
+
+			return $oNewMap;
+		} else {
+			$sPath = str_replace(array('/','\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),$sPath);
+			if (!SiteMapA::isValidObjectPath ($sPath)) {
+				$sPath = $this->getModulePath() . $sPath;
+			}
+			if (SiteMapA::isValidObjectPath ($sPath)) {
+				$oNewMap 	= new ControllerMap($sPath, $sKey);
 				$oNewMap->setModuleMap($this);
 				$oNewMap->merge($this);
 
 				$this->aControllerMaps[$sKey] = $oNewMap;
 
 				return $oNewMap;
-			}
-		} else {
-			$sPath = str_replace(array('/','\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),$sPath);
-
-			if (!SiteMapA::isValidObjectPath ($sPath)) {
-				$sPath = $this->getModulePath() . $sPath;
-			}
-			if (SiteMapA::isValidObjectPath ($sPath)) {
-				$sKey = $sRegex;
-				if (!is_array($this->aControllerMaps) || !array_key_exists($sKey, $this->aControllerMaps)) {
-					$oNewMap 	= new ControllerMap($sPath, $sKey);
-					$oNewMap->setModuleMap($this);
-					$oNewMap->merge($this);
-
-					$this->aControllerMaps[$sKey] = $oNewMap;
-
-					return $oNewMap;
-				}
 			} else {
 				throw new ExceptionController('Controller ['.$sPath.'] is invalid.');
 			}
 		}
-//		return new Null();
 	}
 
 	/**
-	 * @return array
+	 * @return MappingA[]
 	 */
 	public function getControllerMaps () {
 		return $this->aControllerMaps;
