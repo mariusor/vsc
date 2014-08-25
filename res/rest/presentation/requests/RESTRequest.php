@@ -10,7 +10,7 @@ use vsc\presentation\requests\RawHttpRequest;
 
 class RESTRequest extends RawHttpRequest {
 
-	static private $validContentTypes = array(
+	static protected $validContentTypes = array(
 		'application/json'
 	);
 

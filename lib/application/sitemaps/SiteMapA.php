@@ -211,7 +211,7 @@ abstract class SiteMapA extends Object {
 			throw new ExceptionSitemap ('A path must be present.');
 		}
 
-		if ( stristr(basename($sPath), '.') === false && !is_file($sPath)) {
+		if ( class_exists($sPath) ) {
 			// instead of a path we have a namespace
 			return $this->addClassMap($sRegex, $sPath);
 		} else {
