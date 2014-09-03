@@ -493,25 +493,7 @@ abstract class HttpRequestA extends Object {
 	 * @return bool
 	 */
 	public function accepts ($sMimeType) {
-		$aContentTypes = array();
-		foreach ($this->getHttpAccept() as $sEntry) {
-			$iSemicolonPosition = strpos($sEntry, ';');
-			if ($iSemicolonPosition > 0) {
-				$sContentType = substr ($sEntry, 0, $iSemicolonPosition);
-				$aContentTypes[] = $sContentType;
-			} else {
-				$aContentTypes[] = $sEntry;
-			}
-		}
-		list ($sType, $sSubtype) = explode('/', $sMimeType);
-		foreach ($aContentTypes as $sAcceptedContentType) {
-			list ($sAcceptedType, $sAcceptedSubtype) = explode('/', $sAcceptedContentType);
-
-			if ($sType == $sAcceptedType && $sSubtype == $sAcceptedSubtype) return true;
-			if ($sType == $sAcceptedType && $sAcceptedSubtype == '*') return true;
-			if ($sAcceptedType == '*' && $sAcceptedSubtype == '*') return true;
-		}
-		return false;
+		return ContentType::isAccepted($sMimeType, $this->getHttpAccept());
 	}
 
 	/**
