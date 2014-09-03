@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 use vsc\application\controllers\FrontControllerA;
 use fixtures\application\controllers\GenericFrontController;
 use fixtures\presentation\requests\PopulatedRequest;
-use fixtures\application\processors\testFixtureProcessor;
+use fixtures\application\processors\ProcessorFixture;
 use fixtures\presentation\views\testView;
 
 class FrontControllerATest extends \PHPUnit_Framework_TestCase {
@@ -72,7 +72,7 @@ class FrontControllerATest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetResponseWithProcessor () {
 		$r = new PopulatedRequest();
-		$p = new testFixtureProcessor();
+		$p = new ProcessorFixture();
 
 		$this->assertInstanceOf('\\vsc\\presentation\\responses\\HttpResponseA', $this->state->getResponse($r, $p));
 	}

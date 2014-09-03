@@ -1,17 +1,17 @@
 <?php
-use fixtures\application\processors\testFixtureProcessor;
+use fixtures\application\processors\ProcessorFixture;
 use vsc\application\sitemaps\ModuleMap;
 use vsc\application\dispatchers\RwDispatcher;
 use vsc\application\processors\EmptyProcessor;
 use vsc\infrastructure\vsc;
 
-class ProcessorEmptyTest extends \PHPUnit_Framework_TestCase {
+class ProcessorFixtureTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @var EmptyProcessor
 	 */
 	private $state;
 	public function setUp () {
-		$this->state = new testFixtureProcessor();
+		$this->state = new ProcessorFixture();
 	}
 
 	public function tearDown () {
@@ -54,7 +54,7 @@ class ProcessorEmptyTest extends \PHPUnit_Framework_TestCase {
 		$sValue = 'test';
 
 		$oHttpRequest = new \fixtures\presentation\requests\PopulatedRequest();
-		$oNewProcessor = new testFixtureProcessor();
+		$oNewProcessor = new ProcessorFixture();
 		$oNewProcessor->return = $sValue;
 
 		$sMapPath = VSC_FIXTURE_PATH . 'config' . DIRECTORY_SEPARATOR .'map.php';

@@ -4,7 +4,7 @@ namespace fixtures\application\processors;
 use vsc\application\processors\ProcessorA;
 use vsc\presentation\requests\HttpRequestA;
 
-class testFixtureProcessor extends ProcessorA {
+class ProcessorFixture extends ProcessorA {
 	public $return;
 	protected $aLocalVars = array ('test' => null);
 

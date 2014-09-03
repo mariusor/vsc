@@ -77,7 +77,7 @@ class RwDispatcherTest extends \PHPUnit_Framework_TestCase {
 		$oRequest  = new PopulatedRequest();
 		vsc::getEnv()->setHttpRequest($oRequest);
 
-		return $this->assertInstanceOf('\\fixtures\\application\\processors\\testFixtureProcessor', $this->state->getProcessController());
+		return $this->assertInstanceOf('\\fixtures\\application\\processors\\ProcessorFixture', $this->state->getProcessController());
 	}
 
 	public function testTemplatePath () {

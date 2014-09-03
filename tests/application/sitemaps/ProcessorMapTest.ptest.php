@@ -11,7 +11,7 @@ class ProcessorMapTest extends \PHPUnit_Framework_TestCase {
 		// @todo
 	}
 	public function testSetTemplate () {
-		$oMap = new ProcessorMap(VSC_FIXTURE_PATH . 'application/processors/EmptyProcessorFixture.php', '\A.*\Z');;;
+		$oMap = new ProcessorMap(VSC_FIXTURE_PATH . 'application/processors/ProcessorFixture.php', '\A.*\Z');;;
 
 		$n = 'main.tpl.php';
 		$oMap->setTemplate($n);
@@ -21,7 +21,7 @@ class ProcessorMapTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetTemplatePath () {
-		$oMap = new ProcessorMap(VSC_FIXTURE_PATH . 'application/processors/EmptyProcessorFixture.php', '\A.*\Z');;
+		$oMap = new ProcessorMap(VSC_FIXTURE_PATH . 'application/processors/ProcessorFixture.php', '\A.*\Z');;
 
 		$oMap->setTemplatePath(VSC_FIXTURE_PATH . 'templates/');
 		$oMap->setTemplate('main.tpl.php');
@@ -30,7 +30,7 @@ class ProcessorMapTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testSetTemplatePathRelativeNoModuleMap () {
-		$oMap = new ProcessorMap(VSC_FIXTURE_PATH . 'application/processors/EmptyProcessorFixture.php', '\A.*\Z');;;
+		$oMap = new ProcessorMap(VSC_FIXTURE_PATH . 'application/processors/ProcessorFixture.php', '\A.*\Z');;;
 
 		try {
 			$oMap->setTemplatePath ( 'templates/' );
@@ -45,7 +45,7 @@ class ProcessorMapTest extends \PHPUnit_Framework_TestCase {
 	public function testGetTemplatePathRelative () {
 		$oModuleMap = new ModuleMap(VSC_FIXTURE_PATH . 'config/map.php', '\A.*\Z');
 
-		$oMap = new ProcessorMap(VSC_FIXTURE_PATH . 'application/processors/EmptyProcessorFixture.php', '\A.*\Z');;;
+		$oMap = new ProcessorMap(VSC_FIXTURE_PATH . 'application/processors/ProcessorFixture.php', '\A.*\Z');;;
 		$oMap->setModuleMap($oModuleMap);
 
 		$oMap->setTemplatePath( 'templates/' );

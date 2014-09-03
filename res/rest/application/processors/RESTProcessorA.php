@@ -11,6 +11,7 @@ namespace vsc\rest\application\processors;
 use vsc\application\processors\ProcessorA;
 use vsc\domain\models\ArrayModel;
 use vsc\infrastructure\vsc;
+use vsc\presentation\requests\ContentType;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\HttpRequestTypes;
 use vsc\presentation\requests\RawHttpRequest;
@@ -24,8 +25,18 @@ abstract class RESTProcessorA extends ProcessorA {
 		return $this->validRequestMethods;
 	}
 
+	protected $validContentTypes = array ('*/*');
+
+	public function getValidContentTypes () {
+		return $this->validContentTypes;
+	}
+
 	public function validRequestMethod ($sRequestMethod) {
 		return (in_array($sRequestMethod, $this->getValidRequestMethods()));
+	}
+
+	public function validContentType ($sContentType) {
+		return ContentType::isAccepted($sContentType, $this->getValidContentTypes());
 	}
 
 	abstract public function handleGet (HttpRequestA $oRequest);

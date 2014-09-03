@@ -74,7 +74,7 @@ class ClassMapTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testSetTemplatePathRelativeNoModuleMap () {
-		$oMap = new ClassMap('\\fixtures\\application\\processors\\EmptyProcessorFixture', '\A.*\Z');
+		$oMap = new ClassMap('\\fixtures\\application\\processors\\ProcessorFixture', '\A.*\Z');
 
 		try {
 			$oMap->setTemplatePath ( 'templates/' );
