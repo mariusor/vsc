@@ -13,9 +13,12 @@ $_SERVER	= array (
 
 
 use vsc\presentation\requests\HttpAuthenticationA;
+use vsc\presentation\requests\HttpRequestTypes;
 use vsc\rest\presentation\requests\RESTRequest;
 
 class PopulatedRESTRequest extends RESTRequest {
+	protected $sHttpMethod = HttpRequestTypes::GET;
+
 	protected $aAccept =  array (
 		'application/html',
 		'text/html;charset=UTF8',

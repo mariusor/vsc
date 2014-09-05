@@ -11,10 +11,7 @@ namespace vsc\rest\application\controllers;
 use vsc\application\controllers\ExceptionController;
 use vsc\application\controllers\JsonController;
 use vsc\application\processors\AuthenticatedProcessorI;
-use vsc\application\processors\ErrorProcessor;
 use vsc\application\processors\ProcessorA;
-use vsc\application\sitemaps\MappingA;
-use vsc\presentation\responses\HttpResponseType;
 use vsc\rest\application\processors\RESTProcessorA;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\rest\presentation\requests\RESTRequest;
@@ -49,7 +46,7 @@ class RESTController extends JsonController {
 					throw new ExceptionResponseError ('Invalid request content type', 415);
 				}
 			}
-			if (ProcessorA::isValid($oProcessor)) {
+			if (!ProcessorA::isValid($oProcessor)) {
 				throw new ExceptionController ('Invalid request processor');
 			}
 			/* @var RESTProcessorA $oProcessor */
