@@ -47,4 +47,24 @@ class PopulatedRequest extends RwHttpRequest {
 	public function setContentType ($sContentType) {
 		$this->sContentType = $sContentType;
 	}
+
+	public function getTaintedVar ($sVarName) {
+		return parent::getTaintedVar($sVarName);
+	}
+	
+	public function setGetVars($Vars) {
+		$this->aGetVars = $Vars;
+	}
+	
+	public function setPostVars($Vars) {
+		$this->aPostVars = $Vars;
+	}
+	
+	public function setCookieVars($Vars) {
+		$this->aCookieVars = $Vars;
+	}
+
+	public function setHttpMethod ($HttpMethod) {
+		$this->sHttpMethod = $HttpMethod;
+	}
 }

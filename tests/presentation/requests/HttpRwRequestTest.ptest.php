@@ -1,10 +1,11 @@
 <?php
 use vsc\presentation\requests\HttpRequestA;
 use fixtures\presentation\requests\PopulatedRequest;
+use vsc\presentation\requests\HttpRequestTypes;
 
 class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 	/**
-	 * @var HttpRequestA
+	 * @var PopulatedRequest
 	 */
 	private $state;
 
@@ -196,4 +197,225 @@ class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($_SESSION['ala'], $this->state->getVar('ala')); // 'ala' => uniqid('ala:'), 'bala' => '##'
 		$this->assertEquals($_SESSION['bala'], $this->state->getVar('bala'));
 	}
+
+	public function testSetTaintedVars() {
+		$ExistingTaintedVars = array(
+			'module'	=> 'test',
+			'cucu'		=> 'mucu',
+			'height'	=> 143
+		);
+		$this->assertEquals($ExistingTaintedVars, $this->state->getTaintedVars());
+
+		$NewTaintedVars = array(
+			'ana' => uniqid('val1:'),
+			'are' => uniqid('val2:'),
+			'mere' => uniqid('val3:')
+		);
+		$this->state->setTaintedVars($NewTaintedVars, false);
+		$this->assertNotEquals($ExistingTaintedVars,$this->state->getTaintedVars());
+		$this->assertEquals(array_merge($ExistingTaintedVars, $NewTaintedVars),$this->state->getTaintedVars());
+	}
+
+	public function testGetFirstParameter() {
+		$this->assertEquals('module',$this->state->getFirstParameter());
+
+		$this->state->setTaintedVars(array(
+			'ana' => uniqid('val:')
+		));
+
+		$this->assertEquals('ana',$this->state->getFirstParameter());
+	}
+
+	public function testGetTaintedVar() {
+		$ExistingTaintedVars = array(
+			'module'	=> 'test',
+			'cucu'		=> 'mucu',
+			'height'	=> 143
+		);
+		foreach ($ExistingTaintedVars as $Key => $Value) {
+			$this->assertEquals($Value, $this->state->getTaintedVar($Key));
+		}
+
+		$NewTaintedVars = array_merge($ExistingTaintedVars, array(
+			'ana' => uniqid('val1:'),
+			'are' => uniqid('val2:'),
+			'mere' => uniqid('val3:')
+		));
+		$this->state->setTaintedVars($NewTaintedVars, false);
+
+		foreach ($NewTaintedVars as $Key => $Value) {
+			$this->assertEquals($Value, $this->state->getTaintedVar($Key));
+		}
+
+		$RandomInexistentVars = array(
+			uniqid('key_') => uniqid('val:'),
+			uniqid('key_') => uniqid('val:'),
+		);
+
+		foreach ($RandomInexistentVars as $Key => $Value) {
+			$this->assertNotEquals($Value, $this->state->getTaintedVar($Key));
+			$this->assertNull($this->state->getTaintedVar($Key));
+		}
+	}
+
+	public function testGetVars() {
+		$ExistingTaintedVars = array(
+			'module'	=> 'test',
+			'cucu'		=> 'mucu',
+			'height'	=> 143
+		);
+		$ExistingGetVars	= array('cucu' => 'pasare','ana' => 'are', 'mere' => '', 'test' => 123);
+		$ExistingPostVars	= array('postone' => 'are', 'ana' => '');
+		$ExistingCookieVars	= array('user' => 'asddsasdad234');
+
+		$ExistingVars = array ();
+		$VarOrder = $this->state->getVarOrder();
+		foreach ($VarOrder as $sMethod) {
+			switch ($sMethod) {
+				case 'S':
+					break;
+				case 'C':
+					$ExistingVars = array_merge ($ExistingVars, $ExistingCookieVars);
+					break;
+				case 'P':
+					$ExistingVars = array_merge ($ExistingVars, $ExistingPostVars);
+					break;
+				case 'G':
+					$ExistingVars = array_merge ($ExistingVars, $ExistingGetVars);
+					break;
+			}
+		}
+
+		$this->assertEquals(array_merge($ExistingTaintedVars, $ExistingVars), $this->state->getVars());
+	}
+
+	public function testGetVarOrder() {
+		$sOrder = ini_get('variables_order');
+		for ($i = 0; $i < 4; $i++) {
+			// reversing the order
+			$VarOrder[$i] = substr($sOrder, $i, 1);
+		}
+
+		$this->assertSame($VarOrder, $this->state->getVarOrder());
+	}
+
+	public function testHasContentType () {
+		$this->assertFalse(HttpRequestA::hasContentType());
+
+		$_SERVER['CONTENT_TYPE'] = 'test/test';
+		$this->assertTrue(HttpRequestA::hasContentType());
+	}
+
+	public function testHasSession () {
+		$this->assertFalse(HttpRequestA::hasSession());
+
+		session_start();
+		$this->assertTrue(HttpRequestA::hasSession());
+
+		session_destroy();
+		$this->assertFalse(HttpRequestA::hasSession());
+	}
+
+	public function testHasGetVars() {
+		$this->assertTrue ($this->state->hasGetVars());
+
+		$this->state->setGetVars(null);
+		$this->assertFalse ($this->state->hasGetVars());
+
+		$this->state->setGetVars(array('ana' => 'mere'));
+		$this->assertTrue ($this->state->hasGetVars());
+	}
+
+	public function testHasPostVars() {
+		$this->assertTrue ($this->state->hasPostVars());
+
+		$this->state->setPostVars(null);
+		$this->assertFalse ($this->state->hasPostVars());
+
+		$this->state->setPostVars(array('ana' => 'mere'));
+		$this->assertTrue ($this->state->hasPostVars());
+	}
+
+	public function testIsHead () {
+		$this->state->setHttpMethod(HttpRequestTypes::HEAD);
+		$this->assertTrue ($this->state->isHead());
+		$this->assertFalse ($this->state->isGet());
+		$this->assertFalse ($this->state->isPost());
+		$this->assertFalse ($this->state->isPut());
+		$this->assertFalse ($this->state->isDelete());
+	}
+
+	public function testIsGet () {
+		$this->state->setHttpMethod(HttpRequestTypes::GET);
+		$this->assertFalse ($this->state->isHead());
+		$this->assertTrue ($this->state->isGet());
+		$this->assertFalse ($this->state->isPost());
+		$this->assertFalse ($this->state->isPut());
+		$this->assertFalse ($this->state->isDelete());
+	}
+
+	public function testIsPost () {
+		$this->state->setHttpMethod(HttpRequestTypes::POST);
+		$this->assertFalse ($this->state->isHead());
+		$this->assertFalse ($this->state->isGet());
+		$this->assertTrue ($this->state->isPost());
+		$this->assertFalse ($this->state->isPut());
+		$this->assertFalse ($this->state->isDelete());
+	}
+
+	public function testIsPut () {
+		$this->state->setHttpMethod(HttpRequestTypes::PUT);
+		$this->assertFalse ($this->state->isHead());
+		$this->assertFalse ($this->state->isGet());
+		$this->assertFalse ($this->state->isPost());
+		$this->assertTrue ($this->state->isPut());
+		$this->assertFalse ($this->state->isDelete());
+	}
+
+	public function testIsDelete () {
+		$this->state->setHttpMethod(HttpRequestTypes::DELETE);
+		$this->assertFalse ($this->state->isHead());
+		$this->assertFalse ($this->state->isGet());
+		$this->assertFalse ($this->state->isPost());
+		$this->assertFalse ($this->state->isPut());
+		$this->assertTrue ($this->state->isDelete());
+	}
+
+	public function testGetHttpMethod () {
+		$this->state->setHttpMethod(HttpRequestTypes::HEAD);
+		$this->assertEquals (HttpRequestTypes::HEAD, $this->state->getHttpMethod());
+		$this->assertNotEquals (HttpRequestTypes::GET, $this->state->getHttpMethod());
+		$this->assertNotEquals (HttpRequestTypes::POST, $this->state->getHttpMethod());
+		$this->assertNotEquals (HttpRequestTypes::PUT, $this->state->getHttpMethod());
+		$this->assertNotEquals (HttpRequestTypes::DELETE, $this->state->getHttpMethod());
+
+		$this->state->setHttpMethod(HttpRequestTypes::GET);
+		$this->assertNotEquals (HttpRequestTypes::HEAD, $this->state->getHttpMethod());
+		$this->assertEquals (HttpRequestTypes::GET, $this->state->getHttpMethod());
+		$this->assertNotEquals (HttpRequestTypes::POST, $this->state->getHttpMethod());
+		$this->assertNotEquals (HttpRequestTypes::PUT, $this->state->getHttpMethod());
+		$this->assertNotEquals (HttpRequestTypes::DELETE, $this->state->getHttpMethod());
+
+		$this->state->setHttpMethod(HttpRequestTypes::POST);
+		$this->assertNotEquals (HttpRequestTypes::HEAD, $this->state->getHttpMethod());
+		$this->assertNotEquals (HttpRequestTypes::GET, $this->state->getHttpMethod());
+		$this->assertEquals (HttpRequestTypes::POST, $this->state->getHttpMethod());
+		$this->assertNotEquals (HttpRequestTypes::PUT, $this->state->getHttpMethod());
+		$this->assertNotEquals (HttpRequestTypes::DELETE, $this->state->getHttpMethod());
+
+		$this->state->setHttpMethod(HttpRequestTypes::PUT);
+		$this->assertNotEquals (HttpRequestTypes::HEAD, $this->state->getHttpMethod());
+		$this->assertNotEquals (HttpRequestTypes::GET, $this->state->getHttpMethod());
+		$this->assertNotEquals (HttpRequestTypes::POST, $this->state->getHttpMethod());
+		$this->assertEquals (HttpRequestTypes::PUT, $this->state->getHttpMethod());
+		$this->assertNotEquals (HttpRequestTypes::DELETE, $this->state->getHttpMethod());
+
+		$this->state->setHttpMethod(HttpRequestTypes::DELETE);
+		$this->assertNotEquals (HttpRequestTypes::HEAD, $this->state->getHttpMethod());
+		$this->assertNotEquals (HttpRequestTypes::GET, $this->state->getHttpMethod());
+		$this->assertNotEquals (HttpRequestTypes::POST, $this->state->getHttpMethod());
+		$this->assertNotEquals (HttpRequestTypes::PUT, $this->state->getHttpMethod());
+		$this->assertEquals (HttpRequestTypes::DELETE, $this->state->getHttpMethod());
+	}
+
 }
