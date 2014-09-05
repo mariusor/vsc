@@ -25,16 +25,6 @@ class RESTProcessorFixtureTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testNoValidContentTypes () {
-		$Everything = '*/*';
-		$Image = 'image/*';
-		$Png = 'image/png';
-		$Gif = 'image/gif';
-		$Application = 'application/*';
-		$Xml = 'application/xml';
-		$Json = 'application/json';
-		$Text = 'text/plain';
-		$Css = 'text/css';
-
 		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Everything));
 		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Image));
 		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Png));
@@ -133,4 +123,3 @@ class RESTProcessorFixtureTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Css));
 	}
 }
- 
