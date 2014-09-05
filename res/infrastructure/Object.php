@@ -36,8 +36,6 @@ abstract class Object {
 	public function __set ($sVarName, $mValue) {
 		if (vsc::getEnv()->isDevelopment()) {
 			throw new ExceptionUnimplemented ('Property [' . get_class($this) .'::' . $sVarName .'] not implemented for writing.');
-		} else {
-			return new Null();
 		}
 	}
 
