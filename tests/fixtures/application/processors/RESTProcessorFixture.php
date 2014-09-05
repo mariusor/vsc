@@ -1,9 +1,9 @@
 <?php
 namespace fixtures\application\processors;
 
-use avangate\application\processors\Main;
-use avangate\domain\models\RESTModel;
+use vsc\domain\models\RESTModel;
 use vsc\presentation\requests\HttpRequestA;
+use vsc\presentation\requests\HttpRequestTypes;
 use vsc\presentation\requests\RawHttpRequest;
 use vsc\rest\application\processors\RESTProcessorA;
 
