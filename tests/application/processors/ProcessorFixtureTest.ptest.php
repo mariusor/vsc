@@ -21,15 +21,15 @@ class ProcessorFixtureTest extends \PHPUnit_Framework_TestCase {
 	public function testGetSetVar () {
 		$randVal = rand();
 		if ($this->state->setVar('test', $randVal)) {
-			return $this->assertEquals($randVal, $this->state->getVar('test'));
+			$this->assertEquals($randVal, $this->state->getVar('test'));
 		} else {
-			return $this->assertTrue(false, 'Couldn\'t set var [test]');
+			$this->assertTrue(false, 'Couldn\'t set var [test]');
 		}
 	}
 
 	public function testGetLocalVars () {
 		$fixtureValue = array ('test' => null);
-		return $this->assertEquals($fixtureValue, $this->state->getLocalVars());
+		$this->assertEquals($fixtureValue, $this->state->getLocalVars());
 	}
 
 	public function testSetLocalVars () {
@@ -37,17 +37,17 @@ class ProcessorFixtureTest extends \PHPUnit_Framework_TestCase {
 		$localValue = array('test2' => 'grrr');
 
 		$this->state->setLocalVars($localValue, true);
-		return $this->assertEquals(array_merge($fixtureValue, $localValue), $this->state->getLocalVars());
+		$this->assertEquals(array_merge($fixtureValue, $localValue), $this->state->getLocalVars());
 	}
 
 	public function testGetSetMap () {
 		$oMap = new ModuleMap(__FILE__, '\A.*\Z');
 		$this->state->setMap($oMap);
 
-		return $this->assertSame ($oMap, $this->state->getMap());
+		$this->assertSame ($oMap, $this->state->getMap());
 	}
 	public function testGetMap () {
-		return $this->assertInstanceOf('\\vsc\\application\\sitemaps\\ProcessorMap', $this->state->getMap());
+		$this->assertInstanceOf(\vsc\application\sitemaps\ProcessorMap::class, $this->state->getMap());
 	}
 
 	public function testDelegateRequest () {

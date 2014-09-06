@@ -17,24 +17,24 @@ $this->getParentModuleMap()->setMainTemplatePath(VSC_RES_PATH . 'templates');
 $this->getParentModuleMap()->setMainTemplate('main.php');
 $this->getCurrentModuleMap()->setTemplatePath (VSC_RES_PATH . 'templates');
 
-//$oMap = $this->map ('vsc/\Z', VSC_RES_PATH . 'application/processors/vscemptyprocessor.php');
+//$oMap = $this->map ('.+', \vsc\application\processors\EmptyProcessor::class);
 //$oMap->setTemplate ('content.php');
 
 // @TODO
-//$oMap = $this->map ('vsc:test/\Z', VSC_RES_PATH . 'application/processors/vsctestprocessor.php');
+//$oMap = $this->map ('vsc:test/\Z', \vsc\application\processors\TestProcessor::class);
 //$oMap->setTemplate ('tmain.php');
 
-//$oMap = $this->map ('.+', VSC_RES_PATH . 'application/processors/vscemptyprocessor.php');
+//$oMap = $this->map ('.+', \vsc\application\processors\EmptyProcessor::class);
 //$oMap->setTemplate ('content.php');
 
 // fallback 404 processor for everything
-$oMap = $this->map ('(.+)\Z', '\\vsc\\application\\processors\\EmptyProcessor');
+$oMap = $this->map ('(.+)\Z', \vsc\application\processors\EmptyProcessor::class);
 $oMap->setTemplate ('404.php');
 
 // front controllers
-$this->getCurrentModuleMap()->mapController ('\.json$', '\\vsc\\application\\controllers\\JsonController');
-$this->getCurrentModuleMap()->mapController ('\.rss$', '\\vsc\\application\\controllers\\RssController');
-$this->getCurrentModuleMap()->mapController ('\.txt$', '\\vsc\\application\\controllers\\PlainTextController');
-$this->getCurrentModuleMap()->mapController ('^.*$', '\\vsc\\application\\controllers\\XhtmlController');
+$this->getCurrentModuleMap()->mapController ('\.json$', \vsc\application\controllers\JsonController::class);
+$this->getCurrentModuleMap()->mapController ('\.rss$', \vsc\application\controllers\RssController::class);
+$this->getCurrentModuleMap()->mapController ('\.txt$', \vsc\application\controllers\PlainTextController::class);
+$this->getCurrentModuleMap()->mapController ('^.*$', \vsc\application\controllers\XhtmlController::class);
 
 // d ($oMap->getModuleMap(), $this->getCurrentModuleMap());

@@ -22,14 +22,14 @@ class vscTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetEnv () {
-		$this->assertInstanceOf('\\vsc\\infrastructure\\vsc', vsc::getEnv());
+		$this->assertInstanceOf(vsc::class, vsc::getEnv());
 	}
 
 	public function testGetDispatcher () {
 		/* @var RwDispatcher $oDispatcher */
 		$oDispatcher = vsc::getEnv()->getDispatcher();
 		$oDispatcher->loadSiteMap ($this->sFixturesPath . 'map.php');
-		$this->assertInstanceOf('\\vsc\\application\\dispatchers\\DispatcherA', $oDispatcher);
+		$this->assertInstanceOf(\vsc\application\dispatchers\DispatcherA::class, $oDispatcher);
 	}
 
 	public function testSetDispatcher () {
@@ -42,7 +42,7 @@ class vscTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetRequest () {
-		$this->assertInstanceOf('\\vsc\\presentation\\requests\\HttpRequestA', vsc::getEnv()->getHttpRequest());
+		$this->assertInstanceOf(\vsc\presentation\requests\HttpRequestA::class, vsc::getEnv()->getHttpRequest());
 	}
 
 	public function testGetIncludePaths () {

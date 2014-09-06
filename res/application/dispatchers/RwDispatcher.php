@@ -9,6 +9,7 @@
 namespace vsc\application\dispatchers;
 
 use vsc\application\controllers\FrontControllerA;
+use vsc\application\controllers\XhtmlController;
 use vsc\application\processors\ErrorProcessor;
 use vsc\application\processors\NotFoundProcessor;
 use vsc\application\processors\ProcessorA;
@@ -142,7 +143,7 @@ class RwDispatcher extends HttpDispatcherA {
 
 //			if (!ControllerMap::isValid($oControllerMapping)) {
 //				// this mainly means nothing was matched to our url, or no mappings exist
-//				$oControllerMapping = new ClassMap('\\vsc\\application\\controllers\\XhtmlController', '');
+//				$oControllerMapping = new ClassMap(XhtmlController::class, '');
 //			}
 
 			if (ControllerMap::isValid($oControllerMapping)) {
@@ -184,7 +185,7 @@ class RwDispatcher extends HttpDispatcherA {
 			$oProcessorMap	= $this->getCurrentProcessorMap();
 			if (!ProcessorMap::isValid($oProcessorMap) && !ClassMap::isValid($oProcessorMap)) {
 				// this mainly means nothing was matched to our url, or no mappings exist, so we're falling back to 404
-				$oProcessorMap	= new ProcessorMap('\\vsc\\application\\processors\\NotFoundProcessor', '.*');
+				$oProcessorMap	= new ProcessorMap(NotFoundProcessor::class, '.*');
 				$oProcessorMap->setTemplatePath(VSC_RES_PATH . 'templates');
 				$oProcessorMap->setTemplate('404.php');
 			}

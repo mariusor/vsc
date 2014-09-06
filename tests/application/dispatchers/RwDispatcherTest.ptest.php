@@ -1,6 +1,5 @@
 <?php
 use vsc\application\dispatchers\RwDispatcher;
-use \vsc\presentation\responses\ExceptionResponseError;
 use \fixtures\presentation\requests\PopulatedRequest;
 use \vsc\infrastructure\vsc;
 
@@ -23,7 +22,7 @@ class RwDispatcherTest extends \PHPUnit_Framework_TestCase {
 	public function testLoadSiteMap () {
 		$this->state->loadSiteMap ( $this->fixturePath . 'map.php' );
 
-		return $this->assertInstanceOf ( '\\vsc\\application\\sitemaps\\SiteMapA', $this->state->getSiteMap () );
+		$this->assertInstanceOf ( \vsc\application\sitemaps\SiteMapA::class, $this->state->getSiteMap () );
 	}
 
 	public function testGetRequest () {
@@ -31,7 +30,7 @@ class RwDispatcherTest extends \PHPUnit_Framework_TestCase {
 
 		$oBlaReq = vsc::getEnv ()->getHttpRequest ();
 
-		return $this->assertSame ( $oRequest, $oBlaReq );
+		$this->assertSame ( $oRequest, $oBlaReq );
 	}
 
 	public function testGetFrontController () {
@@ -44,10 +43,10 @@ class RwDispatcherTest extends \PHPUnit_Framework_TestCase {
 		try {
 			$oFront = $this->state->getFrontController ();
 
-			return $this->assertInstanceOf ( '\\vsc\\application\\controllers\\FrontControllerA', $oFront );
+			$this->assertInstanceOf ( \vsc\application\controllers\FrontControllerA::class, $oFront );
 		}
 		catch ( \Exception $e ) {
-			return $this->assertInstanceOf ( '\\vsc\\presentation\\responses\\ExceptionResponseError', $e );
+			$this->assertInstanceOf ( \vsc\presentation\responses\ExceptionResponseError::class, $e );
 		}
 
 
@@ -62,13 +61,13 @@ class RwDispatcherTest extends \PHPUnit_Framework_TestCase {
 
 		$oProcess = $this->state->getProcessController ();
 
-		return $this->assertInstanceOf ( '\\vsc\\application\\processors\\NotFoundProcessor', $oProcess );
+		$this->assertInstanceOf ( \vsc\application\processors\NotFoundProcessor::class, $oProcess );
 	}
 
 	public function testGetMapsMap () {
 		$this->state->loadSiteMap ( $this->fixturePath . 'map.php' );
 
-		return $this->assertInstanceOf ( '\\vsc\\application\\sitemaps\\SiteMapA', $this->state->getSiteMap () );
+		$this->assertInstanceOf ( \vsc\application\sitemaps\SiteMapA::class, $this->state->getSiteMap () );
 	}
 
 	public function testGetProcessorController () {
@@ -77,7 +76,7 @@ class RwDispatcherTest extends \PHPUnit_Framework_TestCase {
 		$oRequest  = new PopulatedRequest();
 		vsc::getEnv()->setHttpRequest($oRequest);
 
-		return $this->assertInstanceOf('\\fixtures\\application\\processors\\ProcessorFixture', $this->state->getProcessController());
+		$this->assertInstanceOf( \fixtures\application\processors\ProcessorFixture::class, $this->state->getProcessController());
 	}
 
 	public function testTemplatePath () {
@@ -86,7 +85,7 @@ class RwDispatcherTest extends \PHPUnit_Framework_TestCase {
 		$oRequest  = new PopulatedRequest();
 		vsc::getEnv()->setHttpRequest($oRequest);
 
-		return $this->assertNull($this->state->getTemplatePath());
+		$this->assertNull($this->state->getTemplatePath());
 	}
 
 	public function testGetCurrentModuleMap () {
@@ -97,6 +96,7 @@ class RwDispatcherTest extends \PHPUnit_Framework_TestCase {
 
 		$oProcessor = $this->state->getProcessController();
 
-		return $this->assertInstanceOf('\\vsc\\application\\sitemaps\\ModuleMap', $this->state->getCurrentModuleMap());
+		$this->assertInstanceOf( \vsc\application\sitemaps\ModuleMap::class, $this->state->getCurrentModuleMap());
+		$this->assertInstanceOf( \vsc\application\processors\ProcessorA::class, $oProcessor);
 	}
 }

@@ -23,9 +23,9 @@ class RESTRequestTest extends PHPUnit_Framework_TestCase {
 		try {
 			$this->state->getRawVars();
 		} catch (Exception $e) {
-			$this->assertInstanceOf('\\vsc\\Exception', $e);
-			$this->assertInstanceOf('\\vsc\\presentation\\ExceptionPresentation', $e);
-			$this->assertInstanceOf('\\vsc\\presentation\\requests\\ExceptionRequest', $e);
+			$this->assertInstanceOf(Exception::class, $e);
+			$this->assertInstanceOf(\vsc\presentation\ExceptionPresentation::class, $e);
+			$this->assertInstanceOf(\vsc\presentation\requests\ExceptionRequest::class, $e);
 
 			$this->assertEquals('Can not process a request with an empty content-type', $e->getMessage());
 		}
@@ -36,9 +36,9 @@ class RESTRequestTest extends PHPUnit_Framework_TestCase {
 			$this->state->setContentType('application/xml');
 			$this->state->getRawVars();
 		} catch (Exception $e) {
-			$this->assertInstanceOf('\\vsc\\Exception', $e);
-			$this->assertInstanceOf('\\vsc\\presentation\\ExceptionPresentation', $e);
-			$this->assertInstanceOf('\\vsc\\presentation\\requests\\ExceptionRequest', $e);
+			$this->assertInstanceOf(Exception::class, $e);
+			$this->assertInstanceOf(\vsc\presentation\ExceptionPresentation::class, $e);
+			$this->assertInstanceOf(\vsc\presentation\requests\ExceptionRequest::class, $e);
 
 			$this->assertEquals('This content-type [application/xml] is not supported', $e->getMessage());
 		}

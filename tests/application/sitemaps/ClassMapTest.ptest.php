@@ -67,22 +67,22 @@ class ClassMapTest extends \PHPUnit_Framework_TestCase {
 			$oMap->setTemplatePath ( 'templates/' );
 		} catch (\Exception $e) {
 			// no module map for the relative path to work
-			$this->assertInstanceOf('Exception', $e);
-			$this->assertInstanceOf('\\vsc\\Exception', $e);
-			$this->assertInstanceOf('\\vsc\\application\\sitemaps\\ExceptionSitemap', $e);
+			$this->assertInstanceOf(\Exception::class, $e);
+			$this->assertInstanceOf(\vsc\Exception::class, $e);
+			$this->assertInstanceOf(\vsc\application\sitemaps\ExceptionSitemap::class, $e);
 		}
 	}
 
 	public function testSetTemplatePathRelativeNoModuleMap () {
-		$oMap = new ClassMap('\\fixtures\\application\\processors\\ProcessorFixture', '\A.*\Z');
+		$oMap = new ClassMap(\fixtures\application\processors\ProcessorFixture::class, '\A.*\Z');
 
 		try {
 			$oMap->setTemplatePath ( 'templates/' );
 		} catch (\Exception $e) {
 			// no module map for the relative path to work
-			$this->assertInstanceOf('Exception', $e);
-			$this->assertInstanceOf('\\vsc\\Exception', $e);
-			$this->assertInstanceOf('\\vsc\\application\\sitemaps\\ExceptionSitemap', $e);
+			$this->assertInstanceOf(\Exception::class, $e);
+			$this->assertInstanceOf(\vsc\Exception::class, $e);
+			$this->assertInstanceOf(\vsc\application\sitemaps\ExceptionSitemap::class, $e);
 		}
 	}
 }

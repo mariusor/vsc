@@ -54,13 +54,13 @@ class UrlRWParserTest extends \PHPUnit_Framework_TestCase {
 
 	public function testHasSchemeTrue () {
 		$oUrl = new UrlRWParser('file://' . __FILE__);
-		return $this->assertTrue ($oUrl->hasScheme());
+		$this->assertTrue ($oUrl->hasScheme());
 	}
 
 	public function testHasSchemeFalse () {
 		//$this->markTestSkipped('Need to implement hasScheme vs. displayScheme');
 		$oUrl = new UrlRWParser('//localhost');
-		return $this->assertFalse ($oUrl->hasScheme());
+		$this->assertFalse ($oUrl->hasScheme());
 	}
 
 	public function testParseUrlFullHttpUrl () {
@@ -84,7 +84,7 @@ class UrlRWParserTest extends \PHPUnit_Framework_TestCase {
 		$sQuery = implode('&', $aQuery);
 
 		$sUrl = self::makeUrl($aUrlComponents);
-		return $this->assertEquals($aUrlComponents, UrlParserA::parse_url($sUrl));
+		$this->assertEquals($aUrlComponents, UrlParserA::parse_url($sUrl));
 	}
 
 	public function testParseUrlFullLocalPath () {
@@ -98,7 +98,7 @@ class UrlRWParserTest extends \PHPUnit_Framework_TestCase {
 			'fragment'	=> ''
 		);
 		$sUrl = self::makeUrl($aUrlComponents);
-		return $this->assertEquals($aUrlComponents, UrlParserA::parse_url(__FILE__));
+		$this->assertEquals($aUrlComponents, UrlParserA::parse_url(__FILE__));
 	}
 
 	public function testParseUrlFullLocalhostPath () {
@@ -112,37 +112,37 @@ class UrlRWParserTest extends \PHPUnit_Framework_TestCase {
 				'fragment'	=> ''
 		);
 		$sUrl = self::makeUrl($aUrlComponents);
-		return $this->assertEquals($aUrlComponents, UrlParserA::parse_url($sUrl));
+		$this->assertEquals($aUrlComponents, UrlParserA::parse_url($sUrl));
 	}
 
 	public function testLocalPath () {
 		$oUrl = new UrlRWParser(__FILE__);
-		return $this->assertTrue($oUrl->getCompleteUri() == __FILE__);
+		$this->assertTrue($oUrl->getCompleteUri() == __FILE__);
 	}
 
 	public function testIsLocal() {
 		$oUrl = new UrlRWParser(__FILE__);
-		return $this->assertTrue($oUrl->isLocal());
+		$this->assertTrue($oUrl->isLocal());
 	}
 
 	public function testIsRemote() {
 		$oUrl = new UrlRWParser('google.com');
-		return $this->assertFalse($oUrl->isLocal());
+		$this->assertFalse($oUrl->isLocal());
 	}
 
 	public function testIsRemoteIP() {
 		$oUrl = new UrlRWParser('8.8.8.8');
-		return $this->assertFalse($oUrl->isLocal());
+		$this->assertFalse($oUrl->isLocal());
 	}
 
 	public function testNoSchemeIP() {
 		$oUrl = new UrlRWParser('//8.8.8.8');
-		return $this->assertTrue($oUrl->getCompleteUri(true) == 'http://8.8.8.8');
+		$this->assertTrue($oUrl->getCompleteUri(true) == 'http://8.8.8.8');
 	}
 
 	public function testUrlNoSchemePath () {
 		$oUrl = new UrlRWParser('//localhost');
-		return $this->assertTrue($oUrl->getCompleteUri(true) == 'http://localhost');
+		$this->assertTrue($oUrl->getCompleteUri(true) == 'http://localhost');
 	}
 
 	public function testAddPath () {
@@ -152,7 +152,7 @@ class UrlRWParserTest extends \PHPUnit_Framework_TestCase {
 		$oUrl = new UrlRWParser($sLocalHost);
 		$oUrl->addPath($sStr);
 
-		return $this->assertEquals($oUrl->getCompleteUri(true), $sLocalHost . '/' . $sStr . '/');
+		$this->assertEquals($oUrl->getCompleteUri(true), $sLocalHost . '/' . $sStr . '/');
 	}
 
 	public function testAddRelativePathWithParentDirectory () {
@@ -163,7 +163,7 @@ class UrlRWParserTest extends \PHPUnit_Framework_TestCase {
 		$oUrl->addPath($sStr);
 
 		$sParentStr = substr($sStr, strpos($sStr, '../') + strlen ('../'));
-		return $this->assertEquals($oUrl->getCompleteUri(true), $sLocalHost . '/' . $sParentStr . '/');
+		$this->assertEquals($oUrl->getCompleteUri(true), $sLocalHost . '/' . $sParentStr . '/');
 	}
 
 	public function testAddRelativePathWithCurrentDirectory () {
@@ -174,7 +174,7 @@ class UrlRWParserTest extends \PHPUnit_Framework_TestCase {
 		$oUrl->addPath($sStr);
 
 		$sCurrentStr = str_replace('./', '', $sStr);
-		return $this->assertEquals($oUrl->getCompleteUri(true), $sLocalHost . '/' . $sCurrentStr . '/');
+		$this->assertEquals($oUrl->getCompleteUri(true), $sLocalHost . '/' . $sCurrentStr . '/');
 	}
 
 	public function testGetParentPath () {
@@ -190,7 +190,7 @@ class UrlRWParserTest extends \PHPUnit_Framework_TestCase {
 		$sUrl = self::makeUrl($aUrlComponents);
 		$oUrl = new UrlRWParser($sUrl);
 
-		return $this->assertEquals(dirname(__FILE__) . '/', $oUrl->getParentPath(1));
+		$this->assertEquals(dirname(__FILE__) . '/', $oUrl->getParentPath(1));
 	}
 
 	public function testGetPath () {
@@ -206,7 +206,7 @@ class UrlRWParserTest extends \PHPUnit_Framework_TestCase {
 		$sUrl = self::makeUrl($aUrlComponents);
 		$oUrl = new UrlRWParser($sUrl);
 
-		return $this->assertEquals(__FILE__, $oUrl->getPath());
+		$this->assertEquals(__FILE__, $oUrl->getPath());
 	}
 
 	public function testGetPass () {
@@ -222,7 +222,7 @@ class UrlRWParserTest extends \PHPUnit_Framework_TestCase {
 		$sUrl = self::makeUrl($aUrlComponents);
 		$oUrl = new UrlRWParser($sUrl);
 
-		return $this->assertEquals($aUrlComponents['pass'], $oUrl->getPass());
+		$this->assertEquals($aUrlComponents['pass'], $oUrl->getPass());
 	}
 
 	public function testGetPort () {
@@ -239,7 +239,7 @@ class UrlRWParserTest extends \PHPUnit_Framework_TestCase {
 		$sUrl = self::makeUrl($aUrlComponents);
 		$oUrl = new UrlRWParser($sUrl);
 
-		return $this->assertEquals($sPort, $oUrl->getPort());
+		$this->assertEquals($sPort, $oUrl->getPort());
 	}
 
 	public function testGetQuery () {
@@ -259,7 +259,7 @@ class UrlRWParserTest extends \PHPUnit_Framework_TestCase {
 		$sUrl = self::makeUrl($aUrlComponents);
 		$oUrl = new UrlRWParser($sUrl);
 
-		return $this->assertEquals($aUrlComponents['query'], $oUrl->getQuery());
+		$this->assertEquals($aUrlComponents['query'], $oUrl->getQuery());
 	}
 
 	public function testGetQueryPath () {
@@ -279,6 +279,6 @@ class UrlRWParserTest extends \PHPUnit_Framework_TestCase {
 		$sUrl = self::makeUrl($aUrlComponents);
 		$oUrl = new UrlRWParser($sUrl);
 
-		return $this->assertEquals(self::makeQuery($aUrlComponents['query']), $oUrl->getQueryString());
+		$this->assertEquals(self::makeQuery($aUrlComponents['query']), $oUrl->getQueryString());
 	}
 }

@@ -37,7 +37,8 @@ class DefaultViewTest extends \PHPUnit_Framework_TestCase {
 		try {
 			$this->state->setMainTemplate ( $t );
 		} catch (Exception $e) {
-			$this->assertInstanceOf('\\vsc\\ExceptionPath', $e);
+			$this->assertInstanceOf(\vsc\Exception::class, $e);
+			$this->assertInstanceOf(\vsc\ExceptionPath::class, $e);
 		}
 
 		$this->assertEmpty($this->state->getMainTemplate());
@@ -65,7 +66,8 @@ class DefaultViewTest extends \PHPUnit_Framework_TestCase {
 		try {
 			$this->state->setTemplate ( $t );
 		} catch (Exception $e) {
-			$this->assertInstanceOf('\\vsc\\ExceptionPath', $e);
+			$this->assertInstanceOf(\vsc\Exception::class, $e);
+			$this->assertInstanceOf(\vsc\ExceptionPath::class, $e);
 		}
 
 		$this->assertEmpty($this->state->getTemplate());
@@ -90,7 +92,8 @@ class DefaultViewTest extends \PHPUnit_Framework_TestCase {
 			// empty
 			$this->state->getModel ();
 		} catch (Exception $e) {
-			$this->assertInstanceOf('\\vsc\\presentation\\views\\ExceptionView', $e);
+			$this->assertInstanceOf(\vsc\Exception::class, $e);
+			$this->assertInstanceOf(\vsc\presentation\views\ExceptionView::class, $e);
 		}
 
 		$f = new ModelFixture();
@@ -98,8 +101,8 @@ class DefaultViewTest extends \PHPUnit_Framework_TestCase {
 
 		$m = $this->state->getModel();
 
-		$this->assertInstanceOf('\\vsc\\domain\\models\\ModelA', $m);
-		$this->assertInstanceOf('\\fixtures\\domain\\models\\ModelFixture', $m);
+		$this->assertInstanceOf(\vsc\domain\models\ModelA::class, $m);
+		$this->assertInstanceOf(ModelFixture::class, $m);
 		$this->assertEquals($f, $m);
 	}
 
@@ -150,7 +153,8 @@ class DefaultViewTest extends \PHPUnit_Framework_TestCase {
 		try {
 			$this->state->fetch ( $t );
 		} catch (Exception $e) {
-			$this->assertInstanceOf ('\\vsc\\ExceptionPath', $e);
+			$this->assertInstanceOf(\vsc\Exception::class, $e);
+			$this->assertInstanceOf(\vsc\ExceptionPath::class, $e);
 		}
 
 		$t = 'main.tpl.php';
@@ -172,7 +176,8 @@ class DefaultViewTest extends \PHPUnit_Framework_TestCase {
 		try {
 			$this->state->getOutput();
 		} catch (Exception $e) {
-			$this->assertInstanceOf ('\\vsc\\presentation\\views\\ExceptionView', $e);
+			$this->assertInstanceOf(\vsc\Exception::class, $e);
+			$this->assertInstanceOf(\vsc\presentation\views\ExceptionView::class, $e);
 		}
 
 		$t = 'main.tpl.php';
@@ -192,7 +197,7 @@ class DefaultViewTest extends \PHPUnit_Framework_TestCase {
 	public function testGetUriParser() {
 		$p = $this->state->getUriParser();
 
-		$this->assertInstanceOf('\\vsc\\infrastructure\\urls\\UrlParserA', $p);
+		$this->assertInstanceOf(\vsc\infrastructure\urls\UrlParserA::class, $p);
 	}
 
 	public function testStaticGetCurrentSiteUri () {

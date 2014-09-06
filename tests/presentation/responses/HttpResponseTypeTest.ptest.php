@@ -5,7 +5,7 @@ class HttpResponseTypeTest extends \PHPUnit_Framework_TestCase {
 	private $statuses = array ();
 
 	public function setUp() {
-		$Mirror = new \ReflectionClass('\\vsc\\presentation\\responses\\HttpResponseType');
+		$Mirror = new \ReflectionClass(HttpResponseType::class);
 		$MirrorProperty = $Mirror->getProperty('aStatusList');
 		$MirrorProperty->setAccessible(ReflectionProperty::IS_PUBLIC);
 		$this->statuses = $MirrorProperty->getValue();

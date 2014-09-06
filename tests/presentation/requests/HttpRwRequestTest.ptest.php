@@ -18,39 +18,39 @@ class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetGetVarCorrect() {
-		return $this->assertEquals($_GET['ana'], $this->state->getVar('ana'));
+		$this->assertEquals($_GET['ana'], $this->state->getVar('ana'));
 	}
 
 	public function testGetGetVarIncorrect() {
-		return $this->assertEquals($this->state->getVar('asdf'), '');
+		$this->assertEquals($this->state->getVar('asdf'), '');
 	}
 
 	public function testGetPostVarIncorrect() {
-		return $this->assertNotEquals($_POST['ana'], $this->state->getVar('ana'));
+		$this->assertNotEquals($_POST['ana'], $this->state->getVar('ana'));
 	}
 
 	public function testGetPostVarCorrect() {
-		return $this->assertEquals($_POST['postone'], $this->state->getVar('postone'));
+		$this->assertEquals($_POST['postone'], $this->state->getVar('postone'));
 	}
 
 	public function testGetTaintedVarCorrect() {
-		return $this->assertEquals('123', $this->state->getVar('test'));
+		$this->assertEquals('123', $this->state->getVar('test'));
 	}
 
 	public function testAcceptsApplicationHtml () {
-		return $this->assertTrue($this->state->accepts('application/html'));
+		$this->assertTrue($this->state->accepts('application/html'));
 	}
 
 	public function testAcceptsTextHtml () {
-		return $this->assertTrue($this->state->accepts('text/html'));
+		$this->assertTrue($this->state->accepts('text/html'));
 	}
 
 	public function testNotAcceptsApplicationJson () {
-		return $this->assertFalse($this->state->accepts('application/json'));
+		$this->assertFalse($this->state->accepts('application/json'));
 	}
 
 	public function testAcceptsImagePng () {
-		return $this->assertTrue($this->state->accepts('image/png'));
+		$this->assertTrue($this->state->accepts('image/png'));
 	}
 
 	public function testAccepts () {

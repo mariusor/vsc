@@ -13,15 +13,15 @@ class RESTProcessorFixtureTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
 		$this->state = new RESTProcessorFixture();
 
-		$oMap = new ClassMap('\\fixtures\\application\\processors\\RESTProcessorFixture', '.*');
+		$oMap = new ClassMap(RESTProcessorFixture::class, '.*');
 		$this->state->setMap($oMap);
 	}
 	public function tearDown() {}
 
 	public function testConstruct () {
-		$this->assertInstanceOf('\\fixtures\\application\\processors\\RESTProcessorFixture', $this->state);
-		$this->assertInstanceOf('\\vsc\\rest\\application\\processors\\RESTProcessorA', $this->state);
-		$this->assertInstanceOf('\\vsc\\application\\processors\\ProcessorA', $this->state);
+		$this->assertInstanceOf(RESTProcessorFixture::class, $this->state);
+		$this->assertInstanceOf(\vsc\rest\application\processors\RESTProcessorA::class, $this->state);
+		$this->assertInstanceOf(\vsc\application\processors\ProcessorA::class, $this->state);
 	}
 
 	public function testNoValidContentTypes () {

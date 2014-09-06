@@ -15,13 +15,13 @@ class ErrorProcessorTest extends \PHPUnit_Framework_TestCase {
 		$Exception = new ExceptionError('test', 123);
 		$this->state = new ErrorProcessor($Exception);
 
-		$oMap = new ClassMap('\\vsc\\application\\processors\\ErrorProcessor', '.*');
+		$oMap = new ClassMap(ErrorProcessor::class, '.*');
 		$this->state->setMap($oMap);
 	}
 	public function tearDown() {}
 
 	public function testGetModel () {
-		$this->assertInstanceOf('\\vsc\\domain\\models\\ErrorModel', $this->state->getModel());
+		$this->assertInstanceOf(\vsc\domain\models\ErrorModel::class, $this->state->getModel());
 
 		$this->assertEquals('test', $this->state->getModel()->getMessage());
 		$this->assertEquals(HttpResponseType::INTERNAL_ERROR, $this->state->getModel()->getHttpStatus());
@@ -34,7 +34,7 @@ class ErrorProcessorTest extends \PHPUnit_Framework_TestCase {
 		$Exception = new ExceptionResponseError($sMessage, $iError);
 
 		$this->state->setException($Exception);
-		$this->assertInstanceOf('\\vsc\\domain\\models\\ErrorModel', $this->state->getModel());
+		$this->assertInstanceOf(\vsc\domain\models\ErrorModel::class, $this->state->getModel());
 
 		$this->assertEquals($sMessage, $this->state->getModel()->getMessage());
 		$this->assertEquals($iError, $this->state->getModel()->getHttpStatus());
@@ -47,13 +47,12 @@ class ErrorProcessorTest extends \PHPUnit_Framework_TestCase {
 		$this->state->setException(new ExceptionResponseError($sMessage, $iError));
 
 		$oModel = $this->state->getModel();
-		$this->assertInstanceOf('\\vsc\\domain\\models\\ErrorModel', $oModel);
+		$this->assertInstanceOf(\vsc\domain\models\ErrorModel::class, $oModel);
 
 		$Exception = $oModel->getException();
-		$this->assertInstanceOf('\\vsc\\presentation\\responses\\ExceptionResponseError', $Exception);
-		$this->assertInstanceOf('\\vsc\\presentation\\responses\\ExceptionResponse', $Exception);
-		$this->assertInstanceOf('\\vsc\\presentation\\ExceptionPresentation', $Exception);
+		$this->assertInstanceOf(ExceptionResponseError::class, $Exception);
+		$this->assertInstanceOf(\vsc\presentation\responses\ExceptionResponse::class, $Exception);
+		$this->assertInstanceOf(\vsc\presentation\ExceptionPresentation::class, $Exception);
 	}
 
 }
- 

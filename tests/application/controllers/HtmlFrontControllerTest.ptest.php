@@ -2,8 +2,8 @@
 
 use vsc\application\controllers\XhtmlController;
 use vsc\application\sitemaps\ControllerMap;
-
 use fixtures\presentation\requests\PopulatedRequest;
+use vsc\presentation\responses\HttpResponseA;
 
 class HtmlFrontControllerTest extends \PHPUnit_Framework_TestCase  {
 	/**
@@ -24,12 +24,12 @@ class HtmlFrontControllerTest extends \PHPUnit_Framework_TestCase  {
 
 	public function testGetResponse() {
 		$oReq = new PopulatedRequest();
-		$this->assertInstanceOf('\\vsc\\presentation\\responses\\HttpResponseA', $this->state->getResponse($oReq));
+		$this->assertInstanceOf(\vsc\presentation\responses\HttpResponseA::class, $this->state->getResponse($oReq));
 	}
 
 	public function testGetDefaultView() {
 		$v = $this->state->getDefaultView();
-		$this->assertInstanceOf('\\vsc\\presentation\\views\\ViewA', $v);
-		$this->assertInstanceOf('\\vsc\\presentation\\views\\XhtmlView', $v);
+		$this->assertInstanceOf(\vsc\presentation\views\ViewA::class, $v);
+		$this->assertInstanceOf(\vsc\presentation\views\XhtmlView::class, $v);
 	}
 }
