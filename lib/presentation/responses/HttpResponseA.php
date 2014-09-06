@@ -30,10 +30,9 @@ abstract class HttpResponseA extends Object {
 	private $sExpires;
 	private $sLastModified;
 	private $sLocation;
-	private $aHeaders;
-
 	private $oView;
 
+	protected $aHeaders;
 	protected $sContentType;
 
 	public function __construct () {
