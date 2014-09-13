@@ -1,9 +1,8 @@
 <?php
 namespace fixtures\application\processors;
 
-use vsc\domain\models\RESTModel;
+use fixtures\domain\models\ModelFixture;
 use vsc\presentation\requests\HttpRequestA;
-use vsc\presentation\requests\HttpRequestTypes;
 use vsc\presentation\requests\RawHttpRequest;
 use vsc\rest\application\processors\RESTProcessorA;
 
@@ -22,10 +21,10 @@ class RESTProcessorFixture extends RESTProcessorA {
 
 	/**
 	 * @param RawHttpRequest $oHttpRequest
-	 * @return RESTModel
+	 * @return ModelFixture
 	 */
 	public function getModel(RawHttpRequest $oHttpRequest) {
-		return new RESTModel();
+		return new ModelFixture();
 	}
 
 	/**
