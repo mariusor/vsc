@@ -13,6 +13,8 @@ use vsc\application\sitemaps\ModuleMap;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\RawHttpRequest;
 use vsc\presentation\requests\RwHttpRequest;
+use vsc\presentation\responses\HttpResponse;
+use vsc\presentation\responses\HttpResponseA;
 
 class vsc extends Object {
 	/**
@@ -24,6 +26,11 @@ class vsc extends Object {
 	 * @var HttpRequestA
 	 */
 	private $oRequest = null;
+
+	/**
+	 * @var HttpResponseA
+	 */
+	private $oResponse = null;
 
 	/**
 	 * @var DispatcherA
@@ -64,6 +71,25 @@ class vsc extends Object {
 			}
 		}
 		return $this->oRequest;
+	}
+
+	/**
+	 * @param HttpResponseA $oResponse
+	 */
+	public function setHttpResponse (HttpResponseA $oResponse) {
+		if (HttpResponseA::isValid($oResponse)  && get_class($this->oResponse) != get_class($oResponse)) {
+			$this->oResponse = $oResponse;
+		}
+	}
+
+	/**
+	 * @returns HttpResponseA
+	 */
+	public function getHttpResponse () {
+		if ( is_null($this->oResponse) ){
+			$this->oResponse = new HttpResponse();
+		}
+		return $this->oResponse;
 	}
 
 	/**
