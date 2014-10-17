@@ -13,19 +13,16 @@ use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\ControllerMap;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ProcessorMap;
-use vsc\application\sitemaps\SiteMapA;
 use vsc\domain\models\EmptyModel;
 use vsc\domain\models\ErrorModel;
 use vsc\domain\models\ModelA;
 use vsc\infrastructure\Object;
 use vsc\infrastructure\vsc;
-use vsc\presentation\responses\ExceptionResponseError;
 use vsc\presentation\responses\ExceptionResponseRedirect;
 use vsc\presentation\responses\HttpResponseA;
 use vsc\presentation\responses\HttpResponseType;
 use vsc\presentation\views\ExceptionView;
 use vsc\presentation\requests\HttpRequestA;
-use vsc\presentation\responses\HttpResponse;
 use vsc\presentation\views\ViewA;
 use vsc\ExceptionPath;
 use vsc\presentation\responses\ExceptionResponse;
@@ -92,7 +89,7 @@ abstract class FrontControllerA extends Object {
 	 * @returns HttpResponseA
 	 */
 	public function getResponse (HttpRequestA $oRequest, $oProcessor = null) {
-		$oResponse = new HttpResponse(); // this needs changing for REST stuff
+		$oResponse = vsc::getEnv()->getHttpResponse();
 		$oModel = null;
 		/* @var ControllerMap $oMyMap */
 		$oMyMap	= $this->getMap();
@@ -163,7 +160,7 @@ abstract class FrontControllerA extends Object {
 	}
 
 	public function getErrorResponse (\Exception $e) {
-		$oResponse = new HttpResponse();
+		$oResponse = vsc::getEnv()->getHttpResponse();
 
 		$oProcessor = new ErrorProcessor($e);
 
