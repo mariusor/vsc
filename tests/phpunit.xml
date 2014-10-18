@@ -52,11 +52,15 @@
 			<directory suffix=".ptest.php">./presentation/</directory>
 		</testsuite>
 	</testsuites>
+	<filter>
+		<blacklist>
+			<directory suffix=".php">./fixtures</directory>
+		</blacklist>
+	</filter>
 	<php>
 		<ini />
 		<server name="SCRIPT_NAME" value="test.php"/>
 		<env name="SCRIPT_NAME" value="test.php"/>
 		<env name="XDEBUG_CONFIG" value="idekey=eclipse_xdebug"/>
-		<!-- <const name="VSC_FIXTURE_PATH" value="./_fixtures/"/> -->
 	</php>
 </phpunit>
