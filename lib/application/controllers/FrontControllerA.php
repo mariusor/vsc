@@ -110,7 +110,9 @@ abstract class FrontControllerA extends Object {
 				return $this->getErrorResponse($e);
 			}
 		}
-		$oResponse->setStatus (HttpResponseType::OK);
+		if ($oResponse->getStatus() == 0) {
+			$oResponse->setStatus (HttpResponseType::OK);
+		}
 
 		// we didn't set any special view
 		// this means that the developer needs to provide his own views
