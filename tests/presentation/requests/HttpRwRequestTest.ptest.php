@@ -2,6 +2,7 @@
 use vsc\presentation\requests\HttpRequestA;
 use fixtures\presentation\requests\PopulatedRequest;
 use vsc\presentation\requests\HttpRequestTypes;
+use vsc\infrastructure\vsc;
 
 class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 	/**
@@ -11,10 +12,6 @@ class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 
 	public function setUp () {
 		$this->state = new PopulatedRequest();
-	}
-
-	public function tearDown () {
-		unset ($this->state);
 	}
 
 	public function testGetGetVarCorrect() {
@@ -307,9 +304,10 @@ class HttpRwRequestTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testHasSession () {
+		session_destroy();
 		$this->assertFalse(HttpRequestA::hasSession());
 
-		session_start();
+		@session_start();
 		$this->assertTrue(HttpRequestA::hasSession());
 
 		session_destroy();

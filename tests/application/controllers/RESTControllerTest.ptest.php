@@ -5,14 +5,11 @@ use \fixtures\application\controllers\FixtureRESTController;
 use fixtures\application\processors\RESTProcessorFixture;
 use \vsc\presentation\responses\HttpResponse;
 use \vsc\presentation\responses\HttpResponseA;
-use \vsc\infrastructure\Null;
+use vsc\presentation\requests\HttpRequestTypes;
 use \vsc\infrastructure\vsc;
 use \vsc\application\sitemaps\ClassMap;
-use \vsc\domain\models\ArrayModel;
-use \vsc\presentation\views\XmlView;
 use \vsc\presentation\views\JsonView;
 use \vsc\presentation\views\ViewA;
-use \vsc\application\processors\EmptyProcessor;
 use \vsc\application\controllers\ExceptionController;
 use \vsc\presentation\responses\HttpResponseType;
 
@@ -28,7 +25,10 @@ class RESTControllerTest extends PHPUnit_Framework_TestCase {
 		$oMap = new ClassMap(FixtureRESTController::class, '.*');
 		$this->state->setMap($oMap);
 	}
-	public function tearDown() {}
+
+	public function tearDown() {
+		vsc::setInstance(new vsc);
+	}
 
 	public function testGetViewWithoutAcceptHeader() {
 		$oDefaultView = $this->state->getDefaultView();
@@ -50,27 +50,42 @@ class RESTControllerTest extends PHPUnit_Framework_TestCase {
 //		$this->assertInstanceOf(XmlView::class, $oDefaultView);
 //		$this->assertInstanceOf(ViewA::class, $oDefaultView);
 
-//		$oRequest->setHttpAccept('application/pdf');
-//		$oDefaultView = $this->state->getDefaultView();
-//		$this->assertInstanceOf('\\vsc\\presentation\\views\\StaticFileView', $oDefaultView);
-//		$this->assertInstanceOf('\\vsc\\presentation\\views\\ViewA', $oDefaultView);
+		$oRequest->setHttpAccept('application/pdf');
+		$oDefaultView = $this->state->getDefaultView();
+//		$this->assertInstanceOf(StaticFileView::class, $oDefaultView);
+		$this->assertInstanceOf(ViewA::class, $oDefaultView);
 //
-//		$oRequest->setHttpAccept('image/*');
-//		$oDefaultView = $this->state->getDefaultView();
-//		$this->assertInstanceOf('\\vsc\\presentation\\views\\StaticFileView', $oDefaultView);
-//		$this->assertInstanceOf('\\vsc\\presentation\\views\\ViewA', $oDefaultView);
+		$oRequest->setHttpAccept('image/*');
+		$oDefaultView = $this->state->getDefaultView();
+//		$this->assertInstanceOf(StaticFileView::class, $oDefaultView);
+		$this->assertInstanceOf(ViewA::class, $oDefaultView);
 	}
 
-	public function testGetResponse () {
+	public function testGetResponseInternalError () {
 		$oRequest = new PopulatedRESTRequest();
-		$oResponse = $this->state->getResponse($oRequest);
+		$oResponse = $this->state->getResponse ( $oRequest );
+
+		$this->assertInstanceOf ( HttpResponse::class, $oResponse );
+		$this->assertInstanceOf ( HttpResponseA::class, $oResponse );
+		$this->assertEquals ( HttpResponseType::INTERNAL_ERROR, $oResponse->getStatus () );
+		$this->assertNotEmpty ( $oResponse->getOutput () );
+	}
+
+	public function testGetResponseMethodNotAllowed () {
+		$oRequest = new PopulatedRESTRequest();
+		$oProcessor = new RESTProcessorFixture();
+		$oResponse = $this->state->getResponse($oRequest, $oProcessor);
 
 		$this->assertInstanceOf(HttpResponse::class, $oResponse);
 		$this->assertInstanceOf(HttpResponseA::class, $oResponse);
-		$this->assertEquals(HttpResponseType::INTERNAL_ERROR, $oResponse->getStatus());
-//		$this->assertNotEmpty($oResponse->getOutput());
+		$this->assertEquals(HttpResponseType::METHOD_NOT_ALLOWED, $oResponse->getStatus());
+		$this->assertNotEmpty($oResponse->getOutput());
+	}
 
-		$oProcessor = new EmptyProcessor();
+	public function testGetResponseOK () {
+		$oRequest = new PopulatedRESTRequest();
+		$oProcessor = new RESTProcessorFixture();
+		$oProcessor->setRequestMethods(array(HttpRequestTypes::GET));
 		$oResponse = $this->state->getResponse($oRequest, $oProcessor);
 
 		$this->assertInstanceOf(HttpResponse::class, $oResponse);

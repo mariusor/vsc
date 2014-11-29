@@ -18,6 +18,7 @@ class RwDispatcherTest extends \PHPUnit_Framework_TestCase {
 
 	public function tearDown () {
 		$this->state = null;
+		vsc::setInstance(new vsc());
 	}
 
 	public function testLoadSiteMap () {
@@ -57,7 +58,7 @@ class RwDispatcherTest extends \PHPUnit_Framework_TestCase {
 		$this->state->loadSiteMap ( $this->fixturePath . 'map.php' );
 
 		$oRequest = new PopulatedRequest();
-		$oRequest->setUri ( uniqid ( 'TESTREQ:' ) );
+		$oRequest->setUri(uniqid());
 		vsc::getEnv ()->setHttpRequest ( $oRequest );
 
 		$oProcess = $this->state->getProcessController ();
@@ -74,7 +75,7 @@ class RwDispatcherTest extends \PHPUnit_Framework_TestCase {
 	public function testGetProcessorController () {
 		$this->state->loadSiteMap($this->fixturePath . 'map.php');
 
-		$oRequest  = new PopulatedRequest();
+		$oRequest = new PopulatedRequest();
 		vsc::getEnv()->setHttpRequest($oRequest);
 
 		return $this->assertInstanceOf('\\fixtures\\application\\processors\\ProcessorFixture', $this->state->getProcessController());

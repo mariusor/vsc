@@ -267,6 +267,7 @@ abstract class HttpResponseA extends Object {
 	}
 
 	public function outputHeaders () {
+		if (vsc::isCli()) { return false; }
 		if (headers_sent()) {
 			header_remove();
 		}

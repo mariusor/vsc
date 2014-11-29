@@ -17,10 +17,6 @@ class vscTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue(vsc::isCli());
 	}
 
-	public function testIsDevel () {
-		$this->assertTrue (vsc::getEnv()->isDevelopment());
-	}
-
 	public function testGetEnv () {
 		$this->assertInstanceOf('\\vsc\\infrastructure\\vsc', vsc::getEnv());
 	}
