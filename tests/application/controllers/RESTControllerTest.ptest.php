@@ -25,7 +25,10 @@ class RESTControllerTest extends PHPUnit_Framework_TestCase {
 		$oMap = new ClassMap(FixtureRESTController::class, '.*');
 		$this->state->setMap($oMap);
 	}
-	public function tearDown() {}
+
+	public function tearDown() {
+		vsc::setInstance(new vsc);
+	}
 
 	public function testGetViewWithoutAcceptHeader() {
 		$oDefaultView = $this->state->getDefaultView();
@@ -58,15 +61,18 @@ class RESTControllerTest extends PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf(ViewA::class, $oDefaultView);
 	}
 
-	public function testGetResponse () {
+	public function testGetResponseInternalError () {
 		$oRequest = new PopulatedRESTRequest();
-		$oResponse = $this->state->getResponse($oRequest);
+		$oResponse = $this->state->getResponse ( $oRequest );
 
-		$this->assertInstanceOf(HttpResponse::class, $oResponse);
-		$this->assertInstanceOf(HttpResponseA::class, $oResponse);
-		$this->assertEquals(HttpResponseType::INTERNAL_ERROR, $oResponse->getStatus());
-		$this->assertNotEmpty($oResponse->getOutput());
+		$this->assertInstanceOf ( HttpResponse::class, $oResponse );
+		$this->assertInstanceOf ( HttpResponseA::class, $oResponse );
+		$this->assertEquals ( HttpResponseType::INTERNAL_ERROR, $oResponse->getStatus () );
+		$this->assertNotEmpty ( $oResponse->getOutput () );
+	}
 
+	public function testGetResponseMethodNotAllowed () {
+		$oRequest = new PopulatedRESTRequest();
 		$oProcessor = new RESTProcessorFixture();
 		$oResponse = $this->state->getResponse($oRequest, $oProcessor);
 
@@ -74,7 +80,11 @@ class RESTControllerTest extends PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf(HttpResponseA::class, $oResponse);
 		$this->assertEquals(HttpResponseType::METHOD_NOT_ALLOWED, $oResponse->getStatus());
 		$this->assertNotEmpty($oResponse->getOutput());
+	}
 
+	public function testGetResponseOK () {
+		$oRequest = new PopulatedRESTRequest();
+		$oProcessor = new RESTProcessorFixture();
 		$oProcessor->setRequestMethods(array(HttpRequestTypes::GET));
 		$oResponse = $this->state->getResponse($oRequest, $oProcessor);
 

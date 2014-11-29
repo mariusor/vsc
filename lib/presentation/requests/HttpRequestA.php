@@ -312,7 +312,12 @@ abstract class HttpRequestA extends Object {
 		return array_key_exists($sVarName, $this->aPostVars);
 	}
 	public function hasSessionVar ($sVarName) {
-		return (self::hasSession() && array_key_exists($sVarName, $_SESSION));
+		return (
+			self::hasSession() &&
+			isset($_SESSION) &&
+			is_array($_SESSION) &&
+			array_key_exists($sVarName, $_SESSION)
+		);
 	}
 	public function hasCookieVar ($sVarName) {
 		return array_key_exists($sVarName, $this->aCookieVars);
@@ -332,12 +337,14 @@ abstract class HttpRequestA extends Object {
 				throw new ExceptionRequest( 'Sessions are not available' );
 			}
 
-			if ( ((double)PHP_VERSION >= 5.4 && session_status () == PHP_SESSION_NONE) || session_id () == "" ) {
+			if ( ((double)PHP_VERSION >= 5.4 && session_status () == PHP_SESSION_NONE) ) {
 				$oRequest = vsc::getEnv ()->getHttpRequest ();
 				session_set_cookie_params ( 0, '/', $oRequest->getUriObject ()->getDomain (), HttpRequestA::isSecure (), true );
-				session_start ();
-				if ( !is_null ( $sSessionName ) ) {
-					session_id ( $sSessionName );
+				if (@session_start ()) {
+					$_SESSION = array();
+					if ( !is_null ( $sSessionName ) ) {
+						session_id ( $sSessionName );
+					}
 				}
 			}
 		}

@@ -5,9 +5,7 @@
 	stopOnError="true"
 	stopOnFailure="true"
 	stopOnRisky="true"
-	stopOnSkipped="true"
-	strict="true"
-	processIsolation="true">
+	stopOnSkipped="true">
 	<testsuites>
 		<testsuite name="all">
 			<directory suffix=".ptest.php">./</directory>
@@ -58,9 +56,7 @@
 		</blacklist>
 	</filter>
 	<php>
-		<ini />
 		<server name="SCRIPT_NAME" value="test.php"/>
 		<env name="SCRIPT_NAME" value="test.php"/>
-		<env name="XDEBUG_CONFIG" value="idekey=eclipse_xdebug"/>
 	</php>
 </phpunit>
