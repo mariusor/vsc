@@ -25,10 +25,8 @@ use vsc\infrastructure\vsc;
 use vsc\presentation\requests\RwHttpRequest;
 use vsc\presentation\responses\ExceptionResponseError;
 use vsc\presentation\responses\ExceptionResponseRedirect;
-use vsc\presentation\responses\HttpResponse;
 use vsc\infrastructure\Null;
 use vsc\ExceptionError;
-use vsc\ExceptionPath;
 use vsc\presentation\responses\HttpResponseType;
 
 class RwDispatcher extends HttpDispatcherA {
@@ -251,7 +249,7 @@ class RwDispatcher extends HttpDispatcherA {
 				}
 			} catch  (ExceptionResponseRedirect $e) {
 				// get the response
-				$oResponse 			= new HttpResponse ();
+				$oResponse 			= vsc::getEnv()->getHttpResponse();
 				$oResponse->setLocation ($e->getLocation());
 				ob_end_flush();
 				$sContent = $oResponse->outputHeaders();

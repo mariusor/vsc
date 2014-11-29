@@ -15,6 +15,6 @@ class RESTRequest extends RawHttpRequest {
 	);
 
 	static public function validContentType ($sContentType) {
-		return in_array($sContentType, self::$validContentTypes);
+		return in_array($sContentType, static::$validContentTypes);
 	}
 }

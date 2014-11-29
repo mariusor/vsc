@@ -9,9 +9,9 @@ namespace vsc\application\processors;
 
 use vsc\domain\models\JsonRPCRequest;
 use vsc\domain\models\JsonRPCResponse;
+use vsc\infrastructure\vsc;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\responses\ExceptionResponseError;
-use vsc\presentation\responses\HttpResponse;
 use vsc\Exception;
 
 abstract class RPCProcessor extends ProcessorA {
@@ -85,14 +85,13 @@ abstract class RPCProcessor extends ProcessorA {
 			$this->oResponse->result = $this->callRPCMethod ();
 		} catch (ExceptionResponseError $e) {
 
-			$oError = new HttpResponse();
+			$oError = vsc::getEnv()->getHttpResponse();
 			$oError->setStatus($e->getErrorCode());
 			$this->getMap()->setResponse($oError);
 			$this->oResponse->error = $e->getMessage();
 
 		} catch (Exception $e) {
-
-			$oError = new HttpResponse();
+			$oError = vsc::getEnv()->getHttpResponse();
 			$oError->setStatus(500);
 			$this->getMap()->setResponse($oError);
 			$this->oResponse->error = $e->getMessage();
