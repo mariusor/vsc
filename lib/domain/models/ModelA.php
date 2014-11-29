@@ -232,6 +232,7 @@ abstract class ModelA extends Null implements ModelI {
 	 * recursively transform all properties into arrays
 	 */
 	public function toArray () {
+		$aRet = array();
 		$aProperties = $this->getProperties();
 		foreach ($aProperties as $sName => $oProperty) {
 			if (ModelA::isValid($oProperty)) {
