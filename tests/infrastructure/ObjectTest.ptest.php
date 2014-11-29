@@ -32,14 +32,14 @@ class ObjectTest extends \PHPUnit_Framework_TestCase {
 		try {
 			$null->__call ( uniqid('test'), array());
 		} catch (Exception $e) {
-			$this->assertInstanceOf(ExceptionUnimplemented::class, $e);
-			$this->assertInstanceOf(Exception::class, $e);
+			$this->assertInstanceOf('\\vsc\\ExceptionUnimplemented', $e);
+			$this->assertInstanceOf('\\vsc\\Exception', $e);
 		}
 		try {
 			$null->test();
 		} catch (Exception $e) {
-			$this->assertInstanceOf(ExceptionUnimplemented::class, $e);
-			$this->assertInstanceOf(Exception::class, $e);
+			$this->assertInstanceOf('\\vsc\\ExceptionUnimplemented', $e);
+			$this->assertInstanceOf('\\vsc\\Exception', $e);
 		}
 	}
 
@@ -54,8 +54,8 @@ class ObjectTest extends \PHPUnit_Framework_TestCase {
 
 		vsc::setInstance($env);
 
-		$this->assertInstanceOf(Null::class, $null->__call ( uniqid('test'), array()));
-		$this->assertInstanceOf(Null::class, $null->test());
+		$this->assertInstanceOf('\\vsc\\infrastructure\\Null', $null->__call ( uniqid('test'), array()));
+		$this->assertInstanceOf('\\vsc\\infrastructure\\Null', $null->test());
 	}
 
 	public function test__getDev () {
@@ -69,14 +69,14 @@ class ObjectTest extends \PHPUnit_Framework_TestCase {
 		try {
 			$test = $null->__get ( uniqid('test'));
 		} catch (Exception $e) {
-			$this->assertInstanceOf(ExceptionUnimplemented::class, $e);
-			$this->assertInstanceOf(Exception::class, $e);
+			$this->assertInstanceOf('\\vsc\\ExceptionUnimplemented', $e);
+			$this->assertInstanceOf('\\vsc\\Exception', $e);
 		}
 		try {
 			$test = $null->test;
 		} catch (Exception $e) {
-			$this->assertInstanceOf(ExceptionUnimplemented::class, $e);
-			$this->assertInstanceOf(Exception::class, $e);
+			$this->assertInstanceOf('\\vsc\\ExceptionUnimplemented', $e);
+			$this->assertInstanceOf('\\vsc\\Exception', $e);
 		}
 	}
 
@@ -88,8 +88,8 @@ class ObjectTest extends \PHPUnit_Framework_TestCase {
 
 		vsc::setInstance($env);
 
-		$this->assertInstanceOf(Null::class, $null->__get( uniqid('test')));
-		$this->assertInstanceOf(Null::class, $null->test);
+		$this->assertInstanceOf('\\vsc\\infrastructure\\Null', $null->__get( uniqid('test')));
+		$this->assertInstanceOf('\\vsc\\infrastructure\\Null', $null->test);
 	}
 
 	public function test__setDev () {
@@ -103,14 +103,14 @@ class ObjectTest extends \PHPUnit_Framework_TestCase {
 		try {
 			$null->__set ( uniqid('test'), uniqid('val:'));
 		} catch (Exception $e) {
-			$this->assertInstanceOf(ExceptionUnimplemented::class, $e);
-			$this->assertInstanceOf(Exception::class, $e);
+			$this->assertInstanceOf('\\vsc\\ExceptionUnimplemented', $e);
+			$this->assertInstanceOf('\\vsc\\Exception', $e);
 		}
 		try {
 			$null->test = uniqid('val:');
 		} catch (Exception $e) {
-			$this->assertInstanceOf(ExceptionUnimplemented::class, $e);
-			$this->assertInstanceOf(Exception::class, $e);
+			$this->assertInstanceOf('\\vsc\\ExceptionUnimplemented', $e);
+			$this->assertInstanceOf('\\vsc\\Exception', $e);
 		}
 	}
 
@@ -134,14 +134,14 @@ class ObjectTest extends \PHPUnit_Framework_TestCase {
 		try {
 			ObjectFixture::__callStatic('test', array());
 		} catch (Exception $e) {
-			$this->assertInstanceOf(ExceptionUnimplemented::class, $e);
-			$this->assertInstanceOf(Exception::class, $e);
+			$this->assertInstanceOf('\\vsc\\ExceptionUnimplemented', $e);
+			$this->assertInstanceOf('\\vsc\\Exception', $e);
 		}
 		try {
 			ObjectFixture::testCall('test');
 		} catch (Exception $e) {
-			$this->assertInstanceOf(ExceptionUnimplemented::class, $e);
-			$this->assertInstanceOf(Exception::class, $e);
+			$this->assertInstanceOf('\\vsc\\ExceptionUnimplemented', $e);
+			$this->assertInstanceOf('\\vsc\\Exception', $e);
 		}
 	}
 
@@ -151,8 +151,8 @@ class ObjectTest extends \PHPUnit_Framework_TestCase {
 
 		vsc::setInstance($env);
 
-		$this->assertInstanceOf(Null::class, ObjectFixture::__callStatic('test', array()));
-		$this->assertInstanceOf(Null::class, ObjectFixture::testCall('test'));
+		$this->assertInstanceOf('\\vsc\\infrastructure\\Null', ObjectFixture::__callStatic('test', array()));
+		$this->assertInstanceOf('\\vsc\\infrastructure\\Null', ObjectFixture::testCall('test'));
 	}
 
 	public function testIsValid () {

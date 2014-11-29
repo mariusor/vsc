@@ -29,7 +29,7 @@ class HttpResponseTest extends \PHPUnit_Framework_TestCase {
 		try {
 			$state->setStatus($iStatus);
 		} catch (Exception $e) {
-			$this->assertInstanceOf(ExceptionResponse::class, $e);
+			$this->assertInstanceOf('\\vsc\\presentation\\responses\\ExceptionResponse', $e);
 			$this->assertEquals('['.$iStatus.'] is not a valid  status', $e->getMessage());
 		}
 

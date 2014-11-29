@@ -11,15 +11,15 @@ class NullTest extends \PHPUnit_Framework_TestCase {
 	public function test__call () {
 		$null = new Null();
 
-		$this->assertInstanceOf(Null::class, $null->__call ( 'getSomething', array()));
-		$this->assertInstanceOf(Null::class, $null->getSomething('test'));
+		$this->assertInstanceOf('\\vsc\\infrastructure\\Null', $null->__call ( 'getSomething', array()));
+		$this->assertInstanceOf('\\vsc\\infrastructure\\Null', $null->getSomething('test'));
 	}
 
 	public function test__get () {
 		$null = new Null();
 
-		$this->assertInstanceOf(Null::class, $null->__get ('test'));
-		$this->assertInstanceOf(Null::class, $null->test);
+		$this->assertInstanceOf('\\vsc\\infrastructure\\Null', $null->__get ('test'));
+		$this->assertInstanceOf('\\vsc\\infrastructure\\Null', $null->test);
 	}
 
 	public function test__setDev () {
@@ -33,14 +33,14 @@ class NullTest extends \PHPUnit_Framework_TestCase {
 		try {
 			$null->__set ( uniqid('test'), uniqid('val:'));
 		} catch (Exception $e) {
-			$this->assertInstanceOf(ExceptionUnimplemented::class, $e);
-			$this->assertInstanceOf(Exception::class, $e);
+			$this->assertInstanceOf('\\vsc\\ExceptionUnimplemented', $e);
+			$this->assertInstanceOf('\\vsc\\Exception', $e);
 		}
 		try {
 			$null->test = uniqid('val:');
 		} catch (Exception $e) {
-			$this->assertInstanceOf(ExceptionUnimplemented::class, $e);
-			$this->assertInstanceOf(Exception::class, $e);
+			$this->assertInstanceOf('\\vsc\\ExceptionUnimplemented', $e);
+			$this->assertInstanceOf('\\vsc\\Exception', $e);
 		}
 	}
 

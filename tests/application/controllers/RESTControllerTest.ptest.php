@@ -22,7 +22,7 @@ class RESTControllerTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
 		$this->state = new FixtureRESTController();
 
-		$oMap = new ClassMap(FixtureRESTController::class, '.*');
+		$oMap = new ClassMap('\\fixtures\\application\\controllers\\FixtureRESTController', '.*');
 		$this->state->setMap($oMap);
 	}
 
@@ -32,41 +32,36 @@ class RESTControllerTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetViewWithoutAcceptHeader() {
 		$oDefaultView = $this->state->getDefaultView();
-		$this->assertInstanceOf(JsonView::class, $oDefaultView);
-		$this->assertInstanceOf(ViewA::class, $oDefaultView);
+		$this->assertInstanceOf('\\vsc\\presentation\\views\\JsonView', $oDefaultView);
+		$this->assertInstanceOf('\\vsc\\presentation\\views\\ViewA', $oDefaultView);
 	}
 
-	public function testGetDefaultViewWithAcceptHeader() {
+	public function testGetDefaultJsonViewWithAcceptHeader() {
 		$oRequest = new PopulatedRESTRequest();
-		$oRequest->setHttpAccept('application/json');
-		vsc::getEnv()->setHttpRequest($oRequest);
+		$oRequest->setContentType( 'application/json' );
+		vsc::getEnv ()->setHttpRequest ( $oRequest );
 
-		$oDefaultView = $this->state->getView();
-		$this->assertInstanceOf(JsonView::class, $oDefaultView);
-		$this->assertInstanceOf(ViewA::class, $oDefaultView);
-
-//		$oRequest->setHttpAccept('application/xml');
-//		$oDefaultView = $this->state->getView();
-//		$this->assertInstanceOf(XmlView::class, $oDefaultView);
-//		$this->assertInstanceOf(ViewA::class, $oDefaultView);
-
-		$oRequest->setHttpAccept('application/pdf');
-		$oDefaultView = $this->state->getDefaultView();
-//		$this->assertInstanceOf(StaticFileView::class, $oDefaultView);
-		$this->assertInstanceOf(ViewA::class, $oDefaultView);
-//
-		$oRequest->setHttpAccept('image/*');
-		$oDefaultView = $this->state->getDefaultView();
-//		$this->assertInstanceOf(StaticFileView::class, $oDefaultView);
-		$this->assertInstanceOf(ViewA::class, $oDefaultView);
+		$oDefaultView = $this->state->getView ();
+		$this->assertInstanceOf ( '\\vsc\\presentation\\views\\JsonView', $oDefaultView );
+		$this->assertInstanceOf ( '\\vsc\\presentation\\views\\ViewA', $oDefaultView );
 	}
+
+//	public function testGetDefaultXmlViewWithAcceptHeader() {
+//		$oRequest = new PopulatedRESTRequest();
+//		$oRequest->setContentType('application/xml');
+//		vsc::getEnv ()->setHttpRequest ( $oRequest );
+//
+//		$oDefaultView = $this->state->getView();
+//		$this->assertInstanceOf('\\vsc\\presentation\\views\\XmlView', $oDefaultView);
+//		$this->assertInstanceOf('\\vsc\\presentation\\views\\ViewA', $oDefaultView);
+//	}
 
 	public function testGetResponseInternalError () {
 		$oRequest = new PopulatedRESTRequest();
 		$oResponse = $this->state->getResponse ( $oRequest );
 
-		$this->assertInstanceOf ( HttpResponse::class, $oResponse );
-		$this->assertInstanceOf ( HttpResponseA::class, $oResponse );
+		$this->assertInstanceOf ( '\\vsc\\presentation\\responses\\HttpResponse', $oResponse );
+		$this->assertInstanceOf ( '\\vsc\\presentation\\responses\\HttpResponseA', $oResponse );
 		$this->assertEquals ( HttpResponseType::INTERNAL_ERROR, $oResponse->getStatus () );
 		$this->assertNotEmpty ( $oResponse->getOutput () );
 	}
@@ -76,8 +71,8 @@ class RESTControllerTest extends PHPUnit_Framework_TestCase {
 		$oProcessor = new RESTProcessorFixture();
 		$oResponse = $this->state->getResponse($oRequest, $oProcessor);
 
-		$this->assertInstanceOf(HttpResponse::class, $oResponse);
-		$this->assertInstanceOf(HttpResponseA::class, $oResponse);
+		$this->assertInstanceOf('\\vsc\\presentation\\responses\\HttpResponse', $oResponse);
+		$this->assertInstanceOf('\\vsc\\presentation\\responses\\HttpResponseA', $oResponse);
 		$this->assertEquals(HttpResponseType::METHOD_NOT_ALLOWED, $oResponse->getStatus());
 		$this->assertNotEmpty($oResponse->getOutput());
 	}
@@ -88,8 +83,8 @@ class RESTControllerTest extends PHPUnit_Framework_TestCase {
 		$oProcessor->setRequestMethods(array(HttpRequestTypes::GET));
 		$oResponse = $this->state->getResponse($oRequest, $oProcessor);
 
-		$this->assertInstanceOf(HttpResponse::class, $oResponse);
-		$this->assertInstanceOf(HttpResponseA::class, $oResponse);
+		$this->assertInstanceOf('\\vsc\\presentation\\responses\\HttpResponse', $oResponse);
+		$this->assertInstanceOf('\\vsc\\presentation\\responses\\HttpResponseA', $oResponse);
 		$this->assertEquals(HttpResponseType::OK, $oResponse->getStatus());
 		$this->assertNotEmpty($oResponse->getOutput());
 	}
@@ -98,8 +93,8 @@ class RESTControllerTest extends PHPUnit_Framework_TestCase {
 		$Exception = new ExceptionController();
 		$oResponse = $this->state->getErrorResponse($Exception);
 
-		$this->assertInstanceOf(HttpResponse::class, $oResponse);
-		$this->assertInstanceOf(HttpResponseA::class, $oResponse);
+		$this->assertInstanceOf('\\vsc\\presentation\\responses\\HttpResponse', $oResponse);
+		$this->assertInstanceOf('\\vsc\\presentation\\responses\\HttpResponseA', $oResponse);
 		$this->assertEquals(HttpResponseType::INTERNAL_ERROR, $oResponse->getStatus());
 		$this->assertNotEquals(HttpResponseType::OK, $oResponse->getStatus());
 
@@ -107,7 +102,7 @@ class RESTControllerTest extends PHPUnit_Framework_TestCase {
 		$this->assertNotEmpty($sOutput);
 
 		$oOutput = json_decode($sOutput);
-		$this->assertInstanceOf(\stdClass::class, $oOutput);
+		$this->assertInstanceOf('\\stdClass', $oOutput);
 		$this->assertObjectHasAttribute('message', $oOutput);
 		$this->assertEquals('', $oOutput->message);
 	}
