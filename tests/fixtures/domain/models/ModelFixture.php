@@ -7,6 +7,8 @@ class ModelFixture extends ModelA {
 	public $test = 666;
 	public $cucu;
 
+	private $needsGetter = true;
+
 	public function valid ($sName = null) {
 		return parent::valid($sName);
 	}
@@ -43,5 +45,12 @@ class ModelFixture extends ModelA {
 	 */
 	public function toArray () {
 		return parent::toArray();
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getNeedsGetter() {
+		return $this->needsGetter;
 	}
 }
