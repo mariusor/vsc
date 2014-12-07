@@ -187,10 +187,12 @@ class UrlParserA extends Object implements UrlParserI {
 		$sHost = strtolower($this->aComponents['host']);
 		$sSubDomains = stristr ($sHost, '.' . $sRootDomain, true);
 
-		return $this->getTldOf($sSubDomains);
+		return self::getTldOf($sSubDomains);
 	}
 
-	private function getTldOf ($sHost) {
+	static public function getTldOf ($sHost) {
+		if ( ip2long($sHost) > 0 || empty($sHost) ) { return false; }
+
 		if (!strrpos ($sHost, '.')) {
 			return $sHost;
 		} else {
@@ -208,7 +210,10 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	public function getTLD ($sString = null) {
-		return $this->getTldOf($this->aComponents['host']);
+		if (is_null($sString)) {
+			$sString = $this->aComponents['host'];
+		}
+		return self::getTldOf($sString);
 	}
 
 	static public function getCurrentHostName () {

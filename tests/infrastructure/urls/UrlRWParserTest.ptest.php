@@ -281,4 +281,27 @@ class UrlRWParserTest extends \PHPUnit_Framework_TestCase {
 
 		return $this->assertEquals(self::makeQuery($aUrlComponents['query']), $oUrl->getQueryString());
 	}
+
+	/**
+	 * @covers UrlRWParserA::getTldOf
+	 * @covers UrlRWParserA::getTLD
+	 */
+	public function testGetTldOf () {
+		$sHost = 'example.com';
+
+		$sTld = substr($sHost, strrpos ($sHost, '.') + 1);
+		$this->assertEquals ($sTld, UrlRWParser::getTldOf($sHost));
+
+		$sHost = 'localhost';
+		$this->assertEquals ($sHost, UrlRWParser::getTldOf($sHost));
+
+		$sIp = '192.168.1.1';
+		$this->assertFalse(UrlRWParser::getTldOf($sIp));
+
+		$sEmpty = '';
+		$this->assertFalse(UrlRWParser::getTldOf($sEmpty));
+
+		$sNull = null;
+		$this->assertFalse(UrlRWParser::getTldOf($sNull));
+	}
 }
