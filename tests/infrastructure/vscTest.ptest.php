@@ -7,6 +7,7 @@ class vscTest extends \PHPUnit_Framework_TestCase {
 
 	public function setUp () {
 		$this->sFixturesPath = VSC_FIXTURE_PATH . 'config' . DIRECTORY_SEPARATOR;
+		vsc::setInstance(new vsc());
 	}
 
 	public function tearDown () {

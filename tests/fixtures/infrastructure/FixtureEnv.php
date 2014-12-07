@@ -13,6 +13,7 @@ use vsc\infrastructure\vsc;
 
 class FixtureEnv extends vsc {
 	private $isDevelopmentEnviroment = false;
+	private $isCli = false;
 
 	public function setIsDevelopment ($isDevelopment) {
 		$this->isDevelopmentEnviroment = $isDevelopment;
@@ -25,4 +26,11 @@ class FixtureEnv extends vsc {
 		return $this->isDevelopmentEnviroment;
 	}
 
+	public function setIsCli ($IsIt) {
+		$this->isCli = $IsIt;
+	}
+
+	protected function _isCli () {
+		return $this->isCli;
+	}
 } 
