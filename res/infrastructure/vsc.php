@@ -127,10 +127,20 @@ class vsc extends Object {
 	/**
 	 * @return bool
 	 */
-	static public function isCli () {
+	protected function _isCli () {
 		return (php_sapi_name() == 'cli');
 	}
 
+	/**
+	 * @return bool
+	 */
+	static public function isCli() {
+		return self::getEnv()->_isCli();
+	}
+
+	/**
+	 * @return string
+	 */
 	static public function name() {
 		return 'V<sup>S<sup>C</sup></sup>';
 	}
