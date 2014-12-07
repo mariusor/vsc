@@ -58,6 +58,22 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @covers \vsc\domain\models\ModelA::offsetGet
+	 */
+	public function testOffsetGet()
+	{
+		$sOffset = 'test';
+		$this->assertEquals(666, $this->object[$sOffset]);
+		$this->assertEquals(666, $this->object->offsetGet($sOffset));
+		$this->assertEquals(666, $this->object->__get($sOffset));
+
+		$sOffset1 = 'needsGetter';
+		$this->assertTrue($this->object->__get($sOffset1));
+		$this->assertTrue($this->object->$sOffset1);
+		$this->assertTrue($this->object->getNeedsGetter());
+	}
+
+	/**
 	 * @covers \vsc\domain\models\ModelA::offsetExists
 	 */
 	public function testOffsetDoesntExist()
@@ -165,9 +181,9 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	public function testValid()
 	{
 		$oMirror = new \ReflectionClass($this->object);
-		$properties = $oMirror->getProperties();
+		$properties = $oMirror->getProperties(ReflectionProperty::IS_PUBLIC);
 		foreach ($properties as $key => $property) {
-			$this->assertTrue($this->object->valid($property->getName()));
+			$this->assertTrue ( $this->object->valid ( $property->getName () ) );
 		}
 
 		$rand = uniqid('tst:');
@@ -197,7 +213,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	public function testCount()
 	{
 		$oMirror = new \ReflectionClass($this->object);
-		$properties = $oMirror->getProperties();
+		$properties = $oMirror->getProperties(ReflectionProperty::IS_PUBLIC);
 
 		$this->assertEquals(count($properties), $this->object->count());
 		$this->assertEquals(count($properties), count($this->object));
@@ -209,7 +225,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	public function test__get()
 	{
 		$oMirror = new \ReflectionClass($this->object);
-		$properties = $oMirror->getProperties();
+		$properties = $oMirror->getProperties(ReflectionProperty::IS_PUBLIC);
 
 		foreach($properties as $key => $property) {
 			$name = $property->getName();
@@ -225,7 +241,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	public function test__set()
 	{
 		$oMirror = new \ReflectionClass($this->object);
-		$properties = $oMirror->getProperties();
+		$properties = $oMirror->getProperties(ReflectionProperty::IS_PUBLIC);
 
 		foreach($properties as $key => $property) {
 			$name = $property->getName();
@@ -250,7 +266,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 	public function testToArray()
 	{
 		$oMirror = new \ReflectionClass($this->object);
-		$properties = $oMirror->getProperties();
+		$properties = $oMirror->getProperties(ReflectionProperty::IS_PUBLIC);
 
 		$array = $this->object->toArray();
 

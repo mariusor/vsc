@@ -205,8 +205,6 @@ abstract class ModelA extends Null implements ModelI {
 	}
 
 	/**
-	 *
-	 * Enter description here ...
 	 * @param bool $bIncludeNonPublic
 	 * @return array
 	 */
