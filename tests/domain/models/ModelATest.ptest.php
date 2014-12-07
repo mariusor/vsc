@@ -28,6 +28,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers \vsc\domain\models\ModelA::setOffset
+	 * @covers \vsc\domain\models\ModelA::getOffset
 	 */
 	public function testGetSetOffset()
 	{
@@ -38,6 +39,7 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @covers \vsc\domain\models\ModelA::offsetSet
+	 * @covers \vsc\domain\models\ModelA::offsetGet
 	 */
 	public function testOffsetSet()
 	{
@@ -283,5 +285,14 @@ class ModelATest extends \PHPUnit_Framework_TestCase
 			$this->assertEquals($value, $oMirror->getProperty($name)->getValue($this->object));
 		}
 
+	}
+
+	public function testGetProperties () {
+		$ToArray = $this->object->getProperties();
+
+		$oMirror = new \ReflectionClass($this->object);
+		$aProperties = $oMirror->getProperties(ReflectionProperty::IS_PUBLIC);
+
+		$this->assertEquals(count($ToArray), count($aProperties));
 	}
 }
