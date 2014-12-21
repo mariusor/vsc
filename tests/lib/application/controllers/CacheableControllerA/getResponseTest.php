@@ -23,10 +23,6 @@ class getResponse extends \PHPUnit_Framework_TestCase
 }
 
 class CacheableController_underTest_getResponse extends CacheableControllerA {
-
-	/**
-	 * @returns ViewA
-	 */
 	public function getDefaultView () {
 		return new NullView();
 	}

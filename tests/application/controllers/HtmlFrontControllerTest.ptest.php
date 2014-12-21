@@ -26,10 +26,4 @@ class HtmlFrontControllerTest extends \PHPUnit_Framework_TestCase  {
 		$oReq = new PopulatedRequest();
 		$this->assertInstanceOf(\vsc\presentation\responses\HttpResponseA::class, $this->state->getResponse($oReq));
 	}
-
-	public function testGetDefaultView() {
-		$v = $this->state->getDefaultView();
-		$this->assertInstanceOf(\vsc\presentation\views\ViewA::class, $v);
-		$this->assertInstanceOf(\vsc\presentation\views\XhtmlView::class, $v);
-	}
 }

@@ -69,11 +69,13 @@ abstract class FrontControllerA extends Object {
 
 	/**
 	 * @param $sIncPath
+	 * @return bool
 	 * @throws ExceptionController
 	 */
 	public function setTemplatePath ($sIncPath) {
 		if (is_dir($sIncPath)) {
 			$this->sTemplatePath = $sIncPath;
+			return true;
 		} else {
 			throw new ExceptionController('The template path ['.$sIncPath.'] is not a valid folder.');
 		}

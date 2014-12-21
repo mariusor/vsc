@@ -49,22 +49,6 @@ class FrontControllerATest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf(testView::class, $v);
 	}
 
-	public function testGetMap() {
-		$m = $this->state->getMap();
-		$this->assertInstanceOf(\vsc\application\sitemaps\MappingA::class, $m);
-		$this->assertInstanceOf(\vsc\application\sitemaps\ControllerMap::class, $m);
-	}
-
-	public function testSetGetMap() {
-		$s = new ControllerMap(\fixtures\application\controllers\GenericFrontController::class, '\A.*\Z');
-		$this->state->setMap($s);
-
-		$m = $this->state->getMap();
-		$this->assertInstanceOf(\vsc\application\sitemaps\MappingA::class, $m);
-		$this->assertInstanceOf(\vsc\application\sitemaps\ControllerMap::class, $m);
-		$this->assertEquals($s, $m);
-	}
-
 	public function testGetResponse() {
 		$r = new PopulatedRequest();
 		$this->assertInstanceOf(\vsc\presentation\responses\HttpResponseA::class, $this->state->getResponse($r));
