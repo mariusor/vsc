@@ -16,12 +16,16 @@ class ExceptionError extends \ErrorException {
 		1024	=> 'E_USER_NOTICE',
 		2048	=> 'E_STRICT',
 		4096	=> 'E_RECOVERABLE_ERROR',
-		8192	=> 'E_DEPRECATED ',
-		16386	=> 'E_USER_DEPRECATED ',
-		30719	=> 'E_ALL',
+		8192	=> 'E_DEPRECATED',
+		16384	=> 'E_USER_DEPRECATED',
+		32767	=> 'E_ALL',
 	);
 
 	public function getSeverityString () {
 		return $this->aErrorTypes[$this->getSeverity()];
+	}
+
+	static public function isValid ($e) {
+		return ($e instanceof static);
 	}
 }

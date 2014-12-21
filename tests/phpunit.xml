@@ -7,6 +7,10 @@
 	stopOnRisky="true"
 	stopOnSkipped="true">
 	<testsuites>
+		<testsuite name="new">
+			<directory>./lib</directory>
+			<directory>./res</directory>
+		</testsuite>
 		<testsuite name="all">
 			<directory suffix=".ptest.php">./</directory>
 			<directory suffix=".ptest.php">./functions/</directory>

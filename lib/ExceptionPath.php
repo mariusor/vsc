@@ -12,6 +12,6 @@ class ExceptionPath extends Exception {
 	}
 
 	public function getPathAsArray () {
-		return explode(':', $this->getPath());
+		return explode(PATH_SEPARATOR, $this->getPath());
 	}
 }
