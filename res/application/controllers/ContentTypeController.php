@@ -1,7 +1,7 @@
 <?php
-namespace avangate\application\controllers;
+namespace vsc\application\controllers;
 
-use vsc\application\controllers\FrontControllerA;
+use vsc\presentation\views\ExceptionView;
 use vsc\presentation\views\ViewA;
 
 class ContentTypeController extends FrontControllerA {

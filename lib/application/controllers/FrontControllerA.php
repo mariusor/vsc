@@ -87,7 +87,6 @@ abstract class FrontControllerA extends Object {
 	 * @throws ExceptionPath
 	 * @throws ExceptionResponse
 	 * @throws ExceptionView
-	 * @internal param vscViewA $oView
 	 * @returns HttpResponseA
 	 */
 	public function getResponse (HttpRequestA $oRequest, $oProcessor = null) {
@@ -134,8 +133,13 @@ abstract class FrontControllerA extends Object {
 			$oView->setMap ($oMap);
 		}
 
-		if (((ProcessorMap::isValid($oMap) || ClassMap::isValid($oMap)) && !$oMap->isStatic() && !$oMyMap->isStatic()) && (ControllerMap::isValid($oMyMap) || ClassMap::isValid($oMyMap))) {
-			$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . $oView->getViewFolder() . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
+		try {
+			if (((ProcessorMap::isValid($oMap) || ClassMap::isValid($oMap)) && !$oMap->isStatic() && !$oMyMap->isStatic()) && (ControllerMap::isValid($oMyMap) || ClassMap::isValid($oMyMap))) {
+				$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . $oView->getViewFolder() . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
+			}
+		} catch (ExceptionPath $e) {
+			// fallback to html5
+			$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . 'html5' . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
 		}
 
 		if (!ModelA::isValid($oModel)) {
