@@ -89,7 +89,6 @@ abstract class HttpResponseA extends Object {
 
 	/**
 	 * @param $iValue
-	 * @internal param string $sValue
 	 * @return void
 	 */
 	public function setContentLength ($iValue){

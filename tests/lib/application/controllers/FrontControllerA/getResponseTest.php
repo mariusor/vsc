@@ -1,11 +1,11 @@
 <?php
-namespace tests\lib\application\controllers\CacheableControllerA;
+namespace tests\lib\application\controllers\FrontControllerA;
 use fixtures\application\processors\ProcessorFixture;
 use fixtures\presentation\requests\PopulatedRequest;
+use vsc\application\controllers\FrontControllerA;
 use vsc\application\sitemaps\ControllerMap;
 use vsc\infrastructure\vsc;
 use vsc\presentation\responses\HttpResponseA;
-use vsc\application\controllers\CacheableControllerA;
 use fixtures\presentation\views\NullView;
 
 /**
@@ -15,8 +15,8 @@ class getResponse extends \PHPUnit_Framework_TestCase
 {
 	public function testGetPlainResponse()
 	{
-		$Controller = new CacheableController_underTest_getResponse();
-		$Map = new ControllerMap('.', CacheableController_underTest_getResponse::class);
+		$Controller = new FrontControllerA_underTest_getResponse();
+		$Map = new ControllerMap('.', FrontControllerA_underTest_getResponse::class);
 		$Controller->setMap($Map);
 		$Response = $Controller->getResponse(vsc::getEnv()->getHttpRequest());
 
@@ -27,15 +27,15 @@ class getResponse extends \PHPUnit_Framework_TestCase
 		$r = new PopulatedRequest();
 		$p = new ProcessorFixture();
 
-		$Controller = new CacheableController_underTest_getResponse();
-		$Map = new ControllerMap('.', CacheableController_underTest_getResponse::class);
+		$Controller = new FrontControllerA_underTest_getResponse();
+		$Map = new ControllerMap('.', FrontControllerA_underTest_getResponse::class);
 		$Controller->setMap($Map);
 
 		$this->assertInstanceOf(\vsc\presentation\responses\HttpResponseA::class, $Controller->getResponse($r, $p));
 	}
 }
 
-class CacheableController_underTest_getResponse extends CacheableControllerA {
+class FrontControllerA_underTest_getResponse extends FrontControllerA {
 	public function getDefaultView () {
 		return new NullView();
 	}

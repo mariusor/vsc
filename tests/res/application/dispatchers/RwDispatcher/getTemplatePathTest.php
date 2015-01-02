@@ -1,13 +1,24 @@
 <?php
 namespace tests\res\application\dispatchers\RwDispatcher;
+use vsc\application\dispatchers\RwDispatcher;
+use fixtures\presentation\requests\PopulatedRequest;
+use vsc\infrastructure\vsc;
 
 /**
  * @covers the public method RwDispatcher::getTemplatePath()
  */
 class getTemplatePath extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testTemplatePath ()
 	{
-		$this->markTestIncomplete(" ... ");
+		$sFixturePath = VSC_FIXTURE_PATH . 'config' . DIRECTORY_SEPARATOR;
+		$o = new RwDispatcher();
+
+		$o->loadSiteMap($sFixturePath . 'map.php');
+
+		$oRequest  = new PopulatedRequest();
+		vsc::getEnv()->setHttpRequest($oRequest);
+
+		$this->assertNull($o->getTemplatePath());
 	}
 }

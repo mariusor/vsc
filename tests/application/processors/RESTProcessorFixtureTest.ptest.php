@@ -11,115 +11,137 @@ class RESTProcessorFixtureTest extends PHPUnit_Framework_TestCase {
 	public $state;
 
 	public function setUp() {
-		$this->state = new RESTProcessorFixture();
 
-		$oMap = new ClassMap(RESTProcessorFixture::class, '.*');
-		$this->state->setMap($oMap);
 	}
 	public function tearDown() {}
 
 	public function testConstruct () {
-		$this->assertInstanceOf(RESTProcessorFixture::class, $this->state);
-		$this->assertInstanceOf(\vsc\rest\application\processors\RESTProcessorA::class, $this->state);
-		$this->assertInstanceOf(\vsc\application\processors\ProcessorA::class, $this->state);
+		$o = new RESTProcessorFixture();
+
+		$oMap = new ClassMap(RESTProcessorFixture::class, '.*');
+		$o->setMap($oMap);
+
+		$this->assertInstanceOf(RESTProcessorFixture::class, $o);
+		$this->assertInstanceOf(\vsc\rest\application\processors\RESTProcessorA::class, $o);
+		$this->assertInstanceOf(\vsc\application\processors\ProcessorA::class, $o);
 	}
 
 	public function testNoValidContentTypes () {
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Everything));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Image));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Png));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Gif));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Application));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Xml));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Json));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Text));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Css));
+		$o = new RESTProcessorFixture();
+
+		$oMap = new ClassMap(RESTProcessorFixture::class, '.*');
+		$o->setMap($oMap);
+
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Everything));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Image));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Png));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Gif));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Application));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Xml));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Json));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Text));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Css));
 	}
 
 	public function testNoValidHttpMethods () {
-		$this->assertFalse($this->state->validRequestMethod(HttpRequestTypes::GET));
-		$this->assertFalse($this->state->validRequestMethod(HttpRequestTypes::HEAD));
-		$this->assertFalse($this->state->validRequestMethod(HttpRequestTypes::POST));
-		$this->assertFalse($this->state->validRequestMethod(HttpRequestTypes::PUT));
-		$this->assertFalse($this->state->validRequestMethod(HttpRequestTypes::DELETE));
-		$this->assertFalse($this->state->validRequestMethod(HttpRequestTypes::OPTIONS));
-		$this->assertFalse($this->state->validRequestMethod(uniqid('GET:')));
+		$o = new RESTProcessorFixture();
+
+		$oMap = new ClassMap(RESTProcessorFixture::class, '.*');
+		$o->setMap($oMap);
+
+		$this->assertFalse($o->validRequestMethod(HttpRequestTypes::GET));
+		$this->assertFalse($o->validRequestMethod(HttpRequestTypes::HEAD));
+		$this->assertFalse($o->validRequestMethod(HttpRequestTypes::POST));
+		$this->assertFalse($o->validRequestMethod(HttpRequestTypes::PUT));
+		$this->assertFalse($o->validRequestMethod(HttpRequestTypes::DELETE));
+		$this->assertFalse($o->validRequestMethod(HttpRequestTypes::OPTIONS));
+		$this->assertFalse($o->validRequestMethod(uniqid('GET:')));
 	}
 
 	public function assertValidContentType ($sContentType) {
-		$aContentTypes = array($sContentType);
-		$this->state->setContentTypes($aContentTypes);
+		$o = new RESTProcessorFixture();
 
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Everything));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Image));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Png));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Gif));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Application));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Xml));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Json));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Text));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Css));
+		$oMap = new ClassMap(RESTProcessorFixture::class, '.*');
+		$o->setMap($oMap);
+
+		$aContentTypes = array($sContentType);
+		$o->setContentTypes($aContentTypes);
+
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Everything));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Image));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Png));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Gif));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Application));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Xml));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Json));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Text));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Css));
 	}
 
 	public function testValidContentTypes () {
+		$o = new RESTProcessorFixture();
+
+		$oMap = new ClassMap(RESTProcessorFixture::class, '.*');
+		$o->setMap($oMap);
+
 		$aContentTypes = array(ContentTypeFixtures::Everything);
-		$this->state->setContentTypes($aContentTypes);
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Everything));
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Image));
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Png));
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Gif));
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Application));
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Xml));
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Json));
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Text));
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Css));
+		$o->setContentTypes($aContentTypes);
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Everything));
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Image));
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Png));
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Gif));
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Application));
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Xml));
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Json));
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Text));
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Css));
 
 		$aContentTypes = array(ContentTypeFixtures::Image);
-		$this->state->setContentTypes($aContentTypes);
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Everything));
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Image));
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Png));
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Gif));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Application));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Xml));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Json));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Text));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Css));
+		$o->setContentTypes($aContentTypes);
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Everything));
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Image));
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Png));
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Gif));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Application));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Xml));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Json));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Text));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Css));
 
 		$aContentTypes = array(ContentTypeFixtures::Png);
-		$this->state->setContentTypes($aContentTypes);
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Everything));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Image));
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Png));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Gif));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Application));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Xml));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Json));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Text));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Css));
+		$o->setContentTypes($aContentTypes);
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Everything));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Image));
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Png));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Gif));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Application));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Xml));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Json));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Text));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Css));
 
 		$aContentTypes = array(ContentTypeFixtures::Gif);
-		$this->state->setContentTypes($aContentTypes);
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Everything));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Image));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Png));
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Gif));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Application));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Xml));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Json));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Text));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Css));
+		$o->setContentTypes($aContentTypes);
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Everything));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Image));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Png));
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Gif));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Application));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Xml));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Json));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Text));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Css));
 
 		$aContentTypes = array(ContentTypeFixtures::Application);
-		$this->state->setContentTypes($aContentTypes);
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Everything));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Image));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Png));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Gif));
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Application));
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Xml));
-		$this->assertTrue($this->state->validContentType(ContentTypeFixtures::Json));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Text));
-		$this->assertFalse($this->state->validContentType(ContentTypeFixtures::Css));
+		$o->setContentTypes($aContentTypes);
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Everything));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Image));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Png));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Gif));
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Application));
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Xml));
+		$this->assertTrue($o->validContentType(ContentTypeFixtures::Json));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Text));
+		$this->assertFalse($o->validContentType(ContentTypeFixtures::Css));
 	}
 }

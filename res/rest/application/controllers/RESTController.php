@@ -79,4 +79,13 @@ class RESTController extends JsonController {
 		}
 		return parent::getResponse($oRequest, $oProcessor);
 	}
+
+	/**
+	 * Returns a view based on the
+	 * @fixme
+	 * @return \vsc\presentation\views\JsonView
+	 */
+	public function getDefaultView () {
+		return parent::getDefaultView();
+	}
 }

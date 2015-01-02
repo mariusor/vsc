@@ -13,6 +13,9 @@ use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\responses\ExceptionResponseError;
 
 class ErrorProcessor extends ProcessorA implements ErrorProcessorI {
+	/**
+	 * @var ErrorModel
+	 */
 	private $model;
 
 	public function getErrorCode () {
@@ -36,6 +39,9 @@ class ErrorProcessor extends ProcessorA implements ErrorProcessorI {
 		$this->setMap ($oErrorMap);
 	}
 
+	/**
+	 * @return ErrorModel
+	 */
 	public function getModel () {
 		return $this->model;
 	}

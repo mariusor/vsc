@@ -7,5 +7,7 @@ class NullView extends ViewA {
 	function assign($tpl_var, $value = null) {}
 	function display($resource_name) {}
 	function fetch($resource_name) {}
-	function getTemplate () {}
+	function getTemplate () {
+		return parent::getTemplate();
+	}
 }

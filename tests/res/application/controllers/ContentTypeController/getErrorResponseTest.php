@@ -1,13 +1,21 @@
 <?php
 namespace tests\res\application\controllers\ContentTypeController;
+use vsc\application\controllers\ContentTypeController;
+use vsc\application\processors\EmptyProcessor;
+use vsc\infrastructure\vsc;
 
 /**
  * @covers the public method ContentTypeController::getErrorResponse()
  */
 class getErrorResponse extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testGetErrorResponse()
 	{
-		$this->markTestIncomplete(" ... ");
+		$o = new ContentTypeController();
+
+		$p = new EmptyProcessor();
+		$r = $o->getResponse(vsc::getEnv()->getHttpRequest(), $p);
+
+		$this->assertNull($r);
 	}
 }

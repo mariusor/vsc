@@ -28,7 +28,8 @@ abstract class ProcessorA extends Object implements ProcessorI {
 		if (MappingA::isValid ($this->oCurrentMap)) {
 			return $this->oCurrentMap;
 		} else {
-			return new ProcessorMap ('', '.*');
+			$oMirror = new \ReflectionClass($this);
+			return new ProcessorMap ($oMirror->getName(), '.*');
 		}
 	}
 

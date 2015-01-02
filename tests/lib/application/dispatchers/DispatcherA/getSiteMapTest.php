@@ -1,13 +1,20 @@
 <?php
 namespace tests\lib\application\dispatchers\DispatcherA;
+use vsc\application\dispatchers\RwDispatcher;
 
 /**
  * @covers the public method DispatcherA::getSiteMap()
  */
 class getSiteMap extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testGetMapsMap ()
 	{
-		$this->markTestIncomplete(" ... ");
+		$sFixturePath = VSC_FIXTURE_PATH . 'config' . DIRECTORY_SEPARATOR;
+		$o = new RwDispatcher();
+
+		$o->loadSiteMap ( $sFixturePath . 'map.php' );
+
+		$this->assertInstanceOf ( \vsc\application\sitemaps\SiteMapA::class, $o->getSiteMap () );
 	}
+
 }

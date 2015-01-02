@@ -53,11 +53,11 @@ abstract class FrontControllerA extends Object {
 	 * @returns ControllerMap
 	 */
 	public function getMap () {
-		if (ControllerMap::isValid($this->oCurrentMap) || ClassMap::isValid($this->oCurrentMap)) {
-			return $this->oCurrentMap;
-		} else {
-			throw new ExceptionView ('Make sure the current Controller map is correctly set.');
+		if (!ControllerMap::isValid($this->oCurrentMap) && !ClassMap::isValid($this->oCurrentMap)) {
+			$Mirror = new \ReflectionClass($this);
+			$this->oCurrentMap = new ClassMap($Mirror->getName(), '.*');
 		}
+		return $this->oCurrentMap;
 	}
 
 	/**
@@ -139,6 +139,7 @@ abstract class FrontControllerA extends Object {
 			}
 		} catch (ExceptionPath $e) {
 			// fallback to html5
+			// @todo verify main template path and main template exist
 			$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . 'html5' . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
 		}
 

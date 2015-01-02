@@ -1,13 +1,19 @@
 <?php
 namespace tests\lib\application\processors\ProcessorA;
+use fixtures\application\processors\ProcessorFixture;
 
 /**
  * @covers the public method ProcessorA::setLocalVars()
  */
 class setLocalVars extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testSetLocalVars ()
 	{
-		$this->markTestIncomplete(" ... ");
+		$o = new ProcessorFixture();
+		$fixtureValue = $o->getLocalVars();
+		$localValue = array('test2' => 'grrr');
+
+		$o->setLocalVars($localValue, true);
+		$this->assertEquals(array_merge($fixtureValue, $localValue), $o->getLocalVars());
 	}
 }

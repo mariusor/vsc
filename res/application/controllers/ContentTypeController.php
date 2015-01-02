@@ -1,6 +1,7 @@
 <?php
 namespace vsc\application\controllers;
 
+use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\views\ExceptionView;
 use vsc\presentation\views\ViewA;
 
