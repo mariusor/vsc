@@ -12,7 +12,7 @@ class ClassMapTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testSetTemplate () {
-		$oMap = new ClassMap('\\fixtures\\application\\controllers\\GenericFrontController', '\A.*\Z');
+		$oMap = new ClassMap(\fixtures\application\controllers\GenericFrontController::class, '\A.*\Z');
 
 		$n = 'main.tpl.php';
 		$oMap->setTemplate($n);
@@ -21,7 +21,7 @@ class ClassMapTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetTemplatePath () {
-		$oMap = new ClassMap('\\fixtures\\application\\controllers\\GenericFrontController', '\A.*\Z');
+		$oMap = new ClassMap(\fixtures\application\controllers\GenericFrontController::class, '\A.*\Z');
 
 		$oMap->setTemplatePath(VSC_FIXTURE_PATH . 'templates/');
 		$oMap->setTemplate('main.tpl.php');
@@ -32,7 +32,7 @@ class ClassMapTest extends \PHPUnit_Framework_TestCase {
 	public function testGetTemplatePathRelative () {
 		$oModuleMap = new ModuleMap(VSC_FIXTURE_PATH . 'config/map.php', '\A.*\Z');
 
-		$oMap = new ClassMap('\\fixtures\\application\\controllers\\GenericFrontController', '\A.*\Z');
+		$oMap = new ClassMap(\fixtures\application\controllers\GenericFrontController::class, '\A.*\Z');
 		$oMap->setModuleMap($oModuleMap);
 
 		$oMap->setTemplatePath ( 'templates/' );
@@ -41,7 +41,7 @@ class ClassMapTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetMainTemplatePath () {
-		$oMap = new ClassMap('\\fixtures\\application\\controllers\\GenericFrontController', '\A.*\Z');
+		$oMap = new ClassMap(\fixtures\application\controllers\GenericFrontController::class, '\A.*\Z');
 
 		$oMap->setMainTemplatePath(VSC_FIXTURE_PATH . 'templates/');
 		$oMap->setTemplate('main.tpl.php');
@@ -52,7 +52,7 @@ class ClassMapTest extends \PHPUnit_Framework_TestCase {
 	public function testGetMainTemplatePathRelative () {
 		$oModuleMap = new ModuleMap(VSC_FIXTURE_PATH . 'config/map.php', '\A.*\Z');
 
-		$oMap = new ClassMap('\\fixtures\\application\\controllers\\GenericFrontController', '\A.*\Z');
+		$oMap = new ClassMap(\fixtures\application\controllers\GenericFrontController::class, '\A.*\Z');
 		$oMap->setModuleMap($oModuleMap);
 
 		$oMap->setMainTemplatePath ( 'templates/' );
@@ -61,7 +61,7 @@ class ClassMapTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testSetMainTemplatePathRelativeNoModuleMap () {
-		$oMap = new ClassMap('\\fixtures\\application\\controllers\\GenericFrontController', '\A.*\Z');
+		$oMap = new ClassMap(\fixtures\application\controllers\GenericFrontController::class, '\A.*\Z');
 
 		try {
 			$oMap->setTemplatePath ( 'templates/' );
