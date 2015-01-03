@@ -9,7 +9,6 @@
 namespace vsc\rest\application\processors;
 
 use vsc\application\processors\ProcessorA;
-use vsc\domain\models\ArrayModel;
 use vsc\infrastructure\vsc;
 use vsc\presentation\requests\ContentType;
 use vsc\presentation\requests\HttpRequestA;
