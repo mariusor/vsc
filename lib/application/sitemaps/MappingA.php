@@ -196,32 +196,19 @@ class MappingA extends Object {
 	 * @returns ModuleMap
 	 */
 	public function getModuleMap () {
-		if (MappingA::isValid($this->oParentMap)) {
-			return $this->oParentMap;
-		} else {
-			return new Null();
+		if (!MappingA::isValid($this->oParentMap)) {
+			$this->oParentMap = new ModuleMap('', '');
 		}
+		return $this->oParentMap;
 	}
 
 	/**
 	 * @return string
+	 * @throws ExceptionSitemap
 	 */
 	public function getModulePath () {
-		if (ModuleMap::isValid($this)) {
-			$sModulePath = $this->getPath();
-			if (!SiteMapA::isValidMapPath($sModulePath) && SiteMapA::isValidObjectPath($sModulePath)) {
-				$sModulePath = $this->getModuleMap()->getModulePath ();
-			}
-
-			$sModulePath = realpath ( dirname ( $sModulePath ) );
-			if ( basename ( $sModulePath ) == 'config' ) {
-				$sModulePath = substr ( $sModulePath, 0, -7 );
-			}
-		} else {
-			return $this->getModuleMap()->getModulePath();
-		}
-		return $sModulePath . DIRECTORY_SEPARATOR;
-
+		$oModuleMap = $this->getModuleMap();
+		return $oModuleMap->getModulePath();
 	}
 
 	/**

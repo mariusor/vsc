@@ -33,4 +33,20 @@ class ModuleMap extends MappingA implements ContentTypeMappingI {
 	public function getNamespace () {
 		return '';
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getModulePath () {
+		$sModulePath = $this->getPath();
+		if (!SiteMapA::isValidMapPath($sModulePath) && SiteMapA::isValidObjectPath($sModulePath)) {
+			$sModulePath = $this->getModuleMap()->getModulePath ();
+		}
+
+		$sModulePath = realpath ( dirname ( $sModulePath ) );
+		if ( basename ( $sModulePath ) == 'config' ) {
+			$sModulePath = substr ( $sModulePath, 0, -7 );
+		}
+		return $sModulePath . DIRECTORY_SEPARATOR;
+	}
 }
