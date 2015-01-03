@@ -10,6 +10,7 @@ use vsc\application\dispatchers\DispatcherA;
 use vsc\application\dispatchers\HttpDispatcherA;
 use vsc\application\dispatchers\RwDispatcher;
 use vsc\application\sitemaps\ModuleMap;
+use vsc\Exception;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\RawHttpRequest;
 use vsc\presentation\requests\RwHttpRequest;
@@ -18,7 +19,7 @@ use vsc\presentation\responses\HttpResponseA;
 
 class vsc extends Object {
 	/**
-	 * @var
+	 * @var vsc
 	 */
 	static private $oInstance;
 
@@ -37,17 +38,23 @@ class vsc extends Object {
 	 */
 	private $oDispatcher;
 
-	static public function setInstance ($vscObject) {
-		if ($vscObject instanceof self) {
-			self::$oInstance = $vscObject;
+	/**
+	 * @param vsc $envObject
+	 */
+	static public function setInstance (vsc $envObject) {
+		if ($envObject instanceof static) {
+			static::$oInstance = $envObject;
 		}
 	}
 
+	/**
+	 * @return vsc
+	 */
 	static public function getEnv () {
-		if (!(self::isValid(self::$oInstance))) {
-			self::$oInstance = new static();
+		if (!(static::isValid(self::$oInstance))) {
+			static::$oInstance = new static();
 		}
-		return self::$oInstance;
+		return static::$oInstance;
 	}
 
 	/**
