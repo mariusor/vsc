@@ -42,19 +42,17 @@ class vsc extends Object {
 	 * @param vsc $envObject
 	 */
 	static public function setInstance (vsc $envObject) {
-		if ($envObject instanceof static) {
-			static::$oInstance = $envObject;
-		}
+		self::$oInstance = $envObject;
 	}
 
 	/**
 	 * @return vsc
 	 */
 	static public function getEnv () {
-		if (!(static::isValid(self::$oInstance))) {
-			static::$oInstance = new static();
+		if (!(vsc::isValid(self::$oInstance))) {
+			self::$oInstance = new self();
 		}
-		return static::$oInstance;
+		return self::$oInstance;
 	}
 
 	/**
@@ -119,7 +117,6 @@ class vsc extends Object {
 	}
 
 	/**
-	 *
 	 * @return boolean
 	 */
 	public function isDevelopment () {
