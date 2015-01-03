@@ -15,6 +15,7 @@ trait ControllerMapT {
 
 	/**
 	 * @param string $sPath
+	 * @return bool
 	 * @throws \vsc\ExceptionPath
 	 */
 	public function setMainTemplatePath ($sPath) {
@@ -27,6 +28,7 @@ trait ControllerMapT {
 		}
 		$this->sMainTemplatePath = $sMainTemplatePath;
 
+		return true;
 	}
 
 	/**
@@ -116,4 +118,4 @@ trait ControllerMapT {
 		}
 		return $this->oView;
 	}
-} 
+}

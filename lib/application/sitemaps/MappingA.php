@@ -16,8 +16,17 @@ use vsc\infrastructure\vsc;
 use vsc\presentation\requests\HttpAuthenticationA;
 
 class MappingA extends Object {
+	/**
+	 * @var  string
+	 */
 	private $sRegex;
+	/**
+	 * @var string
+	 */
 	private $sPath;
+	/**
+	 * @var string
+	 */
 	private $sTemplate;
 	/**
 	 * the local template path - will be used to compose something like
@@ -132,6 +141,11 @@ class MappingA extends Object {
 		return $this->sTitle;
 	}
 
+	/**
+	 * @param string $sPath
+	 * @return bool
+	 * @throws ExceptionSitemap
+	 */
 	public function setTemplatePath ($sPath) {
 		if (!is_dir($sPath)) {
 			if (!ModuleMap::isValid($this) && !ModuleMap::isValid($this->getModuleMap())) {
@@ -144,16 +158,26 @@ class MappingA extends Object {
 		}
 
 		$this->sViewPath = realpath($sPath) . DIRECTORY_SEPARATOR;
+		return true;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getTemplatePath () {
 		return $this->sViewPath;
 	}
 
+	/**
+	 * @param string $sPath
+	 */
 	public function setTemplate ($sPath) {
 		$this->sTemplate = $sPath;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getTemplate () {
 		return $this->sTemplate;
 	}
