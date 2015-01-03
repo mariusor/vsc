@@ -1,7 +1,7 @@
 <?php
-namespace fixtures\presentation\requests;
+namespace vsc\presentation\requests;
 
-class ContentTypeFixtures {
+class ContentTypes {
 	const Everything = '*/*';
 	const Image = 'image/*';
 	const Png = 'image/png';
@@ -11,4 +11,4 @@ class ContentTypeFixtures {
 	const Json = 'application/json';
 	const Text = 'text/plain';
 	const Css = 'text/css';
-} 
+}

@@ -1,6 +1,6 @@
 <?php
 use fixtures\presentation\responses\FixtureResponse;
-use fixtures\presentation\requests\ContentTypeFixtures;
+use vsc\presentation\requests\ContentTypes;
 use vsc\presentation\responses\HttpResponse;
 use vsc\presentation\responses\HttpResponseType;
 use vsc\presentation\responses\ExceptionResponse;
@@ -162,7 +162,7 @@ BEGIN;
 
 		$this->assertNull($state->getContentType());
 
-		$testValue = ContentTypeFixtures::Application;
+		$testValue = ContentTypes::Application;
 		$state->setContentType($testValue);
 		$this->assertEquals($testValue, $state->getContentType());
 	}

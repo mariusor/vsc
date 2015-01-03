@@ -4,7 +4,6 @@ use vsc\domain\models\ModelA;
 use fixtures\application\controllers\FixtureRESTController;
 use fixtures\application\controllers\GenericFrontController;
 use fixtures\application\processors\ProcessorFixture;
-use fixtures\application\processors\RESTProcessorFixture;
 use fixtures\infrastructure\FixtureEnv;
 use fixtures\infrastructure\ObjectFixture;
 use vsc\application\controllers\FrontControllerA;
@@ -164,11 +163,11 @@ class ObjectTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue (ObjectFixture::isValid($TestVar));
 		$this->assertTrue (Object::isValid($TestVar));
 
-		$TestVar = new RESTProcessorFixture();
-		$this->assertTrue (RESTProcessorFixture::isValid($TestVar));
-		$this->assertTrue (RESTProcessorA::isValid($TestVar));
-		$this->assertTrue (ProcessorA::isValid($TestVar));
-		$this->assertTrue (Object::isValid($TestVar));
+//		$TestVar = new RESTProcessorFixture();
+//		$this->assertTrue (RESTProcessorFixture::isValid($TestVar));
+//		$this->assertTrue (RESTProcessorA::isValid($TestVar));
+//		$this->assertTrue (ProcessorA::isValid($TestVar));
+//		$this->assertTrue (Object::isValid($TestVar));
 
 		$TestVar = new ProcessorFixture();
 		$this->assertTrue (ProcessorA::isValid($TestVar));

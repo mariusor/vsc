@@ -1,17 +1,20 @@
 <?php
 namespace res\rest\application\controllers\RESTController;
 
-
-use fixtures\application\processors\RESTProcessorFixture;
+use fixtures\domain\models\ModelFixture;
 use fixtures\presentation\requests\PopulatedRESTRequest;
 use vsc\application\controllers\ExceptionController;
 use vsc\application\processors\EmptyProcessor;
 use vsc\infrastructure\vsc;
+use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\HttpRequestTypes;
+use vsc\presentation\requests\RawHttpRequest;
 use vsc\presentation\responses\HttpResponse;
 use vsc\presentation\responses\HttpResponseA;
 use vsc\presentation\responses\HttpResponseType;
 use vsc\rest\application\controllers\RESTController;
+use vsc\rest\application\processors\RESTProcessorA;
+
 /**
  * @covers \vsc\rest\application\controllers\RESTController::getResponse()
  */
@@ -46,7 +49,7 @@ class getResponseTest extends \PHPUnit_Framework_TestCase {
 		$o = new RESTController();
 
 		$oRequest = new PopulatedRESTRequest();
-		$oProcessor = new RESTProcessorFixture();
+		$oProcessor = new RESTProcessorA_underTest_getResponse();
 		$oResponse = $o->getResponse($oRequest, $oProcessor);
 
 		$this->assertInstanceOf(HttpResponse::class, $oResponse);
@@ -59,7 +62,7 @@ class getResponseTest extends \PHPUnit_Framework_TestCase {
 		$o = new RESTController();
 
 		$oRequest = new PopulatedRESTRequest();
-		$oProcessor = new RESTProcessorFixture();
+		$oProcessor = new RESTProcessorA_underTest_getResponse();
 		$oProcessor->setRequestMethods(array(HttpRequestTypes::GET));
 		$oResponse = $o->getResponse($oRequest, $oProcessor);
 
@@ -87,5 +90,44 @@ class getResponseTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf(\stdClass::class, $oOutput);
 		$this->assertObjectHasAttribute('message', $oOutput);
 		$this->assertEquals('', $oOutput->message);
+	}
+}
+
+class RESTProcessorA_underTest_getResponse extends RESTProcessorA {
+	public function setRequestMethods ($aContentTypes) {
+		$this->validRequestMethods = $aContentTypes;
+	}
+
+	/**
+	 * @return void
+	 */
+	public function init()
+	{
+		// TODO: Implement init() method.
+	}
+
+	public function handleGet(HttpRequestA $oRequest)
+	{
+		return new ModelFixture();
+	}
+
+	public function handleHead(HttpRequestA $oRequest)
+	{
+		return $this->handleGet($oRequest);
+	}
+
+	public function handlePost(HttpRequestA $oRequest)
+	{
+		return $this->handleGet($oRequest);
+	}
+
+	public function handlePut(RawHttpRequest $oRequest)
+	{
+		return $this->handleGet($oRequest);
+	}
+
+	public function handleDelete(RawHttpRequest $oRequest)
+	{
+		return $this->handleGet($oRequest);
 	}
 }
