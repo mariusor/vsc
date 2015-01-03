@@ -3,7 +3,7 @@ namespace tests\lib\infrastructure\urls\UrlParserA;
 use fixtures\infrastructure\urls\UrlParserA_underTest;
 
 /**
- * @covers \vsc\infrastructure\urls\UrlParserA::addPathTest
+ * @covers \vsc\infrastructure\urls\UrlParserA::addPath
  */
 class addPathTest extends \PHPUnit_Framework_TestCase {
 
