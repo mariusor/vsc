@@ -55,9 +55,14 @@
 		</testsuite>
 	</testsuites>
 	<filter>
-		<blacklist>
-			<directory suffix=".php">./fixtures</directory>
-		</blacklist>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">../lib</directory>
+			<directory suffix=".php">../res</directory>
+			<exclude>
+				<directory suffix=".php">../res/config</directory>
+				<directory suffix=".php">../res/templates</directory>
+			</exclude>
+		</whitelist>
 	</filter>
 	<php>
 		<server name="SCRIPT_NAME" value="test.php"/>
