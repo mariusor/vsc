@@ -69,7 +69,7 @@ class UrlParserA extends Object implements UrlParserI {
 		);
 
 		try {
-			if ( is_file ($sUrl) && is_readable($sUrl) ) {
+			if ( !stristr($sUrl, '://') && is_file ($sUrl) && is_readable($sUrl) ) {
 				$aReturn['scheme'] = 'file';
 				$aReturn['path'] = $sUrl;
 				return $aReturn;
