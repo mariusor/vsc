@@ -27,8 +27,8 @@ class getResponseTest extends \PHPUnit_Framework_TestCase {
 	public function testBasicGetResponse () {
 		$o = new RESTController();
 
-		$p = new EmptyProcessor();
-		$r = $o->getResponse(vsc::getEnv()->getHttpRequest(), $p);
+		$oProcessor = new RESTProcessorA_underTest_getResponse();
+		$r = $o->getResponse(vsc::getEnv()->getHttpRequest(), $oProcessor);
 
 		$this->assertInstanceOf(HttpResponse::class, $r);
 	}
