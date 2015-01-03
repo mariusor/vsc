@@ -47,7 +47,6 @@ class Object_underTest___callStatic extends Object {}
 
 class vsc_underTest___callStatic extends vsc {
 	private $isDevelopmentEnviroment = false;
-	private $isCli = false;
 
 	public function setIsDevelopment ($isDevelopment) {
 		$this->isDevelopmentEnviroment = $isDevelopment;
@@ -60,11 +59,4 @@ class vsc_underTest___callStatic extends vsc {
 		return $this->isDevelopmentEnviroment;
 	}
 
-	public function setIsCli ($IsIt) {
-		$this->isCli = $IsIt;
-	}
-
-	protected function _isCli () {
-		return $this->isCli;
-	}
 }

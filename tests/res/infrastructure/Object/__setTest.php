@@ -49,7 +49,6 @@ class Object_underTest___set extends Object {}
 
 class vsc_underTest___set extends vsc {
 	private $isDevelopmentEnviroment = false;
-	private $isCli = false;
 
 	public function setIsDevelopment ($isDevelopment) {
 		$this->isDevelopmentEnviroment = $isDevelopment;
@@ -60,13 +59,5 @@ class vsc_underTest___set extends vsc {
 	 */
 	public function isDevelopment () {
 		return $this->isDevelopmentEnviroment;
-	}
-
-	public function setIsCli ($IsIt) {
-		$this->isCli = $IsIt;
-	}
-
-	protected function _isCli () {
-		return $this->isCli;
 	}
 }
