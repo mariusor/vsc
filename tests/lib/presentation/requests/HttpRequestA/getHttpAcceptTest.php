@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::getHttpAccept()
+ * @covers \vsc\presentation\requests\HttpRequestA::getHttpAccept()
  */
 class getHttpAccept extends \PHPUnit_Framework_TestCase
 {

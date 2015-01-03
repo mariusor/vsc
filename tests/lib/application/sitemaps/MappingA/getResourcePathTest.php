@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the private method MappingA::getResourcePath()
+ * @covers \vsc\application\sitemaps\MappingA::getResourcePath()
  */
 class getResourcePath extends \PHPUnit_Framework_TestCase
 {

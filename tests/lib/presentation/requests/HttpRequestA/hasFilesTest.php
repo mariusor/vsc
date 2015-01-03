@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::hasFiles()
+ * @covers \vsc\presentation\requests\HttpRequestA::hasFiles()
  */
 class hasFiles extends \PHPUnit_Framework_TestCase
 {

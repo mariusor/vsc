@@ -2,7 +2,7 @@
 namespace tests\res\application\dispatchers\RwDispatcher;
 
 /**
- * @covers the public method RwDispatcher::getCurrentMap()
+ * @covers \vsc\application\dispatchers\RwDispatcher::getCurrentMap()
  */
 class getCurrentMap extends \PHPUnit_Framework_TestCase
 {

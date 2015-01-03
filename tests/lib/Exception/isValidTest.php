@@ -2,7 +2,7 @@
 namespace tests\lib\Exception;
 
 /**
- * @covers the public method Exception::isValid()
+ * @coversgit \vsc\Exception::isValid()
  */
 class isValid extends \PHPUnit_Framework_TestCase
 {

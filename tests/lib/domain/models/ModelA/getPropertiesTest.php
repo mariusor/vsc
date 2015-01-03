@@ -3,12 +3,12 @@ namespace lib\domain\models\ModelA;
 use vsc\domain\models\ModelA;
 
 /**
- * @covers the protected method ModelA::getProperties()
+ * @covers \vsc\domain\models\ModelA::getProperties()
  */
 class getPropertiesTest extends \PHPUnit_Framework_TestCase {
 
 	/**
-	 * @covers ModelA::getProperties
+	 * @covers \vsc\domain\models\ModelA::getProperties
 	 */
 	public function testBasicGetProperties ()
 	{
@@ -23,7 +23,7 @@ class getPropertiesTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers ModelA::getProperties
+	 * @covers \vsc\domain\models\ModelA::getProperties
 	 */
 	public function testGetPropertiesWithNonPublic ()
 	{

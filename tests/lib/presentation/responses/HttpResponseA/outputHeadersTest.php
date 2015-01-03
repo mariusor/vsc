@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseA;
 
 /**
- * @covers the public method HttpResponseA::outputHeaders()
+ * @covers \vsc\presentation\responses\HttpResponseA::outputHeaders()
  */
 class outputHeaders extends \PHPUnit_Framework_TestCase
 {

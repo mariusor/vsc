@@ -2,7 +2,7 @@
 namespace tests\res\presentation\requests\RwHttpRequest;
 
 /**
- * @covers the public method RwHttpRequest::getVar()
+ * @covers \vsc\presentation\requests\RwHttpRequest::getVar()
  */
 class getVar extends \PHPUnit_Framework_TestCase
 {

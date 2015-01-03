@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the public method MappingA::getScripts()
+ * @covers \vsc\application\sitemaps\MappingA::getScripts()
  */
 class getScripts extends \PHPUnit_Framework_TestCase
 {

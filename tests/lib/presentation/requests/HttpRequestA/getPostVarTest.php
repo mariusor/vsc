@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the protected method HttpRequestA::getPostVar()
+ * @covers \vsc\presentation\requests\HttpRequestA::getPostVar()
  */
 class getPostVar extends \PHPUnit_Framework_TestCase
 {

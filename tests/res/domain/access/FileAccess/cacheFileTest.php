@@ -2,7 +2,7 @@
 namespace tests\res\domain\access\FileAccess;
 
 /**
- * @covers the public method FileAccess::cacheFile()
+ * @covers \vsc\domain\access\FileAccess::cacheFile()
  */
 class cacheFile extends \PHPUnit_Framework_TestCase
 {

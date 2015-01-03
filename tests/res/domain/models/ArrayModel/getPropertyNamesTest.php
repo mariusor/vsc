@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\ArrayModel;
 
 /**
- * @covers the protected method ArrayModel::getPropertyNames()
+ * @covers \vsc\domain\models\ArrayModel::getPropertyNames()
  */
 class getPropertyNames extends \PHPUnit_Framework_TestCase
 {

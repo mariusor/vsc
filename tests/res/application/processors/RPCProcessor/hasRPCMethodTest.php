@@ -2,7 +2,7 @@
 namespace tests\res\application\processors\RPCProcessor;
 
 /**
- * @covers the public method RPCProcessor::hasRPCMethod()
+ * @covers \vsc\application\processors\RPCProcessor::hasRPCMethod()
  */
 class hasRPCMethod extends \PHPUnit_Framework_TestCase
 {

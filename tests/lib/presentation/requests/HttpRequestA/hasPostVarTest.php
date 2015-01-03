@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::hasPostVar()
+ * @covers \vsc\presentation\requests\HttpRequestA::hasPostVar()
  */
 class hasPostVar extends \PHPUnit_Framework_TestCase
 {

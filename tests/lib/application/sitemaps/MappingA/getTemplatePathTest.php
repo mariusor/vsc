@@ -4,7 +4,7 @@ use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ModuleMap;
 
 /**
- * @covers the public method MappingA::getTemplatePath()
+ * @covers \vsc\application\sitemaps\MappingA::getTemplatePath()
  */
 class getTemplatePath extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\views\ViewA;
 
 /**
- * @covers the public method ViewA::__get()
+ * @covers \vsc\presentation\views\ViewA::__get()
  */
 class __get extends \PHPUnit_Framework_TestCase
 {

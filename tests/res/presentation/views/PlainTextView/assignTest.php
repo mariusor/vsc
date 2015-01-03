@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\PlainTextView;
 
 /**
- * @covers the public method PlainTextView::assign()
+ * @covers \vsc\presentation\views\PlainTextView::assign()
  */
 class assign extends \PHPUnit_Framework_TestCase
 {

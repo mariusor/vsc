@@ -2,7 +2,7 @@
 namespace tests\lib\ExceptionPath;
 
 /**
- * @covers the public method ExceptionPath::getPath()
+ * @covers \vsc\ExceptionPath::getPath()
  */
 class getPath extends \PHPUnit_Framework_TestCase
 {

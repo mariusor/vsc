@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::getHttpAcceptEncoding()
+ * @covers \vsc\presentation\requests\HttpRequestA::getHttpAcceptEncoding()
  */
 class getHttpAcceptEncoding extends \PHPUnit_Framework_TestCase
 {

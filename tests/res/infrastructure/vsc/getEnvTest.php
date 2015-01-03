@@ -2,7 +2,7 @@
 namespace tests\res\infrastructure\vsc;
 
 /**
- * @covers the public method vsc::getEnv()
+ * @covers \vsc\infrastructure\vsc::getEnv()
  */
 class getEnv extends \PHPUnit_Framework_TestCase
 {

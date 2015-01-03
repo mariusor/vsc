@@ -2,7 +2,7 @@
 namespace tests\res\presentation\requests\RawHttpRequest;
 
 /**
- * @covers the public method RawHttpRequest::__construct()
+ * @covers \vsc\presentation\requests\RawHttpRequest::__construct()
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {

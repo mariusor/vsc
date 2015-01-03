@@ -2,7 +2,7 @@
 namespace tests\res\domain\access\FileAccess;
 
 /**
- * @covers the public method FileAccess::isLocalFile()
+ * @covers \vsc\domain\access\FileAccess::isLocalFile()
  */
 class isLocalFile extends \PHPUnit_Framework_TestCase
 {

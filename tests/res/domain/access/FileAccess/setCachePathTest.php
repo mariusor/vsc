@@ -2,7 +2,7 @@
 namespace tests\res\domain\access\FileAccess;
 
 /**
- * @covers the public method FileAccess::setCachePath()
+ * @covers \vsc\domain\access\FileAccess::setCachePath()
  */
 class setCachePath extends \PHPUnit_Framework_TestCase
 {

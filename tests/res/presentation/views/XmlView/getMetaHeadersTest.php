@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\XmlView;
 
 /**
- * @covers the public method XmlView::getMetaHeaders()
+ * @covers \vsc\presentation\views\XmlView::getMetaHeaders()
  */
 class getMetaHeaders extends \PHPUnit_Framework_TestCase
 {

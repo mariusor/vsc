@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\RssReader;
 
 /**
- * @covers the public method RssReader::setItems()
+ * @covers \vsc\domain\models\RssReader::setItems()
  */
 class setItems extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\res\application\sitemaps\ModuleMap;
 
 /**
- * @covers the public method ModuleMap::getNamespace()
+ * @covers \vsc\application\sitemaps\ModuleMap::getNamespace()
  */
 class getNamespace extends \PHPUnit_Framework_TestCase
 {

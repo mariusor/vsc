@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::getIfNoneMatch()
+ * @covers \vsc\presentation\requests\HttpRequestA::getIfNoneMatch()
  */
 class getIfNoneMatch extends \PHPUnit_Framework_TestCase
 {

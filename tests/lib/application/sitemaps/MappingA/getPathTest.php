@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the public method MappingA::getPath()
+ * @covers \vsc\application\sitemaps\MappingA::getPath()
  */
 class getPath extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\JsonRPCResponse;
 
 /**
- * @covers the protected method JsonRPCResponse::getProperties()
+ * @covers \vsc\domain\models\JsonRPCResponse::getProperties()
  */
 class getProperties extends \PHPUnit_Framework_TestCase
 {

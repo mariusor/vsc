@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseA;
 
 /**
- * @covers the public method HttpResponseA::__construct()
+ * @covers \vsc\presentation\responses\HttpResponseA::__construct()
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {

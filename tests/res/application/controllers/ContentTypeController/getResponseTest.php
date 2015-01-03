@@ -6,7 +6,7 @@ use vsc\infrastructure\vsc;
 use vsc\application\processors\EmptyProcessor;
 
 /**
- * @covers the public method ContentTypeController::getResponse()
+ * @covers \vsc\application\controllers\ContentTypeController::getResponse()
  */
 class getResponse extends \PHPUnit_Framework_TestCase
 {

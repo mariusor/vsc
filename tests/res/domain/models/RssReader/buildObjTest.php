@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\RssReader;
 
 /**
- * @covers the public method RssReader::buildObj()
+ * @covers \vsc\domain\models\RssReader::buildObj()
  */
 class buildObj extends \PHPUnit_Framework_TestCase
 {

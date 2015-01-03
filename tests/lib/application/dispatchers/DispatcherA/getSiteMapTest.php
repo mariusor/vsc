@@ -3,7 +3,7 @@ namespace tests\lib\application\dispatchers\DispatcherA;
 use vsc\application\dispatchers\RwDispatcher;
 
 /**
- * @covers the public method DispatcherA::getSiteMap()
+ * @covers \vsc\application\dispatchers\DispatcherA::getSiteMap()
  */
 class getSiteMap extends \PHPUnit_Framework_TestCase
 {

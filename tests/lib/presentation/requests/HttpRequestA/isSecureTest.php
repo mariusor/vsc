@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::isSecure()
+ * @covers \vsc\presentation\requests\HttpRequestA::isSecure()
  */
 class isSecure extends \PHPUnit_Framework_TestCase
 {

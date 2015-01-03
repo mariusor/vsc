@@ -2,7 +2,7 @@
 namespace tests\res\presentation\requests\RawHttpRequest;
 
 /**
- * @covers the public method RawHttpRequest::getRawVar()
+ * @covers \vsc\presentation\requests\RawHttpRequest::getRawVar()
  */
 class getRawVar extends \PHPUnit_Framework_TestCase
 {

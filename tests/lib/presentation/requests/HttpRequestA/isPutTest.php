@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::isPut()
+ * @covers \vsc\presentation\requests\HttpRequestA::isPut()
  */
 class isPut extends \PHPUnit_Framework_TestCase
 {

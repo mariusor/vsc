@@ -2,7 +2,7 @@
 namespace tests\res\infrastructure\vsc;
 
 /**
- * @covers the public method vsc::getHttpResponse()
+ * @covers \vsc\infrastructure\vsc::getHttpResponse()
  */
 class getHttpResponse extends \PHPUnit_Framework_TestCase
 {

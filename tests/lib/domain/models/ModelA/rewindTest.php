@@ -3,7 +3,7 @@ namespace tests\lib\domain\models\ModelA;
 use vsc\domain\models\ModelA;
 
 /**
- * @covers the public method ModelA::rewind()
+ * @covers \vsc\domain\models\ModelA::rewind()
  */
 class rewind extends \PHPUnit_Framework_TestCase
 {

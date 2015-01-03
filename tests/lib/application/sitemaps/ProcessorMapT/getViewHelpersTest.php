@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\ProcessorMapT;
 
 /**
- * @covers the  method ProcessorMapT::getViewHelpers()
+ * @covers \vsc\application\sitemaps\ProcessorMapT::getViewHelpers()
  */
 class getViewHelpers extends \PHPUnit_Framework_TestCase
 {

@@ -12,7 +12,9 @@ use vsc\presentation\responses\HttpResponse;
 use vsc\presentation\responses\HttpResponseA;
 use vsc\presentation\responses\HttpResponseType;
 use vsc\rest\application\controllers\RESTController;
-
+/**
+ * @covers \vsc\rest\application\controllers\RESTController::getResponse()
+ */
 class getResponseTest extends \PHPUnit_Framework_TestCase {
 
 	public function tearDown () {

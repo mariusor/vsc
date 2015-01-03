@@ -2,7 +2,7 @@
 namespace tests\lib\application\dispatchers\DispatcherA;
 
 /**
- * @covers the public method DispatcherA::setSiteMap()
+ * @covers \vsc\application\dispatchers\DispatcherA::setSiteMap()
  */
 class setSiteMap extends \PHPUnit_Framework_TestCase
 {

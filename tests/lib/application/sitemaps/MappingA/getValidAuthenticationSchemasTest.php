@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the public method MappingA::getValidAuthenticationSchemas()
+ * @covers \vsc\application\sitemaps\MappingA::getValidAuthenticationSchemas()
  */
 class getValidAuthenticationSchemas extends \PHPUnit_Framework_TestCase
 {

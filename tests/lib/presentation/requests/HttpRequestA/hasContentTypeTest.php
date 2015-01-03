@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::hasContentType()
+ * @covers \vsc\presentation\requests\HttpRequestA::hasContentType()
  */
 class hasContentType extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\views\ViewA;
 
 /**
- * @covers the public method ViewA::getModel()
+ * @covers \vsc\presentation\views\ViewA::getModel()
  */
 class getModel extends \PHPUnit_Framework_TestCase
 {

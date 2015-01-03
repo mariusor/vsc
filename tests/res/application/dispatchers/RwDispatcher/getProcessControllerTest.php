@@ -5,7 +5,7 @@ use fixtures\presentation\requests\PopulatedRequest;
 use vsc\infrastructure\vsc;
 
 /**
- * @covers the public method RwDispatcher::getProcessController()
+ * @covers \vsc\application\dispatchers\RwDispatcher::getProcessController()
  */
 class getProcessController extends \PHPUnit_Framework_TestCase
 {

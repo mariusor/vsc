@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\XmlView;
 
 /**
- * @covers the public method XmlView::getContent()
+ * @covers \vsc\presentation\views\XmlView::getContent()
  */
 class getContent extends \PHPUnit_Framework_TestCase
 {

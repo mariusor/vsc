@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseA;
 
 /**
- * @covers the public method HttpResponseA::getETag()
+ * @covers \vsc\presentation\responses\HttpResponseA::getETag()
  */
 class getETag extends \PHPUnit_Framework_TestCase
 {

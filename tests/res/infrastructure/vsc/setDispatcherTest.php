@@ -2,7 +2,7 @@
 namespace tests\res\infrastructure\vsc;
 
 /**
- * @covers the public method vsc::setDispatcher()
+ * @covers \vsc\infrastructure\vsc::setDispatcher()
  */
 class setDispatcher extends \PHPUnit_Framework_TestCase
 {

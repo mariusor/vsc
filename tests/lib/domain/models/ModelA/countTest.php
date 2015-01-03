@@ -3,7 +3,7 @@ namespace tests\lib\domain\models\ModelA;
 use vsc\domain\models\ModelA;
 
 /**
- * @covers the public method ModelA::count()
+ * @covers \vsc\domain\models\ModelA::count()
  */
 class count extends \PHPUnit_Framework_TestCase
 {

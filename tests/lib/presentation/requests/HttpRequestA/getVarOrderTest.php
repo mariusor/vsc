@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::getVarOrder()
+ * @covers \vsc\presentation\requests\HttpRequestA::getVarOrder()
  */
 class getVarOrder extends \PHPUnit_Framework_TestCase
 {

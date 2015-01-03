@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\ExceptionAuthenticationNeeded;
 
 /**
- * @covers the public method ExceptionAuthenticationNeeded::getChallenge()
+ * @covers \vsc\presentation\responses\ExceptionAuthenticationNeeded::getChallenge()
  */
 class getChallenge extends \PHPUnit_Framework_TestCase
 {

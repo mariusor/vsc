@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\ControllerMapT;
 
 /**
- * @covers the  method ControllerMapT::getViewPath()
+ * @covers \vsc\application\sitemaps\ControllerMapT::getViewPath()
  */
 class getViewPath extends \PHPUnit_Framework_TestCase
 {

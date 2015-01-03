@@ -2,7 +2,7 @@
 namespace tests\res\infrastructure\vsc;
 
 /**
- * @covers the public method vsc::setInstance()
+ * @covers \vsc\infrastructure\vsc::setInstance()
  */
 class setInstance extends \PHPUnit_Framework_TestCase
 {

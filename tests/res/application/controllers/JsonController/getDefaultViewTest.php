@@ -5,7 +5,7 @@ use vsc\presentation\views\JsonView;
 use vsc\presentation\views\ViewA;
 
 /**
- * @covers the public method JsonController::getDefaultView()
+ * @covers \vsc\application\controllers\JsonController::getDefaultView()
  */
 class getDefaultView extends \PHPUnit_Framework_TestCase
 {

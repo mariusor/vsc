@@ -2,7 +2,7 @@
 namespace tests\res\presentation\responses\HttpResponse;
 
 /**
- * @covers the public method HttpResponse::getOutput()
+ * @covers \vsc\presentation\responses\HttpResponse::getOutput()
  */
 class getOutput extends \PHPUnit_Framework_TestCase
 {

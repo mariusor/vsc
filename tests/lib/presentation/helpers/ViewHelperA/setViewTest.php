@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\helpers\ViewHelperA;
 
 /**
- * @covers the public method ViewHelperA::setView()
+ * @covers \vsc\presentation\helpers\ViewHelperA::setView()
  */
 class setView extends \PHPUnit_Framework_TestCase
 {

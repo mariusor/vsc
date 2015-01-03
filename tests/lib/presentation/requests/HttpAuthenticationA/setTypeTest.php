@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpAuthenticationA;
 
 /**
- * @covers the public method HttpAuthenticationA::setType()
+ * @covers \vsc\presentation\requests\HttpAuthenticationA::setType()
  */
 class setType extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\res\presentation\requests\RwHttpRequest;
 
 /**
- * @covers the protected method RwHttpRequest::getTaintedVar()
+ * @covers \vsc\presentation\requests\RwHttpRequest::getTaintedVar()
  */
 class getTaintedVar extends \PHPUnit_Framework_TestCase
 {

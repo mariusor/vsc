@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\StaticFileModel;
 
 /**
- * @covers the public method StaticFileModel::setFileContent()
+ * @covers \vsc\domain\models\StaticFileModel::setFileContent()
  */
 class setFileContent extends \PHPUnit_Framework_TestCase
 {

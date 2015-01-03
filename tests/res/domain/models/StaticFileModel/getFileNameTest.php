@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\StaticFileModel;
 
 /**
- * @covers the public method StaticFileModel::getFileName()
+ * @covers \vsc\domain\models\StaticFileModel::getFileName()
  */
 class getFileName extends \PHPUnit_Framework_TestCase
 {

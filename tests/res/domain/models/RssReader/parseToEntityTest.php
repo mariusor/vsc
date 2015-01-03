@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\RssReader;
 
 /**
- * @covers the public method RssReader::parseToEntity()
+ * @covers \vsc\domain\models\RssReader::parseToEntity()
  */
 class parseToEntity extends \PHPUnit_Framework_TestCase
 {

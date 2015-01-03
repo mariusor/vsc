@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\ProcessorMapT;
 
 /**
- * @covers the  method ProcessorMapT::registerHelper()
+ * @covers \vsc\application\sitemaps\ProcessorMapT::registerHelper()
  */
 class registerHelper extends \PHPUnit_Framework_TestCase
 {

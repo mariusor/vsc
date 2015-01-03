@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseA;
 
 /**
- * @covers the public method HttpResponseA::getContentLanguage()
+ * @covers \vsc\presentation\responses\HttpResponseA::getContentLanguage()
  */
 class getContentLanguage extends \PHPUnit_Framework_TestCase
 {

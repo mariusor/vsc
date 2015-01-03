@@ -2,7 +2,7 @@
 namespace tests\res\domain\domain\RssItem;
 
 /**
- * @covers the public method RssItem::buildObj()
+ * @covers \vsc\domain\domain\RssItem::buildObj()
  */
 class buildObj extends \PHPUnit_Framework_TestCase
 {

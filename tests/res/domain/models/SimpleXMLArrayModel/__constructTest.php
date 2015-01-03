@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\SimpleXMLArrayModel;
 
 /**
- * @covers the public method SimpleXMLArrayModel::__construct()
+ * @covers \vsc\domain\models\SimpleXMLArrayModel::__construct()
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {

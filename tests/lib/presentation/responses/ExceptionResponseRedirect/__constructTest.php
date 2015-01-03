@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\ExceptionResponseRedirect;
 
 /**
- * @covers the public method ExceptionResponseRedirect::__construct()
+ * @covers \vsc\presentation\responses\ExceptionResponseRedirect::__construct()
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {

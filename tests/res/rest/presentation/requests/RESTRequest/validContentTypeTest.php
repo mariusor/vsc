@@ -2,7 +2,7 @@
 namespace tests\res\rest\presentation\requests\RESTRequest;
 
 /**
- * @covers the public method RESTRequest::validContentType()
+ * @covers \vsc\rest\presentation\requests\RESTRequest::validContentType()
  */
 class validContentType extends \PHPUnit_Framework_TestCase
 {

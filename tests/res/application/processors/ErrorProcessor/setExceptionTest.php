@@ -7,7 +7,7 @@ use vsc\application\sitemaps\ClassMap;
 use vsc\ExceptionError;
 
 /**
- * @covers the public method ErrorProcessor::setException()
+ * @covers \vsc\application\processors\ErrorProcessor::setException()
  */
 class setException extends \PHPUnit_Framework_TestCase
 {

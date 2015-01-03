@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseA;
 
 /**
- * @covers the public method HttpResponseA::getContentEncoding()
+ * @covers \vsc\presentation\responses\HttpResponseA::getContentEncoding()
  */
 class getContentEncoding extends \PHPUnit_Framework_TestCase
 {

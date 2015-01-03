@@ -2,7 +2,7 @@
 namespace tests\res\application\processors\ErrorProcessor;
 
 /**
- * @covers the public method ErrorProcessor::getErrorCode()
+ * @covers \vsc\application\processors\ErrorProcessor::getErrorCode()
  */
 class getErrorCode extends \PHPUnit_Framework_TestCase
 {

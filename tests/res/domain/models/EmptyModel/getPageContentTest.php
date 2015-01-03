@@ -3,7 +3,7 @@ namespace tests\res\domain\models\EmptyModel;
 use vsc\domain\models\EmptyModel;
 
 /**
- * @covers the public method EmptyModel::getPageContent()
+ * @covers \vsc\domain\models\EmptyModel::getPageContent()
  */
 class getPageContent extends \PHPUnit_Framework_TestCase
 {

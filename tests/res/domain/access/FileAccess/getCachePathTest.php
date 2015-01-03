@@ -2,7 +2,7 @@
 namespace tests\res\domain\access\FileAccess;
 
 /**
- * @covers the public method FileAccess::getCachePath()
+ * @covers \vsc\domain\access\FileAccess::getCachePath()
  */
 class getCachePath extends \PHPUnit_Framework_TestCase
 {

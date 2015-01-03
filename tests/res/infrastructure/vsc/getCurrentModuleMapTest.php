@@ -2,7 +2,7 @@
 namespace tests\res\infrastructure\vsc;
 
 /**
- * @covers the public method vsc::getCurrentModuleMap()
+ * @covers \vsc\infrastructure\vsc::getCurrentModuleMap()
  */
 class getCurrentModuleMap extends \PHPUnit_Framework_TestCase
 {

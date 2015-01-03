@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\ExceptionDigestAuthenticationChallenge;
 
 /**
- * @covers the public method ExceptionDigestAuthenticationChallenge::__construct()
+ * @covers \vsc\presentation\responses\ExceptionDigestAuthenticationChallenge::__construct()
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {

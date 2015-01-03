@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::getHttpAcceptCharset()
+ * @covers \vsc\presentation\requests\HttpRequestA::getHttpAcceptCharset()
  */
 class getHttpAcceptCharset extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\RssView;
 
 /**
- * @covers the public method RssView::append()
+ * @covers \vsc\presentation\views\RssView::append()
  */
 class append extends \PHPUnit_Framework_TestCase
 {

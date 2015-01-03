@@ -2,7 +2,7 @@
 namespace tests\res\application\controllers\ContentTypeController;
 
 /**
- * @covers the public method ContentTypeController::getDefaultView()
+ * @covers \vsc\application\controllers\ContentTypeController::getDefaultView()
  */
 class getDefaultView extends \PHPUnit_Framework_TestCase
 {

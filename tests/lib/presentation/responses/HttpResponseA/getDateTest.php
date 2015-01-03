@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseA;
 
 /**
- * @covers the public method HttpResponseA::getDate()
+ * @covers \vsc\presentation\responses\HttpResponseA::getDate()
  */
 class getDate extends \PHPUnit_Framework_TestCase
 {

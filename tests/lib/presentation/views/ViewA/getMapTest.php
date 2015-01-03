@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\views\ViewA;
 
 /**
- * @covers the public method ViewA::getMap()
+ * @covers \vsc\presentation\views\ViewA::getMap()
  */
 class getMap extends \PHPUnit_Framework_TestCase
 {

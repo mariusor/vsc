@@ -2,7 +2,7 @@
 namespace tests\res\domain\access\FileAccess;
 
 /**
- * @covers the public method FileAccess::loadFromCache()
+ * @covers \vsc\domain\access\FileAccess::loadFromCache()
  */
 class loadFromCache extends \PHPUnit_Framework_TestCase
 {

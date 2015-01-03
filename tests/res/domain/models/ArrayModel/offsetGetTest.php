@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\ArrayModel;
 
 /**
- * @covers the public method ArrayModel::offsetGet()
+ * @covers \vsc\domain\models\ArrayModel::offsetGet()
  */
 class offsetGet extends \PHPUnit_Framework_TestCase
 {

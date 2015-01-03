@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseA;
 
 /**
- * @covers the public method HttpResponseA::getLocation()
+ * @covers \vsc\presentation\responses\HttpResponseA::getLocation()
  */
 class getLocation extends \PHPUnit_Framework_TestCase
 {

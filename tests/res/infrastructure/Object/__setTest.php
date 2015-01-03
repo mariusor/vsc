@@ -2,7 +2,7 @@
 namespace tests\res\infrastructure\Object;
 
 /**
- * @covers the public method Object::__set()
+ * @covers \vsc\infrastructure\Object::__set()
  */
 class __set extends \PHPUnit_Framework_TestCase
 {

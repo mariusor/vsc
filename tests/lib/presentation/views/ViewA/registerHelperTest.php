@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\views\ViewA;
 
 /**
- * @covers the public method ViewA::registerHelper()
+ * @covers \vsc\presentation\views\ViewA::registerHelper()
  */
 class registerHelper extends \PHPUnit_Framework_TestCase
 {

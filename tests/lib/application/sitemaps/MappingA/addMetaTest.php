@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the public method MappingA::addMeta()
+ * @covers \vsc\application\sitemaps\MappingA::addMeta()
  */
 class addMeta extends \PHPUnit_Framework_TestCase
 {

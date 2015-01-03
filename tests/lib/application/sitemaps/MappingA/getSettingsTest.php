@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the public method MappingA::getSettings()
+ * @covers \vsc\application\sitemaps\MappingA::getSettings()
  */
 class getSettings extends \PHPUnit_Framework_TestCase
 {

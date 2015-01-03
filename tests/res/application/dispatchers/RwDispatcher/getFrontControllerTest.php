@@ -5,7 +5,7 @@ use vsc\application\dispatchers\RwDispatcher;
 use vsc\infrastructure\vsc;
 
 /**
- * @covers the public method RwDispatcher::getFrontController()
+ * @covers \vsc\application\dispatchers\RwDispatcher::getFrontController()
  */
 class getFrontController extends \PHPUnit_Framework_TestCase
 {

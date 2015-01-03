@@ -2,7 +2,7 @@
 namespace tests\res\application\processors\NotFoundProcessor;
 
 /**
- * @covers the public method NotFoundProcessor::handleRequest()
+ * @covers \vsc\application\processors\NotFoundProcessor::handleRequest()
  */
 class handleRequest extends \PHPUnit_Framework_TestCase
 {

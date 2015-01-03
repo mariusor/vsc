@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\views\ViewA;
 
 /**
- * @covers the public method ViewA::__call()
+ * @covers \vsc\presentation\views\ViewA::__call()
  */
 class __call extends \PHPUnit_Framework_TestCase
 {

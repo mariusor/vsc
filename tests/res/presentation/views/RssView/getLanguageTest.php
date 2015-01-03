@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\RssView;
 
 /**
- * @covers the public method RssView::getLanguage()
+ * @covers \vsc\presentation\views\RssView::getLanguage()
  */
 class getLanguage extends \PHPUnit_Framework_TestCase
 {

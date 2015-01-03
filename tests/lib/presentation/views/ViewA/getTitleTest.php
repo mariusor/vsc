@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\views\ViewA;
 
 /**
- * @covers the public method ViewA::getTitle()
+ * @covers \vsc\presentation\views\ViewA::getTitle()
  */
 class getTitle extends \PHPUnit_Framework_TestCase
 {

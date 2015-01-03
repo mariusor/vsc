@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\views\ViewA;
 
 /**
- * @covers the public method ViewA::fetch()
+ * @covers \vsc\presentation\views\ViewA::fetch()
  */
 class fetch extends \PHPUnit_Framework_TestCase
 {

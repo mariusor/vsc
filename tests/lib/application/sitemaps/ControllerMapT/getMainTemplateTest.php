@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\ControllerMapT;
 
 /**
- * @covers the  method ControllerMapT::getMainTemplate()
+ * @covers \vsc\application\sitemaps\ControllerMapT::getMainTemplate()
  */
 class getMainTemplate extends \PHPUnit_Framework_TestCase
 {

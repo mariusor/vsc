@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\ArrayModel;
 
 /**
- * @covers the public method ArrayModel::toArray()
+ * @covers \vsc\domain\models\ArrayModel::toArray()
  */
 class toArray extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\lib\application\dispatchers\HttpDispatcherA;
 
 /**
- * @covers the public method HttpDispatcherA::getCurrentModuleMap()
+ * @covers \vsc\application\dispatchers\HttpDispatcherA::getCurrentModuleMap()
  */
 class getCurrentModuleMap extends \PHPUnit_Framework_TestCase
 {

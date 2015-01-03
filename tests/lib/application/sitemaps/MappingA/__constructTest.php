@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the public method MappingA::__construct()
+ * @covers \vsc\application\sitemaps\MappingA::__construct()
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {

@@ -3,7 +3,7 @@ namespace tests\lib\domain\models\ModelA;
 use vsc\domain\models\ModelA;
 
 /**
- * @covers the public method ModelA::setOffset()
+ * @covers \vsc\domain\models\ModelA::setOffset()
  */
 class setOffset extends \PHPUnit_Framework_TestCase
 {

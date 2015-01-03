@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the public method MappingA::mapController()
+ * @covers \vsc\application\sitemaps\MappingA::mapController()
  */
 class mapController extends \PHPUnit_Framework_TestCase
 {

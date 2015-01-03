@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the public method MappingA::getMetas()
+ * @covers \vsc\application\sitemaps\MappingA::getMetas()
  */
 class getMetas extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the public method MappingA::getRegex()
+ * @covers \vsc\application\sitemaps\MappingA::getRegex()
  */
 class getRegex extends \PHPUnit_Framework_TestCase
 {

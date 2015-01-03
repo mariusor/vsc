@@ -2,7 +2,7 @@
 namespace tests\res\domain\access\FileAccess;
 
 /**
- * @covers the public method FileAccess::getUri()
+ * @covers \vsc\domain\access\FileAccess::getUri()
  */
 class getUri extends \PHPUnit_Framework_TestCase
 {

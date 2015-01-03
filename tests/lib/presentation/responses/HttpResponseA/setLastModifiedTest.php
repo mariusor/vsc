@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseA;
 
 /**
- * @covers the public method HttpResponseA::setLastModified()
+ * @covers \vsc\presentation\responses\HttpResponseA::setLastModified()
  */
 class setLastModified extends \PHPUnit_Framework_TestCase
 {

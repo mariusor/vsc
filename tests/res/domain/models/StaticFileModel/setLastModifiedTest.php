@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\StaticFileModel;
 
 /**
- * @covers the public method StaticFileModel::setLastModified()
+ * @covers \vsc\domain\models\StaticFileModel::setLastModified()
  */
 class setLastModified extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\res\infrastructure\vsc;
 
 /**
- * @covers the protected method vsc::_isCli()
+ * @covers \vsc\infrastructure\vsc::_isCli()
  */
 class _isCli extends \PHPUnit_Framework_TestCase
 {

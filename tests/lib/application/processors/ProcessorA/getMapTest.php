@@ -4,7 +4,7 @@ use fixtures\application\processors\ProcessorFixture;
 use vsc\application\sitemaps\ModuleMap;
 
 /**
- * @covers the public method ProcessorA::getMap()
+ * @covers \vsc\application\processors\ProcessorA::getMap()
  */
 class getMap extends \PHPUnit_Framework_TestCase
 {

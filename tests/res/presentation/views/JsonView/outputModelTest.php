@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\JsonView;
 
 /**
- * @covers the public method JsonView::outputModel()
+ * @covers \vsc\presentation\views\JsonView::outputModel()
  */
 class outputModel extends \PHPUnit_Framework_TestCase
 {

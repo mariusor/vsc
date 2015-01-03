@@ -5,7 +5,7 @@ use vsc\presentation\views\PlainTextView;
 use vsc\presentation\views\ViewA;
 
 /**
- * @covers the public method PlainTextController::getDefaultView()
+ * @covers \vsc\application\controllers\PlainTextController::getDefaultView()
  */
 class getDefaultView extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the public method MappingA::addSetting()
+ * @covers \vsc\application\sitemaps\MappingA::addSetting()
  */
 class addSetting extends \PHPUnit_Framework_TestCase
 {

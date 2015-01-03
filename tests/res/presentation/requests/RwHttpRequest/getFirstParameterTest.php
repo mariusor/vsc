@@ -2,7 +2,7 @@
 namespace tests\res\presentation\requests\RwHttpRequest;
 
 /**
- * @covers the public method RwHttpRequest::getFirstParameter()
+ * @covers \vsc\presentation\requests\RwHttpRequest::getFirstParameter()
  */
 class getFirstParameter extends \PHPUnit_Framework_TestCase
 {

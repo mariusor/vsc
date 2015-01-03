@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\ControllerMapT;
 
 /**
- * @covers the  method ControllerMapT::setView()
+ * @covers \vsc\application\sitemaps\ControllerMapT::setView()
  */
 class setView extends \PHPUnit_Framework_TestCase
 {

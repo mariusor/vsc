@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\SiteMapA;
 
 /**
- * @covers the public method SiteMapA::getParentModuleMap()
+ * @covers \vsc\application\sitemaps\SiteMapA::getParentModuleMap()
  */
 class getParentModuleMap extends \PHPUnit_Framework_TestCase
 {

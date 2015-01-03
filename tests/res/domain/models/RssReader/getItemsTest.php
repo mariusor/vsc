@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\RssReader;
 
 /**
- * @covers the public method RssReader::getItems()
+ * @covers \vsc\domain\models\RssReader::getItems()
  */
 class getItems extends \PHPUnit_Framework_TestCase
 {

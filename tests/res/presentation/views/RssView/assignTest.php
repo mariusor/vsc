@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\RssView;
 
 /**
- * @covers the public method RssView::assign()
+ * @covers \vsc\presentation\views\RssView::assign()
  */
 class assign extends \PHPUnit_Framework_TestCase
 {

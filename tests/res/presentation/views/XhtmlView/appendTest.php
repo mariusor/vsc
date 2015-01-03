@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\XhtmlView;
 
 /**
- * @covers the public method XhtmlView::append()
+ * @covers \vsc\presentation\views\XhtmlView::append()
  */
 class append extends \PHPUnit_Framework_TestCase
 {

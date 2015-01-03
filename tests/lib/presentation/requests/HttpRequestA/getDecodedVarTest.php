@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the protected method HttpRequestA::getDecodedVar()
+ * @covers \vsc\presentation\requests\HttpRequestA::getDecodedVar()
  */
 class getDecodedVar extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseA;
 
 /**
- * @covers the public method HttpResponseA::setExpires()
+ * @covers \vsc\presentation\responses\HttpResponseA::setExpires()
  */
 class setExpires extends \PHPUnit_Framework_TestCase
 {

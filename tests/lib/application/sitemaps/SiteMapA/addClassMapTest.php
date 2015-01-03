@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\SiteMapA;
 
 /**
- * @covers the protected method SiteMapA::addClassMap()
+ * @covers \vsc\application\sitemaps\SiteMapA::addClassMap()
  */
 class addClassMap extends \PHPUnit_Framework_TestCase
 {

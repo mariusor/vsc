@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\views\ViewA;
 
 /**
- * @covers the public method ViewA::setModel()
+ * @covers \vsc\presentation\views\ViewA::setModel()
  */
 class setModel extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::isGet()
+ * @covers \vsc\presentation\requests\HttpRequestA::isGet()
  */
 class isGet extends \PHPUnit_Framework_TestCase
 {

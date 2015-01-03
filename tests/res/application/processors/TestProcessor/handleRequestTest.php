@@ -2,7 +2,7 @@
 namespace tests\res\application\processors\TestProcessor;
 
 /**
- * @covers the public method TestProcessor::handleRequest()
+ * @covers \vsc\application\processors\TestProcessor::handleRequest()
  */
 class handleRequest extends \PHPUnit_Framework_TestCase
 {

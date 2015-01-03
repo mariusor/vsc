@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\ArrayModel;
 
 /**
- * @covers the public method ArrayModel::__construct()
+ * @covers \vsc\domain\models\ArrayModel::__construct()
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {

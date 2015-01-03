@@ -3,7 +3,7 @@ namespace tests\lib\domain\models\ModelA;
 use vsc\domain\models\ModelA;
 
 /**
- * @covers the public method ModelA::current()
+ * @covers \vsc\domain\models\ModelA::current()
  */
 class current extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\res\application\processors\RPCProcessor;
 
 /**
- * @covers the public method RPCProcessor::getResponse()
+ * @covers \vsc\application\processors\RPCProcessor::getResponse()
  */
 class getResponse extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\TxtView;
 
 /**
- * @covers the public method TxtView::display()
+ * @covers \vsc\presentation\views\TxtView::display()
  */
 class display extends \PHPUnit_Framework_TestCase
 {

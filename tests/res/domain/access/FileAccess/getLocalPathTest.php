@@ -2,7 +2,7 @@
 namespace tests\res\domain\access\FileAccess;
 
 /**
- * @covers the public method FileAccess::getLocalPath()
+ * @covers \vsc\domain\access\FileAccess::getLocalPath()
  */
 class getLocalPath extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the protected method HttpRequestA::setAuthentication()
+ * @covers \vsc\presentation\requests\HttpRequestA::setAuthentication()
  */
 class setAuthentication extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\ExceptionDigestAuthenticationChallenge;
 
 /**
- * @covers the public method ExceptionDigestAuthenticationChallenge::getChallenge()
+ * @covers \vsc\presentation\responses\ExceptionDigestAuthenticationChallenge::getChallenge()
  */
 class getChallenge extends \PHPUnit_Framework_TestCase
 {

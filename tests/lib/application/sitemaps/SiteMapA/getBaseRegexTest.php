@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\SiteMapA;
 
 /**
- * @covers the public method SiteMapA::getBaseRegex()
+ * @covers \vsc\application\sitemaps\SiteMapA::getBaseRegex()
  */
 class getBaseRegex extends \PHPUnit_Framework_TestCase
 {

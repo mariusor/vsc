@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\views\ViewA;
 
 /**
- * @covers the public method ViewA::setTemplate()
+ * @covers \vsc\presentation\views\ViewA::setTemplate()
  */
 class setTemplate extends \PHPUnit_Framework_TestCase
 {

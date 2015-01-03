@@ -2,7 +2,7 @@
 namespace tests\res\rest\presentation\responses\RESTResponse;
 
 /**
- * @covers the public method RESTResponse::outputHeaders()
+ * @covers \vsc\rest\presentation\responses\RESTResponse::outputHeaders()
  */
 class outputHeaders extends \PHPUnit_Framework_TestCase
 {

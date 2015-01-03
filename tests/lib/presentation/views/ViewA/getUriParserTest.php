@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\views\ViewA;
 
 /**
- * @covers the public method ViewA::getUriParser()
+ * @covers \vsc\presentation\views\ViewA::getUriParser()
  */
 class getUriParser extends \PHPUnit_Framework_TestCase
 {

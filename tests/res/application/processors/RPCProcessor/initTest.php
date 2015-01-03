@@ -2,7 +2,7 @@
 namespace tests\res\application\processors\RPCProcessor;
 
 /**
- * @covers the public method RPCProcessor::init()
+ * @covers \vsc\application\processors\RPCProcessor::init()
  */
 class init extends \PHPUnit_Framework_TestCase
 {

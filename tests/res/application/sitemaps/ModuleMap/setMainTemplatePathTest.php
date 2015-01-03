@@ -2,7 +2,7 @@
 namespace tests\res\application\sitemaps\ModuleMap;
 
 /**
- * @covers the public method ModuleMap::setMainTemplatePath()
+ * @covers \vsc\application\sitemaps\ModuleMap::setMainTemplatePath()
  */
 class setMainTemplatePath extends \PHPUnit_Framework_TestCase
 {

@@ -5,9 +5,8 @@ use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\HttpRequestTypes;
 use vsc\presentation\requests\RawHttpRequest;
 use vsc\rest\application\processors\RESTProcessorA;
-
 /**
- * @covers the public method RESTProcessorA::getValidRequestMethods()
+ * @covers \vsc\rest\application\processors\RESTProcessorA::getValidRequestMethods()
  */
 class getValidRequestMethods extends \PHPUnit_Framework_TestCase
 {

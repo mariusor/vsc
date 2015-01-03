@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: habarnam
- * Date: 12/25/14
- * Time: 5:05 PM
- */
-
 namespace lib\application\controllers\FrontControllerA;
-
 
 use fixtures\presentation\views\testView;
 use vsc\application\controllers\FrontControllerA;

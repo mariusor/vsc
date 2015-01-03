@@ -283,7 +283,7 @@ class UrlRWParserTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers vsc\infrastructure\urls\UrlParserA::getTldOf
+	 * @covers \vsc\infrastructure\urls\UrlParserA::getTldOf
 	 */
 	public function testGetTldOf () {
 		$sHost = 'example.com';

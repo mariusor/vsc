@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the public method MappingA::getTitle()
+ * @covers \vsc\application\sitemaps\MappingA::getTitle()
  */
 class getTitle extends \PHPUnit_Framework_TestCase
 {

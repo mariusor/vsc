@@ -10,7 +10,7 @@ namespace lib\domain\models\ModelA;
 use vsc\domain\models\ModelA;
 
 /**
- * @covers the public method ModelA::toArray()
+ * @covers \vsc\domain\models\ModelA::toArray()
  */
 class toArrayTest extends \PHPUnit_Framework_TestCase {
 	/**

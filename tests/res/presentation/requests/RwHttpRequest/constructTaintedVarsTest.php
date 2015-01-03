@@ -2,7 +2,7 @@
 namespace tests\res\presentation\requests\RwHttpRequest;
 
 /**
- * @covers the public method RwHttpRequest::constructTaintedVars()
+ * @covers \vsc\presentation\requests\RwHttpRequest::constructTaintedVars()
  */
 class constructTaintedVars extends \PHPUnit_Framework_TestCase
 {

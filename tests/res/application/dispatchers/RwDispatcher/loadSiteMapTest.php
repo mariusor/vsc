@@ -6,7 +6,7 @@ use vsc\application\sitemaps\ClassMap;
 use vsc\ExceptionError;
 
 /**
- * @covers the public method RwDispatcher::loadSiteMap()
+ * @covers \vsc\application\dispatchers\RwDispatcher::loadSiteMap()
  */
 class loadSiteMap extends \PHPUnit_Framework_TestCase
 {

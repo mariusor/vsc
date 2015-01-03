@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\PlainTextView;
 
 /**
- * @covers the public method PlainTextView::append()
+ * @covers \vsc\presentation\views\PlainTextView::append()
  */
 class append extends \PHPUnit_Framework_TestCase
 {

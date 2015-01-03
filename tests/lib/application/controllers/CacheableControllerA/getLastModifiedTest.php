@@ -4,7 +4,7 @@ use fixtures\presentation\views\NullView;
 use vsc\application\controllers\CacheableControllerA;
 
 /**
- * @covers the public method CacheableControllerA::getLastModified()
+ * @covers \vsc\application\controllers\CacheableControllerA::getLastModified()
  */
 class getLastModified extends \PHPUnit_Framework_TestCase
 {

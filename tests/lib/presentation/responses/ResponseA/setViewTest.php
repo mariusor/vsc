@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\ResponseA;
 
 /**
- * @covers the public method ResponseA::setView()
+ * @covers \vsc\presentation\responses\ResponseA::setView()
  */
 class setView extends \PHPUnit_Framework_TestCase
 {

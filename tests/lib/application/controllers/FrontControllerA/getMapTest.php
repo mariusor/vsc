@@ -6,7 +6,7 @@ use vsc\application\sitemaps\ControllerMap;
 use fixtures\presentation\views\NullView;
 
 /**
- * @covers the public method FrontControllerA::getMap()
+ * @covers \vsc\application\controllers\FrontControllerA::getMap()
  */
 class getMap extends \PHPUnit_Framework_TestCase
 {

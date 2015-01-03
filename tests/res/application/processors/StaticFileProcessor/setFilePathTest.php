@@ -2,7 +2,7 @@
 namespace tests\res\application\processors\StaticFileProcessor;
 
 /**
- * @covers the public method StaticFileProcessor::setFilePath()
+ * @covers \vsc\application\processors\StaticFileProcessor::setFilePath()
  */
 class setFilePath extends \PHPUnit_Framework_TestCase
 {

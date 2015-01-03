@@ -2,7 +2,7 @@
 namespace tests\res\presentation\requests\ContentType;
 
 /**
- * @covers the public method ContentType::isAccepted()
+ * @covers \vsc\presentation\requests\ContentType::isAccepted()
  */
 class isAccepted extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\res\infrastructure\Object;
 
 /**
- * @covers the public method Object::__callStatic()
+ * @covers \vsc\infrastructure\Object::__callStatic()
  */
 class __callStatic extends \PHPUnit_Framework_TestCase
 {

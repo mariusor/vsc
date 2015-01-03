@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the public method MappingA::setIsStatic()
+ * @covers \vsc\application\sitemaps\MappingA::setIsStatic()
  */
 class setIsStatic extends \PHPUnit_Framework_TestCase
 {

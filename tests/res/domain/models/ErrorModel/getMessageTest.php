@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\ErrorModel;
 
 /**
- * @covers the public method ErrorModel::getMessage()
+ * @covers \vsc\domain\models\ErrorModel::getMessage()
  */
 class getMessage extends \PHPUnit_Framework_TestCase
 {

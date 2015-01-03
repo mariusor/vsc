@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\views\ViewA;
 
 /**
- * @covers the public method ViewA::getContentType()
+ * @covers \vsc\presentation\views\ViewA::getContentType()
  */
 class getContentType extends \PHPUnit_Framework_TestCase
 {

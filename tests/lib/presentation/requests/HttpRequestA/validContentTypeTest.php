@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::validContentType()
+ * @covers \vsc\presentation\requests\HttpRequestA::validContentType()
  */
 class validContentType extends \PHPUnit_Framework_TestCase
 {

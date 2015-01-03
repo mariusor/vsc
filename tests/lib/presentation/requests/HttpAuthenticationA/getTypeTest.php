@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpAuthenticationA;
 
 /**
- * @covers the public method HttpAuthenticationA::getType()
+ * @covers \vsc\presentation\requests\HttpAuthenticationA::getType()
  */
 class getType extends \PHPUnit_Framework_TestCase
 {

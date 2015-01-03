@@ -5,7 +5,7 @@ use vsc\presentation\views\ViewA;
 use vsc\presentation\views\Html5View;
 
 /**
- * @covers the public method Html5Controller::getDefaultView()
+ * @covers \vsc\application\controllers\Html5Controller::getDefaultView()
  */
 class getDefaultView extends \PHPUnit_Framework_TestCase
 {

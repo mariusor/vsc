@@ -3,7 +3,7 @@ namespace tests\lib\domain\models\ModelA;
 use vsc\domain\models\ModelA;
 
 /**
- * @covers the public method ModelA::key()
+ * @covers \vsc\domain\models\ModelA::key()
  */
 class key extends \PHPUnit_Framework_TestCase
 {

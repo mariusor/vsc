@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\SimpleXMLArrayModel;
 
 /**
- * @covers the public method SimpleXMLArrayModel::__call()
+ * @covers \vsc\domain\models\SimpleXMLArrayModel::__call()
  */
 class __call extends \PHPUnit_Framework_TestCase
 {

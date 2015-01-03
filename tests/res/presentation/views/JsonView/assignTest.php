@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\JsonView;
 
 /**
- * @covers the public method JsonView::assign()
+ * @covers \vsc\presentation\views\JsonView::assign()
  */
 class assign extends \PHPUnit_Framework_TestCase
 {

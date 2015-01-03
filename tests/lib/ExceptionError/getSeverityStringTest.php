@@ -1,12 +1,11 @@
 <?php
 namespace tests\lib\ExceptionError;
-
 /**
- * @covers the public method ExceptionError::getSeverityString()
+ * @covers \vsc\ExceptionError::getSeverityString()
  */
 class getSeverityString extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete () {
+	public function testBasicGetSeverityString () {
 		$E = new \vsc\ExceptionError();
 		$Mirror = new \ReflectionClass($E);
 		$MirrorProperty = $Mirror->getProperty('aErrorTypes');

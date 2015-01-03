@@ -2,7 +2,7 @@
 namespace tests\res\application\controllers\ContentTypeController;
 
 /**
- * @covers the public method ContentTypeController::getAvailableContentTypes()
+ * @covers \vsc\application\controllers\ContentTypeController::getAvailableContentTypes()
  */
 class getAvailableContentTypes extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::getGetVars()
+ * @covers \vsc\presentation\requests\HttpRequestA::getGetVars()
  */
 class getGetVars extends \PHPUnit_Framework_TestCase
 {

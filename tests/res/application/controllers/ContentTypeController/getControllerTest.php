@@ -2,7 +2,7 @@
 namespace tests\res\application\controllers\ContentTypeController;
 
 /**
- * @covers the public method ContentTypeController::getController()
+ * @covers \vsc\application\controllers\ContentTypeController::getController()
  */
 class getController extends \PHPUnit_Framework_TestCase
 {

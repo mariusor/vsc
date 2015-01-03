@@ -7,7 +7,7 @@ use vsc\application\sitemaps\ControllerMap;
 use fixtures\presentation\views\testView;
 
 /**
- * @covers the public method FrontControllerA::setTemplatePath()
+ * @covers \vsc\application\controllers\FrontControllerA::setTemplatePath()
  */
 class setTemplatePath extends \PHPUnit_Framework_TestCase
 {

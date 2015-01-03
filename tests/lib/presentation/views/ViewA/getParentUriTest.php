@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\views\ViewA;
 
 /**
- * @covers the public method ViewA::getParentUri()
+ * @covers \vsc\presentation\views\ViewA::getParentUri()
  */
 class getParentUri extends \PHPUnit_Framework_TestCase
 {

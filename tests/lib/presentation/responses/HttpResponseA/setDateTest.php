@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseA;
 
 /**
- * @covers the public method HttpResponseA::setDate()
+ * @covers \vsc\presentation\responses\HttpResponseA::setDate()
  */
 class setDate extends \PHPUnit_Framework_TestCase
 {

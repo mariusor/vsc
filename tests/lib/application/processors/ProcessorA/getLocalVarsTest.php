@@ -3,7 +3,7 @@ namespace tests\lib\application\processors\ProcessorA;
 use fixtures\application\processors\ProcessorFixture;
 
 /**
- * @covers the public method ProcessorA::getLocalVars()
+ * @covers \vsc\application\processors\ProcessorA::getLocalVars()
  */
 class getLocalVars extends \PHPUnit_Framework_TestCase
 {

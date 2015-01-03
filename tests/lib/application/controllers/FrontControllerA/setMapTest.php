@@ -6,7 +6,7 @@ use fixtures\presentation\views\NullView;
 use vsc\application\controllers\FrontControllerA;
 
 /**
- * @covers the public method FrontControllerA::setMap()
+ * @covers \vsc\application\controllers\FrontControllerA::setMap()
  */
 class setMap extends \PHPUnit_Framework_TestCase
 {

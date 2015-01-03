@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\RssView;
 
 /**
- * @covers the public method RssView::getDescription()
+ * @covers \vsc\presentation\views\RssView::getDescription()
  */
 class getDescription extends \PHPUnit_Framework_TestCase
 {

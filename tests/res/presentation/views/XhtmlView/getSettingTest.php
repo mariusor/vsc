@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\XhtmlView;
 
 /**
- * @covers the public method XhtmlView::getSetting()
+ * @covers \vsc\presentation\views\XhtmlView::getSetting()
  */
 class getSetting extends \PHPUnit_Framework_TestCase
 {

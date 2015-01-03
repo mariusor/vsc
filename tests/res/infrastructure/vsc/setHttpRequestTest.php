@@ -2,7 +2,7 @@
 namespace tests\res\infrastructure\vsc;
 
 /**
- * @covers the public method vsc::setHttpRequest()
+ * @covers \vsc\infrastructure\vsc::setHttpRequest()
  */
 class setHttpRequest extends \PHPUnit_Framework_TestCase
 {

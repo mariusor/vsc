@@ -5,7 +5,7 @@ use vsc\presentation\views\ViewA;
 use vsc\presentation\views\XhtmlView;
 
 /**
- * @covers the public method XhtmlController::getDefaultView()
+ * @covers \vsc\application\controllers\XhtmlController::getDefaultView()
  */
 class getDefaultView extends \PHPUnit_Framework_TestCase
 {

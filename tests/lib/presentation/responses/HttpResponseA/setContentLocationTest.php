@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseA;
 
 /**
- * @covers the public method HttpResponseA::setContentLocation()
+ * @covers \vsc\presentation\responses\HttpResponseA::setContentLocation()
  */
 class setContentLocation extends \PHPUnit_Framework_TestCase
 {

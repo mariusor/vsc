@@ -2,7 +2,7 @@
 namespace tests\res\application\dispatchers\RwDispatcher;
 
 /**
- * @covers the public method RwDispatcher::getView()
+ * @covers \vsc\application\dispatchers\RwDispatcher::getView()
  */
 class getView extends \PHPUnit_Framework_TestCase
 {

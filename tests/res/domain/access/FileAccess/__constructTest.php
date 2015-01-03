@@ -2,7 +2,7 @@
 namespace tests\res\domain\access\FileAccess;
 
 /**
- * @covers the public method FileAccess::__construct()
+ * @covers \vsc\domain\access\FileAccess::__construct()
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {

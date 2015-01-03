@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::getIfModifiedSince()
+ * @covers \vsc\presentation\requests\HttpRequestA::getIfModifiedSince()
  */
 class getIfModifiedSince extends \PHPUnit_Framework_TestCase
 {

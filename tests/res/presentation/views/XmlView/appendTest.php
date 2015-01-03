@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\XmlView;
 
 /**
- * @covers the public method XmlView::append()
+ * @covers \vsc\presentation\views\XmlView::append()
  */
 class append extends \PHPUnit_Framework_TestCase
 {

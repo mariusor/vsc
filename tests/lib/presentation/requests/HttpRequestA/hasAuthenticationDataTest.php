@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::hasAuthenticationData()
+ * @covers \vsc\presentation\requests\HttpRequestA::hasAuthenticationData()
  */
 class hasAuthenticationData extends \PHPUnit_Framework_TestCase
 {

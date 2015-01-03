@@ -2,7 +2,7 @@
 namespace tests\lib\infrastructure\urls\UrlParserA;
 
 /**
- * @covers the public method UrlParserA::__construct()
+ * @covers \vsc\infrastructure\urls\UrlParserA::__construct()
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {

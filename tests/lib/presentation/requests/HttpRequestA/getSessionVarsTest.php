@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::getSessionVars()
+ * @covers \vsc\presentation\requests\HttpRequestA::getSessionVars()
  */
 class getSessionVars extends \PHPUnit_Framework_TestCase
 {

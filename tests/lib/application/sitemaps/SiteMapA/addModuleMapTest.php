@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\SiteMapA;
 
 /**
- * @covers the public method SiteMapA::addModuleMap()
+ * @covers \vsc\application\sitemaps\SiteMapA::addModuleMap()
  */
 class addModuleMap extends \PHPUnit_Framework_TestCase
 {

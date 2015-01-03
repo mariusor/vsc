@@ -2,7 +2,7 @@
 namespace tests\res\presentation\requests\RawHttpRequest;
 
 /**
- * @covers the public method RawHttpRequest::setRawVars()
+ * @covers \vsc\presentation\requests\RawHttpRequest::setRawVars()
  */
 class setRawVars extends \PHPUnit_Framework_TestCase
 {

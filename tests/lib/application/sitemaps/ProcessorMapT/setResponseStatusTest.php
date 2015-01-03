@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\ProcessorMapT;
 
 /**
- * @covers the  method ProcessorMapT::setResponseStatus()
+ * @covers \vsc\application\sitemaps\ProcessorMapT::setResponseStatus()
  */
 class setResponseStatus extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\PlainTextView;
 
 /**
- * @covers the public method PlainTextView::fetch()
+ * @covers \vsc\presentation\views\PlainTextView::fetch()
  */
 class fetch extends \PHPUnit_Framework_TestCase
 {

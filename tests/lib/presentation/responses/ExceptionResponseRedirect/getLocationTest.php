@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\ExceptionResponseRedirect;
 
 /**
- * @covers the public method ExceptionResponseRedirect::getLocation()
+ * @covers \vsc\presentation\responses\ExceptionResponseRedirect::getLocation()
  */
 class getLocation extends \PHPUnit_Framework_TestCase
 {

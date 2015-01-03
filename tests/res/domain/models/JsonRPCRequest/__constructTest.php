@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\JsonRPCRequest;
 
 /**
- * @covers the public method JsonRPCRequest::__construct()
+ * @covers \vsc\domain\models\JsonRPCRequest::__construct()
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {

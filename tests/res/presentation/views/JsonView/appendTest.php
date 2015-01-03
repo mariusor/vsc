@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\JsonView;
 
 /**
- * @covers the public method JsonView::append()
+ * @covers \vsc\presentation\views\JsonView::append()
  */
 class append extends \PHPUnit_Framework_TestCase
 {

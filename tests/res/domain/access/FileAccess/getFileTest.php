@@ -2,7 +2,7 @@
 namespace tests\res\domain\access\FileAccess;
 
 /**
- * @covers the public method FileAccess::getFile()
+ * @covers \vsc\domain\access\FileAccess::getFile()
  */
 class getFile extends \PHPUnit_Framework_TestCase
 {

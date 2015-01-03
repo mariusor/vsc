@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the public method MappingA::addStyle()
+ * @covers \vsc\application\sitemaps\MappingA::addStyle()
  */
 class addStyle extends \PHPUnit_Framework_TestCase
 {

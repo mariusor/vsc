@@ -7,7 +7,7 @@ use vsc\application\sitemaps\ClassMap;
 use vsc\presentation\responses\ExceptionResponseError;
 
 /**
- * @covers the public method ErrorProcessor::getModel()
+ * @covers \vsc\application\processors\ErrorProcessor::getModel()
  */
 class getModel extends \PHPUnit_Framework_TestCase
 {

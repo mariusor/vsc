@@ -2,7 +2,7 @@
 namespace tests\res\infrastructure\Null;
 
 /**
- * @covers the public method Null::__call()
+ * @covers \vsc\infrastructure\Null::__call()
  */
 class __call extends \PHPUnit_Framework_TestCase
 {

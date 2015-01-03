@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\ExceptionResponseError;
 
 /**
- * @covers the public method ExceptionResponseError::getErrorCode()
+ * @covers \vsc\presentation\responses\ExceptionResponseError::getErrorCode()
  */
 class getErrorCode extends \PHPUnit_Framework_TestCase
 {

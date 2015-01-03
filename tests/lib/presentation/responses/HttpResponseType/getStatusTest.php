@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseType;
 
 /**
- * @covers the public method HttpResponseType::getStatus()
+ * @covers \vsc\presentation\responses\HttpResponseType::getStatus()
  */
 class getStatus extends \PHPUnit_Framework_TestCase
 {

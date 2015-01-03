@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\PlainTextView;
 
 /**
- * @covers the public method PlainTextView::display()
+ * @covers \vsc\presentation\views\PlainTextView::display()
  */
 class display extends \PHPUnit_Framework_TestCase
 {

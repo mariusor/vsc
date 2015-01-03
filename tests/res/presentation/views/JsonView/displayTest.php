@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\JsonView;
 
 /**
- * @covers the public method JsonView::display()
+ * @covers \vsc\presentation\views\JsonView::display()
  */
 class display extends \PHPUnit_Framework_TestCase
 {

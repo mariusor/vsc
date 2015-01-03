@@ -2,7 +2,7 @@
 namespace tests\res\infrastructure\vsc;
 
 /**
- * @covers the public method vsc::d()
+ * @covers \vsc\infrastructure\vsc::d()
  */
 class d extends \PHPUnit_Framework_TestCase
 {

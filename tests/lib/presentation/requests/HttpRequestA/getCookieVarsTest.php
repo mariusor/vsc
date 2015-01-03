@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::getCookieVars()
+ * @covers \vsc\presentation\requests\HttpRequestA::getCookieVars()
  */
 class getCookieVars extends \PHPUnit_Framework_TestCase
 {

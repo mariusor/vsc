@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\ExceptionAuthenticationNeeded;
 
 /**
- * @covers the public method ExceptionAuthenticationNeeded::__construct()
+ * @covers \vsc\presentation\responses\ExceptionAuthenticationNeeded::__construct()
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the protected method MappingA::mergePaths()
+ * @covers \vsc\application\sitemaps\MappingA::mergePaths()
  */
 class mergePaths extends \PHPUnit_Framework_TestCase
 {

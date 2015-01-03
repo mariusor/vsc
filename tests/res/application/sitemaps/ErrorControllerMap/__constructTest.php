@@ -2,7 +2,7 @@
 namespace tests\res\application\sitemaps\ErrorControllerMap;
 
 /**
- * @covers the public method ErrorControllerMap::__construct()
+ * @covers \vsc\application\sitemaps\ErrorControllerMap::__construct()
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {

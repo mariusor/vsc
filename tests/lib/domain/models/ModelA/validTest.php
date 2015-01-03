@@ -3,7 +3,7 @@ namespace tests\lib\domain\models\ModelA;
 use vsc\domain\models\ModelA;
 
 /**
- * @covers the public method ModelA::valid()
+ * @covers \vsc\domain\models\ModelA::valid()
  */
 class valid extends \PHPUnit_Framework_TestCase
 {

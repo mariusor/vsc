@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseA;
 
 /**
- * @covers the public method HttpResponseA::setContentType()
+ * @covers \vsc\presentation\responses\HttpResponseA::setContentType()
  */
 class setContentType extends \PHPUnit_Framework_TestCase
 {

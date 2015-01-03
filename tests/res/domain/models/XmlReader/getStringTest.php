@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\XmlReader;
 
 /**
- * @covers the public method XmlReader::getString()
+ * @covers \vsc\domain\models\XmlReader::getString()
  */
 class getString extends \PHPUnit_Framework_TestCase
 {

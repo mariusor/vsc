@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::getHttpUserAgent()
+ * @covers \vsc\presentation\requests\HttpRequestA::getHttpUserAgent()
  */
 class getHttpUserAgent extends \PHPUnit_Framework_TestCase
 {

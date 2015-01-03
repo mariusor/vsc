@@ -2,7 +2,7 @@
 namespace tests\res\domain\access\FileAccess;
 
 /**
- * @covers the public method FileAccess::getSignature()
+ * @covers \vsc\domain\access\FileAccess::getSignature()
  */
 class getSignature extends \PHPUnit_Framework_TestCase
 {

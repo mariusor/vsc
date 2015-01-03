@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\views\ViewA;
 
 /**
- * @covers the public method ViewA::getCurrentSiteUri()
+ * @covers \vsc\presentation\views\ViewA::getCurrentSiteUri()
  */
 class getCurrentSiteUri extends \PHPUnit_Framework_TestCase
 {

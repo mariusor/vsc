@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\RssView;
 
 /**
- * @covers the public method RssView::display()
+ * @covers \vsc\presentation\views\RssView::display()
  */
 class display extends \PHPUnit_Framework_TestCase
 {

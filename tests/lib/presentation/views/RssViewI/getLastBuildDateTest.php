@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\views\RssViewI;
 
 /**
- * @covers the  method RssViewI::getLastBuildDate()
+ * @covers \vsc\presentation\views\RssViewI::getLastBuildDate()
  */
 class getLastBuildDate extends \PHPUnit_Framework_TestCase
 {

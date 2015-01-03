@@ -2,7 +2,7 @@
 namespace tests\res\application\sitemaps\ProcessorMap;
 
 /**
- * @covers the public method ProcessorMap::mapController()
+ * @covers \vsc\application\sitemaps\ProcessorMap::mapController()
  */
 class mapController extends \PHPUnit_Framework_TestCase
 {

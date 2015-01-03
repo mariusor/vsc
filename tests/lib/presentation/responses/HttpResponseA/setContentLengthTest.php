@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseA;
 
 /**
- * @covers the public method HttpResponseA::setContentLength()
+ * @covers \vsc\presentation\responses\HttpResponseA::setContentLength()
  */
 class setContentLength extends \PHPUnit_Framework_TestCase
 {

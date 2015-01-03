@@ -5,7 +5,7 @@ use fixtures\presentation\requests\PopulatedRequest;
 use vsc\infrastructure\vsc;
 
 /**
- * @covers the public method RwDispatcher::getTemplatePath()
+ * @covers \vsc\application\dispatchers\RwDispatcher::getTemplatePath()
  */
 class getTemplatePath extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\XhtmlView;
 
 /**
- * @covers the public method XhtmlView::assign()
+ * @covers \vsc\presentation\views\XhtmlView::assign()
  */
 class assign extends \PHPUnit_Framework_TestCase
 {

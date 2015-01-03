@@ -6,7 +6,7 @@ use vsc\application\controllers\FrontControllerA;
 use vsc\application\sitemaps\ControllerMap;
 
 /**
- * @covers the public method ContentTypeController::getView()
+ * @covers \vsc\application\controllers\ContentTypeController::getView()
  */
 class getView extends \PHPUnit_Framework_TestCase
 {

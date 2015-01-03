@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseType;
 
 /**
- * @covers the public method HttpResponseType::isValidStatus()
+ * @covers \vsc\presentation\responses\HttpResponseType::isValidStatus()
  */
 class isValidStatus extends \PHPUnit_Framework_TestCase
 {

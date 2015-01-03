@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\XhtmlView;
 
 /**
- * @covers the public method XhtmlView::display()
+ * @covers \vsc\presentation\views\XhtmlView::display()
  */
 class display extends \PHPUnit_Framework_TestCase
 {

@@ -5,7 +5,7 @@ use vsc\application\dispatchers\RwDispatcher;
 use vsc\infrastructure\vsc;
 
 /**
- * @covers the public method ProcessorA::delegateRequest()
+ * @covers \vsc\application\processors\ProcessorA::delegateRequest()
  */
 class delegateRequest extends \PHPUnit_Framework_TestCase
 {

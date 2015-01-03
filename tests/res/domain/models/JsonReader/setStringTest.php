@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\JsonReader;
 
 /**
- * @covers the public method JsonReader::setString()
+ * @covers \vsc\domain\models\JsonReader::setString()
  */
 class setString extends \PHPUnit_Framework_TestCase
 {

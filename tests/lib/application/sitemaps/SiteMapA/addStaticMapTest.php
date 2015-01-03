@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\SiteMapA;
 
 /**
- * @covers the public method SiteMapA::addStaticMap()
+ * @covers \vsc\application\sitemaps\SiteMapA::addStaticMap()
  */
 class addStaticMap extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::isDelete()
+ * @covers \vsc\presentation\requests\HttpRequestA::isDelete()
  */
 class isDelete extends \PHPUnit_Framework_TestCase
 {

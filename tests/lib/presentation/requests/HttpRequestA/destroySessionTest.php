@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::destroySession()
+ * @covers \vsc\presentation\requests\HttpRequestA::destroySession()
  */
 class destroySession extends \PHPUnit_Framework_TestCase
 {

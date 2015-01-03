@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the public method MappingA::addScript()
+ * @covers \vsc\application\sitemaps\MappingA::addScript()
  */
 class addScript extends \PHPUnit_Framework_TestCase
 {

@@ -3,7 +3,7 @@ namespace tests\lib\domain\models\ModelA;
 use vsc\domain\models\ModelA;
 
 /**
- * @covers the public method ModelA::offsetExists()
+ * @covers \vsc\domain\models\ModelA::offsetExists()
  */
 class offsetExists extends \PHPUnit_Framework_TestCase
 {

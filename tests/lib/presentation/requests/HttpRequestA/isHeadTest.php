@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::isHead()
+ * @covers \vsc\presentation\requests\HttpRequestA::isHead()
  */
 class isHead extends \PHPUnit_Framework_TestCase
 {

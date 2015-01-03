@@ -2,7 +2,7 @@
 namespace tests\res\application\dispatchers\RwDispatcher;
 
 /**
- * @covers the public method RwDispatcher::getCurrentProcessorMap()
+ * @covers \vsc\application\dispatchers\RwDispatcher::getCurrentProcessorMap()
  */
 class getCurrentProcessorMap extends \PHPUnit_Framework_TestCase
 {

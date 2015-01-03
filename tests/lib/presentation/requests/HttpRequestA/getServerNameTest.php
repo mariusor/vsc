@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::getServerName()
+ * @covers \vsc\presentation\requests\HttpRequestA::getServerName()
  */
 class getServerName extends \PHPUnit_Framework_TestCase
 {

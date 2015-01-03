@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseA;
 
 /**
- * @covers the public method HttpResponseA::getExpires()
+ * @covers \vsc\presentation\responses\HttpResponseA::getExpires()
  */
 class getExpires extends \PHPUnit_Framework_TestCase
 {

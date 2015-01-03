@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ModuleMap;
 
 /**
- * @covers the  method ControllerMapT::setMainTemplatePath()
+ * @covers \vsc\application\sitemaps\ControllerMapT::setMainTemplatePath()
  */
 class setMainTemplatePath extends \PHPUnit_Framework_TestCase
 {

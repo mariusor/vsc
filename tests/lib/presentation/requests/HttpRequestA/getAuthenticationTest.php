@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::getAuthentication()
+ * @covers \vsc\presentation\requests\HttpRequestA::getAuthentication()
  */
 class getAuthentication extends \PHPUnit_Framework_TestCase
 {

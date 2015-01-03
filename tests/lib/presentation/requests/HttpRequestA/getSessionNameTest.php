@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::getSessionName()
+ * @covers \vscs\presentation\requests\HttpRequestA::getSessionName()
  */
 class getSessionName extends \PHPUnit_Framework_TestCase
 {

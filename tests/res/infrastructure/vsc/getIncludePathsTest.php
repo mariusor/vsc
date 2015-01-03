@@ -2,7 +2,7 @@
 namespace tests\res\infrastructure\vsc;
 
 /**
- * @covers the public method vsc::getIncludePaths()
+ * @covers \vsc\infrastructure\vsc::getIncludePaths()
  */
 class getIncludePaths extends \PHPUnit_Framework_TestCase
 {

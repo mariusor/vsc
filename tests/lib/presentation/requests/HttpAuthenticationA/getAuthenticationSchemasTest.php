@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpAuthenticationA;
 
 /**
- * @covers the public method HttpAuthenticationA::getAuthenticationSchemas()
+ * @covers \vsc\presentation\requests\HttpAuthenticationA::getAuthenticationSchemas()
  */
 class getAuthenticationSchemas extends \PHPUnit_Framework_TestCase
 {

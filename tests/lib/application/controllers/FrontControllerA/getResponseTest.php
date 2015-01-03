@@ -9,7 +9,7 @@ use vsc\presentation\responses\HttpResponseA;
 use fixtures\presentation\views\NullView;
 
 /**
- * @covers the public method CacheableControllerA::getResponse()
+ * @covers \vsc\application\controllers\FrontControllerA::getResponse()
  */
 class getResponse extends \PHPUnit_Framework_TestCase
 {

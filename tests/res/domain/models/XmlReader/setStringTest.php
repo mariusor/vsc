@@ -2,7 +2,7 @@
 namespace tests\res\domain\models\XmlReader;
 
 /**
- * @covers the public method XmlReader::setString()
+ * @covers \vsc\domain\models\XmlReader::setString()
  */
 class setString extends \PHPUnit_Framework_TestCase
 {

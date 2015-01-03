@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseA;
 
 /**
- * @covers the public method HttpResponseA::setContentDisposition()
+ * @covers \vsc\presentation\responses\HttpResponseA::setContentDisposition()
  */
 class setContentDisposition extends \PHPUnit_Framework_TestCase
 {

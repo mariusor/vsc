@@ -2,7 +2,7 @@
 namespace tests\res\application\processors\StaticFileProcessor;
 
 /**
- * @covers the public method StaticFileProcessor::init()
+ * @covers \vsc\application\processors\StaticFileProcessor::init()
  */
 class init extends \PHPUnit_Framework_TestCase
 {

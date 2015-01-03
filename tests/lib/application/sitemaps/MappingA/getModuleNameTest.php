@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the public method MappingA::getModuleName()
+ * @covers \vsc\application\sitemaps\MappingA::getModuleName()
  */
 class getModuleName extends \PHPUnit_Framework_TestCase
 {

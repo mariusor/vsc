@@ -2,7 +2,7 @@
 namespace tests\res\application\processors\EmptyProcessor;
 
 /**
- * @covers the public method EmptyProcessor::handleRequest()
+ * @covers \vsc\application\processors\EmptyProcessor::handleRequest()
  */
 class handleRequest extends \PHPUnit_Framework_TestCase
 {

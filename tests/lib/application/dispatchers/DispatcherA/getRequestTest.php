@@ -4,7 +4,7 @@ use vsc\infrastructure\vsc;
 use vsc\application\dispatchers\RwDispatcher;
 
 /**
- * @covers the public method DispatcherA::getRequest()
+ * @covers \vsc\application\dispatchers\DispatcherA::getRequest()
  */
 class getRequest extends \PHPUnit_Framework_TestCase
 {

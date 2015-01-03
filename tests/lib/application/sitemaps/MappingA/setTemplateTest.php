@@ -3,7 +3,7 @@ namespace tests\lib\application\sitemaps\MappingA;
 use vsc\application\sitemaps\MappingA;
 
 /**
- * @covers the public method MappingA::setTemplate()
+ * @covers \vsc\application\sitemaps\MappingA::setTemplate()
  */
 class setTemplate extends \PHPUnit_Framework_TestCase
 {

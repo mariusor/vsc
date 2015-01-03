@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\MappingA;
 
 /**
- * @covers the public method MappingA::setTaintedVars()
+ * @covers \vsc\application\sitemaps\MappingA::setTaintedVars()
  */
 class setTaintedVars extends \PHPUnit_Framework_TestCase
 {

@@ -5,7 +5,7 @@ use vsc\domain\models\ModelA;
 use vsc\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method ProcessorA::getVar()
+ * @covers \vsc\application\processors\ProcessorA::getVar()
  */
 class getVar extends \PHPUnit_Framework_TestCase
 {

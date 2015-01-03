@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\responses\HttpResponseA;
 
 /**
- * @covers the public method HttpResponseA::setContentMd5()
+ * @covers \vsc\presentation\responses\HttpResponseA::setContentMd5()
  */
 class setContentMd5 extends \PHPUnit_Framework_TestCase
 {

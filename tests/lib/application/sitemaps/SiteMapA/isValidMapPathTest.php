@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\SiteMapA;
 
 /**
- * @covers the public method SiteMapA::isValidMapPath()
+ * @covers \vsc\application\sitemaps\SiteMapA::isValidMapPath()
  */
 class isValidMapPath extends \PHPUnit_Framework_TestCase
 {

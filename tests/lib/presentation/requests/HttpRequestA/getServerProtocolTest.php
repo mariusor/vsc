@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::getServerProtocol()
+ * @covers \vsc\presentation\requests\HttpRequestA::getServerProtocol()
  */
 class getServerProtocol extends \PHPUnit_Framework_TestCase
 {

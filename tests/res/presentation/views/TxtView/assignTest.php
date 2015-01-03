@@ -2,7 +2,7 @@
 namespace tests\res\presentation\views\TxtView;
 
 /**
- * @covers the public method TxtView::assign()
+ * @covers \vsc\presentation\views\TxtView::assign()
  */
 class assign extends \PHPUnit_Framework_TestCase
 {

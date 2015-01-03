@@ -8,7 +8,7 @@ use vsc\presentation\views\ViewA;
 use vsc\rest\application\controllers\RESTController;
 
 /**
- * @covers the public method RESTController::getDefaultView()
+ * @covers \vsc\rest\application\controllers\RESTController::getDefaultView()
  */
 class getDefaultView extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 
 /**
- * @covers the public method HttpRequestA::getHttpAcceptLanguage()
+ * @covers \vsc\presentation\requests\HttpRequestA::getHttpAcceptLanguage()
  */
 class getHttpAcceptLanguage extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 namespace tests\res\infrastructure\Object;
 
 /**
- * @covers the public method Object::__call()
+ * @covers \vsc\infrastructure\Object::__call()
  */
 class __call extends \PHPUnit_Framework_TestCase
 {

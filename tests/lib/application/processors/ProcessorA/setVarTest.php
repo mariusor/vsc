@@ -2,7 +2,7 @@
 namespace tests\lib\application\processors\ProcessorA;
 
 /**
- * @covers the public method ProcessorA::setVar()
+ * @covers \vsc\application\processors\ProcessorA::setVar()
  */
 class setVar extends \PHPUnit_Framework_TestCase
 {
