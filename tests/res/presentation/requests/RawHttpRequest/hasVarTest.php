@@ -1,13 +1,37 @@
 <?php
 namespace tests\res\presentation\requests\RawHttpRequest;
+use fixtures\presentation\requests\PopulatedRESTRequest;
 
 /**
  * @covers \vsc\presentation\requests\RawHttpRequest::hasVar()
  */
 class hasVar extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testHasVar_ParentVar()
 	{
-		$this->markTestIncomplete(" ... ");
+		$o = new PopulatedRESTRequest();
+
+		$o->setContentType('application/json');
+
+		$this->assertFalse($o->hasVar('gigel'));
+		$this->assertFalse($o->hasVar('random'));
+
+		// GET var
+		$this->assertTrue($o->hasVar('cucu')); // 'cucu' => 'pasare','ana' => 'are', 'mere' => '', 'test' => 123
+		$this->assertTrue($o->hasVar('ana'));
+		$this->assertTrue($o->hasVar('test'));
+		// POST var
+		$this->assertTrue($o->hasVar('postone')); // 'postone' => 'are', 'ana' => ''
+		$this->assertTrue($o->hasVar('ana'));
+		// Cookie var
+		$this->assertTrue($o->hasVar('user')); // 'user' => 'asddsasdad234'
+
+		PopulatedRESTRequest::startSession();
+
+		$_SESSION['ala'] = uniqid('ala:');
+		$_SESSION['bala'] = '##';
+		// Session var
+		$this->assertTrue($o->hasVar('ala')); // 'ala' =>  uniqid('ala:'), 'bala' => '##'
+		$this->assertTrue($o->hasVar('bala'));
 	}
 }

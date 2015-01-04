@@ -10,7 +10,6 @@ class getRawVar extends \PHPUnit_Framework_TestCase
 	/**
 	 * @covers \vsc\presentation\requests\RawHttpRequest::getRawVar()
 	 * @covers \vsc\presentation\requests\RawHttpRequest::constructRawVars()
-	 * @covers \vsc\presentation\requests\RawHttpRequest::setContentType()
 	 */
 	public function testRawGetVarJsonData()
 	{

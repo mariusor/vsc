@@ -11,7 +11,6 @@ class hasRawVar extends \PHPUnit_Framework_TestCase
 	 * @covers \vsc\presentation\requests\RawHttpRequest::hasRawVar()
 	 * @covers \vsc\presentation\requests\RawHttpRequest::hasVar()
 	 * @covers \vsc\presentation\requests\RawHttpRequest::constructRawVars()
-	 * @covers \vsc\presentation\requests\RawHttpRequest::setContentType()
 	 */
 	public function testHasVarJsonData()
 	{

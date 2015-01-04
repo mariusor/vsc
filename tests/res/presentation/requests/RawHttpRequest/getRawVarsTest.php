@@ -31,7 +31,6 @@ class getRawVars extends \PHPUnit_Framework_TestCase
 	/**
 	 * @covers \vsc\presentation\requests\RawHttpRequest::getRawVars()
 	 * @covers \vsc\presentation\requests\RawHttpRequest::constructRawVars()
-	 * @covers \vsc\presentation\requests\RawHttpRequest::setContentType()
 	 */
 	public function testThrowExceptionUnkownContentType() {
 		$o = new PopulatedRawRequest();
@@ -50,7 +49,6 @@ class getRawVars extends \PHPUnit_Framework_TestCase
 	/**
 	 * @covers \vsc\presentation\requests\RawHttpRequest::getRawVar()
 	 * @covers \vsc\presentation\requests\RawHttpRequest::constructRawVars()
-	 * @covers \vsc\presentation\requests\RawHttpRequest::setContentType()
 	 */
 	public function testGetRawVarsJsonData()
 	{
