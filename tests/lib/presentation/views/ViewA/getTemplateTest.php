@@ -1,13 +1,17 @@
 <?php
 namespace tests\lib\presentation\views\ViewA;
+use fixtures\presentation\views\testView;
 
 /**
  * @covers \vsc\presentation\views\ViewA::getTemplate()
  */
 class getTemplate extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testGetTemplateEmpty ()
 	{
-		$this->markTestIncomplete(" ... ");
+		$o = new testView();
+
+		$path = $o->getTemplate();
+		$this->assertEmpty($path);
 	}
 }
