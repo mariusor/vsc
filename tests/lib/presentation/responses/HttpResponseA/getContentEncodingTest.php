@@ -1,13 +1,26 @@
 <?php
 namespace tests\lib\presentation\responses\HttpResponseA;
+use vsc\presentation\responses\HttpResponseA;
 
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::getContentEncoding()
  */
 class getContentEncoding extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	/**
+	 * @covers \vsc\presentation\responses\HttpResponseA::getContentEncoding()
+	 * @covers \vsc\presentation\responses\HttpResponseA::setContentEncoding()
+	 */
+	public function testSetGetContentEncoding ()
 	{
-		$this->markTestIncomplete(" ... ");
+		$state = new HttpResponseA_underTest_getContentEncoding();
+
+		$this->assertNull($state->getContentEncoding());
+
+		$testValue = 'UTF-8';
+		$state->setContentEncoding($testValue);
+		$this->assertEquals($testValue, $state->getContentEncoding());
 	}
 }
+
+class HttpResponseA_underTest_getContentEncoding extends HttpResponseA {}

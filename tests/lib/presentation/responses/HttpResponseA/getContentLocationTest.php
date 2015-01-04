@@ -1,13 +1,26 @@
 <?php
 namespace tests\lib\presentation\responses\HttpResponseA;
+use vsc\presentation\responses\HttpResponseA;
 
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::getContentLocation()
  */
 class getContentLocation extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	/**
+	 * @covers \vsc\presentation\responses\HttpResponseA::getContentLocation()
+	 * @covers \vsc\presentation\responses\HttpResponseA::setContentLocation()
+	 */
+	public function testSetGetContentLocation ()
 	{
-		$this->markTestIncomplete(" ... ");
+		$state = new HttpResponseA_underTest_getContentLocation ();
+
+		$this->assertNull($state->getContentLocation());
+
+		$testValue = 'http://example.com/test';
+		$state->setContentLocation($testValue);
+		$this->assertEquals($testValue, $state->getContentLocation());
 	}
 }
+
+class HttpResponseA_underTest_getContentLocation extends HttpResponseA {}
