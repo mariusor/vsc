@@ -78,5 +78,52 @@ class isAccepted extends \PHPUnit_Framework_TestCase
 		$this->assertTrue(ContentType::isAccepted(ContentTypes::Json, $aContentTypes));
 		$this->assertFalse(ContentType::isAccepted(ContentTypes::Text, $aContentTypes));
 		$this->assertFalse(ContentType::isAccepted(ContentTypes::Css, $aContentTypes));
+
+		$aAcceptedContentTypes = array(ContentTypes::Json);
+		$this->assertFalse(ContentType::isAccepted(ContentTypes::Everything, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted(ContentTypes::Application, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted(ContentTypes::Xml, $aAcceptedContentTypes));
+		$this->assertTrue(ContentType::isAccepted(ContentTypes::Json, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted(ContentTypes::Image, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted(ContentTypes::Png, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted(ContentTypes::Gif, $aAcceptedContentTypes));
+
+		$aAcceptedContentTypes = array(ContentTypes::Xml);
+		$this->assertFalse(ContentType::isAccepted(ContentTypes::Everything, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted(ContentTypes::Application, $aAcceptedContentTypes));
+		$this->assertTrue(ContentType::isAccepted(ContentTypes::Xml, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted(ContentTypes::Json, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted(ContentTypes::Image, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted(ContentTypes::Png, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted(ContentTypes::Gif, $aAcceptedContentTypes));
+	}
+
+	public function testIsAcceptedWithPriorities() {
+		$Everything = '*/*';
+		$Image = 'image/*';
+		$Png = 'image/png';
+		$Gif = 'image/gif';
+		$Application = 'application/*';
+		$Xml = 'application/xml';
+		$Json = 'application/json';
+
+		$aAcceptedContentTypes = array('application/json;q=0.9');
+		$this->assertFalse(ContentType::isAccepted($Everything, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted($Application, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted($Xml, $aAcceptedContentTypes));
+		$this->assertTrue(ContentType::isAccepted($Json, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted($Image, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted($Png, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted($Gif, $aAcceptedContentTypes));
+
+		$aAcceptedContentTypes = array('text/html;q=0.9','application/xml;q=0.8');
+		$this->assertFalse(ContentType::isAccepted($Everything, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted($Application, $aAcceptedContentTypes));
+		$this->assertTrue(ContentType::isAccepted($Xml, $aAcceptedContentTypes));
+		$this->assertTrue(ContentType::isAccepted('text/html', $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted($Json, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted($Image, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted($Png, $aAcceptedContentTypes));
+		$this->assertFalse(ContentType::isAccepted($Gif, $aAcceptedContentTypes));
 	}
 }
