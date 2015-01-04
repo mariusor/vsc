@@ -6,8 +6,7 @@ namespace tests\lib\presentation\requests\HttpRequestA;
  */
 class setAuthentication extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
-	{
+	public function testSetNoAuhtentication () {
 		$this->markTestIncomplete(" ... ");
 	}
 }

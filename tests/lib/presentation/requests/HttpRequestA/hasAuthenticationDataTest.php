@@ -6,8 +6,13 @@ namespace tests\lib\presentation\requests\HttpRequestA;
  */
 class hasAuthenticationData extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
-	{
+	public function testHasBasicAuhtentication () {
+		$this->markTestIncomplete(" ... ");
+	}
+	public function testHasDigestAuhtentication () {
+		$this->markTestIncomplete(" ... ");
+	}
+	public function testHasNoAuhtentication () {
 		$this->markTestIncomplete(" ... ");
 	}
 }
