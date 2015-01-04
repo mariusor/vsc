@@ -1,13 +1,20 @@
 <?php
 namespace tests\res\presentation\requests\RwHttpRequest;
+use fixtures\presentation\requests\PopulatedRequest;
 
 /**
  * @covers \vsc\presentation\requests\RwHttpRequest::getLastParameter()
  */
 class getLastParameter extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
-	{
-		$this->markTestIncomplete(" ... ");
+	public function testGetLastParameter() {
+		$o = new PopulatedRequest();
+		$this->assertEquals('height',$o->getLastParameter());
+
+		$o->setTaintedVars(array(
+			'ana' => uniqid('val:'),
+		));
+
+		$this->assertEquals('height',$o->getLastParameter());
 	}
 }

@@ -511,7 +511,7 @@ abstract class HttpRequestA extends Object {
 	 * 		"^/([^?]*)?(.*)$" => "/index.php$2" <- this doesn't look right to me
  	 *  )
 	 *
-	 * @todo move to the vscUrlRWParser
+	 * @todo move to the UrlRWParser
 	 * @return string
 	 */
 	public function getUri ($bUrlDecode = false) {
@@ -546,7 +546,7 @@ abstract class HttpRequestA extends Object {
 
 	public function getUriObject() {
 		if (!UrlRWParser::isValid($this->oUri)) {
-			$this->oUri = new UrlRWParser();
+			$this->oUri = new UrlRWParser($this->getUri());
 		}
 		return $this->oUri;
 	}

@@ -7,6 +7,8 @@
  */
 namespace vsc\presentation\requests;
 
+use vsc\infrastructure\urls\UrlRWParser;
+
 class RwHttpRequest extends HttpRequestA {
 	protected $aTaintedVars = array();
 
@@ -72,7 +74,9 @@ class RwHttpRequest extends HttpRequestA {
 	 * @return void
 	 */
 	public function constructTaintedVars () {
-		foreach(explode ('/', $this->getUri()) as $iKey => $sUrlId) {
+		$ParsedUrl = UrlRWParser::parse_url($this->getUri());
+		$sPath = $ParsedUrl['path'];
+		foreach(explode ('/', $sPath) as $iKey => $sUrlId) {
 			if ($sUrlId) {
 				$t = explode (':', $sUrlId);
 				if (count($t) > 1) {
