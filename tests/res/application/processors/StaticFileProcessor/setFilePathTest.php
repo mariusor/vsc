@@ -1,13 +1,21 @@
 <?php
 namespace tests\res\application\processors\StaticFileProcessor;
+use vsc\application\processors\StaticFileProcessor;
+use vsc\infrastructure\vsc;
+use vsc\domain\models\StaticFileModel;
 
 /**
  * @covers \vsc\application\processors\StaticFileProcessor::setFilePath()
  */
 class setFilePath extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicSetPath()
 	{
-		$this->markTestIncomplete(" ... ");
+		$o = new StaticFileProcessor();
+		$o->setFilePath(__FILE__);
+
+		$oModel = $o->handleRequest(vsc::getEnv()->getHttpRequest());
+		$this->assertInstanceOf(StaticFileModel::class, $oModel);
+		$this->assertEquals(__FILE__, $oModel->getFilePath());
 	}
 }
