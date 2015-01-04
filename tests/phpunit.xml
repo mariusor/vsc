@@ -7,51 +7,32 @@
 	stopOnRisky="true"
 	stopOnSkipped="true">
 	<testsuites>
-		<testsuite name="new">
-			<directory>./lib</directory>
-			<directory>./res</directory>
-		</testsuite>
 		<testsuite name="all">
-			<directory suffix=".ptest.php">./</directory>
-			<directory suffix=".ptest.php">./functions/</directory>
-			<directory suffix=".ptest.php">./infrastructure/</directory>
-			<directory suffix=".ptest.php">./domain/</directory>
-			<directory suffix=".ptest.php">./application/</directory>
-			<directory suffix=".ptest.php">./presentation/</directory>
+			<directory suffix="Test.php">./lib</directory>
+			<directory suffix="Test.php">./res</directory>
 		</testsuite>
 		<testsuite name="functions">
-			<directory suffix=".ptest.php">./functions/</directory>
+			<directory suffix="Test.php">./res/functions_inc</directory>
 		</testsuite>
 		<testsuite name="infrastructure">
-			<directory suffix=".ptest.php">./infrastructure/</directory>
+			<directory suffix="Test.php">./lib/infrastructure</directory>
+			<directory suffix="Test.php">./res/infrastructure</directory>
 		</testsuite>
 		<testsuite name="domain">
-			<directory suffix=".ptest.php">./domain/</directory>
+			<directory suffix="Test.php">./lib/domain</directory>
+			<directory suffix="Test.php">./res/domain</directory>
 		</testsuite>
 		<testsuite name="application">
-			<directory suffix=".ptest.php">./application/</directory>
+			<directory suffix="Test.php">./lib/application</directory>
+			<directory suffix="Test.php">./res/application</directory>
 		</testsuite>
 		<testsuite name="presentation">
-			<directory suffix=".ptest.php">./presentation/</directory>
-		</testsuite>
-		<testsuite name="all_the_rest">
-			<directory suffix=".ptest.php">./</directory>
-			<exclude>./functions</exclude>
-			<exclude>./infrastructure</exclude>
-			<exclude>./domain</exclude>
-			<exclude>./application</exclude>
-			<exclude>./presentation</exclude>
+			<directory suffix="Test.php">./lib/presentation</directory>
+			<directory suffix="Test.php">./res/presentation</directory>
 		</testsuite>
 		<testsuite name="sitemaps">
-			<directory suffix=".ptest.php">./application/sitemaps/</directory>
-		</testsuite>
-		<testsuite name="all">
-			<directory suffix=".ptest.php">./</directory>
-			<directory suffix=".ptest.php">./functions/</directory>
-			<directory suffix=".ptest.php">./infrastructure/</directory>
-			<directory suffix=".ptest.php">./domain/</directory>
-			<directory suffix=".ptest.php">./application/</directory>
-			<directory suffix=".ptest.php">./presentation/</directory>
+			<directory suffix="Test.php">./lib/application/sitemaps</directory>
+			<directory suffix="Test.php">./res/application/sitemaps</directory>
 		</testsuite>
 	</testsuites>
 	<filter>
