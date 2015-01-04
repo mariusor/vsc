@@ -18,8 +18,9 @@ class JsonRPCRequest extends ModelA {
 	public function __construct ($oRequest = null) {
 		/* @var RawHttpRequest $oRequest */
 
-		if (RawHttpRequest::isValid($oRequest)) {
-			$oRequest = vsc::getEnv()->getHttpRequest();
+		if (!RawHttpRequest::isValid($oRequest)) {
+			$oRequest = new RawHttpRequest();
+			vsc::getEnv()->setHttpRequest($oRequest);
 		}
 
 		$this->id		= $oRequest->getVar ('id');

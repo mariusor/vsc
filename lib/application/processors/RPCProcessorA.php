@@ -14,7 +14,7 @@ use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\responses\ExceptionResponseError;
 use vsc\Exception;
 
-abstract class RPCProcessor extends ProcessorA {
+abstract class RPCProcessorA extends ProcessorA {
 	private $oRequest;
 	private $oResponse;
 	protected $oInterface;

@@ -1,8 +1,8 @@
 <?php
-namespace tests\res\application\processors\RPCProcessor;
+namespace tests\lib\application\processors\RPCProcessorA;
 
 /**
- * @covers \vsc\application\processors\RPCProcessor::getResponse()
+ * @covers \vsc\application\processors\RPCProcessorA::getResponse()
  */
 class getResponse extends \PHPUnit_Framework_TestCase
 {
