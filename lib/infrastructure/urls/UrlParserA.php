@@ -258,7 +258,7 @@ class UrlParserA extends Object implements UrlParserI {
 					$iCnt++;
 
 					unset ($aPath[$iKey]);
-					if (key_exists($iKey-1,$aPath)) {
+					if (array_key_exists($iKey-1,$aPath)) {
 						$iPrevKey = $iKey-1;
 						$sPrev = $aPath[$iPrevKey];
 					} else {
@@ -363,7 +363,7 @@ class UrlParserA extends Object implements UrlParserI {
 
 
 	public function isLocal () {
-		return ($this->getScheme() == 'file' && !$this->getHost() && $this->getPath());
+		return ($this->getScheme() == 'file' && empty($this->aComponents['host']) && !empty($this->aComponents['path']));
 	}
 
 	public static function isAbsolutePath ($sPath) {
