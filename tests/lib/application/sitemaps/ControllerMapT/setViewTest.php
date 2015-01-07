@@ -1,13 +1,30 @@
 <?php
 namespace tests\lib\application\sitemaps\ControllerMapT;
+use fixtures\presentation\views\NullView;
+use vsc\application\sitemaps\MappingA;
+use vsc\application\sitemaps\ControllerMapT;
+use vsc\presentation\views\ViewA;
 
 /**
  * @covers \vsc\application\sitemaps\ControllerMapT::setView()
  */
 class setView extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testGetDefaultViewPath()
 	{
-		$this->markTestIncomplete(" ... ");
+		$o = new ControllerMapT_underTest_getViewPath(__FILE__, '.*');
+		$this->assertEquals('', $o->getView());
 	}
+
+	public function testSetViewPath()
+	{
+		$o = new ControllerMapT_underTest_getViewPath(__FILE__, '.*');
+		$o->setView(NullView::class);
+		$this->assertInstanceOf(ViewA::class, $o->getView());
+		$this->assertInstanceOf(NullView::class, $o->getView());
+	}
+}
+
+class ControllerMapT_underTest_setView extends MappingA {
+	use ControllerMapT;
 }
