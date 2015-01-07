@@ -142,6 +142,8 @@ abstract class SiteMapA extends Object {
 	}
 
 	/**
+	 * This tells us if $sPath belongs to a file that can be used as a static resource
+	 *  eg. Javascript, CSS, etc.
 	 * @param string $sPath
 	 * @return bool
 	 */
