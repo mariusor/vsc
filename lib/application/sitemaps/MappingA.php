@@ -65,13 +65,23 @@ class MappingA extends Object {
 		return $this->sRegex;
 	}
 
+	/**
+	 * @param bool $bStatic
+	 */
 	public function setIsStatic($bStatic){
 		$this->bIsStatic = $bStatic;
 	}
+
+	/**
+	 * @return bool
+	 */
 	public function isStatic() {
 		return $this->bIsStatic;
 	}
 
+	/**
+	 * @param array $aResources
+	 */
 	public function setResources ($aResources) {
 		$this->aResources = $aResources;
 	}
