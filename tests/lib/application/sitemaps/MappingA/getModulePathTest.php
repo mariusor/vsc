@@ -14,7 +14,7 @@ class getModulePath extends \PHPUnit_Framework_TestCase
 		$oMap = new MappingA_underTest_getModulePath (VSC_FIXTURE_PATH . 'config/map.php', '\A.*\Z');
 
 		$sPath = $oMap->getModulePath();
-		$this->assertEquals(VSC_PATH, $sPath);
+		$this->assertEquals(VSC_RES_PATH, $sPath);
 	}
 
 	public function testGetModulePathWithModuleSet ()

@@ -37,12 +37,12 @@ class MappingA extends Object {
 	private $sViewPath;
 
 	private $sTitle;
-	private $aResources = array();
+	private $aResources = [];
 	private $bIsStatic = false;
 
 	private $aControllerMaps = array();
 
-	private $aTaintedVars;
+	private $aTaintedVars = [];
 
 	/**
 	 * @var MappingA
@@ -197,7 +197,7 @@ class MappingA extends Object {
 	 */
 	public function getModuleMap () {
 		if (!MappingA::isValid($this->oParentMap)) {
-			$this->oParentMap = new ModuleMap('', '');
+			$this->oParentMap = new ModuleMap(VSC_RES_PATH . 'config/map.php', '');
 		}
 		return $this->oParentMap;
 	}
