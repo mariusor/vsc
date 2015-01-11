@@ -172,7 +172,7 @@ abstract class SiteMapA extends Object {
 	 * @return string
 	 */
 	static public function getClassName ($sPath) {
-		$sClassName	= basename($sPath, '.php');
+		$sClassName	= strtolower(basename($sPath, '.php'));
 //		$sClassName	= substr($sPath, 0, -4);
 
 		$iKey		= array_search($sClassName, array_map('strtolower', get_declared_classes()));
@@ -185,11 +185,10 @@ abstract class SiteMapA extends Object {
 	 * @returns MappingA
 	 */
 	public function getCurrentModuleMap () {
-		if (MappingA::isValid($this->oCurrentModuleMap)) {
-			return $this->oCurrentModuleMap;
-		} else {
-			return new Null();
+		if ( !MappingA::isValid($this->oCurrentModuleMap) ) {
+			$this->oCurrentModuleMap = new ModuleMap(VSC_RES_PATH . 'config/map.php', '');
 		}
+		return $this->oCurrentModuleMap;
 	}
 
 	public function getParentModuleMap () {

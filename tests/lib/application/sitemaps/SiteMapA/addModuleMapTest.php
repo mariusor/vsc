@@ -1,13 +1,22 @@
 <?php
 namespace tests\lib\application\sitemaps\SiteMapA;
+use vsc\application\sitemaps\SiteMapA;
+use vsc\application\sitemaps\MappingA;
+use vsc\application\sitemaps\ModuleMap;
 
 /**
  * @covers \vsc\application\sitemaps\SiteMapA::addModuleMap()
  */
 class addModuleMap extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicAddModuleMap()
 	{
-		$this->markTestIncomplete(" ... ");
+		$o = new SiteMapA_underTest_addModuleMap();
+		$oModuleMap = $o->addModuleMap('.*', VSC_FIXTURE_PATH . 'config/map.php');
+
+		$this->assertInstanceOf(MappingA::class, $oModuleMap);
+		$this->assertInstanceOf(ModuleMap::class, $oModuleMap);
 	}
 }
+
+class SiteMapA_underTest_addModuleMap extends SiteMapA {}

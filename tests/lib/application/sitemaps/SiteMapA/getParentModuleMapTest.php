@@ -1,13 +1,33 @@
 <?php
 namespace tests\lib\application\sitemaps\SiteMapA;
+use vsc\application\sitemaps\MappingA;
+use vsc\application\sitemaps\ModuleMap;
+use vsc\application\sitemaps\SiteMapA;
 
 /**
  * @covers \vsc\application\sitemaps\SiteMapA::getParentModuleMap()
  */
 class getParentModuleMap extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testEmptyAtInitialization ()
 	{
-		$this->markTestIncomplete(" ... ");
+		$o = new SiteMapA_underTest_getParentModuleMap();
+		$this->assertNull($o->getParentModuleMap());
+	}
+
+	public function testBasicGetParentModuleMap ()
+	{
+		$sMapPath = VSC_FIXTURE_PATH . 'config/map.php';
+		$sRegex = '.*';
+
+		$o = new SiteMapA_underTest_getParentModuleMap();
+		$o->map($sRegex, $sMapPath);
+
+		// in our case the Parent Module Map is the res/config/map.php
+		$oParentMap = $o->getParentModuleMap();
+		$this->assertInstanceOf(MappingA::class, $oParentMap);
+		$this->assertInstanceOf(ModuleMap::class, $oParentMap);
 	}
 }
+
+class SiteMapA_underTest_getParentModuleMap extends SiteMapA {}
