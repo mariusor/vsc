@@ -7,7 +7,7 @@ use vsc\application\sitemaps\SiteMapA;
  */
 class getClassName extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicGetClassName()
 	{
 		$sProcessorPath = VSC_FIXTURE_PATH . 'application/processors/ProcessorFixture.php';
 		$this->assertEquals('stdClass', SiteMapA::getClassName($sProcessorPath));

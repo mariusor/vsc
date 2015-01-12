@@ -7,7 +7,7 @@ use vsc\application\sitemaps\MappingA;
  */
 class removeHeader extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicRemoveHeader()
 	{
 		$o = new MappingA_underTest_removeHeader();
 		$this->assertArrayHasKey('Accept', $o->getHeaders());

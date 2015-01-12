@@ -7,7 +7,7 @@ use vsc\application\sitemaps\MappingA;
  */
 class addSetting extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicAddSetting()
 	{
 		$sVar = 'test';
 		$sVal = uniqid('test:');

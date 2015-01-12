@@ -9,7 +9,7 @@ use vsc\presentation\responses\HttpResponseType;
  */
 class setResponseStatus extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicSetResponseStatus()
 	{
 		$o = new ProcessorMapT_underTest_setResponseStatus();
 

@@ -7,7 +7,7 @@ use vsc\application\sitemaps\SiteMapA;
  */
 class addStaticMap extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicAddSiteMap ()
 	{
 		$o = new SiteMapA_underTest_addStaticMap();
 

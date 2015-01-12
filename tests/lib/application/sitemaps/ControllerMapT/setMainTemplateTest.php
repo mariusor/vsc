@@ -8,7 +8,7 @@ use vsc\application\sitemaps\MappingA;
  */
 class setMainTemplate extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicGetMainTemplate()
 	{
 		$o = new ControllerMapT_underTest_setMainTemplate(__FILE__, '.*');
 		$sValue = 'main.tpl.php';

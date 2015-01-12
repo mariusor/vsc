@@ -9,7 +9,7 @@ use vsc\presentation\helpers\ViewHelperA;
  */
 class registerHelper extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicRegisterHelper()
 	{
 		$o = new ProcessorMapT_underTest_registerHelper();
 

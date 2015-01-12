@@ -8,7 +8,7 @@ use vsc\application\sitemaps\ProcessorMap;
  */
 class merge extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicMerge()
 	{
 		$o = new MappingA_underTest_merge ();
 

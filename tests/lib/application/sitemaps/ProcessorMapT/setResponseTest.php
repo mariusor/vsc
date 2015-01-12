@@ -10,7 +10,7 @@ use vsc\presentation\responses\HttpResponseType;
  */
 class setResponse extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicSetResponse ()
 	{
 		$o = new ProcessorMapT_underTest_setResponse();
 		$o->setResponse(new HttpResponse());
