@@ -51,6 +51,6 @@ class ViewHelperA extends Null /* implements ViewI  */ {
 	 * @returns ModelA
 	 */
 	public function getModel () {
-		return $this->$oModel;
+		return $this->oModel;
 	}
 }
