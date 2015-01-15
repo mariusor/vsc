@@ -8,14 +8,16 @@ use vsc\domain\models\EmptyModel;
  */
 class setModel extends \PHPUnit_Framework_TestCase
 {
-	public function testEmptyAtInitialization()
+	public function testBasicSetModel()
 	{
 		$o = new ViewHelperA_underTest_setModel();
-		$oModel = new EmptyModel();
-		$o->setModel($oModel);
-		$this->assertSame($oModel, $o->getModel());
+
+		$oTestModel = new EmptyModel();
+		$o->setModel($oTestModel);
+		$oModel = $o->getModel();
+
+		$this->assertSame($oTestModel, $oModel);
 	}
 }
 
 class ViewHelperA_underTest_setModel extends ViewHelperA {}
-

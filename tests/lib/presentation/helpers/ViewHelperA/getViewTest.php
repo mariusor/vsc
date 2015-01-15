@@ -10,6 +10,7 @@ class getView extends \PHPUnit_Framework_TestCase
 	public function testEmptyAtInitialization()
 	{
 		$o = new ViewHelperA_underTest_getView();
+
 		$this->assertEmpty($o->getView());
 	}
 }

@@ -5,8 +5,8 @@ use vsc\infrastructure\Object;
 
 abstract class HttpAuthenticationA extends Object {
 	const NONE = 0;
-	const BASIC = 1;
-	const DIGEST = 2;
+	const BASIC = 2;
+	const DIGEST = 4;
 
 	protected $Type;
 
@@ -31,10 +31,10 @@ abstract class HttpAuthenticationA extends Object {
 
 	static public function getAuthenticationSchemas ($iType) {
 		$aSchemas = array();
-		if ($iType & self::BASIC == $iType) {
+		if (($iType & self::BASIC) == self::BASIC) {
 			$aSchemas[] = 'Basic';
 		}
-		if ($iType & self::DIGEST == $iType) {
+		if (($iType & self::DIGEST) == self::DIGEST) {
 				$aSchemas[] = 'Digest';
 		}
 		return $aSchemas;
