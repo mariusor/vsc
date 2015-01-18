@@ -163,7 +163,7 @@ abstract class ViewA extends Object implements ViewI {
 	 */
 	public function __get ($sVarName) {
 		try {
-		// TODO: use proper reflection
+			// TODO: use proper reflection
 			return $this->getModel()->$sVarName;
 		} catch (\Exception $e) {
 			// most likely the variable doesn't exist
