@@ -59,6 +59,7 @@ class MappingA extends Object {
 	public function __construct ($sPath, $sRegex) {
 		$this->sPath	= $sPath;
 		$this->sRegex	= $sRegex;
+		$this->sViewPath = VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR;
 	}
 
 	public function getRegex () {

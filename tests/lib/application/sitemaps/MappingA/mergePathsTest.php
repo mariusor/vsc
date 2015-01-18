@@ -15,8 +15,10 @@ class mergePaths extends \PHPUnit_Framework_TestCase
 		$oMap = new ProcessorMap(__FILE__, '.*');
 		$o->mergePaths($oMap);
 
+		$genericTemplatePath = VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR;
+
 		$this->assertEquals($oMap->getPath(), $o->getPath());
-		$this->assertEquals('', $o->getTemplatePath());
+		$this->assertEquals($genericTemplatePath, $o->getTemplatePath());
 		$this->assertEquals('', $o->getTemplate());
 	}
 }

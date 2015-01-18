@@ -7,10 +7,11 @@ use vsc\application\sitemaps\MappingA;
  */
 class getTemplate extends \PHPUnit_Framework_TestCase
 {
-	public function testEmptyAtInitialize ()
+	public function testDefaultValue ()
 	{
 		$o = new MappingA_underTest_getTemplate();
-		$this->assertNull($o->getTemplatePath());
+		$genericTemplatePath = VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR;
+		$this->assertEquals($genericTemplatePath, $o->getTemplatePath());
 	}
 }
 
