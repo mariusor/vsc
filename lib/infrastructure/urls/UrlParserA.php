@@ -371,6 +371,7 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	public function getSiteUri () {
+		if (empty($this->sUrl)) return null;
 		// ff just tries to log you in... and removes the user:pass from the url :(
 		$sUri = ($this->getUser() ? $this->getUser() . ($this->getPass() ? ':' . $this->getPass() : '') . '@' : '');
 		if ( $this->getHost() ) {
@@ -387,6 +388,7 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	public function getCompleteParentUri ($bFull = false, $iSteps = 1) {
+		if (empty($this->sUrl)) return null;
 		if (!$this->isLocal()) {
 			$bFull = true;
 			$sUrl = ($this->getScheme() ? $this->getScheme() . ':' : '') . '//';
