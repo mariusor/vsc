@@ -1,13 +1,20 @@
 <?php
 namespace tests\lib\presentation\responses\HttpResponseA;
+use vsc\presentation\responses\HttpResponseA;
 
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::setContentEncoding()
  */
 class setContentEncoding extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicSetContentEncoding()
 	{
-		$this->markTestIncomplete(" ... ");
+		$o = new HttpResponseA_underTest_setContentEncoding();
+		$sTest = 'test';
+		$o->setContentEncoding($sTest);
+
+		$this->assertEquals($sTest, $o->getContentEncoding());
 	}
 }
+
+class HttpResponseA_underTest_setContentEncoding extends HttpResponseA {}

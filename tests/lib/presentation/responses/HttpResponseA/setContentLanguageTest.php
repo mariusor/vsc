@@ -1,13 +1,20 @@
 <?php
 namespace tests\lib\presentation\responses\HttpResponseA;
+use vsc\presentation\responses\HttpResponseA;
 
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::setContentLanguage()
  */
 class setContentLanguage extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicSetContentLanguage()
 	{
-		$this->markTestIncomplete(" ... ");
+		$o = new HttpResponseA_underTest_setContentLanguage();
+		$sTest = 'test';
+		$o->setContentLanguage($sTest);
+
+		$this->assertEquals($sTest, $o->getContentLanguage());
 	}
 }
+
+class HttpResponseA_underTest_setContentLanguage extends HttpResponseA {}

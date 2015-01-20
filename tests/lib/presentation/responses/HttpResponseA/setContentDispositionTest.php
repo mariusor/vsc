@@ -1,13 +1,20 @@
 <?php
 namespace tests\lib\presentation\responses\HttpResponseA;
+use vsc\presentation\responses\HttpResponseA;
 
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::setContentDisposition()
  */
 class setContentDisposition extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicSetContentDisposition()
 	{
-		$this->markTestIncomplete(" ... ");
+		$o = new HttpResponseA_underTest_setContentDisposition();
+		$sTest = 'test';
+		$o->setContentDisposition($sTest);
+
+		$this->assertEquals($sTest, $o->getContentDisposition());
 	}
 }
+
+class HttpResponseA_underTest_setContentDisposition extends HttpResponseA {}
