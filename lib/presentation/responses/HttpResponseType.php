@@ -41,6 +41,10 @@ class HttpResponseType {
 		501 => '501 Not Implemented',
 	);
 
+	static public function getList() {
+		return self::$aStatusList;
+	}
+
 	const OK = 200;
 	const CREATED = 201;
 	const ACCEPTED = 202;

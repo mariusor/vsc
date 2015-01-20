@@ -7,14 +7,23 @@ use vsc\presentation\responses\HttpResponseType;
  */
 class getStatus extends \PHPUnit_Framework_TestCase
 {
-	public function testGetStatus() {
-		$Mirror = new \ReflectionClass(HttpResponseType::class);
-		$MirrorProperty = $Mirror->getProperty('aStatusList');
-		$MirrorProperty->setAccessible(\ReflectionProperty::IS_PUBLIC);
-		$aStatuses = $MirrorProperty->getValue();
 
-		foreach ($aStatuses as $iStatus => $sStatusText) {
-			$this->assertEquals($aStatuses[$iStatus], HttpResponseType::getStatus($iStatus));
+	public function providerForTestGetStatus ()
+	{
+		$aStatuses = HttpResponseType::getList();
+		$return = array();
+		foreach ($aStatuses as $iStatus => $sStatus) {
+			$return[] = [$iStatus, $sStatus];
 		}
+		return $return;
+	}
+
+	/**
+	 * @dataProvider providerForTestGetStatus
+	 * @param $iStatus
+	 * @param $sStatusText
+	 */
+	public function testGetStatus($iStatus, $sStatusText) {
+		$this->assertEquals($sStatusText, HttpResponseType::getStatus($iStatus));
 	}
 }
