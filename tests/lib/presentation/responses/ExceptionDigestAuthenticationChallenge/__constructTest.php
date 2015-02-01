@@ -1,13 +1,23 @@
 <?php
 namespace tests\lib\presentation\responses\ExceptionDigestAuthenticationChallenge;
+use vsc\presentation\responses\ExceptionDigestAuthenticationChallenge;
+use vsc\presentation\responses\HttpResponseType;
 
 /**
  * @covers \vsc\presentation\responses\ExceptionDigestAuthenticationChallenge::__construct()
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testGetBasicChallenge()
 	{
-		$this->markTestIncomplete(" ... ");
+		$sMessage = 'test';
+		$sRealm = 'unit-test';
+		$sNonce = uniqid();
+		$o = new ExceptionDigestAuthenticationChallenge_underTest___construct($sMessage, $sRealm, $sNonce);
+
+		$this->assertEquals($sMessage, $o->getMessage());
+		$this->assertEquals(HttpResponseType::NOT_AUTHORIZED, $o->getErrorCode());
 	}
 }
+
+class ExceptionDigestAuthenticationChallenge_underTest___construct extends ExceptionDigestAuthenticationChallenge {}
