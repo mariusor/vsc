@@ -1,13 +1,20 @@
 <?php
 namespace tests\lib\presentation\requests\HttpRequestA;
+use vsc\presentation\requests\HttpRequestA;
 
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::startSession()
  */
 class startSession extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	protected function tearDown() {
+		@session_destroy();
+	}
+
+	public function testUseless()
 	{
-		$this->markTestIncomplete(" ... ");
+		$sSessionId = uniqid('test:');
+		@HttpRequestA::startSession($sSessionId);
+		$this->assertEquals($sSessionId, session_id());
 	}
 }

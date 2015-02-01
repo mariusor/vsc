@@ -1,13 +1,23 @@
 <?php
 namespace tests\lib\presentation\requests\HttpRequestA;
+use vsc\presentation\requests\HttpRequestA;
 
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::setCookieVar()
  */
 class setCookieVar extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicSetCookieVar_throwsException()
 	{
-		$this->markTestIncomplete(" ... ");
+		$sValue = uniqid();
+		$o = new HttpRequestA_underTest_setCookieVar();
+		try {
+			$o->setCookieVar('test', $sValue);
+		} catch (\Exception $e) {
+			// headers sent
+			$this->assertInstanceOf(\Exception::class, $e);
+		}
 	}
 }
+
+class HttpRequestA_underTest_setCookieVar extends HttpRequestA {}

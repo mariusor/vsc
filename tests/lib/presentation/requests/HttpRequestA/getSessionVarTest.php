@@ -1,13 +1,33 @@
 <?php
 namespace tests\lib\presentation\requests\HttpRequestA;
+use vsc\presentation\requests\HttpRequestA;
 
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::getSessionVar()
  */
 class getSessionVar extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	protected function tearDown() {
+		@session_destroy();
+	}
+
+	protected function startUp() {
+		@session_start();
+	}
+
+	public function testEmptyAtInitialization()
 	{
-		$this->markTestIncomplete(" ... ");
+		$o = new HttpRequestA_underTest_getSessionVar();
+		$o->getSessionVar('test');
+	}
+
+	public function testBasicGetSession()
+	{
+		$sValue = uniqid();
+		$_SESSION['test'] = $sValue;
+		$o = new HttpRequestA_underTest_getSessionVar();
+		$this->assertEquals($sValue, $o->getSessionVar('test'));
 	}
 }
+
+class HttpRequestA_underTest_getSessionVar extends HttpRequestA {}

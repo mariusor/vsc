@@ -339,7 +339,9 @@ abstract class HttpRequestA extends Object {
 
 			if ( ((double)PHP_VERSION >= 5.4 && session_status () == PHP_SESSION_NONE) ) {
 				$oRequest = vsc::getEnv ()->getHttpRequest ();
-				session_set_cookie_params ( 0, '/', $oRequest->getUriObject ()->getDomain (), HttpRequestA::isSecure (), true );
+				if (!vsc::isCli()) {
+					session_set_cookie_params ( 0, '/', $oRequest->getUriObject ()->getDomain (), HttpRequestA::isSecure (), true );
+				}
 				if (@session_start ()) {
 					$_SESSION = array();
 					if ( !is_null ( $sSessionName ) ) {
