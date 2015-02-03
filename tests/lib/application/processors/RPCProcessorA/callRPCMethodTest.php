@@ -8,6 +8,6 @@ class callRPCMethod extends \PHPUnit_Framework_TestCase
 {
 	public function testIncomplete()
 	{
-		$this->markTestIncomplete(" ... ");
+		$this->markTestIncomplete('The RPC section is not done');
 	}
 }
