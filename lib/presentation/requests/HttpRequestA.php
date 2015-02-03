@@ -55,25 +55,32 @@ abstract class HttpRequestA extends Object {
 			$this->getServerProtocol();
 			$this->getHttpMethod();
 
-			if (isset ($_SERVER['HTTP_ACCEPT']))
-				$this->aAccept			= explode (',', $_SERVER['HTTP_ACCEPT']);
-			if (isset ($_SERVER['HTTP_ACCEPT_LANGUAGE']))
-				$this->aAcceptLanguage	= explode (',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-			if (isset ($_SERVER['HTTP_ACCEPT_ENCODING']))
-				$this->aAcceptEncoding	= explode (',', $_SERVER['HTTP_ACCEPT_ENCODING']);
-			if (isset ($_SERVER['HTTP_ACCEPT_CHARSET']))
-				$this->aAcceptCharset	= explode (',', $_SERVER['HTTP_ACCEPT_CHARSET']);
+			if (isset ($_SERVER['HTTP_ACCEPT']) && !empty($_SERVER['HTTP_ACCEPT'])) {
+				$this->aAccept = explode(',', $_SERVER['HTTP_ACCEPT']);
+			}
 
-			if (isset ($_SERVER['HTTP_USER_AGENT']))
-			$this->sUserAgent			= $_SERVER['HTTP_USER_AGENT'];
-			if (isset ($_SERVER['HTTP_REFEER']))
-				$this->sReferer			= $_SERVER['HTTP_REFERER'];
+			if (isset ($_SERVER['HTTP_ACCEPT_LANGUAGE']) && !empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+				$this->aAcceptLanguage = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+			}
+			if (isset ($_SERVER['HTTP_ACCEPT_ENCODING']) && !empty($_SERVER['HTTP_ACCEPT_ENCODING'])) {
+				$this->aAcceptEncoding = explode(',', $_SERVER['HTTP_ACCEPT_ENCODING']);
+			}
+			if (isset ($_SERVER['HTTP_ACCEPT_CHARSET']) && !empty($_SERVER['HTTP_ACCEPT_CHARSET'])) {
+				$this->aAcceptCharset = explode(',', $_SERVER['HTTP_ACCEPT_CHARSET']);
+			}
 
-			if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
+			if (isset ($_SERVER['HTTP_USER_AGENT']) && !empty($_SERVER['HTTP_USER_AGENT'])) {
+				$this->sUserAgent = $_SERVER['HTTP_USER_AGENT'];
+			}
+			if (isset ($_SERVER['HTTP_REFEER']) && !empty($_SERVER['HTTP_REFEER'])) {
+				$this->sReferer = $_SERVER['HTTP_REFERER'];
+			}
+
+			if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && !empty($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
 				$this->sIfModifiedSince = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
 			}
 
-			if (isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
+			if (isset($_SERVER['HTTP_IF_NONE_MATCH']) && !empty($_SERVER['HTTP_IF_NONE_MATCH'])) {
 				$this->sIfNoneMatch = $_SERVER['HTTP_IF_NONE_MATCH'];
 			}
 
