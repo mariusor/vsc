@@ -8,7 +8,7 @@
 namespace vsc\presentation\requests;
 
 class RawHttpRequest extends RwHttpRequest {
-	protected $aRawVars = array();
+	protected $aRawVars = [];
 	protected $sRawInput;
 
 	public function __construct () {
@@ -22,7 +22,11 @@ class RawHttpRequest extends RwHttpRequest {
 	// this seems quite unsafe
 	public function setRawVars ($aVars) {
 		if (is_array($aVars)) {
-			$this->aRawVars = array_merge ($aVars, $this->aRawVars);
+			if (is_array($this->aRawVars)) {
+				$this->aRawVars = array_merge ($aVars, $this->aRawVars);
+			} else {
+				$this->aRawVars = $aVars;
+			}
 		}
 	}
 
@@ -65,7 +69,16 @@ class RawHttpRequest extends RwHttpRequest {
 	}
 
 	public function getVars () {
-		return array_merge ($this->getRawVars(), parent::getVars());
+		$aRawVars = $this->getRawVars();
+		$aParentVars = parent::getVars();
+		if (!is_array($aRawVars)) {
+			return parent::getVars();
+		} else {
+			if (is_array($aParentVars)) {
+				return array_merge ($aRawVars, $aParentVars);
+			}
+			return $aRawVars;
+		}
 	}
 
 	public function hasVar($sVarName) {
@@ -89,13 +102,20 @@ class RawHttpRequest extends RwHttpRequest {
 	}
 
 	/**
+	 * @return string
+	 */
+	protected function getRawInput () {
+		return file_get_contents('php://input');
+	}
+
+	/**
 	 * @todo this has to be moved in the rw url handler
 	 * @param string $sRawInput
 	 * @return void
 	 */
 	protected function constructRawVars ($sRawInput = null) {
 		if (is_null($sRawInput)) {
-			$this->sRawInput = file_get_contents('php://input');
+			$this->sRawInput = $this->getRawInput();
 		} else {
 			$this->sRawInput = $sRawInput;
 		}
