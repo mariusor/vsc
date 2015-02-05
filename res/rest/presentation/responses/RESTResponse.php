@@ -13,6 +13,6 @@ class RESTResponse extends HttpResponseA {
 	protected $sContentType = 'application/json';
 
 	public function outputHeaders() {
-		vsc::d (parent::getContentType());
+		return null;
 	}
 }
