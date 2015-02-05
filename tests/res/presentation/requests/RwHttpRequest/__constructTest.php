@@ -1,13 +1,17 @@
 <?php
 namespace tests\res\presentation\requests\RwHttpRequest;
+use vsc\presentation\requests\RwHttpRequest;
 
 /**
  * @covers \vsc\presentation\requests\RwHttpRequest::__construct()
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasic__construct()
 	{
-		$this->markTestIncomplete(" ... ");
+		$_SERVER = [];
+		$o = new RwHttpRequest();
+		$this->assertEmpty($o->getUri());
+		$this->assertEmpty($o->getTaintedVars());
 	}
 }
