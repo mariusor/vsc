@@ -3,7 +3,7 @@ namespace tests\lib\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\HttpRequestA;
 
 /**
- * @covers \vscs\presentation\requests\HttpRequestA::getSessionName()
+ * @covers \vsc\presentation\requests\HttpRequestA::getSessionName()
  */
 class getSessionName extends \PHPUnit_Framework_TestCase
 {
