@@ -231,6 +231,13 @@ abstract class HttpRequestA extends Object {
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function getDoNotTrack () {
+		return $this->bDoNotTrack;
+	}
+
+	/**
 	 * @return []
 	 */
 	public function getVarOrder () {
