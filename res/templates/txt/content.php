@@ -3,7 +3,7 @@ use vsc\infrastructure\String;
 use vsc\infrastructure\vsc;
 use \vsc\Exception;
 
-/* @var $this \vsc\presentation\views\TxtView  */ ?>
+/* @var $this \vsc\presentation\views\PlainTextView  */ ?>
 Default TXT template
 
 This is the default txt template from the <?php echo String::stripTags(vsc::name()); ?> framework.
