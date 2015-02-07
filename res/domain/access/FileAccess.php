@@ -59,12 +59,14 @@ class FileAccess extends Object {
 	public function cacheFile ($sUri, $sContent) {
 		$sFileName = $this->getLocalPath($this->getSignature ($sUri));
 		// creating the file
-		touch($sFileName);
+		if (!touch($sFileName)) {
+			throw new ExceptionError('Path ['.$sFileName.'] is not accessible.');
+		}
 
 		if (is_writable($sFileName)) {
 			file_put_contents($sFileName, $sContent);
 		} else {
-			throw new ExceptionError('Path ['.$sFileName.'] is not writeable.');
+			throw new ExceptionError('Path ['.$sFileName.'] is not writable.');
 		}
 	}
 
@@ -72,7 +74,7 @@ class FileAccess extends Object {
 		return is_file ($this->sUri);
 	}
 
-	public function getFile ($sPath) {
+	static public function getFile ($sPath) {
 		return file_get_contents($sPath);
 	}
 
