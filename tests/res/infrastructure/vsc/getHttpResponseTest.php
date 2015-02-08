@@ -1,13 +1,17 @@
 <?php
 namespace tests\res\infrastructure\vsc;
+use vsc\presentation\responses\HttpResponseA;
+use vsc\infrastructure\vsc;
 
 /**
  * @covers \vsc\infrastructure\vsc::getHttpResponse()
  */
 class getHttpResponse extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicGetResponse()
 	{
-		$this->markTestIncomplete(" ... ");
+		$o = new vsc();
+		$r = $o->getHttpResponse();
+		$this->assertInstanceOf(HttpResponseA::class, $r);
 	}
 }

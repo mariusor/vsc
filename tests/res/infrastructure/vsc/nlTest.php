@@ -1,13 +1,15 @@
 <?php
 namespace tests\res\infrastructure\vsc;
+use vsc\infrastructure\vsc;
 
 /**
  * @covers \vsc\infrastructure\vsc::nl()
  */
 class nl extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicNl()
 	{
-		$this->markTestIncomplete(" ... ");
+		vsc::setInstance(new vsc());
+		$this->assertEquals("\n", vsc::nl());
 	}
 }

@@ -1,13 +1,20 @@
 <?php
 namespace tests\res\infrastructure\vsc;
+use vsc\infrastructure\vsc;
+use vsc\application\sitemaps\ExceptionSitemap;
 
 /**
  * @covers \vsc\infrastructure\vsc::getCurrentModuleMap()
  */
 class getCurrentModuleMap extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testGetCurrentModuleMapWithoutAMap()
 	{
-		$this->markTestIncomplete(" ... ");
+		$o = new vsc();
+		try {
+			$o->getCurrentModuleMap();
+		} catch (\Exception $e) {
+			$this->assertInstanceOf(ExceptionSitemap::class, $e);
+		}
 	}
 }
