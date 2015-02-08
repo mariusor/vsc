@@ -30,7 +30,7 @@ if (defined ('VSC_TEST_PATH') && !defined ('VSC_FIXTURE_PATH')) {
 	define ('VSC_FIXTURE_PATH', VSC_TEST_PATH . 'fixtures' . DIRECTORY_SEPARATOR);
 }
 
-
+date_default_timezone_set('UTC');
 chdir(dirname(__FILE__) . '/../');
 // Composer autoloading.
 if ( file_exists('vendor/autoload.php') ) {
