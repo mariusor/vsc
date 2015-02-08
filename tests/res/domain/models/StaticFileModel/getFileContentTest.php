@@ -7,7 +7,7 @@ use vsc\domain\models\StaticFileModel;
  */
 class getFileContent extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasic__get()
 	{
 		$o = new StaticFileModel();
 		$o->setFilePath(__FILE__);
