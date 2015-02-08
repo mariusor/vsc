@@ -1,13 +1,17 @@
 <?php
 namespace tests\res\domain\models\StaticFileModel;
+use vsc\domain\models\StaticFileModel;
 
 /**
  * @covers \vsc\domain\models\StaticFileModel::setFileContent()
  */
 class setFileContent extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicSetFileContent()
 	{
-		$this->markTestIncomplete(" ... ");
+		$value = uniqid('test:');
+		$o = new StaticFileModel();
+		$o->setFileContent($value);
+		$this->assertEquals($value, $o->getFileContent());
 	}
 }

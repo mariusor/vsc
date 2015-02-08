@@ -15,6 +15,7 @@ class StaticFileModel extends CacheableModelA {
 
 	public function setFilePath ($sPath) {
 		$this->sFilePath = $sPath;
+		$this->setFileName(basename($sPath));
 		$this->setLastModified (date ('Y-m-d G:i:s', filemtime($this->getFilePath())));
 	}
 
