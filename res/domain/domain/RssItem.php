@@ -18,8 +18,10 @@ class RssItem extends ModelA {
 	public $pubDate;
 	public $guid;
 
-	public function __construct (\DOMNode $oNode) {
-		$this->buildObj ($oNode);
+	public function __construct (\DOMNode $oNode = null) {
+		if (!is_null($oNode)) {
+			$this->buildObj($oNode);
+		}
 	}
 
 	public function buildObj (\DOMNode $oNode) {
