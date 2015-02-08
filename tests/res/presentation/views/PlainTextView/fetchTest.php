@@ -1,13 +1,17 @@
 <?php
 namespace tests\res\presentation\views\PlainTextView;
+use vsc\presentation\views\PlainTextView;
+use vsc\application\sitemaps\ProcessorMap;
 
 /**
  * @covers \vsc\presentation\views\PlainTextView::fetch()
  */
 class fetch extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testUseless()
 	{
-		$this->markTestIncomplete(" ... ");
+		$o = new PlainTextView();
+		$o->setMap(new ProcessorMap(__FILE__, '.*'));
+		$this->assertEquals("<h1>fixture</h1>\n", $o->fetch(VSC_FIXTURE_PATH . 'templates/main.tpl.php'));
 	}
 }
