@@ -61,7 +61,7 @@ class RawHttpRequest extends RwHttpRequest {
 
 	public function getRawVar ($sVarName) {
 		$aRawVars = $this->getRawVars();
-		if (array_key_exists($sVarName, $aRawVars)) {
+		if (is_array($aRawVars) && array_key_exists($sVarName, $aRawVars)) {
 			return self::getDecodedVar($aRawVars[$sVarName]);
 		} else {
 			return null;
