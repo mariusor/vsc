@@ -39,7 +39,6 @@ class XmlReader extends ModelA {
 		$this->oDOM = new \DOMDocument();
 		$this->oDOM->strictErrorChecking = false;
 
-
 		if ($this->oDOM->loadXML($this->getString())) {
 			$this->oDOM->normalizeDocument();
 		}
