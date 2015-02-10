@@ -29,24 +29,15 @@ class RssItem extends ModelA {
 			foreach ($oNode->childNodes as $oChildNode) {
 				$sName = $oChildNode->nodeName;
 				if (
-					$oChildNode->nodeType == XML_ELEMENT_NODE &&
-					$this->valid ($sName)
+					$oChildNode->nodeType != XML_ELEMENT_NODE ||
+					!$this->valid ($sName)
 				) {
-					try {
-						if (!is_null ($this->$sName)) {
-							$sInitial = $this->$sName;
-							if (!is_array ($sInitial)) {
-								$sInitial = array ($sInitial);
-							}
-							$this->$sName = array_merge($sInitial,array($oChildNode->nodeValue));
-						} else {
-							$this->$sName = $oChildNode->nodeValue;
-						}
-					} catch (ExceptionUnimplemented $e) {
-						// problem
-					}
-				} else {
 					continue;
+				}
+				try {
+					$this->$sName = $oChildNode->nodeValue;
+				} catch (ExceptionUnimplemented $e) {
+					// problem
 				}
 			}
 		}
