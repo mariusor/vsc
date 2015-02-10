@@ -5,11 +5,10 @@ use vsc\ExceptionError;
 /**
  * Class exceptions_error_handler
  * @package tests\res\functions_inc
- * @covers \vsc\getPaths
  */
 class exceptions_error_handler extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicExceptionsErrorHandler()
 	{
 		$severity = E_USER_ERROR;
 		$message = 'test';
