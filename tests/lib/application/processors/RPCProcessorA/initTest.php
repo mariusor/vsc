@@ -12,16 +12,25 @@ class init extends \PHPUnit_Framework_TestCase
 {
 	public function testUseless()
 	{
-		$this->markTestIncomplete('The RPC section is not done');
-//		vsc::getEnv()->setHttpRequest(new RawHttpRequest_underTest_init());
-//		$o = new RPCProcessorA_underTest_init();
-//		$this->assertNull($o->init());
+		$_SERVER['CONTENT_TYPE'] = 'application/json';
+		$req = new RawHttpRequest_underTest_init();
+		vsc::getEnv()->setHttpRequest($req);
+
+		$o = new RPCProcessorA_underTest_init();
+		$this->assertNull($o->init());
+		$this->assertEquals(1, $o->getResponse()->id);
 	}
 }
 
 class RawHttpRequest_underTest_init extends RawHttpRequest {
-	public function getContentType() {
-		return 'application/json';
+	public function getRawInput () {
+		$req = [
+			'id' => 1,
+			'method' => 'test',
+			'rpc' => 2.0,
+			'params' => []
+		];
+		return json_encode($req);
 	}
 }
 

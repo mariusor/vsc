@@ -19,10 +19,12 @@ abstract class RPCProcessorA extends ProcessorA {
 	private $oResponse;
 	protected $oInterface;
 
-	public function init () {
-		$this->oRequest		= new JsonRPCRequest();
+	public function __construct () {
+		$this->oRequest		= new JsonRPCRequest(vsc::getEnv()->getHttpRequest());
 		$this->oResponse	= new JsonRPCResponse();
+	}
 
+	public function init () {
 		$this->oResponse->id = $this->oRequest->id;
 // 		if (!$oRequest->accepts('application/json')) {
 // 			// user-agent doesn't understand json
