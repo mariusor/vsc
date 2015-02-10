@@ -18,7 +18,7 @@ class ArrayModel extends ModelA {
 	protected function getPropertyNames ($bAll = false) {
 		return array_keys($this->aContent);
 	}
-/*/
+/**/
 	public function offsetSet($offset, $value) {
 		if (is_null($offset)) {
 			$this->aContent[] = $value;
