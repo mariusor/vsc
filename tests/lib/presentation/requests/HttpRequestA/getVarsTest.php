@@ -7,7 +7,7 @@ use vsc\presentation\requests\HttpRequestA;
  */
 class getVars extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testWithEmptyRequest()
 	{
 		$_GET = [];
 		$_POST = [];

@@ -7,7 +7,7 @@ use vsc\presentation\responses\HttpResponseA;
  */
 class setETag extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicSetETag()
 	{
 		$o = new HttpResponseA_underTest_setExpires();
 		$sTest = 'test';

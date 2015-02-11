@@ -8,7 +8,7 @@ use vsc\presentation\requests\BasicHttpAuthentication;
  */
 class getAuthenticationSchemas extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testGetAuthenticationSchemasWithDifferentTypes ()
 	{
 		$BasicAuthentication = ['Basic'];
 		$DigestAuthentication = ['Digest'];

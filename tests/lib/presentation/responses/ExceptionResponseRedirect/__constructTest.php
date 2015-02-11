@@ -8,7 +8,7 @@ use vsc\presentation\responses\HttpResponseType;
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicInitialization()
 	{
 		$sLocation = 'http://localhost/';
 		$iStatus = HttpResponseType::CLIENT_ERROR;
