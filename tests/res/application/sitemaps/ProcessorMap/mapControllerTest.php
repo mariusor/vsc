@@ -8,7 +8,7 @@ use vsc\application\sitemaps\MappingA;
  */
 class mapController extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicMapController ()
 	{
 		$o = new ProcessorMap(__FILE__, '.*');
 		$map = $o->mapController('.*', __FILE__);

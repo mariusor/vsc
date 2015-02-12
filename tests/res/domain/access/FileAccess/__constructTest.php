@@ -7,7 +7,7 @@ use vsc\domain\access\FileAccess;
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicInitialization()
 	{
 		$o = new FileAccess(__FILE__);
 		$this->assertEquals(__FILE__, $o->getUri());
