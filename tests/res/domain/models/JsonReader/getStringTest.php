@@ -7,7 +7,7 @@ use vsc\domain\models\JsonReader;
  */
 class getString extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testEmptyAtInitialization()
 	{
 		$o = new JsonReader();
 

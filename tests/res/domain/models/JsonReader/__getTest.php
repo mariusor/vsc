@@ -7,7 +7,7 @@ use vsc\domain\models\JsonReader;
  */
 class __get extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testEmptyAtInitialization()
 	{
 		$o = new JsonReader();
 		$this->assertEmpty($o->__get());

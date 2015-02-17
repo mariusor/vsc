@@ -7,7 +7,7 @@ use vsc\domain\models\JsonRPCResponse;
  */
 class getProperties extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicGetProperties()
 	{
 		$jsonRPC = [
 			'id' => null,

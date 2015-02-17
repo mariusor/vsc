@@ -9,7 +9,7 @@ use vsc\presentation\requests\RawHttpRequest;
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testEmptyJsonRequestInitialization()
 	{
 		vsc::getEnv()->setHttpRequest(new RawHttpRequest_underTest___construct());
 

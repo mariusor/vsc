@@ -7,7 +7,7 @@ use vsc\domain\models\JsonReader;
  */
 class setString extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicSetString()
 	{
 		$t = '[]';
 
