@@ -7,7 +7,7 @@ use vsc\domain\access\FileAccess;
  */
 class getUri extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testFilePathSameAsGetUri()
 	{
 		$o = new FileAccess(__FILE__);
 		$this->assertEquals(__FILE__, $o->getUri());

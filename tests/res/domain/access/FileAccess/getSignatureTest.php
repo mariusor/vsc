@@ -7,7 +7,7 @@ use vsc\domain\access\FileAccess;
  */
 class getSignature extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testGetSignatureSameAsMD5OfPathDate()
 	{
 		$o = new FileAccess('');
 		$this->assertEquals(md5 (__FILE__ . date('Ymd')), $o->getSignature(__FILE__));

@@ -7,19 +7,27 @@ use vsc\domain\access\FileAccess;
  */
 class load extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testLoadFileWithoutCache()
 	{
-		$value = uniqid('test:');
-		$file = __FILE__;
 		$o = new FileAccess(__FILE__);
 		$o->setCachePath(VSC_FIXTURE_PATH);
-//		$o->cacheFile($file, $value);
 
-//		$sig = $o->getSignature($file);
-//		$this->assertTrue(is_file(VSC_FIXTURE_PATH . $sig));
-//		$this->assertEquals($value, file_get_contents(VSC_FIXTURE_PATH . $sig));
+		$this->assertEquals(file_get_contents(__FILE__), $o->load());
+	}
 
-		$o->load();
-//		unlink(VSC_FIXTURE_PATH . $sig);
+	public function testLoadFileWithCache()
+	{
+		$value = uniqid('test:');
+		$file = uniqid('test:');
+		$o = new FileAccess(__FILE__);
+		$o->setCachePath(VSC_FIXTURE_PATH);
+		$o->cacheFile($file, $value);
+
+		$sig = $o->getSignature($file);
+		$this->assertTrue(is_file(VSC_FIXTURE_PATH . $sig));
+		$this->assertEquals($value, file_get_contents(VSC_FIXTURE_PATH . $sig));
+
+		$this->assertEquals(file_get_contents(__FILE__), $o->load());
+		unlink(VSC_FIXTURE_PATH . $sig);
 	}
 }

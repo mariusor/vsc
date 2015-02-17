@@ -7,7 +7,7 @@ use vsc\domain\access\FileAccess;
  */
 class getFile extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicGetFile()
 	{
 		$this->assertEquals(file_get_contents(__FILE__), FileAccess::getFile(__FILE__));
 	}

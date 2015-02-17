@@ -7,7 +7,7 @@ use vsc\domain\access\FileAccess;
  */
 class inCache extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testNotInCacheAtInitialization()
 	{
 		$o = new FileAccess(__FILE__);
 		$this->assertFalse($o->inCache(__FILE__));

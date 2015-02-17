@@ -7,7 +7,7 @@ use vsc\domain\access\FileAccess;
  */
 class loadFromCache extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testLoadFromCacheWorks()
 	{
 		$file = 'test';
 		$value = uniqid('test:');

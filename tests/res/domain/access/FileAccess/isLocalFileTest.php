@@ -7,7 +7,7 @@ use vsc\domain\access\FileAccess;
  */
 class isLocalFile extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testLocalFileIsLocal()
 	{
 		$o = new FileAccess(__FILE__);
 		$this->assertTrue($o->isLocalFile());

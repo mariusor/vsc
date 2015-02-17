@@ -7,7 +7,7 @@ use vsc\domain\access\FileAccess;
  */
 class setCachePath extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicSetCachePath()
 	{
 		$o = new FileAccess(__FILE__);
 		$o->setCachePath(VSC_FIXTURE_PATH);
