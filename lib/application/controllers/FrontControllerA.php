@@ -127,10 +127,10 @@ abstract class FrontControllerA extends Object {
 					$oMap->merge($oMyMap);
 				}
 				$oProcessorResponse = $oMap->getResponse();
-			}
 
-			if (HttpResponseA::isValid($oProcessorResponse)) {
-				$oResponse = $oProcessorResponse;
+				if (HttpResponseA::isValid($oProcessorResponse)) {
+					$oResponse = $oProcessorResponse;
+				}
 			}
 
 			// setting the processor map
