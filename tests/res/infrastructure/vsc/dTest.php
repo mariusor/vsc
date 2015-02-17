@@ -7,7 +7,7 @@ use vsc\infrastructure\vsc;
  */
 class d extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicDebugOutput()
 	{
 		$value = 'test';
 		$_SERVER['PHP_SELF'] = 'phpunit';

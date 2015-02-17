@@ -7,7 +7,7 @@ use vsc\domain\models\XmlReader;
  */
 class buildObj extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBuildObjectFromIncompleteXml()
 	{
 
 		$value = '<t>test</t>';
@@ -17,5 +17,6 @@ class buildObj extends \PHPUnit_Framework_TestCase
 		$o->buildObj();
 
 		$this->assertInstanceOf(\DOMDocument::class, $o->getDom());
+		$this->assertContains($value, $o->getDom()->saveXML()); // the output xml contains the XML header
 	}
 }

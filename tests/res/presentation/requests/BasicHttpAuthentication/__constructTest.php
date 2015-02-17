@@ -7,7 +7,7 @@ use vsc\presentation\requests\BasicHttpAuthentication;
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testUserAndPasswordAtInitialization()
 	{
 		$user = 'test';
 		$pw = uniqid('test:');

@@ -3,7 +3,7 @@ namespace tests\res\functions_inc;
 
 class cleanBuffers extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicCleanBuffers()
 	{
 		$s = ob_end_clean(); // phpunit buffer
 		$output = 'asd';
