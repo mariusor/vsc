@@ -6,9 +6,11 @@ use vsc\application\processors\ProcessorA;
 use vsc\application\sitemaps\ControllerMap;
 use vsc\domain\models\CacheableModelA;
 use vsc\infrastructure\vsc;
+use vsc\presentation\requests\RawHttpRequest;
 use vsc\presentation\responses\HttpResponseA;
 use vsc\application\controllers\CacheableControllerA;
 use fixtures\presentation\views\NullView;
+use vsc\presentation\responses\HttpResponseType;
 use vsc\presentation\views\CacheableViewA;
 use vsc\presentation\views\ViewA;
 
@@ -17,6 +19,10 @@ use vsc\presentation\views\ViewA;
  */
 class getResponse extends \PHPUnit_Framework_TestCase
 {
+	protected function setUp () {
+		vsc::setInstance(new vsc());
+	}
+
 	public function testGetPlainResponse()
 	{
 		$Controller = new CacheableController_underTest_getResponse();
@@ -38,9 +44,71 @@ class getResponse extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf(\vsc\presentation\responses\HttpResponseA::class, $Controller->getResponse($r, $p));
 	}
 
-	public function testGetResponseWithCacheableModel () {
-		$r = new PopulatedRequest();
+	public function testGetResponseWithCacheableModelThatIsOlder () {
 		$now = new \DateTime('now');
+
+		$tomorrow = clone($now);
+		$tomorrow->add(new \DateInterval('P1D'));
+
+		$r = $this->getMockBuilder(RawHttpRequest::class)
+			->disableOriginalConstructor()
+			->getMock();
+
+		$r->method('getIfModifiedSince')
+			->willReturn($tomorrow->format('r'));
+
+		vsc::getEnv()->setHttpRequest($r);
+		/** @var ProcessorA $p */
+		$p = $this->getMockBuilder(ProcessorA::class)
+			->disableOriginalConstructor()
+			->getMock();
+
+		$m = $this->getMockBuilder(CacheableModelA::class)
+			->setMethods(['getLastModified'])
+			->disableOriginalConstructor()
+			->getMock();
+
+		$m->method('getLastModified')
+			->willReturn($now->format('r'));
+
+		$v = $this->getMockBuilder(CacheableViewA::class)
+			->setMethods(['getModel', 'getLastModified', 'getMTime', 'display', 'append', 'assign'])
+			->disableOriginalConstructor()
+			->getMock();
+
+		$v->expects($this->any())
+			->method('getModel')
+			->willReturn($m);
+
+		$Controller = new CacheableController_underTest_getResponse();
+
+		$Map = new ControllerMap('.', CacheableController_underTest_getResponse::class);
+		$Controller->setView($v);
+		$Controller->setMap($Map);
+
+		$inTwoWeeks = $now->add(new \DateInterval('P2W'));
+
+		$response = $Controller->getResponse($r, $p);
+		$expires = new \DateTime($response->getExpires());
+		$this->assertInstanceOf(\vsc\presentation\responses\HttpResponseA::class, $response);
+		$this->assertEquals($inTwoWeeks->getTimestamp(),$expires->getTimestamp(), '', 2);
+		$this->assertEquals(HttpResponseType::NOT_MODIFIED, $response->getStatus());
+	}
+
+	public function testGetResponseWithCacheableModelThatIsNewer () {
+		$now = new \DateTime('now');
+
+		$yesterday = clone($now);
+		$yesterday->sub(new \DateInterval('P1D'));
+
+		$r = $this->getMockBuilder(RawHttpRequest::class)
+			->disableOriginalConstructor()
+			->getMock();
+
+		vsc::getEnv()->setHttpRequest($r);
+
+		$r->method('getIfModifiedSince')
+			->willReturn($yesterday->format('r'));
 
 		/** @var ProcessorA $p */
 		$p = $this->getMockBuilder(ProcessorA::class)
@@ -65,6 +133,7 @@ class getResponse extends \PHPUnit_Framework_TestCase
 			->willReturn($m);
 
 		$Controller = new CacheableController_underTest_getResponse();
+
 		$Map = new ControllerMap('.', CacheableController_underTest_getResponse::class);
 		$Controller->setView($v);
 		$Controller->setMap($Map);
@@ -72,8 +141,10 @@ class getResponse extends \PHPUnit_Framework_TestCase
 		$inTwoWeeks = $now->add(new \DateInterval('P2W'));
 
 		$response = $Controller->getResponse($r, $p);
+		$expires = new \DateTime($response->getExpires());
 		$this->assertInstanceOf(\vsc\presentation\responses\HttpResponseA::class, $response);
-		$this->assertEquals($inTwoWeeks->format('r'), $response->getExpires());
+		$this->assertEquals($inTwoWeeks->getTimestamp(),$expires->getTimestamp(), '', 2);
+		$this->assertEquals(HttpResponseType::OK, $response->getStatus());
 	}
 }
 
