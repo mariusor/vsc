@@ -122,8 +122,12 @@ abstract class FrontControllerA extends Object {
 		if (ProcessorA::isValid($oProcessor) /* && !ErrorProcessor::isValid($oProcessor) */) {
 			/* @var ProcessorMap $oMap */
 			$oMap = $oProcessor->getMap();
-			$oMap->merge($oMyMap);
-			$oProcessorResponse = $oMap->getResponse();
+			if (MappingA::isValid($oMap)) {
+				if (MappingA::isValid($oMyMap)) {
+					$oMap->merge($oMyMap);
+				}
+				$oProcessorResponse = $oMap->getResponse();
+			}
 
 			if (HttpResponseA::isValid($oProcessorResponse)) {
 				$oResponse = $oProcessorResponse;

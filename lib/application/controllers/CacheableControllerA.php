@@ -42,9 +42,8 @@ abstract class CacheableControllerA extends FrontControllerA implements Cacheabl
 			}
 			if ( CacheableModelA::isValid ($oModel) ) {
 				try {
-					/** @var CacheableViewA $oView */
-					$oView = $this->getView()->getModel();
-					$sLastModified = $oView->getLastModified();
+					/** @var CacheableModelA $oModel */
+					$sLastModified = $oModel->getLastModified();
 
 					$oLastModified = new \DateTime($sLastModified,  new \DateTimeZone('GMT'));
 					$oResponse->setLastModified($oLastModified->format('r'));
