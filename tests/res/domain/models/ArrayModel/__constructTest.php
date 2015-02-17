@@ -7,7 +7,7 @@ use vsc\domain\models\ArrayModel;
  */
 class __construct extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testEmptyAtInitialization()
 	{
 		$o = new ArrayModel();
 		$this->assertEquals(0, $o->count());

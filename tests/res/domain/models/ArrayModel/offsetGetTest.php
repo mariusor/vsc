@@ -7,7 +7,7 @@ use vsc\domain\models\ArrayModel;
  */
 class offsetGet extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testOffsetGetWithAndWithoutSetValue()
 	{
 		$key = 'test';
 		$value = uniqid($key. ':');

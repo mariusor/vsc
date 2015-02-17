@@ -7,13 +7,16 @@ use vsc\domain\models\ArrayModel;
  */
 class offsetExists extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testOffsetExistsWithAndWithoutCorrectKey()
 	{
 		$key = 'test';
 		$value = uniqid($key. ':');
 		$a = [$key => $value];
 		$o = new ArrayModel($a);
+
 		$this->assertTrue($o->offsetExists($key));
+		$this->assertFalse($o->offsetExists(uniqid()));
+
 		$o->offsetUnset($key);
 		$this->assertFalse($o->offsetExists($key));
 	}

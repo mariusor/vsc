@@ -7,10 +7,20 @@ use vsc\domain\models\ArrayModel;
  */
 class getProperties extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testEmptyPropertiesAtInitialization()
 	{
 		$o = new ArrayModel_underTest_getProperties();
 		$this->assertEquals([],$o->getProperties());
+	}
+
+	public function testGetPropertiesAfterSet()
+	{
+		$a = [
+			'ana', 'are', 'mere',
+			'test' => uniqid('test:')
+		];
+		$o = new ArrayModel_underTest_getProperties($a);
+		$this->assertEquals($a, $o->getProperties());
 	}
 }
 
