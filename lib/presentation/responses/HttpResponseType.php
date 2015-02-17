@@ -51,6 +51,7 @@ class HttpResponseType {
 	const NO_CONTENT = 204;
 	const FOUND = 302;
 	const SEE_OTHER = 303;
+	const NOT_MODIFIED = 304;
 	const CLIENT_ERROR = 400;
 	const NOT_AUTHORIZED = 401;
 	const FORBIDDEN = 403;

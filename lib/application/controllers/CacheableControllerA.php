@@ -11,6 +11,7 @@ use vsc\domain\models\CacheableModelA;
 use vsc\infrastructure\caching\CacheableI;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\responses\HttpResponseA;
+use vsc\presentation\responses\HttpResponseType;
 use vsc\presentation\views\CacheableViewA;
 use vsc\presentation\views\ExceptionView;
 use vsc\application\processors\ProcessorA;
@@ -54,7 +55,7 @@ abstract class CacheableControllerA extends FrontControllerA implements Cacheabl
 						$oModifiedSince =  new \DateTime($sModifiedSince, new \DateTimeZone('GMT'));
 
 						if ($oLastModified->getTimestamp() <= $oModifiedSince->getTimestamp()) {
-							$oResponse->setStatus(304);
+							$oResponse->setStatus(HttpResponseType::NOT_MODIFIED);
 						}
 					}
 				} catch (\Exception $e) {
@@ -70,7 +71,7 @@ abstract class CacheableControllerA extends FrontControllerA implements Cacheabl
 				}
 
 				if ( $oRequest->getIfNoneMatch() == '"'.$oResponse->getETag().'"' ) {
-					$oResponse->setStatus(304);
+					$oResponse->setStatus(HttpResponseType::NOT_MODIFIED);
 				}
 			}
 		}
