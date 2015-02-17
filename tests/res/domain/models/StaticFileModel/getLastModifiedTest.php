@@ -7,7 +7,7 @@ use vsc\domain\models\StaticFileModel;
  */
 class getLastModified extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testGetLastModifiedMatchesFilemtimeOfFile()
 	{
 		$o = new StaticFileModel();
 		$o->setFilePath(__FILE__);

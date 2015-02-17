@@ -7,7 +7,7 @@ use vsc\domain\models\StaticFileModel;
  */
 class setLastModified extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicSetLastModifed()
 	{
 		$now = date('Y-m-d');
 		$o = new StaticFileModel();
