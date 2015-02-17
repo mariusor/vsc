@@ -8,7 +8,7 @@ use vsc\infrastructure\vsc;
  */
 class __get extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function test__getForEmptyRequests()
 	{
 		$_GET = [];
 		$_POST = [];
