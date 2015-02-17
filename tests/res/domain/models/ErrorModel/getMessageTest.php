@@ -7,7 +7,7 @@ use vsc\domain\models\ErrorModel;
  */
 class getMessage extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testModelMessageSameAsExceptionMessage()
 	{
 		$message = uniqid('test:');
 		$o = new ErrorModel(new \Exception($message, 1));

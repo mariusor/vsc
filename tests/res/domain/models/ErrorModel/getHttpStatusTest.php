@@ -8,7 +8,7 @@ use vsc\presentation\responses\HttpResponseType;
  */
 class getHttpStatus extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testModelHTTPStatusSameAsExceptionHTTPStatus()
 	{
 		$message = uniqid('test:');
 		$e = new \ErrorException($message, HttpResponseType::INTERNAL_ERROR);

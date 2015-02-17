@@ -8,7 +8,7 @@ use vsc\ExceptionError;
  */
 class setException extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicSetException()
 	{
 		$e = new \Exception('initial', 0);
 		$o = new ErrorModel($e);

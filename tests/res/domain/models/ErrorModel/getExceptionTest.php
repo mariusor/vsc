@@ -8,7 +8,7 @@ use vsc\Exception;
  */
 class getException extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testGetExceptionAfterModelInitializedWithException()
 	{
 		$e = new Exception('test');
 		$o = new ErrorModel($e);
