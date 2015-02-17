@@ -7,7 +7,7 @@ use vsc\domain\models\RssReader;
  */
 class parseToEntity extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testParseToEntityEmptyItemsFromEmptyDOMNodeList()
 	{
 		$a = new \DOMNodeList();
 		$o = new RssReader();

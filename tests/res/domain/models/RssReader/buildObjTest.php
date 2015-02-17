@@ -7,7 +7,7 @@ use vsc\domain\models\RssReader;
  */
 class buildObj extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBuildObjectWithEmptyXml()
 	{
 		$o = new RssReader();
 		$o->setString('<xml />');

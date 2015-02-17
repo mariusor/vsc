@@ -8,7 +8,7 @@ use vsc\domain\domain\RssItem;
  */
 class addItem extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testBasicAddRssItem()
 	{
 		$s = new RssItem();
 		$o = new RssReader();

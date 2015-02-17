@@ -7,7 +7,7 @@ use vsc\domain\models\RssReader;
  */
 class getItems extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testEmptyAtInitialization()
 	{
 		$o = new RssReader();
 		$this->assertEmpty($o->getItems());

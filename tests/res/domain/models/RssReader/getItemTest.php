@@ -8,7 +8,7 @@ use vsc\infrastructure\Null;
  */
 class getItem extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testGetItemReturnsNullObjectForNoItems()
 	{
 		$o = new RssReader();
 		$this->assertInstanceOf(Null::class, $o->getItem(0));

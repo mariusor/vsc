@@ -7,7 +7,7 @@ use vsc\domain\models\RssReader;
  */
 class setItems extends \PHPUnit_Framework_TestCase
 {
-	public function testIncomplete()
+	public function testSetItemsWithEmptySet()
 	{
 		$a = [];
 		$o = new RssReader();
