@@ -107,18 +107,19 @@ abstract class ProcessorA extends Object implements ProcessorI {
 		$oDispatcher = vsc::getEnv()->getDispatcher();
 		$oMap = $oDispatcher->getSiteMap()->findProcessorMap($oNewProcessor);
 
-		$oNewProcessor->setMap($oMap);
-		$oNewProcessor->init();
+		if (MappingA::isValid($oMap)) {
+			$oNewProcessor->setMap($oMap);
+			$oNewProcessor->init();
 
-		/* @var RwDispatcher $oDispatcher */
-		$oMap->merge($this->getMap());
+			/* @var RwDispatcher $oDispatcher */
+			$oMap->merge($this->getMap());
 
-		if (HttpResponse::isValid($oResponse)) {
-			$oMap->setResponse($oResponse);
+			if (HttpResponse::isValid($oResponse)) {
+				$oMap->setResponse($oResponse);
+			}
+
+			$this->setMap($oMap);
 		}
-
-		$this->setMap($oMap);
-
 		$oNewProcessor->setLocalVars($this->getLocalVars(), true);
 
 		return $oNewProcessor->handleRequest($oHttpRequest);
