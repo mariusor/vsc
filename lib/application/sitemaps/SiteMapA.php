@@ -304,14 +304,9 @@ abstract class SiteMapA extends Object {
 	 * @return MappingA
 	 */
 	public function findProcessorMap(ProcessorA $oProcessor) {
-		$sNameLower = strtolower(get_class($oProcessor));
-
 		/* @var ProcessorMap $oProcessorMap */
 		foreach ($this->getMaps() as $sRegex => $oProcessorMap) {
-			if (ClassMap::isValid($oProcessorMap) && get_class($oProcessor) == $oProcessorMap->getPath()) {
-				return $oProcessorMap;
-			}
-			if (stristr($oProcessorMap->getPath(), $sNameLower)) {
+			if ($oProcessorMap->maps($oProcessor)) {
 				return $oProcessorMap;
 			}
 		}
