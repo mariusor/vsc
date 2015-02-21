@@ -54,11 +54,12 @@ abstract class SiteMapA extends Object {
 				$oNewMap->setModuleMap($oModuleMap);
 			}
 
-//			if (stristr($sRegex, 'comics')) d ($oNewMap);
 			$this->aMaps[$sRegex] = $oNewMap;
-			return $oNewMap;
+		} else {
+			$oNewMap = $this->aMaps[$sRegex];
 		}
-//		throw new ExceptionSitemap('Regular expression exists already in the list of URLs');
+
+		return $oNewMap;
 	}
 
 	/**
@@ -191,10 +192,14 @@ abstract class SiteMapA extends Object {
 		return $this->oCurrentModuleMap;
 	}
 
+	/**
+	 * @return ModuleMap|null
+	 */
 	public function getParentModuleMap() {
 		if (MappingA::isValid($this->oCurrentModuleMap)) {
 			return $this->oCurrentModuleMap->getModuleMap();
 		}
+		return null;
 	}
 
 	/**
@@ -302,9 +307,13 @@ abstract class SiteMapA extends Object {
 
 		/* @var ProcessorMap $oProcessorMap */
 		foreach ($this->getMaps() as $sRegex => $oProcessorMap) {
+			if (ClassMap::isValid($oProcessorMap) && get_class($oProcessor) == $oProcessorMap->getPath()) {
+				return $oProcessorMap;
+			}
 			if (stristr($oProcessorMap->getPath(), $sNameLower)) {
 				return $oProcessorMap;
 			}
 		}
+		return null;
 	}
 }
