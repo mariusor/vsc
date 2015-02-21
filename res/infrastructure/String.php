@@ -11,27 +11,27 @@ class String {
 	/**
 	 * @param string $sString
 	 */
-	static function br2nl ($sString) {
+	static function br2nl($sString) {
 		return preg_replace('/<br\/?>/i', "\n", $sString);
 	}
 
 	/**
 	 * @param string $sString
 	 */
-	static function stripTags ($sString) {
+	static function stripTags($sString) {
 		return strip_tags($sString);
 	}
 
-	static function stripEntities ($sString) {
+	static function stripEntities($sString) {
 		return html_entity_decode($sString, ENT_NOQUOTES, 'UTF-8');
 	}
 
-	static function _echo ($sString, $iTimes = 1) {
+	static function _echo($sString, $iTimes = 1) {
 		for ($i = 0; $i < $iTimes; $i++)
 			echo $sString;
 	}
 
-	static function stripScriptTags ($sString) {
+	static function stripScriptTags($sString) {
 		return preg_replace('/<script.*\/script>/mi', '', (string)$sString);
 	}
 
