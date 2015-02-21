@@ -50,7 +50,7 @@ class RawHttpRequest extends RwHttpRequest {
 			break;
 		case 'application/xml':
 		default:
-			throw new ExceptionRequest('This content-type [' . $sContentType . '] is not supported');
+			throw new ExceptionRequest('This content-type ['.$sContentType.'] is not supported');
 			break;
 		}
 		if (!empty ($vars)) {
@@ -91,7 +91,7 @@ class RawHttpRequest extends RwHttpRequest {
 		);
 	}
 
-	public function hasRawVar ($sVarName) {
+	public function hasRawVar($sVarName) {
 		$aRawVars = $this->getRawVars();
 		return (is_array($aRawVars) && array_key_exists($sVarName, $aRawVars));
 	}
@@ -99,7 +99,7 @@ class RawHttpRequest extends RwHttpRequest {
 	/**
 	 * @param string $sVarName
 	 */
-	public function getVar ($sVarName) {
+	public function getVar($sVarName) {
 		$mValue = parent::getVar($sVarName);
 		if (!$mValue) {
 			$mValue = $this->getRawVar($sVarName);
