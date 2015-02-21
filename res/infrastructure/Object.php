@@ -40,6 +40,6 @@ abstract class Object {
 	}
 
 	static public function isValid ($oIncomingObject) {
-		return (!is_null($oIncomingObject) && $oIncomingObject instanceof static);
+		return (!is_null($oIncomingObject) && ($oIncomingObject instanceof static));
 	}
 }

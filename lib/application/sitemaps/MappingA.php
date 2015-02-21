@@ -428,7 +428,7 @@ class MappingA extends Object {
 
 	/**
 	 * @param string $sVar
-	 * @return array
+	 * @return array|string
 	 */
 	public function getSetting ($sVar) {
 		$aSettings = $this->getResources ('settings');

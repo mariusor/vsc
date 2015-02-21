@@ -11,6 +11,7 @@ use vsc\application\processors\ErrorProcessor;
 use vsc\application\processors\ProcessorA;
 use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\ControllerMap;
+use vsc\application\sitemaps\ControllerMapT;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ProcessorMap;
 use vsc\domain\models\EmptyModel;
@@ -34,7 +35,7 @@ abstract class FrontControllerA extends Object {
 	private $sTemplatePath;
 
 	/**
-	 * @var ControllerMap
+	 * @var ControllerMapT
 	 */
 	private $oCurrentMap;
 
