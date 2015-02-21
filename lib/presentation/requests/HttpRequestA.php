@@ -12,7 +12,7 @@ use vsc\infrastructure\urls\UrlRWParser;
 use vsc\Exception;
 
 abstract class HttpRequestA extends Object {
-	use SessionT;
+	use SessionRequestT;
 
 	protected $sUri = null;
 	protected $oUri;

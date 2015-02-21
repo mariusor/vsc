@@ -1,9 +1,9 @@
 <?php
-namespace tests\lib\presentation\requests\SessionT;
+namespace tests\lib\presentation\requests\SessionRequestT;
 use vsc\presentation\requests\HttpRequestA;
 
 /**
- * @covers \vsc\presentation\requests\SessionT::getSessionName()
+ * @covers \vsc\presentation\requests\SessionRequestT::getSessionName()
  */
 class getSessionName extends \PHPUnit_Framework_TestCase
 {

@@ -9,7 +9,7 @@ namespace vsc\presentation\requests;
 
 use vsc\infrastructure\vsc;
 
-trait SessionT {
+trait SessionRequestT {
 
 	/**
 	 * @return bool

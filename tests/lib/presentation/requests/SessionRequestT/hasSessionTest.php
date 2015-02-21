@@ -3,7 +3,7 @@ namespace tests\lib\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\HttpRequestA;
 
 /**
- * @covers \vsc\presentation\requests\SessionT::hasSession()
+ * @covers \vsc\presentation\requests\SessionRequestT::hasSession()
  */
 class hasSession extends \PHPUnit_Framework_TestCase
 {
