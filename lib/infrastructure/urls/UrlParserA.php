@@ -260,12 +260,12 @@ class UrlParserA extends Object implements UrlParserI {
 				$iCnt++;
 
 				unset ($aPath[$iKey]);
-				if (array_key_exists($iKey-1,$aPath)) {
+				if (array_key_exists($iKey-1, $aPath)) {
 					$iPrevKey = $iKey-1;
 					$sPrev = $aPath[$iPrevKey];
 				} else {
 					$sPrev = prev($aPath);
-					$iPrevKey = array_search ($sPrev, $aPath);
+					$iPrevKey = array_search($sPrev, $aPath);
 				}
 				unset ($aPath[$iPrevKey]);
 			break;
@@ -304,7 +304,9 @@ class UrlParserA extends Object implements UrlParserI {
 	 * @returns UrlParserA
 	 */
 	public function addPath($sPath) {
-		if (substr($this->aComponents['path'], -1) != '/') $this->aComponents['path'] .= '/';
+		if (substr($this->aComponents['path'], -1) != '/') {
+			$this->aComponents['path'] .= '/';
+		}
 		$this->aComponents['path'] .= $sPath;
 		return $this;
 	}
@@ -373,7 +375,9 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	public function getSiteUri() {
-		if (empty($this->sUrl)) return null;
+		if (empty($this->sUrl)) {
+			return null;
+		}
 		// ff just tries to log you in... and removes the user:pass from the url :(
 		$sUri = ($this->getUser() ? $this->getUser().($this->getPass() ? ':'.$this->getPass() : '').'@' : '');
 		if ($this->getHost()) {
@@ -390,7 +394,9 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	public function getCompleteParentUri($bFull = false, $iSteps = 1) {
-		if (empty($this->sUrl)) return null;
+		if (empty($this->sUrl)) {
+			return null;
+		}
 		if (!$this->isLocal()) {
 			$bFull = true;
 			$sUrl = ($this->getScheme() ? $this->getScheme().':' : '').'//';
@@ -417,25 +423,25 @@ class UrlParserA extends Object implements UrlParserI {
 			$sPath .= '/';
 		}
 
-		$sUrl .=  $this->getFullQueryString();
-		$sUrl .=  $this->getFullFragmentString();
+		$sUrl .= $this->getFullQueryString();
+		$sUrl .= $this->getFullFragmentString();
 
 		return $sUrl;
 	}
 
-	public function getCompleteUri ($bFull = false) {
+	public function getCompleteUri($bFull = false) {
 		return $this->getCompleteParentUri($bFull, 0);
 	}
 
 	/**
 	 * @param string $sUri
 	 */
-	public static function hasGoodTermination ($sUri, $sTermination = '/') {
+	public static function hasGoodTermination($sUri, $sTermination = '/') {
 		// last element should be an / or in the last part after / there should be a .
 		return (substr($sUri, -1) == $sTermination || stristr(substr($sUri, strrpos($sUri, $sTermination)), '.'));
 	}
 
-	public function changeSubdomain ($sNewSubdomain) {
+	public function changeSubdomain($sNewSubdomain) {
 		$this->aComponents['host'] = str_ireplace($this->getSubdomain(), $sNewSubdomain, $this->aComponents['host']);
 		return $this->aComponents['host'];
 	}

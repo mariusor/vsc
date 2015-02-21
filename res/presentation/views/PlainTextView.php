@@ -17,21 +17,21 @@ class PlainTextView extends ViewA implements ViewI {
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#append($tpl_var, $value, $merge)
 	 */
-	public function append ($tpl_var, $value=null, $merge=false) {}
+	public function append($tpl_var, $value = null, $merge = false) {}
 
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#assign($tpl_var, $value)
 	 */
-	public function assign ($tpl_var, $value = null) {}
+	public function assign($tpl_var, $value = null) {}
 
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#display($resource_name, $cache_id, $compile_id)
 	 */
-	public function display ($resource_name) {}
+	public function display($resource_name) {}
 
-	public function fetch ($includePath) {
+	public function fetch($includePath) {
 		$oModel = $this->getModel();
 		/* @var StaticFileModel $oModel */
 		if (StaticFileModel::isValid($oModel)) {

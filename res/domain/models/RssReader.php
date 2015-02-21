@@ -47,21 +47,21 @@ class RssReader extends XmlReader {
 
 		$oNode = $this->getDom()->getElementsByTagName('channel')->item(0);
 		if ($oNode instanceof \DOMElement) {
-			$this->parseToEntity ($oNode->childNodes);
+			$this->parseToEntity($oNode->childNodes);
 		}
 	}
 
 	/**
 	 * @param \DOMNodeList $aChildNodes
 	 */
-	public function parseToEntity ($aChildNodes) {
+	public function parseToEntity($aChildNodes) {
 		if ($aChildNodes instanceof \DOMNodeList) {
 			foreach ($aChildNodes as $oChildNode) {
 				$sNodeName = $oChildNode->nodeName;
 				if ($oChildNode->nodeType == XML_ELEMENT_NODE) {
 					if ($sNodeName == 'item') {
 						$oRssItem = new RssItem($oChildNode);
-						$this->addItem ($oRssItem);
+						$this->addItem($oRssItem);
 					} elseif ($this->valid($sNodeName)) {
 						try {
 							$this->$sNodeName = $oChildNode->nodeValue;

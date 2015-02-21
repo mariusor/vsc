@@ -110,7 +110,9 @@ abstract class ViewA extends Object implements ViewI {
 		}
 
 		$sStaticTitle = $this->getMap()->getTitle();
-		if (!empty ($sStaticTitle)) return $sStaticTitle;
+		if (!empty ($sStaticTitle)) {
+			return $sStaticTitle;
+		}
 
 		return $this->sTitle;
 	}

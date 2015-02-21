@@ -18,7 +18,7 @@ class JsonRPCRequest extends ModelA {
 	/**
 	 * @param \vsc\presentation\requests\HttpRequestA $oRequest
 	 */
-	public function __construct ($oRequest = null) {
+	public function __construct($oRequest = null) {
 		/* @var RawHttpRequest $oRequest */
 
 		if (!RawHttpRequest::isValid($oRequest)) {
