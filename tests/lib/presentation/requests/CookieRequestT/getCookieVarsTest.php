@@ -1,9 +1,9 @@
 <?php
-namespace tests\lib\presentation\requests\HttpRequestA;
+namespace tests\lib\presentation\requests\CookieRequestT;
 use vsc\presentation\requests\HttpRequestA;
 
 /**
- * @covers \vsc\presentation\requests\HttpRequestA::getCookieVars()
+ * @covers \vsc\presentation\requests\CookieRequestT::getCookieVars()
  */
 class getCookieVars extends \PHPUnit_Framework_TestCase
 {

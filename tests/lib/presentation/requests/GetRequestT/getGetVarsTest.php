@@ -1,9 +1,9 @@
 <?php
-namespace tests\lib\presentation\requests\HttpRequestA;
+namespace tests\lib\presentation\requests\GetRequestT;
 use vsc\presentation\requests\HttpRequestA;
 
 /**
- * @covers \vsc\presentation\requests\HttpRequestA::getGetVars()
+ * @covers \vsc\presentation\requests\GetRequestT::getGetVars()
  */
 class getGetVars extends \PHPUnit_Framework_TestCase
 {

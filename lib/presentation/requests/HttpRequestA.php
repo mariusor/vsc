@@ -12,6 +12,10 @@ use vsc\infrastructure\urls\UrlRWParser;
 use vsc\Exception;
 
 abstract class HttpRequestA extends Object {
+	use GetRequestT;
+	use PostRequestT;
+	use CookieRequestT;
+	use FilesRequestT;
 	use SessionRequestT;
 
 	protected $sUri = null;
@@ -20,11 +24,6 @@ abstract class HttpRequestA extends Object {
 	protected $sServerName;
 	protected $sServerProtocol;
 	protected $aVarOrder;
-
-	protected $aGetVars			= array();
-	protected $aPostVars		= array();
-	protected $aCookieVars = array();
-	protected $aFiles = array();
 
 	protected $aAccept = array();
 	protected $aAcceptCharset = array();
@@ -108,18 +107,6 @@ abstract class HttpRequestA extends Object {
 		if (count($_FILES) >= 1) {
 			$this->aFiles = $_FILES;
 		}
-
-	}
-
-	public function hasFiles() {
-		return (is_array($this->aFiles) && count($this->aFiles) >= 1);
-	}
-
-	public function getFiles() {
-		return $this->aFiles;
-	}
-
-	public function getFile($sFileName) {
 	}
 
 	public function getServerName() {
@@ -202,18 +189,6 @@ abstract class HttpRequestA extends Object {
 	 */
 	public function getHttpUserAgent() {
 		return $this->sUserAgent;
-	}
-
-	public function getGetVars() {
-		return $this->aGetVars;
-	}
-
-	public function getPostVars() {
-		return $this->aPostVars;
-	}
-
-	public function getCookieVars() {
-		return $this->aCookieVars;
 	}
 
 	public function hasAuthenticationData() {
@@ -310,23 +285,6 @@ abstract class HttpRequestA extends Object {
 		return true;
 	}
 
-	public function hasGetVars() {
-		return (count($this->aGetVars) > 0);
-	}
-	public function hasGetVar($sVarName) {
-		return array_key_exists($sVarName, $this->aGetVars);
-	}
-	public function hasPostVars() {
-		return (count($this->aPostVars) > 0);
-	}
-	public function hasPostVar($sVarName) {
-		return array_key_exists($sVarName, $this->aPostVars);
-	}
-
-	public function hasCookieVar($sVarName) {
-		return array_key_exists($sVarName, $this->aCookieVars);
-	}
-
 	public function hasVar($sVarName) {
 		return (
 			$this->hasGetVar($sVarName) ||
@@ -336,59 +294,8 @@ abstract class HttpRequestA extends Object {
 		);
 	}
 
-	/**
-	 *
-	 * @param string $sVarName
-	 * @throws Exception
-	 * @return mixed
-	 */
-	protected function getGetVar($sVarName) {
-		if (array_key_exists($sVarName, $this->aGetVars)) {
-			return $this->aGetVars[$sVarName];
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 *
-	 * @param string $sVarName
-	 * @throws Exception
-	 * @return mixed
-	 */
-	protected function getPostVar($sVarName) {
-		if (array_key_exists($sVarName, $this->aPostVars)) {
-			return $this->aPostVars[$sVarName];
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 *
-	 * @param string $sVarName
-	 * @throws Exception
-	 * @return mixed
-	 */
-	protected function getCookieVar($sVarName) {
-		if (array_key_exists($sVarName, $this->aCookieVars)) {
-			return self::getDecodedVar($this->aCookieVars[$sVarName]);
-		} else {
-			return null;
-		}
-	}
-
 	protected function setAuthentication(HttpAuthenticationA $oHttpAuthentication) {
 		$this->oAuth = $oHttpAuthentication;
-	}
-
-	/**
-	 * @param string $sVarName
-	 * @param string $sVarValue
-	 * @return bool
-	 */
-	public function setCookieVar($sVarName, $sVarValue) {
-		return setcookie($sVarName, $sVarValue);
 	}
 
 	public function getHttpMethod() {

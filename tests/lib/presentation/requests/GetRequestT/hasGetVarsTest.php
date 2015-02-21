@@ -1,9 +1,9 @@
 <?php
-namespace tests\lib\presentation\requests\HttpRequestA;
+namespace tests\lib\presentation\requests\GetRequestT;
 use fixtures\presentation\requests\PopulatedRequest;
 
 /**
- * @covers \vsc\presentation\requests\HttpRequestA::hasGetVars()
+ * @covers \vsc\presentation\requests\GetRequestT::hasGetVars()
  */
 class hasGetVars extends \PHPUnit_Framework_TestCase
 {

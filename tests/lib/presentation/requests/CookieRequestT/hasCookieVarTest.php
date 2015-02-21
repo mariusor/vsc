@@ -1,9 +1,9 @@
 <?php
-namespace tests\lib\presentation\requests\HttpRequestA;
+namespace tests\lib\presentation\requests\CookieRequestT;
 use fixtures\presentation\requests\PopulatedRequest;
 
 /**
- * @covers \vsc\presentation\requests\HttpRequestA::hasCookieVar()
+ * @covers \vsc\presentation\requests\CookieRequestT::hasCookieVar()
  */
 class hasCookieVar extends \PHPUnit_Framework_TestCase
 {

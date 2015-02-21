@@ -1,9 +1,9 @@
 <?php
-namespace tests\lib\presentation\requests\HttpRequestA;
+namespace tests\lib\presentation\requests\FilesRequestT;
 use vsc\presentation\requests\HttpRequestA;
 
 /**
- * @covers \vsc\presentation\requests\HttpRequestA::getFiles()
+ * @covers \vsc\presentation\requests\FilesRequestT::getFiles()
  */
 class getFiles extends \PHPUnit_Framework_TestCase
 {
