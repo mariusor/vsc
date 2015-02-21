@@ -11,7 +11,9 @@ $sEndKey = key($aArray);
 foreach ($aArray as $sName => $mValue) {
 	if (is_scalar($mValue)) {
 		String::_echo("\t", $GLOBALS['depth']);
-		if (!is_int($sName)) echo '"'.$sName.'": ';
+		if (!is_int($sName)) {
+			echo '"'.$sName.'": ';
+		}
 		echo '"'.String::stripEntities(str_replace('"', '\"', $mValue)).'"'.($sName != $sEndKey ? ',' : '')."\n";
 
 		continue;

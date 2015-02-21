@@ -15,6 +15,9 @@ class String {
 		return preg_replace('/<br\/?>/i', "\n", $sString);
 	}
 
+	/**
+	 * @param string $sString
+	 */
 	static function stripTags ($sString) {
 		return strip_tags($sString);
 	}

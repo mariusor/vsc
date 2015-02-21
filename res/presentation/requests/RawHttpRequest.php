@@ -59,6 +59,9 @@ class RawHttpRequest extends RwHttpRequest {
 		return $this->aRawVars;
 	}
 
+	/**
+	 * @param string $sVarName
+	 */
 	public function getRawVar($sVarName) {
 		$aRawVars = $this->getRawVars();
 		if (is_array($aRawVars) && array_key_exists($sVarName, $aRawVars)) {
