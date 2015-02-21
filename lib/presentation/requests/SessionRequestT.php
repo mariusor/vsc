@@ -10,6 +10,13 @@ namespace vsc\presentation\requests;
 use vsc\infrastructure\vsc;
 
 trait SessionRequestT {
+	protected $aSessionVars = [];
+
+	protected function initSession () {
+		if (static::hasSession() && isset($_SESSION)) {
+			$this->aSessionVars = $_SESSION;
+		}
+	}
 
 	/**
 	 * @return bool
@@ -22,7 +29,7 @@ trait SessionRequestT {
 	 * @return array
 	 */
 	public function getSessionVars() {
-		return $_SESSION;
+		return $this->aSessionVars;
 	}
 
 	/**
@@ -31,10 +38,7 @@ trait SessionRequestT {
 	 */
 	public function hasSessionVar($sVarName) {
 		return (
-			self::hasSession() &&
-			isset($_SESSION) &&
-			is_array($_SESSION) &&
-			array_key_exists($sVarName, $_SESSION)
+			array_key_exists($sVarName, $this->aSessionVars)
 		);
 	}
 
@@ -89,8 +93,8 @@ trait SessionRequestT {
 	 * @return mixed
 	 */
 	public function getSessionVar($sVarName) {
-		if (array_key_exists($sVarName, $_SESSION)) {
-			return self::getDecodedVar($_SESSION[$sVarName]);
+		if (array_key_exists($sVarName, $this->aSessionVars)) {
+			return self::getDecodedVar($this->aSessionVars[$sVarName]);
 		} else {
 			return null;
 		}
@@ -102,7 +106,9 @@ trait SessionRequestT {
 	 * @return bool
 	 */
 	public function setSessionVar($sVarName, $sVarValue) {
-		return $_SESSION[$sVarName] = $sVarValue;
+		$this->aSessionVars[$sVarName] = $sVarValue;
+		$_SESSION[$sVarName] = $sVarValue;
+		return true;
 	}
 
 }

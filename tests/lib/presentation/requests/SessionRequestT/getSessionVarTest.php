@@ -24,8 +24,8 @@ class getSessionVar extends \PHPUnit_Framework_TestCase
 	public function testBasicGetSession()
 	{
 		$sValue = uniqid();
-		$_SESSION['test'] = $sValue;
 		$o = new HttpRequestA_underTest_getSessionVar();
+		$o->setSessionVar('test', $sValue);
 		$this->assertEquals($sValue, $o->getSessionVar('test'));
 	}
 }

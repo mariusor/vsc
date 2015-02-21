@@ -28,8 +28,8 @@ class hasVar extends \PHPUnit_Framework_TestCase
 
 		PopulatedRESTRequest::startSession();
 
-		$_SESSION['ala'] = uniqid('ala:');
-		$_SESSION['bala'] = '##';
+		$o->setSessionVar('ala', uniqid('ala:'));
+		$o->setSessionVar('bala', '##');
 		// Session var
 		$this->assertTrue($o->hasVar('ala')); // 'ala' =>  uniqid('ala:'), 'bala' => '##'
 		$this->assertTrue($o->hasVar('bala'));

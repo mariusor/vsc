@@ -10,6 +10,12 @@ namespace vsc\presentation\requests;
 trait GetRequestT {
 	protected $aGetVars = array();
 
+	protected function initGet () {
+		if (isset($_GET) && is_array($_GET)) {
+			$this->aGetVars = $_GET;
+		}
+	}
+
 	/**
 	 * @return bool
 	 */
@@ -28,7 +34,6 @@ trait GetRequestT {
 	/**
 	 *
 	 * @param string $sVarName
-	 * @throws Exception
 	 * @return mixed
 	 */
 	protected function getGetVar($sVarName) {

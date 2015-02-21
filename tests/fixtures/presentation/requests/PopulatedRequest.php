@@ -10,7 +10,9 @@ class PopulatedRequest extends RwHttpRequest {
 		'height'	=> 143
 	);
 
-	public function __construct() {}
+	public function __construct() {
+		parent::__construct();
+	}
 
 	protected $returnUri = '/test';
 	protected $sUri = '/test';
@@ -43,20 +45,24 @@ class PopulatedRequest extends RwHttpRequest {
 	public function getTaintedVar ($sVarName) {
 		return parent::getTaintedVar($sVarName);
 	}
-	
+
 	public function setGetVars($Vars) {
 		$this->aGetVars = $Vars;
 	}
-	
+
 	public function setPostVars($Vars) {
 		$this->aPostVars = $Vars;
 	}
-	
+
 	public function setCookieVars($Vars) {
 		$this->aCookieVars = $Vars;
 	}
 
 	public function setHttpMethod ($HttpMethod) {
 		$this->sHttpMethod = $HttpMethod;
+	}
+
+	public function getGetVar ($key) {
+		return parent::getGetVar($key);
 	}
 }

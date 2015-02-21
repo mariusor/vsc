@@ -44,12 +44,11 @@ abstract class HttpRequestA extends Object {
 	protected $bDoNotTrack = false;
 
 	public function __construct() {
-		if (isset($_GET))
-			$this->aGetVars		= $_GET;
-		if (isset($_POST))
-			$this->aPostVars	= $_POST;
-		if (isset($_COOKIE))
-			$this->aCookieVars = $_COOKIE;
+		$this->initGet();
+		$this->initPost();
+		$this->initCookie();
+		$this->initFiles();
+		$this->initSession();
 
 		if (isset($_SERVER)) {
 			$this->getServerProtocol();
@@ -102,10 +101,6 @@ abstract class HttpRequestA extends Object {
 			if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
 				$this->setAuthentication(new BasicHttpAuthentication($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']));
 			}
-		}
-
-		if (count($_FILES) >= 1) {
-			$this->aFiles = $_FILES;
 		}
 	}
 
