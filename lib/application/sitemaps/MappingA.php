@@ -15,7 +15,7 @@ use vsc\infrastructure\Object;
 use vsc\infrastructure\vsc;
 use vsc\presentation\requests\HttpAuthenticationA;
 
-class MappingA extends Object {
+abstract class MappingA extends Object {
 	/**
 	 * @var  string
 	 */
@@ -495,5 +495,14 @@ class MappingA extends Object {
 	 */
 	public function requiresAuthentication () {
 		return ($this->iAuthenticationType != HttpAuthenticationA::NONE);
+	}
+
+	/**
+	 * @param Object $MappedObject
+	 * @return string
+	 */
+	public function maps (Object $MappedObject)
+	{
+		return (bool)stristr(get_class($MappedObject), substr(basename($this->getPath()),0,-4));
 	}
 }
