@@ -25,7 +25,7 @@ class ExceptionError extends \ErrorException {
 		return $this->aErrorTypes[$this->getSeverity()];
 	}
 
-	static public function isValid ($e) {
+	public static function isValid ($e) {
 		return ($e instanceof static);
 	}
 }

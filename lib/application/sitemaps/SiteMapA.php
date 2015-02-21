@@ -147,7 +147,7 @@ abstract class SiteMapA extends Object {
 	 * @param string $sPath
 	 * @return bool
 	 */
-	static public function isValidStaticPath ($sPath) {
+	public static function isValidStaticPath ($sPath) {
 		return (!stristr($sPath, 'php') && is_file ($sPath));
 	}
 
@@ -157,11 +157,11 @@ abstract class SiteMapA extends Object {
 	 * @param string $sPath
 	 * @return bool
 	 */
-	static public function isValidMapPath ($sPath) {
+	public static function isValidMapPath ($sPath) {
 		return (basename ($sPath) == 'map.php' && is_file ($sPath));
 	}
 
-	static public function isValidObjectPath ($sPath) {
+	public static function isValidObjectPath ($sPath) {
 		return (substr ($sPath, -4) == '.php' && is_file ($sPath));
 	}
 
@@ -171,7 +171,7 @@ abstract class SiteMapA extends Object {
 	 * @param string $sPath
 	 * @return string
 	 */
-	static public function getClassName ($sPath) {
+	public static function getClassName ($sPath) {
 		$sClassName	= strtolower(basename($sPath, '.php'));
 //		$sClassName	= substr($sPath, 0, -4);
 

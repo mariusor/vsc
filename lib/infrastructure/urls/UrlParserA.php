@@ -30,7 +30,7 @@ class UrlParserA extends Object implements UrlParserI {
 		return $this->getCompleteUri(true);
 	}
 
-	static public function getCurrentUrl () {
+	public static function getCurrentUrl () {
 		return new UrlRWParser('http' . (HttpRequestA::isSecure() ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
 	}
 
@@ -38,7 +38,7 @@ class UrlParserA extends Object implements UrlParserI {
 		return self::urlHasScheme($this->getUrl());
 	}
 
-	static public function urlHasScheme ($sUrl) {
+	public static function urlHasScheme ($sUrl) {
 		$sScheme = substr ($sUrl, 0, strpos($sUrl, ':'));
 		return in_array($sScheme, self::$validSchemes);
 	}
@@ -48,7 +48,7 @@ class UrlParserA extends Object implements UrlParserI {
 	 * @param string $sUrl
 	 * @return string[]
 	 */
-	static public function parse_url ($sUrl = null) {
+	public static function parse_url ($sUrl = null) {
 		if (is_null($sUrl) && is_array($_SERVER) && array_key_exists('REQUEST_URI', $_SERVER)) {
 			$sUrl = self::getCurrentUrl();
 		}
@@ -190,7 +190,7 @@ class UrlParserA extends Object implements UrlParserI {
 		return self::getTldOf($sSubDomains);
 	}
 
-	static public function getTldOf ($sHost) {
+	public static function getTldOf ($sHost) {
 		if ( ip2long($sHost) > 0 || empty($sHost) ) { return false; }
 
 		if (!strrpos ($sHost, '.')) {
@@ -216,7 +216,7 @@ class UrlParserA extends Object implements UrlParserI {
 		return self::getTldOf($sString);
 	}
 
-	static public function getCurrentHostName () {
+	public static function getCurrentHostName () {
 		return $_SERVER['HTTP_HOST'];
 	}
 
@@ -425,7 +425,7 @@ class UrlParserA extends Object implements UrlParserI {
 		return $this->getCompleteParentUri($bFull, 0);
 	}
 
-	static public function hasGoodTermination ($sUri, $sTermination = '/') {
+	public static function hasGoodTermination ($sUri, $sTermination = '/') {
 		// last element should be an / or in the last part after / there should be a .
 		return (substr($sUri, -1) == $sTermination || stristr(substr($sUri, strrpos($sUri, $sTermination)), '.'));
 	}

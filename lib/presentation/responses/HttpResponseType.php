@@ -41,7 +41,7 @@ class HttpResponseType {
 		501 => '501 Not Implemented',
 	);
 
-	static public function getList() {
+	public static function getList() {
 		return self::$aStatusList;
 	}
 

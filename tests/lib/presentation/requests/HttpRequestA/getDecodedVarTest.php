@@ -28,7 +28,7 @@ class getDecodedVar extends \PHPUnit_Framework_TestCase
 }
 
 class HttpRequestA_underTest_getDecodedVar extends HttpRequestA {
-	static public function getDecodedVar ($var) {
+	public static function getDecodedVar ($var) {
 		return parent::getDecodedVar($var);
 	}
 }

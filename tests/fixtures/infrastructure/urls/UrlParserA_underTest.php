@@ -5,7 +5,7 @@ use vsc\infrastructure\urls\UrlParserA;
 
 class UrlParserA_underTest extends UrlParserA {
 
-	static public function makeQuery ($aQueryComponents) {
+	public static function makeQuery ($aQueryComponents) {
 		$sQuery = '';
 		if (count($aQueryComponents) > 1) {
 			$aQuery = array();
@@ -17,7 +17,7 @@ class UrlParserA_underTest extends UrlParserA {
 		return $sQuery;
 	}
 
-	static public function makeUrl ($aUrlComponents) {
+	public static function makeUrl ($aUrlComponents) {
 		$sUrl = '';
 		if (!empty ($aUrlComponents['scheme'])) {
 			$sUrl .= $aUrlComponents['scheme'] . '://';

@@ -135,7 +135,7 @@ abstract class ViewA extends Object implements ViewI {
 	}
 
 	/**
-	 * @param MappingA $oMap
+	 * @param ProcessorMap $oMap
 	 */
 	public function setMap ($oMap) {
 		$this->oCurrentMap = $oMap;
@@ -292,7 +292,7 @@ abstract class ViewA extends Object implements ViewI {
 	/**
 	 * @returns UrlRWParser
 	 */
-	static public function getUriParser () {
+	public static function getUriParser () {
 		if (!UrlParserA::isValid(self::$oUriParser)) {
 			self::$oUriParser = new UrlRWParser();
 		}
@@ -302,14 +302,14 @@ abstract class ViewA extends Object implements ViewI {
 	/**
 	 * @return string
 	 */
-	static public function getCurrentSiteUri () {
+	public static function getCurrentSiteUri () {
 		return htmlspecialchars(self::getUriParser()->getSiteUri());
 	}
 
 	/**
 	 * @return string
 	 */
-	static public function getCurrentUri() {
+	public static function getCurrentUri() {
 		return htmlspecialchars(vsc::getEnv()->getHttpRequest()->getUri(true));
 	}
 
@@ -317,7 +317,7 @@ abstract class ViewA extends Object implements ViewI {
 	 * @param int $iParent
 	 * @return string
 	 */
-	static public function getParentUri ($iParent = 1) {
+	public static function getParentUri ($iParent = 1) {
 		return htmlspecialchars(self::getUriParser()->getCompleteParentUri(true, $iParent));
 	}
 }

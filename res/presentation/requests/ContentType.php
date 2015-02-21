@@ -4,7 +4,7 @@ namespace vsc\presentation\requests;
 use vsc\infrastructure\Null;
 
 class ContentType extends Null {
-	static public function isAccepted ($sContentType, $aContentTypes) {
+	public static function isAccepted ($sContentType, $aContentTypes) {
 		foreach ($aContentTypes as $key => $sEntry) {
 			$iSemicolonPosition = strpos($sEntry, ';');
 			if ($iSemicolonPosition > 0) {
@@ -24,4 +24,4 @@ class ContentType extends Null {
 		}
 		return false;
 	}
-} 
+}

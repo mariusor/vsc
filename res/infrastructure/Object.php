@@ -17,7 +17,7 @@ abstract class Object {
 		}
 	}
 
-	static public function __callStatic ($sMethodName, $aVars) {
+	public static function __callStatic ($sMethodName, $aVars) {
 		if (vsc::getEnv()->isDevelopment()) {
 			throw new ExceptionUnimplemented ('Method [' . get_class() .'::' . $sMethodName .'] not implemented for calling statically.');
 		} else {
@@ -39,7 +39,7 @@ abstract class Object {
 		}
 	}
 
-	static public function isValid ($oIncomingObject) {
+	public static function isValid ($oIncomingObject) {
 		return (!is_null($oIncomingObject) && ($oIncomingObject instanceof static));
 	}
 }

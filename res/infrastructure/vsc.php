@@ -41,14 +41,14 @@ class vsc extends Object {
 	/**
 	 * @param vsc $envObject
 	 */
-	static public function setInstance (vsc $envObject) {
+	public static function setInstance (vsc $envObject) {
 		self::$oInstance = $envObject;
 	}
 
 	/**
 	 * @return vsc
 	 */
-	static public function getEnv () {
+	public static function getEnv () {
 		if (!(vsc::isValid(self::$oInstance))) {
 			self::$oInstance = new self();
 		}
@@ -138,14 +138,14 @@ class vsc extends Object {
 	/**
 	 * @return bool
 	 */
-	static public function isCli() {
+	public static function isCli() {
 		return self::getEnv()->_isCli();
 	}
 
 	/**
 	 * @return string
 	 */
-	static public function name() {
+	public static function name() {
 		return 'V<sup>S<sup>C</sup></sup>';
 	}
 
@@ -153,11 +153,11 @@ class vsc extends Object {
 	 * returns an end of line, based on the environment
 	 * @return string
 	 */
-	static public function nl () {
+	public static function nl () {
 		return self::isCli() ? "\n" : '<br/>' . "\n";
 	}
 
-	static public function d () {
+	public static function d () {
 		$aRgs = func_get_args();
 
 		$output = '';
@@ -210,7 +210,7 @@ class vsc extends Object {
 		return $this->getDispatcher()->getCurrentModuleMap();
 	}
 
-	static public function getPaths () {
+	public static function getPaths () {
 		return explode (PATH_SEPARATOR, get_include_path());
 	}
 }

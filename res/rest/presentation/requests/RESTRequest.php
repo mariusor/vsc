@@ -14,7 +14,7 @@ class RESTRequest extends RawHttpRequest {
 		'application/json'
 	);
 
-	static public function validContentType ($sContentType) {
+	public static function validContentType ($sContentType) {
 		return in_array($sContentType, static::$validContentTypes);
 	}
 }

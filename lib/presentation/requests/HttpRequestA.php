@@ -305,11 +305,11 @@ abstract class HttpRequestA extends Object {
 		return null;
 	}
 
-	static public function hasContentType () {
+	public static function hasContentType () {
 		return (array_key_exists('CONTENT_TYPE', $_SERVER) && strlen($_SERVER['CONTENT_TYPE']) > 0);
 	}
 
-	static public function validContentType ($sContentType) {
+	public static function validContentType ($sContentType) {
 		return true;
 	}
 
@@ -337,15 +337,15 @@ abstract class HttpRequestA extends Object {
 		return array_key_exists($sVarName, $this->aCookieVars);
 	}
 
-	static public function hasSession () {
+	public static function hasSession () {
 		return (session_id() != '');
 	}
 
-	static public function getSessionName () {
+	public static function getSessionName () {
 		return session_id();
 	}
 
-	static public function startSession ($sSessionName = null) {
+	public static function startSession ($sSessionName = null) {
 		if (!static::hasSession()) {
 			if ( ((double)PHP_VERSION >= 5.4 && session_status () == PHP_SESSION_DISABLED) ) {
 				throw new ExceptionRequest( 'Sessions are not available' );
@@ -366,7 +366,7 @@ abstract class HttpRequestA extends Object {
 		}
 	}
 
-	static public function destroySession () {
+	public static function destroySession () {
 		$aSessionCookieParams = session_get_cookie_params();
 
 		session_unset();
@@ -507,7 +507,7 @@ abstract class HttpRequestA extends Object {
 	/**
 	 * @return bool
 	 */
-	static public function isSecure () {
+	public static function isSecure () {
 		return (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] == 'on');
 	}
 

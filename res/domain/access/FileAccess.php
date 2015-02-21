@@ -74,7 +74,7 @@ class FileAccess extends Object {
 		return is_file ($this->sUri);
 	}
 
-	static public function getFile ($sPath) {
+	public static function getFile ($sPath) {
 		return file_get_contents($sPath);
 	}
 

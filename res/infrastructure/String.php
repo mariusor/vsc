@@ -33,7 +33,7 @@ class String {
 	 * returns an end of line, based on the environment
 	 * @return string
 	 */
-	static public function nl () {
+	public static function nl () {
 		return vsc::isCli() ? "\n" : '<br/>' . "\n";
 	}
 
@@ -42,15 +42,15 @@ class String {
 	 * @param string $sString
 	 * @return string
 	 */
-	static public function allTrim ($sString) {
+	public static function allTrim ($sString) {
 		return trim (preg_replace('/\s+/m', ' ', $sString));
 	}
 
-	static public function encodeEntities ($sString) {
+	public static function encodeEntities ($sString) {
 		return htmlentities($sString, ENT_QUOTES, 'UTF-8');
 	}
 
-	static public function formatUri ($sUri) {
+	public static function formatUri ($sUri) {
 		$aReplaceWhat	= array (
 			'/(&([^(amp;)]))/',
 			'/ {1,}/',
@@ -63,7 +63,7 @@ class String {
 		return preg_replace($aReplaceWhat, $aReplaceWith, $sUri);
 	}
 
-	static public function truncate ($sString, $iLength, $sEtc = '...') {
+	public static function truncate ($sString, $iLength, $sEtc = '...') {
 		if ($iLength == 0)
 			return '';
 
@@ -76,7 +76,7 @@ class String {
 		}
 	}
 
-	static public function baseEncode($val, $base=62, $chars='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
+	public static function baseEncode($val, $base=62, $chars='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
 		// can't handle numbers larger than 2^31-1 = 2147483647
 		$str = '';
 		do {
@@ -87,7 +87,7 @@ class String {
 		return $str;
 	}
 
-	static public function baseDecode($str, $base=62, $chars='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
+	public static function baseDecode($str, $base=62, $chars='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
 		$len = strlen($str);
 		$val = 0;
 		$arr = array_flip(str_split($chars));

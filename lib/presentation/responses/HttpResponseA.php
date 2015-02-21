@@ -257,7 +257,7 @@ abstract class HttpResponseA extends Object {
 		return $this->sServerProtocol;
 	}
 
-	static public function getHttpStatusString ($sProtocol, $iStatus) {
+	public static function getHttpStatusString ($sProtocol, $iStatus) {
 		return $sProtocol . ' ' . HttpResponseType::getStatus($iStatus);
 	}
 
