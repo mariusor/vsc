@@ -12,7 +12,7 @@ class Null extends Object {
 			// we have a getter we return $this
 			return new Null();
 		} elseif (!stristr($sMethodName, 'set')) {
-			parent::__call($sMethodName, $aVars);
+			return parent::__call($sMethodName, $aVars);
 		}
 	}
 
