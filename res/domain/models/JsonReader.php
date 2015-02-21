@@ -55,15 +55,15 @@ class JsonReader extends ModelA {
 		}
 	}
 
-	public function getPayload () {
+	public function getPayload() {
 		return $this->oPayload;
 	}
 
 	/**
 	 * @param integer $iError
 	 */
-	public static function getError ($iError) {
-		switch($iError) {
+	public static function getError($iError) {
+		switch ($iError) {
 		case JSON_ERROR_DEPTH:
 			$sLastError = 'Maximum stack depth exceeded';
 			break;

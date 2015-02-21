@@ -84,15 +84,15 @@ function getErrorHeaderOutput($e = null) {
 /**
  * @param \Exception $e
  */
-function _e ($e) {
+function _e($e) {
 	$aErrors = cleanBuffers();
 	$sRet = '';
 	if (!vsc::isCli()) {
-		header ('HTTP/1.1 500 Internal Server Error');
-		echo getErrorHeaderOutput ($e);
+		header('HTTP/1.1 500 Internal Server Error');
+		echo getErrorHeaderOutput($e);
 	}
 
-	if ( isDebug() ) {
+	if (isDebug()) {
 		echo ($e instanceof \Exception) ? $e->getTraceAsString() : '';
 	}
 

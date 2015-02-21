@@ -42,7 +42,9 @@ abstract class RPCProcessorA extends ProcessorA {
 	abstract public function getRPCInterface($sNameSpace = null);
 
 	public function hasRPCMethod($oInterface, $sMethod) {
-		if (empty ($sMethod) || empty ($oInterface)) return false;
+		if (empty ($sMethod) || empty ($oInterface)) {
+			return false;
+		}
 
 		$oReflectedInterface = new \ReflectionObject($oInterface);
 		if ($oReflectedInterface->hasMethod($sMethod)) {

@@ -16,54 +16,54 @@ class FileAccess extends Object {
 	private $sCachePath;
 	protected $saveToCache = true;
 
-	public function __construct ($sUri) {
+	public function __construct($sUri) {
 		$this->sUri = $sUri;
 	}
 
-	public function getUri () {
+	public function getUri() {
 		return $this->sUri;
 	}
 
-	public function getCachePath () {
+	public function getCachePath() {
 		return $this->sCachePath;
 	}
 
-	public function setCachePath ($sPath) {
+	public function setCachePath($sPath) {
 		if (is_dir($sPath)) {
 			$this->sCachePath = $sPath;
 		} else {
-			throw new ExceptionAccess ('Path ['.$sPath.'] is invalid for cache');
+			throw new ExceptionAccess('Path ['.$sPath.'] is invalid for cache');
 		}
 	}
 
 	/**
 	 * @param string $sFile
 	 */
-	public function getLocalPath ($sFile) {
-		return $this->sCachePath . DIRECTORY_SEPARATOR . $sFile;
+	public function getLocalPath($sFile) {
+		return $this->sCachePath.DIRECTORY_SEPARATOR.$sFile;
 	}
 
-	public function getSignature ($sUri) {
-		return md5 ($sUri . date('Ymd'));
+	public function getSignature($sUri) {
+		return md5($sUri.date('Ymd'));
 	}
 
 	/**
 	 * @param string $sUri
 	 * @return bool
 	 */
-	public function inCache ($sUri) {
-		return ( is_file ($this->getLocalPath($this->getSignature ($sUri))) );
+	public function inCache($sUri) {
+		return (is_file($this->getLocalPath($this->getSignature($sUri))));
 	}
 
-	public function loadFromCache ($sUri) {
+	public function loadFromCache($sUri) {
 		return file_get_contents($this->getLocalPath($this->getSignature($sUri)));
 	}
 
 	/**
 	 * @param string $sContent
 	 */
-	public function cacheFile ($sUri, $sContent) {
-		$sFileName = $this->getLocalPath($this->getSignature ($sUri));
+	public function cacheFile($sUri, $sContent) {
+		$sFileName = $this->getLocalPath($this->getSignature($sUri));
 		// creating the file
 		if (!touch($sFileName)) {
 			throw new ExceptionError('Path ['.$sFileName.'] is not accessible.');
