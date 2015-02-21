@@ -1,10 +1,10 @@
 <?php
-namespace tests\lib\presentation\requests\HttpRequestA;
+namespace tests\lib\presentation\requests\AuthenticatedRequestT;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\HttpAuthenticationA;
 
 /**
- * @covers \vsc\presentation\requests\HttpRequestA::setAuthentication()
+ * @covers \vsc\presentation\requests\AuthenticatedRequestT::setAuthentication()
  */
 class setAuthentication extends \PHPUnit_Framework_TestCase
 {

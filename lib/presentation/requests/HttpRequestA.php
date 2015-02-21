@@ -17,6 +17,7 @@ abstract class HttpRequestA extends Object {
 	use CookieRequestT;
 	use FilesRequestT;
 	use SessionRequestT;
+	use AuthenticatedRequestT;
 
 	protected $sUri = null;
 	protected $oUri;
@@ -41,7 +42,6 @@ abstract class HttpRequestA extends Object {
 	protected $sUserAgent = '';
 
 	protected $bDoNotTrack = false;
-	protected $oAuth;
 
 	public function __construct() {
 		if (isset($_GET))
@@ -191,17 +191,6 @@ abstract class HttpRequestA extends Object {
 		return $this->sUserAgent;
 	}
 
-	public function hasAuthenticationData() {
-		return HttpAuthenticationA::isValid($this->oAuth);
-	}
-
-	/**
-	 * @returns HttpAuthenticationA
-	 */
-	public function getAuthentication() {
-		return $this->oAuth;
-	}
-
 	/**
 	 * @return bool
 	 */
@@ -292,10 +281,6 @@ abstract class HttpRequestA extends Object {
 			$this->hasSessionVar($sVarName) ||
 			$this->hasCookieVar($sVarName)
 		);
-	}
-
-	protected function setAuthentication(HttpAuthenticationA $oHttpAuthentication) {
-		$this->oAuth = $oHttpAuthentication;
 	}
 
 	public function getHttpMethod() {

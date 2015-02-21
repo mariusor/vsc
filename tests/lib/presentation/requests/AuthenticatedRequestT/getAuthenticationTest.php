@@ -1,9 +1,9 @@
 <?php
-namespace tests\lib\presentation\requests\HttpRequestA;
+namespace tests\lib\presentation\requests\AuthenticatedRequestT;
 use vsc\presentation\requests\HttpRequestA;
 
 /**
- * @covers \vsc\presentation\requests\HttpRequestA::getAuthentication()
+ * @covers \vsc\presentation\requests\AuthenticatedRequestT::getAuthentication()
  */
 class getAuthentication extends \PHPUnit_Framework_TestCase
 {

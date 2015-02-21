@@ -1,10 +1,10 @@
 <?php
-namespace tests\lib\presentation\requests\HttpRequestA;
+namespace tests\lib\presentation\requests\AuthenticatedRequestT;
 use vsc\presentation\requests\DigestHttpAuthentication;
 use vsc\presentation\requests\HttpRequestA;
 
 /**
- * @covers \vsc\presentation\requests\HttpRequestA::hasAuthenticationData()
+ * @covers \vsc\presentation\requests\AuthenticatedRequestT::hasAuthenticationData()
  */
 class hasAuthenticationData extends \PHPUnit_Framework_TestCase
 {
