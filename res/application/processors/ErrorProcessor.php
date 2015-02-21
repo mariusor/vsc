@@ -18,7 +18,7 @@ class ErrorProcessor extends ProcessorA implements ErrorProcessorI {
 	 */
 	private $model;
 
-	public function getErrorCode () {
+	public function getErrorCode() {
 		/** @var ErrorModel $oErrorModel */
 		$oErrorModel = $this->getModel();
 		$e = $oErrorModel->getException();
@@ -29,30 +29,30 @@ class ErrorProcessor extends ProcessorA implements ErrorProcessorI {
 		}
 	}
 
-	public function __construct (\Exception $e) {
-		$this->setException ($e);
+	public function __construct(\Exception $e) {
+		$this->setException($e);
 
 		$oErrorMap = new ErrorMap();
-		$oErrorMap->setTemplatePath(VSC_RES_PATH . 'templates');
+		$oErrorMap->setTemplatePath(VSC_RES_PATH.'templates');
 		$oErrorMap->setTemplate('error.tpl.php');
 
-		$this->setMap ($oErrorMap);
+		$this->setMap($oErrorMap);
 	}
 
 	/**
 	 * @return ErrorModel
 	 */
-	public function getModel () {
+	public function getModel() {
 		return $this->model;
 	}
 
-	public function init () {}
+	public function init() {}
 
-	public function setException (\Exception $e) {
+	public function setException(\Exception $e) {
 		$this->model = new ErrorModel($e);
 	}
 
-	public function handleRequest (HttpRequestA $oHttpRequest) {
+	public function handleRequest(HttpRequestA $oHttpRequest) {
 		return $this->getModel();
 	}
 }

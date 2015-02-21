@@ -16,7 +16,7 @@ class ProcessorMap extends MappingA {
 	 * @throws ExceptionSitemap
 	 * @returns ControllerMap
 	 */
-	public function mapController ($sRegex, $sPath = null){
+	public function mapController($sRegex, $sPath = null) {
 		if (is_null($sPath)) {
 			// if we only have one parameter, we treat it as a path
 			$sPath = $sRegex;

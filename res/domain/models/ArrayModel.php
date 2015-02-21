@@ -11,11 +11,11 @@ class ArrayModel extends ModelA {
 	protected $aContent = array();
 	private $length;
 
-	protected function getProperties ($bAll = false) {
+	protected function getProperties($bAll = false) {
 		return $this->aContent;
 	}
 
-	protected function getPropertyNames ($bAll = false) {
+	protected function getPropertyNames($bAll = false) {
 		return array_keys($this->aContent);
 	}
 /**/
@@ -38,18 +38,18 @@ class ArrayModel extends ModelA {
 		return isset($this->aContent[$offset]) ? $this->aContent[$offset] : null;
 	}
 /**/
-	public function __construct ($aIncArray = array()) {
+	public function __construct($aIncArray = array()) {
 		$this->aContent = $aIncArray;
-		$this->length  = count ($aIncArray);
+		$this->length = count($aIncArray);
 
 		//parent::__construct();
 	}
 
-	public function __get ($sIncName = null) {
+	public function __get($sIncName = null) {
 		if (!is_null($sIncName) && isset($this->aContent[$sIncName])) {
 			return $this->aContent[$sIncName];
 		}
-		parent::__get ($sIncName);
+		parent::__get($sIncName);
 	}
 
 	public function __set($sIncName, $value) {
@@ -58,7 +58,7 @@ class ArrayModel extends ModelA {
 		$this->length = count($this->aContent);
 	}
 
-	public function toArray () {
+	public function toArray() {
 		return $this->aContent;
 	}
 }

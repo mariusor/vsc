@@ -2,11 +2,11 @@
 namespace vsc\application\sitemaps;
 
 interface ContentTypeMappingI {
-	public function setMainTemplatePath ($sPath) ;
+	public function setMainTemplatePath($sPath);
 
-	public function getMainTemplatePath ();
+	public function getMainTemplatePath();
 
-	public function setMainTemplate ($sPath);
+	public function setMainTemplate($sPath);
 
-	public function getMainTemplate ();
+	public function getMainTemplate();
 }

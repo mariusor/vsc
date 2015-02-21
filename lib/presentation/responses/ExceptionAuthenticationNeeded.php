@@ -5,13 +5,13 @@ class ExceptionAuthenticationNeeded extends ExceptionResponseError {
 	private $sRealm;
 
 	public function __construct($sMessage, $sRealm = '') {
-		if ( !empty ($sRealm) ) {
+		if (!empty ($sRealm)) {
 			$this->sRealm = $sRealm;
 		}
-		parent::__construct ($sMessage, 401);
+		parent::__construct($sMessage, 401);
 	}
 
-	public function getChallenge () {
-		return 'Basic realm="' . $this->sRealm . '"';
+	public function getChallenge() {
+		return 'Basic realm="'.$this->sRealm.'"';
 	}
 }

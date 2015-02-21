@@ -13,7 +13,7 @@
 		<docs>http://blogs.law.harvard.edu/tech/rss</docs>
 <?php
 try {
-	$sContent = $this->fetch ($this->getTemplate());
+	$sContent = $this->fetch($this->getTemplate());
 } catch (\vsc\ExceptionPath $e) {
 	// the template could not be found
 }

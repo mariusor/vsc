@@ -8,10 +8,10 @@ class ExceptionDigestAuthenticationChallenge extends ExceptionAuthenticationNeed
 		$this->sRealm = $sRealm;
 		$this->sNonce = $sNonce;
 
-		parent::__construct ($sMessage, 401);
+		parent::__construct($sMessage, 401);
 	}
 
-	public function getChallenge () {
-		return 'Digest realm="' . $this->sRealm . '",qop="auth",nonce="' . $this->sNonce . '",opaque="'.md5($this->sRealm).'"';
+	public function getChallenge() {
+		return 'Digest realm="'.$this->sRealm.'",qop="auth",nonce="'.$this->sNonce.'",opaque="'.md5($this->sRealm).'"';
 	}
 }

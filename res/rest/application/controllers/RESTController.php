@@ -31,27 +31,27 @@ class RESTController extends JsonController {
 	 * @throws \vsc\presentation\views\ExceptionView
 	 * @throws ExceptionResponseError
 	 */
-	public function getResponse (HttpRequestA $oRequest, $oProcessor = null) {
+	public function getResponse(HttpRequestA $oRequest, $oProcessor = null) {
 		$oResponse = vsc::getEnv()->getHttpResponse();
 		$oModel = null;
 		/* @var ControllerMap $oMyMap */
 		$oMyMap	= $this->getMap();
 
 		try {
-			if ( !$oRequest->isGet() ) {
+			if (!$oRequest->isGet()) {
 				if (!RESTRequest::isValid($oRequest)) {
-					throw new ExceptionResponseError ('Invalid request.', 415);
+					throw new ExceptionResponseError('Invalid request.', 415);
 				}
-				if ( RESTRequest::hasContentType() && !RESTRequest::validContentType($oRequest->getContentType()) ) {
-					throw new ExceptionResponseError ('Invalid request content type', 415);
+				if (RESTRequest::hasContentType() && !RESTRequest::validContentType($oRequest->getContentType())) {
+					throw new ExceptionResponseError('Invalid request content type', 415);
 				}
 			}
 			if (!ProcessorA::isValid($oProcessor)) {
-				throw new ExceptionController ('Invalid request processor');
+				throw new ExceptionController('Invalid request processor');
 			}
 			/* @var RESTProcessorA $oProcessor */
 			if (RESTProcessorA::isValid($oProcessor) && !$oProcessor->validRequestMethod($oRequest->getHttpMethod())) {
-				throw new ExceptionResponseError ('Invalid request method', 405);
+				throw new ExceptionResponseError('Invalid request method', 405);
 			}
 			$oMap = $oProcessor->getMap();
 			if ($oMap->requiresAuthentication()) {
@@ -59,16 +59,16 @@ class RESTController extends JsonController {
 					if ($oProcessor instanceof AuthenticatedProcessorI) {
 						/* @var AuthenticatedProcessorI $oProcessor */
 						if (!$oRequest->hasAuthenticationData()) {
-							throw new ExceptionAuthenticationNeeded ('This resource needs authentication');
+							throw new ExceptionAuthenticationNeeded('This resource needs authentication');
 						}
 						if ($oRequest->getAuthentication()->getType() & $oMap->getAuthenticationType() == $oRequest->getAuthentication()->getType()) {
-							throw new ExceptionAuthenticationNeeded ('Invalid authorization scheme. Supported schemes: ' . implode(', ', $oMap->getValidAuthenticationSchemas()));
+							throw new ExceptionAuthenticationNeeded('Invalid authorization scheme. Supported schemes: '.implode(', ', $oMap->getValidAuthenticationSchemas()));
 						}
 						if (!$oProcessor->handleAuthentication($oRequest->getAuthentication())) {
-							throw new ExceptionAuthenticationNeeded ('Invalid authentication data', 'testrealm');
+							throw new ExceptionAuthenticationNeeded('Invalid authentication data', 'testrealm');
 						}
 					} else {
-						throw new ExceptionAuthenticationNeeded ('This resource requires authentication but doesn\'t support any authorization scheme');
+						throw new ExceptionAuthenticationNeeded('This resource requires authentication but doesn\'t support any authorization scheme');
 					}
 				} catch (ExceptionAuthenticationNeeded $e) {
 					return $this->getErrorResponse($e);
@@ -85,7 +85,7 @@ class RESTController extends JsonController {
 	 * @fixme
 	 * @return \vsc\presentation\views\JsonView
 	 */
-	public function getDefaultView () {
+	public function getDefaultView() {
 		return parent::getDefaultView();
 	}
 }

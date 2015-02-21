@@ -71,18 +71,18 @@ abstract class ModelA extends Null implements ModelI {
 	 * Iterator interface
 	 * @return mixed
 	 */
-	public function current  () {
+	public function current() {
 		return $this->__get($this->sOffset);
 	}
 
 	/**
 	 * @return string
 	 */
-	public function key () {
+	public function key() {
 		return $this->sOffset;
 	}
 
-	public function next () {
+	public function next() {
 		$aKeys = $this->getPropertyNames();
 
 		$iCurrent = array_search($this->sOffset, $aKeys);
@@ -94,7 +94,7 @@ abstract class ModelA extends Null implements ModelI {
 		}
 	}
 
-	public function rewind () {
+	public function rewind() {
 		$aKeys = $this->getPropertyNames();
 
 		if (is_array($aKeys) && isset ($aKeys[0])) {
@@ -102,7 +102,7 @@ abstract class ModelA extends Null implements ModelI {
 		}
 	}
 
-	public function valid ($sName = null) {
+	public function valid($sName = null) {
 		$bRetValue = false;
 
 		if ($sName === null)
@@ -118,11 +118,11 @@ abstract class ModelA extends Null implements ModelI {
 	}
 
 	// Countable interface
-	public function count () {
-		return count ($this->getPropertyNames());
+	public function count() {
+		return count($this->getPropertyNames());
 	}
 
-	public function __get ($sIncName) {
+	public function __get($sIncName) {
 		try {
 			$oProperty = new \ReflectionProperty($this, $sIncName);
 			if (!$oProperty->isPublic()) {
@@ -140,12 +140,12 @@ abstract class ModelA extends Null implements ModelI {
 			// reflection issue
 			return null;
 		}
-		return parent::__get ($sIncName);
+		return parent::__get($sIncName);
 	}
 
 	public function __set($sIncName, $value) {
 		if (is_null($sIncName)) {
-			throw new \ReflectionException ('Can\'t set a value to a null property on the current object ['. get_class ($this).']');
+			throw new \ReflectionException('Can\'t set a value to a null property on the current object ['.get_class($this).']');
 		}
 		try {
 			$oProperty = new \ReflectionProperty($this, $sIncName);
@@ -166,10 +166,10 @@ abstract class ModelA extends Null implements ModelI {
 //			$this->$sIncName = $value;
 		}
 
-		parent::__set ($sIncName, $value);
+		parent::__set($sIncName, $value);
 	}
 
-	public function __construct () {
+	public function __construct() {
 		$this->rewind();
 	}
 
@@ -178,7 +178,7 @@ abstract class ModelA extends Null implements ModelI {
 	 * @param string $sName
 	 * @param mixed $mValue
 	 */
-	protected function addProperty ($sName, $mValue, $bIfNonExistent = false) {
+	protected function addProperty($sName, $mValue, $bIfNonExistent = false) {
 		if ($bIfNonExistent) {
 			try {
 				$this->$sName = $mValue;
@@ -188,14 +188,14 @@ abstract class ModelA extends Null implements ModelI {
 		}
 	}
 
-	protected function getPropertyNames ($bAll = false) {
+	protected function getPropertyNames($bAll = false) {
 		$aRet = array();
 		$t = new \ReflectionObject($this);
 		$aProperties = $t->getProperties();
 
 		/* @var $oProperty \ReflectionProperty */
 		foreach ($aProperties as $oProperty) {
-			if ($bAll || (!$bAll && $oProperty->isPublic() )) {
+			if ($bAll || (!$bAll && $oProperty->isPublic())) {
 				$aRet[] = $oProperty->getName();
 			}
 		}
@@ -206,7 +206,7 @@ abstract class ModelA extends Null implements ModelI {
 	 * @param bool $bIncludeNonPublic
 	 * @return array
 	 */
-	protected function getProperties ($bIncludeNonPublic = false) {
+	protected function getProperties($bIncludeNonPublic = false) {
 		$aRet = array();
 		$t = new \ReflectionObject($this);
 		$aProperties = $t->getProperties();
@@ -227,7 +227,7 @@ abstract class ModelA extends Null implements ModelI {
 	/**
 	 * recursively transform all properties into arrays
 	 */
-	public function toArray () {
+	public function toArray() {
 		$aRet = array();
 		$aProperties = $this->getProperties();
 		foreach ($aProperties as $sName => $oProperty) {
@@ -236,10 +236,10 @@ abstract class ModelA extends Null implements ModelI {
 				$aRet[$sName] = $oProperty->toArray();
 			} elseif (is_array($oProperty) || is_scalar($oProperty)) {
 				$aRet[$sName] = $oProperty;
-			} elseif (is_null ($oProperty)) {
+			} elseif (is_null($oProperty)) {
 				$aRet[$sName] = $oProperty;
 			} else {
-				$aRet[$sName] = var_export($oProperty,true);
+				$aRet[$sName] = var_export($oProperty, true);
 			}
 		}
 

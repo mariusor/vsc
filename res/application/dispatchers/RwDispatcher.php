@@ -36,22 +36,22 @@ class RwDispatcher extends HttpDispatcherA {
 	 * @throws ExceptionError
 	 * @returns ProcessorMap
 	 */
-	public function getCurrentMap ($aMaps) {
+	public function getCurrentMap($aMaps) {
 		if (!is_array($aMaps) || empty($aMaps)) {
 			return new ClassMap('', '');
 		}
-		$aRegexes	= array_keys($aMaps);
-		$aMatches 	= array();
+		$aRegexes = array_keys($aMaps);
+		$aMatches = array();
 
 		$sUri = $this->getRequest()->getUri(true); // get it as a urldecoded string
 		$aMatches = array();
 		foreach ($aRegexes as $sRegex) {
-			$sFullRegex = '#' . str_replace('#', '\#', $sRegex). '#iu'; // i for insensitive, u for utf8
+			$sFullRegex = '#'.str_replace('#', '\#', $sRegex).'#iu'; // i for insensitive, u for utf8
 			try {
-				$iMatch			= preg_match_all($sFullRegex, $sUri, $aMatches, PREG_SET_ORDER);
+				$iMatch = preg_match_all($sFullRegex, $sUri, $aMatches, PREG_SET_ORDER);
 			} catch (ExceptionError $e) {
 				$f = new ExceptionError(
-					$e->getMessage(). '<br/> Offending regular expression: <span style="font-weight:normal">'. $sFullRegex . '</span>',
+					$e->getMessage().'<br/> Offending regular expression: <span style="font-weight:normal">'.$sFullRegex.'</span>',
 					$e->getCode());
 				throw $f;
 			}
@@ -60,9 +60,9 @@ class RwDispatcher extends HttpDispatcherA {
 				$aMatches = array_slice($aMatches, 1);
 
 				/* @var MappingA $oMapping */
-				$oMapping  = $aMaps[$sRegex];
+				$oMapping = $aMaps[$sRegex];
 				$oMapping->setTaintedVars($aMatches);
-				$oMapping->setUrl ($sUri);
+				$oMapping->setUrl($sUri);
 				$oMapping->getModuleMap()->setUrl($sUri);
 				return $oMapping;
 			} else {
@@ -75,7 +75,7 @@ class RwDispatcher extends HttpDispatcherA {
 	 * @returns ModuleMap
 	 * @throws ExceptionSitemap
 	 */
-	public function getCurrentModuleMap () {
+	public function getCurrentModuleMap() {
 		$oProcessorMap = $this->getCurrentProcessorMap();
 		if (ProcessorMap::isValid($oProcessorMap) || ClassMap::isValid($oProcessorMap)) {
 			return $this->getCurrentProcessorMap()->getModuleMap();
@@ -89,7 +89,7 @@ class RwDispatcher extends HttpDispatcherA {
 	 * @throws ExceptionSitemap
 	 * @throws ExceptionError
 	 */
-	public function getCurrentProcessorMap () {
+	public function getCurrentProcessorMap() {
 		return $this->getCurrentMap($this->getSiteMap()->getMaps());
 	}
 
@@ -97,30 +97,30 @@ class RwDispatcher extends HttpDispatcherA {
 	 * @returns ControllerMap
 	 * @throws ExceptionError
 	 */
-	public function getCurrentControllerMap () {
-		$oProcessorMap	= $this->getCurrentProcessorMap();
+	public function getCurrentControllerMap() {
+		$oProcessorMap = $this->getCurrentProcessorMap();
 
 		// check if the current processor has some set maps
 		$aProcessorMaps = $oProcessorMap->getControllerMaps();
-		if (count ($aProcessorMaps) > 0 ) {
-			$oCurrentMap	= $this->getCurrentMap($aProcessorMaps);
-			if (ControllerMap::isValid($oCurrentMap) || ClassMap::isValid($oCurrentMap) ) {
+		if (count($aProcessorMaps) > 0) {
+			$oCurrentMap = $this->getCurrentMap($aProcessorMaps);
+			if (ControllerMap::isValid($oCurrentMap) || ClassMap::isValid($oCurrentMap)) {
 				return $oCurrentMap;
 			}
 		}
 
 		// check the current module for maps
 		$oCurrentModule = $oProcessorMap->getModuleMap();
-		$aModuleMaps 	= $oCurrentModule->getControllerMaps();
-		$oCurrentMap	= $this->getCurrentMap($aModuleMaps);
-		if (ControllerMap::isValid($oCurrentMap) || ClassMap::isValid($oCurrentMap) ) {
+		$aModuleMaps = $oCurrentModule->getControllerMaps();
+		$oCurrentMap = $this->getCurrentMap($aModuleMaps);
+		if (ControllerMap::isValid($oCurrentMap) || ClassMap::isValid($oCurrentMap)) {
 			return $oCurrentMap;
 		}
 
 		// merging all controller maps found in the processor map's parent modules
 		while (!ControllerMap::isValid($oCurrentMap) && !ClassMap::isValid($oCurrentMap)) {
 			$oModuleMap		= $oCurrentModule->getModuleMap();
-			$aMaps			= $oModuleMap->getControllerMaps();
+			$aMaps = $oModuleMap->getControllerMaps();
 			$oCurrentMap	= $this->getCurrentMap($aMaps);
 			if ($oCurrentMap instanceof Null) {
 				return $oCurrentMap;
@@ -135,9 +135,9 @@ class RwDispatcher extends HttpDispatcherA {
 	 * @throws \vsc\presentation\responses\ExceptionResponseError
 	 * @returns FrontControllerA
 	 */
-	public function getFrontController () {
+	public function getFrontController() {
 		if (!FrontControllerA::isValid($this->oController)) {
-			$oControllerMapping	= $this->getCurrentControllerMap();
+			$oControllerMapping = $this->getCurrentControllerMap();
 
 //			if (!ControllerMap::isValid($oControllerMapping)) {
 //				// this mainly means nothing was matched to our url, or no mappings exist
@@ -178,20 +178,20 @@ class RwDispatcher extends HttpDispatcherA {
 	 * @throws ExceptionResponseError
 	 * @returns ProcessorA
 	 */
-	public function getProcessController () {
+	public function getProcessController() {
 		if (!ProcessorA::isValid($this->oProcessor)) {
-			$oProcessorMap	= $this->getCurrentProcessorMap();
+			$oProcessorMap = $this->getCurrentProcessorMap();
 			if (!ProcessorMap::isValid($oProcessorMap) && !ClassMap::isValid($oProcessorMap)) {
 				// this mainly means nothing was matched to our url, or no mappings exist, so we're falling back to 404
-				$oProcessorMap	= new ProcessorMap(NotFoundProcessor::class, '.*');
-				$oProcessorMap->setTemplatePath(VSC_RES_PATH . 'templates');
+				$oProcessorMap = new ProcessorMap(NotFoundProcessor::class, '.*');
+				$oProcessorMap->setTemplatePath(VSC_RES_PATH.'templates');
 				$oProcessorMap->setTemplate('404.php');
 			}
 
 			$sPath = $oProcessorMap->getPath();
 			try {
 				$sProcessorName = null;
-				if ( $this->getSiteMap()->isValidObjectPath ($sPath) || (stristr(basename($sPath), '.') === false && !is_file($sPath))) {
+				if ($this->getSiteMap()->isValidObjectPath($sPath) || (stristr(basename($sPath), '.') === false && !is_file($sPath))) {
 					// dirty import of the module folder and important subfolders
 					$sModuleName = $oProcessorMap->getModuleName();
 //					if ( is_dir ($oProcessorMap->getModulePath()) && !$oProcessorMap->isStatic() ) {
@@ -201,7 +201,7 @@ class RwDispatcher extends HttpDispatcherA {
 //							// ooopps
 //						}
 //					}
-					if ( stristr(basename($sPath), '.') === false && !is_file($sPath) ) {
+					if (stristr(basename($sPath), '.') === false && !is_file($sPath)) {
 						// namespaced class name
 						$sProcessorName = $sPath;
 					} elseif (is_file($sPath)) {
@@ -222,7 +222,7 @@ class RwDispatcher extends HttpDispatcherA {
 					} catch (\Exception $e) {
 						$this->oProcessor = new ErrorProcessor($e);
 					}
-				} elseif ($this->getSiteMap()->isValidStaticPath ($sPath) ) {
+				} elseif ($this->getSiteMap()->isValidStaticPath($sPath)) {
 					// static stuff
 					$this->oProcessor = new StaticFileProcessor();
 					$this->oProcessor->setFilePath($sPath);
@@ -231,7 +231,7 @@ class RwDispatcher extends HttpDispatcherA {
 				}*/
 
 				if (ProcessorA::isValid($this->oProcessor)) {
-					if ( !(ErrorProcessor::isValid($this->oProcessor) && MappingA::isValid($this->oProcessor->getMap())) ) {
+					if (!(ErrorProcessor::isValid($this->oProcessor) && MappingA::isValid($this->oProcessor->getMap()))) {
 						// @TODO: this should be a MappingA->merge() when the processor already has a map
 						$this->oProcessor->setMap($oProcessorMap);
 					}
@@ -240,7 +240,7 @@ class RwDispatcher extends HttpDispatcherA {
 					/** @var RwHttpRequest $oRawRequest */
 					$oRawRequest = $this->getRequest();
 					if (RwHttpRequest::isValid($oRawRequest)) {
-						$oRawRequest->setTaintedVars ($this->oProcessor->getLocalVars()); // FIXME!!!
+						$oRawRequest->setTaintedVars($this->oProcessor->getLocalVars()); // FIXME!!!
 					}
 				} else {
 //					\vsc\d($sPath, $this->oProcessor);
@@ -248,10 +248,10 @@ class RwDispatcher extends HttpDispatcherA {
 					// broken URL
 					throw new ExceptionResponseError('Broken URL', 400);
 				}
-			} catch  (ExceptionResponseRedirect $e) {
+			} catch (ExceptionResponseRedirect $e) {
 				// get the response
-				$oResponse 			= vsc::getEnv()->getHttpResponse();
-				$oResponse->setLocation ($e->getLocation());
+				$oResponse = vsc::getEnv()->getHttpResponse();
+				$oResponse->setLocation($e->getLocation());
 				ob_end_flush();
 				$sContent = $oResponse->outputHeaders();
 			}
@@ -265,14 +265,14 @@ class RwDispatcher extends HttpDispatcherA {
 	 * @param string $sIncPath
 	 * @throws \Exception
 	 * @throws ExceptionSitemap
-	 * @return void
+	 * @return boolean
 	 */
-	public function loadSiteMap ($sIncPath) {
+	public function loadSiteMap($sIncPath) {
 		// @FIXME: this needs to be refactored with some getters/setters
-		$this->setSiteMap (new RwSiteMap());
+		$this->setSiteMap(new RwSiteMap());
 		try {
 			// hic sunt leones
-			$oMap = $this->getSiteMap()->map ('\A/', $sIncPath);
+			$oMap = $this->getSiteMap()->map('\A/', $sIncPath);
 		} catch (ExceptionSitemap $e) {
 			// there was a faulty controller in the sitemap
 			// this will probably result in a incomplete parsed sitemap tree
@@ -281,11 +281,11 @@ class RwDispatcher extends HttpDispatcherA {
 		return true;
 	}
 
-	public function getView () {}
+	public function getView() {}
 
-	public function getTemplatePath () {
-		$aMaps				= $this->getSiteMap ()->getMaps();
-		$oProcessorMap	= $this->getCurrentMap($aMaps);
+	public function getTemplatePath() {
+		$aMaps = $this->getSiteMap()->getMaps();
+		$oProcessorMap = $this->getCurrentMap($aMaps);
 
 		return $oProcessorMap->getTemplate();
 	}

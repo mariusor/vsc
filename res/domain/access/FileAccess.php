@@ -36,6 +36,9 @@ class FileAccess extends Object {
 		}
 	}
 
+	/**
+	 * @param string $sFile
+	 */
 	public function getLocalPath ($sFile) {
 		return $this->sCachePath . DIRECTORY_SEPARATOR . $sFile;
 	}
@@ -56,6 +59,9 @@ class FileAccess extends Object {
 		return file_get_contents($this->getLocalPath($this->getSignature($sUri)));
 	}
 
+	/**
+	 * @param string $sContent
+	 */
 	public function cacheFile ($sUri, $sContent) {
 		$sFileName = $this->getLocalPath($this->getSignature ($sUri));
 		// creating the file
@@ -70,22 +76,22 @@ class FileAccess extends Object {
 		}
 	}
 
-	public function isLocalFile () {
-		return is_file ($this->sUri);
+	public function isLocalFile() {
+		return is_file($this->sUri);
 	}
 
-	public static function getFile ($sPath) {
+	public static function getFile($sPath) {
 		return file_get_contents($sPath);
 	}
 
-	public function load () {
-		if ($this->isLocalFile($this->sUri) || !$this->inCache ($this->sUri)){
+	public function load() {
+		if ($this->isLocalFile($this->sUri) || !$this->inCache($this->sUri)) {
 			// @todo: use curl when file_get_contents doesn't work with urls
-			$sContent	= $this->getFile ($this->sUri);
+			$sContent = $this->getFile($this->sUri);
 
 			try {
 				if (!$this->isLocalFile($this->sUri) && $this->saveToCache) {
-					$this->cacheFile ($this->sUri, $sContent);
+					$this->cacheFile($this->sUri, $sContent);
 				}
 			} catch (ExceptionAccess $e) {
 				// no cache dir
@@ -95,7 +101,7 @@ class FileAccess extends Object {
 
 			return $sContent;
 		} else {
-			return $this->loadFromCache ($this->sUri);
+			return $this->loadFromCache($this->sUri);
 		}
 	}
 }

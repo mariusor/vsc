@@ -10,7 +10,7 @@ namespace vsc\application\controllers;
 use \vsc\presentation\views\Html5View;
 
 class Html5Controller extends XhtmlController implements HtmlControllerI {
-	public function getDefaultView () {
+	public function getDefaultView() {
 		return new Html5View();
 	}
 }

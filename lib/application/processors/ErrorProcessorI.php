@@ -8,5 +8,5 @@
 namespace vsc\application\processors;
 
 interface ErrorProcessorI {
-	public function getErrorCode ();
+	public function getErrorCode();
 }

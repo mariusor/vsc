@@ -9,22 +9,22 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>'."\n"; ?>
 	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
 	<title><?php $sTitle = $this->getTitle(); echo ($sTitle ? $sTitle : '[null]') ?></title>
 <?php
-$aAllStyles = $this->getStyles ();
+$aAllStyles = $this->getStyles();
 if (count($aAllStyles) >= 1) {
-	echo "\t" . '<style type="text/css">'. "\n";
+	echo "\t".'<style type="text/css">'."\n";
 	foreach ($aAllStyles as $sMedia => $aStyles) {
 		if (is_array($aStyles)) {
-			foreach ($aStyles as $sPath ) {
-				echo "\t\t".'@import url("' . $sPath . '")' . ($sMedia ? $sMedia : '') . ";\n";
+			foreach ($aStyles as $sPath) {
+				echo "\t\t".'@import url("'.$sPath.'")'.($sMedia ? $sMedia : '').";\n";
 			}
 		}
 	}
-	echo "\t" . '</style>'. "\n";
+	echo "\t".'</style>'."\n";
 }
 
 if (count($this->getMetaHeaders()) >= 1) {
 	foreach ($this->getMetaHeaders() as $sName => $sValue) { ?>
-	<meta <?php echo 'name="'.$sName .'" content="'.$sValue.'"'; ?> />
+	<meta <?php echo 'name="'.$sName.'" content="'.$sValue.'"'; ?> />
 <?php
 	}
 }
@@ -45,7 +45,7 @@ if (is_array ($this->getLinks()) && count($this->getLinks()) >= 1) {
 ?>
 <?php
 $aAllScripts = $this->getScripts(true);
-if (count ($aAllScripts) >= 1 ) {
+if (count($aAllScripts) >= 1) {
 	foreach ($aAllScripts as $sPath) {
 ?>
 	<script type="text/javascript" src="<?php echo $sPath?>"> </script>
@@ -61,10 +61,10 @@ if (count ($aAllScripts) >= 1 ) {
 <?php
 
 try {
-	$sContent = $this->fetch ($this->getTemplate());
+	$sContent = $this->fetch($this->getTemplate());
 } catch (ExceptionPath $e) {
 	// the template could not be found
-	$sContent = $this->fetch(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'content.php');
+	$sContent = $this->fetch(dirname(__FILE__).DIRECTORY_SEPARATOR.'content.php');
 }
 
 echo $sContent;
@@ -74,7 +74,7 @@ echo $sContent;
 </div>
 <?php
 $aAllScripts = $this->getScripts();
-if (count ($aAllScripts) >= 1 ) {
+if (count($aAllScripts) >= 1) {
 	foreach ($aAllScripts as $sPath) {
 ?>
 <script type="text/javascript" src="<?php echo $sPath?>"> </script>

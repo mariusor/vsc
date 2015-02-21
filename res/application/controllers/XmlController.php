@@ -10,7 +10,7 @@ namespace vsc\application\controllers;
 use \vsc\presentation\views\XmlView;
 
 class XmlController extends CacheableControllerA implements XmlControllerI {
-	public function getDefaultView () {
+	public function getDefaultView() {
 		return new XmlView();
 	}
 }

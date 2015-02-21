@@ -12,9 +12,9 @@ use vsc\presentation\requests\HttpRequestA;
 
 class EmptyProcessor extends ProcessorA {
 
-	public function init () {}
+	public function init() {}
 
-	public function handleRequest (HttpRequestA $oHttpRequest) {
+	public function handleRequest(HttpRequestA $oHttpRequest) {
 		$oModel = new EmptyModel();
 		$oModel->setPageTitle('[ null ]');
 		$oModel->setPageContent('[ NULL ]');

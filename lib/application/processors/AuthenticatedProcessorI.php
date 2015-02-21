@@ -10,5 +10,5 @@ namespace vsc\application\processors;
 use vsc\presentation\requests\HttpAuthenticationA;
 
 interface AuthenticatedProcessorI {
-	public function handleAuthentication (HttpAuthenticationA $oHttpAuthentication);
+	public function handleAuthentication(HttpAuthenticationA $oHttpAuthentication);
 }

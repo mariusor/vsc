@@ -8,11 +8,11 @@
 namespace vsc\presentation\responses;
 
 class HttpResponseType {
-	public static function getStatus ($iStatus) {
+	public static function getStatus($iStatus) {
 		return (is_int($iStatus) && array_key_exists($iStatus, static::$aStatusList)) ? static::$aStatusList[$iStatus] : static::$aStatusList[500];
 	}
 
-	public static function isValidStatus ($iStatus) {
+	public static function isValidStatus($iStatus) {
 		return array_key_exists($iStatus, static::$aStatusList);
 	}
 

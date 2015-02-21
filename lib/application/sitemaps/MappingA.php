@@ -59,20 +59,20 @@ abstract class MappingA extends Object {
 	/**
 	 * @param string $sRegex
 	 */
-	public function __construct ($sPath, $sRegex) {
-		$this->sPath	= $sPath;
-		$this->sRegex	= $sRegex;
-		$this->sViewPath = VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR;
+	public function __construct($sPath, $sRegex) {
+		$this->sPath = $sPath;
+		$this->sRegex = $sRegex;
+		$this->sViewPath = VSC_RES_PATH.'templates'.DIRECTORY_SEPARATOR;
 	}
 
-	public function getRegex () {
+	public function getRegex() {
 		return $this->sRegex;
 	}
 
 	/**
 	 * @param bool $bStatic
 	 */
-	public function setIsStatic($bStatic){
+	public function setIsStatic($bStatic) {
 		$this->bIsStatic = $bStatic;
 	}
 
@@ -289,7 +289,7 @@ abstract class MappingA extends Object {
 	 */
 	public function addScript($sPath, $bInHead = false) {
 		$iMainKey = (int)$bInHead; // [1] in the <head> section; [0] at the end of the *HTML document
-		$this->aResources['scripts'][$iMainKey][]		= $this->getResourcePath($sPath);
+		$this->aResources['scripts'][$iMainKey][] = $this->getResourcePath($sPath);
 	}
 
 	/**
@@ -297,24 +297,24 @@ abstract class MappingA extends Object {
 	 * @param string $aData The rest of the link's attributes (href, rel, s/a)
 	 * @return void
 	 */
-	public function addLink ($sType, $aData) {
+	public function addLink($sType, $aData) {
 		if (array_key_exists('href', $aData)) {
 			$aData['href'] = $this->getResourcePath($aData['href']);
 		}
 		if (array_key_exists('src', $aData)) {
-			$aData['src'] = $this->getResourcePath($aData['src']);;
+			$aData['src'] = $this->getResourcePath($aData['src']); ;
 		}
 		$this->aResources['links'][$sType][] = $aData;
 	}
 
-	public function addMeta ($sName, $sValue) {
+	public function addMeta($sName, $sValue) {
 		$this->aResources['meta'][$sName] = $sValue;
 	}
 
 	/**
 	 * @param string $sType
 	 */
-	public function getResources ($sType = null) {
+	public function getResources($sType = null) {
 		if (!is_null($sType)) {
 			if (array_key_exists($sType, $this->aResources)) {
 				$aResources = $this->aResources[$sType];
@@ -458,27 +458,27 @@ abstract class MappingA extends Object {
 	/**
 	 * @param string[] $aVars
 	 */
-	public function setTaintedVars ($aVars) {
+	public function setTaintedVars($aVars) {
 		$this->aTaintedVars = $aVars;
 	}
 
-	public function getTaintedVars () {
+	public function getTaintedVars() {
 		return $this->aTaintedVars;
 	}
 
 	/**
 	 * @param string $sUrl
 	 */
-	public function setUrl ($sUrl) {
+	public function setUrl($sUrl) {
 		$this->sMatchingUrl = $sUrl;
 	}
 
 	/**
 	 * @returns UrlParserA
 	 */
-	public function getUrl () {
-		$sRegex = '#(' . str_replace('#', '\#', $this->getRegex()). ')#iU';
-		$bHaveMatch = preg_match ($sRegex, $this->sMatchingUrl, $aMatches);
+	public function getUrl() {
+		$sRegex = '#('.str_replace('#', '\#', $this->getRegex()).')#iU';
+		$bHaveMatch = preg_match($sRegex, $this->sMatchingUrl, $aMatches);
 
 		if ($bHaveMatch) {
 			return new UrlRWParser($aMatches[0]);

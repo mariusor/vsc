@@ -10,7 +10,7 @@ namespace vsc\application\controllers;
 use \vsc\presentation\views\PlainTextView;
 
 class PlainTextController extends CacheableControllerA implements PlainTextControllerI {
-	public function getDefaultView () {
+	public function getDefaultView() {
 		return new PlainTextView();
 	}
 }

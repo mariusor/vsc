@@ -4,8 +4,8 @@
 use \vsc\infrastructure\vsc;
 
 $e = $model->getException();
-$error = array (
-	'message' => $e->getCode() . ' ' . $e->getMessage(),
+$error = array(
+	'message' => $e->getCode().' '.$e->getMessage(),
 );
 
 if (vsc::getEnv()->isDevelopment()) {
@@ -13,4 +13,4 @@ if (vsc::getEnv()->isDevelopment()) {
 	$error['trace'] = $e->getTrace();
 }
 
-echo $this->outputModel ($error);
+echo $this->outputModel($error);

@@ -28,14 +28,14 @@ class ViewHelperA extends Null /* implements ViewI  */ {
 	 * @param ViewA $oView
 	 * @return void
 	 */
-	public function setView (ViewA $oView) {
+	public function setView(ViewA $oView) {
 		$this->oView = $oView;
 	}
 
 	/**
 	 * @returns ViewA
 	 */
-	public function getView () {
+	public function getView() {
 		return $this->oView;
 	}
 
@@ -43,14 +43,14 @@ class ViewHelperA extends Null /* implements ViewI  */ {
 	 * @param ModelA $oModel
 	 * @return void
 	 */
-	public function setModel (ModelA $oModel) {
+	public function setModel(ModelA $oModel) {
 		$this->oModel = $oModel;
 	}
 
 	/**
 	 * @returns ModelA
 	 */
-	public function getModel () {
+	public function getModel() {
 		return $this->oModel;
 	}
 }

@@ -13,7 +13,7 @@ class XhtmlView extends ViewA implements XhtmlViewI {
 	protected $sContentType = 'application/xhtml+xml';
 	protected $sFolder = 'xhtml';
 
-	public function getContent () {
+	public function getContent() {
 		return '';
 	}
 
@@ -21,7 +21,7 @@ class XhtmlView extends ViewA implements XhtmlViewI {
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#append($tpl_var, $value, $merge)
 	 */
-	public function append($tpl_var, $value=null, $merge=false) {}
+	public function append($tpl_var, $value = null, $merge = false) {}
 
 	/**
 	 * (non-PHPdoc)
@@ -33,13 +33,13 @@ class XhtmlView extends ViewA implements XhtmlViewI {
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#display($resource_name, $cache_id, $compile_id)
 	 */
-	public function display ($resource_name) {
+	public function display($resource_name) {
 		return '';
 	}
 
    	public function getScripts($bInHead = false) {
    		try {
-    		return $this->getMap()->getScripts($bInHead);
+			return $this->getMap()->getScripts($bInHead);
 		} catch (ExceptionView $e) {
 			return array();
 		}
@@ -47,7 +47,7 @@ class XhtmlView extends ViewA implements XhtmlViewI {
 
 	public function getMetaHeaders() {
 		try {
-    		return $this->getMap()->getMetas();
+			return $this->getMap()->getMetas();
 		} catch (ExceptionView $e) {
 			return array();
 		}
@@ -55,13 +55,13 @@ class XhtmlView extends ViewA implements XhtmlViewI {
 
 	public function getStyles() {
 		try {
-    		return $this->getMap()->getStyles();
+			return $this->getMap()->getStyles();
 		} catch (ExceptionView $e) {
 			return array();
 		}
 	}
 
-	public function getSetting ($sVar) {
+	public function getSetting($sVar) {
 		try {
 			return $this->getMap()->getSetting($sVar);
 		} catch (ExceptionView $e) {
@@ -69,7 +69,7 @@ class XhtmlView extends ViewA implements XhtmlViewI {
 		}
 	}
 
-	public function getLinks ($sType = null) {
+	public function getLinks($sType = null) {
 		try {
 			return $this->getMap()->getLinks($sType);
 		} catch (ExceptionView $e) {

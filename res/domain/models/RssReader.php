@@ -22,19 +22,19 @@ class RssReader extends XmlReader {
 	public $lastBuildDate;
 	private $items = array();
 
-	public function getItems () {
+	public function getItems() {
 		return $this->items;
 	}
 
-	public function setItems ($aItems) {
+	public function setItems($aItems) {
 		$this->items = $aItems;
 	}
 
-	public function addItem (RssItem $oElement) {
+	public function addItem(RssItem $oElement) {
 		$this->items[] = $oElement;
 	}
 
-	public function getItem ($iIndex) {
+	public function getItem($iIndex) {
 		if (isset ($this->items[$iIndex])) {
 			return $this->items[$iIndex];
 		} else {
@@ -51,6 +51,9 @@ class RssReader extends XmlReader {
 		}
 	}
 
+	/**
+	 * @param \DOMNodeList $aChildNodes
+	 */
 	public function parseToEntity ($aChildNodes) {
 		if ($aChildNodes instanceof \DOMNodeList) {
 			foreach ($aChildNodes as $oChildNode) {

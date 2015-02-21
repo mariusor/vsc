@@ -13,22 +13,22 @@ use vsc\ExceptionUnimplemented;
 class JsonReader extends ModelA {
 	private $sJsonString;
 
-	public function __construct () {
+	public function __construct() {
 		if (!extension_loaded('json')) {
 			throw new ExceptionUnimplemented('The JSON extension is not loaded');
 		}
 		parent::__construct();
 	}
 
-	public function setString ($sString) {
+	public function setString($sString) {
 		$this->sJsonString = $sString;
 	}
 
-	public function getString () {
+	public function getString() {
 		return $this->sJsonString;
 	}
 
-	public function __get ($sIncName = null) {
+	public function __get($sIncName = null) {
 		try {
 			$oProperty = new \ReflectionProperty($this, $sIncName);
 			if ($oProperty->isPublic()) {
@@ -37,12 +37,12 @@ class JsonReader extends ModelA {
 		} catch (\ReflectionException $e) {
 			//
 		}
-		parent::__get ($sIncName);
+		parent::__get($sIncName);
 	}
 
 	public function __set($sIncName, $mValue) {
 		if (is_null($sIncName)) {
-			throw new \ReflectionException ('Can\'t set a value to a null property on the current object ['. get_class ($this).']');
+			throw new \ReflectionException('Can\'t set a value to a null property on the current object ['.get_class($this).']');
 		}
 		try {
 			$oProperty = new \ReflectionProperty($this->oPayload, $sIncName);
@@ -59,6 +59,9 @@ class JsonReader extends ModelA {
 		return $this->oPayload;
 	}
 
+	/**
+	 * @param integer $iError
+	 */
 	public static function getError ($iError) {
 		switch($iError) {
 		case JSON_ERROR_DEPTH:
@@ -79,14 +82,14 @@ class JsonReader extends ModelA {
 	}
 
 	public function buildObj() {
-		$oPayload	= json_decode($this->sJsonString);
-		$iLastError	= json_last_error();
+		$oPayload = json_decode($this->sJsonString);
+		$iLastError = json_last_error();
 		if (!$iLastError) {
 			foreach ($oPayload as $sName => $oStd) {
-				$this->addProperty ($sName, $oStd, true);
+				$this->addProperty($sName, $oStd, true);
 			}
 		} else {
-			throw new ExceptionDomain('The JSON string contains errors: [' . static::getError($iLastError) . ']');
+			throw new ExceptionDomain('The JSON string contains errors: ['.static::getError($iLastError).']');
 		}
 	}
 }

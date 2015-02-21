@@ -17,22 +17,22 @@ class JsonView extends ViewA implements JsonViewI {
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#append($tpl_var, $value, $merge)
 	 */
-	public function append ($tpl_var, $value=null, $merge=false) {}
+	public function append($tpl_var, $value = null, $merge = false) {}
 
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#assign($tpl_var, $value)
 	 */
-	public function assign ($tpl_var, $value = null) {}
+	public function assign($tpl_var, $value = null) {}
 
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#display($resource_name, $cache_id, $compile_id)
 	 */
-	public function display ($resource_name) {}
+	public function display($resource_name) {}
 
-	public function outputModel ($oModel) {
-		$flags = 0;//JSON_FORCE_OBJECT;
+	public function outputModel($oModel) {
+		$flags = 0; //JSON_FORCE_OBJECT;
 
 		if (phpversion() > '5.3.3') {
 			$flags |= JSON_NUMERIC_CHECK;
@@ -45,15 +45,15 @@ class JsonView extends ViewA implements JsonViewI {
 		}
 		if (ModelA::isValid($oModel)) {
 			/* @var ModelA $oModel */
-			$sOutput = json_encode ($oModel->toArray(), $flags );
+			$sOutput = json_encode($oModel->toArray(), $flags);
 		} else {
-			$sOutput = json_encode ($oModel, $flags );
+			$sOutput = json_encode($oModel, $flags);
 		}
 
 		if (!json_last_error()) {
 			return $sOutput;
 		} else {
-			throw new ExceptionView (json_last_error_msg());
+			throw new ExceptionView(json_last_error_msg());
 		}
 	}
 }

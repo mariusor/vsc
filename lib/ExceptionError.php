@@ -2,7 +2,7 @@
 namespace vsc;
 
 class ExceptionError extends \ErrorException {
-	private $aErrorTypes = array (
+	private $aErrorTypes = array(
 		1		=> 'E_ERROR',
 		2		=> 'E_WARNING',
 		4		=> 'E_PARSE',
@@ -21,11 +21,11 @@ class ExceptionError extends \ErrorException {
 		32767	=> 'E_ALL',
 	);
 
-	public function getSeverityString () {
+	public function getSeverityString() {
 		return $this->aErrorTypes[$this->getSeverity()];
 	}
 
-	public static function isValid ($e) {
+	public static function isValid($e) {
 		return ($e instanceof static);
 	}
 }

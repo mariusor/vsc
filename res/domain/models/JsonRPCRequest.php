@@ -15,6 +15,9 @@ class JsonRPCRequest extends ModelA {
 	public $method = '';
 	public $params = array();
 
+	/**
+	 * @param \vsc\presentation\requests\HttpRequestA $oRequest
+	 */
 	public function __construct ($oRequest = null) {
 		/* @var RawHttpRequest $oRequest */
 
@@ -23,8 +26,8 @@ class JsonRPCRequest extends ModelA {
 			vsc::getEnv()->setHttpRequest($oRequest);
 		}
 
-		$this->id		= $oRequest->getVar ('id');
-		$this->method	= $oRequest->getVar ('method');
-		$this->params	= $oRequest->getVar ('params');
+		$this->id = $oRequest->getVar('id');
+		$this->method	= $oRequest->getVar('method');
+		$this->params	= $oRequest->getVar('params');
 	}
 }

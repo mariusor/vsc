@@ -22,9 +22,9 @@ class RwHttpRequest extends HttpRequestA {
 	}
 
 	// this seems quite unsafe
-	public function setTaintedVars ($aVars) {
+	public function setTaintedVars($aVars) {
 		if (is_array($aVars)) {
-			$this->aTaintedVars = array_merge ($aVars, $this->aTaintedVars);
+			$this->aTaintedVars = array_merge($aVars, $this->aTaintedVars);
 		}
 	}
 
@@ -34,22 +34,22 @@ class RwHttpRequest extends HttpRequestA {
 	 */
 	public function getLastParameter() {
 		$aKeys = array_keys($this->aTaintedVars);
-		return array_pop ($aKeys);
+		return array_pop($aKeys);
 	}
 
-	public function __construct () {
+	public function __construct() {
 		parent::__construct();
 		if (isset ($_SERVER)) {
 			$this->getUri();
-			$this->constructTaintedVars ();
+			$this->constructTaintedVars();
 		}
 	}
 
-	public function getTaintedVars () {
+	public function getTaintedVars() {
 		return $this->aTaintedVars;
 	}
 
-	protected function getTaintedVar ($sVarName) {
+	protected function getTaintedVar($sVarName) {
 		if (array_key_exists($sVarName, $this->aTaintedVars)) {
 			return self::getDecodedVar($this->aTaintedVars[$sVarName]);
 		} else {
@@ -57,11 +57,11 @@ class RwHttpRequest extends HttpRequestA {
 		}
 	}
 
-	public function getVars () {
-		return array_merge ($this->aTaintedVars, parent::getVars());
+	public function getVars() {
+		return array_merge($this->aTaintedVars, parent::getVars());
 	}
 
-	public function getVar ($sVarName) {
+	public function getVar($sVarName) {
 		$mValue = parent::getVar($sVarName);
 		if (!$mValue) {
 			$mValue = $this->getTaintedVar($sVarName);
@@ -73,12 +73,12 @@ class RwHttpRequest extends HttpRequestA {
 	 * @todo this has to be moved in the rw url handler
 	 * @return void
 	 */
-	public function constructTaintedVars () {
+	public function constructTaintedVars() {
 		$ParsedUrl = UrlRWParser::parse_url($this->getUri());
 		$sPath = $ParsedUrl['path'];
-		foreach(explode ('/', $sPath) as $iKey => $sUrlId) {
+		foreach (explode('/', $sPath) as $iKey => $sUrlId) {
 			if ($sUrlId) {
-				$t = explode (':', $sUrlId);
+				$t = explode(':', $sUrlId);
 				if (count($t) > 1) {
 					$this->aTaintedVars[array_shift($t)] = implode(':', $t);
 				} /*else {

@@ -16,14 +16,14 @@ interface ProcessorI {
 	/**
 	 * @return void
 	 */
-	public function init ();
+	public function init();
 
 	/**
 	 * Returns a data model, which can be used in the view
 	 * @param HttpRequestA $oHttpRequest
 	 * @returns ModelA
 	 */
-	public function handleRequest (HttpRequestA $oHttpRequest);
+	public function handleRequest(HttpRequestA $oHttpRequest);
 
 
 	/**

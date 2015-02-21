@@ -11,26 +11,26 @@ class RawHttpRequest extends RwHttpRequest {
 	protected $aRawVars = [];
 	protected $sRawInput;
 
-	public function __construct () {
+	public function __construct() {
 		parent::__construct();
 
 		if (isset ($_SERVER) && !$this->isGet()) {
-			$this->constructRawVars ();
+			$this->constructRawVars();
 		}
 	}
 
 	// this seems quite unsafe
-	public function setRawVars ($aVars) {
+	public function setRawVars($aVars) {
 		if (is_array($aVars)) {
 			if (is_array($this->aRawVars)) {
-				$this->aRawVars = array_merge ($aVars, $this->aRawVars);
+				$this->aRawVars = array_merge($aVars, $this->aRawVars);
 			} else {
 				$this->aRawVars = $aVars;
 			}
 		}
 	}
 
-	public function getRawVars () {
+	public function getRawVars() {
 		if (!empty($this->aRawVars)) {
 			return $this->aRawVars;
 		}
@@ -42,16 +42,16 @@ class RawHttpRequest extends RwHttpRequest {
 
 		$vars = array();
 		switch ($sContentType) {
-			case 'application/x-www-form-urlencoded':
-				parse_str($this->sRawInput, $vars);
-				break;
-			case 'application/json':
-				$vars = json_decode($this->sRawInput, true);
-				break;
-			case 'application/xml':
-			default:
-				throw new ExceptionRequest('This content-type [' . $sContentType . '] is not supported');
-				break;
+		case 'application/x-www-form-urlencoded':
+			parse_str($this->sRawInput, $vars);
+			break;
+		case 'application/json':
+			$vars = json_decode($this->sRawInput, true);
+			break;
+		case 'application/xml':
+		default:
+			throw new ExceptionRequest('This content-type [' . $sContentType . '] is not supported');
+			break;
 		}
 		if (!empty ($vars)) {
 			$this->aRawVars = $vars;
@@ -59,7 +59,7 @@ class RawHttpRequest extends RwHttpRequest {
 		return $this->aRawVars;
 	}
 
-	public function getRawVar ($sVarName) {
+	public function getRawVar($sVarName) {
 		$aRawVars = $this->getRawVars();
 		if (is_array($aRawVars) && array_key_exists($sVarName, $aRawVars)) {
 			return self::getDecodedVar($aRawVars[$sVarName]);
@@ -68,14 +68,14 @@ class RawHttpRequest extends RwHttpRequest {
 		}
 	}
 
-	public function getVars () {
+	public function getVars() {
 		$aRawVars = $this->getRawVars();
 		$aParentVars = parent::getVars();
 		if (!is_array($aRawVars)) {
 			return parent::getVars();
 		} else {
 			if (is_array($aParentVars)) {
-				return array_merge ($aRawVars, $aParentVars);
+				return array_merge($aRawVars, $aParentVars);
 			}
 			return $aRawVars;
 		}
@@ -93,6 +93,9 @@ class RawHttpRequest extends RwHttpRequest {
 		return (is_array($aRawVars) && array_key_exists($sVarName, $aRawVars));
 	}
 
+	/**
+	 * @param string $sVarName
+	 */
 	public function getVar ($sVarName) {
 		$mValue = parent::getVar($sVarName);
 		if (!$mValue) {
@@ -104,7 +107,7 @@ class RawHttpRequest extends RwHttpRequest {
 	/**
 	 * @return string
 	 */
-	protected function getRawInput () {
+	protected function getRawInput() {
 		return file_get_contents('php://input');
 	}
 
@@ -113,7 +116,7 @@ class RawHttpRequest extends RwHttpRequest {
 	 * @param string $sRawInput
 	 * @return void
 	 */
-	protected function constructRawVars ($sRawInput = null) {
+	protected function constructRawVars($sRawInput = null) {
 		if (is_null($sRawInput)) {
 			$this->sRawInput = $this->getRawInput();
 		} else {

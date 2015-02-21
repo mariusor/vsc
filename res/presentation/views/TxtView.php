@@ -9,7 +9,7 @@ namespace vsc\presentation\views;
 
 class TxtView extends ViewA implements ViewI {
 	protected $sContentType = 'text/plain';
-	protected $sFolder		= 'txt';
+	protected $sFolder = 'txt';
 
 	/**
 	 * appends values to template variables

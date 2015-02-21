@@ -42,27 +42,27 @@ abstract class DispatcherA extends Object {
 	/**
 	 * @returns FrontControllerA
 	 */
-	abstract public function getFrontController ();
+	abstract public function getFrontController();
 
 	/**
 	 * @returns ProcessorA
 	 */
-	abstract public function getProcessController ();
+	abstract public function getProcessController();
 
-	abstract public function getView ();
+	abstract public function getView();
 
 	/**
 	 * @param string $sIncPath
 	 * @throws ExceptionPath
 	 * @return void
 	 */
-	abstract public function loadSiteMap ($sIncPath);
+	abstract public function loadSiteMap($sIncPath);
 
 	/**
 	 * @param SiteMapA $oSiteMap
 	 * @return void
 	 */
-	public function setSiteMap (SiteMapA $oSiteMap) {
+	public function setSiteMap(SiteMapA $oSiteMap) {
 		$this->oSiteMap = $oSiteMap;
 	}
 
@@ -70,18 +70,18 @@ abstract class DispatcherA extends Object {
 	 * @throws ExceptionSitemap
 	 * @returns SiteMapA
 	 */
-	public function getSiteMap () {
-		if (SiteMapA::isValid($this->oSiteMap )){
+	public function getSiteMap() {
+		if (SiteMapA::isValid($this->oSiteMap)) {
 			return $this->oSiteMap;
 		} else {
-			throw new ExceptionSitemap ('No sitemap loaded.');
+			throw new ExceptionSitemap('No sitemap loaded.');
 		}
 	}
 
 	/**
 	 * @returns HttpRequestA
 	 */
-	public function getRequest () {
+	public function getRequest() {
 		if (!HttpRequestA::isValid($this->oRequest))
 			$this->oRequest = vsc::getEnv()->getHttpRequest();
 		return $this->oRequest;

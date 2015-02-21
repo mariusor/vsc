@@ -5,7 +5,7 @@ use \vsc\infrastructure\vsc;
 <style>ul {padding:0; font-size:0.8em} li {padding:0.2em;display:inline} address {position:fixed;bottom:0;}</style>
 
 <?php $e = $model->getException(); ?>
-<strong>Internal Error <?php echo (!$e ? '' : ': '. $e->getMessage()); ?></strong>
+<strong>Internal Error <?php echo (!$e ? '' : ': '.$e->getMessage()); ?></strong>
 <?php if (vsc::getEnv()->isDevelopment()) {?>
 <ul>
 	<li>
@@ -18,7 +18,7 @@ use \vsc\infrastructure\vsc;
 	<?php } ?>
 </ul>
 
-<p style="font-size:.8em">Triggered in <strong><?php echo $e->getFile() ?></strong> at line <?php $e->getLine();?> </p>
+<p style="font-size:.8em">Triggered in <strong><?php echo $e->getFile() ?></strong> at line <?php $e->getLine(); ?> </p>
 
 <pre style="position:fixed;bottom:2em;display:none;font-size:.8em" id="trace">
 <?php echo $e->getTraceAsString(); ?>

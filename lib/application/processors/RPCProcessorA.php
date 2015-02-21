@@ -19,12 +19,12 @@ abstract class RPCProcessorA extends ProcessorA {
 	private $oResponse;
 	protected $oInterface;
 
-	public function __construct () {
+	public function __construct() {
 		$this->oRequest		= new JsonRPCRequest(vsc::getEnv()->getHttpRequest());
 		$this->oResponse	= new JsonRPCResponse();
 	}
 
-	public function init () {
+	public function init() {
 		$this->oResponse->id = $this->oRequest->id;
 // 		if (!$oRequest->accepts('application/json')) {
 // 			// user-agent doesn't understand json
@@ -39,9 +39,9 @@ abstract class RPCProcessorA extends ProcessorA {
 		return $this->oResponse;
 	}
 
-	abstract public function getRPCInterface ($sNameSpace = null);
+	abstract public function getRPCInterface($sNameSpace = null);
 
-	public function hasRPCMethod ($oInterface, $sMethod) {
+	public function hasRPCMethod($oInterface, $sMethod) {
 		if (empty ($sMethod) || empty ($oInterface)) return false;
 
 		$oReflectedInterface = new \ReflectionObject($oInterface);
@@ -53,10 +53,10 @@ abstract class RPCProcessorA extends ProcessorA {
 		return false;
 	}
 
-	public function callRPCMethod () {
+	public function callRPCMethod() {
 		$sRawMethod = $this->oRequest->method;
 
-		@list($sNameSpace, $sMethod) = explode ('.', $sRawMethod);
+		@list($sNameSpace, $sMethod) = explode('.', $sRawMethod);
 		if (is_null($sMethod)) {
 			$sMethod = $sNameSpace;
 			$sNameSpace = 'wp';
@@ -64,9 +64,9 @@ abstract class RPCProcessorA extends ProcessorA {
 
 		$oInterface = $this->getRPCInterface($sNameSpace);
 		if (!$this->hasRPCMethod($oInterface, $sMethod)) {
-			$this->oResponse->error = 'Invalid RPC request: method [' . var_export($sMethod, true) .'] does not exist';
+			$this->oResponse->error = 'Invalid RPC request: method ['.var_export($sMethod, true).'] does not exist';
 		} else {
-			if (is_null ($this->oRequest->params) || !is_array($this->oRequest->params)) {
+			if (is_null($this->oRequest->params) || !is_array($this->oRequest->params)) {
 				throw new ExceptionResponseError('Invalid RPC request: missing parameters');
 			}
 
@@ -74,7 +74,7 @@ abstract class RPCProcessorA extends ProcessorA {
 			if ($oReflectedInterface->hasMethod($sMethod)) {
 				/* @var $oReflectedMethod \ReflectionMethod */
 				$oReflectedMethod = $oReflectedInterface->getMethod($sMethod);
-				if ( $oReflectedMethod->isPublic() ) {
+				if ($oReflectedMethod->isPublic()) {
 					return $oReflectedMethod->invokeArgs($oInterface, $this->oRequest->params);
 				}
 			}
@@ -84,7 +84,7 @@ abstract class RPCProcessorA extends ProcessorA {
 
 	public function handleRequest(HttpRequestA $oHttpRequest) {
 		try {
-			$this->oResponse->result = $this->callRPCMethod ();
+			$this->oResponse->result = $this->callRPCMethod();
 		} catch (ExceptionResponseError $e) {
 
 			$oError = vsc::getEnv()->getHttpResponse();

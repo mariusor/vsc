@@ -18,8 +18,8 @@ These settings are defined in one of the following files:
 
 <?php
 	foreach (get_included_files() as $sFileName) {
-		if (stristr($sFileName, 'map.php') && stristr ($sFileName, $this->getMap()->getModuleName()))
-			echo "\t" .  '- ' . $sFileName . "\n";
+		if (stristr($sFileName, 'map.php') && stristr($sFileName, $this->getMap()->getModuleName()))
+			echo "\t".'- '.$sFileName."\n";
 	};
 ?>
 
@@ -29,10 +29,10 @@ These settings are defined in one of the following files:
 try {
 	$GLOBALS['depth'] = 0;
 	echo "\n";
-	echo 'Model type: ' . get_class($this->getModel()) . "\n";
-	echo $this->fetch (dirname(__FILE__) . '/model.php');
+	echo 'Model type: '.get_class($this->getModel())."\n";
+	echo $this->fetch(dirname(__FILE__).'/model.php');
 	echo "\n";
 } catch (Exception $e) {
-	vsc::d ($e);
+	vsc::d($e);
 }
 ?>
