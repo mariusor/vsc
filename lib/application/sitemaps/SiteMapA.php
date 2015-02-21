@@ -24,12 +24,12 @@ abstract class SiteMapA extends Object {
 	 */
 	private $oCurrentModuleMap;
 
-	public function __construct () {}
+	public function __construct() {}
 
 	/**
 	 * @return string
 	 */
-	public function getBaseRegex () {
+	public function getBaseRegex() {
 		return (string)$this->getCurrentModuleMap()->getRegex();
 	}
 
@@ -39,15 +39,15 @@ abstract class SiteMapA extends Object {
 	 * @param string $sPath
 	 * @returns MappingA
 	 */
-	public function addMap ($sRegex, $sPath) {
+	public function addMap($sRegex, $sPath) {
 		$oModuleMap = $this->getCurrentModuleMap();
 
 		if (MappingA::isValid($oModuleMap)) {
-			$sRegex = $oModuleMap->getRegex() . $sRegex;
+			$sRegex = $oModuleMap->getRegex().$sRegex;
 		}
 
 		if (!array_key_exists($sRegex, $this->aMaps)) {
-			$oNewMap 	= new ProcessorMap($sPath, $sRegex);
+			$oNewMap = new ProcessorMap($sPath, $sRegex);
 
 			if (MappingA::isValid($oModuleMap)) {
 				$oNewMap->merge($oModuleMap);
@@ -69,14 +69,14 @@ abstract class SiteMapA extends Object {
 	 */
 	protected function addClassMap($sRegex, $sPath) {
 		$oModuleMap = $this->getCurrentModuleMap();
-		$oNewMap 	= null;
+		$oNewMap = null;
 
 		if (MappingA::isValid($oModuleMap)) {
-			$sRegex = $oModuleMap->getRegex() . $sRegex;
+			$sRegex = $oModuleMap->getRegex().$sRegex;
 		}
 
 		if (!array_key_exists($sRegex, $this->aMaps)) {
-			$oNewMap 	= new ClassMap($sPath, $sRegex);
+			$oNewMap = new ClassMap($sPath, $sRegex);
 
 			if (MappingA::isValid($oModuleMap)) {
 				$oNewMap->merge($oModuleMap);
@@ -94,19 +94,19 @@ abstract class SiteMapA extends Object {
 	 * @param string $sPath
 	 * @returns MappingA
 	 */
-	public function addModuleMap ($sRegex, $sPath) {
-		$oModuleMap	= $this->getCurrentModuleMap();
+	public function addModuleMap($sRegex, $sPath) {
+		$oModuleMap = $this->getCurrentModuleMap();
 
 		// setting the parent module map to the existing one
 		if (MappingA::isValid($oModuleMap)) {
-			$sRegex				= $oModuleMap->getRegex() . $sRegex;
+			$sRegex = $oModuleMap->getRegex().$sRegex;
 
-			$oNewModuleMap		= new ModuleMap($sPath, $sRegex);
+			$oNewModuleMap = new ModuleMap($sPath, $sRegex);
 
 			$oNewModuleMap->setModuleMap($oModuleMap);
 			$oNewModuleMap->merge($oModuleMap);
 		} else {
-			$oNewModuleMap		= new ModuleMap($sPath, $sRegex);
+			$oNewModuleMap = new ModuleMap($sPath, $sRegex);
 		}
 
 		// switching the current module map to the new one
@@ -128,8 +128,8 @@ abstract class SiteMapA extends Object {
 	 * @param string $sPath
 	 * @returns MappingA
 	 */
-	public function addStaticMap ($sRegex, $sPath) {
-		$oStaticMap = $this->addMap ($sRegex, $sPath);
+	public function addStaticMap($sRegex, $sPath) {
+		$oStaticMap = $this->addMap($sRegex, $sPath);
 		$oStaticMap->setIsStatic(true);
 		return $oStaticMap;
 	}
@@ -137,7 +137,7 @@ abstract class SiteMapA extends Object {
 	/**
 	 * @returns ProcessorMap[]
 	 */
-	public function getMaps () {
+	public function getMaps() {
 		return $this->aMaps;
 	}
 
@@ -147,8 +147,8 @@ abstract class SiteMapA extends Object {
 	 * @param string $sPath
 	 * @return bool
 	 */
-	public static function isValidStaticPath ($sPath) {
-		return (!stristr($sPath, 'php') && is_file ($sPath));
+	public static function isValidStaticPath($sPath) {
+		return (!stristr($sPath, 'php') && is_file($sPath));
 	}
 
 	/**
@@ -157,12 +157,12 @@ abstract class SiteMapA extends Object {
 	 * @param string $sPath
 	 * @return bool
 	 */
-	public static function isValidMapPath ($sPath) {
-		return (basename ($sPath) == 'map.php' && is_file ($sPath));
+	public static function isValidMapPath($sPath) {
+		return (basename($sPath) == 'map.php' && is_file($sPath));
 	}
 
-	public static function isValidObjectPath ($sPath) {
-		return (substr ($sPath, -4) == '.php' && is_file ($sPath));
+	public static function isValidObjectPath($sPath) {
+		return (substr($sPath, -4) == '.php' && is_file($sPath));
 	}
 
 	/**
@@ -171,12 +171,12 @@ abstract class SiteMapA extends Object {
 	 * @param string $sPath
 	 * @return string
 	 */
-	public static function getClassName ($sPath) {
-		$sClassName	= strtolower(basename($sPath, '.php'));
+	public static function getClassName($sPath) {
+		$sClassName = strtolower(basename($sPath, '.php'));
 //		$sClassName	= substr($sPath, 0, -4);
 
-		$iKey		= array_search($sClassName, array_map('strtolower', get_declared_classes()));
-		$aClasses	= get_declared_classes();
+		$iKey = array_search($sClassName, array_map('strtolower', get_declared_classes()));
+		$aClasses = get_declared_classes();
 
 		return  $aClasses[$iKey];
 	}
@@ -184,14 +184,14 @@ abstract class SiteMapA extends Object {
 	/**
 	 * @returns MappingA
 	 */
-	public function getCurrentModuleMap () {
-		if ( !MappingA::isValid($this->oCurrentModuleMap) ) {
-			$this->oCurrentModuleMap = new ModuleMap(VSC_RES_PATH . 'config/map.php', '');
+	public function getCurrentModuleMap() {
+		if (!MappingA::isValid($this->oCurrentModuleMap)) {
+			$this->oCurrentModuleMap = new ModuleMap(VSC_RES_PATH.'config/map.php', '');
 		}
 		return $this->oCurrentModuleMap;
 	}
 
-	public function getParentModuleMap () {
+	public function getParentModuleMap() {
 		if (MappingA::isValid($this->oCurrentModuleMap)) {
 			return $this->oCurrentModuleMap->getModuleMap();
 		}
@@ -204,45 +204,45 @@ abstract class SiteMapA extends Object {
 	 * @throws ExceptionSitemap
 	 * @returns MappingA
 	 */
-	public function map ($sRegex, $sPath) {
+	public function map($sRegex, $sPath) {
 		if ($sRegex === null) {
-			throw new ExceptionSitemap ('A regex URI must be present.');
+			throw new ExceptionSitemap('A regex URI must be present.');
 		}
 		if (empty($sPath)) {
-			throw new ExceptionSitemap ('A path must be present.');
+			throw new ExceptionSitemap('A path must be present.');
 		}
 
-		if ( class_exists($sPath) ) {
+		if (class_exists($sPath)) {
 			// instead of a path we have a namespace
 			return $this->addClassMap($sRegex, $sPath);
 		} else {
 			if (!is_file($sPath)) {
-				$sPath = $this->getCurrentModuleMap()->getModulePath() . $sPath;
+				$sPath = $this->getCurrentModuleMap()->getModulePath().$sPath;
 			}
 
 			if (!is_file($sPath)) {
-				throw new ExceptionSitemap ('The path associated with [' . $sRegex . '] can\'t be empty or an invalid file.');
+				throw new ExceptionSitemap('The path associated with ['.$sRegex.'] can\'t be empty or an invalid file.');
 			}
 
-			$sPath = str_replace(array('/','\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),$sPath);
-			if (self::isValidMapPath ($sPath)) {
+			$sPath = str_replace(array('/', '\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR), $sPath);
+			if (self::isValidMapPath($sPath)) {
 				// Valid site map
 				return $this->addModuleMap($sRegex, $sPath);
-			} elseif (self::isValidObjectPath ($sPath)) {
+			} elseif (self::isValidObjectPath($sPath)) {
 				// Valid processor
-				return $this->addMap ($sRegex, $sPath);
+				return $this->addMap($sRegex, $sPath);
 			} elseif (self::isValidStaticPath($sPath)) {
 				// Valid static file
-				return $this->addStaticMap ($sRegex, $sPath);
+				return $this->addStaticMap($sRegex, $sPath);
 			}
-			throw new ExceptionSitemap('The file [' . $sPath . '] could not be loaded.');
+			throw new ExceptionSitemap('The file ['.$sPath.'] could not be loaded.');
 		}
 	}
 
 	/**
 	 * @returns ModuleMap[]
 	 */
-	private function getAllModules () {
+	private function getAllModules() {
 		$aProcessorMaps = $this->getMaps();
 		$aModuleMaps = array();
 
@@ -261,7 +261,7 @@ abstract class SiteMapA extends Object {
 	/**
 	 * @returns ControllerMap[]
 	 */
-	private function getAllControllers () {
+	private function getAllControllers() {
 		$aProcessorMaps = $this->getMaps();
 		$aControllerMaps = array();
 
@@ -273,15 +273,15 @@ abstract class SiteMapA extends Object {
 		return $aControllerMaps;
 	}
 
-	public function getControllerMappings () {
-		foreach($this->getAllControllers() as $sKey => $oController) {
+	public function getControllerMappings() {
+		foreach ($this->getAllControllers() as $sKey => $oController) {
 			$aC[$sKey] = $oController->getPath();
 		}
 		return $aC;
 	}
 
-	public function getModuleMappings () {
-		foreach($this->getAllModules() as $sKey => $oModule) {
+	public function getModuleMappings() {
+		foreach ($this->getAllModules() as $sKey => $oModule) {
 			$aC[$sKey] = $oModule->getPath();
 		}
 		return $aC;
@@ -290,18 +290,18 @@ abstract class SiteMapA extends Object {
 	/**
 	 * @returns ProcessorMap[]
 	 */
-	public function getProcessorMappings () {
-		foreach($this->getMaps() as $sKey => $oProcessor) {
+	public function getProcessorMappings() {
+		foreach ($this->getMaps() as $sKey => $oProcessor) {
 			$aC[$sKey] = $oProcessor->getPath();
 		}
 		return $aC;
 	}
 
-	public function findProcessorMap (ProcessorA $oProcessor) {
+	public function findProcessorMap(ProcessorA $oProcessor) {
 		$sNameLower = strtolower(get_class($oProcessor));
 
 		/* @var ProcessorMap $oProcessorMap */
-		foreach ($this->getMaps() as $sRegex => $oProcessorMap ) {
+		foreach ($this->getMaps() as $sRegex => $oProcessorMap) {
 			if (stristr($oProcessorMap->getPath(), $sNameLower)) {
 				return $oProcessorMap;
 			}
