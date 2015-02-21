@@ -1,9 +1,9 @@
 <?php
-namespace tests\lib\presentation\requests\HttpRequestA;
+namespace tests\lib\presentation\requests\SessionT;
 use vsc\presentation\requests\HttpRequestA;
 
 /**
- * @covers \vsc\presentation\requests\HttpRequestA::getSessionVar()
+ * @covers \vsc\presentation\requests\SessionT::getSessionVar()
  */
 class getSessionVar extends \PHPUnit_Framework_TestCase
 {

@@ -1,9 +1,9 @@
 <?php
-namespace tests\lib\presentation\requests\HttpRequestA;
+namespace tests\lib\presentation\requests\SessionT;
 use fixtures\presentation\requests\PopulatedRequest;
 
 /**
- * @covers \vsc\presentation\requests\HttpRequestA::hasSessionVar()
+ * @covers \vsc\presentation\requests\SessionT::hasSessionVar()
  */
 class hasSessionVar extends \PHPUnit_Framework_TestCase
 {
