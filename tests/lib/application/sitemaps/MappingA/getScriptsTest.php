@@ -10,7 +10,7 @@ class getScripts extends \PHPUnit_Framework_TestCase
 	public function testEmptyAtInitialize ()
 	{
 		$o = new MappingA_underTest_getScripts();
-		$this->assertNull($o->getScripts());
+		$this->assertEquals([], $o->getScripts());
 	}
 }
 

@@ -393,6 +393,10 @@ class MappingA extends Object {
 		}
 	}
 
+	/**
+	 * @param bool $bInHead
+	 * @return array
+	 */
 	public function getScripts ($bInHead = false) {
 		$aAllScripts = $this->getResources('scripts');
 		if ($bInHead && array_key_exists(1, $aAllScripts)) {
@@ -402,6 +406,7 @@ class MappingA extends Object {
 		if (!$bInHead && array_key_exists(0, $aAllScripts))  {
 			return $aAllScripts[0]; // [1] -> script goes in the <head> [0] - script is loaded at the end of the source
 		}
+		return [];
 	}
 
 	public function getSettings () {
