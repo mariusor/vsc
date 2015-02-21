@@ -137,12 +137,10 @@ abstract class ModelA extends Null implements ModelI {
 				return $oProperty->getValue($this);
 			}
 		} catch (\ReflectionException $e) {
-//			d ($e);
-//			$this->sOffset = $sIncName;
-//			return $this->$sIncName;
+			// reflection issue
+			return null;
 		}
-//		d ($sIncName, $oProperty, $oProperty->getValue($this));
-		parent::__get ($sIncName);
+		return parent::__get ($sIncName);
 	}
 
 	public function __set($sIncName, $value) {

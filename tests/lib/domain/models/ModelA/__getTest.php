@@ -7,10 +7,7 @@ use vsc\domain\models\ModelA;
  */
 class __get extends \PHPUnit_Framework_TestCase
 {
-	/**
-	 * @covers \vsc\domain\models\ModelA::__get
-	 */
-	public function test__get()
+	public function test__getPublicProperties ()
 	{
 		$o = new ModelA_underTest___get();
 
@@ -24,6 +21,20 @@ class __get extends \PHPUnit_Framework_TestCase
 			$this->assertEquals($value, $o[$name]);
 		}
 	}
+
+	public function test__getPrivatePropertiesWithoutGetter ()
+	{
+		$o = new ModelA_underTest___get();
+
+		$oMirror = new \ReflectionClass($o);
+		$properties = $oMirror->getProperties(\ReflectionProperty::IS_PRIVATE);
+
+		foreach($properties as $key => $property) {
+			$name = $property->getName();
+			$this->assertNull($o->__get($name));
+			$this->assertNull($o[$name]);
+		}
+	}
 }
 
 class ModelA_underTest___get extends ModelA {
@@ -31,4 +42,5 @@ class ModelA_underTest___get extends ModelA {
 	public $ana = 'test';
 	public $mere = 123;
 	public $grr = 6.66;
+	private $private = 'ana-are-mere';
 }
