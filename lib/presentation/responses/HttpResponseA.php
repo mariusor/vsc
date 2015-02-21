@@ -268,6 +268,9 @@ abstract class HttpResponseA extends Object {
 		return $this->iStatus;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function outputHeaders () {
 		if (vsc::isCli()) { return false; }
 		if (headers_sent()) {
@@ -279,7 +282,7 @@ abstract class HttpResponseA extends Object {
 		$sLocation = $this->getLocation();
 		if ($sLocation) {
 			header ('Location:' . $sLocation);
-			return;
+			return true;
 			// end headers
 		}
 
@@ -340,6 +343,7 @@ abstract class HttpResponseA extends Object {
 				}
 			}
 		}
+		return true;
 	}
 
 	/**
