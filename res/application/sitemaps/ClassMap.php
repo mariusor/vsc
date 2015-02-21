@@ -22,7 +22,7 @@ class ClassMap extends MappingA {
 	 * @param Object $MappedObject
 	 * @return bool
 	 */
-	public function maps (Object $MappedObject)
+	public function maps(Object $MappedObject)
 	{
 		return (get_class($MappedObject) == $this->getPath());
 	}
