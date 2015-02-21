@@ -110,7 +110,7 @@ class vsc extends Object {
 	 * @returns HttpDispatcherA
 	 */
 	public function getDispatcher () {
-		if (!DispatcherA::isValid($this->oDispatcher)){
+		if (!HttpDispatcherA::isValid($this->oDispatcher)){
 			$this->oDispatcher = new RwDispatcher();
 		}
 		return $this->oDispatcher;
