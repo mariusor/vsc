@@ -12,8 +12,8 @@ These settings are defined in the following file:
 <ul>
 <?php
 	foreach (get_included_files() as $sFileName) {
-		if (stristr($sFileName, 'map.php') && stristr ($sFileName, $this->getMap()->getModuleName()))
-			echo '<li>' . $sFileName . '</li>';
+		if (stristr($sFileName, 'map.php') && stristr($sFileName, $this->getMap()->getModuleName()))
+			echo '<li>'.$sFileName.'</li>';
 	};
 ?>
 </ul>
@@ -21,8 +21,8 @@ These settings are defined in the following file:
 <?php
 try {
 	echo '<ul>'."\n";
-	echo '<li style="list-style:none; margin-left:-2em">Model type: <strong>' . get_class($this->getModel()) . '</strong></li>'."\n";
-	echo $this->fetch (dirname(__FILE__) . '/model.php');
+	echo '<li style="list-style:none; margin-left:-2em">Model type: <strong>'.get_class($this->getModel()).'</strong></li>'."\n";
+	echo $this->fetch(dirname(__FILE__).'/model.php');
 	echo '</ul>'."\n";
 } catch (\vsc\Exception $f) {
 	//d ($f);

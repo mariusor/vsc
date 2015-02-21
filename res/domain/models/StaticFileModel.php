@@ -13,36 +13,36 @@ class StaticFileModel extends CacheableModelA {
 	protected $sFileName;
 	protected $iLastModified;
 
-	public function setFilePath ($sPath) {
+	public function setFilePath($sPath) {
 		$this->sFilePath = $sPath;
 		$this->setFileName(basename($sPath));
-		$this->setLastModified (date ('Y-m-d G:i:s', filemtime($this->getFilePath())));
+		$this->setLastModified(date('Y-m-d G:i:s', filemtime($this->getFilePath())));
 	}
 
-	public function getFilePath () {
+	public function getFilePath() {
 		return $this->sFilePath;
 	}
 
-	public function setFileName ($sName) {
+	public function setFileName($sName) {
 		$this->sFileName = $sName;
 	}
 
-	public function getFileName () {
+	public function getFileName() {
 		return $this->sFileName;
 	}
 
-	public function setFileContent ($sContent) {
+	public function setFileContent($sContent) {
 		$this->sFileContent = $sContent;
 	}
 
-	public function getFileContent () {
+	public function getFileContent() {
 		if (is_null($this->sFileContent)) {
 			$this->sFileContent = file_get_contents($this->getFilePath());
 		}
 		return $this->sFileContent;
 	}
 
-	public function setLastModified ($iMTime) {
+	public function setLastModified($iMTime) {
 		$this->iLastModified = $iMTime;
 	}
 

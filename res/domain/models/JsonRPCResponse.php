@@ -17,7 +17,7 @@ class JsonRPCResponse extends ModelA {
 	 * @param bool $bIncludeNonPublic
 	 * @return array
 	 */
-	protected function getProperties ($bIncludeNonPublic = false) {
+	protected function getProperties($bIncludeNonPublic = false) {
 		$aRet = array();
 		$t = new \ReflectionObject($this);
 		$aProperties = $t->getProperties();

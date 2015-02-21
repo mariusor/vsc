@@ -9,37 +9,37 @@ namespace vsc\infrastructure;
 use vsc\ExceptionUnimplemented;
 
 abstract class Object {
-	public function __call ($sMethodName, $aVars) {
+	public function __call($sMethodName, $aVars) {
 		if (vsc::getEnv()->isDevelopment()) {
-			throw new ExceptionUnimplemented ('Method [' . get_class($this) .'::' . $sMethodName .'] not implemented for calling.');
+			throw new ExceptionUnimplemented('Method ['.get_class($this).'::'.$sMethodName.'] not implemented for calling.');
 		} else {
 			return new Null();
 		}
 	}
 
-	public static function __callStatic ($sMethodName, $aVars) {
+	public static function __callStatic($sMethodName, $aVars) {
 		if (vsc::getEnv()->isDevelopment()) {
-			throw new ExceptionUnimplemented ('Method [' . get_class() .'::' . $sMethodName .'] not implemented for calling statically.');
+			throw new ExceptionUnimplemented('Method ['.get_class().'::'.$sMethodName.'] not implemented for calling statically.');
 		} else {
 			return new Null();
 		}
 	}
 
-	public function __get ($sVarName) {
+	public function __get($sVarName) {
 		if (vsc::getEnv()->isDevelopment()) {
-			throw new ExceptionUnimplemented ('Property [' . get_class($this) .'::' . $sVarName .'] not implemented for reading.');
+			throw new ExceptionUnimplemented('Property ['.get_class($this).'::'.$sVarName.'] not implemented for reading.');
 		} else {
 			return new Null();
 		}
 	}
 
-	public function __set ($sVarName, $mValue) {
+	public function __set($sVarName, $mValue) {
 		if (vsc::getEnv()->isDevelopment()) {
-			throw new ExceptionUnimplemented ('Property [' . get_class($this) .'::' . $sVarName .'] not implemented for writing.');
+			throw new ExceptionUnimplemented('Property ['.get_class($this).'::'.$sVarName.'] not implemented for writing.');
 		}
 	}
 
-	public static function isValid ($oIncomingObject) {
+	public static function isValid($oIncomingObject) {
 		return (!is_null($oIncomingObject) && ($oIncomingObject instanceof static));
 	}
 }

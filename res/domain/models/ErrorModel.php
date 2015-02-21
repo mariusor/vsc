@@ -21,11 +21,11 @@ class ErrorModel extends ModelA {
 		parent::__construct();
 	}
 
-	public function getMessage () {
+	public function getMessage() {
 		return $this->getException()->getMessage();
 	}
 
-	public function setException (\Exception $e) {
+	public function setException(\Exception $e) {
 		$this->exception = $e;
 		$this->message = $e->getMessage();
 
@@ -38,7 +38,7 @@ class ErrorModel extends ModelA {
 	/**
 	 * @returns ExceptionResponseError
 	 */
-	public function getException () {
+	public function getException() {
 		return $this->exception;
 	}
 

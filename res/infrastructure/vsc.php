@@ -10,7 +10,6 @@ use vsc\application\dispatchers\DispatcherA;
 use vsc\application\dispatchers\HttpDispatcherA;
 use vsc\application\dispatchers\RwDispatcher;
 use vsc\application\sitemaps\ModuleMap;
-use vsc\Exception;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\RawHttpRequest;
 use vsc\presentation\requests\RwHttpRequest;
@@ -41,14 +40,14 @@ class vsc extends Object {
 	/**
 	 * @param vsc $envObject
 	 */
-	public static function setInstance (vsc $envObject) {
+	public static function setInstance(vsc $envObject) {
 		self::$oInstance = $envObject;
 	}
 
 	/**
 	 * @return vsc
 	 */
-	public static function getEnv () {
+	public static function getEnv() {
 		if (!(vsc::isValid(self::$oInstance))) {
 			self::$oInstance = new self();
 		}
@@ -58,8 +57,8 @@ class vsc extends Object {
 	/**
 	 * @param HttpRequestA $oRequest
 	 */
-	public function setHttpRequest (HttpRequestA $oRequest) {
-		if ( HttpRequestA::isValid($oRequest) ) {
+	public function setHttpRequest(HttpRequestA $oRequest) {
+		if (HttpRequestA::isValid($oRequest)) {
 			$this->oRequest = $oRequest;
 		}
 	}
@@ -67,8 +66,8 @@ class vsc extends Object {
 	/**
 	 * @returns HttpRequestA
 	 */
-	public function getHttpRequest () {
-		if ( is_null($this->oRequest) ){
+	public function getHttpRequest() {
+		if (is_null($this->oRequest)) {
 			if (!HttpRequestA::hasContentType()) {
 				$this->oRequest = new RwHttpRequest();
 			} else {
@@ -81,8 +80,8 @@ class vsc extends Object {
 	/**
 	 * @param HttpResponseA $oResponse
 	 */
-	public function setHttpResponse (HttpResponseA $oResponse) {
-		if (HttpResponseA::isValid($oResponse)  && get_class($this->oResponse) != get_class($oResponse)) {
+	public function setHttpResponse(HttpResponseA $oResponse) {
+		if (HttpResponseA::isValid($oResponse) && get_class($this->oResponse) != get_class($oResponse)) {
 			$this->oResponse = $oResponse;
 		}
 	}
@@ -90,8 +89,8 @@ class vsc extends Object {
 	/**
 	 * @returns HttpResponseA
 	 */
-	public function getHttpResponse () {
-		if ( is_null($this->oResponse) ){
+	public function getHttpResponse() {
+		if (is_null($this->oResponse)) {
 			$this->oResponse = new HttpResponse();
 		}
 		return $this->oResponse;
@@ -100,8 +99,8 @@ class vsc extends Object {
 	/**
 	 * @param HttpDispatcherA $oDispatcher
 	 */
-	public function setDispatcher ($oDispatcher) {
-		if (DispatcherA::isValid($oDispatcher)){
+	public function setDispatcher($oDispatcher) {
+		if (DispatcherA::isValid($oDispatcher)) {
 			$this->oDispatcher = $oDispatcher;
 		}
 	}
@@ -109,8 +108,8 @@ class vsc extends Object {
 	/**
 	 * @returns HttpDispatcherA
 	 */
-	public function getDispatcher () {
-		if (!HttpDispatcherA::isValid($this->oDispatcher)){
+	public function getDispatcher() {
+		if (!HttpDispatcherA::isValid($this->oDispatcher)) {
 			$this->oDispatcher = new RwDispatcher();
 		}
 		return $this->oDispatcher;
@@ -119,7 +118,7 @@ class vsc extends Object {
 	/**
 	 * @return boolean
 	 */
-	public function isDevelopment () {
+	public function isDevelopment() {
 		return (
 			self::isCli() || (
 				stristr($_SERVER['REMOTE_ADDR'], '127.0.0.1') != false ||
@@ -131,7 +130,7 @@ class vsc extends Object {
 	/**
 	 * @return bool
 	 */
-	protected function _isCli () {
+	protected function _isCli() {
 		return (php_sapi_name() == 'cli');
 	}
 
@@ -153,11 +152,11 @@ class vsc extends Object {
 	 * returns an end of line, based on the environment
 	 * @return string
 	 */
-	public static function nl () {
-		return self::isCli() ? "\n" : '<br/>' . "\n";
+	public static function nl() {
+		return self::isCli() ? "\n" : '<br/>'."\n";
 	}
 
-	public static function d () {
+	public static function d() {
 		$aRgs = func_get_args();
 
 		$output = '';
@@ -170,12 +169,12 @@ class vsc extends Object {
 			$output = json_encode($aRgs);
 		} elseif (self::isCLi() || self::getEnv()->getHttpRequest()->accepts('text/html')) {
 			foreach ($aRgs as $object) {
-				ob_start ();
-				var_dump ( $object );
-				$output .= ob_get_clean ();
+				ob_start();
+				var_dump($object);
+				$output .= ob_get_clean();
 
 				if (!self::isCli()) {
-					$output .= '<hr/>' . "\n";
+					$output .= '<hr/>'."\n";
 				}
 			}
 		}
@@ -188,7 +187,7 @@ class vsc extends Object {
 			if (self::isCLi() || self::getEnv()->getHttpRequest()->accepts('application/json')) {
 				echo String::stripTags(String::br2nl($output));
 			} elseif (self::getEnv()->getHttpRequest()->accepts('text/html')) {
-				echo '<pre>' . $output . '</pre>';
+				echo '<pre>'.$output.'</pre>';
 			} else {
 				echo String::stripTags(String::br2nl($output));
 			}
@@ -200,17 +199,17 @@ class vsc extends Object {
 	}
 
 	static function getIncludePaths() {
-		return explode (PATH_SEPARATOR, get_include_path());
+		return explode(PATH_SEPARATOR, get_include_path());
 	}
 
 	/**
 	 * @returns ModuleMap
 	 */
-	public function getCurrentModuleMap () {
+	public function getCurrentModuleMap() {
 		return $this->getDispatcher()->getCurrentModuleMap();
 	}
 
-	public static function getPaths () {
-		return explode (PATH_SEPARATOR, get_include_path());
+	public static function getPaths() {
+		return explode(PATH_SEPARATOR, get_include_path());
 	}
 }

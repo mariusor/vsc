@@ -29,7 +29,7 @@ abstract class HttpAuthenticationA extends Object {
 		return $this->password;
 	}
 
-	public static function getAuthenticationSchemas ($iType) {
+	public static function getAuthenticationSchemas($iType) {
 		$aSchemas = array();
 		if (($iType & self::BASIC) == self::BASIC) {
 			$aSchemas[] = 'Basic';

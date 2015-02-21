@@ -32,7 +32,7 @@ abstract class ResponseA extends Null {
 	 * @param ViewA $oView
 	 * @return string
 	 */
-	public function setView (ViewA $oView) {
+	public function setView(ViewA $oView) {
 		$this->oView = $oView;
 	}
 

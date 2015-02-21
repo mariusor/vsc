@@ -8,10 +8,10 @@
 namespace vsc\presentation\responses;
 
 class HttpResponse extends HttpResponseA {
-	public function getOutput () {
+	public function getOutput() {
 		$sBody = parent::getOutput();
 
-		$this->outputHeaders ();
+		$this->outputHeaders();
 
 		return $sBody;
 	}

@@ -8,9 +8,9 @@ use vsc\presentation\views\ViewA;
 class ContentTypeController extends FrontControllerA {
 
 
-	public function isValidContentType ($sContentType) {}
+	public function isValidContentType($sContentType) {}
 
-	public function getAvailableContentTypes () {}
+	public function getAvailableContentTypes() {}
 
 	public function getController() {}
 
@@ -25,7 +25,7 @@ class ContentTypeController extends FrontControllerA {
 	 * @param null $oProcessor
 	 * @return \vsc\presentation\responses\HttpResponseA
 	 */
-	public function getResponse (HttpRequestA $oRequest, $oProcessor = null) {
+	public function getResponse(HttpRequestA $oRequest, $oProcessor = null) {
 	}
 
 	/**
@@ -33,13 +33,13 @@ class ContentTypeController extends FrontControllerA {
 	 * @param null $oProcessor
 	 * @return \vsc\presentation\responses\HttpResponse|\vsc\presentation\responses\HttpResponseA
 	 */
-	public function getErrorResponse (HttpRequestA $oRequest, $oProcessor = null) {
+	public function getErrorResponse(HttpRequestA $oRequest, $oProcessor = null) {
 	}
 
 	/**
 	 * @returns ViewA
 	 * @throws ExceptionView
 	 */
-	public function getView () {
+	public function getView() {
 	}
 }

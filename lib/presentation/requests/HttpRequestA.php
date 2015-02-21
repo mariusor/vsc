@@ -13,7 +13,7 @@ use vsc\infrastructure\vsc;
 use vsc\Exception;
 
 abstract class HttpRequestA extends Object {
-	protected $sUri		= null;
+	protected $sUri = null;
 	protected $oUri;
 	protected $sHttpMethod;
 	protected $sServerName;
@@ -22,11 +22,11 @@ abstract class HttpRequestA extends Object {
 
 	protected $aGetVars			= array();
 	protected $aPostVars		= array();
-	protected $aCookieVars		= array();
-	protected $aFiles			= array();
+	protected $aCookieVars = array();
+	protected $aFiles = array();
 
-	protected $aAccept			= array();
-	protected $aAcceptCharset	= array();
+	protected $aAccept = array();
+	protected $aAcceptCharset = array();
 	protected $aAcceptEncoding	= array();
 	protected $aAcceptLanguage	= array();
 
@@ -34,22 +34,22 @@ abstract class HttpRequestA extends Object {
 	protected $iContentLength	= 0; // ? I don't think I'm interested in the length of the request
 	protected $sContentType		= '';
 
-	protected $sIfModifiedSince	= '';
+	protected $sIfModifiedSince = '';
 	protected $sIfNoneMatch		= '';
 
-	protected $sReferer		= '';
-	protected $sUserAgent		= '';
+	protected $sReferer = '';
+	protected $sUserAgent = '';
 
-	protected $bDoNotTrack		= false;
+	protected $bDoNotTrack = false;
 	protected $oAuth;
 
-	public function __construct () {
+	public function __construct() {
 		if (isset($_GET))
 			$this->aGetVars		= $_GET;
 		if (isset($_POST))
 			$this->aPostVars	= $_POST;
 		if (isset($_COOKIE))
-			$this->aCookieVars	= $_COOKIE;
+			$this->aCookieVars = $_COOKIE;
 
 		if (isset($_SERVER)) {
 			$this->getServerProtocol();
@@ -85,8 +85,8 @@ abstract class HttpRequestA extends Object {
 			}
 
 			if ($this->hasContentType()) {
-				if ( stripos($_SERVER['CONTENT_TYPE'], ';') !== false ) {
-					$this->sContentType = substr ($_SERVER['CONTENT_TYPE'], 0, stripos($_SERVER['CONTENT_TYPE'], ';'));
+				if (stripos($_SERVER['CONTENT_TYPE'], ';') !== false) {
+					$this->sContentType = substr($_SERVER['CONTENT_TYPE'], 0, stripos($_SERVER['CONTENT_TYPE'], ';'));
 				} else {
 					$this->sContentType = $_SERVER['CONTENT_TYPE'];
 				}
@@ -97,28 +97,28 @@ abstract class HttpRequestA extends Object {
 			}
 			if (isset($_SERVER['PHP_AUTH_DIGEST'])) {
 				// DIGEST authorization attempt
-				$this->setAuthentication( new DigestHttpAuthentication($_SERVER['PHP_AUTH_DIGEST'], $_SERVER['REQUEST_METHOD']));
+				$this->setAuthentication(new DigestHttpAuthentication($_SERVER['PHP_AUTH_DIGEST'], $_SERVER['REQUEST_METHOD']));
 			}
 			if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
-				$this->setAuthentication(  new BasicHttpAuthentication($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']) );
+				$this->setAuthentication(new BasicHttpAuthentication($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']));
 			}
 		}
 
-		if (count ($_FILES) >= 1 ) {
+		if (count($_FILES) >= 1) {
 			$this->aFiles = $_FILES;
 		}
 
 	}
 
-	public function hasFiles () {
-		return (is_array($this->aFiles) && count ($this->aFiles) >=1 );
+	public function hasFiles() {
+		return (is_array($this->aFiles) && count($this->aFiles) >= 1);
 	}
 
 	public function getFiles() {
 		return $this->aFiles;
 	}
 
-	public function getFile ($sFileName) {
+	public function getFile($sFileName) {
 	}
 
 	public function getServerName() {
@@ -132,7 +132,7 @@ abstract class HttpRequestA extends Object {
 	/**
 	 * @return string
 	 */
-	public function getServerProtocol () {
+	public function getServerProtocol() {
 		if (!$this->sServerProtocol && isset ($_SERVER['SERVER_PROTOCOL'])) {
 			$this->sServerProtocol = $_SERVER['SERVER_PROTOCOL'];
 		}
@@ -143,63 +143,63 @@ abstract class HttpRequestA extends Object {
 	/**
 	 * @return string[]
 	 */
-	public function getHttpAccept () {
+	public function getHttpAccept() {
 		return $this->aAccept;
 	}
 
 	/**
 	 * @return string[]
 	 */
-	public function getHttpAcceptCharset () {
+	public function getHttpAcceptCharset() {
 		return $this->aAcceptCharset;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getContentType () {
+	public function getContentType() {
 		return $this->sContentType;
 	}
 
 	/**
 	 * @return string[]
 	 */
-	public function getHttpAcceptEncoding () {
+	public function getHttpAcceptEncoding() {
 		return $this->aAcceptEncoding;
 	}
 
 	/**
 	 * @return string[]
 	 */
-	public function getHttpAcceptLanguage () {
+	public function getHttpAcceptLanguage() {
 		return $this->aAcceptLanguage;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getIfModifiedSince () {
+	public function getIfModifiedSince() {
 		return $this->sIfModifiedSince;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getIfNoneMatch () {
+	public function getIfNoneMatch() {
 		return $this->sIfNoneMatch;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getHttpReferer () {
+	public function getHttpReferer() {
 		return $this->sReferer;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getHttpUserAgent () {
+	public function getHttpUserAgent() {
 		return $this->sUserAgent;
 	}
 
@@ -219,29 +219,29 @@ abstract class HttpRequestA extends Object {
 		return $_SESSION;
 	}
 
-	public function hasAuthenticationData () {
+	public function hasAuthenticationData() {
 		return HttpAuthenticationA::isValid($this->oAuth);
 	}
 
 	/**
 	 * @returns HttpAuthenticationA
 	 */
-	public function getAuthentication () {
+	public function getAuthentication() {
 		return $this->oAuth;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function getDoNotTrack () {
+	public function getDoNotTrack() {
 		return $this->bDoNotTrack;
 	}
 
 	/**
 	 * @return []
 	 */
-	public function getVarOrder () {
-		if (count($this->aVarOrder) != 4){
+	public function getVarOrder() {
+		if (count($this->aVarOrder) != 4) {
 			// get gpc order
 			$sOrder = ini_get('variables_order');
 			for ($i = 0; $i < 4; $i++) {
@@ -252,23 +252,23 @@ abstract class HttpRequestA extends Object {
 		return $this->aVarOrder;
 	}
 
-	public function getVars () {
-		$aRet = array ();
+	public function getVars() {
+		$aRet = array();
 		foreach ($this->getVarOrder() as $sMethod) {
 			switch ($sMethod) {
 			case 'S':
 				if (self::hasSession()) {
-					$aRet = array_merge ($aRet, $_SESSION);
+					$aRet = array_merge($aRet, $_SESSION);
 				}
 				break;
 			case 'C':
-				$aRet = array_merge ($aRet, $this->aCookieVars);
+				$aRet = array_merge($aRet, $this->aCookieVars);
 				break;
 			case 'P':
-				$aRet = array_merge ($aRet, $this->aPostVars);
+				$aRet = array_merge($aRet, $this->aPostVars);
 				break;
 			case 'G':
-				$aRet = array_merge ($aRet, $this->aGetVars);
+				$aRet = array_merge($aRet, $this->aGetVars);
 				break;
 			}
 		}
@@ -280,7 +280,7 @@ abstract class HttpRequestA extends Object {
 	 * @throws Exception
 	 * @return mixed
 	 */
-	public function getVar ($sVarName) {
+	public function getVar($sVarName) {
 		foreach ($this->getVarOrder() as $sMethod) {
 			switch ($sMethod) {
 			case 'G':
@@ -294,7 +294,7 @@ abstract class HttpRequestA extends Object {
 				break;
 			case 'S':
 				if (self::hasSession()) {
-					$mVal = $this->getSessionVar ( $sVarName );
+					$mVal = $this->getSessionVar($sVarName);
 				}
 				break;
 			}
@@ -305,27 +305,27 @@ abstract class HttpRequestA extends Object {
 		return null;
 	}
 
-	public static function hasContentType () {
+	public static function hasContentType() {
 		return (array_key_exists('CONTENT_TYPE', $_SERVER) && strlen($_SERVER['CONTENT_TYPE']) > 0);
 	}
 
-	public static function validContentType ($sContentType) {
+	public static function validContentType($sContentType) {
 		return true;
 	}
 
-	public function hasGetVars () {
+	public function hasGetVars() {
 		return (count($this->aGetVars) > 0);
 	}
-	public function hasGetVar ($sVarName) {
+	public function hasGetVar($sVarName) {
 		return array_key_exists($sVarName, $this->aGetVars);
 	}
-	public function hasPostVars () {
-		return (count( $this->aPostVars) > 0);
+	public function hasPostVars() {
+		return (count($this->aPostVars) > 0);
 	}
-	public function hasPostVar ($sVarName) {
+	public function hasPostVar($sVarName) {
 		return array_key_exists($sVarName, $this->aPostVars);
 	}
-	public function hasSessionVar ($sVarName) {
+	public function hasSessionVar($sVarName) {
 		return (
 			self::hasSession() &&
 			isset($_SESSION) &&
@@ -333,40 +333,40 @@ abstract class HttpRequestA extends Object {
 			array_key_exists($sVarName, $_SESSION)
 		);
 	}
-	public function hasCookieVar ($sVarName) {
+	public function hasCookieVar($sVarName) {
 		return array_key_exists($sVarName, $this->aCookieVars);
 	}
 
-	public static function hasSession () {
+	public static function hasSession() {
 		return (session_id() != '');
 	}
 
-	public static function getSessionName () {
+	public static function getSessionName() {
 		return session_id();
 	}
 
-	public static function startSession ($sSessionName = null) {
+	public static function startSession($sSessionName = null) {
 		if (!static::hasSession()) {
-			if ( ((double)PHP_VERSION >= 5.4 && session_status () == PHP_SESSION_DISABLED) ) {
-				throw new ExceptionRequest( 'Sessions are not available' );
+			if (((double)PHP_VERSION >= 5.4 && session_status() == PHP_SESSION_DISABLED)) {
+				throw new ExceptionRequest('Sessions are not available');
 			}
 
-			if ( ((double)PHP_VERSION >= 5.4 && session_status () == PHP_SESSION_NONE) ) {
-				$oRequest = vsc::getEnv ()->getHttpRequest ();
+			if (((double)PHP_VERSION >= 5.4 && session_status() == PHP_SESSION_NONE)) {
+				$oRequest = vsc::getEnv()->getHttpRequest();
 				if (!vsc::isCli()) {
-					session_set_cookie_params ( 0, '/', $oRequest->getUriObject ()->getDomain (), HttpRequestA::isSecure (), true );
+					session_set_cookie_params(0, '/', $oRequest->getUriObject()->getDomain(), HttpRequestA::isSecure(), true);
 				}
-				if (@session_start ()) {
+				if (@session_start()) {
 					$_SESSION = array();
-					if ( !is_null ( $sSessionName ) ) {
-						session_id ( $sSessionName );
+					if (!is_null($sSessionName)) {
+						session_id($sSessionName);
 					}
 				}
 			}
 		}
 	}
 
-	public static function destroySession () {
+	public static function destroySession() {
 		$aSessionCookieParams = session_get_cookie_params();
 
 		session_unset();
@@ -390,7 +390,7 @@ abstract class HttpRequestA extends Object {
 	 * @throws Exception
 	 * @return mixed
 	 */
-	protected function getGetVar ($sVarName) {
+	protected function getGetVar($sVarName) {
 		if (array_key_exists($sVarName, $this->aGetVars)) {
 			return $this->aGetVars[$sVarName];
 		} else {
@@ -404,7 +404,7 @@ abstract class HttpRequestA extends Object {
 	 * @throws Exception
 	 * @return mixed
 	 */
-	protected function getPostVar ($sVarName) {
+	protected function getPostVar($sVarName) {
 		if (array_key_exists($sVarName, $this->aPostVars)) {
 			return $this->aPostVars[$sVarName];
 		} else {
@@ -418,7 +418,7 @@ abstract class HttpRequestA extends Object {
 	 * @throws Exception
 	 * @return mixed
 	 */
-	protected function getCookieVar ($sVarName) {
+	protected function getCookieVar($sVarName) {
 		if (array_key_exists($sVarName, $this->aCookieVars)) {
 			return self::getDecodedVar($this->aCookieVars[$sVarName]);
 		} else {
@@ -432,7 +432,7 @@ abstract class HttpRequestA extends Object {
 	 * @throws Exception
 	 * @return mixed
 	 */
-	public function getSessionVar ($sVarName) {
+	public function getSessionVar($sVarName) {
 		if (array_key_exists($sVarName, $_SESSION)) {
 			return self::getDecodedVar($_SESSION[$sVarName]);
 		} else {
@@ -440,7 +440,7 @@ abstract class HttpRequestA extends Object {
 		}
 	}
 
-	protected function setAuthentication (HttpAuthenticationA $oHttpAuthentication) {
+	protected function setAuthentication(HttpAuthenticationA $oHttpAuthentication) {
 		$this->oAuth = $oHttpAuthentication;
 	}
 
@@ -449,8 +449,8 @@ abstract class HttpRequestA extends Object {
 	 * @param string $sVarValue
 	 * @return bool
 	 */
-	public function setCookieVar ($sVarName, $sVarValue) {
-		return setcookie ($sVarName, $sVarValue);
+	public function setCookieVar($sVarName, $sVarValue) {
+		return setcookie($sVarName, $sVarValue);
 	}
 
 	/**
@@ -458,11 +458,11 @@ abstract class HttpRequestA extends Object {
 	 * @param string $sVarValue
 	 * @return bool
 	 */
-	public function setSessionVar ($sVarName, $sVarValue) {
+	public function setSessionVar($sVarName, $sVarValue) {
 		return $_SESSION[$sVarName] = $sVarValue;
 	}
 
-	public function getHttpMethod () {
+	public function getHttpMethod() {
 		if (!$this->sHttpMethod && isset ($_SERVER['REQUEST_METHOD'])) {
 			$this->sHttpMethod = $_SERVER['REQUEST_METHOD'];
 		}
@@ -507,7 +507,7 @@ abstract class HttpRequestA extends Object {
 	/**
 	 * @return bool
 	 */
-	public static function isSecure () {
+	public static function isSecure() {
 		return (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] == 'on');
 	}
 
@@ -515,7 +515,7 @@ abstract class HttpRequestA extends Object {
 	 * @param string $sMimeType
 	 * @return bool
 	 */
-	public function accepts ($sMimeType) {
+	public function accepts($sMimeType) {
 		return ContentType::isAccepted($sMimeType, $this->getHttpAccept());
 	}
 
@@ -530,31 +530,31 @@ abstract class HttpRequestA extends Object {
 	 * @todo move to the UrlRWParser
 	 * @return string
 	 */
-	public function getUri ($bUrlDecode = false) {
+	public function getUri($bUrlDecode = false) {
 		if (!$this->sUri && isset($_SERVER['SERVER_SOFTWARE'])) {
 			$sServerType = $_SERVER['SERVER_SOFTWARE'];
 
 			// this header is present for all servers in the same form
-			$sCurrentScriptDir = dirname ($_SERVER['PHP_SELF']) != '/' ? dirname ($_SERVER['PHP_SELF']) : '';
+			$sCurrentScriptDir = dirname($_SERVER['PHP_SELF']) != '/' ? dirname($_SERVER['PHP_SELF']) : '';
 			if (stristr($sServerType, 'lighttpd')) {
 				$sReqUri = $_SERVER['REQUEST_URI'];
-				$this->sUri = str_replace ($sCurrentScriptDir, '', $sReqUri);
+				$this->sUri = str_replace($sCurrentScriptDir, '', $sReqUri);
 			} elseif (stristr($sServerType, 'apache')) {
-				$sCurrentScriptDir = dirname ($_SERVER['SCRIPT_FILENAME']) != '/' ? dirname ($_SERVER['SCRIPT_FILENAME']) : '';
+				$sCurrentScriptDir = dirname($_SERVER['SCRIPT_FILENAME']) != '/' ? dirname($_SERVER['SCRIPT_FILENAME']) : '';
 				$sReqUri = $_SERVER['SCRIPT_URL']; // apache 2.4 with mod_rewrite
-				$this->sUri = str_replace ($sCurrentScriptDir, '', $sReqUri);
+				$this->sUri = str_replace($sCurrentScriptDir, '', $sReqUri);
 			} elseif (stristr($sServerType, 'cherokee')) {
 				// TODO
 			}
 
 			// removing unnecessary get vars
-			$iQMarkPos = strpos ($this->sUri, '?');
+			$iQMarkPos = strpos($this->sUri, '?');
 			if ($iQMarkPos) {
-				$this->sUri = substr ($this->sUri, 0, $iQMarkPos);
+				$this->sUri = substr($this->sUri, 0, $iQMarkPos);
 			}
 		}
 		if ($bUrlDecode) {
-			$this->sUri = urldecode ($this->sUri);
+			$this->sUri = urldecode($this->sUri);
 		}
 
 		return $this->sUri;
@@ -567,7 +567,7 @@ abstract class HttpRequestA extends Object {
 		return $this->oUri;
 	}
 
-	static protected function getDecodedVar ($mVar) {
+	static protected function getDecodedVar($mVar) {
 		if (is_array($mVar)) {
 			foreach ($mVar as $key => $sValue) {
 				$mVar[$key] = self::getDecodedVar($sValue);

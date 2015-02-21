@@ -13,7 +13,7 @@ class XmlView extends ViewA implements XmlViewI {
 	protected $sContentType = 'application/xml';
 	protected $sFolder = 'xml';
 
-	public function getContent () {
+	public function getContent() {
 		return '';
 	}
 
@@ -25,7 +25,7 @@ class XmlView extends ViewA implements XmlViewI {
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#append($tpl_var, $value, $merge)
 	 */
-	public function append($tpl_var, $value=null, $merge=false) { }
+	public function append($tpl_var, $value = null, $merge = false) { }
 
 	/**
 	 * (non-PHPdoc)
@@ -37,7 +37,7 @@ class XmlView extends ViewA implements XmlViewI {
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#display($resource_name, $cache_id, $compile_id)
 	 */
-	public function display ($resource_name) {
+	public function display($resource_name) {
 		return '';
 	}
 }

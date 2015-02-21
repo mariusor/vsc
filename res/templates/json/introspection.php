@@ -9,4 +9,4 @@ foreach ($model as $key => $data) {
 	);
 }
 
-echo $this->outputModel ($t);
+echo $this->outputModel($t);

@@ -7,4 +7,4 @@
  */
 namespace vsc\domain\models;
 
-interface ModelI extends \ArrayAccess, \Countable , \Iterator {}
+interface ModelI extends \ArrayAccess, \Countable, \Iterator {}

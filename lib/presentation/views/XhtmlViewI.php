@@ -16,5 +16,5 @@ interface XhtmlViewI {
 
 	function getStyles();
 
-	function getSetting ($sVar);
+	function getSetting($sVar);
 }

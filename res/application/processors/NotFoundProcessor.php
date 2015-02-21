@@ -12,8 +12,8 @@ use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\responses\ExceptionResponseError;
 
 class NotFoundProcessor extends ErrorProcessor {
-	public function __construct () {
-		parent::__construct( new ExceptionResponseError('Not found', 404));
+	public function __construct() {
+		parent::__construct(new ExceptionResponseError('Not found', 404));
 	}
 
 	public function handleRequest(HttpRequestA $oHttpRequest) {

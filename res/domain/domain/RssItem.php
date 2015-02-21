@@ -18,19 +18,19 @@ class RssItem extends ModelA {
 	public $pubDate;
 	public $guid;
 
-	public function __construct (\DOMNode $oNode = null) {
+	public function __construct(\DOMNode $oNode = null) {
 		if (!is_null($oNode)) {
 			$this->buildObj($oNode);
 		}
 	}
 
-	public function buildObj (\DOMNode $oNode) {
-		if ( $oNode->nodeName == 'item' && $oNode->childNodes instanceof \DOMNodeList) {
+	public function buildObj(\DOMNode $oNode) {
+		if ($oNode->nodeName == 'item' && $oNode->childNodes instanceof \DOMNodeList) {
 			foreach ($oNode->childNodes as $oChildNode) {
 				$sName = $oChildNode->nodeName;
 				if (
 					$oChildNode->nodeType != XML_ELEMENT_NODE ||
-					!$this->valid ($sName)
+					!$this->valid($sName)
 				) {
 					continue;
 				}

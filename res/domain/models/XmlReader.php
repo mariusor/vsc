@@ -13,29 +13,29 @@ class XmlReader extends ModelA {
 	private $sXmlString;
 	private $oDOM;
 
-	public function __construct () {
+	public function __construct() {
 		if (!extension_loaded('dom')) {
 			throw new ExceptionUnimplemented('The DOM extension is not loaded');
 		}
 		parent::__construct();
 	}
 
-	public function setString ($sString) {
+	public function setString($sString) {
 		$this->sXmlString = $sString;
 	}
 
-	public function getString () {
+	public function getString() {
 		return $this->sXmlString;
 	}
 
 	/**
 	 * @return \DOMDocument
 	 */
-	public function getDom () {
+	public function getDom() {
 		return $this->oDOM;
 	}
 
-	public function buildObj () {
+	public function buildObj() {
 		$this->oDOM = new \DOMDocument();
 		$this->oDOM->strictErrorChecking = false;
 

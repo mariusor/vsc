@@ -7,23 +7,23 @@
  */
 namespace vsc\domain\models;
 
-class EmptyModel extends ModelA implements HttpModelI{
+class EmptyModel extends ModelA implements HttpModelI {
 	protected $sPageTitle = null;
 	protected $sPageContent = null;
 
-	public function setPageTitle ($sTitle) {
+	public function setPageTitle($sTitle) {
 		$this->sPageTitle = $sTitle;
 	}
 
-	public function getPageTitle () {
+	public function getPageTitle() {
 		return $this->sPageTitle;
 	}
 
-	public function setPageContent ($sContent) {
+	public function setPageContent($sContent) {
 		$this->sPageContent = $sContent;
 	}
 
-	public function getPageContent () {
+	public function getPageContent() {
 		return $this->sPageContent;
 	}
 }

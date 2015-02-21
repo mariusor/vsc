@@ -17,7 +17,7 @@ use vsc\presentation\views\ViewA;
 abstract class HttpResponseA extends Object {
 	private $sServerProtocol;
 	private $iStatus;
-	private $aAllow					= array (HttpRequestTypes::GET, HttpRequestTypes::POST, HttpRequestTypes::PUT, HttpRequestTypes::DELETE);
+	private $aAllow = array(HttpRequestTypes::GET, HttpRequestTypes::POST, HttpRequestTypes::PUT, HttpRequestTypes::DELETE);
 	private $sCacheControl;
 	private $sContentEncoding;
 	private $sContentLanguage;
@@ -35,7 +35,7 @@ abstract class HttpResponseA extends Object {
 	protected $aHeaders;
 	protected $sContentType;
 
-	public function __construct () {
+	public function __construct() {
 		if (is_array($_SERVER)) {
 			if (array_key_exists('SERVER_PROTOCOL', $_SERVER)) {
 				$this->sServerProtocol = $_SERVER['SERVER_PROTOCOL'];
@@ -43,9 +43,9 @@ abstract class HttpResponseA extends Object {
 		}
 	}
 
-	public function setStatus ($iStatus) {
-		if ( !HttpResponseType::isValidStatus($iStatus) ){
-			throw new ExceptionResponse('[' . $iStatus . '] is not a valid ' . $this->getServerProtocol() . ' status');
+	public function setStatus($iStatus) {
+		if (!HttpResponseType::isValidStatus($iStatus)) {
+			throw new ExceptionResponse('['.$iStatus.'] is not a valid '.$this->getServerProtocol().' status');
 		}
 
 		$this->iStatus = $iStatus;
@@ -55,19 +55,19 @@ abstract class HttpResponseA extends Object {
 	 * @param string $sValue
 	 * @return void
 	 */
-	public function setLocation ($sValue){
+	public function setLocation($sValue) {
 		$this->sLocation = $sValue;
 	}
 
-	public function addHeader ($sName, $sValue) {
-		$this->aHeaders[$sName]		= $sValue;
+	public function addHeader($sName, $sValue) {
+		$this->aHeaders[$sName] = $sValue;
 	}
 
 	/**
 	 * @param string $sValue
 	 * @return void
 	 */
-	public function setCacheControl ($sValue){
+	public function setCacheControl($sValue) {
 		$this->sCacheControl = $sValue;
 	}
 
@@ -75,7 +75,7 @@ abstract class HttpResponseA extends Object {
 	 * @param string $sValue
 	 * @return void
 	 */
-	public function setContentEncoding ($sValue){
+	public function setContentEncoding($sValue) {
 		$this->sContentEncoding = $sValue;
 	}
 
@@ -83,15 +83,15 @@ abstract class HttpResponseA extends Object {
 	 * @param string $sValue
 	 * @return void
 	 */
-	public function setContentLanguage ($sValue){
+	public function setContentLanguage($sValue) {
 		$this->sContentLanguage = $sValue;
 	}
 
 	/**
-	 * @param $iValue
+	 * @param integer $iValue
 	 * @return void
 	 */
-	public function setContentLength ($iValue){
+	public function setContentLength($iValue) {
 		$this->iContentLength = $iValue;
 	}
 
@@ -99,7 +99,7 @@ abstract class HttpResponseA extends Object {
 	 * @param string $sValue
 	 * @return void
 	 */
-	public function setContentLocation ($sValue){
+	public function setContentLocation($sValue) {
 		$this->sContentLocation = $sValue;
 	}
 
@@ -107,7 +107,7 @@ abstract class HttpResponseA extends Object {
 	 * @param string $sValue
 	 * @return void
 	 */
-	public function setContentDisposition ($sValue){
+	public function setContentDisposition($sValue) {
 		$this->sContentDisposition = $sValue;
 	}
 
@@ -115,7 +115,7 @@ abstract class HttpResponseA extends Object {
 	 * @param string $sValue
 	 * @return void
 	 */
-	public function setContentMd5 ($sValue){
+	public function setContentMd5($sValue) {
 		$this->sContentMd5 = $sValue;
 	}
 
@@ -123,7 +123,7 @@ abstract class HttpResponseA extends Object {
 	 * @param string $sValue
 	 * @return void
 	 */
-	public function setContentType ($sValue){
+	public function setContentType($sValue) {
 		$this->sContentType = $sValue;
 	}
 
@@ -131,7 +131,7 @@ abstract class HttpResponseA extends Object {
 	 * @param string $sValue
 	 * @return void
 	 */
-	public function setDate ($sValue){
+	public function setDate($sValue) {
 		$this->sDate = $sValue;
 	}
 
@@ -139,7 +139,7 @@ abstract class HttpResponseA extends Object {
 	 * @param string $sValue
 	 * @return void
 	 */
-	public function setETag ($sValue){
+	public function setETag($sValue) {
 		$this->sETag = $sValue;
 	}
 
@@ -147,7 +147,7 @@ abstract class HttpResponseA extends Object {
 	 * @param string $sValue
 	 * @return void
 	 */
-	public function setExpires ($sValue){
+	public function setExpires($sValue) {
 		$this->sExpires = $sValue;
 	}
 
@@ -257,6 +257,9 @@ abstract class HttpResponseA extends Object {
 		return $this->sServerProtocol;
 	}
 
+	/**
+	 * @param string $sProtocol
+	 */
 	public static function getHttpStatusString ($sProtocol, $iStatus) {
 		return $sProtocol . ' ' . HttpResponseType::getStatus($iStatus);
 	}
@@ -343,7 +346,7 @@ abstract class HttpResponseA extends Object {
 	 * @param ViewA $oView
 	 * @return string
 	 */
-	public function setView (ViewA $oView) {
+	public function setView(ViewA $oView) {
 		$this->oView = $oView;
 	}
 
@@ -367,7 +370,7 @@ abstract class HttpResponseA extends Object {
 
 		$oRequest = vsc::getEnv()->getHttpRequest();
 		try {
-			if ( !$oRequest->isHead() && !$this->isRedirect()) {
+			if (!$oRequest->isHead() && !$this->isRedirect()) {
 				$oView = $this->getView();
 				$sResponseBody = $oView->getOutput();
 			} else {

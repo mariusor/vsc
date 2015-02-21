@@ -24,22 +24,22 @@ abstract class ProcessorA extends Object implements ProcessorI {
 	/**
 	 * @returns ProcessorMap
 	 */
-	public function getMap () {
-		if (MappingA::isValid ($this->oCurrentMap)) {
+	public function getMap() {
+		if (MappingA::isValid($this->oCurrentMap)) {
 			return $this->oCurrentMap;
 		} else {
 			$oMirror = new \ReflectionClass($this);
-			return new ProcessorMap ($oMirror->getName(), '.*');
+			return new ProcessorMap($oMirror->getName(), '.*');
 		}
 	}
 
 	/**
 	 * @param MappingA $oMap
 	 */
-	public function setMap (MappingA $oMap) {
+	public function setMap(MappingA $oMap) {
 		$this->oCurrentMap = $oMap;
 		$aTainted = $oMap->getTaintedVars();
-		if (is_array($aTainted) && count ($aTainted) >= 1) {
+		if (is_array($aTainted) && count($aTainted) >= 1) {
 			$this->setLocalVars($aTainted);
 		}
 	}
@@ -50,9 +50,9 @@ abstract class ProcessorA extends Object implements ProcessorI {
 	 * @param bool $bPreserveKeys
 	 * @return void
 	 */
-	public function setLocalVars ($aVars = array(), $bPreserveKeys = false) {
+	public function setLocalVars($aVars = array(), $bPreserveKeys = false) {
 		if ($bPreserveKeys) {
-			$this->aLocalVars = array_merge ($this->aLocalVars, $aVars);
+			$this->aLocalVars = array_merge($this->aLocalVars, $aVars);
 		} else {
 			// This needs improvement to take into account incoming arrays
 			//  containing both string keys - which exist or not in the $aLocalVars array
@@ -66,7 +66,7 @@ abstract class ProcessorA extends Object implements ProcessorI {
 	/**
 	 * @return array
 	 */
-	public function getLocalVars () {
+	public function getLocalVars() {
 		return $this->aLocalVars;
 	}
 
@@ -75,8 +75,8 @@ abstract class ProcessorA extends Object implements ProcessorI {
 	 * @param string $sValue
 	 * @return bool
 	 */
-	public function setVar ($sVar, $sValue) {
-		if (array_key_exists ($sVar, $this->aLocalVars)) {
+	public function setVar($sVar, $sValue) {
+		if (array_key_exists($sVar, $this->aLocalVars)) {
 			$this->aLocalVars[$sVar] = $sValue;
 			return true;
 		}
@@ -87,8 +87,8 @@ abstract class ProcessorA extends Object implements ProcessorI {
 	 * @param string $sVar
 	 * @return null
 	 */
-	public function getVar ($sVar) {
-		if (array_key_exists ($sVar, $this->aLocalVars)) {
+	public function getVar($sVar) {
+		if (array_key_exists($sVar, $this->aLocalVars)) {
 			return $this->aLocalVars[$sVar];
 		} else {
 			return null;
@@ -111,13 +111,13 @@ abstract class ProcessorA extends Object implements ProcessorI {
 		$oNewProcessor->init();
 
 		/* @var RwDispatcher $oDispatcher */
-		$oMap->merge ($this->getMap());
+		$oMap->merge($this->getMap());
 
 		if (HttpResponse::isValid($oResponse)) {
 			$oMap->setResponse($oResponse);
 		}
 
-		$this->setMap ($oMap);
+		$this->setMap($oMap);
 
 		$oNewProcessor->setLocalVars($this->getLocalVars(), true);
 

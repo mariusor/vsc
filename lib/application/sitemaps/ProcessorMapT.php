@@ -24,14 +24,14 @@ trait ProcessorMapT {
 	/**
 	 * @param HttpResponseA $oResponse
 	 */
-	public function setResponse (HttpResponseA $oResponse) {
+	public function setResponse(HttpResponseA $oResponse) {
 		$this->oResponse = $oResponse;
 	}
 
 	/**
 	 * @returns HttpResponseA
 	 */
-	public function getResponse () {
+	public function getResponse() {
 		return $this->oResponse;
 	}
 
@@ -39,21 +39,21 @@ trait ProcessorMapT {
 	 * @param ViewHelperA $oHelper
 	 * @return void
 	 */
-	public function registerHelper (ViewHelperA $oHelper) {
+	public function registerHelper(ViewHelperA $oHelper) {
 		$this->aHelpers[] = $oHelper;
 	}
 
 	/**
 	 * @returns ViewHelperA[]
 	 */
-	public function getViewHelpers () {
+	public function getViewHelpers() {
 		return $this->aHelpers;
 	}
 
 	/**
 	 * @param int $iStatus
 	 */
-	public function setResponseStatus ($iStatus) {
+	public function setResponseStatus($iStatus) {
 		if (HttpResponseType::isValidStatus($iStatus)) {
 			$this->iHttpStatus = $iStatus;
 		}
@@ -62,7 +62,7 @@ trait ProcessorMapT {
 	/**
 	 * @return int
 	 */
-	public function getResponseStatus () {
+	public function getResponseStatus() {
 		return $this->iHttpStatus;
 	}
 } 

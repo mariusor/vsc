@@ -66,9 +66,9 @@ abstract class ViewA extends Object implements ViewI {
 	 * @param $sPath
 	 * @throws ExceptionPath
 	 */
-	public function setMainTemplate ($sPath) {
-		if ( !is_file($sPath) ) {
-			throw new ExceptionPath('The main template [' . $sPath . '] is not accessible.');
+	public function setMainTemplate($sPath) {
+		if (!is_file($sPath)) {
+			throw new ExceptionPath('The main template ['.$sPath.'] is not accessible.');
 		}
 		$this->sMainTemplate = $sPath;
 	}
@@ -76,7 +76,7 @@ abstract class ViewA extends Object implements ViewI {
 	/**
 	 * @return string
 	 */
-	public function getMainTemplate () {
+	public function getMainTemplate() {
 		return $this->sMainTemplate;
 	}
 
@@ -98,7 +98,7 @@ abstract class ViewA extends Object implements ViewI {
 	 * @return string
 	 * @throws ExceptionView
 	 */
-	public function getTitle () {
+	public function getTitle() {
 		try {
 			/** @var EmptyModel $oModel */
 			$oModel = $this->getModel();
@@ -109,7 +109,7 @@ abstract class ViewA extends Object implements ViewI {
 			//
 		}
 
-		$sStaticTitle	= $this->getMap()->getTitle();
+		$sStaticTitle = $this->getMap()->getTitle();
 		if (!empty ($sStaticTitle)) return $sStaticTitle;
 
 		return $this->sTitle;
@@ -118,7 +118,7 @@ abstract class ViewA extends Object implements ViewI {
 	/**
 	 * @param ModelA $oModel
 	 */
-	public function setModel (ModelA $oModel) {
+	public function setModel(ModelA $oModel) {
 		$this->oModel = $oModel;
 	}
 
@@ -126,29 +126,29 @@ abstract class ViewA extends Object implements ViewI {
 	 * @throws ExceptionView
 	 * @returns ProcessorMap
 	 */
-	public function getMap () {
+	public function getMap() {
 		if (MappingA::isValid($this->oCurrentMap)) {
 			return $this->oCurrentMap;
 		} else {
-			throw new ExceptionView ('Make sure the current map is correctly set.');
+			throw new ExceptionView('Make sure the current map is correctly set.');
 		}
 	}
 
 	/**
 	 * @param ProcessorMap $oMap
 	 */
-	public function setMap ($oMap) {
+	public function setMap($oMap) {
 		$this->oCurrentMap = $oMap;
 	}
 
-	public function registerHelper (ViewHelperA $oHelper) {
-		$this->getMap()->registerHelper( $oHelper ) ;
+	public function registerHelper(ViewHelperA $oHelper) {
+		$this->getMap()->registerHelper($oHelper);
 	}
 
-	public function __call ($sMethodName, $aParameters = array()) {
+	public function __call($sMethodName, $aParameters = array()) {
 		// to be used with helpers
 		foreach ($this->getMap()->getViewHelpers() as $key => $oHelper) {
-			$oReflection = new \ReflectionClass ($oHelper);
+			$oReflection = new \ReflectionClass($oHelper);
 			if ($oReflection->hasMethod($sMethodName)) {
 				$oMethod = $oReflection->getMethod($sMethodName);
 				return $oMethod->invokeArgs($oHelper, $aParameters);
@@ -161,13 +161,13 @@ abstract class ViewA extends Object implements ViewI {
 	 * @param $sVarName
 	 * @return void|Null
 	 */
-	public function __get ($sVarName) {
+	public function __get($sVarName) {
 		try {
 			// TODO: use proper reflection
 			return $this->getModel()->$sVarName;
 		} catch (\Exception $e) {
 			// most likely the variable doesn't exist
-			vsc::d ($e->getTraceAsString());
+			vsc::d($e->getTraceAsString());
 		}
 	}
 
@@ -175,7 +175,7 @@ abstract class ViewA extends Object implements ViewI {
 	 * @throws ExceptionView
 	 * @returns ModelA
 	 */
-	public function getModel () {
+	public function getModel() {
 		if (ModelA::isValid($this->oModel)) {
 			return $this->oModel;
 		} else {
@@ -193,17 +193,17 @@ abstract class ViewA extends Object implements ViewI {
 	 * @throws ExceptionPath
 	 * @throws ExceptionView
 	 */
-	public function fetch ($includePath) {
+	public function fetch($includePath) {
 		if (empty($includePath)) {
-			throw new ExceptionPath ('Template could not be located');
+			throw new ExceptionPath('Template could not be located');
 		}
 
-		ob_start ();
-		if (!is_file ($includePath)) {
-			$includePath = $this->getTemplatePath() . $includePath;
-			if (!is_file ($includePath)) {
+		ob_start();
+		if (!is_file($includePath)) {
+			$includePath = $this->getTemplatePath().$includePath;
+			if (!is_file($includePath)) {
 				ob_end_clean();
-				throw new ExceptionPath ('Template [' . $includePath . '] could not be located');
+				throw new ExceptionPath('Template ['.$includePath.'] could not be located');
 			}
 		}
 		$bIncluded = false;
@@ -223,7 +223,7 @@ abstract class ViewA extends Object implements ViewI {
 
 		if (!$bIncluded) {
 			ob_end_clean();
-			throw new ExceptionView ('Template [' . $includePath . '] could not be included');
+			throw new ExceptionView('Template ['.$includePath.'] could not be included');
 		} else {
 			$sContent = ob_get_contents();
 			ob_end_clean();
@@ -238,11 +238,11 @@ abstract class ViewA extends Object implements ViewI {
 	public function getOutput() {
 		try {
 			// by default try to load the main template
-			return $this->fetch ( $this->getMainTemplate() );
+			return $this->fetch($this->getMainTemplate());
 		} catch (ExceptionPath $e) {
 			// if it fails, we load the regular template.
 			try {
-				return $this->fetch ($this->getTemplatePath() . DIRECTORY_SEPARATOR . $this->getMap()->getTemplate());
+				return $this->fetch($this->getTemplatePath().DIRECTORY_SEPARATOR.$this->getMap()->getTemplate());
 			} catch (ExceptionPath $e) {
 				return '';
 			}
@@ -258,7 +258,7 @@ abstract class ViewA extends Object implements ViewI {
 		$sViewFolder = $this->getViewFolder();
 
 		if (!empty($sViewFolder)) {
-			$sTemplatePath .= DIRECTORY_SEPARATOR . $sViewFolder;
+			$sTemplatePath .= DIRECTORY_SEPARATOR.$sViewFolder;
 		}
 
 		if (!UrlRWParser::hasGoodTermination($sTemplatePath, DIRECTORY_SEPARATOR)) {
@@ -292,7 +292,7 @@ abstract class ViewA extends Object implements ViewI {
 	/**
 	 * @returns UrlRWParser
 	 */
-	public static function getUriParser () {
+	public static function getUriParser() {
 		if (!UrlParserA::isValid(self::$oUriParser)) {
 			self::$oUriParser = new UrlRWParser();
 		}
@@ -302,7 +302,7 @@ abstract class ViewA extends Object implements ViewI {
 	/**
 	 * @return string
 	 */
-	public static function getCurrentSiteUri () {
+	public static function getCurrentSiteUri() {
 		return htmlspecialchars(self::getUriParser()->getSiteUri());
 	}
 
@@ -317,7 +317,7 @@ abstract class ViewA extends Object implements ViewI {
 	 * @param int $iParent
 	 * @return string
 	 */
-	public static function getParentUri ($iParent = 1) {
+	public static function getParentUri($iParent = 1) {
 		return htmlspecialchars(self::getUriParser()->getCompleteParentUri(true, $iParent));
 	}
 }

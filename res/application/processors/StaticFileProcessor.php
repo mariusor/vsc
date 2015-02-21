@@ -13,13 +13,13 @@ use vsc\presentation\requests\HttpRequestA;
 class StaticFileProcessor extends ProcessorA {
 	private $sFilePath;
 
-	public function setFilePath ($sPath) {
+	public function setFilePath($sPath) {
 		$this->sFilePath = $sPath;
 	}
 
-	public function init () {}
+	public function init() {}
 
-	public function handleRequest (HttpRequestA $oHttpRequest) {
+	public function handleRequest(HttpRequestA $oHttpRequest) {
 		$oModel = new StaticFileModel();
 		$oModel->setFilePath($this->sFilePath);
 

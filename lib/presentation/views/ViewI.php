@@ -15,7 +15,7 @@ interface ViewI {
 	 * @param array|string $tpl_var the template variable name(s)
 	 * @param mixed $value the value to append
 	 */
-	function append($tpl_var, $value=null, $merge=false);
+	function append($tpl_var, $value = null, $merge = false);
 
 	/**
 	 * assigns values to template variables
@@ -42,5 +42,5 @@ interface ViewI {
 	/**
 	 * @return string
 	 */
-	function getTemplate ();
+	function getTemplate();
 }

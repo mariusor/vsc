@@ -53,7 +53,7 @@ abstract class FrontControllerA extends Object {
 	 * @throws ExceptionView
 	 * @returns ControllerMap
 	 */
-	public function getMap () {
+	public function getMap() {
 		if (!ControllerMap::isValid($this->oCurrentMap) && !ClassMap::isValid($this->oCurrentMap)) {
 			$Mirror = new \ReflectionClass($this);
 			$this->oCurrentMap = new ClassMap($Mirror->getName(), '.*');
@@ -64,7 +64,7 @@ abstract class FrontControllerA extends Object {
 	/**
 	 * @param MappingA $oMap
 	 */
-	public function setMap (MappingA $oMap) {
+	public function setMap(MappingA $oMap) {
 		$this->oCurrentMap = $oMap;
 	}
 
@@ -73,7 +73,7 @@ abstract class FrontControllerA extends Object {
 	 * @return bool
 	 * @throws ExceptionController
 	 */
-	public function setTemplatePath ($sIncPath) {
+	public function setTemplatePath($sIncPath) {
 		if (is_dir($sIncPath)) {
 			$this->sTemplatePath = $sIncPath;
 			return true;
@@ -90,7 +90,7 @@ abstract class FrontControllerA extends Object {
 	 * @throws ExceptionView
 	 * @returns HttpResponseA
 	 */
-	public function getResponse (HttpRequestA $oRequest, $oProcessor = null) {
+	public function getResponse(HttpRequestA $oRequest, $oProcessor = null) {
 		$oResponse = vsc::getEnv()->getHttpResponse();
 		$oModel = null;
 		/* @var ControllerMap $oMyMap */
@@ -103,7 +103,7 @@ abstract class FrontControllerA extends Object {
 				$oModel = $oProcessor->handleRequest($oRequest);
 			} catch (ExceptionResponseRedirect $e) {
 				$oResponse->setStatus($e->getRedirectCode());
-				$oResponse->setLocation ($e->getLocation());
+				$oResponse->setLocation($e->getLocation());
 
 				return $oResponse;
 			} catch (\Exception $e) {
@@ -113,12 +113,12 @@ abstract class FrontControllerA extends Object {
 			}
 		}
 		if ($oResponse->getStatus() == 0) {
-			$oResponse->setStatus (HttpResponseType::OK);
+			$oResponse->setStatus(HttpResponseType::OK);
 		}
 
 		// we didn't set any special view
 		// this means that the developer needs to provide his own views
-		$oView	= $this->getView();
+		$oView = $this->getView();
 		$oMap = null;
 		if (ProcessorA::isValid($oProcessor) /* && !ErrorProcessor::isValid($oProcessor) */) {
 			/* @var ProcessorMap $oMap */
@@ -135,34 +135,34 @@ abstract class FrontControllerA extends Object {
 			}
 
 			// setting the processor map
-			$oView->setMap ($oMap);
+			$oView->setMap($oMap);
 		}
 
 		try {
 			if (((ProcessorMap::isValid($oMap) || ClassMap::isValid($oMap)) && !$oMap->isStatic() && !$oMyMap->isStatic()) && (ControllerMap::isValid($oMyMap) || ClassMap::isValid($oMyMap))) {
-				$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . $oView->getViewFolder() . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
+				$oView->setMainTemplate($oMyMap->getMainTemplatePath().DIRECTORY_SEPARATOR.$oView->getViewFolder().DIRECTORY_SEPARATOR.$oMyMap->getMainTemplate());
 			}
 		} catch (ExceptionPath $e) {
 			// fallback to html5
 			// @todo verify main template path and main template exist
-			$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . 'html5' . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
+			$oView->setMainTemplate($oMyMap->getMainTemplatePath().DIRECTORY_SEPARATOR.'html5'.DIRECTORY_SEPARATOR.$oMyMap->getMainTemplate());
 		}
 
 		if (!ModelA::isValid($oModel)) {
 			$oModel = new EmptyModel();
-			if (!ProcessorMap::isValid ($oMap) || $oMap->getTitle() == '') {
-				$oModel->setPageTitle ('Warning');
+			if (!ProcessorMap::isValid($oMap) || $oMap->getTitle() == '') {
+				$oModel->setPageTitle('Warning');
 			}
-			$oModel->setPageContent ('Warning: the processor didn\'t return a valid model. This is probably an error');
+			$oModel->setPageContent('Warning: the processor didn\'t return a valid model. This is probably an error');
 		}
 		$oView->setModel($oModel);
 
-		$oResponse->setView ($oView);
-		if ( MappingA::isValid($oMap) ) {
-			$aHeaders = $oMap->getHeaders ();
-			if ( count ( $aHeaders ) > 0 ) {
-				foreach ( $aHeaders as $sName => $sHeader ) {
-					$oResponse->addHeader ( $sName, $sHeader );
+		$oResponse->setView($oView);
+		if (MappingA::isValid($oMap)) {
+			$aHeaders = $oMap->getHeaders();
+			if (count($aHeaders) > 0) {
+				foreach ($aHeaders as $sName => $sHeader) {
+					$oResponse->addHeader($sName, $sHeader);
 				}
 			}
 			$iProcessorSetStatus = $oMap->getResponseStatus();
@@ -173,15 +173,15 @@ abstract class FrontControllerA extends Object {
 		return $oResponse;
 	}
 
-	public function getErrorResponse (\Exception $e) {
+	public function getErrorResponse(\Exception $e) {
 		$oResponse = vsc::getEnv()->getHttpResponse();
 
 		$oProcessor = new ErrorProcessor($e);
 
 		/* @var ControllerMap $oMyMap */
-		$oMyMap	= $this->getMap();
+		$oMyMap = $this->getMap();
 
-		$oMyMap->setMainTemplatePath(VSC_RES_PATH . 'templates');
+		$oMyMap->setMainTemplatePath(VSC_RES_PATH.'templates');
 		$oMyMap->setMainTemplate('main.php');
 
 		$oRequest = vsc::getEnv()->getHttpRequest();
@@ -198,7 +198,7 @@ abstract class FrontControllerA extends Object {
 
 		// we didn't set any special view
 		// this means that the developer needs to provide his own views
-		$oView	= $this->getView();
+		$oView = $this->getView();
 
 		/* @var ProcessorMap $oMap */
 		$oMap = $oProcessor->getMap();
@@ -210,19 +210,19 @@ abstract class FrontControllerA extends Object {
 		}
 
 		// setting the processor map
-		$oView->setMap ($oMap);
+		$oView->setMap($oMap);
 
 		if (ControllerMap::isValid($oMyMap)) {
-			$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . $oView->getViewFolder() . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
+			$oView->setMainTemplate($oMyMap->getMainTemplatePath().DIRECTORY_SEPARATOR.$oView->getViewFolder().DIRECTORY_SEPARATOR.$oMyMap->getMainTemplate());
 		}
 		$oView->setModel($oModel);
 
-		$oResponse->setView ($oView);
+		$oResponse->setView($oView);
 
-		$aHeaders = $oMap->getHeaders ();
-		if ( count ( $aHeaders ) > 0 ) {
-			foreach ( $aHeaders as $sName => $sHeader ) {
-				$oResponse->addHeader ( $sName, $sHeader );
+		$aHeaders = $oMap->getHeaders();
+		if (count($aHeaders) > 0) {
+			foreach ($aHeaders as $sName => $sHeader) {
+				$oResponse->addHeader($sName, $sHeader);
 			}
 		}
 
@@ -233,7 +233,7 @@ abstract class FrontControllerA extends Object {
 	 * @returns ViewA
 	 * @throws ExceptionView
 	 */
-	public function getView () {
+	public function getView() {
 		if (ViewA::isValid($this->oView)) {
 			return $this->oView;
 		}

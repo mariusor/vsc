@@ -4,11 +4,11 @@ namespace vsc\presentation\requests;
 use vsc\infrastructure\Null;
 
 class ContentType extends Null {
-	public static function isAccepted ($sContentType, $aContentTypes) {
+	public static function isAccepted($sContentType, $aContentTypes) {
 		foreach ($aContentTypes as $key => $sEntry) {
 			$iSemicolonPosition = strpos($sEntry, ';');
 			if ($iSemicolonPosition > 0) {
-				$sTempContentType = substr ($sEntry, 0, $iSemicolonPosition);
+				$sTempContentType = substr($sEntry, 0, $iSemicolonPosition);
 				$aContentTypes[$key] = $sTempContentType;
 			} else {
 				$aContentTypes[$key] = $sEntry;
@@ -18,9 +18,15 @@ class ContentType extends Null {
 		foreach ($aContentTypes as $sAcceptedContentType) {
 			list ($sAcceptedType, $sAcceptedSubtype) = explode('/', $sAcceptedContentType);
 
-			if ($sAcceptedType == $sType && $sAcceptedSubtype == $sSubtype) return true;
-			if ($sAcceptedType == $sType && $sAcceptedSubtype == '*') return true;
-			if ($sAcceptedType == '*' && $sAcceptedSubtype == '*') return true;
+			if ($sAcceptedType == $sType && $sAcceptedSubtype == $sSubtype) {
+				return true;
+			}
+			if ($sAcceptedType == $sType && $sAcceptedSubtype == '*') {
+				return true;
+			}
+			if ($sAcceptedType == '*' && $sAcceptedSubtype == '*') {
+				return true;
+			}
 		}
 		return false;
 	}

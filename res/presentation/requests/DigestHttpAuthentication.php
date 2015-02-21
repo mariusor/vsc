@@ -20,7 +20,7 @@ class DigestHttpAuthentication extends HttpAuthenticationA {
 	private $uri;
 	private $response;
 
-	public function __construct ($sDigestResponse, $sHTTPMethod = HttpRequestTypes::GET) {
+	public function __construct($sDigestResponse, $sHTTPMethod = HttpRequestTypes::GET) {
 		$aNeededParts = array(
 			'nonce' => 1,
 			'nc' => 1,
@@ -31,8 +31,8 @@ class DigestHttpAuthentication extends HttpAuthenticationA {
 			'response' => 1
  		);
 
-		$keys = implode ('|', array_keys($aNeededParts));
-		$i = preg_match_all('@(' . $keys . ')=(?:([\'"])([^\2]+?)\2|([^\s,]+))@', $sDigestResponse, $aMatches, PREG_SET_ORDER);
+		$keys = implode('|', array_keys($aNeededParts));
+		$i = preg_match_all('@('.$keys.')=(?:([\'"])([^\2]+?)\2|([^\s,]+))@', $sDigestResponse, $aMatches, PREG_SET_ORDER);
 
 		if ($i) {
 			foreach ($aMatches as $m) {
@@ -44,9 +44,9 @@ class DigestHttpAuthentication extends HttpAuthenticationA {
 		$this->HTTPMethod = $sHTTPMethod;
 	}
 
-	public function validateDigestAuthentication ($sPassword, $sRealm) {
-		$A1 = md5($this->username . ':' . $sRealm . ':' . $sPassword);
-		$A2 = md5($this->HTTPMethod . ':' . $this->uri);
+	public function validateDigestAuthentication($sPassword, $sRealm) {
+		$A1 = md5($this->username.':'.$sRealm.':'.$sPassword);
+		$A2 = md5($this->HTTPMethod.':'.$this->uri);
 		$sValidResponse = md5($A1.':'.$this->nonce.':'.$this->nc.':'.$this->cnonce.':'.$this->qop.':'.$A2);
 
 		return $sValidResponse == $this->response;

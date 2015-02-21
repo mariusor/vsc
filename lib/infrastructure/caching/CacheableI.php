@@ -2,5 +2,5 @@
 namespace vsc\infrastructure\caching;
 
 interface CacheableI {
-	public function getLastModified ();
+	public function getLastModified();
 }

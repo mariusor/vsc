@@ -7,9 +7,7 @@
  */
 namespace vsc\application\sitemaps;
 
-use vsc\application\controllers\FrontControllerA;
 use vsc\application\processors\ProcessorA;
-use vsc\infrastructure\Null;
 use vsc\infrastructure\Object;
 
 abstract class SiteMapA extends Object {
@@ -193,7 +191,7 @@ abstract class SiteMapA extends Object {
 	}
 
 	/**
-	 * @return ModuleMap|null
+	 * @return MappingA|null
 	 */
 	public function getParentModuleMap() {
 		if (MappingA::isValid($this->oCurrentModuleMap)) {
@@ -302,6 +300,9 @@ abstract class SiteMapA extends Object {
 		return $aC;
 	}
 
+	/**
+	 * @return MappingA
+	 */
 	public function findProcessorMap(ProcessorA $oProcessor) {
 		$sNameLower = strtolower(get_class($oProcessor));
 

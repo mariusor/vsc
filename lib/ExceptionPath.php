@@ -7,11 +7,11 @@
 namespace vsc;
 
 class ExceptionPath extends Exception {
-	public function getPath () {
+	public function getPath() {
 		return get_include_path();
 	}
 
-	public function getPathAsArray () {
+	public function getPathAsArray() {
 		return explode(PATH_SEPARATOR, $this->getPath());
 	}
 }

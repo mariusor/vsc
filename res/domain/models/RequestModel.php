@@ -10,7 +10,7 @@ namespace vsc\domain\models;
 use \vsc\infrastructure\vsc;
 
 class RequestModel extends EmptyModel {
-	public function __get ($sVarName) {
+	public function __get($sVarName) {
 		$sVal = vsc::getEnv()->getHttpRequest()->getVar($sVarName);
 
 		if (is_null($sVal) && vsc::getEnv()->isDevelopment()) {

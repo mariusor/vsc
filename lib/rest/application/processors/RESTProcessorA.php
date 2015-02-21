@@ -56,23 +56,23 @@ abstract class RESTProcessorA extends ProcessorA {
 		}
 
 		switch ($oRequest->getHttpMethod()) {
-			case HttpRequestTypes::GET:
-				$oModel = $this->handleGet ($oRequest);
-				break;
-			case HttpRequestTypes::HEAD:
-				$oModel = $this->handleHead ($oRequest);
-				break;
-			case HttpRequestTypes::POST:
-				$oModel = $this->handlePost ($oRequest);
-				break;
-			case HttpRequestTypes::PUT:
-				$oModel = $this->handlePut ($oRequest);
-				break;
-			case HttpRequestTypes::DELETE:
-				$oModel = $this->handleDelete ($oRequest);
-				break;
-			default:
-				throw new ExceptionResponseError ('Method ['.$oRequest->getHttpMethod().'] is unavailable.', HttpResponseType::METHOD_NOT_ALLOWED);
+		case HttpRequestTypes::GET:
+			$oModel = $this->handleGet ($oRequest);
+			break;
+		case HttpRequestTypes::HEAD:
+			$oModel = $this->handleHead ($oRequest);
+			break;
+		case HttpRequestTypes::POST:
+			$oModel = $this->handlePost ($oRequest);
+			break;
+		case HttpRequestTypes::PUT:
+			$oModel = $this->handlePut ($oRequest);
+			break;
+		case HttpRequestTypes::DELETE:
+			$oModel = $this->handleDelete ($oRequest);
+			break;
+		default:
+			throw new ExceptionResponseError ('Method ['.$oRequest->getHttpMethod().'] is unavailable.', HttpResponseType::METHOD_NOT_ALLOWED);
 		}
 		return $oModel;
 	}

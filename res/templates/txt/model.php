@@ -7,26 +7,26 @@ use \vsc\domain\models\ModelA;
 /* @var $this \vsc\presentation\views\TxtView */
 foreach ($model->toArray() as $sName => $mValue) {
 	if (is_scalar($mValue)) {
-		String::_echo ("\t", $GLOBALS['depth']);
+		String::_echo("\t", $GLOBALS['depth']);
 		echo $sName.' = ';
-		echo $mValue . "\n";
+		echo $mValue."\n";
 		continue;
 	} elseif (is_array($mValue)) {
 		$mValue = new ArrayModel($mValue);
 	}
 
 	if (ModelA::isValid($mValue)) {
-		$this->setModel ($mValue);
-		String::_echo ("\t", $GLOBALS['depth']);
-		echo (is_int($sName) ? '#' : '').$sName.' [' . get_class ($mValue) . '] '.(isset($mValue->length) ? ' (' . $mValue->length . ')' : ''). "\n";
+		$this->setModel($mValue);
+		String::_echo("\t", $GLOBALS['depth']);
+		echo (is_int($sName) ? '#' : '').$sName.' ['.get_class($mValue).'] '.(isset($mValue->length) ? ' ('.$mValue->length.')' : '')."\n";
 		$GLOBALS['depth']++;
-		echo $this->fetch (__FILE__);
+		echo $this->fetch(__FILE__);
 		echo "\n";
 		$GLOBALS['depth']--;
 		continue;
 	}
 
-	String::_echo ("\t", $GLOBALS['depth']);
+	String::_echo("\t", $GLOBALS['depth']);
 	echo $sName.' = ';
-	echo var_export ($mValue, true)."\n";
+	echo var_export($mValue, true)."\n";
 }

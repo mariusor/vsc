@@ -10,7 +10,7 @@ namespace vsc\application\controllers;
 use \vsc\presentation\views\RssView;
 
 class RssController extends CacheableControllerA implements RssControllerI {
-	public function getDefaultView () {
+	public function getDefaultView() {
 		return new RssView();
 	}
 }
