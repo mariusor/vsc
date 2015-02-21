@@ -56,6 +56,9 @@ abstract class MappingA extends Object {
 	 */
 	private $iAuthenticationType = null;
 
+	/**
+	 * @param string $sRegex
+	 */
 	public function __construct ($sPath, $sRegex) {
 		$this->sPath	= $sPath;
 		$this->sRegex	= $sRegex;
@@ -83,16 +86,16 @@ abstract class MappingA extends Object {
 	/**
 	 * @param array $aResources
 	 */
-	public function setResources ($aResources) {
+	public function setResources($aResources) {
 		$this->aResources = $aResources;
 	}
 
 	/**
 	 * @param MappingA $oMap
 	 */
-	protected function mergeResources ($oMap) {
-		$aLocalResources	= $this->getResources();
-		$aParentResources	= $oMap->getResources();
+	protected function mergeResources($oMap) {
+		$aLocalResources = $this->getResources();
+		$aParentResources = $oMap->getResources();
 		$aResources = array_merge($aLocalResources, $aParentResources);
 		// maybe I should merge the regexes too like processor_regex . '.*' . controller_regex
 
@@ -102,14 +105,14 @@ abstract class MappingA extends Object {
 	/**
 	 * @param MappingA $oMap
 	 */
-	protected function mergePaths ($oMap) {
+	protected function mergePaths($oMap) {
 		$sParentPath = $oMap->getTemplatePath();
 		if (!is_null($sParentPath) && is_null($this->getTemplatePath())) {
 			$this->setTemplatePath($sParentPath);
 		}
 
 		$sParentTemplate = $oMap->getTemplate();
-		if (!is_null($sParentTemplate)  && is_null($this->getTemplate())) {
+		if (!is_null($sParentTemplate) && is_null($this->getTemplate())) {
 			$this->setTemplate($sParentTemplate);
 		}
 
@@ -119,7 +122,7 @@ abstract class MappingA extends Object {
 				$this->setMainTemplatePath($sParentMainTemplatePath);
 			}
 			$sParentMainTemplate = $oMap->getMainTemplate();
-			if (!is_null($sParentMainTemplate)  && is_null($this->getMainTemplate())) {
+			if (!is_null($sParentMainTemplate) && is_null($this->getMainTemplate())) {
 				$this->setMainTemplate($sParentMainTemplate);
 			}
 		}
@@ -129,10 +132,10 @@ abstract class MappingA extends Object {
 	 * @param MappingA $oMap
 	 * @return $this
 	 */
-	public function merge ($oMap = null) {
+	public function merge($oMap = null) {
 		if (MappingA::isValid($oMap)) {
-			$this->mergeResources ($oMap);
-			$this->mergePaths ($oMap);
+			$this->mergeResources($oMap);
+			$this->mergePaths($oMap);
 
 			$sTitle = $this->getTitle();
 			$sMapTitle = $oMap->getTitle();
@@ -144,11 +147,11 @@ abstract class MappingA extends Object {
 		return $this;
 	}
 
-	public function setTitle ($sTitle) {
+	public function setTitle($sTitle) {
 		$this->sTitle = $sTitle;
 	}
 
-	public function getTitle () {
+	public function getTitle() {
 		return $this->sTitle;
 	}
 
@@ -157,43 +160,43 @@ abstract class MappingA extends Object {
 	 * @return bool
 	 * @throws ExceptionSitemap
 	 */
-	public function setTemplatePath ($sPath) {
+	public function setTemplatePath($sPath) {
 		if (!is_dir($sPath)) {
 			if (!ModuleMap::isValid($this) && !ModuleMap::isValid($this->getModuleMap())) {
 				throw new ExceptionSitemap('No reference module path to use for relative paths');
 			}
-			$sPath = $this->getModulePath() . $sPath;
+			$sPath = $this->getModulePath().$sPath;
 		}
 		if (!is_dir($sPath)) {
 			throw new ExceptionSitemap('Template path is not valid.');
 		}
 
-		$this->sViewPath = realpath($sPath) . DIRECTORY_SEPARATOR;
+		$this->sViewPath = realpath($sPath).DIRECTORY_SEPARATOR;
 		return true;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getTemplatePath () {
+	public function getTemplatePath() {
 		return $this->sViewPath;
 	}
 
 	/**
 	 * @param string $sPath
 	 */
-	public function setTemplate ($sPath) {
+	public function setTemplate($sPath) {
 		$this->sTemplate = $sPath;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getTemplate () {
+	public function getTemplate() {
 		return $this->sTemplate;
 	}
 
-	public function setModuleMap (MappingA $oMap) {
+	public function setModuleMap(MappingA $oMap) {
 		$this->oParentMap = $oMap;
 
 		foreach ($oMap->getControllerMaps() as $sRegex => $oControllerMap) {
@@ -206,9 +209,9 @@ abstract class MappingA extends Object {
 	/**
 	 * @returns ModuleMap
 	 */
-	public function getModuleMap () {
+	public function getModuleMap() {
 		if (!MappingA::isValid($this->oParentMap)) {
-			$this->oParentMap = new ModuleMap(VSC_RES_PATH . 'config/map.php', '');
+			$this->oParentMap = new ModuleMap(VSC_RES_PATH.'config/map.php', '');
 		}
 		return $this->oParentMap;
 	}
@@ -217,7 +220,7 @@ abstract class MappingA extends Object {
 	 * @return string
 	 * @throws ExceptionSitemap
 	 */
-	public function getModulePath () {
+	public function getModulePath() {
 		$oModuleMap = $this->getModuleMap();
 		return $oModuleMap->getModulePath();
 	}
@@ -226,13 +229,13 @@ abstract class MappingA extends Object {
 	 * @return string
 	 */
 	public function getModuleName() {
-		return $this->getModulePath() ? basename ($this->getModulePath()) : null;
+		return $this->getModulePath() ? basename($this->getModulePath()) : null;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getPath () {
+	public function getPath() {
 		return $this->sPath;
 	}
 
@@ -240,7 +243,7 @@ abstract class MappingA extends Object {
 	 * @param $sVar
 	 * @return void
 	 */
-	public function removeHeader ($sVar) {
+	public function removeHeader($sVar) {
 		$this->aResources['headers'][$sVar] = null;
 	}
 
@@ -249,7 +252,7 @@ abstract class MappingA extends Object {
 	 * @param $sVal
 	 * @return void
 	 */
-	public function addHeader ($sVar, $sVal) {
+	public function addHeader($sVar, $sVal) {
 		$this->aResources['headers'][$sVar] = $sVal;
 	}
 
@@ -258,23 +261,23 @@ abstract class MappingA extends Object {
 	 * @param $sVal
 	 * @return void
 	 */
-	public function addSetting ($sVar, $sVal) {
+	public function addSetting($sVar, $sVal) {
 		$this->aResources['settings'][$sVar] = $sVal;
 	}
 
-	private function getResourcePath ($sPath) {
-		if ( is_file($this->getModulePath() . $sPath) ) {
-			$sPath = $this->getModulePath() . $sPath;
+	private function getResourcePath($sPath) {
+		if (is_file($this->getModulePath().$sPath)) {
+			$sPath = $this->getModulePath().$sPath;
 		}
-		$oUrl = new UrlRWParser( $sPath );
-		if ( $oUrl->isLocal () ) {
+		$oUrl = new UrlRWParser($sPath);
+		if ($oUrl->isLocal()) {
 			// I had a bad habit of correcting external URL's
-			$sPath = $oUrl->getCompleteUri ();
+			$sPath = $oUrl->getCompleteUri();
 		}
 		return $sPath;
 	}
 
-	public function addStyle ($sPath, $sMedia = 'screen') {
+	public function addStyle($sPath, $sMedia = 'screen') {
 		$this->aResources['styles'][$sMedia][] = $this->getResourcePath($sPath);
 	}
 
@@ -284,7 +287,7 @@ abstract class MappingA extends Object {
 	 * @param string $sPath
 	 * @param bool $bInHead
 	 */
-	public function addScript ($sPath, $bInHead = false) {
+	public function addScript($sPath, $bInHead = false) {
 		$iMainKey = (int)$bInHead; // [1] in the <head> section; [0] at the end of the *HTML document
 		$this->aResources['scripts'][$iMainKey][]		= $this->getResourcePath($sPath);
 	}
@@ -308,6 +311,9 @@ abstract class MappingA extends Object {
 		$this->aResources['meta'][$sName] = $sValue;
 	}
 
+	/**
+	 * @param string $sType
+	 */
 	public function getResources ($sType = null) {
 		if (!is_null($sType)) {
 			if (array_key_exists($sType, $this->aResources)) {
@@ -330,18 +336,18 @@ abstract class MappingA extends Object {
 	 * @throws ExceptionSitemap
 	 * @returns ControllerMap
 	 */
-	public function mapController ($sRegex, $sPath){
+	public function mapController($sRegex, $sPath) {
 		if (!$sRegex) {
-			throw new ExceptionSitemap ('An URI must be present.');
+			throw new ExceptionSitemap('An URI must be present.');
 		}
 
 		$sKey = $sRegex;
 		if (array_key_exists($sKey, $this->aControllerMaps)) {
 			unset($this->aControllerMaps[$sKey]);
 		}
-		if ( class_exists($sPath) ) {
+		if (class_exists($sPath)) {
 			// instead of a path we have a namespace
-			$oNewMap 	= new ClassMap($sPath, $sKey);
+			$oNewMap = new ClassMap($sPath, $sKey);
 			$oNewMap->setModuleMap($this);
 			$oNewMap->merge($this);
 
@@ -349,12 +355,12 @@ abstract class MappingA extends Object {
 
 			return $oNewMap;
 		} else {
-			$sPath = str_replace(array('/','\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),$sPath);
-			if (!SiteMapA::isValidObjectPath ($sPath)) {
-				$sPath = $this->getModulePath() . $sPath;
+			$sPath = str_replace(array('/', '\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR), $sPath);
+			if (!SiteMapA::isValidObjectPath($sPath)) {
+				$sPath = $this->getModulePath().$sPath;
 			}
-			if (SiteMapA::isValidObjectPath ($sPath)) {
-				$oNewMap 	= new ControllerMap($sPath, $sKey);
+			if (SiteMapA::isValidObjectPath($sPath)) {
+				$oNewMap = new ControllerMap($sPath, $sKey);
 				$oNewMap->setModuleMap($this);
 				$oNewMap->merge($this);
 
@@ -370,24 +376,24 @@ abstract class MappingA extends Object {
 	/**
 	 * @return MappingA[]
 	 */
-	public function getControllerMaps () {
+	public function getControllerMaps() {
 		return $this->aControllerMaps;
 	}
 
-	public function getStyles ($sMedia = null) {
-		$aStyles					= $this->getResources('styles');
+	public function getStyles($sMedia = null) {
+		$aStyles = $this->getResources('styles');
 		if (!is_null($sMedia)) {
-			$aMediaStyles[$sMedia]	= $aStyles[$sMedia];
-			return array_key_exists ($sMedia, $aStyles) ? $aMediaStyles : null;
+			$aMediaStyles[$sMedia] = $aStyles[$sMedia];
+			return array_key_exists($sMedia, $aStyles) ? $aMediaStyles : null;
 		} else {
 			return $aStyles;
 		}
 	}
 
-	public function getMetas ($sName = null) {
-		$aMetas =  $this->getResources('meta');
+	public function getMetas($sName = null) {
+		$aMetas = $this->getResources('meta');
 		if (!is_null($sName)) {
-			return array_key_exists ($sName,$aMetas) ?  $aMetas[$sName] : '';
+			return array_key_exists($sName, $aMetas) ? $aMetas[$sName] : '';
 		} else {
 			return $aMetas;
 		}
@@ -397,28 +403,28 @@ abstract class MappingA extends Object {
 	 * @param bool $bInHead
 	 * @return array
 	 */
-	public function getScripts ($bInHead = false) {
+	public function getScripts($bInHead = false) {
 		$aAllScripts = $this->getResources('scripts');
 		if ($bInHead && array_key_exists(1, $aAllScripts)) {
 			return $aAllScripts[1];
 		}
 
-		if (!$bInHead && array_key_exists(0, $aAllScripts))  {
+		if (!$bInHead && array_key_exists(0, $aAllScripts)) {
 			return $aAllScripts[0]; // [1] -> script goes in the <head> [0] - script is loaded at the end of the source
 		}
 		return [];
 	}
 
-	public function getSettings () {
-		return $this->getResources ('settings');
+	public function getSettings() {
+		return $this->getResources('settings');
 	}
 
 	/**
 	 * @param string $sType
 	 * @return array
 	 */
-	public function getLinks ($sType = null) {
-		$aLinks = $this->getResources ('links');
+	public function getLinks($sType = null) {
+		$aLinks = $this->getResources('links');
 
 		if (!is_null($sType)) {
 			if (array_key_exists($sType, $aLinks)) {
@@ -435,8 +441,8 @@ abstract class MappingA extends Object {
 	 * @param string $sVar
 	 * @return array|string
 	 */
-	public function getSetting ($sVar) {
-		$aSettings = $this->getResources ('settings');
+	public function getSetting($sVar) {
+		$aSettings = $this->getResources('settings');
 
 		if (array_key_exists($sVar, $aSettings)) {
 			return $aSettings[$sVar];
@@ -449,6 +455,9 @@ abstract class MappingA extends Object {
 		return $this->getResources('headers');
 	}
 
+	/**
+	 * @param string[] $aVars
+	 */
 	public function setTaintedVars ($aVars) {
 		$this->aTaintedVars = $aVars;
 	}
@@ -457,6 +466,9 @@ abstract class MappingA extends Object {
 		return $this->aTaintedVars;
 	}
 
+	/**
+	 * @param string $sUrl
+	 */
 	public function setUrl ($sUrl) {
 		$this->sMatchingUrl = $sUrl;
 	}
@@ -475,34 +487,34 @@ abstract class MappingA extends Object {
 		}
 	}
 
-	public function setAuthenticationType ($iAuthenticationType) {
+	public function setAuthenticationType($iAuthenticationType) {
 		$this->iAuthenticationType = $iAuthenticationType;
 	}
 
-	public function getAuthenticationType () {
+	public function getAuthenticationType() {
 		return $this->iAuthenticationType;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getValidAuthenticationSchemas () {
+	public function getValidAuthenticationSchemas() {
 		return HttpAuthenticationA::getAuthenticationSchemas($this->iAuthenticationType);
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function requiresAuthentication () {
+	public function requiresAuthentication() {
 		return ($this->iAuthenticationType != HttpAuthenticationA::NONE);
 	}
 
 	/**
 	 * @param Object $MappedObject
-	 * @return string
+	 * @return boolean
 	 */
-	public function maps (Object $MappedObject)
+	public function maps(Object $MappedObject)
 	{
-		return (bool)stristr(get_class($MappedObject), substr(basename($this->getPath()),0,-4));
+		return (bool)stristr(get_class($MappedObject), substr(basename($this->getPath()), 0, -4));
 	}
 }
