@@ -14,7 +14,8 @@ $_SERVER	= array (
 	'SERVER_SOFTWARE' => 'lighttpd',
 	'PHP_SELF' => '/',
 	'REQUEST_URI' => '/test/ana:are/test:123/',
-	'HTTP_ACCEPT' => 'application/html,text/html;charset=UTF8,image/*'
+	'HTTP_ACCEPT' => 'application/html,text/html;charset=UTF8,image/*',
+    'REQUEST_TIME' => time()
 );
 
 $_SESSION = array();
