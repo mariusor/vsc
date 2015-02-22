@@ -173,6 +173,12 @@ abstract class FrontControllerA extends Object {
 		return $oResponse;
 	}
 
+	/**
+	 * @param \Exception $e
+	 * @return HttpResponseA
+	 * @throws ExceptionPath
+	 * @throws ExceptionResponse
+	 */
 	public function getErrorResponse(\Exception $e) {
 		$oResponse = vsc::getEnv()->getHttpResponse();
 

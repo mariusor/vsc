@@ -1,6 +1,7 @@
 <?php
 namespace tests\lib\presentation\requests\AuthenticatedRequestT;
 use vsc\presentation\requests\DigestHttpAuthentication;
+use vsc\presentation\requests\HttpAuthenticationA;
 use vsc\presentation\requests\HttpRequestA;
 
 /**
@@ -21,7 +22,7 @@ class hasAuthenticationData extends \PHPUnit_Framework_TestCase
 }
 
 class HttpRequestA_underTest_hasAuthenticationData extends HttpRequestA {
-	public function setAuthentication ($oAuth) {
+	public function setAuthentication (HttpAuthenticationA $oAuth) {
 		$this->oAuth = $oAuth;
 	}
 }

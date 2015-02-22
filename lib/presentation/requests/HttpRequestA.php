@@ -340,10 +340,11 @@ abstract class HttpRequestA extends Object {
 	 * This will also remove the part of the path that is actually an existing path
 	 * lighttpd:
 	 *  url.rewrite = (
-	 * 		"^/([^?]*)?(.*)$" => "/index.php$2" <- this doesn't look right to me
- 	 *  )
+	 *        "^/([^?]*)?(.*)$" => "/index.php$2" <- this doesn't look right to me
+	 *  )
 	 *
 	 * @todo move to the UrlRWParser
+	 * @param bool $bUrlDecode
 	 * @return string
 	 */
 	public function getUri($bUrlDecode = false) {

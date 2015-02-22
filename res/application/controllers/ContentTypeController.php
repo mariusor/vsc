@@ -29,11 +29,10 @@ class ContentTypeController extends FrontControllerA {
 	}
 
 	/**
-	 * @param HttpRequestA $oRequest
-	 * @param null $oProcessor
-	 * @return \vsc\presentation\responses\HttpResponse|\vsc\presentation\responses\HttpResponseA
+	 * @param \Exception $e
+	 * @return \vsc\presentation\responses\HttpResponseA
 	 */
-	public function getErrorResponse(HttpRequestA $oRequest, $oProcessor = null) {
+	public function getErrorResponse(\Exception $e) {
 	}
 
 	/**

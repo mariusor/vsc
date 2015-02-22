@@ -24,7 +24,7 @@ class constructTaintedVars extends \PHPUnit_Framework_TestCase
 class RwHttpRequest_underTest_constructTaintedVars extends RwHttpRequest {
 	public function __construct () {}
 
-	public function getUri () {
+	public function getUri ($bUrlDecode = false) {
 		return 'http://example.com/module:test/cucu:mucu/height:143/index.html?show=me';
 	}
 }
