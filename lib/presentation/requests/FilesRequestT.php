@@ -10,7 +10,7 @@ namespace vsc\presentation\requests;
 trait FilesRequestT {
 	protected $aFiles = array();
 
-	protected function initFiles () {
+	protected function initFiles() {
 		if (isset($_FILES) && count($_FILES) >= 1) {
 			$this->aFiles = $_FILES;
 		}
