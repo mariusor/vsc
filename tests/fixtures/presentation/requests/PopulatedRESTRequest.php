@@ -38,7 +38,7 @@ class PopulatedRESTRequest extends RESTRequest {
 	}
 
 	/**
-	 * @return string[]
+	 * @return array
 	 */
 	public function getHttpAccept () {
 		return $this->aAccept;

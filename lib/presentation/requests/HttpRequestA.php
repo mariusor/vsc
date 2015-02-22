@@ -124,14 +124,14 @@ abstract class HttpRequestA extends Object {
 	}
 
 	/**
-	 * @return string[]
+	 * @return array
 	 */
 	public function getHttpAccept() {
 		return $this->aAccept;
 	}
 
 	/**
-	 * @return string[]
+	 * @return array
 	 */
 	public function getHttpAcceptCharset() {
 		return $this->aAcceptCharset;
@@ -145,14 +145,14 @@ abstract class HttpRequestA extends Object {
 	}
 
 	/**
-	 * @return string[]
+	 * @return array
 	 */
 	public function getHttpAcceptEncoding() {
 		return $this->aAcceptEncoding;
 	}
 
 	/**
-	 * @return string[]
+	 * @return array
 	 */
 	public function getHttpAcceptLanguage() {
 		return $this->aAcceptLanguage;

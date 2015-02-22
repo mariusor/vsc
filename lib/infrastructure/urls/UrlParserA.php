@@ -67,10 +67,10 @@ class UrlParserA extends Object implements UrlParserI {
 	/**
 	 * This exists as the php::parse_url function sometimes breaks inexplicably
 	 * @param string $sUrl
-	 * @return string[]
+	 * @return array
 	 */
 	public static function parse_url($sUrl = null) {
-		if (is_null($sUrl) && is_array($_SERVER) && array_key_exists('REQUEST_URI', $_SERVER)) {
+		if (is_null($sUrl)) {
 			$sUrl = self::getCurrentUrl();
 		}
 
