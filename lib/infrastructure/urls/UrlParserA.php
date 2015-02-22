@@ -31,13 +31,34 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	public static function getCurrentUrl() {
-		return new UrlRWParser('http'.(HttpRequestA::isSecure() ? 's' : '').'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+		return new UrlRWParser(self::getRequestUri());
 	}
 
 	public function hasScheme() {
 		return self::urlHasScheme($this->getUrl());
 	}
 
+	/**
+	 * @return string
+	 */
+	public static function getRequestUri () {
+		if (is_array($_SERVER) && array_key_exists('REQUEST_URI', $_SERVER)) {
+			if (array_key_exists('HTTP_HOST', $_SERVER)) {
+				$uri = 'http' . (HttpRequestA::isSecure() ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
+			} else {
+				$uri = '';
+			}
+			$uri .= $_SERVER['REQUEST_URI'];
+		} else {
+			$uri = '';
+		}
+		return $uri;
+	}
+
+	/**
+	 * @param string $sUrl
+	 * @return bool
+	 */
 	public static function urlHasScheme($sUrl) {
 		$sScheme = substr($sUrl, 0, strpos($sUrl, ':'));
 		return in_array($sScheme, self::$validSchemes);
@@ -395,7 +416,7 @@ class UrlParserA extends Object implements UrlParserI {
 
 	public function getCompleteParentUri($bFull = false, $iSteps = 1) {
 		if (empty($this->sUrl)) {
-			return null;
+			return '';
 		}
 		if (!$this->isLocal()) {
 			$bFull = true;
