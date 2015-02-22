@@ -11,7 +11,7 @@ namespace vsc\presentation\requests;
 trait PostRequestT {
 	protected $aPostVars = array();
 
-	protected function initPost () {
+	protected function initPost() {
 		if (isset($_POST)) {
 			$this->aPostVars = $_POST;
 		}

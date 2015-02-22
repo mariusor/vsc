@@ -41,10 +41,10 @@ class UrlParserA extends Object implements UrlParserI {
 	/**
 	 * @return string
 	 */
-	public static function getRequestUri () {
+	public static function getRequestUri() {
 		if (is_array($_SERVER) && array_key_exists('REQUEST_URI', $_SERVER)) {
 			if (array_key_exists('HTTP_HOST', $_SERVER)) {
-				$uri = 'http' . (HttpRequestA::isSecure() ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
+				$uri = 'http'.(HttpRequestA::isSecure() ? 's' : '').'://'.$_SERVER['HTTP_HOST'];
 			} else {
 				$uri = '';
 			}
@@ -364,6 +364,9 @@ class UrlParserA extends Object implements UrlParserI {
 		return $this->aComponents['fragment'];
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getUrl() {
 		return $this->sUrl;
 	}

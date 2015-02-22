@@ -10,7 +10,7 @@ namespace vsc\presentation\requests;
 trait GetRequestT {
 	protected $aGetVars = array();
 
-	protected function initGet () {
+	protected function initGet() {
 		if (isset($_GET) && is_array($_GET)) {
 			$this->aGetVars = $_GET;
 		}

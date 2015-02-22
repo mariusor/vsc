@@ -12,7 +12,7 @@ use vsc\infrastructure\vsc;
 trait SessionRequestT {
 	protected $aSessionVars = [];
 
-	protected function initSession () {
+	protected function initSession() {
 		if (static::hasSession() && isset($_SESSION)) {
 			$this->aSessionVars = $_SESSION;
 		}
