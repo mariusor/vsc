@@ -198,7 +198,7 @@ class vsc extends Object {
 		}
 	}
 
-	static function getIncludePaths() {
+	public static function getIncludePaths() {
 		return explode(PATH_SEPARATOR, get_include_path());
 	}
 
