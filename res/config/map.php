@@ -28,7 +28,7 @@ $this->getCurrentModuleMap()->setTemplatePath(VSC_RES_PATH.'templates');
 //$oMap->setTemplate ('content.php');
 
 // fallback 404 processor for everything
-$oMap = $this->map('(.+)\Z', \vsc\application\processors\EmptyProcessor::class);
+$oMap = $this->map('(.+)\Z', \vsc\application\processors\NotFoundProcessor::class);
 $oMap->setTemplate('404.php');
 
 // front controllers
