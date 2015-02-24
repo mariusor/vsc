@@ -12,7 +12,6 @@ use vsc\infrastructure\urls\UrlParserA;
 use vsc\infrastructure\urls\UrlRWParser;
 use vsc\infrastructure\Null;
 use vsc\infrastructure\Object;
-use vsc\infrastructure\vsc;
 use vsc\presentation\requests\HttpAuthenticationA;
 
 abstract class MappingA extends Object {
@@ -161,18 +160,7 @@ abstract class MappingA extends Object {
 	 * @throws ExceptionSitemap
 	 */
 	public function setTemplatePath($sPath) {
-		if (!is_dir($sPath)) {
-			if (!ModuleMap::isValid($this) && !ModuleMap::isValid($this->getModuleMap())) {
-				throw new ExceptionSitemap('No reference module path to use for relative paths');
-			}
-			$sPath = $this->getModulePath().$sPath;
-		}
-		if (!is_dir($sPath)) {
-			throw new ExceptionSitemap('Template path is not valid.');
-		}
-
-		$this->sViewPath = realpath($sPath).DIRECTORY_SEPARATOR;
-		return true;
+		$this->sViewPath = $this->getValidPath($sPath);;
 	}
 
 	/**
@@ -517,4 +505,25 @@ abstract class MappingA extends Object {
 	{
 		return (bool)stristr(get_class($MappedObject), substr(basename($this->getPath()), 0, -4));
 	}
+
+	/**
+	 * @param string $sPath
+	 * @return string
+	 * @throws ExceptionSitemap
+	 */
+	protected function getValidPath ($sPath) {
+		if (!is_dir($sPath)) {
+			if (!ModuleMap::isValid($this) && !ModuleMap::isValid($this->getModuleMap())) {
+				throw new ExceptionSitemap('No reference module path to use for relative paths');
+			}
+			$sPath = $this->getModulePath().$sPath;
+		}
+		$sPath = realpath($sPath);
+		if (!is_dir($sPath)) {
+			throw new ExceptionSitemap('Template path is not valid.');
+		}
+
+		return $sPath.DIRECTORY_SEPARATOR;
+	}
 }
+

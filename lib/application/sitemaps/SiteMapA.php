@@ -181,7 +181,7 @@ abstract class SiteMapA extends Object {
 	}
 
 	/**
-	 * @returns MappingA
+	 * @returns ModuleMap
 	 */
 	public function getCurrentModuleMap() {
 		if (!MappingA::isValid($this->oCurrentModuleMap)) {

@@ -12,10 +12,7 @@ class ModuleMap extends MappingA implements ContentTypeMappingI {
 	private $sMainTemplate;
 
 	public function setMainTemplatePath($sPath) {
-		if (!is_dir($sPath)) {
-			$sPath = $this->getModulePath().$sPath;
-		}
-		$this->sMainTemplatePath = $sPath;
+		$this->sMainTemplatePath = $this->getValidPath($sPath);
 	}
 
 	public function getMainTemplatePath() {
