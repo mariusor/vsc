@@ -8,25 +8,22 @@ use vsc\application\sitemaps\ModuleMap;
  */
 class setTemplatePath extends \PHPUnit_Framework_TestCase
 {
-	public function testSetTemplatePathRelativeNoModuleMap ()
+	public function testSetTemplatePathRelativeNoModuleMapUsingDefault ()
 	{
 		$oMap = new MappingA_underTest_setTemplatePath (\fixtures\application\controllers\GenericFrontController::class, '\A.*\Z');
 
-		try {
-			$oMap->setTemplatePath ( 'templates/' );
-		} catch (\Exception $e) {
-			// no module map for the relative path to work
-			$this->assertInstanceOf(\Exception::class, $e);
-			$this->assertInstanceOf(\vsc\Exception::class, $e);
-			$this->assertInstanceOf(\vsc\application\sitemaps\ExceptionSitemap::class, $e);
-		}
+		$oMap->setTemplatePath ( 'templates/' );
+		$this->assertEquals(VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR, $oMap->getTemplatePath());
+
+		$oMap->setTemplatePath ( 'templates' );
+		$this->assertEquals(VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR, $oMap->getTemplatePath());
 	}
 
 	public function testSetTemplatePathAbsolute ()
 	{
 		$oMap = new MappingA_underTest_setTemplatePath (\fixtures\application\controllers\GenericFrontController::class, '\A.*\Z');
 
-		$this->assertTrue($oMap->setTemplatePath ( VSC_FIXTURE_PATH . 'templates/' ));
+		$oMap->setTemplatePath ( VSC_FIXTURE_PATH . 'templates/' );
 		$this->assertEquals(VSC_FIXTURE_PATH . 'templates/', $oMap->getTemplatePath());
 	}
 
@@ -37,7 +34,7 @@ class setTemplatePath extends \PHPUnit_Framework_TestCase
 		$oMap = new MappingA_underTest_setTemplatePath(\fixtures\application\controllers\GenericFrontController::class, '\A.*\Z');
 		$oMap->setModuleMap($oModuleMap);
 
-		$this->assertTrue($oMap->setTemplatePath ( 'templates/' ));
+		$oMap->setTemplatePath ( 'templates/' );
 		$this->assertEquals(VSC_FIXTURE_PATH . 'templates/', $oMap->getTemplatePath());
 	}
 }
