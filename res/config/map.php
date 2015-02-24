@@ -13,8 +13,8 @@
 /* @var $this \vsc\application\sitemaps\RwSiteMap */
 
 // this will break if the current map is the first loaded
-$this->getParentModuleMap()->setMainTemplatePath(VSC_RES_PATH.'templates');
-$this->getParentModuleMap()->setMainTemplate('main.php');
+$this->getCurrentModuleMap()->setMainTemplatePath(VSC_RES_PATH.'templates');
+$this->getCurrentModuleMap()->setMainTemplate('main.php');
 $this->getCurrentModuleMap()->setTemplatePath(VSC_RES_PATH.'templates');
 
 //$oMap = $this->map ('.+', \vsc\application\processors\EmptyProcessor::class);
@@ -28,13 +28,13 @@ $this->getCurrentModuleMap()->setTemplatePath(VSC_RES_PATH.'templates');
 //$oMap->setTemplate ('content.php');
 
 // fallback 404 processor for everything
-$oMap = $this->map('(.+)\Z', \vsc\application\processors\NotFoundProcessor::class);
+$oMap = $this->map('(.*)\Z', \vsc\application\processors\NotFoundProcessor::class);
 $oMap->setTemplate('404.php');
 
 // front controllers
 $this->getCurrentModuleMap()->mapController('\.json$', \vsc\application\controllers\JsonController::class);
 $this->getCurrentModuleMap()->mapController('\.rss$', \vsc\application\controllers\RssController::class);
 $this->getCurrentModuleMap()->mapController('\.txt$', \vsc\application\controllers\PlainTextController::class);
-$this->getCurrentModuleMap()->mapController('^.*$', \vsc\application\controllers\XhtmlController::class);
+$this->getCurrentModuleMap()->mapController('^.*$', \vsc\application\controllers\Html5Controller::class);
 
 // d ($oMap->getModuleMap(), $this->getCurrentModuleMap());
