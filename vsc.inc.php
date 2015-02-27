@@ -11,8 +11,8 @@ require (VSC_RES_PATH.'functions.inc.php');
 $sVersion = phpversion();
 $iMajorVersion = (int)substr($sVersion, 0, 1);
 $iMinorVersion = (int)substr($sVersion, 2, 1);
-if ($iMajorVersion < 5 || $iMinorVersion < 3) {
-	$sMessage = 'libVSC requires PHP version >= 5.3. Your current version is: '.$sVersion;
+if ($iMajorVersion < 5 || ($iMajorVersion == 5 && $iMinorVersion < 5)) {
+	$sMessage = 'libVSC requires PHP version >= 5.5. Your current version is: '.$sVersion;
 
 	throw new ErrorException($sMessage, E_USER_ERROR);
 }
