@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: habarnam
- * Date: 1/4/15
- * Time: 12:47 AM
- */
-
 namespace lib\infrastructure\urls\UrlParserA;
 
 

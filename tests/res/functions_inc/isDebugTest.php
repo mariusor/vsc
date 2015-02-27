@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: habarnam
- * Date: 1/4/15
- * Time: 12:06 AM
- */
-
 namespace res\functions_inc;
 
 

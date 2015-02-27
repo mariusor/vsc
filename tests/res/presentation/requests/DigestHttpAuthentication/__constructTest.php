@@ -12,7 +12,7 @@ use vsc\presentation\requests\HttpRequestTypes;
 class __constructTest extends \PHPUnit_Framework_TestCase {
 
 	public function test__construct() {
-		$realm = 'testrealm@host.com';
+		$realm = 'testrealm@Whost.com';
 		$user = 'Mufasa';
 		$nonce = 'dcd98b7102dd2f0e8b11d0f600bfb0c093';
 		$uri = '/dir/index.html';

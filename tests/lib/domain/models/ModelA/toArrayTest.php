@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: habarnam
- * Date: 1/3/15
- * Time: 8:15 PM
- */
-
 namespace lib\domain\models\ModelA;
 use vsc\domain\models\ModelA;
 

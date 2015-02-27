@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: habarnam
- * Date: 2/21/15
- * Time: 5:15 PM
- */
-
 namespace lib\application\sitemaps\SiteMapA;
 
 

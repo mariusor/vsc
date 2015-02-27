@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: habarnam
- * Date: 2/21/15
- * Time: 7:53 PM
- */
-
 namespace res\application\sitemaps\ClassMap;
 
 use fixtures\application\processors\ProcessorFixture;
