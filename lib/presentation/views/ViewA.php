@@ -263,6 +263,9 @@ abstract class ViewA extends Object implements ViewI {
 			$sTemplatePath .= DIRECTORY_SEPARATOR.$sViewFolder;
 		}
 
+		if (!is_dir($sTemplatePath)) {
+			return null;
+		}
 		if (!UrlRWParser::hasGoodTermination($sTemplatePath, DIRECTORY_SEPARATOR)) {
 			$sTemplatePath .= DIRECTORY_SEPARATOR;
 		}
