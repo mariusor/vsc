@@ -19,7 +19,7 @@ class getTemplatePath extends \PHPUnit_Framework_TestCase
 		$oRequest  = new PopulatedRequest();
 		vsc::getEnv()->setHttpRequest($oRequest);
 
-		$genericTemplatePath = VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR;
+		$genericTemplatePath = VSC_FIXTURE_PATH.'templates'.DIRECTORY_SEPARATOR;
 		$this->assertEquals($genericTemplatePath, $o->getTemplatePath());
 	}
 }
