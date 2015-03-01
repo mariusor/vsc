@@ -28,7 +28,11 @@ abstract class SiteMapA extends Object {
 	 * @return string
 	 */
 	public function getBaseRegex() {
-		return (string)$this->getCurrentModuleMap()->getRegex();
+		$oModuleMap = $this->getCurrentModuleMap();
+		if (ModuleMap::isValid($oModuleMap)) {
+			return (string)$oModuleMap->getRegex();
+		}
+		return null;
 	}
 
 	/**
@@ -184,9 +188,6 @@ abstract class SiteMapA extends Object {
 	 * @returns ModuleMap
 	 */
 	public function getCurrentModuleMap() {
-		if (!MappingA::isValid($this->oCurrentModuleMap)) {
-			$this->oCurrentModuleMap = new ModuleMap(VSC_RES_PATH.'config/map.php', '');
-		}
 		return $this->oCurrentModuleMap;
 	}
 
@@ -195,9 +196,13 @@ abstract class SiteMapA extends Object {
 	 */
 	public function getParentModuleMap() {
 		if (MappingA::isValid($this->oCurrentModuleMap)) {
-			return $this->oCurrentModuleMap->getModuleMap();
+			$oParentModule = $this->oCurrentModuleMap->getModuleMap();
+			if (ModuleMap::isValid($oParentModule)) {
+				return $oParentModule;
+			}
 		}
-		return null;
+		// return a default root node
+		return new ModuleMap(VSC_RES_PATH.'config/map.php', '');
 	}
 
 	/**

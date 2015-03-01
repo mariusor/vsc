@@ -11,8 +11,9 @@ class getParentModuleMap extends \PHPUnit_Framework_TestCase
 {
 	public function testEmptyAtInitialization ()
 	{
+		$defaultRoot = new ModuleMap(VSC_RES_PATH.'config/map.php', '');
 		$o = new SiteMapA_underTest_getParentModuleMap();
-		$this->assertNull($o->getParentModuleMap());
+		$this->assertEquals($defaultRoot, $o->getParentModuleMap());
 	}
 
 	public function testBasicGetParentModuleMap ()
