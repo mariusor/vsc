@@ -15,7 +15,6 @@
 // this will break if the current map is the first loaded
 $this->getCurrentModuleMap()->setMainTemplatePath(VSC_RES_PATH.'templates');
 $this->getCurrentModuleMap()->setMainTemplate('main.php');
-$this->getCurrentModuleMap()->setTemplatePath(VSC_RES_PATH.'templates');
 
 //$oMap = $this->map ('.+', \vsc\application\processors\EmptyProcessor::class);
 //$oMap->setTemplate ('content.php');
@@ -29,6 +28,7 @@ $this->getCurrentModuleMap()->setTemplatePath(VSC_RES_PATH.'templates');
 
 // fallback 404 processor for everything
 $oMap = $this->map('(.*)\Z', \vsc\application\processors\NotFoundProcessor::class);
+$oMap->setTemplatePath(VSC_RES_PATH.'templates');
 $oMap->setTemplate('404.php');
 
 // front controllers
