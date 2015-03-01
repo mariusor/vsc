@@ -287,6 +287,6 @@ class RwDispatcher extends HttpDispatcherA {
 		$aMaps = $this->getSiteMap()->getMaps();
 		$oProcessorMap = $this->getCurrentMap($aMaps);
 
-		return $oProcessorMap->getTemplate();
+		return $oProcessorMap->getTemplatePath();
 	}
 }
