@@ -46,7 +46,7 @@ trait ControllerMapT {
 			// back-up
 			$this->sMainTemplatePath = VSC_RES_PATH.'templates';
 		}
-		if (substr($this->sMainTemplatePath, 0, -1) != DIRECTORY_SEPARATOR) {
+		if (substr($this->sMainTemplatePath, -1) != DIRECTORY_SEPARATOR) {
 			$this->sMainTemplatePath .= DIRECTORY_SEPARATOR;
 		}
 		return $this->sMainTemplatePath;

@@ -140,7 +140,11 @@ abstract class FrontControllerA extends Object {
 
 		try {
 			if (((ProcessorMap::isValid($oMap) || ClassMap::isValid($oMap)) && !$oMap->isStatic() && !$oMyMap->isStatic()) && (ControllerMap::isValid($oMyMap) || ClassMap::isValid($oMyMap))) {
-				$oView->setMainTemplate($oMyMap->getMainTemplatePath().DIRECTORY_SEPARATOR.$oView->getViewFolder().DIRECTORY_SEPARATOR.$oMyMap->getMainTemplate());
+				$oView->setMainTemplate(
+					$oMyMap->getMainTemplatePath().
+					$oView->getViewFolder().DIRECTORY_SEPARATOR.
+					$oMyMap->getMainTemplate()
+				);
 			}
 		} catch (ExceptionPath $e) {
 			// fallback to html5
