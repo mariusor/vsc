@@ -8,6 +8,6 @@ before_script: composer dump-autoload
 
 script: phpunit -c tests/phpunit.xml tests/
 
-notifications:
-    email:
-        - marius@habarnam.ro
+#notifications:
+#    email:
+#        - marius@habarnam.ro
