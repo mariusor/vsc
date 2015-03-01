@@ -10,8 +10,7 @@ class getTemplate extends \PHPUnit_Framework_TestCase
 	public function testDefaultValue ()
 	{
 		$o = new MappingA_underTest_getTemplate();
-		$genericTemplatePath = VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR;
-		$this->assertEquals($genericTemplatePath, $o->getTemplatePath());
+		$this->assertNull($o->getTemplatePath());
 	}
 }
 

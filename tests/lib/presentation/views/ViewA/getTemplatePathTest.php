@@ -15,9 +15,7 @@ class getTemplatePath extends \PHPUnit_Framework_TestCase
 		$oMap = new ProcessorMap('', '');
 		$o->setMap($oMap);
 
-		$genericTemplatePath = VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR;
-
-		$this->assertEquals($genericTemplatePath, $o->getTemplatePath());
+		$this->assertNull($o->getTemplatePath());
 	}
 }
 

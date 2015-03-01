@@ -15,7 +15,7 @@ class getModuleMap extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf(MappingA::class, $oMap);
 		$this->assertInstanceOf(ModuleMap::class, $oMap);
 
-		$this->assertEquals(VSC_RES_PATH . 'config/map.php', $oMap->getPath());
+		$this->assertEquals(VSC_RES_PATH, $oMap->getPath());
 		$this->assertEquals('', $oMap->getRegex());
 	}
 
@@ -29,7 +29,7 @@ class getModuleMap extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf(MappingA::class, $oMap);
 		$this->assertInstanceOf(ModuleMap::class, $oMap);
 
-		$this->assertEquals(__FILE__, $oMap->getPath());
+		$this->assertEquals(dirname(__FILE__).DIRECTORY_SEPARATOR, $oMap->getPath());
 		$this->assertEquals($sRegex, $oMap->getRegex());
 	}
 }

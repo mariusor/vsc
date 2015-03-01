@@ -19,7 +19,7 @@ class setModuleMap extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf(MappingA::class, $oMap);
 		$this->assertInstanceOf(ModuleMap::class, $oMap);
 
-		$this->assertEquals(__FILE__, $oMap->getPath());
+		$this->assertEquals(dirname(__FILE__).DIRECTORY_SEPARATOR, $oMap->getPath());
 		$this->assertEquals($sRegex, $oMap->getRegex());
 	}
 }

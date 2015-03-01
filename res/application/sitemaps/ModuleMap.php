@@ -7,9 +7,22 @@
  */
 namespace vsc\application\sitemaps;
 
+use vsc\infrastructure\urls\UrlRWParser;
+
 class ModuleMap extends MappingA implements ContentTypeMappingI {
 	private $sMainTemplatePath;
 	private $sMainTemplate;
+
+	public function __construct($sPath, $sRegex) {
+		$sPath = realpath(dirname($sPath));
+		if (basename($sPath) == 'config') {
+			$sPath = substr($sPath, 0, -7);
+		}
+
+		$sPath .= DIRECTORY_SEPARATOR;
+		$this->setTemplatePath(VSC_RES_PATH.'templates'.DIRECTORY_SEPARATOR);
+		parent::__construct($sPath, $sRegex);
+	}
 
 	public function setMainTemplatePath($sPath) {
 		$this->sMainTemplatePath = $this->getValidPath($sPath);
@@ -40,10 +53,9 @@ class ModuleMap extends MappingA implements ContentTypeMappingI {
 			$sModulePath = $this->getModuleMap()->getModulePath();
 		}
 
-		$sModulePath = realpath(dirname($sModulePath));
-		if (basename($sModulePath) == 'config') {
-			$sModulePath = substr($sModulePath, 0, -7);
+		if (!UrlRWParser::hasGoodTermination($sModulePath, DIRECTORY_SEPARATOR)) {
+			$sModulePath .= DIRECTORY_SEPARATOR;
 		}
-		return $sModulePath.DIRECTORY_SEPARATOR;
+		return $sModulePath;
 	}
 }

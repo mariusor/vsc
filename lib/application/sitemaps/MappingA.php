@@ -61,7 +61,6 @@ abstract class MappingA extends Object {
 	public function __construct($sPath, $sRegex) {
 		$this->sPath = $sPath;
 		$this->sRegex = $sRegex;
-		$this->sViewPath = VSC_RES_PATH.'templates'.DIRECTORY_SEPARATOR;
 	}
 
 	public function getRegex() {
@@ -160,7 +159,7 @@ abstract class MappingA extends Object {
 	 * @throws ExceptionSitemap
 	 */
 	public function setTemplatePath($sPath) {
-		$this->sViewPath = $this->getValidPath($sPath);;
+		$this->sViewPath = $this->getValidPath($sPath);
 	}
 
 	/**
