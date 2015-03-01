@@ -459,6 +459,8 @@ class UrlParserA extends Object implements UrlParserI {
 
 	/**
 	 * @param string $sUri
+	 * @param string $sTermination
+	 * @return bool
 	 */
 	public static function hasGoodTermination($sUri, $sTermination = '/') {
 		// last element should be an / or in the last part after / there should be a .

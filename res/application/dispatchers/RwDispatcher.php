@@ -139,11 +139,6 @@ class RwDispatcher extends HttpDispatcherA {
 		if (!FrontControllerA::isValid($this->oController)) {
 			$oControllerMapping = $this->getCurrentControllerMap();
 
-//			if (!ControllerMap::isValid($oControllerMapping)) {
-//				// this mainly means nothing was matched to our url, or no mappings exist
-//				$oControllerMapping = new ClassMap(XhtmlController::class, '');
-//			}
-
 			if (ControllerMap::isValid($oControllerMapping)) {
 				$sPath = $oControllerMapping->getPath();
 				if ($this->getSiteMap()->isValidObjectPath($sPath)) {
@@ -194,13 +189,6 @@ class RwDispatcher extends HttpDispatcherA {
 				if ($this->getSiteMap()->isValidObjectPath($sPath) || (stristr(basename($sPath), '.') === false && !is_file($sPath))) {
 					// dirty import of the module folder and important subfolders
 					$sModuleName = $oProcessorMap->getModuleName();
-//					if ( is_dir ($oProcessorMap->getModulePath()) && !$oProcessorMap->isStatic() ) {
-//						try {
-//							import ($sModuleName);
-//						} catch (ExceptionPath $e) {
-//							// ooopps
-//						}
-//					}
 					if (stristr(basename($sPath), '.') === false && !is_file($sPath)) {
 						// namespaced class name
 						$sProcessorName = $sPath;
