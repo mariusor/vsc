@@ -6,7 +6,7 @@ use vsc\infrastructure\StringUtils;
 /**
  * Class encodeEntitiesTest
  * @package res\infrastructure\StringUtils
- * @covers \vsc\infrastructure\String::encodeEntities()
+ * @covers \vsc\infrastructure\StringUtils::encodeEntities()
  */
 class encodeEntitiesTest extends \PHPUnit_Framework_TestCase {
 

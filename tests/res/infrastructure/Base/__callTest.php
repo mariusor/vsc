@@ -3,7 +3,7 @@ namespace tests\res\infrastructure\Base;
 use vsc\infrastructure\Base;
 
 /**
- * @covers \vsc\infrastructure\Null::__call()
+ * @covers \vsc\infrastructure\Base::__call()
  */
 class __call extends \PHPUnit_Framework_TestCase
 {

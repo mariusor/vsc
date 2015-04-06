@@ -6,7 +6,7 @@ use vsc\infrastructure\StringUtils;
 /**
  * Class stripScriptTagsTest
  * @package res\infrastructure\StringUtils
- * @covers \vsc\infrastructure\String::stripScriptTags()
+ * @covers \vsc\infrastructure\StringUtils::stripScriptTags()
  */
 class stripScriptTagsTest extends \PHPUnit_Framework_TestCase {
 

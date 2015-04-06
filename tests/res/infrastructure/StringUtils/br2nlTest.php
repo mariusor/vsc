@@ -5,7 +5,7 @@ use vsc\infrastructure\StringUtils;
 /**
  * Class br2nlTest
  * @package res\infrastructure\StringUtils
- * @covers \vsc\infrastructure\String::br2nl()
+ * @covers \vsc\infrastructure\StringUtils::br2nl()
  */
 class br2nlTest extends \PHPUnit_Framework_TestCase {
 

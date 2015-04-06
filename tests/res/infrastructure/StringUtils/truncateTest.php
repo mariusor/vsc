@@ -5,7 +5,7 @@ use vsc\infrastructure\StringUtils;
 /**
  * Class truncateTest
  * @package res\infrastructure\StringUtils
- * @covers \vsc\infrastructure\String::truncate()
+ * @covers \vsc\infrastructure\StringUtils::truncate()
  */
 class truncateTest extends \PHPUnit_Framework_TestCase {
 

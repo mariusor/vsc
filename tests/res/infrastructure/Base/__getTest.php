@@ -3,7 +3,7 @@ namespace tests\res\infrastructure\Base;
 use vsc\infrastructure\Base;
 
 /**
- * @covers \vsc\infrastructure\Null::__get()
+ * @covers \vsc\infrastructure\Base::__get()
  */
 class __get extends \PHPUnit_Framework_TestCase
 {

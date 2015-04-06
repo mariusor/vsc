@@ -6,7 +6,7 @@ use vsc\infrastructure\StringUtils;
 /**
  * Class _echoTest
  * @package res\infrastructure\StringUtils
- * @covers \vsc\infrastructure\String::_echo()
+ * @covers \vsc\infrastructure\StringUtils::_echo()
  */
 class _echoTest extends \PHPUnit_Framework_TestCase {
 

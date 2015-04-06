@@ -5,7 +5,7 @@ use vsc\infrastructure\StringUtils;
 /**
  * Class allTrimTest
  * @package res\infrastructure\StringUtils
- * @covers \vsc\infrastructure\String::allTrim()
+ * @covers \vsc\infrastructure\StringUtils::allTrim()
  */
 class allTrimTest extends \PHPUnit_Framework_TestCase {
 

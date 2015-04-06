@@ -6,7 +6,7 @@ use vsc\infrastructure\StringUtils;
 /**
  * Class stripEntitiesTest
  * @package res\infrastructure\StringUtils
- * @covers \vsc\infrastructure\String::stripEntities()
+ * @covers \vsc\infrastructure\StringUtils::stripEntities()
  */
 class stripEntitiesTest extends \PHPUnit_Framework_TestCase {
 

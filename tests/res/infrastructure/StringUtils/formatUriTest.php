@@ -6,7 +6,7 @@ use vsc\infrastructure\StringUtils;
 /**
  * Class formatUriTest
  * @package res\infrastructure\StringUtils
- * @covers \vsc\infrastructure\String::formatUri()
+ * @covers \vsc\infrastructure\StringUtils::formatUri()
  */
 class formatUriTest extends \PHPUnit_Framework_TestCase {
 

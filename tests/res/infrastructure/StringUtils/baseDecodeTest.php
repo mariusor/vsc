@@ -6,7 +6,7 @@ use vsc\infrastructure\StringUtils;
 /**
  * Class baseDecodeTest
  * @package res\infrastructure\StringUtils
- * @covers \vsc\infrastructure\String::baseDecode()
+ * @covers \vsc\infrastructure\StringUtils::baseDecode()
  */
 class baseDecodeTest extends \PHPUnit_Framework_TestCase {
 	public function testBaseDecode () {
