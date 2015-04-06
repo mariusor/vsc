@@ -6,7 +6,7 @@
  */
 namespace vsc\infrastructure;
 
-class String {
+class StringUtils {
 
 	/**
 	 * @param string $sString

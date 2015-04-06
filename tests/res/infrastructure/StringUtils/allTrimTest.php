@@ -1,10 +1,10 @@
 <?php
-namespace res\infrastructure\String;
-use vsc\infrastructure\String;
+namespace res\infrastructure\StringUtils;
+use vsc\infrastructure\StringUtils;
 
 /**
  * Class allTrimTest
- * @package res\infrastructure\String
+ * @package res\infrastructure\StringUtils
  * @covers \vsc\infrastructure\String::allTrim()
  */
 class allTrimTest extends \PHPUnit_Framework_TestCase {
@@ -16,10 +16,10 @@ class allTrimTest extends \PHPUnit_Framework_TestCase {
 		$newlines = sprintf("\n\n%s\r\n\r\r", $test);
 		$mixed = sprintf("\n\t   \n \r  \t%s\r\n   \r\t\r", $test);
 
-		$this->assertEquals($test, String::allTrim($spaces));
-		$this->assertEquals($test, String::allTrim($tabs));
-		$this->assertEquals($test, String::allTrim($newlines));
-		$this->assertEquals($test, String::allTrim($mixed));
+		$this->assertEquals($test, StringUtils::allTrim($spaces));
+		$this->assertEquals($test, StringUtils::allTrim($tabs));
+		$this->assertEquals($test, StringUtils::allTrim($newlines));
+		$this->assertEquals($test, StringUtils::allTrim($mixed));
 	}
 
 }

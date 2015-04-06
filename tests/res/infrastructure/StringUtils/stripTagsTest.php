@@ -1,11 +1,11 @@
 <?php
-namespace res\infrastructure\String;
+namespace res\infrastructure\StringUtils;
 
-use vsc\infrastructure\String;
+use vsc\infrastructure\StringUtils;
 
 /**
  * Class stripTagsTest
- * @package res\infrastructure\String
+ * @package res\infrastructure\StringUtils
  * @covers \vsc\infrastructure\String::stripTags()
  */
 class stripTagsTest extends \PHPUnit_Framework_TestCase {
@@ -15,7 +15,7 @@ class stripTagsTest extends \PHPUnit_Framework_TestCase {
 <div>Lorem <span>ipsum</span> dolor <a href="test">sic</a> amet.</div>
 START;
 ;
-		$this->assertEquals(strip_tags($test), String::stripTags($test));
-		$this->assertEquals('Lorem ipsum dolor sic amet.', String::stripTags($test));
+		$this->assertEquals(strip_tags($test), StringUtils::stripTags($test));
+		$this->assertEquals('Lorem ipsum dolor sic amet.', StringUtils::stripTags($test));
 	}
 }

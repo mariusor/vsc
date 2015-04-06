@@ -1,17 +1,17 @@
 <?php
-namespace res\infrastructure\String;
+namespace res\infrastructure\StringUtils;
 
-use vsc\infrastructure\String;
+use vsc\infrastructure\StringUtils;
 
 /**
  * Class stripEntitiesTest
- * @package res\infrastructure\String
+ * @package res\infrastructure\StringUtils
  * @covers \vsc\infrastructure\String::stripEntities()
  */
 class stripEntitiesTest extends \PHPUnit_Framework_TestCase {
 
 	public function testBasicStripEntities() {
 		$test = 'test';
-		$this->assertEquals(htmlentities($test), String::stripEntities($test));
+		$this->assertEquals(htmlentities($test), StringUtils::stripEntities($test));
 	}
 }

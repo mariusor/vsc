@@ -1,17 +1,17 @@
 <?php
-namespace res\infrastructure\String;
+namespace res\infrastructure\StringUtils;
 
-use vsc\infrastructure\String;
+use vsc\infrastructure\StringUtils;
 
 /**
  * Class encodeEntitiesTest
- * @package res\infrastructure\String
+ * @package res\infrastructure\StringUtils
  * @covers \vsc\infrastructure\String::encodeEntities()
  */
 class encodeEntitiesTest extends \PHPUnit_Framework_TestCase {
 
 	public function testUseless() {
 		$sString = 'ana are mere gigel <a /> ';
-		$this->assertEquals(htmlentities($sString, ENT_QUOTES, 'UTF-8'), String::encodeEntities($sString));
+		$this->assertEquals(htmlentities($sString, ENT_QUOTES, 'UTF-8'), StringUtils::encodeEntities($sString));
 	}
 }

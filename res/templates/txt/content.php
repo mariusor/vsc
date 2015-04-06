@@ -1,12 +1,12 @@
 <?php
-use vsc\infrastructure\String;
+use vsc\infrastructure\StringUtils;
 use vsc\infrastructure\vsc;
 use \vsc\Exception;
 
 /* @var $this \vsc\presentation\views\PlainTextView  */ ?>
 Default TXT template
 
-This is the default txt template from the <?php echo String::stripTags(vsc::name()); ?> framework.
+This is the default txt template from the <?php echo StringUtils::stripTags(vsc::name()); ?> framework.
 In order to add content, you need to:
 
 	- add the <?php echo $this->getViewFolder() ?> folder in your module's template folder: <?php echo $this->getMap()->getTemplatePath(); ?>

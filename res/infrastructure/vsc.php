@@ -185,11 +185,11 @@ class vsc extends Object {
 			$output .= ob_get_clean();
 
 			if (self::isCLi() || self::getEnv()->getHttpRequest()->accepts('application/json')) {
-				echo String::stripTags(String::br2nl($output));
+				echo StringUtils::stripTags(StringUtils::br2nl($output));
 			} elseif (self::getEnv()->getHttpRequest()->accepts('text/html')) {
 				echo '<pre>'.$output.'</pre>';
 			} else {
-				echo String::stripTags(String::br2nl($output));
+				echo StringUtils::stripTags(StringUtils::br2nl($output));
 			}
 
 			exit ();

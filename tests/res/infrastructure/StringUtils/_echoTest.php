@@ -1,11 +1,11 @@
 <?php
-namespace res\infrastructure\String;
+namespace res\infrastructure\StringUtils;
 
-use vsc\infrastructure\String;
+use vsc\infrastructure\StringUtils;
 
 /**
  * Class _echoTest
- * @package res\infrastructure\String
+ * @package res\infrastructure\StringUtils
  * @covers \vsc\infrastructure\String::_echo()
  */
 class _echoTest extends \PHPUnit_Framework_TestCase {
@@ -15,7 +15,7 @@ class _echoTest extends \PHPUnit_Framework_TestCase {
 		$times = 3;
 
 		ob_start();
-		String::_echo($test, $times);
+		StringUtils::_echo($test, $times);
 		$output = ob_end_clean();
 		$this->assertEquals(strlen($test) * $times, $output);
 	}
