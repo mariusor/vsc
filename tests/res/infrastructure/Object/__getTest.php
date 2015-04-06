@@ -2,7 +2,7 @@
 namespace tests\res\infrastructure\Object;
 use vsc\infrastructure\Object;
 use vsc\infrastructure\vsc;
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 use vsc\ExceptionUnimplemented;
 use vsc\Exception;
 
@@ -41,8 +41,8 @@ class __get extends \PHPUnit_Framework_TestCase
 
 		vsc::setInstance($env);
 
-		$this->assertInstanceOf(Null::class, $null->__get( uniqid('test')));
-		$this->assertInstanceOf(Null::class, $null->test);
+		$this->assertInstanceOf(Base::class, $null->__get( uniqid('test')));
+		$this->assertInstanceOf(Base::class, $null->test);
 	}
 }
 

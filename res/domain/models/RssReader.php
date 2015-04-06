@@ -8,7 +8,7 @@
 namespace vsc\domain\models;
 
 use vsc\domain\domain\RssItem;
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 use vsc\ExceptionUnimplemented;
 
 class RssReader extends XmlReader {
@@ -38,7 +38,7 @@ class RssReader extends XmlReader {
 		if (isset ($this->items[$iIndex])) {
 			return $this->items[$iIndex];
 		} else {
-			return new Null();
+			return new Base();
 		}
 	}
 

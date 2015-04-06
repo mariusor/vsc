@@ -4,7 +4,7 @@ use fixtures\presentation\views\NullView;
 use vsc\application\controllers\FrontControllerA;
 use vsc\application\processors\ProcessorA;
 use vsc\domain\models\ModelA;
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 use vsc\infrastructure\Object;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\RawHttpRequest;
@@ -17,8 +17,8 @@ use vsc\rest\application\processors\RESTProcessorA;
 class isValid extends \PHPUnit_Framework_TestCase
 {
 	public function testIsValid () {
-		$TestVar = new Null();
-		$this->assertTrue (Null::isValid($TestVar));
+		$TestVar = new Base();
+		$this->assertTrue (Base::isValid($TestVar));
 		$this->assertTrue (Object::isValid($TestVar));
 
 		$TestVar = new RESTProcessorA_underTest_isValid();

@@ -1,6 +1,6 @@
 <?php
 namespace tests\res\infrastructure\Object;
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 use vsc\infrastructure\Object;
 use vsc\infrastructure\vsc;
 use fixtures\infrastructure\ObjectFixture;
@@ -49,8 +49,8 @@ class __call extends \PHPUnit_Framework_TestCase
 
 		vsc::setInstance($env);
 
-		$this->assertInstanceOf(Null::class, $null->__call ( uniqid('test'), array()));
-		$this->assertInstanceOf(Null::class, $null->test());
+		$this->assertInstanceOf(Base::class, $null->__call ( uniqid('test'), array()));
+		$this->assertInstanceOf(Base::class, $null->test());
 	}
 }
 

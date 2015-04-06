@@ -1,7 +1,7 @@
 <?php
 namespace tests\lib\presentation\responses\ResponseA;
 use vsc\presentation\responses\ResponseA;
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 use vsc\presentation\views\ViewA;
 
 /**
@@ -12,7 +12,7 @@ class getView extends \PHPUnit_Framework_TestCase
 	public function testEmptyAtInitialization()
 	{
 		$o = new ResponseA_underTest_getView();
-		$this->assertInstanceOf(Null::class, $o->getView());
+		$this->assertInstanceOf(Base::class, $o->getView());
 	}
 
 	public function testBasicGetView ()

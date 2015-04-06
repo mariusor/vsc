@@ -1,6 +1,6 @@
 <?php
 namespace tests\res\infrastructure\Object;
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 use vsc\infrastructure\vsc;
 use vsc\infrastructure\Object;
 use vsc\ExceptionUnimplemented;
@@ -37,8 +37,8 @@ class __callStatic extends \PHPUnit_Framework_TestCase
 
 		vsc::setInstance($env);
 
-		$this->assertInstanceOf(Null::class, Object_underTest___callStatic::__callStatic('test', array()));
-		$this->assertInstanceOf(Null::class, Object_underTest___callStatic::testCall('test'));
+		$this->assertInstanceOf(Base::class, Object_underTest___callStatic::__callStatic('test', array()));
+		$this->assertInstanceOf(Base::class, Object_underTest___callStatic::testCall('test'));
 	}
 }
 

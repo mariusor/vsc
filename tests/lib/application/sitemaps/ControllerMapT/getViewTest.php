@@ -3,7 +3,7 @@ namespace tests\lib\application\sitemaps\ControllerMapT;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ControllerMapT;
 use fixtures\presentation\views\NullView;
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 use vsc\presentation\views\ViewA;
 
 /**

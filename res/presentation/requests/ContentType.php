@@ -1,9 +1,9 @@
 <?php
 namespace vsc\presentation\requests;
 
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 
-class ContentType extends Null {
+class ContentType extends Base {
 	public static function isAccepted($sContentType, $aContentTypes) {
 		foreach ($aContentTypes as $key => $sEntry) {
 			$iSemicolonPosition = strpos($sEntry, ';');

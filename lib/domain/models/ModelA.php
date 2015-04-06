@@ -7,10 +7,10 @@
  */
 namespace vsc\domain\models;
 
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 use vsc\ExceptionUnimplemented;
 
-abstract class ModelA extends Null implements ModelI {
+abstract class ModelA extends Base implements ModelI {
 	/**
 	 * @var string
 	 */

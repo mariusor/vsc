@@ -10,7 +10,7 @@ namespace vsc\application\sitemaps;
 use vsc\application\controllers\ExceptionController;
 use vsc\infrastructure\urls\UrlParserA;
 use vsc\infrastructure\urls\UrlRWParser;
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 use vsc\infrastructure\Object;
 use vsc\presentation\requests\HttpAuthenticationA;
 
@@ -470,7 +470,7 @@ abstract class MappingA extends Object {
 		if ($bHaveMatch) {
 			return new UrlRWParser($aMatches[0]);
 		} else {
-			return new Null();
+			return new Base();
 		}
 	}
 

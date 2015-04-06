@@ -6,18 +6,18 @@
  */
 namespace vsc\infrastructure;
 
-class Null extends Object {
+class Base extends Object {
 	public function __call($sMethodName, $aVars) {
 		if (stristr($sMethodName, 'get')) {
 			// we have a getter we return $this
-			return new Null();
+			return new static();
 		} elseif (!stristr($sMethodName, 'set')) {
 			return parent::__call($sMethodName, $aVars);
 		}
 	}
 
 	public function __get($sVarName) {
-		return new Null();
+		return new static();
 	}
 
 	public function __toString() {

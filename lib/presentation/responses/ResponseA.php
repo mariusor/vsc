@@ -8,10 +8,10 @@
 namespace vsc\presentation\responses;
 
 use vsc\infrastructure\vsc;
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 use vsc\presentation\views\ViewA;
 
-abstract class ResponseA extends Null {
+abstract class ResponseA extends Base {
 	/**
 	 * @var ViewA
 	 */
@@ -38,7 +38,7 @@ abstract class ResponseA extends Null {
 
 	public function getView() {
 		if (!ViewA::isValid($this->oView)) {
-			$this->oView = new Null();
+			$this->oView = new Base();
 		}
 		return $this->oView;
 	}

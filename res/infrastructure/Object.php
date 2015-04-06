@@ -13,7 +13,7 @@ abstract class Object {
 		if (vsc::getEnv()->isDevelopment()) {
 			throw new ExceptionUnimplemented('Method ['.get_class($this).'::'.$sMethodName.'] not implemented for calling.');
 		} else {
-			return new Null();
+			return new Base();
 		}
 	}
 
@@ -21,7 +21,7 @@ abstract class Object {
 		if (vsc::getEnv()->isDevelopment()) {
 			throw new ExceptionUnimplemented('Method ['.get_class().'::'.$sMethodName.'] not implemented for calling statically.');
 		} else {
-			return new Null();
+			return new Base();
 		}
 	}
 
@@ -29,7 +29,7 @@ abstract class Object {
 		if (vsc::getEnv()->isDevelopment()) {
 			throw new ExceptionUnimplemented('Property ['.get_class($this).'::'.$sVarName.'] not implemented for reading.');
 		} else {
-			return new Null();
+			return new Base();
 		}
 	}
 

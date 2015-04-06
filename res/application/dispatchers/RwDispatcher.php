@@ -26,7 +26,7 @@ use vsc\infrastructure\vsc;
 use vsc\presentation\requests\RwHttpRequest;
 use vsc\presentation\responses\ExceptionResponseError;
 use vsc\presentation\responses\ExceptionResponseRedirect;
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 use vsc\ExceptionError;
 use vsc\presentation\responses\HttpResponseType;
 
@@ -122,7 +122,7 @@ class RwDispatcher extends HttpDispatcherA {
 			$oModuleMap		= $oCurrentModule->getModuleMap();
 			$aMaps = $oModuleMap->getControllerMaps();
 			$oCurrentMap	= $this->getCurrentMap($aMaps);
-			if ($oCurrentMap instanceof Null) {
+			if ($oCurrentMap instanceof Base) {
 				return $oCurrentMap;
 			}
 		}

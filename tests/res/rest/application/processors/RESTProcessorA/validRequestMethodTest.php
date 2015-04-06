@@ -3,7 +3,7 @@ namespace res\rest\application\processors\RESTProcessorA;
 use vsc\rest\application\processors\RESTProcessorA;
 use vsc\presentation\requests\HttpRequestTypes;
 use vsc\presentation\requests\HttpRequestA;
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 use vsc\presentation\requests\RawHttpRequest;
 
 
@@ -61,7 +61,7 @@ class RESTProcessorA_underTest_validRequestMethod extends RESTProcessorA {
 
 	public function handleGet(HttpRequestA $oRequest)
 	{
-		return new Null();
+		return new Base();
 	}
 
 	public function handleHead(HttpRequestA $oRequest)

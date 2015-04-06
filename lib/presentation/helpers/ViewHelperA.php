@@ -8,10 +8,10 @@
 namespace vsc\presentation\helpers;
 
 use vsc\domain\models\ModelA;
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 use vsc\presentation\views\ViewA;
 
-class ViewHelperA extends Null /* implements ViewI  */ {
+class ViewHelperA extends Base /* implements ViewI  */ {
 	private $sName;
 
 	/**

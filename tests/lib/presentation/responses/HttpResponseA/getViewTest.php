@@ -1,7 +1,7 @@
 <?php
 namespace tests\lib\presentation\responses\HttpResponseA;
 use vsc\presentation\responses\HttpResponseA;
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::getView()
@@ -12,7 +12,7 @@ class getView extends \PHPUnit_Framework_TestCase
 	{
 		$o = new HttpResponseA_underTest_getView();
 
-		$this->assertInstanceOf(Null::class, $o->getView());
+		$this->assertInstanceOf(Base::class, $o->getView());
 	}
 }
 

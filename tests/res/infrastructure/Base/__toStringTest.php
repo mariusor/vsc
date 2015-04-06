@@ -1,8 +1,8 @@
 <?php
-namespace tests\res\infrastructure\Null;
+namespace tests\res\infrastructure\Base;
 use vsc\Exception;
 use vsc\ExceptionUnimplemented;
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 use vsc\infrastructure\vsc;
 
 /**
@@ -12,7 +12,7 @@ class __toString extends \PHPUnit_Framework_TestCase
 {
 	public function test__setDev ()
 	{
-		$null = new Null();
+		$null = new Base();
 
 		$env = new vsc_underTest___toString();
 		$env->setIsDevelopment(true);

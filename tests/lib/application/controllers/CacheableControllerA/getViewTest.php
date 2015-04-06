@@ -4,7 +4,7 @@ namespace lib\application\controllers\CacheableControllerA;
 use fixtures\presentation\views\testView;
 use vsc\application\controllers\CacheableControllerA;
 use vsc\application\sitemaps\ControllerMap;
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 use vsc\presentation\views\ViewA;
 
 class getViewTest extends \PHPUnit_Framework_TestCase {
@@ -18,7 +18,7 @@ class getViewTest extends \PHPUnit_Framework_TestCase {
 		$v = $state->getView();
 
 		$this->assertNotNull($v);
-		$this->assertNotInstanceOf(Null::class, $v);
+		$this->assertNotInstanceOf(Base::class, $v);
 		$this->assertInstanceOf(testView::class, $v);
 		$this->assertInstanceOf(ViewA::class, $v);
 	}

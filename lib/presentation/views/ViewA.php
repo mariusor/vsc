@@ -15,7 +15,7 @@ use vsc\domain\models\ModelA;
 use vsc\infrastructure\urls\UrlParserA;
 use vsc\infrastructure\urls\UrlRWParser;
 use vsc\infrastructure\vsc;
-use vsc\infrastructure\Null;
+use vsc\infrastructure\Base;
 use vsc\infrastructure\Object;
 use vsc\presentation\helpers\ViewHelperA;
 use vsc\ExceptionPath;
@@ -161,7 +161,7 @@ abstract class ViewA extends Object implements ViewI {
 
 	/**
 	 * @param $sVarName
-	 * @return void|Null
+	 * @return Base
 	 */
 	public function __get($sVarName) {
 		try {
@@ -181,7 +181,7 @@ abstract class ViewA extends Object implements ViewI {
 		if (ModelA::isValid($this->oModel)) {
 			return $this->oModel;
 		} else {
-			return new Null();
+			return new Base();
 		}
 	}
 
@@ -264,7 +264,7 @@ abstract class ViewA extends Object implements ViewI {
 		}
 
 		if (!is_dir($sTemplatePath)) {
-			return null;
+			return;
 		}
 		if (!UrlRWParser::hasGoodTermination($sTemplatePath, DIRECTORY_SEPARATOR)) {
 			$sTemplatePath .= DIRECTORY_SEPARATOR;
