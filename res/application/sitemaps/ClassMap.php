@@ -14,7 +14,7 @@ use vsc\presentation\responses\HttpResponseA;
 use vsc\presentation\responses\HttpResponseType;
 use vsc\presentation\views\ViewA;
 
-class ClassMap extends MappingA {
+class ClassMap extends MappingA implements ContentTypeMappingI {
 	use ProcessorMapT;
 	use ControllerMapT;
 

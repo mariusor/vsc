@@ -56,6 +56,7 @@ abstract class MappingA extends Object {
 	private $iAuthenticationType = null;
 
 	/**
+	 * @param string $sPath
 	 * @param string $sRegex
 	 */
 	public function __construct($sPath, $sRegex) {
@@ -115,12 +116,13 @@ abstract class MappingA extends Object {
 		}
 
 		if (($this instanceof ContentTypeMappingI) && ($oMap instanceof ContentTypeMappingI)) {
+			/** @var ContentTypeMappingI $oMap */
 			$sParentMainTemplatePath = $oMap->getMainTemplatePath();
-			if (!is_null($sParentMainTemplatePath) && is_null($this->getMainTemplatePath())) {
+			if (is_null($this->getMainTemplatePath())) {
 				$this->setMainTemplatePath($sParentMainTemplatePath);
 			}
 			$sParentMainTemplate = $oMap->getMainTemplate();
-			if (!is_null($sParentMainTemplate) && is_null($this->getMainTemplate())) {
+			if (is_null($this->getMainTemplate())) {
 				$this->setMainTemplate($sParentMainTemplate);
 			}
 		}
@@ -300,6 +302,7 @@ abstract class MappingA extends Object {
 
 	/**
 	 * @param string $sType
+	 * @return array
 	 */
 	public function getResources($sType = null) {
 		if (!is_null($sType)) {
