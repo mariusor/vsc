@@ -128,7 +128,6 @@ class getResponseTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testWithAuthenticatedProcessorAndMapRequiringDifferentAuthenticationType() {
-		$this->markTestSkipped('Some issue with bitwise &');
 		$o = new RESTController();
 
 		$_SERVER['PHP_AUTH_USER'] = 'alladin';
