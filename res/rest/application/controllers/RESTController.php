@@ -69,11 +69,11 @@ class RESTController extends JsonController {
 						throw new ExceptionAuthenticationNeeded('This resource requires authentication but doesn\'t support any authorization scheme');
 					}
 				} catch (ExceptionAuthenticationNeeded $e) {
-					return $this->getErrorResponse($e);
+					return $this->getErrorResponse($e, $oRequest);
 				}
 			}
 		} catch (\Exception $e) {
-			return $this->getErrorResponse($e);
+			return $this->getErrorResponse($e, $oRequest);
 		}
 		return parent::getResponse($oRequest, $oProcessor);
 	}

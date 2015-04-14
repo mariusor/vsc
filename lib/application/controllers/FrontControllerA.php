@@ -109,7 +109,7 @@ abstract class FrontControllerA extends Object {
 			} catch (\Exception $e) {
 				// we had error in the controller
 				// @todo make more error processors
-				return $this->getErrorResponse($e);
+				return $this->getErrorResponse($e, $oRequest);
 			}
 		}
 		if ($oResponse->getStatus() == 0) {
@@ -179,11 +179,12 @@ abstract class FrontControllerA extends Object {
 
 	/**
 	 * @param \Exception $e
+	 * @param HttpRequestA $oRequest
 	 * @return HttpResponseA
 	 * @throws ExceptionPath
 	 * @throws ExceptionResponse
 	 */
-	public function getErrorResponse(\Exception $e) {
+	public function getErrorResponse(\Exception $e, $oRequest = null) {
 		$oResponse = vsc::getEnv()->getHttpResponse();
 
 		$oProcessor = new ErrorProcessor($e);
@@ -194,7 +195,9 @@ abstract class FrontControllerA extends Object {
 		$oMyMap->setMainTemplatePath(VSC_RES_PATH.'templates');
 		$oMyMap->setMainTemplate('main.php');
 
-		$oRequest = vsc::getEnv()->getHttpRequest();
+		if (!HttpRequestA::isValid($oRequest)) {
+			$oRequest = vsc::getEnv()->getHttpRequest();
+		}
 
 		/** @var ErrorModel $oModel */
 		$oModel = $oProcessor->handleRequest($oRequest);
