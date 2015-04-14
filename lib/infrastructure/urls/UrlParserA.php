@@ -7,33 +7,49 @@ use vsc\presentation\requests\HttpRequestA;
 use vsc\ExceptionError;
 
 class UrlParserA extends Object implements UrlParserI {
+	static protected $QUERY_ENCODING_TYPE = PHP_QUERY_RFC1738;
+
 	private $sUrl;
-	private $aComponents = array(
+	private $aComponents = [
 		'scheme'	=> '',
 		'host'		=> '',
 		'user'		=> '',
 		'pass'		=> '',
 		'path'		=> '',
-		'query'		=> array(),
+		'query'		=> [],
 		'fragment'	=> ''
-	);
+	];
 
-	static private $validSchemes = array('http', 'https', 'file');
+	static private $validSchemes = ['http', 'https', 'file'];
 
+	/**
+	 * @param string $sUrl
+	 */
 	public function __construct($sUrl = null) {
 		if (!is_null($sUrl)) {
 			$this->setUrl($sUrl);
 		}
 	}
 
+	/**
+	 * @return string
+	 */
 	public function __toString() {
 		return $this->getCompleteUri(true);
 	}
 
+	/**
+	 * This is somewhat ugly.
+	 *  Returns an instance of the class on which the method is called
+	 * @return UrlParserA
+	 */
 	public static function getCurrentUrl() {
-		return new UrlRWParser(self::getRequestUri());
+		return new static(static::getRequestUri());
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function hasScheme() {
 		return self::urlHasScheme($this->getUrl());
 	}
@@ -69,9 +85,9 @@ class UrlParserA extends Object implements UrlParserI {
 	 * @param string $sUrl
 	 * @return array
 	 */
-	public static function parse_url($sUrl = null) {
+	protected static function parse_url($sUrl = null) {
 		if (is_null($sUrl)) {
-			$sUrl = self::getCurrentUrl();
+			$sUrl = static::getRequestUri();
 		}
 
 		$bIsSecure = false;
@@ -185,7 +201,7 @@ class UrlParserA extends Object implements UrlParserI {
 
 	public function setUrl($sUrl) {
 		$this->sUrl = $sUrl;
-		$this->aComponents = self::parse_url($sUrl);
+		$this->aComponents = static::parse_url($sUrl);
 	}
 
 	public function getScheme() {
@@ -352,7 +368,7 @@ class UrlParserA extends Object implements UrlParserI {
 	public function getQueryString() {
 		if (!empty($this->aComponents['query'])) {
 			try {
-				return urldecode(http_build_query($this->aComponents['query']));
+				return http_build_query($this->aComponents['query'], '', '', static::$QUERY_ENCODING_TYPE);
 			} catch (\Exception $e) {
 				//d ($this->aComponents);
 			}

@@ -32,7 +32,7 @@ class parse_url extends \PHPUnit_Framework_TestCase
 		$sQuery = implode('&', $aQuery);
 
 		$sUrl = UrlParserA_underTest::makeUrl($aUrlComponents);
-		$this->assertEquals($aUrlComponents, UrlParserA::parse_url($sUrl));
+		$this->assertEquals($aUrlComponents, UrlParserA_underTest::parse_url($sUrl));
 	}
 	/**
 	 * @test
@@ -47,22 +47,24 @@ class parse_url extends \PHPUnit_Framework_TestCase
 			'query'		=> array(),
 			'fragment'	=> ''
 		);
-		$this->assertEquals($aUrlComponents, UrlParserA::parse_url(__FILE__));
+		$this->assertEquals($aUrlComponents, UrlParserA_underTest::parse_url(__FILE__));
 	}
 	/**
 	 * @test
 	 */
-	public function parse_urlFullLocalhostPath () {
+	public function parse_urlWithQUeryContainingEncodedChars () {
 		$aUrlComponents = array (
 			'scheme'	=> 'http',
-			'host'		=> 'localhost',
+			'host'		=> 'example.com',
 			'user'		=> '',
 			'pass'		=> '',
-			'path'		=> __FILE__,
-			'query'		=> array(),
+			'path'		=> '/test/index.html',
+			'query'		=> [
+				'q' => 'test 123'
+			],
 			'fragment'	=> ''
 		);
 		$sUrl = UrlParserA_underTest::makeUrl($aUrlComponents);
-		$this->assertEquals($aUrlComponents, UrlParserA::parse_url($sUrl));
+		$this->assertEquals($aUrlComponents, UrlParserA_underTest::parse_url($sUrl));
 	}
 }

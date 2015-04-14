@@ -74,8 +74,7 @@ class RwHttpRequest extends HttpRequestA {
 	 * @return void
 	 */
 	public function constructTaintedVars() {
-		$ParsedUrl = UrlRWParser::parse_url($this->getUri());
-		$sPath = $ParsedUrl['path'];
+		$sPath = $this->getUriObject()->getPath();
 		foreach (explode('/', $sPath) as $iKey => $sUrlId) {
 			if ($sUrlId) {
 				$t = explode(':', $sUrlId);

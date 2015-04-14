@@ -5,9 +5,13 @@ use vsc\infrastructure\urls\UrlParserA;
 
 class UrlParserA_underTest extends UrlParserA {
 
+	public static function parse_url ($sUrl = null) {
+		return parent::parse_url($sUrl);
+	}
+
 	public static function makeQuery ($aQueryComponents) {
 		$sQuery = '';
-		if (count($aQueryComponents) > 1) {
+		if (count($aQueryComponents) >= 1) {
 			$aQuery = array();
 			foreach ($aQueryComponents as $key => $val) {
 				$aQuery[] = $key . '=' . $val;
