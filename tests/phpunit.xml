@@ -46,7 +46,6 @@
 			<directory suffix=".php">../lib</directory>
 			<directory suffix=".php">../res</directory>
 			<exclude>
-				<directory suffix=".php">../res/config</directory>
 				<directory suffix=".php">../res/templates</directory>
 			</exclude>
 		</whitelist>
