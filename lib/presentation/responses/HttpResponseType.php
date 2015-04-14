@@ -57,5 +57,6 @@ class HttpResponseType {
 	const FORBIDDEN = 403;
 	const NOT_FOUND = 404;
 	const METHOD_NOT_ALLOWED = 405;
+	const UNSUPPORTED_MEDIA_TYPE = 415;
 	const INTERNAL_ERROR = 500;
 }

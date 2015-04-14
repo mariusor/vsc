@@ -68,10 +68,11 @@ class vsc extends Object {
 	 */
 	public function getHttpRequest() {
 		if (is_null($this->oRequest)) {
-			if (!HttpRequestA::hasContentType()) {
-				$this->oRequest = new RwHttpRequest();
-			} else {
+			// @todo FIX this ugly stuff
+			if (array_key_exists('CONTENT_TYPE', $_SERVER) && strlen($_SERVER['CONTENT_TYPE']) > 0) {
 				$this->oRequest = new RawHttpRequest();
+			} else {
+				$this->oRequest = new RwHttpRequest();
 			}
 		}
 		return $this->oRequest;

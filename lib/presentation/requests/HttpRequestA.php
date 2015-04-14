@@ -83,7 +83,7 @@ abstract class HttpRequestA extends Object {
 				$this->sIfNoneMatch = $_SERVER['HTTP_IF_NONE_MATCH'];
 			}
 
-			if ($this->hasContentType()) {
+			if (array_key_exists('CONTENT_TYPE', $_SERVER) && strlen($_SERVER['CONTENT_TYPE']) > 0) {
 				if (stripos($_SERVER['CONTENT_TYPE'], ';') !== false) {
 					$this->sContentType = substr($_SERVER['CONTENT_TYPE'], 0, stripos($_SERVER['CONTENT_TYPE'], ';'));
 				} else {
@@ -208,6 +208,9 @@ abstract class HttpRequestA extends Object {
 		return $this->aVarOrder;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getVars() {
 		$aRet = array();
 		foreach ($this->getVarOrder() as $sMethod) {
@@ -261,14 +264,25 @@ abstract class HttpRequestA extends Object {
 		return null;
 	}
 
-	public static function hasContentType() {
-		return (array_key_exists('CONTENT_TYPE', $_SERVER) && strlen($_SERVER['CONTENT_TYPE']) > 0);
+	/**
+	 * @return bool
+	 */
+	public function hasContentType() {
+		return !empty($this->sContentType);
 	}
 
+	/**
+	 * @param string $sContentType
+	 * @return bool
+	 */
 	public static function validContentType($sContentType) {
 		return true;
 	}
 
+	/**
+	 * @param string $sVarName
+	 * @return bool
+	 */
 	public function hasVar($sVarName) {
 		return (
 			$this->hasGetVar($sVarName) ||
@@ -278,6 +292,9 @@ abstract class HttpRequestA extends Object {
 		);
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getHttpMethod() {
 		if (!$this->sHttpMethod && isset ($_SERVER['REQUEST_METHOD'])) {
 			$this->sHttpMethod = $_SERVER['REQUEST_METHOD'];

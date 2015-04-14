@@ -7,8 +7,6 @@
  */
 namespace vsc\presentation\requests;
 
-use vsc\infrastructure\urls\UrlRWParser;
-
 class RwHttpRequest extends HttpRequestA {
 	protected $aTaintedVars = array();
 

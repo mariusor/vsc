@@ -13,6 +13,7 @@ use vsc\application\controllers\JsonController;
 use vsc\application\processors\AuthenticatedProcessorI;
 use vsc\application\processors\ProcessorA;
 use vsc\infrastructure\vsc;
+use vsc\presentation\responses\HttpResponseType;
 use vsc\rest\application\processors\RESTProcessorA;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\rest\presentation\requests\RESTRequest;
@@ -39,11 +40,8 @@ class RESTController extends JsonController {
 
 		try {
 			if (!$oRequest->isGet()) {
-				if (!RESTRequest::isValid($oRequest)) {
-					throw new ExceptionResponseError('Invalid request.', 415);
-				}
-				if (RESTRequest::hasContentType() && !RESTRequest::validContentType($oRequest->getContentType())) {
-					throw new ExceptionResponseError('Invalid request content type', 415);
+				if ($oRequest->hasContentType() && !RESTRequest::validContentType($oRequest->getContentType())) {
+					throw new ExceptionResponseError('Invalid request content type', HttpResponseType::UNSUPPORTED_MEDIA_TYPE);
 				}
 			}
 			if (!ProcessorA::isValid($oProcessor)) {
@@ -51,7 +49,7 @@ class RESTController extends JsonController {
 			}
 			/* @var RESTProcessorA $oProcessor */
 			if (RESTProcessorA::isValid($oProcessor) && !$oProcessor->validRequestMethod($oRequest->getHttpMethod())) {
-				throw new ExceptionResponseError('Invalid request method', 405);
+				throw new ExceptionResponseError('Invalid request method', HttpResponseType::METHOD_NOT_ALLOWED);
 			}
 			$oMap = $oProcessor->getMap();
 			if ($oMap->requiresAuthentication()) {

@@ -7,10 +7,18 @@ use vsc\presentation\requests\HttpRequestA;
  */
 class hasContentType extends \PHPUnit_Framework_TestCase
 {
-	public function testHasContentType () {
-		$this->assertFalse(HttpRequestA::hasContentType());
+	public function testDoesNotHaveContentType ()
+	{
+		$o = new HttpRequestA_underTest_hasContentType();
+		$this->assertFalse($o->hasContentType());
+	}
 
+	public function testHasContentType() {
 		$_SERVER['CONTENT_TYPE'] = 'test/test';
-		$this->assertTrue(HttpRequestA::hasContentType());
+		$o = new HttpRequestA_underTest_hasContentType();
+		$this->assertTrue($o->hasContentType());
 	}
 }
+
+class HttpRequestA_underTest_hasContentType extends HttpRequestA { }
+
