@@ -36,10 +36,6 @@ class RawHttpRequest extends RwHttpRequest {
 		}
 		$sContentType = $this->getContentType();
 
-		if (empty($sContentType)) {
-			throw new ExceptionRequest('Can not process a request with an empty content-type');
-		}
-
 		$vars = array();
 		switch ($sContentType) {
 		case 'application/x-www-form-urlencoded':
@@ -50,7 +46,6 @@ class RawHttpRequest extends RwHttpRequest {
 			break;
 		case 'application/xml':
 		default:
-			throw new ExceptionRequest('This content-type ['.$sContentType.'] is not supported');
 			break;
 		}
 		if (!empty ($vars)) {
