@@ -4,8 +4,10 @@ namespace res\rest\application\controllers\RESTController;
 use fixtures\domain\models\ModelFixture;
 use fixtures\presentation\requests\PopulatedRESTRequest;
 use vsc\application\controllers\ExceptionController;
-use vsc\application\processors\EmptyProcessor;
+use vsc\application\processors\AuthenticatedProcessorI;
+use vsc\application\sitemaps\ProcessorMap;
 use vsc\infrastructure\vsc;
+use vsc\presentation\requests\HttpAuthenticationA;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\HttpRequestTypes;
 use vsc\presentation\requests\RawHttpRequest;
@@ -14,6 +16,7 @@ use vsc\presentation\responses\HttpResponseA;
 use vsc\presentation\responses\HttpResponseType;
 use vsc\rest\application\controllers\RESTController;
 use vsc\rest\application\processors\RESTProcessorA;
+use vsc\rest\presentation\requests\RESTRequest;
 
 /**
  * @covers \vsc\rest\application\controllers\RESTController::getResponse()
@@ -21,6 +24,10 @@ use vsc\rest\application\processors\RESTProcessorA;
 class getResponseTest extends \PHPUnit_Framework_TestCase {
 
 	public function tearDown () {
+		foreach ($_SERVER as $key => $value) {
+			unset($_SERVER[$key]);
+		}
+
 		vsc::setInstance(new vsc());
 	}
 
@@ -60,8 +67,12 @@ class getResponseTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetResponseOK () {
 		$o = new RESTController();
+		$_SERVER['PHP_AUTH_USER'] = 'alladin';
+		$_SERVER['PHP_AUTH_PW'] = '123#';
+		$_SERVER['CONTENT_TYPE'] = 'application/json';
+		$_SERVER['REQUEST_METHOD'] = 'GET';
 
-		$oRequest = new PopulatedRESTRequest();
+		$oRequest = new RESTRequest();
 		$oProcessor = new RESTProcessorA_underTest_getResponse();
 		$oProcessor->setRequestMethods(array(HttpRequestTypes::GET));
 		$oResponse = $o->getResponse($oRequest, $oProcessor);
@@ -91,9 +102,125 @@ class getResponseTest extends \PHPUnit_Framework_TestCase {
 		$this->assertObjectHasAttribute('message', $oOutput);
 		$this->assertEquals('', $oOutput->message);
 	}
+
+	public function testWithAuthenticatedProcessorAndMapRequiringAuthentication() {
+		$o = new RESTController();
+
+		$_SERVER['PHP_AUTH_USER'] = 'alladin';
+		$_SERVER['PHP_AUTH_PW'] = '123#';
+		$_SERVER['CONTENT_TYPE'] = 'application/json';
+		$_SERVER['REQUEST_METHOD'] = 'GET';
+
+		$m = new ProcessorMap(__FILE__, '.*');
+		$m->setAuthenticationType(HttpAuthenticationA::BASIC);
+
+		$p = new RESTProcessorA_underTest_getResponse_withAuthentication();
+		$p->setMap($m);
+
+		$r = $o->getResponse(new RESTRequest(), $p);
+		$this->assertInstanceOf(HttpResponse::class, $r);
+		$this->assertEquals(HttpResponseType::NOT_AUTHORIZED, $r->getStatus());
+		$err = [
+			'message' => 'Invalid authentication data',
+			'error_code' => HttpResponseType::NOT_AUTHORIZED
+		];
+		$this->assertJsonStringEqualsJsonString(json_encode($err), $r->getOutput());
+	}
+
+	public function testWithAuthenticatedProcessorAndMapRequiringDifferentAuthenticationType() {
+		$this->markTestSkipped('Some issue with bitwise &');
+		$o = new RESTController();
+
+		$_SERVER['PHP_AUTH_USER'] = 'alladin';
+		$_SERVER['PHP_AUTH_PW'] = '123#';
+		$_SERVER['CONTENT_TYPE'] = 'application/json';
+		$_SERVER['REQUEST_METHOD'] = 'GET';
+
+		$m = new ProcessorMap(__FILE__, '.*');
+		$m->setAuthenticationType(HttpAuthenticationA::DIGEST);
+
+		$p = new RESTProcessorA_underTest_getResponse_withAuthentication();
+		$p->setMap($m);
+
+		$r = $o->getResponse(new RESTRequest(), $p);
+		$this->assertInstanceOf(HttpResponse::class, $r);
+		$this->assertEquals(HttpResponseType::NOT_AUTHORIZED, $r->getStatus());
+		$err = [
+			'message' => 'Invalid authorization scheme. Supported schemes: Digest',
+			'error_code' => HttpResponseType::NOT_AUTHORIZED
+		];
+		$this->assertJsonStringEqualsJsonString(json_encode($err), $r->getOutput());
+	}
+
+	public function testWithNoProcessor() {
+		$o = new RESTController();
+
+		$_SERVER['PHP_AUTH_USER'] = 'alladin';
+		$_SERVER['PHP_AUTH_PW'] = '123#';
+		$_SERVER['CONTENT_TYPE'] = 'application/json';
+		$_SERVER['REQUEST_METHOD'] = 'GET';
+
+		$r = $o->getResponse(new RESTRequest());
+
+		$this->assertInstanceOf(HttpResponse::class, $r);
+		$this->assertEquals(HttpResponseType::INTERNAL_ERROR, $r->getStatus());
+		$err = ['message' => 'Invalid request processor'];
+		$this->assertJsonStringEqualsJsonString(json_encode($err), $r->getOutput());
+	}
+
+	public function testWithProcessorThatReturnsFalseForAuthentication() {
+		$o = new RESTController();
+
+		$_SERVER['PHP_AUTH_USER'] = 'alladin';
+		$_SERVER['PHP_AUTH_PW'] = '123#';
+		$_SERVER['CONTENT_TYPE'] = 'application/json';
+		$_SERVER['REQUEST_METHOD'] = 'GET';
+
+		$m = new ProcessorMap(__FILE__, '.*');
+		$m->setAuthenticationType(HttpAuthenticationA::BASIC);
+
+		$p = new RESTProcessorA_underTest_getResponse_withAuthentication();
+		$p->setMap($m);
+
+		$r = $o->getResponse(new RESTRequest(), $p);
+		$this->assertInstanceOf(HttpResponse::class, $r);
+		$this->assertEquals(HttpResponseType::NOT_AUTHORIZED, $r->getStatus());
+		$err = [
+			'message' => 'Invalid authentication data',
+			'error_code' => HttpResponseType::NOT_AUTHORIZED
+		];
+		$this->assertJsonStringEqualsJsonString(json_encode($err), $r->getOutput());
+	}
+
+	public function testWithNonAuthenticatedProcessorAndMapRequiringAuthentication() {
+		$o = new RESTController();
+
+		$_SERVER['PHP_AUTH_USER'] = 'alladin';
+		$_SERVER['PHP_AUTH_PW'] = '123#';
+		$_SERVER['CONTENT_TYPE'] = 'application/json';
+		$_SERVER['REQUEST_METHOD'] = 'GET';
+
+		$m = new ProcessorMap(__FILE__, '.*');
+		$m->setAuthenticationType(HttpAuthenticationA::BASIC);
+
+		$p = new RESTProcessorA_underTest_getResponse ();
+		$p->validRequestMethods = [HttpRequestTypes::GET];
+		$p->setMap($m);
+
+		$r = $o->getResponse(new RESTRequest(), $p);
+		$this->assertInstanceOf(HttpResponse::class, $r);
+		$this->assertEquals(HttpResponseType::NOT_AUTHORIZED, $r->getStatus());
+		$err = [
+			'message' => 'This resource requires authentication but doesn\'t support any authorization scheme',
+			'error_code' => HttpResponseType::NOT_AUTHORIZED
+		];
+		$this->assertJsonStringEqualsJsonString(json_encode($err), $r->getOutput());
+	}
 }
 
 class RESTProcessorA_underTest_getResponse extends RESTProcessorA {
+	public $validRequestMethods = [];
+
 	public function setRequestMethods ($aContentTypes) {
 		$this->validRequestMethods = $aContentTypes;
 	}
@@ -129,5 +256,13 @@ class RESTProcessorA_underTest_getResponse extends RESTProcessorA {
 	public function handleDelete(RawHttpRequest $oRequest)
 	{
 		return $this->handleGet($oRequest);
+	}
+}
+
+class RESTProcessorA_underTest_getResponse_withAuthentication extends RESTProcessorA_underTest_getResponse implements AuthenticatedProcessorI {
+	public $validRequestMethods = [HttpRequestTypes::GET];
+	public function handleAuthentication(HttpAuthenticationA $oHttpAuthentication)
+	{
+		return false;
 	}
 }
