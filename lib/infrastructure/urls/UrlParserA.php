@@ -91,19 +91,20 @@ class UrlParserA extends Object implements UrlParserI {
 		}
 
 		$bIsSecure = false;
-		$sHost		= '';
-		$sUser		= '';
-		$sPass		= '';
+		$sScheme = '';
+		$sHost = '';
+		$sUser = '';
+		$sPass = '';
 		$sFragment = '';
-		$aReturn = array(
+		$aReturn = [
 			'scheme'	=> '',
 			'host'		=> '',
 			'user'		=> '',
 			'pass'		=> '',
 			'path'		=> '',
-			'query'		=> array(),
+			'query'		=> [],
 			'fragment'	=> ''
-		);
+		];
 
 		try {
 			if (!stristr($sUrl, '://') && is_file($sUrl) && is_readable($sUrl)) {
@@ -299,7 +300,6 @@ class UrlParserA extends Object implements UrlParserI {
 				unset ($aPath[$iKey]);
 				if (array_key_exists($iKey-1, $aPath)) {
 					$iPrevKey = $iKey-1;
-					$sPrev = $aPath[$iPrevKey];
 				} else {
 					$sPrev = prev($aPath);
 					$iPrevKey = array_search($sPrev, $aPath);
@@ -318,7 +318,6 @@ class UrlParserA extends Object implements UrlParserI {
 		}
 
 		$sPath = (count($aPath) > 0 ? '/'.implode('/', $aPath) : '');
-		$sLast = end($aPath);
 		// in case of actually getting the parent, we need to append the ending /
 		// as we don't have a file as the last element in the path - same case for paths without a good termination
 		if ($iSteps > 0 || !self::hasGoodTermination($sPath)) {
@@ -329,7 +328,6 @@ class UrlParserA extends Object implements UrlParserI {
 
 	public function setPath($sPath) {
 		$this->aComponents['path'] = $sPath;
-		$sPath = $this->aComponents['path'];
 	}
 
 	public function getPath() {
@@ -438,7 +436,6 @@ class UrlParserA extends Object implements UrlParserI {
 			return '';
 		}
 		if (!$this->isLocal()) {
-			$bFull = true;
 			$sUrl = ($this->getScheme() ? $this->getScheme().':' : '').'//';
 			$sUrl .= $this->getSiteUri();
 		} else {
@@ -457,10 +454,6 @@ class UrlParserA extends Object implements UrlParserI {
 			} catch (ExceptionError $e) {
 				vsc::d($e->getTraceAsString());
 			}
-		}
-
-		if (substr($sPath, -1) != '/') {
-			$sPath .= '/';
 		}
 
 		$sUrl .= $this->getFullQueryString();

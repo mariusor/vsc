@@ -49,7 +49,7 @@ class ArrayModel extends ModelA {
 		if (!is_null($sIncName) && isset($this->aContent[$sIncName])) {
 			return $this->aContent[$sIncName];
 		}
-		parent::__get($sIncName);
+		return parent::__get($sIncName);
 	}
 
 	public function __set($sIncName, $value) {

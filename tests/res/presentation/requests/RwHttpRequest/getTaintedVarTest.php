@@ -30,7 +30,7 @@ class getTaintedVar extends \PHPUnit_Framework_TestCase
 			'are' => uniqid('val2:'),
 			'mere' => uniqid('val3:')
 		));
-		$o->setTaintedVars($NewTaintedVars, false);
+		$o->setTaintedVars($NewTaintedVars);
 
 		foreach ($NewTaintedVars as $Key => $Value) {
 			$this->assertEquals($Value, $o->getTaintedVar($Key));

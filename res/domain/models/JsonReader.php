@@ -37,7 +37,7 @@ class JsonReader extends ModelA {
 		} catch (\ReflectionException $e) {
 			//
 		}
-		parent::__get($sIncName);
+		return parent::__get($sIncName);
 	}
 
 	public function __set($sIncName, $mValue) {

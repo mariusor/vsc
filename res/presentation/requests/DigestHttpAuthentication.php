@@ -8,18 +8,46 @@
 namespace vsc\presentation\requests;
 
 class DigestHttpAuthentication extends HttpAuthenticationA {
+	/**
+	 * @var string
+	 */
 	public $username;
-
+	/**
+	 * @var int
+	 */
 	protected $Type = HttpAuthenticationA::DIGEST;
+	/**
+	 * @var string
+	 */
 	protected $HTTPMethod;
-
+	/**
+	 * @var string
+	 */
 	private $nonce;
+	/**
+	 * @var string
+	 */
 	private $nc;
+	/**
+	 * @var string
+	 */
 	private $cnonce;
+	/**
+	 * @var string
+	 */
 	private $qop;
+	/**
+	 * @var string
+	 */
 	private $uri;
+	/**
+	 * @var string
+	 */
 	private $response;
-
+	/**
+	 * @param string $sDigestResponse
+	 * @param string $sHTTPMethod
+	 */
 	public function __construct($sDigestResponse, $sHTTPMethod = HttpRequestTypes::GET) {
 		$aNeededParts = array(
 			'nonce' => 1,
@@ -44,10 +72,15 @@ class DigestHttpAuthentication extends HttpAuthenticationA {
 		$this->HTTPMethod = $sHTTPMethod;
 	}
 
+	/**
+	 * @param string $sPassword
+	 * @param string $sRealm
+	 * @return bool
+	 */
 	public function validateDigestAuthentication($sPassword, $sRealm) {
-		$A1 = md5($this->username.':'.$sRealm.':'.$sPassword);
-		$A2 = md5($this->HTTPMethod.':'.$this->uri);
-		$sValidResponse = md5($A1.':'.$this->nonce.':'.$this->nc.':'.$this->cnonce.':'.$this->qop.':'.$A2);
+		$a1 = md5($this->username.':'.$sRealm.':'.$sPassword);
+		$a2 = md5($this->HTTPMethod.':'.$this->uri);
+		$sValidResponse = md5($a1.':'.$this->nonce.':'.$this->nc.':'.$this->cnonce.':'.$this->qop.':'.$a2);
 
 		return $sValidResponse == $this->response;
 	}

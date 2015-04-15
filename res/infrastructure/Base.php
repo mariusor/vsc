@@ -14,6 +14,7 @@ class Base extends Object {
 		} elseif (!stristr($sMethodName, 'set')) {
 			return parent::__call($sMethodName, $aVars);
 		}
+		return null;
 	}
 
 	public function __get($sVarName) {

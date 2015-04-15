@@ -14,7 +14,7 @@ class RawHttpRequest extends RwHttpRequest {
 	public function __construct() {
 		parent::__construct();
 
-		if (isset ($_SERVER) && !$this->isGet()) {
+		if (isset($_SERVER) && !$this->isGet()) {
 			$this->constructRawVars();
 		}
 	}
