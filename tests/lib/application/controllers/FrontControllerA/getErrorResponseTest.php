@@ -1,8 +1,4 @@
 <?php
-/**
- * @copyright Copyright (c) 2014 Rocket Internet GmbH, Johannisstra?e 20, 10117 Berlin, http://www.rocket-internet.de
- * @created 2015-03-15
- */
 namespace lib\application\controllers\FrontControllerA;
 use vsc\application\controllers\FrontControllerA;
 use vsc\Exception;
