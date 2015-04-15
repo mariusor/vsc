@@ -1,5 +1,5 @@
 <?php
-namespace tests\lib\domain\models\ModelA;
+namespace tests\lib\domain\models\ArrayAccessT;
 use vsc\domain\models\ModelA;
 
 /**
