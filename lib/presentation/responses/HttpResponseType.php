@@ -16,7 +16,7 @@ class HttpResponseType {
 		return array_key_exists($iStatus, static::$aStatusList);
 	}
 
-	static protected $aStatusList = array(
+	static protected $aStatusList = [
 		200 => '200 OK',
 		201 => '201 Created',
 		202 => '202 Accepted',
@@ -39,7 +39,7 @@ class HttpResponseType {
 		426 => '426 Update Required',
 		500 => '500 Internal Server Error',
 		501 => '501 Not Implemented',
-	);
+	];
 
 	public static function getList() {
 		return self::$aStatusList;

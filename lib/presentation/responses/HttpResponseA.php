@@ -402,7 +402,7 @@ abstract class HttpResponseA extends Object {
 	}
 
 	public function isServerError() {
-		return ($this->getStatus() > 500 && $this->getStatus() < 600);
+		return ($this->getStatus() >= 500 && $this->getStatus() < 600);
 	}
 
 	public function isError() {
