@@ -55,10 +55,6 @@ class JsonReader extends ModelA {
 		}
 	}
 
-	public function getPayload() {
-		return $this->oPayload;
-	}
-
 	/**
 	 * @param integer $iError
 	 */
