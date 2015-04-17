@@ -1,6 +1,7 @@
 <?php
 namespace res\functions_inc;
 
+use vsc\Exception;
 use vsc\infrastructure\vsc;
 
 class getErrorHeaderOutputTest extends \PHPUnit_Framework_TestCase {
@@ -13,7 +14,7 @@ class getErrorHeaderOutputTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetErrorHeaderOutputCliWithException () {
-		$e = new \vsc\Exception('test');
+		$e = new Exception('test');
 		$s = \vsc\getErrorHeaderOutput($e);
 
 		$this->assertEmpty($s);
@@ -21,7 +22,7 @@ class getErrorHeaderOutputTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetErrorHeaderOutputNotCliWitException () {
-		$e = new \vsc\Exception('test');
+		$e = new Exception('test');
 		$lineNumber = __LINE__ - 1; // the line above
 
 		$f = new vsc_underTest_functions();

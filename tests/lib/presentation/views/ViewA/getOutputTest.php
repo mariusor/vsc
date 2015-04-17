@@ -3,6 +3,8 @@ namespace tests\lib\presentation\views\ViewA;
 use fixtures\presentation\views\testView;
 use vsc\application\sitemaps\ClassMap;
 use fixtures\domain\models\ModelFixture;
+use vsc\Exception;
+use vsc\presentation\views\ExceptionView;
 
 /**
  * @covers \vsc\presentation\views\ViewA::getOutput()
@@ -16,8 +18,8 @@ class getOutput extends \PHPUnit_Framework_TestCase
 		try {
 			$o->getOutput();
 		} catch (\Exception $e) {
-			$this->assertInstanceOf(\vsc\Exception::class, $e);
-			$this->assertInstanceOf(\vsc\presentation\views\ExceptionView::class, $e);
+			$this->assertInstanceOf(Exception::class, $e);
+			$this->assertInstanceOf(ExceptionView::class, $e);
 		}
 
 		$t = 'main.tpl.php';

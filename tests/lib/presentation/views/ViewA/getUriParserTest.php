@@ -1,6 +1,7 @@
 <?php
 namespace tests\lib\presentation\views\ViewA;
 use fixtures\presentation\views\testView;
+use vsc\infrastructure\urls\UrlParserA;
 
 /**
  * @covers \vsc\presentation\views\ViewA::getUriParser()
@@ -13,6 +14,6 @@ class getUriParser extends \PHPUnit_Framework_TestCase
 
 		$p = $o->getUriParser();
 
-		$this->assertInstanceOf(\vsc\infrastructure\urls\UrlParserA::class, $p);
+		$this->assertInstanceOf(UrlParserA::class, $p);
 	}
 }

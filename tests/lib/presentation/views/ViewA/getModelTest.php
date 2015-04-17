@@ -2,6 +2,9 @@
 namespace tests\lib\presentation\views\ViewA;
 use fixtures\presentation\views\testView;
 use fixtures\domain\models\ModelFixture;
+use vsc\domain\models\ModelA;
+use vsc\Exception;
+use vsc\presentation\views\ExceptionView;
 
 /**
  * @covers \vsc\presentation\views\ViewA::getModel()
@@ -16,8 +19,8 @@ class getModel extends \PHPUnit_Framework_TestCase
 			// empty
 			$o->getModel ();
 		} catch (\Exception $e) {
-			$this->assertInstanceOf(\vsc\Exception::class, $e);
-			$this->assertInstanceOf(\vsc\presentation\views\ExceptionView::class, $e);
+			$this->assertInstanceOf(Exception::class, $e);
+			$this->assertInstanceOf(ExceptionView::class, $e);
 		}
 
 		$f = new ModelFixture();
@@ -25,7 +28,7 @@ class getModel extends \PHPUnit_Framework_TestCase
 
 		$m = $o->getModel();
 
-		$this->assertInstanceOf(\vsc\domain\models\ModelA::class, $m);
+		$this->assertInstanceOf(ModelA::class, $m);
 		$this->assertInstanceOf(ModelFixture::class, $m);
 		$this->assertEquals($f, $m);
 	}

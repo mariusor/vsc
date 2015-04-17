@@ -2,6 +2,7 @@
 namespace tests\lib\application\processors\ProcessorA;
 use fixtures\application\processors\ProcessorFixture;
 use vsc\application\sitemaps\ModuleMap;
+use vsc\application\sitemaps\ProcessorMap;
 
 /**
  * @covers \vsc\application\processors\ProcessorA::getMap()
@@ -11,7 +12,7 @@ class getMap extends \PHPUnit_Framework_TestCase
 	public function testBasicGetMap ()
 	{
 		$o = new ProcessorFixture();
-		$this->assertInstanceOf(\vsc\application\sitemaps\ProcessorMap::class, $o->getMap());
+		$this->assertInstanceOf(ProcessorMap::class, $o->getMap());
 	}
 
 	public function testBasicGetMapAfterSet ()

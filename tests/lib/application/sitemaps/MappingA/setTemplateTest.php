@@ -1,5 +1,6 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
+use fixtures\application\controllers\GenericFrontController;
 use vsc\application\sitemaps\MappingA;
 
 /**
@@ -9,7 +10,7 @@ class setTemplate extends \PHPUnit_Framework_TestCase
 {
 	public function testSetTemplate ()
 	{
-		$oMap = new MappingA_underTest_setTemplate(\fixtures\application\controllers\GenericFrontController::class, '\A.*\Z');
+		$oMap = new MappingA_underTest_setTemplate(GenericFrontController::class, '\A.*\Z');
 
 		$n = 'main.tpl.php';
 		$oMap->setTemplate($n);

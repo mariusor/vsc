@@ -3,6 +3,8 @@ namespace tests\lib\presentation\views\ViewA;
 use fixtures\presentation\views\testView;
 use vsc\application\sitemaps\ClassMap;
 use fixtures\domain\models\ModelFixture;
+use vsc\Exception;
+use vsc\ExceptionPath;
 
 /**
  * @covers \vsc\presentation\views\ViewA::fetch()
@@ -17,8 +19,8 @@ class fetch extends \PHPUnit_Framework_TestCase
 		try {
 			$o->fetch ( $t );
 		} catch (\Exception $e) {
-			$this->assertInstanceOf(\vsc\Exception::class, $e);
-			$this->assertInstanceOf(\vsc\ExceptionPath::class, $e);
+			$this->assertInstanceOf(Exception::class, $e);
+			$this->assertInstanceOf(ExceptionPath::class, $e);
 		}
 
 		$t = 'main.tpl.php';

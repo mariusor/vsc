@@ -2,6 +2,8 @@
 namespace tests\lib\presentation\views\ViewA;
 use fixtures\presentation\views\testView;
 use vsc\application\sitemaps\ClassMap;
+use vsc\Exception;
+use vsc\ExceptionPath;
 
 /**
  * @covers \vsc\presentation\views\ViewA::setTemplate()
@@ -31,8 +33,8 @@ class setTemplate extends \PHPUnit_Framework_TestCase
 		try {
 			$o->setTemplate ( $t );
 		} catch (\Exception $e) {
-			$this->assertInstanceOf(\vsc\Exception::class, $e);
-			$this->assertInstanceOf(\vsc\ExceptionPath::class, $e);
+			$this->assertInstanceOf(Exception::class, $e);
+			$this->assertInstanceOf(ExceptionPath::class, $e);
 		}
 
 		$this->assertEmpty($o->getTemplate());

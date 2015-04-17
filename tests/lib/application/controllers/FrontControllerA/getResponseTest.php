@@ -31,7 +31,7 @@ class getResponse extends \PHPUnit_Framework_TestCase
 		$Map = new ControllerMap('.', FrontControllerA_underTest_getResponse::class);
 		$Controller->setMap($Map);
 
-		$this->assertInstanceOf(\vsc\presentation\responses\HttpResponseA::class, $Controller->getResponse($r, $p));
+		$this->assertInstanceOf(HttpResponseA::class, $Controller->getResponse($r, $p));
 	}
 }
 

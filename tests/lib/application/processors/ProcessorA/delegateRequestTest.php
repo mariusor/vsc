@@ -1,6 +1,7 @@
 <?php
 namespace tests\lib\application\processors\ProcessorA;
 use fixtures\application\processors\ProcessorFixture;
+use fixtures\presentation\requests\PopulatedRequest;
 use vsc\application\dispatchers\RwDispatcher;
 use vsc\infrastructure\vsc;
 
@@ -14,7 +15,7 @@ class delegateRequest extends \PHPUnit_Framework_TestCase
 		$o = new ProcessorFixture();
 		$sValue = 'test';
 
-		$oHttpRequest = new \fixtures\presentation\requests\PopulatedRequest();
+		$oHttpRequest = new PopulatedRequest();
 		$oNewProcessor = new ProcessorFixture();
 		$oNewProcessor->return = $sValue;
 

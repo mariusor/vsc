@@ -4,6 +4,7 @@ use vsc\application\dispatchers\RwDispatcher;
 use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\processors\EmptyProcessor;
+use vsc\ExceptionError;
 
 /**
  * @covers \vsc\application\dispatchers\RwDispatcher::getCurrentMap()
@@ -56,7 +57,7 @@ class getCurrentMap extends \PHPUnit_Framework_TestCase
 preg_match_all(): No ending delimiter '#' found<br/> Offending regular expression: <span style="font-weight:normal">#\#iu</span>
 START;
 
-			$this->assertInstanceOf(\vsc\ExceptionError::class, $err);
+			$this->assertInstanceOf(ExceptionError::class, $err);
 			$this->assertEquals($errMessage, $err->getMessage());
 		}
 	}

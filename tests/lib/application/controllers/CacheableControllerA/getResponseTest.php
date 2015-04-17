@@ -41,7 +41,7 @@ class getResponse extends \PHPUnit_Framework_TestCase
 		$Map = new ControllerMap('.', CacheableController_underTest_getResponse::class);
 		$Controller->setMap($Map);
 
-		$this->assertInstanceOf(\vsc\presentation\responses\HttpResponseA::class, $Controller->getResponse($r, $p));
+		$this->assertInstanceOf(HttpResponseA::class, $Controller->getResponse($r, $p));
 	}
 
 	public function testGetResponseWithCacheableModelThatIsOlder () {
@@ -90,7 +90,7 @@ class getResponse extends \PHPUnit_Framework_TestCase
 
 		$response = $Controller->getResponse($r, $p);
 		$expires = new \DateTime($response->getExpires());
-		$this->assertInstanceOf(\vsc\presentation\responses\HttpResponseA::class, $response);
+		$this->assertInstanceOf(HttpResponseA::class, $response);
 		$this->assertEquals($inTwoWeeks->getTimestamp(),$expires->getTimestamp(), '', 2);
 		$this->assertEquals(HttpResponseType::NOT_MODIFIED, $response->getStatus());
 	}
@@ -142,7 +142,7 @@ class getResponse extends \PHPUnit_Framework_TestCase
 
 		$response = $Controller->getResponse($r, $p);
 		$expires = new \DateTime($response->getExpires());
-		$this->assertInstanceOf(\vsc\presentation\responses\HttpResponseA::class, $response);
+		$this->assertInstanceOf(HttpResponseA::class, $response);
 		$this->assertEquals($inTwoWeeks->getTimestamp(),$expires->getTimestamp(), '', 2);
 		$this->assertEquals(HttpResponseType::OK, $response->getStatus());
 	}

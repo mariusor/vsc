@@ -1,5 +1,6 @@
 <?php
 namespace tests\lib\Exception;
+use vsc\Exception;
 
 /**
  * @coversgit \vsc\Exception::isValid()
@@ -7,17 +8,17 @@ namespace tests\lib\Exception;
 class isValid extends \PHPUnit_Framework_TestCase
 {
 	public function testValidException() {
-		$E = new \vsc\Exception();
-		$this->assertTrue (\vsc\Exception::isValid ($E));
-		$this->assertEquals (\vsc\Exception::isValid ($E), ($E instanceof \vsc\Exception));
-		$this->assertInstanceOf(\vsc\Exception::class, $E);
+		$E = new Exception();
+		$this->assertTrue (Exception::isValid ($E));
+		$this->assertEquals (Exception::isValid ($E), ($E instanceof Exception));
+		$this->assertInstanceOf(Exception::class, $E);
 		$this->assertInstanceOf(\Exception::class, $E);
 	}
 
 	public function testInvalidException() {
 		$F = new \Exception();
-		$this->assertFalse(\vsc\Exception::isValid($F));
-		$this->assertEquals(\vsc\Exception::isValid($F), ($F instanceof \vsc\Exception));
+		$this->assertFalse(Exception::isValid($F));
+		$this->assertEquals(Exception::isValid($F), ($F instanceof Exception));
 		$this->assertInstanceOf(\Exception::class, $F);
 	}
 }

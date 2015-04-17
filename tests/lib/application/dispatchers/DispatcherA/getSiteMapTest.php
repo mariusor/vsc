@@ -1,6 +1,7 @@
 <?php
 namespace tests\lib\application\dispatchers\DispatcherA;
 use vsc\application\dispatchers\RwDispatcher;
+use vsc\application\sitemaps\SiteMapA;
 
 /**
  * @covers \vsc\application\dispatchers\DispatcherA::getSiteMap()
@@ -14,7 +15,7 @@ class getSiteMap extends \PHPUnit_Framework_TestCase
 
 		$o->loadSiteMap ( $sFixturePath . 'map.php' );
 
-		$this->assertInstanceOf ( \vsc\application\sitemaps\SiteMapA::class, $o->getSiteMap () );
+		$this->assertInstanceOf ( SiteMapA::class, $o->getSiteMap () );
 	}
 
 }

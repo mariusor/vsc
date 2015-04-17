@@ -2,6 +2,8 @@
 namespace tests\res\application\dispatchers\RwDispatcher;
 use vsc\application\dispatchers\RwDispatcher;
 use fixtures\presentation\requests\PopulatedRequest;
+use vsc\application\processors\ProcessorA;
+use vsc\application\sitemaps\ModuleMap;
 use vsc\infrastructure\vsc;
 
 /**
@@ -21,8 +23,8 @@ class getCurrentModuleMap extends \PHPUnit_Framework_TestCase
 
 		$oProcessor = $o->getProcessController();
 
-		$this->assertInstanceOf( \vsc\application\sitemaps\ModuleMap::class, $o->getCurrentModuleMap());
-		$this->assertInstanceOf( \vsc\application\processors\ProcessorA::class, $oProcessor);
+		$this->assertInstanceOf( ModuleMap::class, $o->getCurrentModuleMap());
+		$this->assertInstanceOf( ProcessorA::class, $oProcessor);
 	}
 
 }

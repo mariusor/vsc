@@ -1,5 +1,6 @@
 <?php
 namespace tests\lib\presentation\responses\HttpResponseA;
+use vsc\presentation\responses\ExceptionResponse;
 use vsc\presentation\responses\HttpResponseA;
 use vsc\presentation\responses\HttpResponseType;
 
@@ -9,8 +10,8 @@ use vsc\presentation\responses\HttpResponseType;
 class getStatus extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @throws \vsc\presentation\responses\ExceptionResponse::setStatus
-	 * @throws \vsc\presentation\responses\ExceptionResponse::getStatus
+	 * @throws ExceptionResponse::setStatus
+	 * @throws ExceptionResponse::getStatus
 	 */
 	public function testSetGetStatus () {
 		$state = new HttpResponseA_underTest_getStatus();
@@ -26,7 +27,7 @@ class getStatus extends \PHPUnit_Framework_TestCase
 		try {
 			$state->setStatus($iStatus);
 		} catch (\Exception $e) {
-			$this->assertInstanceOf(\vsc\presentation\responses\ExceptionResponse::class, $e);
+			$this->assertInstanceOf(ExceptionResponse::class, $e);
 			$this->assertEquals('['.$iStatus.'] is not a valid  status', $e->getMessage());
 		}
 

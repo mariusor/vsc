@@ -1,7 +1,9 @@
 <?php
 namespace tests\res\application\dispatchers\RwDispatcher;
+use fixtures\application\processors\ProcessorFixture;
 use vsc\application\dispatchers\RwDispatcher;
 use fixtures\presentation\requests\PopulatedRequest;
+use vsc\application\processors\NotFoundProcessor;
 use vsc\infrastructure\vsc;
 
 /**
@@ -26,7 +28,7 @@ class getProcessController extends \PHPUnit_Framework_TestCase
 
 		$oProcess = $o->getProcessController ();
 
-		$this->assertInstanceOf ( \vsc\application\processors\NotFoundProcessor::class, $oProcess );
+		$this->assertInstanceOf ( NotFoundProcessor::class, $oProcess );
 	}
 
 	public function testGetProcessorController ()
@@ -39,6 +41,6 @@ class getProcessController extends \PHPUnit_Framework_TestCase
 		$oRequest = new PopulatedRequest();
 		vsc::getEnv()->setHttpRequest($oRequest);
 
-		$this->assertInstanceOf( \fixtures\application\processors\ProcessorFixture::class, $o->getProcessController());
+		$this->assertInstanceOf( ProcessorFixture::class, $o->getProcessController());
 	}
 }

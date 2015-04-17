@@ -1,8 +1,10 @@
 <?php
 namespace tests\res\application\dispatchers\RwDispatcher;
 use fixtures\presentation\requests\PopulatedRequest;
+use vsc\application\controllers\FrontControllerA;
 use vsc\application\dispatchers\RwDispatcher;
 use vsc\infrastructure\vsc;
+use vsc\presentation\responses\ExceptionResponseError;
 
 /**
  * @covers \vsc\application\dispatchers\RwDispatcher::getFrontController()
@@ -23,9 +25,9 @@ class getFrontController extends \PHPUnit_Framework_TestCase
 		try {
 			$oFront = $o->getFrontController ();
 
-			$this->assertInstanceOf ( \vsc\application\controllers\FrontControllerA::class, $oFront );
+			$this->assertInstanceOf ( FrontControllerA::class, $oFront );
 		} catch ( \Exception $e ) {
-			$this->assertInstanceOf ( \vsc\presentation\responses\ExceptionResponseError::class, $e );
+			$this->assertInstanceOf ( ExceptionResponseError::class, $e );
 		}
 	}
 

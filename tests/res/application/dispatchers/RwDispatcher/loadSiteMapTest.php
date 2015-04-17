@@ -3,6 +3,7 @@ namespace tests\res\application\dispatchers\RwDispatcher;
 use vsc\application\dispatchers\RwDispatcher;
 use vsc\application\processors\ErrorProcessor;
 use vsc\application\sitemaps\ClassMap;
+use vsc\application\sitemaps\SiteMapA;
 use vsc\ExceptionError;
 
 /**
@@ -21,6 +22,6 @@ class loadSiteMap extends \PHPUnit_Framework_TestCase
 		$o = new RwDispatcher();
 		$o->loadSiteMap ( $sFixturePath . 'map.php' );
 
-		$this->assertInstanceOf ( \vsc\application\sitemaps\SiteMapA::class, $o->getSiteMap () );
+		$this->assertInstanceOf ( SiteMapA::class, $o->getSiteMap () );
 	}
 }

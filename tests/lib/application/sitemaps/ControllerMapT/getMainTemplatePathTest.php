@@ -1,5 +1,6 @@
 <?php
 namespace tests\lib\application\sitemaps\ControllerMapT;
+use fixtures\application\controllers\GenericFrontController;
 use vsc\application\sitemaps\ControllerMapT;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ModuleMap;
@@ -11,7 +12,7 @@ class getMainTemplatePath extends \PHPUnit_Framework_TestCase
 {
 	public function testGetMainTemplatePath ()
 	{
-		$oMap = new ControllerMapT_underTest_getMainTemplatePath(\fixtures\application\controllers\GenericFrontController::class, '\A.*\Z');
+		$oMap = new ControllerMapT_underTest_getMainTemplatePath(GenericFrontController::class, '\A.*\Z');
 
 		$oMap->setMainTemplatePath(VSC_FIXTURE_PATH . 'templates/');
 		$oMap->setTemplate('main.tpl.php');
@@ -23,7 +24,7 @@ class getMainTemplatePath extends \PHPUnit_Framework_TestCase
 	{
 		$oModuleMap = new ModuleMap(VSC_FIXTURE_PATH . 'config/map.php', '\A.*\Z');
 
-		$oMap = new ControllerMapT_underTest_getMainTemplatePath(\fixtures\application\controllers\GenericFrontController::class, '\A.*\Z');
+		$oMap = new ControllerMapT_underTest_getMainTemplatePath(GenericFrontController::class, '\A.*\Z');
 		$oMap->setModuleMap($oModuleMap);
 
 		$oMap->setMainTemplatePath ( 'templates/' );

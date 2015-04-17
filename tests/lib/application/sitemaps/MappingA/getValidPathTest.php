@@ -4,9 +4,11 @@
  * @created 2015-02-24
  */
 namespace lib\application\sitemaps\MappingA;
+use fixtures\application\controllers\GenericFrontController;
 use vsc\application\sitemaps\ExceptionSitemap;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ModuleMap;
+use vsc\Exception;
 
 /**
  * Class getValidPathTest
@@ -16,21 +18,21 @@ use vsc\application\sitemaps\ModuleMap;
 class getValidPathTest extends \PHPUnit_Framework_TestCase {
 	public function testSetTemplatePathRelativeNoModuleMap ()
 	{
-		$oMap = new MappingA_underTest_getValidPath (\fixtures\application\controllers\GenericFrontController::class, '\A.*\Z');
+		$oMap = new MappingA_underTest_getValidPath (GenericFrontController::class, '\A.*\Z');
 
 		try {
 			$oMap->getValidPath( 'templates' . DIRECTORY_SEPARATOR );
 		} catch (\Exception $e) {
 			// no module map for the relative path to work
 			$this->assertInstanceOf(\Exception::class, $e);
-			$this->assertInstanceOf(\vsc\Exception::class, $e);
-			$this->assertInstanceOf(\vsc\application\sitemaps\ExceptionSitemap::class, $e);
+			$this->assertInstanceOf(Exception::class, $e);
+			$this->assertInstanceOf(ExceptionSitemap::class, $e);
 		}
 	}
 
 	public function testSetTemplatePathAbsolute ()
 	{
-		$oMap = new MappingA_underTest_getValidPath (\fixtures\application\controllers\GenericFrontController::class, '\A.*\Z');
+		$oMap = new MappingA_underTest_getValidPath (GenericFrontController::class, '\A.*\Z');
 
 		$this->assertEquals(VSC_FIXTURE_PATH . 'templates'.DIRECTORY_SEPARATOR, $oMap->getValidPath( VSC_FIXTURE_PATH . 'templates'.DIRECTORY_SEPARATOR));
 	}
@@ -39,7 +41,7 @@ class getValidPathTest extends \PHPUnit_Framework_TestCase {
 	{
 		$oModuleMap = new ModuleMap(VSC_FIXTURE_PATH . 'config/map.php', '\A.*\Z');
 
-		$oMap = new MappingA_underTest_getValidPath(\fixtures\application\controllers\GenericFrontController::class, '\A.*\Z');
+		$oMap = new MappingA_underTest_getValidPath(GenericFrontController::class, '\A.*\Z');
 		$oMap->setModuleMap($oModuleMap);
 
 		$this->assertEquals(VSC_FIXTURE_PATH . 'templates'.DIRECTORY_SEPARATOR, $oMap->getValidPath('templates'.DIRECTORY_SEPARATOR));
