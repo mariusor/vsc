@@ -65,7 +65,7 @@ abstract class FrontControllerA extends Object {
 	/**
 	 * @param ContentTypeMappingI $oMap
 	 */
-	public function setMap(MappingA $oMap) {
+	public function setMap(ContentTypeMappingI $oMap) {
 		$this->oCurrentMap = $oMap;
 	}
 
