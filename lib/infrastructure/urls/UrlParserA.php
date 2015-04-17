@@ -264,7 +264,6 @@ class UrlParserA extends Object implements UrlParserI {
 
 	public function getParentPath($iSteps = 0) {
 		$sPath = $this->aComponents['path'];
-		$sParentPath = '';
 
 		if (empty ($sPath)) {
 			return '';
@@ -274,17 +273,6 @@ class UrlParserA extends Object implements UrlParserI {
 			if (substr($sPath, 0, 2) == './') {
 				$sPath = substr($sPath, 2);
 			}
-			if (!vsc::isCli()) {
-				try {
-					$sParentPath = substr(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), 0, -1);
-					if (substr($sParentPath, -1) != '/') {
-						$sParentPath .= '/';
-					}
-				} catch (ExceptionError $e) {
-					// err
-				}
-			}
-			$sPath = $sParentPath.$sPath;
 		}
 
 		// removing the folders from the path if there are parent references (../)
@@ -385,7 +373,7 @@ class UrlParserA extends Object implements UrlParserI {
 		return $this->sUrl;
 	}
 
-	public function getFullQueryString() {
+	protected function getFullQueryString() {
 		$sQuery = $this->getQueryString();
 		if ($sQuery) {
 			return '?'.$sQuery;
@@ -394,7 +382,7 @@ class UrlParserA extends Object implements UrlParserI {
 		}
 	}
 
-	public function getFullFragmentString() {
+	protected function getFullFragmentString() {
 		$sFragment = $this->getFragment();
 		if ($sFragment) {
 			return '#'.$sFragment;
@@ -402,7 +390,6 @@ class UrlParserA extends Object implements UrlParserI {
 			return '';
 		}
 	}
-
 
 	public function isLocal() {
 		return ($this->getScheme() == 'file' && empty($this->aComponents['host']) && !empty($this->aComponents['path']));
