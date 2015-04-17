@@ -22,6 +22,7 @@ class ModelFixture extends ModelA {
 	 * It should add a new property to the object
 	 * @param string $sName
 	 * @param mixed $mValue
+	 * @param bool $bIfNonExistent
 	 */
 	public function addProperty ($sName, $mValue, $bIfNonExistent = false) {
 		parent::addProperty($sName, $mValue, $bIfNonExistent);

@@ -7,7 +7,6 @@
  */
 namespace vsc\presentation\responses;
 
-use vsc\infrastructure\vsc;
 use vsc\infrastructure\Base;
 use vsc\presentation\views\ViewA;
 

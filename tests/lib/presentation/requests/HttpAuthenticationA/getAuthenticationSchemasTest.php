@@ -1,7 +1,6 @@
 <?php
 namespace tests\lib\presentation\requests\HttpAuthenticationA;
 use vsc\presentation\requests\HttpAuthenticationA;
-use vsc\presentation\requests\BasicHttpAuthentication;
 
 /**
  * @covers \vsc\presentation\requests\HttpAuthenticationA::getAuthenticationSchemas()

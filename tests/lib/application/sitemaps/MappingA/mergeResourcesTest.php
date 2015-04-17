@@ -31,6 +31,6 @@ class MappingA_underTest_mergeResources extends MappingA {
 	}
 
 	public function mergeResources ($oMap) {
-		return parent::mergeResources($oMap);
+		parent::mergeResources($oMap);
 	}
 }

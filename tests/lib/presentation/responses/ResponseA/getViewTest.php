@@ -33,6 +33,7 @@ class ViewA_underTest_getView extends ViewA {
 	 *
 	 * @param array|string $tpl_var the template variable name(s)
 	 * @param mixed $value the value to append
+	 * @param bool $merge
 	 */
 	function append($tpl_var, $value = null, $merge = false)
 	{

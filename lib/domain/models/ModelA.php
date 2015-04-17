@@ -35,9 +35,8 @@ abstract class ModelA extends Base implements ModelI {
 			}
 		} catch (\ReflectionException $e) {
 			// reflection issue
-			return null;
+			return parent::__get($sIncName);
 		}
-		return parent::__get($sIncName);
 	}
 
 	/**
@@ -80,6 +79,7 @@ abstract class ModelA extends Base implements ModelI {
 	 * It should add a new property to the object
 	 * @param string $sName
 	 * @param mixed $mValue
+	 * @param bool $bIfNonExistent
 	 */
 	protected function addProperty($sName, $mValue, $bIfNonExistent = false) {
 		if ($bIfNonExistent) {

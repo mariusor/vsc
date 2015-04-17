@@ -20,6 +20,6 @@ class HttpAuthenticationA_underTest_setAuthentication extends HttpAuthentication
 
 class HttpRequestA_underTest_setAuthentication extends HttpRequestA {
 	public function setAuthentication (HttpAuthenticationA $oHttpAuthentication) {
-		return parent::setAuthentication($oHttpAuthentication);
+		parent::setAuthentication($oHttpAuthentication);
 	}
 }

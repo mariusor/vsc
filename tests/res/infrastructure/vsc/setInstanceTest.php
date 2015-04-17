@@ -1,6 +1,5 @@
 <?php
 namespace tests\res\infrastructure\vsc;
-use vsc\infrastructure\Object;
 use vsc\infrastructure\vsc;
 
 /**

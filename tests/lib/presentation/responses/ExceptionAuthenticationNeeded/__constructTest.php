@@ -12,7 +12,6 @@ class __construct extends \PHPUnit_Framework_TestCase
 	{
 		$sMessage = 'test';
 		$sRealm = 'unit-test';
-		$sNonce = uniqid();
 		$o = new ExceptionAuthenticationNeeded_underTest___construct($sMessage, $sRealm);
 
 		$this->assertEquals($sMessage, $o->getMessage());

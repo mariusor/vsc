@@ -21,12 +21,14 @@ class __get extends \PHPUnit_Framework_TestCase
 
 		try {
 			$test = $null->__get ( uniqid('test'));
+			$this->assertNull($test);
 		} catch (\Exception $e) {
 			$this->assertInstanceOf(ExceptionUnimplemented::class, $e);
 			$this->assertInstanceOf(Exception::class, $e);
 		}
 		try {
 			$test = $null->test;
+			$this->assertNull($test);
 		} catch (\Exception $e) {
 			$this->assertInstanceOf(ExceptionUnimplemented::class, $e);
 			$this->assertInstanceOf(Exception::class, $e);

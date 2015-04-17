@@ -10,6 +10,9 @@ class display extends \PHPUnit_Framework_TestCase
 	public function testUseless()
 	{
 		$o = new TxtView();
-		$this->assertEquals('', $o->display('test'));
+		ob_start();
+		$o->display('test');
+		$output = ob_get_clean();
+		$this->assertEquals('', $output);
 	}
 }

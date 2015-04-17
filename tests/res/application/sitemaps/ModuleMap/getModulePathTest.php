@@ -1,6 +1,5 @@
 <?php
 namespace tests\lib\application\sitemaps\ModuleMap;
-use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ModuleMap;
 
 /**

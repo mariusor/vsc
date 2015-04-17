@@ -21,6 +21,7 @@ class getRedirectCode extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @dataProvider providerForTestBasicGetRedirectCode
+	 * @param $iStatus
 	 */
 	public function testBasicGetRedirectCode($iStatus)
 	{

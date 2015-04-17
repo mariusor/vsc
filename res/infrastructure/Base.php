@@ -18,7 +18,7 @@ class Base extends Object {
 	}
 
 	public function __get($sVarName) {
-		return new static();
+		return new self();
 	}
 
 	public function __toString() {

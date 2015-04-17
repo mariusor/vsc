@@ -1,5 +1,6 @@
 <?php
 namespace tests\res\infrastructure\vsc;
+use vsc\application\dispatchers\DispatcherA;
 use vsc\application\dispatchers\RwDispatcher;
 use vsc\infrastructure\vsc;
 
@@ -12,7 +13,7 @@ class getDispatcher extends \PHPUnit_Framework_TestCase
 	{
 		/* @var RwDispatcher $oDispatcher */
 		$oDispatcher = vsc::getEnv()->getDispatcher();
-		$this->assertInstanceOf(\vsc\application\dispatchers\DispatcherA::class, $oDispatcher);
+		$this->assertInstanceOf(DispatcherA::class, $oDispatcher);
 	}
 
 }
