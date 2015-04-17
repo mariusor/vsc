@@ -10,6 +10,7 @@ namespace vsc\application\controllers;
 use vsc\application\processors\ErrorProcessor;
 use vsc\application\processors\ProcessorA;
 use vsc\application\sitemaps\ClassMap;
+use vsc\application\sitemaps\ContentTypeMappingI;
 use vsc\application\sitemaps\ControllerMap;
 use vsc\application\sitemaps\ControllerMapT;
 use vsc\application\sitemaps\MappingA;
@@ -35,7 +36,7 @@ abstract class FrontControllerA extends Object {
 	private $sTemplatePath;
 
 	/**
-	 * @var ControllerMapT
+	 * @var ContentTypeMappingI
 	 */
 	private $oCurrentMap;
 
@@ -54,7 +55,7 @@ abstract class FrontControllerA extends Object {
 	 * @returns ControllerMap
 	 */
 	public function getMap() {
-		if (!ControllerMap::isValid($this->oCurrentMap) && !ClassMap::isValid($this->oCurrentMap)) {
+		if (!ClassMap::isValid($this->oCurrentMap) && !ControllerMap::isValid($this->oCurrentMap)) {
 			$Mirror = new \ReflectionClass($this);
 			$this->oCurrentMap = new ClassMap($Mirror->getName(), '.*');
 		}
@@ -62,7 +63,7 @@ abstract class FrontControllerA extends Object {
 	}
 
 	/**
-	 * @param MappingA $oMap
+	 * @param ContentTypeMappingI $oMap
 	 */
 	public function setMap(MappingA $oMap) {
 		$this->oCurrentMap = $oMap;
