@@ -121,18 +121,13 @@ trait IteratorT
 	}
 
 	/**
-	 * @param string $sName
 	 * @return bool
 	 */
-	public function valid($sName = null)
+	public function valid()
 	{
-		if ($sName === null) {
-			$sName = $this->_current;
-		}
-
 		$aKeys = $this->getPropertyNames();
 
-		if (in_array($sName, $aKeys)) {
+		if (in_array($this->_current, $aKeys)) {
 			return true;
 		}
 

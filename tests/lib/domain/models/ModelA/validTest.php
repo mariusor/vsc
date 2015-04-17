@@ -16,12 +16,13 @@ class valid extends \PHPUnit_Framework_TestCase
 
 		$oMirror = new \ReflectionClass($o);
 		$properties = $oMirror->getProperties(\ReflectionProperty::IS_PUBLIC);
-		foreach ($properties as $key => $property) {
-			$this->assertTrue ( $o->valid ( $property->getName () ) );
+		foreach ($o as $key => $property) {
+			$this->assertTrue ( $o->valid ( ) );
 		}
 
 		$rand = uniqid('tst:');
-		$this->assertFalse($o->valid($rand));
+		$o[$rand];
+		$this->assertFalse($o->valid());
 	}
 }
 

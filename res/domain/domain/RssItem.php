@@ -29,8 +29,7 @@ class RssItem extends ModelA {
 			foreach ($oNode->childNodes as $oChildNode) {
 				$sName = $oChildNode->nodeName;
 				if (
-					$oChildNode->nodeType != XML_ELEMENT_NODE ||
-					!$this->valid($sName)
+					$oChildNode->nodeType != XML_ELEMENT_NODE
 				) {
 					continue;
 				}
