@@ -208,7 +208,6 @@ abstract class ViewA extends Object implements ViewI {
 				throw new ExceptionPath('Template ['.$includePath.'] could not be located');
 			}
 		}
-		$bIncluded = false;
 		// outputting the model's content into the local scope
 		$model = $this->getModel();
 		extract(

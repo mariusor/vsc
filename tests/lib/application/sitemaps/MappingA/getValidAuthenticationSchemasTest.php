@@ -1,7 +1,6 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
 use vsc\application\sitemaps\MappingA;
-use vsc\presentation\requests\HttpAuthenticationA;
 
 /**
  * @covers \vsc\application\sitemaps\MappingA::getValidAuthenticationSchemas()

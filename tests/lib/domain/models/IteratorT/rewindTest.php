@@ -2,7 +2,6 @@
 namespace tests\lib\domain\models\IteratorT;
 use vsc\domain\models\CountableT;
 use vsc\domain\models\IteratorT;
-use vsc\domain\models\ModelA;
 
 /**
  * @covers \vsc\domain\models\ModelA::rewind()

@@ -16,8 +16,6 @@ use vsc\infrastructure\vsc;
 use vsc\infrastructure\Object;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\ExceptionPath;
-use vsc\application\sitemaps\ControllerMap;
-use vsc\application\sitemaps\ProcessorMap;
 
 abstract class DispatcherA extends Object {
 	/**

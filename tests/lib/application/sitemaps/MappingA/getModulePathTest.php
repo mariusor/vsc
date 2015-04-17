@@ -2,7 +2,6 @@
 namespace tests\lib\application\sitemaps\MappingA;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ModuleMap;
-use vsc\infrastructure\vsc;
 
 /**
  * @covers \vsc\application\sitemaps\MappingA::getModulePath()

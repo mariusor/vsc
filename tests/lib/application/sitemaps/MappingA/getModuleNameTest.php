@@ -1,7 +1,6 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
 use vsc\application\sitemaps\MappingA;
-use vsc\application\sitemaps\ModuleMap;
 
 /**
  * @covers \vsc\application\sitemaps\MappingA::getModuleName()

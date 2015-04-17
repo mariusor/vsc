@@ -9,7 +9,6 @@ use vsc\application\dispatchers\RwDispatcher;
 class getRequest extends \PHPUnit_Framework_TestCase
 {
 	public function testBasicGetRequest () {
-		$sFixturePath = VSC_FIXTURE_PATH . 'config' . DIRECTORY_SEPARATOR;
 		$o = new RwDispatcher();
 
 		$oRequest = $o->getRequest ();

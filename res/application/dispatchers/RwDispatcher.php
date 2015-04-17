@@ -9,7 +9,6 @@
 namespace vsc\application\dispatchers;
 
 use vsc\application\controllers\FrontControllerA;
-use vsc\application\controllers\XhtmlController;
 use vsc\application\processors\ErrorProcessor;
 use vsc\application\processors\NotFoundProcessor;
 use vsc\application\processors\ProcessorA;
@@ -41,7 +40,6 @@ class RwDispatcher extends HttpDispatcherA {
 			return new ClassMap('', '');
 		}
 		$aRegexes = array_keys($aMaps);
-		$aMatches = array();
 
 		$sUri = $this->getRequest()->getUri(true); // get it as a urldecoded string
 		$aMatches = array();
@@ -187,7 +185,7 @@ class RwDispatcher extends HttpDispatcherA {
 			try {
 				$sProcessorName = null;
 				if ($this->getSiteMap()->isValidObjectPath($sPath) || (stristr(basename($sPath), '.') === false && !is_file($sPath))) {
-					// dirty import of the module folder and important subfolders
+					// dirty import of the module folder and important subfolders - @FIXME
 					$sModuleName = $oProcessorMap->getModuleName();
 					if (stristr(basename($sPath), '.') === false && !is_file($sPath)) {
 						// namespaced class name
@@ -241,7 +239,7 @@ class RwDispatcher extends HttpDispatcherA {
 				$oResponse = vsc::getEnv()->getHttpResponse();
 				$oResponse->setLocation($e->getLocation());
 				ob_end_flush();
-				$sContent = $oResponse->outputHeaders();
+				$oResponse->outputHeaders();
 			}
 		}
 
@@ -260,7 +258,7 @@ class RwDispatcher extends HttpDispatcherA {
 		$this->setSiteMap(new RwSiteMap());
 		try {
 			// hic sunt leones
-			$oMap = $this->getSiteMap()->map('\A/', $sIncPath);
+			$this->getSiteMap()->map('\A/', $sIncPath);
 		} catch (ExceptionSitemap $e) {
 			// there was a faulty controller in the sitemap
 			// this will probably result in a incomplete parsed sitemap tree

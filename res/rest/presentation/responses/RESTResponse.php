@@ -7,7 +7,6 @@
 namespace vsc\rest\presentation\responses;
 
 use vsc\presentation\responses\HttpResponseA;
-use vsc\infrastructure\vsc;
 
 class RESTResponse extends HttpResponseA {
 	protected $sContentType = 'application/json';

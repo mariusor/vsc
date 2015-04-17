@@ -1,6 +1,5 @@
 <?php
 namespace tests\lib\domain\models\IteratorT;
-use vsc\domain\models\ArrayAccessT;
 use vsc\domain\models\IteratorT;
 
 /**

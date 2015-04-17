@@ -30,7 +30,6 @@ abstract class CacheableControllerA extends FrontControllerA implements Cacheabl
 		$oResponse = parent::getResponse($oRequest, $oProcessor);
 
 		if (!($oResponse->isRedirect() || $oResponse->isError())) {
-			$iNow = time();
 			$iExpireTime = 600; // ten minute
 			$oNow = new \DateTime('now', new \DateTimeZone('GMT'));
 			$oResponse->setDate($oNow->format('r'));

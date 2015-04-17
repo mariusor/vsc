@@ -8,7 +8,6 @@
 namespace vsc\presentation\views;
 
 use vsc\domain\models\ModelA;
-use vsc\infrastructure\vsc;
 
 class JsonView extends ViewA implements JsonViewI {
 	protected $sContentType = 'application/json';

@@ -30,7 +30,9 @@ function getPaths() {
 
 function cleanBuffers($iLevel = null) {
 	$aErrors = array();
-	$iLevel = ob_get_level();
+	if (is_null($iLevel)) {
+		$iLevel = ob_get_level();
+	}
 	for ($i = 0; $i < min(1, $iLevel); $i++) {
 		ob_end_clean();
 	}

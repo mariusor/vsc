@@ -7,10 +7,6 @@
  */
 namespace vsc\application\sitemaps;
 
-use vsc\ExceptionPath;
-use vsc\infrastructure\vsc;
-use vsc\presentation\views\ViewA;
-
 class ControllerMap extends MappingA implements ContentTypeMappingI {
 	use ControllerMapT;
 }

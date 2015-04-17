@@ -33,10 +33,7 @@ class RESTController extends JsonController {
 	 * @throws ExceptionResponseError
 	 */
 	public function getResponse(HttpRequestA $oRequest, $oProcessor = null) {
-		$oResponse = vsc::getEnv()->getHttpResponse();
 		$oModel = null;
-		/* @var ControllerMap $oMyMap */
-		$oMyMap	= $this->getMap();
 
 		try {
 			if (!$oRequest->isGet()) {
