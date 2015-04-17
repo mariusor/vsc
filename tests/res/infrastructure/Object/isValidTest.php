@@ -1,5 +1,6 @@
 <?php
 namespace tests\res\infrastructure\Object;
+use fixtures\domain\models\ModelFixture;
 use fixtures\presentation\views\NullView;
 use vsc\application\controllers\FrontControllerA;
 use vsc\application\processors\ProcessorA;

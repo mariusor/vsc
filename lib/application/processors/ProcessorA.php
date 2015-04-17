@@ -105,6 +105,7 @@ abstract class ProcessorA extends Object implements ProcessorI {
 	 */
 	public function delegateRequest(HttpRequestA $oHttpRequest, ProcessorA $oNewProcessor, HttpResponseA $oResponse = null) {
 		$oDispatcher = vsc::getEnv()->getDispatcher();
+		/** @var ProcessorMap $oMap */
 		$oMap = $oDispatcher->getSiteMap()->findProcessorMap($oNewProcessor);
 
 		if (MappingA::isValid($oMap)) {

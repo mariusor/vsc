@@ -43,17 +43,4 @@ abstract class ResponseA extends Base {
 		return $this->oView;
 	}
 
-	public function getOutput() {
-		$sResponseBody = null;
-		if (ViewA::isValid($this->getView())) {
-			$this->setContentType($this->getView()->getContentType());
-		} else {
-			$this->setContentType('*/*');
-		}
-
-		if (!vsc::getEnv()->getHttpRequest()->isHead() && !$this->isRedirect()) {
-			$sResponseBody = $this->getView()->getOutput();
-		}
-		return $sResponseBody;
-	}
 }

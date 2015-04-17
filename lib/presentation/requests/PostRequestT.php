@@ -35,7 +35,6 @@ trait PostRequestT {
 	/**
 	 *
 	 * @param string $sVarName
-	 * @throws Exception
 	 * @return mixed
 	 */
 	protected function getPostVar($sVarName) {

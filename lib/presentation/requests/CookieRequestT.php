@@ -34,7 +34,7 @@ trait CookieRequestT {
 	 */
 	protected function getCookieVar($sVarName) {
 		if (array_key_exists($sVarName, $this->aCookieVars)) {
-			return self::getDecodedVar($this->aCookieVars[$sVarName]);
+			return HttpRequestA::getDecodedVar($this->aCookieVars[$sVarName]);
 		} else {
 			return null;
 		}

@@ -89,12 +89,11 @@ trait SessionRequestT {
 	/**
 	 *
 	 * @param string $sVarName
-	 * @throws Exception
 	 * @return mixed
 	 */
 	public function getSessionVar($sVarName) {
 		if (array_key_exists($sVarName, $this->aSessionVars)) {
-			return self::getDecodedVar($this->aSessionVars[$sVarName]);
+			return HttpRequestA::getDecodedVar($this->aSessionVars[$sVarName]);
 		} else {
 			return null;
 		}

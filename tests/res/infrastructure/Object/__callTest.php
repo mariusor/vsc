@@ -3,8 +3,6 @@ namespace tests\res\infrastructure\Object;
 use vsc\infrastructure\Base;
 use vsc\infrastructure\Object;
 use vsc\infrastructure\vsc;
-use fixtures\infrastructure\ObjectFixture;
-use fixtures\infrastructure\FixtureEnv;
 use vsc\ExceptionUnimplemented;
 use vsc\Exception;
 

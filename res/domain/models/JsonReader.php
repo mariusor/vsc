@@ -12,6 +12,7 @@ use vsc\ExceptionUnimplemented;
 
 class JsonReader extends ModelA {
 	private $sJsonString;
+	private $oPayload;
 
 	public function __construct() {
 		if (!extension_loaded('json')) {

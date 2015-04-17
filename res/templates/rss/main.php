@@ -4,9 +4,9 @@
 <?php echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<atom:link href="<?php echo self::getCurrentUri(); ?>" rel="self" type="application/rss+xml" />
+		<atom:link href="<?php echo \vsc\presentation\views\ViewA::getCurrentUri(); ?>" rel="self" type="application/rss+xml" />
 		<title><?php echo htmlspecialchars($this->getTitle(), ENT_QUOTES, 'UTF-8'); ?></title>
-		<link><?php echo self::getCurrentSiteUri(); ?></link>
+		<link><?php echo \vsc\presentation\views\ViewA::getCurrentSiteUri(); ?></link>
 		<description><?php echo htmlspecialchars($this->getDescription(), ENT_QUOTES, 'UTF-8') ?></description>
 		<language><?php echo ($this->getLanguage() != '' ? $this->getLanguage() : 'EN') ?></language>
 		<lastBuildDate><?php echo ($this->getLastBuildDate() != '' ? $this->getLastBuildDate() : date('%c')); ?></lastBuildDate>

@@ -11,6 +11,9 @@ trait ControllerMapT {
 	private $sViewPath;
 	private $oView;
 
+	/**
+	 * @return ModuleMap
+	 */
 	abstract public function getModuleMap();
 
 	/**

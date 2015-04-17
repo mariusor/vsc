@@ -22,10 +22,10 @@ class ArrayModel extends ModelA {
 	public function offsetSet($offset, $value) {
 		if (is_null($offset)) {
 			$this->aContent[] = $value;
-			$this->setOffset(array_search($value, $this->aContent));
+			$this->setCurrent(array_search($value, $this->aContent));
 		} else {
 			$this->aContent[$offset] = $value;
-			$this->setOffset($offset);
+			$this->setCurrent($offset);
 		}
 	}
 	public function offsetExists($offset) {

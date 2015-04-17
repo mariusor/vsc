@@ -4,6 +4,7 @@
  * @created 2015-02-24
  */
 namespace lib\application\sitemaps\MappingA;
+use vsc\application\sitemaps\ExceptionSitemap;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ModuleMap;
 

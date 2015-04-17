@@ -282,6 +282,7 @@ abstract class SiteMapA extends Object {
 	}
 
 	public function getControllerMappings() {
+		$aC = false;
 		foreach ($this->getAllControllers() as $sKey => $oController) {
 			$aC[$sKey] = $oController->getPath();
 		}
@@ -289,6 +290,7 @@ abstract class SiteMapA extends Object {
 	}
 
 	public function getModuleMappings() {
+		$aC = false;
 		foreach ($this->getAllModules() as $sKey => $oModule) {
 			$aC[$sKey] = $oModule->getPath();
 		}
@@ -299,6 +301,7 @@ abstract class SiteMapA extends Object {
 	 * @returns ProcessorMap[]
 	 */
 	public function getProcessorMappings() {
+		$aC = false;
 		foreach ($this->getMaps() as $sKey => $oProcessor) {
 			$aC[$sKey] = $oProcessor->getPath();
 		}

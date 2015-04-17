@@ -366,6 +366,7 @@ abstract class HttpResponseA extends Object {
 
 	public function getOutput() {
 		$sResponseBody = null;
+		$oView = null;
 		if (ViewA::isValid($this->getView())) {
 			$this->setContentType($this->getView()->getContentType());
 		} else {
@@ -382,9 +383,10 @@ abstract class HttpResponseA extends Object {
 			}
 		} catch (ExceptionResponseError $r) {
 			$this->setStatus($r->getCode());
-			$oView->setModel(new ErrorModel($r));
-
-			$sResponseBody = $oView->getOutput();
+			if (ViewA::isValid($oView)) {
+				$oView->setModel(new ErrorModel($r));
+				$sResponseBody = $oView->getOutput();
+			}
 		}
 		return $sResponseBody;
 	}
