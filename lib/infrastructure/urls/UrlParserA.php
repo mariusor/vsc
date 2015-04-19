@@ -407,8 +407,6 @@ class UrlParserA extends Object implements UrlParserI {
 		$sUri = ($this->getUser() ? $this->getUser().($this->getPass() ? ':'.$this->getPass() : '').'@' : '');
 		if ($this->getHost()) {
 			$sUri .= $this->getHost();
-		} elseif (is_array($_SERVER) && array_key_exists('HTTP_HOST', $_SERVER)) {
-			$sUri .= $_SERVER['HTTP_HOST'];
 		}
 
 		if ($sUri) {
