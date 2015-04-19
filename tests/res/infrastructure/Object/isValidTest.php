@@ -121,16 +121,6 @@ class ModelA_underTest_isValid extends ModelA {
 		return parent::count();
 	}
 
-	/**
-	 * It should add a new property to the object
-	 * @param string $sName
-	 * @param mixed $mValue
-	 * @param bool $bIfNonExistent
-	 */
-	public function addProperty ($sName, $mValue, $bIfNonExistent = false) {
-		parent::addProperty($sName, $mValue, $bIfNonExistent);
-	}
-
 	public function getPropertyNames ($bAll = false) {
 		return parent::getPropertyNames($bAll);
 	}

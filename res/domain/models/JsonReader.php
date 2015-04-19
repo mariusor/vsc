@@ -83,7 +83,7 @@ class JsonReader extends ModelA {
 		$iLastError = json_last_error();
 		if (!$iLastError) {
 			foreach ($oPayload as $sName => $oStd) {
-				$this->addProperty($sName, $oStd, true);
+				$this->$sName = $oStd;
 			}
 		} else {
 			throw new ExceptionDomain('The JSON string contains errors: ['.static::getError($iLastError).']');

@@ -76,22 +76,6 @@ abstract class ModelA extends Base implements ModelI {
 	}
 
 	/**
-	 * It should add a new property to the object
-	 * @param string $sName
-	 * @param mixed $mValue
-	 * @param bool $bIfNonExistent
-	 */
-	protected function addProperty($sName, $mValue, $bIfNonExistent = false) {
-		if ($bIfNonExistent) {
-			try {
-				$this->$sName = $mValue;
-			} catch (ExceptionUnimplemented $e) {
-//				$this->$sName = $mValue;
-			}
-		}
-	}
-
-	/**
 	 * @param bool $bAll
 	 * @return array
 	 */
@@ -102,6 +86,8 @@ abstract class ModelA extends Base implements ModelI {
 
 		/* @var $oProperty \ReflectionProperty */
 		foreach ($aProperties as $oProperty) {
+			// skip locally defined properties
+			if ($oProperty->getDeclaringClass()->getName() == ModelA::class) { continue; }
 			if ($bAll || (!$bAll && $oProperty->isPublic())) {
 				$aRet[] = $oProperty->getName();
 			}
