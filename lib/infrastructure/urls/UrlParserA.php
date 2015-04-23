@@ -136,64 +136,9 @@ class UrlParserA extends Object implements UrlParserI {
 			}
 
 			return array_merge($aReturn, $aParsed);
-		} catch (\ErrorException $e) {
+		} catch (\Exception $e) {
 			// failed php::parse_url
 		}
-
-		if (stristr($sUrl, 'https://')) {
-			$bIsSecure = true;
-		}
-		if (stristr($sUrl, 'http://')) {
-			// stripping the protocol
-			$sUrl = substr($sUrl, 7);
-		}
-		if (stristr($sUrl, 'https://')) {
-			// stripping the protocol
-			$sUrl = substr($sUrl, 8);
-		}
-		if (stristr($sUrl, '@')) {
-			// getting the username (and pass)
-			$sUser = substr($sUrl, 0, strpos($sUrl, '@'));
-			if (stristr($sUser, ':')) {
-				$sPass = substr($sUser, strpos($sUrl, ':')+1);
-				$sUser = substr($sUser, 0, strpos($sUrl, ':'));
-			}
-			$sUrl = substr($sUrl, strpos($sUrl, '@')+1);
-		}
-		if (stristr($sUrl, '/')) {
-			// getting the hostname
-			$sHost = substr($sUrl, 0, strpos($sUrl, '/'));
-			$sUrl = substr($sUrl, strpos($sUrl, '/')+1);
-		}
-
-		if (stristr($sUrl, '#')) {
-			$sFragment = substr($sUrl, strpos($sUrl, '#')+1);
-			$sUrl = substr($sUrl, 0, strpos($sUrl, '#'));
-		}
-
-		if (stristr($sUrl, '?')) {
-			// we have a query part
-			$sPath		= substr($sUrl, 0, strpos($sUrl, '?'));
-			$sQuery		= substr($sUrl, strpos($sUrl, '?')+1);
-		} else {
-			$sPath		= stristr($sUrl, '/');
-			$sQuery 	= '';
-		}
-
-		$aQuery = array();
-		parse_str($sQuery, $aQuery);
-		if (self::urlHasScheme($sUrl)) {
-			$sScheme = $bIsSecure ? 'https' : 'http';
-		}
-		return array(
-			'scheme'	=> $sScheme,
-			'host'		=> $sHost,
-			'user'		=> $sUser,
-			'pass'		=> $sPass,
-			'path'		=> $sPath,
-			'query'		=> $aQuery,
-			'fragment'	=> $sFragment
-		);
 	}
 
 	public function setUrl($sUrl) {
