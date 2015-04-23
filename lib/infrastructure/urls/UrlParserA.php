@@ -112,20 +112,16 @@ class UrlParserA extends Object implements UrlParserI {
 				$aReturn['path'] = $sUrl;
 				return $aReturn;
 			}
-		} catch (\ErrorException $e) {
+		} catch (\Exception $e) {
 			// possible open basedir restriction
+			$aReturn['scheme'] = 'file';
 			$aReturn['path'] = $sUrl;
+			return $aReturn;
 		}
 
 		try {
 			if (!self::urlHasScheme($sUrl)) {
 				$sUrl = (HttpRequestA::isSecure() ? 'https:' : 'http:').$sUrl;
-			}
-
-			if (substr($sUrl, 0, 2) == '//') {
-				$sUrl = substr($sUrl, 2);
-				$aReturn['host'] = substr($sUrl, 0, strpos($sUrl, '/'));
-				$sUrl = substr($sUrl, strpos($sUrl, '/'));
 			}
 
 			$aParsed = parse_url($sUrl);

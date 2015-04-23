@@ -67,4 +67,72 @@ class parse_url extends \PHPUnit_Framework_TestCase
 		$sUrl = UrlParserA_underTest::makeUrl($aUrlComponents);
 		$this->assertEquals($aUrlComponents, UrlParserA_underTest::parse_url($sUrl));
 	}
+
+	/**
+	 * @test
+	 */
+	public function parse_urlWithNullUrl () {
+		$aUrlComponents = array (
+			'scheme'	=> 'http',
+			'host'		=> '',
+			'user'		=> '',
+			'pass'		=> '',
+			'path'		=> '/test/ana:are/test:123/', // from the $_SERVER defined in vsc_phpunittest_environment.php
+			'query'		=> [
+			],
+			'fragment'	=> ''
+		);
+		$this->assertEquals($aUrlComponents, UrlParserA_underTest::parse_url(null));
+	}
+
+	/**
+	 * @test
+	 */
+	public function parse_urlWithInaccessibleLocalFile () {
+		$aUrlComponents = array (
+			'scheme'	=> 'file',
+			'host'		=> '',
+			'user'		=> '',
+			'pass'		=> '',
+			'path'		=> '/etc/passwd',
+			'query'		=> [
+			],
+			'fragment'	=> ''
+		);
+		$sUrl = UrlParserA_underTest::makeUrl($aUrlComponents);
+		$this->assertEquals($aUrlComponents, UrlParserA_underTest::parse_url('/etc/passwd'));
+	}
+	/**
+	 * @test
+	 */
+	public function parse_urlWithoutProtocol () {
+		$aUrlComponents = array (
+			'scheme'	=> 'http',
+			'host'		=> 'example.com',
+			'user'		=> '',
+			'pass'		=> '',
+			'path'		=> '/',
+			'query'		=> [
+			],
+			'fragment'	=> ''
+		);
+		$this->assertEquals($aUrlComponents, UrlParserA_underTest::parse_url('//example.com/'));
+	}
+
+	/**
+	 * @test
+	 */
+	public function parse_urlIPWithoutProtocol () {
+		$aUrlComponents = array (
+			'scheme'	=> 'http',
+			'host'		=> '127.0.0.1',
+			'user'		=> '',
+			'pass'		=> '',
+			'path'		=> '/',
+			'query'		=> [
+			],
+			'fragment'	=> ''
+		);
+		$this->assertEquals($aUrlComponents, UrlParserA_underTest::parse_url('//127.0.0.1/'));
+	}
 }
