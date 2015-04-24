@@ -147,19 +147,19 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	public function getScheme() {
-		return (array_key_exists('scheme', $this->aComponents) ? strtolower($this->aComponents['scheme']) : null);
+		return array_key_exists('scheme', $this->aComponents) ? strtolower($this->aComponents['scheme']) : null;
 	}
 
 	public function getUser() {
-		return $this->aComponents['user'];
+		return array_key_exists('user', $this->aComponents) ? $this->aComponents['user'] : null;
 	}
 
 	public function getPass() {
-		return $this->aComponents['pass'];
+		return array_key_exists('pass', $this->aComponents) ? $this->aComponents['pass'] : null;
 	}
 
 	public function getPort() {
-		return (array_key_exists('port', $this->aComponents) ? $this->aComponents['port'] : null);
+		return array_key_exists('port', $this->aComponents) ? $this->aComponents['port'] : null;
 	}
 
 	private function getSubdomainOf($sRootDomain) {
