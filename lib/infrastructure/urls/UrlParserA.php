@@ -147,7 +147,7 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	public function getScheme() {
-		return strtolower($this->aComponents['scheme']);
+		return (array_key_exists('scheme', $this->aComponents) ? strtolower($this->aComponents['scheme']) : null);
 	}
 
 	public function getUser() {
