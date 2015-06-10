@@ -18,7 +18,7 @@ use \vsc\infrastructure\vsc;
 	<?php } ?>
 </ul>
 
-<p style="font-size:.8em">Triggered in <strong><?php echo $e->getFile() ?></strong> at line <?php $e->getLine(); ?> </p>
+<p style="font-size:.8em">Triggered in <strong><?php echo $e->getFile() ?></strong> at line <?php echo $e->getLine(); ?> </p>
 
 <pre style="position:fixed;bottom:2em;display:none;font-size:.8em" id="trace">
 <?php echo $e->getTraceAsString(); ?>
