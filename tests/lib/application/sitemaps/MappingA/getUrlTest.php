@@ -15,6 +15,18 @@ class getUrl extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf(UrlParserA::class, $o->getUrl());
 		$this->assertInstanceOf(UrlRWParser::class, $o->getUrl());
 	}
+
+	public function testGetModuleUrl () {
+		$o = new MappingA_underTest_getUrl(__FILE__,'test/a:(\d{3})');
+		$o->setUrl('/test/a:123/');
+		$this->assertEquals('/test/a:123/', $o->getUrl()->getPath());
+	}
+
+	public function testGetModuleUrlWithUnicode () {
+		$o = new MappingA_underTest_getUrl(__FILE__,'test/a:(\w{5})');
+		$o->setUrl('/test/a:ățșîâ/');
+		$this->assertEquals('/test/a:ățșîâ/', $o->getUrl()->getPath());
+	}
 }
 
 class MappingA_underTest_getUrl extends MappingA {

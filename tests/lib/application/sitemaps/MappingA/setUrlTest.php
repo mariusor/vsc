@@ -15,6 +15,15 @@ class setUrl extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals('/' . $sTest . '/', $o->getUrl()->getPath());
 	}
+
+	public function testSetUrl ()
+	{
+		$o = new MappingA_underTest_setUrl();
+		$sTest = 'http://example.com/test';
+		$o->setUrl($sTest);
+
+		$this->assertEquals('/test/', $o->getUrl()->getPath());
+	}
 }
 
 class MappingA_underTest_setUrl extends MappingA {

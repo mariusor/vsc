@@ -467,7 +467,7 @@ abstract class MappingA extends Object {
 	 * @returns UrlParserA
 	 */
 	public function getUrl() {
-		$sRegex = '#('.str_replace('#', '\#', $this->getRegex()).')#iU';
+		$sRegex = '#('.str_replace('#', '\#', $this->getRegex()).')#iUu';
 		$bHaveMatch = preg_match($sRegex, $this->sMatchingUrl, $aMatches);
 
 		if ($bHaveMatch) {
