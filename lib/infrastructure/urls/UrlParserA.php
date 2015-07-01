@@ -76,7 +76,8 @@ class UrlParserA extends Object implements UrlParserI {
 	 * @return bool
 	 */
 	public static function urlHasScheme($sUrl) {
-		$sScheme = substr($sUrl, 0, strpos($sUrl, ':'));
+		$firstPos = min (strpos($sUrl, ':'), strpos($sUrl, '/'));
+		$sScheme = substr($sUrl, 0, $firstPos);
 		return in_array($sScheme, self::$validSchemes);
 	}
 
@@ -90,12 +91,6 @@ class UrlParserA extends Object implements UrlParserI {
 			$sUrl = static::getRequestUri();
 		}
 
-		$bIsSecure = false;
-		$sScheme = '';
-		$sHost = '';
-		$sUser = '';
-		$sPass = '';
-		$sFragment = '';
 		$aReturn = [
 			'scheme'	=> '',
 			'host'		=> '',
@@ -105,6 +100,10 @@ class UrlParserA extends Object implements UrlParserI {
 			'query'		=> [],
 			'fragment'	=> ''
 		];
+
+		if (mb_detect_encoding($sUrl) !== 'ASCII') {
+			$sUrl = rawurlencode($sUrl);
+		}
 
 		try {
 			if (!stristr($sUrl, '://') && is_file($sUrl) && is_readable($sUrl)) {
@@ -121,15 +120,18 @@ class UrlParserA extends Object implements UrlParserI {
 
 		try {
 			if (!self::urlHasScheme($sUrl)) {
-				$sUrl = (HttpRequestA::isSecure() ? 'https:' : 'http:').$sUrl;
+				$sUrl = (HttpRequestA::isSecure() ? 'https:' : 'http:') . $sUrl;
 			}
 
 			$aParsed = parse_url($sUrl);
 			if (!is_array($aParsed)) {
-				return array();
+				return [];
+			}
+			foreach ($aParsed as $key => $element) {
+				$aParsed[$key] = rawurldecode($element);
 			}
 			if (array_key_exists('query', $aParsed)) {
-				$aQuery = array();
+				$aQuery = [];
 				parse_str($aParsed['query'], $aQuery);
 
 				$aParsed['query'] = $aQuery;
