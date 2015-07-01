@@ -1,5 +1,6 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
+use vsc\application\sitemaps\ContentTypeMappingI;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ProcessorMap;
 
@@ -12,6 +13,16 @@ class mergePaths extends \PHPUnit_Framework_TestCase
 	{
 		$o = new MappingA_underTest_mergePaths();
 
+		$oMap = new ProcessorMap(__FILE__, '.*');
+		$o->mergePaths($oMap);
+
+		$this->assertEquals($oMap->getPath(), $o->getPath());
+		$this->assertEquals('', $o->getTemplate());
+		$this->assertNull($o->getTemplatePath());
+	}
+
+	public function testMergePathsForContentTypeMaps () {
+		$o = new MappingA_underTest_mergePaths_ContentTypeInterface();
 		$oMap = new ProcessorMap(__FILE__, '.*');
 		$o->mergePaths($oMap);
 
@@ -34,5 +45,28 @@ class MappingA_underTest_mergePaths extends MappingA {
 
 	public function mergePaths ($oMap) {
 		return parent::mergePaths($oMap);
+	}
+}
+
+class MappingA_underTest_mergePaths_ContentTypeInterface extends MappingA_underTest_mergePaths implements ContentTypeMappingI {
+
+	public function setMainTemplatePath($sPath)
+	{
+		// TODO: Implement setMainTemplatePath() method.
+	}
+
+	public function getMainTemplatePath()
+	{
+		// TODO: Implement getMainTemplatePath() method.
+	}
+
+	public function setMainTemplate($sPath)
+	{
+		// TODO: Implement setMainTemplate() method.
+	}
+
+	public function getMainTemplate()
+	{
+		// TODO: Implement getMainTemplate() method.
 	}
 }
