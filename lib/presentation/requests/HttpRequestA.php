@@ -370,16 +370,8 @@ abstract class HttpRequestA extends Object {
 
 			// this header is present for all servers in the same form
 			$sCurrentScriptDir = dirname($_SERVER['PHP_SELF']) != '/' ? dirname($_SERVER['PHP_SELF']) : '';
-			if (stristr($sServerType, 'lighttpd')) {
-				$sReqUri = $_SERVER['REQUEST_URI'];
-				$this->sUri = str_replace($sCurrentScriptDir, '', $sReqUri);
-			} elseif (stristr($sServerType, 'apache')) {
-				$sCurrentScriptDir = dirname($_SERVER['SCRIPT_FILENAME']) != '/' ? dirname($_SERVER['SCRIPT_FILENAME']) : '';
-				$sReqUri = $_SERVER['SCRIPT_URL']; // apache 2.4 with mod_rewrite
-				$this->sUri = str_replace($sCurrentScriptDir, '', $sReqUri);
-			} elseif (stristr($sServerType, 'cherokee')) {
-				// TODO
-			}
+			$sReqUri = $_SERVER['REQUEST_URI'];
+			$this->sUri = str_replace($sCurrentScriptDir, '', $sReqUri);
 
 			// removing unnecessary get vars
 			$iQMarkPos = strpos($this->sUri, '?');
