@@ -2,8 +2,6 @@
 namespace tests\lib\application\sitemaps\MappingA;
 use vsc\application\sitemaps\MappingA;
 use vsc\infrastructure\urls\Url;
-use vsc\infrastructure\urls\UrlParserA;
-use vsc\infrastructure\urls\UrlRWParser;
 
 /**
  * @covers \vsc\application\sitemaps\MappingA::getUrl()

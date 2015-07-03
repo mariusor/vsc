@@ -8,7 +8,8 @@
 namespace vsc\presentation\requests;
 
 use vsc\infrastructure\Object;
-use vsc\infrastructure\urls\UrlRWParser;
+use vsc\infrastructure\urls\Url;
+use vsc\infrastructure\urls\UrlParserA;
 use vsc\Exception;
 
 abstract class HttpRequestA extends Object {
@@ -20,6 +21,9 @@ abstract class HttpRequestA extends Object {
 	use AuthenticatedRequestT;
 
 	protected $sUri = null;
+	/**
+	 * @var Url
+	 */
 	protected $oUri;
 	protected $sHttpMethod;
 	protected $sServerName;
@@ -386,9 +390,12 @@ abstract class HttpRequestA extends Object {
 		return $this->sUri;
 	}
 
+	/**
+	 * @return Url
+	 */
 	public function getUriObject() {
-		if (!UrlRWParser::isValid($this->oUri)) {
-			$this->oUri = new UrlRWParser($this->getUri());
+		if (!Url::isValid($this->oUri)) {
+			$this->oUri = UrlParserA::url($this->getUri());
 		}
 		return $this->oUri;
 	}

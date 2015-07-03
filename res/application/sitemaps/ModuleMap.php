@@ -7,7 +7,7 @@
  */
 namespace vsc\application\sitemaps;
 
-use vsc\infrastructure\urls\UrlRWParser;
+use vsc\infrastructure\urls\UrlParserA;
 
 class ModuleMap extends MappingA implements ContentTypeMappingI {
 	private $sMainTemplatePath;
@@ -53,7 +53,7 @@ class ModuleMap extends MappingA implements ContentTypeMappingI {
 			$sModulePath = $this->getModuleMap()->getModulePath();
 		}
 
-		if (!UrlRWParser::hasGoodTermination($sModulePath, DIRECTORY_SEPARATOR)) {
+		if (!UrlParserA::hasGoodTermination($sModulePath, DIRECTORY_SEPARATOR)) {
 			$sModulePath .= DIRECTORY_SEPARATOR;
 		}
 		return $sModulePath;

@@ -62,7 +62,7 @@ trait SessionRequestT {
 			if (((double)PHP_VERSION >= 5.4 && session_status() == PHP_SESSION_NONE)) {
 				$oRequest = vsc::getEnv()->getHttpRequest();
 				if (!vsc::isCli()) {
-					session_set_cookie_params(0, '/', $oRequest->getUriObject()->getDomain(), HttpRequestA::isSecure(), true);
+					session_set_cookie_params(0, '/', $oRequest->getUriObject()->getHost(), HttpRequestA::isSecure(), true);
 				}
 				if (@session_start()) {
 					$_SESSION = array();
