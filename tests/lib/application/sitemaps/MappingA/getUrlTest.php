@@ -21,9 +21,9 @@ class getUrl extends \PHPUnit_Framework_TestCase
 	}
 
 	public function testGetModuleUrlWithUnicode () {
-		$o = new MappingA_underTest_getUrl(__FILE__,'/test/a:(\w{5})/');
+		$o = new MappingA_underTest_getUrl(__FILE__,'/test/a:(\w+)/');
 		$o->setUrl('/test/a:ățșîâ/');
-		$this->assertEquals('/test/a:ățșîâ', $o->getUrl()->getPath());
+		$this->assertEquals('/test/a:ățșîâ/', $o->getUrl()->getPath());
 	}
 }
 
