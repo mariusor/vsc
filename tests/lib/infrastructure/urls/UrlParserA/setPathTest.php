@@ -18,7 +18,7 @@ class setPathTest extends \PHPUnit_Framework_TestCase
 
 		$o->setPath($path);
 
-		$this->assertEquals($path.'/', $o->getPath($path));
+		$this->assertEquals($path, $o->getPath($path));
 	}
 
 	public function testSetPathWithFolderWithProperEnding()

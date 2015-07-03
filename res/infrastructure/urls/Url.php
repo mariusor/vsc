@@ -25,8 +25,6 @@ class Url extends Object
 	 * @var int
 	 */
 	private $port;
-//	private $user;
-//	private $pass;
 	/**
 	 * @var string
 	 */
@@ -114,7 +112,7 @@ class Url extends Object
 	 * @return string
 	 */
 	public function getPath() {
-		return $this->path;
+		return UrlParserA::normalizePath($this->path);
 	}
 
 	/**
@@ -171,7 +169,7 @@ class Url extends Object
 	 * @return bool
 	 */
 	public function hasPath() {
-		return (null !== $this->path);
+		return !empty($this->path);
 	}
 
 	/**
@@ -189,9 +187,16 @@ class Url extends Object
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function isLocal() {
+		return (($this->getScheme() == 'file' || !$this->hasScheme()) && !$this->hasHost() && $this->hasPath());
+	}
+
+	/**
 	 * @return string
 	 */
-	protected function getUrl() {
+	public function getUrl() {
 		$rawUrl = '';
 		if ($this->hasScheme()) {
 			$rawUrl .= $this->getScheme() . '://';

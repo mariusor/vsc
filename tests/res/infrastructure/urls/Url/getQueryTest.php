@@ -19,4 +19,13 @@ class getQueryTest extends \PHPUnit_Framework_TestCase
 		$url = new Url();
 		$this->assertEquals([], $url->getQuery());
 	}
+
+	public function testGetQuery () {
+		$value = [
+			'ana' => 'mere'
+		];
+		$oUrl = new Url ();
+		$oUrl->setQuery($value);
+		$this->assertEquals($value, $oUrl->getQuery());
+	}
 }

@@ -259,10 +259,10 @@ abstract class MappingA extends Object {
 		if (is_file($this->getModulePath().$sPath)) {
 			$sPath = $this->getModulePath().$sPath;
 		}
-		$oUrl = new UrlRWParser($sPath);
+		$oUrl = UrlRWParser::url($sPath);
 		if ($oUrl->isLocal()) {
 			// I had a bad habit of correcting external URL's
-			$sPath = $oUrl->getCompleteUri();
+			$sPath = $oUrl->getPath();
 		}
 		return $sPath;
 	}

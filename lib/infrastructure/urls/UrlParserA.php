@@ -32,10 +32,10 @@ class UrlParserA extends Object implements UrlParserI {
 	/**
 	 * This is somewhat ugly.
 	 *  Returns an instance of the class on which the method is called
-	 * @return UrlParserA
+	 * @return Url
 	 */
 	public static function getCurrentUrl() {
-		return new static(static::getRequestUri());
+		return static::parse_url(static::getRequestUri());
 	}
 
 	/**
@@ -75,7 +75,7 @@ class UrlParserA extends Object implements UrlParserI {
 	/**
 	 * This exists as the php::parse_url function sometimes breaks inexplicably
 	 * @param string $sUrl
-	 * @return array
+	 * @return Url
 	 */
 	protected static function parse_url($sUrl = null) {
 		if (is_null($sUrl)) {
@@ -140,18 +140,6 @@ class UrlParserA extends Object implements UrlParserI {
 		$this->oUrl = static::parse_url($sUrl);
 	}
 
-	public function getScheme() {
-		return $this->oUrl->getScheme();
-	}
-
-	public function getUser() {
-		return null;
-	}
-
-	public function getPass() {
-		return null;
-	}
-
 	public function getPort() {
 		return $this->oUrl->getPort();
 	}
@@ -198,54 +186,25 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	public function getParentPath($iSteps = 0) {
-		$sPath = $this->oUrl->getPath();
+		$sPath = self::normalizePath($this->oUrl->getPath());
 
-		if (empty ($sPath)) {
-			return '';
-		}
 
-		if (!self::isAbsolutePath($sPath)) {
-			if (substr($sPath, 0, 2) == './') {
-				$sPath = substr($sPath, 2);
-			}
-		}
+		$len = strlen($sPath);
+		$bHasPrefixSlash = ($sPath{0} == '/');
+		$bHasSuffixSlash = (($len > 1) && ($sPath{$len - 1} == '/'));
 
 		// removing the folders from the path if there are parent references (../)
 		$sPath = trim($sPath, '/');
 		$aPath = explode('/', $sPath);
-
-		$iCnt = 0;
-		foreach ($aPath as $iKey => $sFolder) {
-			switch ($sFolder) {
-			case '..':
-				$iCnt++;
-
-				unset ($aPath[$iKey]);
-				if (array_key_exists($iKey-1, $aPath)) {
-					$iPrevKey = $iKey-1;
-				} else {
-					$sPrev = prev($aPath);
-					$iPrevKey = array_search($sPrev, $aPath);
-				}
-				unset ($aPath[$iPrevKey]);
-			break;
-			case '.':
-				unset ($aPath[$iKey]);
-			break;
-			}
-		}
 
 		if ($iSteps > 0) {
 			// removing last $iSteps components of the path
 			$aPath = array_slice($aPath, 0, -$iSteps);
 		}
 
-		$sPath = (count($aPath) > 0 ? '/'.implode('/', $aPath) : '');
 		// in case of actually getting the parent, we need to append the ending /
 		// as we don't have a file as the last element in the path - same case for paths without a good termination
-		if ($iSteps > 0 || !self::hasGoodTermination($sPath)) {
-			$sPath .= '/';
-		}
+		$sPath = ($bHasPrefixSlash ? '/' : '') . implode('/', $aPath) . ($bHasSuffixSlash ? '/' : '');
 		return $sPath;
 	}
 
@@ -262,10 +221,11 @@ class UrlParserA extends Object implements UrlParserI {
 	 * @returns UrlParserA
 	 */
 	public function addPath($sPath) {
-		if (substr($this->oUrl->getPath(), -1) != '/') {
-			$this->oUrl->setPath( $this->oUrl->getPath() . '/');
+		$sExistingPath = $this->oUrl->getPath();
+		if (substr($sExistingPath, -1) != '/') {
+			$sPath = '/' . $sPath;
 		}
-		$this->oUrl->setPath( $this->oUrl->getPath() . $sPath);
+		$this->oUrl->setPath( $sExistingPath . $sPath);
 		return $this;
 	}
 
@@ -278,27 +238,8 @@ class UrlParserA extends Object implements UrlParserI {
 		return $this;
 	}
 
-	public function getQuery() {
-		return $this->oUrl->getQuery();
-	}
-
 	public function setQueryParameters($aInc) {
 		$this->oUrl->setQuery($aInc);
-	}
-
-	public function getQueryString() {
-		if ($this->oUrl->hasQuery()) {
-			try {
-				return $this->oUrl->getRawQueryString();
-			} catch (\Exception $e) {
-				//d ($this->aComponents);
-			}
-		}
-		return '';
-	}
-
-	public function getFragment() {
-		return $this->oUrl->getFragment();
 	}
 
 	/**
@@ -309,7 +250,7 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	protected function getFullQueryString() {
-		$sQuery = $this->getQueryString();
+		$sQuery = $this->oUrl->getRawQueryString();
 		if ($sQuery) {
 			return '?'.$sQuery;
 		} else {
@@ -318,16 +259,12 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	protected function getFullFragmentString() {
-		$sFragment = $this->getFragment();
+		$sFragment = $this->oUrl->getFragment();
 		if ($sFragment) {
 			return '#'.$sFragment;
 		} else {
 			return '';
 		}
-	}
-
-	public function isLocal() {
-		return ($this->getScheme() == 'file' && !$this->oUrl->hasHost() && $this->oUrl->hasPath());
 	}
 
 	public static function isAbsolutePath($sPath) {
@@ -338,8 +275,7 @@ class UrlParserA extends Object implements UrlParserI {
 		if (empty($this->sUrl)) {
 			return null;
 		}
-		// ff just tries to log you in... and removes the user:pass from the url :(
-		$sUri = ($this->getUser() ? $this->getUser().($this->getPass() ? ':'.$this->getPass() : '').'@' : '');
+		$sUri = '';
 		if ($this->getHost()) {
 			$sUri .= $this->getHost();
 		}
@@ -355,27 +291,17 @@ class UrlParserA extends Object implements UrlParserI {
 		if (empty($this->sUrl)) {
 			return '';
 		}
-		if (!$this->isLocal()) {
-			$sUrl = ($this->getScheme() ? $this->getScheme().':' : '').'//';
+		if (!$this->oUrl->isLocal()) {
+			$sUrl = ($this->oUrl->getScheme() ? $this->oUrl->getScheme().':' : '').'//';
 			$sUrl .= $this->getSiteUri();
 		} else {
 			$sUrl = '';
 			if ($bFull) {
-				$sUrl = ($this->getScheme() ? $this->getScheme().':' : '').'//';
+				$sUrl = ($this->oUrl->getScheme() ? $this->oUrl->getScheme().':' : '').'//';
 			}
 		}
 
-		$sPath = $this->getParentPath($iSteps);
-		if (self::isAbsolutePath($sPath)) {
-			$sUrl .= $sPath;
-		} else {
-			try {
-				$sUrl .= $this->oUrl->getPath().$sPath;
-			} catch (ExceptionError $e) {
-				vsc::d($e->getTraceAsString());
-			}
-		}
-
+		$sUrl .= $this->getParentPath($iSteps);
 		$sUrl .= $this->getFullQueryString();
 		$sUrl .= $this->getFullFragmentString();
 
@@ -399,5 +325,63 @@ class UrlParserA extends Object implements UrlParserI {
 	public function changeSubdomain($sNewSubdomain) {
 		$this->oUrl->setHost(str_ireplace($this->getSubdomain(), $sNewSubdomain, $this->oUrl->getHost()));
 		return $this->oUrl->getHost();
+	}
+
+	/**
+	 * @param string $sUrl
+	 * @return Url
+	 */
+	static public function url ($sUrl) {
+		return static::parse_url($sUrl);
+	}
+
+	/**
+	 * @param string $sPath
+	 * @return string
+	 */
+	static public function normalizePath ($sPath) {
+		if (empty ($sPath)) {
+			return '';
+		}
+
+		if (!self::isAbsolutePath($sPath)) {
+			if (substr($sPath, 0, 2) == './') {
+				$sPath = substr($sPath, 2);
+			}
+		}
+
+		$len = strlen($sPath);
+		$bHasPrefixSlash = ($sPath{0} == '/');
+		$bHasSuffixSlash = (($len > 1) && ($sPath{$len - 1} == '/'));
+		// removing the folders from the path if there are parent references (../)
+		$sPath = trim($sPath, '/');
+		$aPath = explode('/', $sPath);
+
+		$iCnt = 0;
+		foreach ($aPath as $iKey => $sFolder) {
+			switch ($sFolder) {
+				case '..':
+					$iCnt++;
+
+					unset ($aPath[$iKey]);
+					if (array_key_exists($iKey-1, $aPath)) {
+						$iPrevKey = $iKey-1;
+					} else {
+						$sPrev = prev($aPath);
+						$iPrevKey = array_search($sPrev, $aPath);
+					}
+					unset ($aPath[$iPrevKey]);
+					break;
+				case '.':
+					unset ($aPath[$iKey]);
+					break;
+			}
+		}
+
+		if (count($aPath) > 0) {
+			$sPath = ($bHasPrefixSlash ? '/' : '') . implode('/', $aPath) . ($bHasSuffixSlash ? '/' : '');
+		}
+
+		return $sPath;
 	}
 }

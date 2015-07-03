@@ -23,10 +23,9 @@ class getUrl extends \PHPUnit_Framework_TestCase
 	}
 
 	public function testGetModuleUrlWithUnicode () {
-		$this->markTestSkipped('No unicode for now');
 		$o = new MappingA_underTest_getUrl(__FILE__,'/test/a:(\w{5})/');
 		$o->setUrl('/test/a:ățșîâ/');
-		$this->assertEquals('/test/a:ățșîâ/', $o->getUrl()->getPath());
+		$this->assertEquals('/test/a:ățșîâ', $o->getUrl()->getPath());
 	}
 }
 

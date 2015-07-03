@@ -17,6 +17,6 @@ class getPathTest extends \PHPUnit_Framework_TestCase
 {
 	public function testInstantiationIsNull () {
 		$url = new Url();
-		$this->assertNull($url->getPath());
+		$this->assertEquals('', $url->getPath());
 	}
 }

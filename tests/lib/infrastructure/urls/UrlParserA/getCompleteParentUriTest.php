@@ -9,7 +9,7 @@ class getCompleteParentUri extends \PHPUnit_Framework_TestCase
 {
 	public function testLocalPath () {
 		$oUrl = new UrlParserA_underTest(__FILE__);
-		$this->assertEquals('file://' . dirname(__FILE__) . '/', $oUrl->getCompleteParentUri(true));
+		$this->assertEquals('file://' . dirname(__FILE__), $oUrl->getCompleteParentUri(true));
 	}
 
 

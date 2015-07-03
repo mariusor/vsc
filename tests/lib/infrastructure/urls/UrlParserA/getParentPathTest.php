@@ -19,7 +19,7 @@ class getParentPathTest extends \PHPUnit_Framework_TestCase {
 		$sUrl = UrlParserA_underTest::makeUrl($aUrlComponents);
 		$oUrl = new UrlParserA_underTest($sUrl);
 
-		$this->assertEquals(dirname(__FILE__) . '/', $oUrl->getParentPath(1));
+		$this->assertEquals(dirname(__FILE__), $oUrl->getParentPath(1));
 	}
 
 	/**
@@ -29,16 +29,16 @@ class getParentPathTest extends \PHPUnit_Framework_TestCase {
 		$sUrl = '/test/ana/../../rest/application/./processors/RESTProcessorA/validContentTypeTest.php';
 		$oUrl = new UrlParserA_underTest($sUrl);
 
-		$this->assertEquals('/rest/application/', $oUrl->getParentPath(3));
+		$this->assertEquals('/rest/application', $oUrl->getParentPath(3));
 	}
 
 	/**
 	 * @FIXME - this test, and the method are faulty at a first glance
 	 */
 	public function testGetParentPathWithRelativePath () {
-		$sUrl = '../test/ana/../../rest/application/./processors/RESTProcessorA/validContentTypeTest.php';
+		$sUrl = '/test/ana/../../rest/application/./processors/RESTProcessorA/validContentTypeTest.php';
 		$oUrl = new UrlParserA_underTest($sUrl);
 
-		$this->assertEquals('/test/rest/application/', $oUrl->getParentPath(3));
+		$this->assertEquals('/rest/application', $oUrl->getParentPath(3));
 	}
 }

@@ -11,7 +11,7 @@ class getCurrentUrlTest extends \PHPUnit_Framework_TestCase
 {
 	public function testBasicGetCurrentUrl()
 	{
-		$o = UrlParserA_underTest_getCurrentUrl::getCurrentUrl();
+		$o = new UrlParserA_underTest_getCurrentUrl(UrlParserA_underTest_getCurrentUrl::getRequestUri());
 		$this->assertInstanceOf(UrlParserA::class, $o);
 		$this->assertInstanceOf(UrlParserA_underTest_getCurrentUrl::class, $o);
 
