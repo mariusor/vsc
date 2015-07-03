@@ -1,6 +1,7 @@
 <?php
 namespace tests\lib\infrastructure\urls\UrlParserA;
 use fixtures\infrastructure\urls\UrlParserA_underTest;
+use vsc\infrastructure\urls\Url;
 use vsc\infrastructure\urls\UrlParserA;
 
 /**
@@ -31,8 +32,16 @@ class parse_url extends \PHPUnit_Framework_TestCase
 		}
 		$sQuery = implode('&', $aQuery);
 
+		$oUrl = new Url();
+		$oUrl->setScheme($aUrlComponents['scheme']);
+		$oUrl->setHost($aUrlComponents['host']);
+		$oUrl->setPath($aUrlComponents['path']);
+		$oUrl->setQuery($aUrlComponents['query']);
+		$oUrl->setFragment($aUrlComponents['fragment']);
 		$sUrl = UrlParserA_underTest::makeUrl($aUrlComponents);
-		$this->assertEquals($aUrlComponents, UrlParserA_underTest::parse_url($sUrl));
+
+		$this->assertInstanceOf(Url::class, UrlParserA_underTest::parse_url($sUrl));
+		$this->assertEquals($oUrl, UrlParserA_underTest::parse_url($sUrl));
 	}
 	/**
 	 * @test
@@ -47,7 +56,15 @@ class parse_url extends \PHPUnit_Framework_TestCase
 			'query'		=> array(),
 			'fragment'	=> ''
 		);
-		$this->assertEquals($aUrlComponents, UrlParserA_underTest::parse_url(__FILE__));
+
+		$oUrl = new Url();
+		$oUrl->setScheme($aUrlComponents['scheme']);
+		$oUrl->setHost($aUrlComponents['host']);
+		$oUrl->setPath($aUrlComponents['path']);
+		$oUrl->setQuery($aUrlComponents['query']);
+		$oUrl->setFragment($aUrlComponents['fragment']);
+
+		$this->assertEquals($oUrl, UrlParserA_underTest::parse_url(__FILE__));
 	}
 	/**
 	 * @test
@@ -64,25 +81,24 @@ class parse_url extends \PHPUnit_Framework_TestCase
 			],
 			'fragment'	=> ''
 		);
+
+		$oUrl = new Url();
+		$oUrl->setScheme($aUrlComponents['scheme']);
+		$oUrl->setHost($aUrlComponents['host']);
+		$oUrl->setPath($aUrlComponents['path']);
+		$oUrl->setQuery($aUrlComponents['query']);
+		$oUrl->setFragment($aUrlComponents['fragment']);
+
 		$sUrl = UrlParserA_underTest::makeUrl($aUrlComponents);
-		$this->assertEquals($aUrlComponents, UrlParserA_underTest::parse_url($sUrl));
+		$this->assertEquals($oUrl, UrlParserA_underTest::parse_url($sUrl));
 	}
 
 	/**
 	 * @test
 	 */
 	public function parse_urlWithNullUrl () {
-		$aUrlComponents = array (
-			'scheme'	=> 'http',
-			'host'		=> '',
-			'user'		=> '',
-			'pass'		=> '',
-			'path'		=> '/test/ana:are/test:123/', // from the $_SERVER defined in vsc_phpunittest_environment.php
-			'query'		=> [
-			],
-			'fragment'	=> ''
-		);
-		$this->assertEquals($aUrlComponents, UrlParserA_underTest::parse_url(null));
+		$oUrl = new Url();
+		$this->assertEquals($oUrl, UrlParserA_underTest::parse_url(null));
 	}
 
 	/**
@@ -100,7 +116,14 @@ class parse_url extends \PHPUnit_Framework_TestCase
 			'fragment'	=> ''
 		);
 		$sUrl = UrlParserA_underTest::makeUrl($aUrlComponents);
-		$this->assertEquals($aUrlComponents, UrlParserA_underTest::parse_url('/etc/passwd'));
+
+		$oUrl = new Url();
+		$oUrl->setScheme($aUrlComponents['scheme']);
+		$oUrl->setHost($aUrlComponents['host']);
+		$oUrl->setPath($aUrlComponents['path']);
+		$oUrl->setQuery($aUrlComponents['query']);
+		$oUrl->setFragment($aUrlComponents['fragment']);
+		$this->assertEquals($oUrl, UrlParserA_underTest::parse_url('/etc/passwd'));
 	}
 	/**
 	 * @test
@@ -116,7 +139,14 @@ class parse_url extends \PHPUnit_Framework_TestCase
 			],
 			'fragment'	=> ''
 		);
-		$this->assertEquals($aUrlComponents, UrlParserA_underTest::parse_url('//example.com/'));
+
+		$oUrl = new Url();
+		$oUrl->setScheme($aUrlComponents['scheme']);
+		$oUrl->setHost($aUrlComponents['host']);
+		$oUrl->setPath($aUrlComponents['path']);
+		$oUrl->setQuery($aUrlComponents['query']);
+		$oUrl->setFragment($aUrlComponents['fragment']);
+		$this->assertEquals($oUrl, UrlParserA_underTest::parse_url('//example.com/'));
 	}
 
 	/**
@@ -133,6 +163,13 @@ class parse_url extends \PHPUnit_Framework_TestCase
 			],
 			'fragment'	=> ''
 		);
-		$this->assertEquals($aUrlComponents, UrlParserA_underTest::parse_url('//127.0.0.1/'));
+
+		$oUrl = new Url();
+		$oUrl->setScheme($aUrlComponents['scheme']);
+		$oUrl->setHost($aUrlComponents['host']);
+		$oUrl->setPath($aUrlComponents['path']);
+		$oUrl->setQuery($aUrlComponents['query']);
+		$oUrl->setFragment($aUrlComponents['fragment']);
+		$this->assertEquals($oUrl, UrlParserA_underTest::parse_url('//127.0.0.1/'));
 	}
 }

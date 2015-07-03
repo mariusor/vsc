@@ -10,25 +10,16 @@ class UrlParserA extends Object implements UrlParserI {
 	static protected $QUERY_ENCODING_TYPE = PHP_QUERY_RFC1738;
 
 	private $sUrl;
-	private $aComponents = [
-		'scheme'	=> '',
-		'host'		=> '',
-		'user'		=> '',
-		'pass'		=> '',
-		'path'		=> '',
-		'query'		=> [],
-		'fragment'	=> ''
-	];
-
-	static private $validSchemes = ['http', 'https', 'file'];
+	/**
+	 * @var Url
+	 */
+	private $oUrl;
 
 	/**
 	 * @param string $sUrl
 	 */
 	public function __construct($sUrl = null) {
-		if (!is_null($sUrl)) {
-			$this->setUrl($sUrl);
-		}
+		$this->setUrl($sUrl);
 	}
 
 	/**
@@ -78,7 +69,7 @@ class UrlParserA extends Object implements UrlParserI {
 	public static function urlHasScheme($sUrl) {
 		$firstPos = min (strpos($sUrl, ':'), strpos($sUrl, '/'));
 		$sScheme = substr($sUrl, 0, $firstPos);
-		return in_array($sScheme, self::$validSchemes);
+		return Url::isValidScheme($sScheme);
 	}
 
 	/**
@@ -88,34 +79,25 @@ class UrlParserA extends Object implements UrlParserI {
 	 */
 	protected static function parse_url($sUrl = null) {
 		if (is_null($sUrl)) {
-			$sUrl = static::getRequestUri();
+			return new Url();
 		}
-
-		$aReturn = [
-			'scheme'	=> '',
-			'host'		=> '',
-			'user'		=> '',
-			'pass'		=> '',
-			'path'		=> '',
-			'query'		=> [],
-			'fragment'	=> ''
-		];
 
 		if (mb_detect_encoding($sUrl) !== 'ASCII') {
 			$sUrl = rawurlencode($sUrl);
 		}
 
+		$oUrl = new Url();
 		try {
 			if (!stristr($sUrl, '://') && is_file($sUrl) && is_readable($sUrl)) {
-				$aReturn['scheme'] = 'file';
-				$aReturn['path'] = $sUrl;
-				return $aReturn;
+				$oUrl->setScheme('file');
+				$oUrl->setPath($sUrl);
+				return $oUrl;
 			}
 		} catch (\Exception $e) {
 			// possible open basedir restriction
-			$aReturn['scheme'] = 'file';
-			$aReturn['path'] = $sUrl;
-			return $aReturn;
+			$oUrl->setScheme('file');
+			$oUrl->setPath($sUrl);
+			return $oUrl;
 		}
 
 		try {
@@ -125,19 +107,29 @@ class UrlParserA extends Object implements UrlParserI {
 
 			$aParsed = parse_url($sUrl);
 			if (!is_array($aParsed)) {
-				return [];
+				return null;
 			}
-			foreach ($aParsed as $key => $element) {
-				$aParsed[$key] = rawurldecode($element);
+			if (isset($aParsed['scheme'])) {
+				$oUrl->setScheme($aParsed['scheme']);
 			}
-			if (array_key_exists('query', $aParsed)) {
-				$aQuery = [];
-				parse_str($aParsed['query'], $aQuery);
+			if (isset($aParsed['host'])) {
+				$oUrl->setHost($aParsed['host']);
+			}
+			if (isset($aParsed['port'])) {
+				$oUrl->setPort($aParsed['port']);
+			}
+			if (isset($aParsed['path'])) {
+				$oUrl->setPath($aParsed['path']);
+			}
+			if (isset($aParsed['query'])) {
+				$oUrl->setRawQuery($aParsed['query']);
+			}
+			if (isset($aParsed['fragment'])) {
+				$oUrl->setFragment($aParsed['fragment']);
+			}
 
-				$aParsed['query'] = $aQuery;
-			}
 
-			return array_merge($aReturn, $aParsed);
+			return $oUrl;
 		} catch (\Exception $e) {
 			// failed php::parse_url
 		}
@@ -145,27 +137,27 @@ class UrlParserA extends Object implements UrlParserI {
 
 	public function setUrl($sUrl) {
 		$this->sUrl = $sUrl;
-		$this->aComponents = static::parse_url($sUrl);
+		$this->oUrl = static::parse_url($sUrl);
 	}
 
 	public function getScheme() {
-		return array_key_exists('scheme', $this->aComponents) ? strtolower($this->aComponents['scheme']) : null;
+		return $this->oUrl->getScheme();
 	}
 
 	public function getUser() {
-		return array_key_exists('user', $this->aComponents) ? $this->aComponents['user'] : null;
+		return null;
 	}
 
 	public function getPass() {
-		return array_key_exists('pass', $this->aComponents) ? $this->aComponents['pass'] : null;
+		return null;
 	}
 
 	public function getPort() {
-		return array_key_exists('port', $this->aComponents) ? $this->aComponents['port'] : null;
+		return $this->oUrl->getPort();
 	}
 
 	private function getSubdomainOf($sRootDomain) {
-		$sHost = strtolower($this->aComponents['host']);
+		$sHost = strtolower($this->oUrl->getHost());
 		$sSubDomains = stristr($sHost, '.'.$sRootDomain, true);
 
 		return self::getTldOf($sSubDomains);
@@ -192,7 +184,7 @@ class UrlParserA extends Object implements UrlParserI {
 
 	public function getTLD($sString = null) {
 		if (is_null($sString)) {
-			$sString = $this->aComponents['host'];
+			$sString = $this->oUrl->getHost();
 		}
 		return self::getTldOf($sString);
 	}
@@ -202,11 +194,11 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	public function getHost() {
-		return strtolower($this->aComponents['host']);
+		return strtolower($this->oUrl->getHost());
 	}
 
 	public function getParentPath($iSteps = 0) {
-		$sPath = $this->aComponents['path'];
+		$sPath = $this->oUrl->getPath();
 
 		if (empty ($sPath)) {
 			return '';
@@ -258,7 +250,7 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	public function setPath($sPath) {
-		$this->aComponents['path'] = $sPath;
+		$this->oUrl->setPath($sPath);
 	}
 
 	public function getPath() {
@@ -270,10 +262,10 @@ class UrlParserA extends Object implements UrlParserI {
 	 * @returns UrlParserA
 	 */
 	public function addPath($sPath) {
-		if (substr($this->aComponents['path'], -1) != '/') {
-			$this->aComponents['path'] .= '/';
+		if (substr($this->oUrl->getPath(), -1) != '/') {
+			$this->oUrl->setPath( $this->oUrl->getPath() . '/');
 		}
-		$this->aComponents['path'] .= $sPath;
+		$this->oUrl->setPath( $this->oUrl->getPath() . $sPath);
 		return $this;
 	}
 
@@ -282,22 +274,22 @@ class UrlParserA extends Object implements UrlParserI {
 	 * @returns UrlParserA
 	 */
 	public function addFragment($sFragment) {
-		$this->aComponents['fragment'] = $sFragment;
+		$this->oUrl->setFragment($sFragment);
 		return $this;
 	}
 
 	public function getQuery() {
-		return $this->aComponents['query'];
+		return $this->oUrl->getQuery();
 	}
 
 	public function setQueryParameters($aInc) {
-		$this->aComponents['query'] = $aInc;
+		$this->oUrl->setQuery($aInc);
 	}
 
 	public function getQueryString() {
-		if (!empty($this->aComponents['query'])) {
+		if ($this->oUrl->hasQuery()) {
 			try {
-				return http_build_query($this->aComponents['query'], '', '', static::$QUERY_ENCODING_TYPE);
+				return $this->oUrl->getRawQueryString();
 			} catch (\Exception $e) {
 				//d ($this->aComponents);
 			}
@@ -306,7 +298,7 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	public function getFragment() {
-		return $this->aComponents['fragment'];
+		return $this->oUrl->getFragment();
 	}
 
 	/**
@@ -335,7 +327,7 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	public function isLocal() {
-		return ($this->getScheme() == 'file' && empty($this->aComponents['host']) && !empty($this->aComponents['path']));
+		return ($this->getScheme() == 'file' && !$this->oUrl->hasHost() && $this->oUrl->hasPath());
 	}
 
 	public static function isAbsolutePath($sPath) {
@@ -378,7 +370,7 @@ class UrlParserA extends Object implements UrlParserI {
 			$sUrl .= $sPath;
 		} else {
 			try {
-				$sUrl .= $this->aComponents['path'].$sPath;
+				$sUrl .= $this->oUrl->getPath().$sPath;
 			} catch (ExceptionError $e) {
 				vsc::d($e->getTraceAsString());
 			}
@@ -405,7 +397,7 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	public function changeSubdomain($sNewSubdomain) {
-		$this->aComponents['host'] = str_ireplace($this->getSubdomain(), $sNewSubdomain, $this->aComponents['host']);
-		return $this->aComponents['host'];
+		$this->oUrl->setHost(str_ireplace($this->getSubdomain(), $sNewSubdomain, $this->oUrl->getHost()));
+		return $this->oUrl->getHost();
 	}
 }

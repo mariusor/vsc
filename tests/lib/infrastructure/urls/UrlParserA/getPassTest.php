@@ -6,6 +6,7 @@ use fixtures\infrastructure\urls\UrlParserA_underTest;
 
 class getPassTest extends \PHPUnit_Framework_TestCase {
 	public function testGetPass () {
+		$this->markTestSkipped('No user/password in new implementation');
 		$aUrlComponents = array (
 			'scheme'	=> 'http',
 			'host'		=> 'localhost',

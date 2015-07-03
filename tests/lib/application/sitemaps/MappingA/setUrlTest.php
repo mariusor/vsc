@@ -10,10 +10,10 @@ class setUrl extends \PHPUnit_Framework_TestCase
 	public function testBasicSetUrl ()
 	{
 		$o = new MappingA_underTest_setUrl();
-		$sTest = 'test';
+		$sTest = '/test';
 		$o->setUrl($sTest);
 
-		$this->assertEquals('/' . $sTest . '/', $o->getUrl()->getPath());
+		$this->assertEquals($sTest, $o->getUrl()->getPath());
 	}
 
 	public function testSetUrl ()
@@ -22,7 +22,7 @@ class setUrl extends \PHPUnit_Framework_TestCase
 		$sTest = 'http://example.com/test';
 		$o->setUrl($sTest);
 
-		$this->assertEquals('/test/', $o->getUrl()->getPath());
+		$this->assertEquals('/test', $o->getUrl()->getPath());
 	}
 }
 
@@ -32,7 +32,7 @@ class MappingA_underTest_setUrl extends MappingA {
 			$sPath = __FILE__;
 		}
 		if (is_null($sRegex)) {
-			$sRegex = 'test';
+			$sRegex = '/test';
 		}
 		parent::__construct($sPath, $sRegex);
 	}

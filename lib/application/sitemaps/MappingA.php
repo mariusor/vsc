@@ -8,6 +8,7 @@
 namespace vsc\application\sitemaps;
 
 use vsc\application\controllers\ExceptionController;
+use vsc\infrastructure\urls\Url;
 use vsc\infrastructure\urls\UrlParserA;
 use vsc\infrastructure\urls\UrlRWParser;
 use vsc\infrastructure\Base;
@@ -464,14 +465,16 @@ abstract class MappingA extends Object {
 	}
 
 	/**
-	 * @returns UrlParserA
+	 * @returns Url
 	 */
 	public function getUrl() {
 		$sRegex = '#('.str_replace('#', '\#', $this->getRegex()).')#iUu';
 		$bHaveMatch = preg_match($sRegex, $this->sMatchingUrl, $aMatches);
 
 		if ($bHaveMatch) {
-			return new UrlRWParser($aMatches[0]);
+			$url = new Url();
+			$url->setPath($aMatches[0]);
+			return $url;
 		} else {
 			return new Base();
 		}
