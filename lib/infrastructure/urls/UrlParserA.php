@@ -190,7 +190,7 @@ class UrlParserA extends Object implements UrlParserI {
 
 
 		$len = strlen($sPath);
-		$bHasPrefixSlash = ($sPath{0} == '/');
+		$bHasPrefixSlash = (($len > 0) && ($sPath{0} == '/'));
 		$bHasSuffixSlash = (($len > 1) && ($sPath{$len - 1} == '/'));
 
 		// removing the folders from the path if there are parent references (../)
