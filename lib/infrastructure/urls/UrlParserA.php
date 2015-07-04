@@ -217,19 +217,6 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	/**
-	 * @param string $sPath
-	 * @returns UrlParserA
-	 */
-	public function addPath($sPath) {
-		$sExistingPath = $this->oUrl->getPath();
-		if (substr($sExistingPath, -1) != '/') {
-			$sPath = '/' . $sPath;
-		}
-		$this->oUrl->setPath( $sExistingPath . $sPath);
-		return $this;
-	}
-
-	/**
 	 * @param string $sFragment
 	 * @returns UrlParserA
 	 */
@@ -271,29 +258,14 @@ class UrlParserA extends Object implements UrlParserI {
 		return substr($sPath, 0, 1) == '/';
 	}
 
-	public function getSiteUri() {
-		if (empty($this->sUrl)) {
-			return null;
-		}
-		$sUri = '';
-		if ($this->getHost()) {
-			$sUri .= $this->getHost();
-		}
-
-		if ($sUri) {
-			return $sUri;
-		} else {
-			return '';
-		}
+	static public function getSiteUri() {
+		return static::url(static::getRequestUri())->getHost();
 	}
 
 	public function getCompleteParentUri($bFull = false, $iSteps = 1) {
-		if (empty($this->sUrl)) {
-			return '';
-		}
 		if (!$this->oUrl->isLocal()) {
-			$sUrl = ($this->oUrl->getScheme() ? $this->oUrl->getScheme().':' : '').'//';
-			$sUrl .= $this->getSiteUri();
+			$sUrl = ($this->oUrl->hasScheme() ? $this->oUrl->getScheme().'://' : '');
+			$sUrl .= $this->getHost();
 		} else {
 			$sUrl = '';
 			if ($bFull) {

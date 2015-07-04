@@ -38,6 +38,10 @@ class Url extends Object
 	 */
 	private $fragment;
 
+	public function __toString() {
+		return $this->getUrl();
+	}
+
 	/**
 	 * @param string $scheme
 	 */
@@ -220,4 +224,18 @@ class Url extends Object
 
 		return $rawUrl;
 	}
+
+	/**
+	 * @param string $sPath
+	 * @returns UrlParserA
+	 */
+	public function addPath($sPath) {
+		$sExistingPath = $this->getPath();
+		if (substr($sExistingPath, -1) != '/') {
+			$sPath = '/' . $sPath;
+		}
+		$this->setPath($sExistingPath . $sPath);
+		return $this;
+	}
+
 }

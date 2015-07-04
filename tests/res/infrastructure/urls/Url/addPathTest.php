@@ -1,9 +1,9 @@
 <?php
-namespace tests\lib\infrastructure\urls\UrlParserA;
-use fixtures\infrastructure\urls\UrlParserA_underTest;
+namespace tests\lib\infrastructure\urls\Url;
+use vsc\infrastructure\urls\Url;
 
 /**
- * @covers \vsc\infrastructure\urls\UrlParserA::addPath
+ * @covers \vsc\infrastructure\urls\Url::addPath()
  */
 class addPathTest extends \PHPUnit_Framework_TestCase {
 
@@ -11,32 +11,35 @@ class addPathTest extends \PHPUnit_Framework_TestCase {
 		$sLocalHost = 'http://localhost';
 		$sStr = 'ana/are/mere';
 
-		$oUrl = new UrlParserA_underTest($sLocalHost);
+		$oUrl = new Url();
+		$oUrl->setHost($sLocalHost);
 		$oUrl->addPath($sStr);
 
-		$this->assertEquals($sLocalHost . '/' . $sStr, $oUrl->getCompleteUri(true));
+		$this->assertEquals($sLocalHost . '/' . $sStr, $oUrl->getUrl());
 	}
 
 	public function testAddRelativePathWithParentDirectory () {
 		$sLocalHost = 'http://localhost';
 		$sStr = 'ana/../are/mere';
 
-		$oUrl = new UrlParserA_underTest($sLocalHost);
+		$oUrl = new Url();
+		$oUrl->setHost($sLocalHost);
 		$oUrl->addPath($sStr);
 
 		$sParentStr = substr($sStr, strpos($sStr, '../') + strlen ('../'));
-		$this->assertEquals($sLocalHost . '/' . $sParentStr, $oUrl->getCompleteUri(true));
+		$this->assertEquals($sLocalHost . '/' . $sParentStr, $oUrl->getUrl());
 	}
 
 	public function testAddRelativePathWithCurrentDirectory () {
 		$sLocalHost = 'http://localhost';
 		$sStr = 'ana/./are/mere';
 
-		$oUrl = new UrlParserA_underTest($sLocalHost);
+		$oUrl = new Url();
+		$oUrl->setHost($sLocalHost);
 		$oUrl->addPath($sStr);
 
 		$sCurrentStr = str_replace('./', '', $sStr);
-		$this->assertEquals($sLocalHost . '/' . $sCurrentStr, $oUrl->getCompleteUri(true));
+		$this->assertEquals($sLocalHost . '/' . $sCurrentStr, $oUrl->getUrl());
 	}
 
 }

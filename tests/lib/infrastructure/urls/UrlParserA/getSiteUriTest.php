@@ -11,10 +11,13 @@ class getSiteUriTest extends \PHPUnit_Framework_TestCase {
 
 	public function testBasicGetSiteUri() {
 		$test = 'example.com';
-		$o = new UrlParserA_underTest_getSiteUri('http://example.com');
-		$this->assertEquals($test, $o->getSiteUri());
+		$this->assertEquals($test, UrlParserA_underTest_getSiteUri::getSiteUri());
 	}
 
 }
 
-class UrlParserA_underTest_getSiteUri extends UrlParserA {}
+class UrlParserA_underTest_getSiteUri extends UrlParserA {
+	static public function getRequestUri() {
+		return 'http://example.com';
+	}
+}
