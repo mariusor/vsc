@@ -127,6 +127,7 @@ class Url extends Object
 	}
 
 	/**
+	 * @param bool $encoded
 	 * @return string
 	 */
 	public function getRawQueryString($encoded = true) {
@@ -219,7 +220,7 @@ class Url extends Object
 			$rawUrl .= '/';
 		}
 		if ($this->hasQuery()) {
-			$rawUrl .= $this->getRawQueryString();
+			$rawUrl .= '?' . $this->getRawQueryString();
 		}
 		if ($this->hasFragment()) {
 			$rawUrl .= '#' . $this->getFragment();

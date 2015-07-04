@@ -73,6 +73,33 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	/**
+	 * @param Url $oUrl
+	 * @param array $aParsed
+	 * @return Url
+	 */
+	private static function loadParsedUrl ($oUrl, $aParsed) {
+		if (isset($aParsed['scheme'])) {
+			$oUrl->setScheme($aParsed['scheme']);
+		}
+		if (isset($aParsed['host'])) {
+			$oUrl->setHost($aParsed['host']);
+		}
+		if (isset($aParsed['port'])) {
+			$oUrl->setPort($aParsed['port']);
+		}
+		if (isset($aParsed['path'])) {
+			$oUrl->setPath($aParsed['path']);
+		}
+		if (isset($aParsed['query'])) {
+			$oUrl->setRawQuery($aParsed['query']);
+		}
+		if (isset($aParsed['fragment'])) {
+			$oUrl->setFragment($aParsed['fragment']);
+		}
+		return $oUrl;
+	}
+
+	/**
 	 * This exists as the php::parse_url function sometimes breaks inexplicably
 	 * @param string $sUrl
 	 * @return Url
@@ -81,20 +108,8 @@ class UrlParserA extends Object implements UrlParserI {
 		if (is_null($sUrl)) {
 			return new Url();
 		}
-
-		if (mb_detect_encoding($sUrl) !== 'ASCII') {
-			$sUrl = rawurlencode($sUrl);
-		}
-
-		$oUrl = new Url();
-		try {
-			if (!stristr($sUrl, '://') && is_file($sUrl) && is_readable($sUrl)) {
-				$oUrl->setScheme('file');
-				$oUrl->setPath($sUrl);
-				return $oUrl;
-			}
-		} catch (\Exception $e) {
-			// possible open basedir restriction
+		if (!stristr($sUrl, '://') && (substr($sUrl, 0, 2) != '//')) {
+			$oUrl = new Url();
 			$oUrl->setScheme('file');
 			$oUrl->setPath($sUrl);
 			return $oUrl;
@@ -105,44 +120,23 @@ class UrlParserA extends Object implements UrlParserI {
 				$sUrl = (HttpRequestA::isSecure() ? 'https:' : 'http:') . $sUrl;
 			}
 
+			if (mb_detect_encoding($sUrl) !== 'ASCII') {
+				$sUrl = rawurlencode($sUrl);
+			}
 			$aParsed = parse_url($sUrl);
-			if (!is_array($aParsed)) {
-				return null;
-			}
-			if (isset($aParsed['scheme'])) {
-				$oUrl->setScheme($aParsed['scheme']);
-			}
-			if (isset($aParsed['host'])) {
-				$oUrl->setHost($aParsed['host']);
-			}
-			if (isset($aParsed['port'])) {
-				$oUrl->setPort($aParsed['port']);
-			}
-			if (isset($aParsed['path'])) {
-				$oUrl->setPath($aParsed['path']);
-			}
-			if (isset($aParsed['query'])) {
-				$oUrl->setRawQuery($aParsed['query']);
-			}
-			if (isset($aParsed['fragment'])) {
-				$oUrl->setFragment($aParsed['fragment']);
-			}
-
-
-			return $oUrl;
+			return self::loadParsedUrl(new Url(), $aParsed);
 		} catch (\Exception $e) {
 			// failed php::parse_url
 			return new Url();
 		}
 	}
 
+	/**
+	 * @param string $sUrl
+	 */
 	public function setUrl($sUrl) {
 		$this->sUrl = $sUrl;
 		$this->oUrl = static::parse_url($sUrl);
-	}
-
-	public function getPort() {
-		return $this->oUrl->getPort();
 	}
 
 	private function getSubdomainOf($sRootDomain) {
@@ -180,10 +174,6 @@ class UrlParserA extends Object implements UrlParserI {
 
 	public static function getCurrentHostName() {
 		return $_SERVER['HTTP_HOST'];
-	}
-
-	public function getHost() {
-		return strtolower($this->oUrl->getHost());
 	}
 
 	public function getParentPath($iSteps = 0) {
@@ -237,36 +227,30 @@ class UrlParserA extends Object implements UrlParserI {
 		return $this->sUrl;
 	}
 
-	protected function getFullQueryString() {
-		$sQuery = $this->oUrl->getRawQueryString();
-		if ($sQuery) {
-			return '?'.$sQuery;
-		} else {
-			return '';
-		}
-	}
-
-	protected function getFullFragmentString() {
-		$sFragment = $this->oUrl->getFragment();
-		if ($sFragment) {
-			return '#'.$sFragment;
-		} else {
-			return '';
-		}
-	}
-
+	/**
+	 * @param string $sPath
+	 * @return bool
+	 */
 	public static function isAbsolutePath($sPath) {
 		return substr($sPath, 0, 1) == '/';
 	}
 
+	/**
+	 * @return Url
+	 */
 	static public function getSiteUri() {
 		return static::url(static::getRequestUri())->getHost();
 	}
 
+	/**
+	 * @param bool $bFull
+	 * @param int $iSteps
+	 * @return string
+	 */
 	public function getCompleteParentUri($bFull = false, $iSteps = 1) {
 		if (!$this->oUrl->isLocal()) {
 			$sUrl = ($this->oUrl->hasScheme() ? $this->oUrl->getScheme().'://' : '');
-			$sUrl .= $this->getHost();
+			$sUrl .= $this->oUrl->getHost();
 		} else {
 			$sUrl = '';
 			if ($bFull) {
@@ -275,8 +259,10 @@ class UrlParserA extends Object implements UrlParserI {
 		}
 
 		$sUrl .= $this->getParentPath($iSteps);
-		$sUrl .= $this->getFullQueryString();
-		$sUrl .= $this->getFullFragmentString();
+		if ($this->oUrl->hasQuery()) {
+			$sUrl .= '?' . $this->oUrl->getRawQueryString() . '';
+		}
+		$sUrl .= $this->oUrl->getFragment();
 
 		return $sUrl;
 	}

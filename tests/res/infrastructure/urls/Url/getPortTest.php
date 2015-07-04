@@ -1,5 +1,5 @@
 <?php
-namespace lib\infrastructure\urls\UrlParserA;
+namespace tests\infrastructure\urls\Url;
 
 
 use fixtures\infrastructure\urls\UrlParserA_underTest;
@@ -17,7 +17,7 @@ class getPortTest extends \PHPUnit_Framework_TestCase {
 			'fragment'	=> ''
 		);
 		$sUrl = UrlParserA_underTest::makeUrl($aUrlComponents);
-		$oUrl = new UrlParserA_underTest($sUrl);
+		$oUrl = UrlParserA_underTest::url($sUrl);
 
 		$this->assertEquals($sPort, $oUrl->getPort());
 	}
