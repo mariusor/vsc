@@ -25,6 +25,7 @@ use vsc\presentation\responses\HttpResponseA;
 use vsc\presentation\responses\HttpResponseType;
 use vsc\presentation\views\ExceptionView;
 use vsc\presentation\requests\HttpRequestA;
+use vsc\presentation\views\Html5View;
 use vsc\presentation\views\ViewA;
 use vsc\ExceptionPath;
 use vsc\presentation\responses\ExceptionResponse;
@@ -83,8 +84,53 @@ abstract class FrontControllerA extends Object {
 		}
 	}
 
-	protected function initProcessor() {
+	/**
+	 * @param HttpRequestA $oRequest
+	 * @param ProcessorA $oProcessor
+	 * @return ViewA
+	 * @throws ExceptionPath
+	 */
+	protected function loadView($oRequest, $oProcessor = null) {
+		// we didn't set any special view
+		// this means that the developer needs to provide his own views
+		$oView = $this->getView();
+		$oMyMap = $this->getMap();
 
+		if (ProcessorA::isValid($oProcessor)) {
+			$oProcessor->init();
+			$oModel = $oProcessor->handleRequest($oRequest);
+			/* @var ProcessorMap $oMap */
+			$oMap = $oProcessor->getMap();
+			if (MappingA::isValid($oMap)) {
+				if (MappingA::isValid($oMyMap)) {
+					$oMap->merge($oMyMap);
+				}
+			}
+			// setting the processor map
+			$oView->setMap($oMap);
+			try {
+				if (((ProcessorMap::isValid($oMap) || ClassMap::isValid($oMap)) && !$oMap->isStatic() && !$oMyMap->isStatic()) && (ControllerMap::isValid($oMyMap) || ClassMap::isValid($oMyMap))) {
+					$oView->setMainTemplate(
+						$oMyMap->getMainTemplatePath() .
+						$oView->getViewFolder() . DIRECTORY_SEPARATOR .
+						$oMyMap->getMainTemplate()
+					);
+				}
+			} catch (ExceptionPath $e) {
+				// fallback to html5
+				// @todo verify main template path and main template exist
+				$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . 'html5' . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
+			}
+			if (!ModelA::isValid($oModel)) {
+				$oModel = new EmptyModel();
+				if (!ProcessorMap::isValid($oMap) || $oMap->getTitle() == '') {
+					$oModel->setPageTitle('Warning');
+				}
+				$oModel->setPageContent('Warning: the processor didn\'t return a valid model. This is probably an error');
+			}
+			$oView->setModel($oModel);
+		}
+		return $oView;
 	}
 
 	/**
@@ -97,85 +143,40 @@ abstract class FrontControllerA extends Object {
 	 */
 	public function getResponse(HttpRequestA $oRequest, $oProcessor = null) {
 		$oResponse = vsc::getEnv()->getHttpResponse();
-		$oModel = null;
-		/* @var ControllerMap $oMyMap */
-		$oMyMap	= $this->getMap();
-		try {
-			if (ProcessorA::isValid($oProcessor)) {
-				$oProcessor->init();
-				$oModel = $oProcessor->handleRequest($oRequest);
-			}
-			if ($oResponse->getStatus() == 0) {
-				$oResponse->setStatus(HttpResponseType::OK);
-			}
+		if ($oResponse->getStatus() == 0) {
+			$oResponse->setStatus(HttpResponseType::OK);
+		}
 
-			// we didn't set any special view
-			// this means that the developer needs to provide his own views
-			$oView = $this->getView();
-			$oMap = null;
+		$oModel = null;
+		try {
+			$oView = $this->loadView($oRequest, $oProcessor);
+			$oResponse->setView($oView);
 			if (ProcessorA::isValid($oProcessor)) {
-				/* @var ProcessorMap $oMap */
 				$oMap = $oProcessor->getMap();
 				if (MappingA::isValid($oMap)) {
-					if (MappingA::isValid($oMyMap)) {
-						$oMap->merge($oMyMap);
+					$aHeaders = $oMap->getHeaders();
+					if (count($aHeaders) > 0) {
+						foreach ($aHeaders as $sName => $sHeader) {
+							$oResponse->addHeader($sName, $sHeader);
+						}
 					}
-					$oProcessorResponse = $oMap->getResponse();
-
-					if (HttpResponseA::isValid($oProcessorResponse)) {
-						$oResponse = $oProcessorResponse;
+					$iProcessorSetStatus = $oMap->getResponseStatus();
+					if (HttpResponseType::isValidStatus($iProcessorSetStatus)) {
+						$oResponse->setStatus($iProcessorSetStatus);
 					}
 				}
-
-				// setting the processor map
-				$oView->setMap($oMap);
 			}
-
-				if (((ProcessorMap::isValid($oMap) || ClassMap::isValid($oMap)) && !$oMap->isStatic() && !$oMyMap->isStatic()) && (ControllerMap::isValid($oMyMap) || ClassMap::isValid($oMyMap))) {
-				$oView->setMainTemplate(
-					$oMyMap->getMainTemplatePath().
-					$oView->getViewFolder().DIRECTORY_SEPARATOR.
-					$oMyMap->getMainTemplate()
-				);
-			}
+			return $oResponse;
 		} catch (ExceptionResponseRedirect $e) {
 			$oResponse->setStatus($e->getRedirectCode());
 			$oResponse->setLocation($e->getLocation());
 
 			return $oResponse;
-		} catch (ExceptionPath $e) {
-			// fallback to html5
-			// @todo verify main template path and main template exist
-			$oView->setMainTemplate($oMyMap->getMainTemplatePath().DIRECTORY_SEPARATOR.'html5'.DIRECTORY_SEPARATOR.$oMyMap->getMainTemplate());
 		} catch (\Exception $e) {
 			// we had error in the controller
 			// @todo make more error processors
 			return $this->getErrorResponse($e, $oRequest);
 		}
-
-		if (!ModelA::isValid($oModel)) {
-			$oModel = new EmptyModel();
-			if (!ProcessorMap::isValid($oMap) || $oMap->getTitle() == '') {
-				$oModel->setPageTitle('Warning');
-			}
-			$oModel->setPageContent('Warning: the processor didn\'t return a valid model. This is probably an error');
-		}
-		$oView->setModel($oModel);
-
-		$oResponse->setView($oView);
-		if (MappingA::isValid($oMap)) {
-			$aHeaders = $oMap->getHeaders();
-			if (count($aHeaders) > 0) {
-				foreach ($aHeaders as $sName => $sHeader) {
-					$oResponse->addHeader($sName, $sHeader);
-				}
-			}
-			$iProcessorSetStatus = $oMap->getResponseStatus();
-			if (HttpResponseType::isValidStatus($iProcessorSetStatus)) {
-				$oResponse->setStatus($iProcessorSetStatus);
-			}
-		}
-		return $oResponse;
 	}
 
 	/**
@@ -225,7 +226,6 @@ abstract class FrontControllerA extends Object {
 
 		// setting the processor map
 		$oView->setMap($oMap);
-
 		if (ControllerMap::isValid($oMyMap)) {
 			$oView->setMainTemplate($oMyMap->getMainTemplatePath().DIRECTORY_SEPARATOR.$oView->getViewFolder().DIRECTORY_SEPARATOR.$oMyMap->getMainTemplate());
 		}
