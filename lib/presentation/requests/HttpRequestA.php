@@ -370,8 +370,6 @@ abstract class HttpRequestA extends Object {
 	 */
 	public function getUri($bUrlDecode = false) {
 		if (!$this->sUri && isset($_SERVER['SERVER_SOFTWARE'])) {
-			$sServerType = $_SERVER['SERVER_SOFTWARE'];
-
 			// this header is present for all servers in the same form
 			$sCurrentScriptDir = dirname($_SERVER['PHP_SELF']) != '/' ? dirname($_SERVER['PHP_SELF']) : '';
 			$sReqUri = $_SERVER['REQUEST_URI'];

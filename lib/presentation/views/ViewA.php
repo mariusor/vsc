@@ -13,7 +13,6 @@ use vsc\domain\models\EmptyModel;
 use vsc\domain\models\HttpModelI;
 use vsc\domain\models\ModelA;
 use vsc\infrastructure\urls\UrlParserA;
-use vsc\infrastructure\urls\UrlRWParser;
 use vsc\infrastructure\vsc;
 use vsc\infrastructure\Base;
 use vsc\infrastructure\Object;
@@ -294,20 +293,10 @@ abstract class ViewA extends Object implements ViewI {
 	}
 
 	/**
-	 * @returns UrlRWParser
-	 */
-	public static function getUriParser() {
-		if (!UrlParserA::isValid(self::$oUriParser)) {
-			self::$oUriParser = new UrlRWParser();
-		}
-		return self::$oUriParser;
-	}
-
-	/**
 	 * @return string
 	 */
 	public static function getCurrentSiteUri() {
-		return htmlspecialchars(self::getUriParser()->getSiteUri());
+		return htmlspecialchars(UrlParserA::getCurrentUrl()->getUrl());
 	}
 
 	/**
@@ -315,13 +304,5 @@ abstract class ViewA extends Object implements ViewI {
 	 */
 	public static function getCurrentUri() {
 		return htmlspecialchars(vsc::getEnv()->getHttpRequest()->getUri(true));
-	}
-
-	/**
-	 * @param int $iParent
-	 * @return string
-	 */
-	public static function getParentUri($iParent = 1) {
-		return htmlspecialchars(self::getUriParser()->getCompleteParentUri(true, $iParent));
 	}
 }
