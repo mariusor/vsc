@@ -6,17 +6,17 @@
  */
 namespace vsc\application\sitemaps;
 
-use vsc\infrastructure\Object;
+use vsc\infrastructure\Object as vscObject;
 
 class ClassMap extends MappingA implements ContentTypeMappingI {
 	use ProcessorMapT;
 	use ControllerMapT;
 
 	/**
-	 * @param Object $MappedObject
+	 * @param vscObject $MappedObject
 	 * @return bool
 	 */
-	public function maps(Object $MappedObject)
+	public function maps(vscObject $MappedObject)
 	{
 		return (get_class($MappedObject) == $this->getPath());
 	}
