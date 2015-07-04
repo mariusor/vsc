@@ -132,6 +132,7 @@ class UrlParserA extends Object implements UrlParserI {
 			return $oUrl;
 		} catch (\Exception $e) {
 			// failed php::parse_url
+			return new Url();
 		}
 	}
 

@@ -23,6 +23,7 @@ class getRawQueryStringTest extends \PHPUnit_Framework_TestCase
 		$oUrl = new Url();
 		$oUrl->setQuery($value);
 
-		$this->assertEquals('ana=mere&test=123', $oUrl->getRawQueryString());
+		$this->assertEquals('ana=mere&test=123', $oUrl->getRawQueryString(false));
+		$this->assertEquals('ana=mere&amp;test=123', $oUrl->getRawQueryString());
 	}
 }

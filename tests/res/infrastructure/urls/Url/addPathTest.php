@@ -15,7 +15,7 @@ class addPathTest extends \PHPUnit_Framework_TestCase {
 		$oUrl->setHost($sLocalHost);
 		$oUrl->addPath($sStr);
 
-		$this->assertEquals($sLocalHost . '/' . $sStr, $oUrl->getUrl());
+		$this->assertEquals($sLocalHost . '/' . $sStr . '/', $oUrl->getUrl());
 	}
 
 	public function testAddRelativePathWithParentDirectory () {
@@ -27,7 +27,7 @@ class addPathTest extends \PHPUnit_Framework_TestCase {
 		$oUrl->addPath($sStr);
 
 		$sParentStr = substr($sStr, strpos($sStr, '../') + strlen ('../'));
-		$this->assertEquals($sLocalHost . '/' . $sParentStr, $oUrl->getUrl());
+		$this->assertEquals($sLocalHost . '/' . $sParentStr . '/', $oUrl->getUrl());
 	}
 
 	public function testAddRelativePathWithCurrentDirectory () {
@@ -39,7 +39,7 @@ class addPathTest extends \PHPUnit_Framework_TestCase {
 		$oUrl->addPath($sStr);
 
 		$sCurrentStr = str_replace('./', '', $sStr);
-		$this->assertEquals($sLocalHost . '/' . $sCurrentStr, $oUrl->getUrl());
+		$this->assertEquals($sLocalHost . '/' . $sCurrentStr . '/', $oUrl->getUrl());
 	}
 
 }

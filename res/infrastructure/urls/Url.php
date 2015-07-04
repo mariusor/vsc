@@ -10,7 +10,7 @@ use vsc\infrastructure\Object;
 
 class Url extends Object
 {
-	static protected $QUERY_ENCODING_TYPE = PHP_QUERY_RFC3986;
+	static protected $QUERY_ENCODING_TYPE = PHP_QUERY_RFC1738;
 	static protected $validSchemes = ['http', 'https', 'file'];
 
 	/**
@@ -129,8 +129,8 @@ class Url extends Object
 	/**
 	 * @return string
 	 */
-	public function getRawQueryString() {
-		return http_build_query($this->getQuery(), '', '&', static::$QUERY_ENCODING_TYPE);
+	public function getRawQueryString($encoded = true) {
+		return http_build_query($this->getQuery(), '', $encoded ? '&amp;' : '&', static::$QUERY_ENCODING_TYPE);
 	}
 
 	/**
@@ -202,7 +202,7 @@ class Url extends Object
 	 */
 	public function getUrl() {
 		$rawUrl = '';
-		if ($this->hasScheme()) {
+		if ($this->hasScheme() && $this->hasHost()) {
 			$rawUrl .= $this->getScheme() . '://';
 		}
 		if ($this->hasHost()) {
@@ -214,6 +214,9 @@ class Url extends Object
 		if ($this->hasPath()) {
 			// this needs normalization
 			$rawUrl .= $this->getPath();
+		}
+		if (!empty($rawUrl) && !UrlParserA::hasGoodTermination($rawUrl)) {
+			$rawUrl .= '/';
 		}
 		if ($this->hasQuery()) {
 			$rawUrl .= $this->getRawQueryString();

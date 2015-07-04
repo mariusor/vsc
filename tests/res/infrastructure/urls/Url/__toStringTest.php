@@ -9,7 +9,7 @@ class __toString extends \PHPUnit_Framework_TestCase
 {
 	public function testEmpty__toString()
 	{
-		$sUrl = 'http://localhost';
+		$sUrl = 'http://localhost/';
 		$o = new Url();
 		$o->setHost($sUrl);
 		$this->assertEquals($sUrl, $o->__toString());

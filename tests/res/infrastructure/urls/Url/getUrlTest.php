@@ -27,7 +27,7 @@ class getUrlTest extends \PHPUnit_Framework_TestCase
 		$url->setPath('/');
 		$url->setQuery(['ana' => 'mere', 'test' => 123]);
 		$url->setFragment('hash');
-		$this->assertEquals('https://example.com/ana=mere&test=123#hash', $url->getUrl());
+		$this->assertEquals('https://example.com/ana=mere&amp;test=123#hash', $url->getUrl());
 	}
 }
 
