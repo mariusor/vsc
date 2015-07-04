@@ -83,6 +83,10 @@ abstract class FrontControllerA extends Object {
 		}
 	}
 
+	protected function initProcessor() {
+
+	}
+
 	/**
 	 * @param HttpRequestA $oRequest
 	 * @param ProcessorA $oProcessor
@@ -96,61 +100,57 @@ abstract class FrontControllerA extends Object {
 		$oModel = null;
 		/* @var ControllerMap $oMyMap */
 		$oMyMap	= $this->getMap();
-
-		if (ProcessorA::isValid($oProcessor)) {
-			try {
-				$oProcessor->init();
-
-				$oModel = $oProcessor->handleRequest($oRequest);
-			} catch (ExceptionResponseRedirect $e) {
-				$oResponse->setStatus($e->getRedirectCode());
-				$oResponse->setLocation($e->getLocation());
-
-				return $oResponse;
-			} catch (\Exception $e) {
-				// we had error in the controller
-				// @todo make more error processors
-				return $this->getErrorResponse($e, $oRequest);
-			}
-		}
-		if ($oResponse->getStatus() == 0) {
-			$oResponse->setStatus(HttpResponseType::OK);
-		}
-
-		// we didn't set any special view
-		// this means that the developer needs to provide his own views
-		$oView = $this->getView();
-		$oMap = null;
-		if (ProcessorA::isValid($oProcessor) /* && !ErrorProcessor::isValid($oProcessor) */) {
-			/* @var ProcessorMap $oMap */
-			$oMap = $oProcessor->getMap();
-			if (MappingA::isValid($oMap)) {
-				if (MappingA::isValid($oMyMap)) {
-					$oMap->merge($oMyMap);
-				}
-				$oProcessorResponse = $oMap->getResponse();
-
-				if (HttpResponseA::isValid($oProcessorResponse)) {
-					$oResponse = $oProcessorResponse;
-				}
-			}
-
-			// setting the processor map
-			$oView->setMap($oMap);
-		}
-
 		try {
-			if (((ProcessorMap::isValid($oMap) || ClassMap::isValid($oMap)) && !$oMap->isStatic() && !$oMyMap->isStatic()) && (ControllerMap::isValid($oMyMap) || ClassMap::isValid($oMyMap))) {
+			if (ProcessorA::isValid($oProcessor)) {
+				$oProcessor->init();
+				$oModel = $oProcessor->handleRequest($oRequest);
+			}
+			if ($oResponse->getStatus() == 0) {
+				$oResponse->setStatus(HttpResponseType::OK);
+			}
+
+			// we didn't set any special view
+			// this means that the developer needs to provide his own views
+			$oView = $this->getView();
+			$oMap = null;
+			if (ProcessorA::isValid($oProcessor)) {
+				/* @var ProcessorMap $oMap */
+				$oMap = $oProcessor->getMap();
+				if (MappingA::isValid($oMap)) {
+					if (MappingA::isValid($oMyMap)) {
+						$oMap->merge($oMyMap);
+					}
+					$oProcessorResponse = $oMap->getResponse();
+
+					if (HttpResponseA::isValid($oProcessorResponse)) {
+						$oResponse = $oProcessorResponse;
+					}
+				}
+
+				// setting the processor map
+				$oView->setMap($oMap);
+			}
+
+				if (((ProcessorMap::isValid($oMap) || ClassMap::isValid($oMap)) && !$oMap->isStatic() && !$oMyMap->isStatic()) && (ControllerMap::isValid($oMyMap) || ClassMap::isValid($oMyMap))) {
 				$oView->setMainTemplate(
 					$oMyMap->getMainTemplatePath().
 					$oView->getViewFolder().DIRECTORY_SEPARATOR.
 					$oMyMap->getMainTemplate()
 				);
 			}
+		} catch (ExceptionResponseRedirect $e) {
+			$oResponse->setStatus($e->getRedirectCode());
+			$oResponse->setLocation($e->getLocation());
+
+			return $oResponse;
 		} catch (ExceptionPath $e) {
 			// fallback to html5
 			// @todo verify main template path and main template exist
 			$oView->setMainTemplate($oMyMap->getMainTemplatePath().DIRECTORY_SEPARATOR.'html5'.DIRECTORY_SEPARATOR.$oMyMap->getMainTemplate());
+		} catch (\Exception $e) {
+			// we had error in the controller
+			// @todo make more error processors
+			return $this->getErrorResponse($e, $oRequest);
 		}
 
 		if (!ModelA::isValid($oModel)) {
