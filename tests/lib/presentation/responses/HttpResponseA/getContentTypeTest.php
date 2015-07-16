@@ -18,7 +18,7 @@ class getContentType extends \PHPUnit_Framework_TestCase
 
 		$this->assertNull($state->getContentType());
 
-		$testValue = ContentTypes::Application;
+		$testValue = ContentTypes::APPLICATION;
 		$state->setContentType($testValue);
 		$this->assertEquals($testValue, $state->getContentType());
 	}
