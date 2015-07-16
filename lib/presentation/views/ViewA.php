@@ -57,11 +57,6 @@ abstract class ViewA extends Object implements ViewI {
 	protected $sFolder;
 
 	/**
-	 * @var UrlParserA
-	 */
-	static private $oUriParser;
-
-	/**
 	 * @param $sPath
 	 * @throws ExceptionPath
 	 */
