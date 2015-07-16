@@ -41,6 +41,7 @@ class ArrayModel extends ModelA implements ModelI {
 	public function __construct($aIncArray = array()) {
 		$this->aContent = $aIncArray;
 		$this->length = count($aIncArray);
+		parent::__construct();
 	}
 
 	public function __get($sIncName = null) {

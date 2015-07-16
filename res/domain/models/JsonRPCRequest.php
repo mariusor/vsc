@@ -29,5 +29,6 @@ class JsonRPCRequest extends ModelA {
 		$this->id = $oRequest->getVar('id');
 		$this->method	= $oRequest->getVar('method');
 		$this->params	= $oRequest->getVar('params');
+		parent::__construct();
 	}
 }

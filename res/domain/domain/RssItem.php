@@ -22,6 +22,7 @@ class RssItem extends ModelA {
 		if (!is_null($oNode)) {
 			$this->buildObj($oNode);
 		}
+		parent::__construct();
 	}
 
 	public function buildObj(\DOMNode $oNode) {
