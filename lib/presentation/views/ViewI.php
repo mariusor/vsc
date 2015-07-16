@@ -14,6 +14,8 @@ interface ViewI {
 	 *
 	 * @param array|string $tpl_var the template variable name(s)
 	 * @param mixed $value the value to append
+	 * @param bool $merge
+	 * @return bool
 	 */
 	function append($tpl_var, $value = null, $merge = false);
 
@@ -22,6 +24,7 @@ interface ViewI {
 	 *
 	 * @param array|string $tpl_var the template variable name(s)
 	 * @param mixed $value the value to assign
+	 * @return bool
 	 */
 	function assign($tpl_var, $value = null);
 
@@ -29,6 +32,7 @@ interface ViewI {
 	 * executes & displays the template results
 	 *
 	 * @param string $resource_name
+	 * @return bool
 	 */
 	function display($resource_name);
 

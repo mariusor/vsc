@@ -165,6 +165,7 @@ abstract class ViewA extends Object implements ViewI {
 			// most likely the variable doesn't exist
 			vsc::d($e->getTraceAsString());
 		}
+		return null;
 	}
 
 	/**
@@ -257,7 +258,7 @@ abstract class ViewA extends Object implements ViewI {
 		}
 
 		if (!is_dir($sTemplatePath)) {
-			return;
+			return '';
 		}
 		if (!UrlParserA::hasGoodTermination($sTemplatePath, DIRECTORY_SEPARATOR)) {
 			$sTemplatePath .= DIRECTORY_SEPARATOR;

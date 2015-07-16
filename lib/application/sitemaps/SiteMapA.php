@@ -309,6 +309,7 @@ abstract class SiteMapA extends Object {
 	}
 
 	/**
+	 * @param ProcessorA $oProcessor
 	 * @return MappingA
 	 */
 	public function findProcessorMap(ProcessorA $oProcessor) {

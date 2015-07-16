@@ -56,6 +56,7 @@ class RawHttpRequest extends RwHttpRequest {
 
 	/**
 	 * @param string $sVarName
+	 * @return mixed
 	 */
 	public function getRawVar($sVarName) {
 		$aRawVars = $this->getRawVars();
@@ -93,6 +94,7 @@ class RawHttpRequest extends RwHttpRequest {
 
 	/**
 	 * @param string $sVarName
+	 * @return mixed
 	 */
 	public function getVar($sVarName) {
 		$mValue = parent::getVar($sVarName);

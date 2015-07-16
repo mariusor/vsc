@@ -502,7 +502,7 @@ abstract class MappingA extends Object {
 	}
 
 	/**
-	 * @param Object $MappedObject
+	 * @param \vsc\infrastructure\Object $MappedObject
 	 * @return boolean
 	 */
 	public function maps(Object $MappedObject)
