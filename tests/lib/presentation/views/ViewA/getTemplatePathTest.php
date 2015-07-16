@@ -15,7 +15,7 @@ class getTemplatePath extends \PHPUnit_Framework_TestCase
 		$oMap = new ProcessorMap('', '');
 		$o->setMap($oMap);
 
-		$this->assertNull($o->getTemplatePath());
+		$this->assertEquals('', $o->getTemplatePath());
 	}
 }
 
