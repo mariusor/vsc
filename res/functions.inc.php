@@ -113,9 +113,10 @@ function _e($e) {
 		echo '</html>';
 	} else {
 		if ($e instanceof \Exception) {
-			$e->getMessage()."\n";
+			$sRet .= $e->getMessage()."\n";
 			$sRet .= "\t".$e->getFile().' at line '.$e->getLine()."\n";
 		}
+		echo $sRet;
 	}
 	exit (0);
 }
