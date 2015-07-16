@@ -19,19 +19,19 @@ class XhtmlView extends ViewA implements XhtmlViewI {
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#append($tpl_var, $value, $merge)
 	 */
-	public function append($tpl_var, $value = null, $merge = false) {}
+	public function append($tplVar, $value = null, $merge = false) {}
 
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#assign($tpl_var, $value)
 	 */
-	public function assign($tpl_var, $value = null) {}
+	public function assign($tplVar, $value = null) {}
 
 	/**
 	 * (non-PHPdoc)
 	 * @see lib/presentation/views/vscViewI#display($resource_name, $cache_id, $compile_id)
 	 */
-	public function display($resource_name) {
+	public function display($resourceName) {
 		return '';
 	}
 

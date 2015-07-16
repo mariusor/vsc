@@ -3,10 +3,10 @@ namespace fixtures\presentation\views;
 use vsc\presentation\views\ViewA;
 
 class NullView extends ViewA {
-	function append($tpl_var, $value=null, $merge=false) {}
-	function assign($tpl_var, $value = null) {}
-	function display($resource_name) {}
-	function fetch($resource_name) {}
+	function append($tplVar, $value=null, $merge=false) {}
+	function assign($tplVar, $value = null) {}
+	function display($resourceName) {}
+	function fetch($resourceName) {}
 	function getTemplate () {
 		return parent::getTemplate();
 	}

@@ -19,7 +19,6 @@ class __constructTest extends \PHPUnit_Framework_TestCase {
 		$cnonce = '0a4f113b';
 		$response = '6629fae49393a05397450978507c4ef1';
 		$opaque = '5ccc069c403ebaf9f0171e9517f40e41';
-		$password = 'Circle Of Life';
 		$sDigest =<<<START
 			username="{$user}",
 			realm="{$realm}",

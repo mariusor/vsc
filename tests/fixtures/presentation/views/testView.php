@@ -15,29 +15,29 @@ class testView extends ViewA {
 	/**
 	 * appends values to template variables
 	 *
-	 * @param array|string $tpl_var the template variable name(s)
+	 * @param array|string $tplVar the template variable name(s)
 	 * @param mixed $value the value to append
 	 */
-	function append ( $tpl_var, $value = null, $merge = false ) {
+	function append ( $tplVar, $value = null, $merge = false ) {
 		// TODO: Implement append() method.
 	}
 
 	/**
 	 * assigns values to template variables
 	 *
-	 * @param array|string $tpl_var the template variable name(s)
+	 * @param array|string $tplVar the template variable name(s)
 	 * @param mixed $value the value to assign
 	 */
-	function assign ( $tpl_var, $value = null ) {
+	function assign ( $tplVar, $value = null ) {
 		// TODO: Implement assign() method.
 	}
 
 	/**
 	 * executes & displays the template results
 	 *
-	 * @param string $resource_name
+	 * @param string $resourceName
 	 */
-	function display ( $resource_name ) {
+	function display ( $resourceName ) {
 		// TODO: Implement display() method.
 	}
 }

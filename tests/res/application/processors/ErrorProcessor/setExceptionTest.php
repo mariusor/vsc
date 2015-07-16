@@ -16,10 +16,7 @@ class setException extends \PHPUnit_Framework_TestCase
 		$Exception = new ExceptionError('test', 123);
 		$o = new ErrorProcessor($Exception);
 
-		$oMap = new ClassMap(ErrorProcessor::class, '.*');
-
 		$sMessage = uniqid('MESSAGE:');
-		$sCode = uniqid('CODE:');
 		$iError = HttpResponseType::CLIENT_ERROR;
 		$Exception = new ExceptionResponseError($sMessage, $iError);
 

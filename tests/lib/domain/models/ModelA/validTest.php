@@ -15,7 +15,6 @@ class valid extends \PHPUnit_Framework_TestCase
 		$o = new ModelA_underTest_valid();
 
 		$oMirror = new \ReflectionClass($o);
-		$properties = $oMirror->getProperties(\ReflectionProperty::IS_PUBLIC);
 		foreach ($o as $key => $property) {
 			$this->assertTrue ( $o->valid ( ) );
 		}

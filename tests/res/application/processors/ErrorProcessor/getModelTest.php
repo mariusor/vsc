@@ -16,7 +16,6 @@ class getModel extends \PHPUnit_Framework_TestCase
 		$Exception = new ExceptionError('test', 123);
 		$o = new ErrorProcessor($Exception);
 
-		$oMap = new ClassMap(ErrorProcessor::class, '.*');
 		$this->assertInstanceOf(\vsc\domain\models\ErrorModel::class, $o->getModel());
 
 		$this->assertEquals('test', $o->getModel()->getMessage());
