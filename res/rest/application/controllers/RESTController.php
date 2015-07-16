@@ -12,14 +12,12 @@ use vsc\application\controllers\ExceptionController;
 use vsc\application\controllers\JsonController;
 use vsc\application\processors\AuthenticatedProcessorI;
 use vsc\application\processors\ProcessorA;
-use vsc\infrastructure\vsc;
 use vsc\presentation\responses\HttpResponseType;
 use vsc\rest\application\processors\RESTProcessorA;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\rest\presentation\requests\RESTRequest;
 use vsc\presentation\responses\ExceptionAuthenticationNeeded;
 use vsc\presentation\responses\ExceptionResponseError;
-use vsc\application\sitemaps\ControllerMap;
 use vsc\presentation\responses\HttpResponseA;
 
 class RESTController extends JsonController {

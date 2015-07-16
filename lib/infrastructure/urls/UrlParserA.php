@@ -1,10 +1,8 @@
 <?php
 namespace vsc\infrastructure\urls;
 
-use vsc\infrastructure\vsc;
 use vsc\infrastructure\Object;
 use vsc\presentation\requests\HttpRequestA;
-use vsc\ExceptionError;
 
 class UrlParserA extends Object implements UrlParserI {
 	static protected $QUERY_ENCODING_TYPE = PHP_QUERY_RFC1738;
