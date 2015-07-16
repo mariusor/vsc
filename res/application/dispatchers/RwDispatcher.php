@@ -185,8 +185,6 @@ class RwDispatcher extends HttpDispatcherA {
 			try {
 				$sProcessorName = null;
 				if ($this->getSiteMap()->isValidObjectPath($sPath) || (stristr(basename($sPath), '.') === false && !is_file($sPath))) {
-					// dirty import of the module folder and important subfolders - @FIXME
-					$sModuleName = $oProcessorMap->getModuleName();
 					if (stristr(basename($sPath), '.') === false && !is_file($sPath)) {
 						// namespaced class name
 						$sProcessorName = $sPath;
