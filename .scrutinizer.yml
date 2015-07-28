@@ -71,12 +71,6 @@ coding_style:
             switch:
                 indent_case: false
         spaces:
-            before_parentheses:
-                if: false
-                for: false
-                while: false
-                switch: false
-                catch: false
             around_operators:
                 concatenation: true
             other:
