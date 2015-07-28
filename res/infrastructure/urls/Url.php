@@ -1,7 +1,6 @@
 <?php
 /**
- * @author Marius Orcsik <marius.orcsik@rocket-internet.de>
- * @copyright Copyright (c) 2015 Rocket Internet SE, Johannisstraße 20, 10117 Berlin, http://www.rocket-internet.de
+ * @author Marius Orcsik <marius@habarnam.ro>
  * @created 2015-07-03
  */
 namespace vsc\infrastructure\urls;
