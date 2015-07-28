@@ -4,10 +4,14 @@ namespace vsc\presentation\requests;
 use vsc\infrastructure\Base;
 
 class ContentType extends Base {
-	protected static function isAcceptedType ($sType, $aContentTypes) {
 
+	/**
+	 * @param string $sContentType
+	 * @return bool
+	 */
+	public static function isValidContentType($sContentType) {
+		return (preg_match('/^([-a-z]+|\*{1})\/([-a-z\+\.]+|\*{1})(;.*)?$/i', $sContentType) > 0);
 	}
-	protected static function isAcceptedSubType ($sSubType, $aContentTypes) {}
 
 	/**
 	 * @param $sContentType

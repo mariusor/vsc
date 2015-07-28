@@ -1,11 +1,11 @@
 <?php
 namespace tests\lib\presentation\requests\HttpRequestA;
-use vsc\presentation\requests\HttpRequestA;
+use vsc\presentation\requests\ContentType;
 
 /**
- * @covers \vsc\presentation\requests\HttpRequestA::validContentType()
+ * @covers \vsc\presentation\requests\ContentType::isValidContentType()
  */
-class validContentType extends \PHPUnit_Framework_TestCase
+class isValidContentType extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * @return array
@@ -53,7 +53,7 @@ class validContentType extends \PHPUnit_Framework_TestCase
 	 * @dataProvider dataProviderValidContentTypes
 	 */
 	public function testValidateContentTypes($validType) {
-		$this->assertTrue(HttpRequestA::validContentType($validType));
+		$this->assertTrue(ContentType::isValidContentType($validType));
 	}
 
 	/**
@@ -61,6 +61,6 @@ class validContentType extends \PHPUnit_Framework_TestCase
 	 * @dataProvider dataProviderInvalidContentTypes
 	 */
 	public function testInvalidContentTypes($invalidType) {
-		$this->assertFalse(HttpRequestA::validContentType($invalidType));
+		$this->assertFalse(ContentType::isValidContentType($invalidType));
 	}
 }

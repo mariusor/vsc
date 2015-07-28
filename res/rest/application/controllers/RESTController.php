@@ -12,6 +12,7 @@ use vsc\application\controllers\ExceptionController;
 use vsc\application\controllers\JsonController;
 use vsc\application\processors\AuthenticatedProcessorI;
 use vsc\application\processors\ProcessorA;
+use vsc\presentation\requests\ContentType;
 use vsc\presentation\responses\HttpResponseType;
 use vsc\rest\application\processors\RESTProcessorA;
 use vsc\presentation\requests\HttpRequestA;
@@ -35,7 +36,7 @@ class RESTController extends JsonController {
 
 		try {
 			if (!$oRequest->isGet()) {
-				if ($oRequest->hasContentType() && !RESTRequest::validContentType($oRequest->getContentType())) {
+				if ($oRequest->hasContentType() && !ContentType::isValidContentType($oRequest->getContentType())) {
 					throw new ExceptionResponseError('Invalid request content type', HttpResponseType::UNSUPPORTED_MEDIA_TYPE);
 				}
 			}
