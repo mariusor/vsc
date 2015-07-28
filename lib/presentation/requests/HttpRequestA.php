@@ -280,7 +280,7 @@ abstract class HttpRequestA extends Object {
 	 * @return bool
 	 */
 	public static function validContentType($sContentType) {
-		return true;
+		return (preg_match('/^([-a-z]+|\*{1})\/([-a-z\+\.]+|\*{1})(;.*)?$/i', $sContentType) > 0);
 	}
 
 	/**
