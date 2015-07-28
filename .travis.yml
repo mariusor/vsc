@@ -6,7 +6,7 @@ php:
 
 before_script: composer dump-autoload
 
-script: phpunit -c tests/phpunit.xml tests/
+script: phpunit -c tests/phpunit.xml
 
 #notifications:
 #    email:
