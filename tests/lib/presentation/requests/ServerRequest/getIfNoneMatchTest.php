@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\presentation\requests\ServerRequest;
-use vsc\presentation\requests\AuthenticatedRequestT;
+use vsc\presentation\requests\AuthenticatedRequest;
 use vsc\presentation\requests\ServerRequest;
 
 /**
@@ -17,5 +17,5 @@ class getIfNoneMatch extends \PHPUnit_Framework_TestCase
 
 class ServerRequest_underTest_getIfNoneMatch {
 	use ServerRequest;
-	use AuthenticatedRequestT;
+	use AuthenticatedRequest;
 }

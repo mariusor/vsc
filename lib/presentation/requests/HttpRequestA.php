@@ -13,12 +13,12 @@ use vsc\infrastructure\urls\UrlParserA;
 use vsc\Exception;
 
 abstract class HttpRequestA extends Object {
-	use GetRequestT;
-	use PostRequestT;
-	use CookieRequestT;
-	use FilesRequestT;
-	use SessionRequestT;
-	use AuthenticatedRequestT;
+	use GetRequest;
+	use PostRequest;
+	use CookieRequest;
+	use FilesRequest;
+	use SessionRequest;
+	use AuthenticatedRequest;
 	use ServerRequest;
 
 	protected $sUri = null;
@@ -223,7 +223,7 @@ abstract class HttpRequestA extends Object {
 		return $this->oUri;
 	}
 
-	static protected function getDecodedVar($mVar) {
+	static public function getDecodedVar($mVar) {
 		if (is_array($mVar)) {
 			foreach ($mVar as $key => $sValue) {
 				$mVar[$key] = self::getDecodedVar($sValue);

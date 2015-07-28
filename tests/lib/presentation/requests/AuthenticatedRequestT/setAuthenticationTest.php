@@ -1,16 +1,16 @@
 <?php
-namespace tests\lib\presentation\requests\AuthenticatedRequestT;
-use vsc\presentation\requests\HttpRequestA;
+namespace tests\lib\presentation\requests\AuthenticatedRequest;
+use vsc\presentation\requests\AuthenticatedRequest;
 use vsc\presentation\requests\HttpAuthenticationA;
 
 /**
- * @covers \vsc\presentation\requests\AuthenticatedRequestT::setAuthentication()
+ * @covers \vsc\presentation\requests\AuthenticatedRequest::setAuthentication()
  */
 class setAuthentication extends \PHPUnit_Framework_TestCase
 {
 	public function testSetNoAuthentication () {
 		$value = new HttpAuthenticationA_underTest_setAuthentication();
-		$o = new HttpRequestA_underTest_setAuthentication();
+		$o = new AuthenticatedRequest_underTest_setAuthentication();
 		$o->setAuthentication($value);
 		$this->assertSame($value, $o->getAuthentication());
 	}
@@ -18,8 +18,6 @@ class setAuthentication extends \PHPUnit_Framework_TestCase
 
 class HttpAuthenticationA_underTest_setAuthentication extends HttpAuthenticationA {}
 
-class HttpRequestA_underTest_setAuthentication extends HttpRequestA {
-	public function setAuthentication (HttpAuthenticationA $oHttpAuthentication) {
-		parent::setAuthentication($oHttpAuthentication);
-	}
+class AuthenticatedRequest_underTest_setAuthentication {
+	use AuthenticatedRequest {setAuthentication as public;}
 }
