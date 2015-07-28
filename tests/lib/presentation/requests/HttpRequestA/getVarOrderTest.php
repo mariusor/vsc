@@ -8,14 +8,12 @@ use fixtures\presentation\requests\PopulatedRequest;
 class getVarOrder extends \PHPUnit_Framework_TestCase
 {
 	public function testGetVarOrder() {
-		$o = new PopulatedRequest();
-
 		$sOrder = ini_get('variables_order');
 		for ($i = 0; $i < 4; $i++) {
 			// reversing the order
-			$VarOrder[$i] = substr($sOrder, $i, 1);
+			$varOrder[$i] = substr($sOrder, $i, 1);
 		}
 
-		$this->assertSame($VarOrder, $o->getVarOrder());
+		$this->assertSame($varOrder, PopulatedRequest::getVarOrder());
 	}
 }

@@ -28,7 +28,7 @@ abstract class HttpRequestA extends Object {
 	protected $sHttpMethod;
 	protected $sServerName;
 	protected $sServerProtocol;
-	protected $aVarOrder;
+	static private $aVarOrder;
 
 	protected $aAccept = array();
 	protected $aAcceptCharset = array();
@@ -200,16 +200,16 @@ abstract class HttpRequestA extends Object {
 	/**
 	 * @return array
 	 */
-	public function getVarOrder() {
-		if (count($this->aVarOrder) != 4) {
+	public static function getVarOrder() {
+		if (count(self::$aVarOrder) != 4) {
 			// get gpc order
 			$sOrder = ini_get('variables_order');
 			for ($i = 0; $i < 4; $i++) {
 				// reversing the order
-				$this->aVarOrder[$i] = substr($sOrder, $i, 1);
+				self::$aVarOrder[$i] = substr($sOrder, $i, 1);
 			}
 		}
-		return $this->aVarOrder;
+		return self::$aVarOrder;
 	}
 
 	/**
@@ -217,11 +217,11 @@ abstract class HttpRequestA extends Object {
 	 */
 	public function getVars() {
 		$aRet = array();
-		foreach ($this->getVarOrder() as $sMethod) {
+		foreach (self::getVarOrder() as $sMethod) {
 			switch ($sMethod) {
 			case 'S':
 				if (self::hasSession()) {
-					$aRet = array_merge($aRet, $_SESSION);
+					$aRet = array_merge($aRet, $this->aSessionVars);
 				}
 				break;
 			case 'C':
@@ -244,7 +244,7 @@ abstract class HttpRequestA extends Object {
 	 * @return mixed
 	 */
 	public function getVar($sVarName) {
-		foreach ($this->getVarOrder() as $sMethod) {
+		foreach (self::getVarOrder() as $sMethod) {
 			switch ($sMethod) {
 			case 'G':
 				$mVal = $this->getGetVar($sVarName);
