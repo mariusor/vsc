@@ -58,9 +58,10 @@ abstract class RPCProcessorA extends ProcessorA {
 	public function callRPCMethod() {
 		$sRawMethod = $this->oRequest->method;
 
-		@list($sNameSpace, $sMethod) = explode('.', $sRawMethod);
-		if (is_null($sMethod)) {
-			$sMethod = $sNameSpace;
+		if (strpos($sRawMethod, '.') !== false) {
+			list($sNameSpace, $sMethod) = explode('.', $sRawMethod);
+		} else {
+			$sMethod = $sRawMethod;
 			$sNameSpace = 'wp';
 		}
 
