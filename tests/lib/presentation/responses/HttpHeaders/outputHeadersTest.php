@@ -3,7 +3,7 @@ namespace tests\lib\presentation\responses\HttpResponseA;
 use vsc\presentation\responses\HttpResponseA;
 
 /**
- * @covers \vsc\presentation\responses\HttpResponseA::outputHeaders()
+ * @covers \vsc\presentation\responses\HttpHeaders::outputHeaders()
  */
 class outputHeaders extends \PHPUnit_Framework_TestCase
 {
