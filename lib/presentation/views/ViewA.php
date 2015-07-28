@@ -62,7 +62,7 @@ abstract class ViewA extends Object implements ViewI {
 	 */
 	public function setMainTemplate($sPath) {
 		if (!is_file($sPath)) {
-			throw new ExceptionPath('The main template ['.$sPath.'] is not accessible.');
+			throw new ExceptionPath('The main template [' . $sPath . '] is not accessible.');
 		}
 		$this->sMainTemplate = $sPath;
 	}
@@ -197,10 +197,10 @@ abstract class ViewA extends Object implements ViewI {
 
 		ob_start();
 		if (!is_file($includePath)) {
-			$includePath = $this->getTemplatePath().$includePath;
+			$includePath = $this->getTemplatePath() . $includePath;
 			if (!is_file($includePath)) {
 				ob_end_clean();
-				throw new ExceptionPath('Template ['.$includePath.'] could not be located');
+				throw new ExceptionPath('Template [' . $includePath . '] could not be located');
 			}
 		}
 		// outputting the model's content into the local scope
@@ -219,7 +219,7 @@ abstract class ViewA extends Object implements ViewI {
 
 		if (!$bIncluded) {
 			ob_end_clean();
-			throw new ExceptionView('Template ['.$includePath.'] could not be included');
+			throw new ExceptionView('Template [' . $includePath . '] could not be included');
 		} else {
 			$sContent = ob_get_contents();
 			ob_end_clean();
@@ -238,7 +238,7 @@ abstract class ViewA extends Object implements ViewI {
 		} catch (ExceptionPath $e) {
 			// if it fails, we load the regular template.
 			try {
-				return $this->fetch($this->getTemplatePath().DIRECTORY_SEPARATOR.$this->getMap()->getTemplate());
+				return $this->fetch($this->getTemplatePath() . DIRECTORY_SEPARATOR . $this->getMap()->getTemplate());
 			} catch (ExceptionPath $e) {
 				return '';
 			}
@@ -254,7 +254,7 @@ abstract class ViewA extends Object implements ViewI {
 		$sViewFolder = $this->getViewFolder();
 
 		if (!empty($sViewFolder)) {
-			$sTemplatePath .= DIRECTORY_SEPARATOR.$sViewFolder;
+			$sTemplatePath .= DIRECTORY_SEPARATOR . $sViewFolder;
 		}
 
 		if (!is_dir($sTemplatePath)) {

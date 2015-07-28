@@ -24,7 +24,7 @@ trait ControllerMapT {
 	public function setMainTemplatePath($sPath) {
 		$sMainTemplatePath = realpath($sPath);
 		if (!is_dir($sMainTemplatePath)) {
-			$sMainTemplatePath = realpath($this->getModuleMap()->getModulePath().DIRECTORY_SEPARATOR.$sPath);
+			$sMainTemplatePath = realpath($this->getModuleMap()->getModulePath() . DIRECTORY_SEPARATOR . $sPath);
 		}
 		if (!is_dir($sMainTemplatePath)) {
 			throw new ExceptionPath(sprintf('Path [%s] does not exist', $sPath));
@@ -47,7 +47,7 @@ trait ControllerMapT {
 
 		if (is_null($this->sMainTemplatePath)) {
 			// back-up
-			$this->sMainTemplatePath = VSC_RES_PATH.'templates';
+			$this->sMainTemplatePath = VSC_RES_PATH . 'templates';
 		}
 		if (substr($this->sMainTemplatePath, -1) != DIRECTORY_SEPARATOR) {
 			$this->sMainTemplatePath .= DIRECTORY_SEPARATOR;
@@ -95,7 +95,7 @@ trait ControllerMapT {
 		} elseif (SiteMapA::isValidObjectPath($mView)) {
 			$this->sViewPath = $mView;
 		} else {
-			throw new ExceptionPath('View path ['.$mView.'] is not valid.');
+			throw new ExceptionPath('View path [' . $mView . '] is not valid.');
 		}
 	}
 

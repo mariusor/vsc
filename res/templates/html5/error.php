@@ -5,7 +5,7 @@ use \vsc\infrastructure\vsc;
 <style>ul {padding:0; font-size:0.8em} li {padding:0.2em;display:inline} address {position:fixed;bottom:0;}</style>
 
 <?php $e = $model->getException(); ?>
-<strong>Internal Error <?php echo (!$e ? '' : ': '.$e->getMessage()); ?></strong>
+<strong>Internal Error <?php echo (!$e ? '' : ': ' . $e->getMessage()); ?></strong>
 <?php if (vsc::getEnv()->isDevelopment()) {?>
 <ul>
 	<li>

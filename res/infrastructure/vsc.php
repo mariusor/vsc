@@ -154,7 +154,7 @@ class vsc extends Object {
 	 * @return string
 	 */
 	public static function nl() {
-		return self::isCli() ? "\n" : '<br/>'."\n";
+		return self::isCli() ? "\n" : '<br/>' . "\n";
 	}
 
 	public static function d() {
@@ -175,7 +175,7 @@ class vsc extends Object {
 				$output .= ob_get_clean();
 
 				if (!self::isCli()) {
-					$output .= '<hr/>'."\n";
+					$output .= '<hr/>' . "\n";
 				}
 			}
 		}
@@ -188,7 +188,7 @@ class vsc extends Object {
 			if (self::isCLi() || self::getEnv()->getHttpRequest()->accepts('application/json')) {
 				echo StringUtils::stripTags(StringUtils::br2nl($output));
 			} elseif (self::getEnv()->getHttpRequest()->accepts('text/html')) {
-				echo '<pre>'.$output.'</pre>';
+				echo '<pre>' . $output . '</pre>';
 			} else {
 				echo StringUtils::stripTags(StringUtils::br2nl($output));
 			}

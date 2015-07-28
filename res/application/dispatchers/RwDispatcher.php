@@ -44,12 +44,12 @@ class RwDispatcher extends HttpDispatcherA {
 		$sUri = $this->getRequest()->getUri(true); // get it as a urldecoded string
 		$aMatches = array();
 		foreach ($aRegexes as $sRegex) {
-			$sFullRegex = '#'.str_replace('#', '\#', $sRegex).'#iu'; // i for insensitive, u for utf8
+			$sFullRegex = '#' . str_replace('#', '\#', $sRegex) . '#iu'; // i for insensitive, u for utf8
 			try {
 				$iMatch = preg_match_all($sFullRegex, $sUri, $aMatches, PREG_SET_ORDER);
 			} catch (ExceptionError $e) {
 				$f = new ExceptionError(
-					$e->getMessage().'<br/> Offending regular expression: <span style="font-weight:normal">'.$sFullRegex.'</span>',
+					$e->getMessage() . '<br/> Offending regular expression: <span style="font-weight:normal">' . $sFullRegex . '</span>',
 					$e->getCode());
 				throw $f;
 			}
@@ -177,7 +177,7 @@ class RwDispatcher extends HttpDispatcherA {
 			if (!ProcessorMap::isValid($oProcessorMap) && !ClassMap::isValid($oProcessorMap)) {
 				// this mainly means nothing was matched to our url, or no mappings exist, so we're falling back to 404
 				$oProcessorMap = new ProcessorMap(NotFoundProcessor::class, '.*');
-				$oProcessorMap->setTemplatePath(VSC_RES_PATH.'templates');
+				$oProcessorMap->setTemplatePath(VSC_RES_PATH . 'templates');
 				$oProcessorMap->setTemplate('404.php');
 			}
 

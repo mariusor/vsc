@@ -47,7 +47,7 @@ class Url extends Object
 	 */
 	public function setScheme($scheme) {
 		if (static::isValidScheme($scheme)) {
-			$this->scheme =  $scheme;
+			$this->scheme = $scheme;
 		}
 	}
 
@@ -145,7 +145,7 @@ class Url extends Object
 	 * @param string $schema
 	 * @return bool
 	 */
-	static public function isValidScheme ($schema) {
+	static public function isValidScheme($schema) {
 		return in_array($schema, static::$validSchemes);
 	}
 
@@ -181,7 +181,7 @@ class Url extends Object
 	 * @return bool
 	 */
 	public function hasQuery() {
-		return count($this->query)>0;
+		return count($this->query) > 0;
 	}
 
 	/**

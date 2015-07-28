@@ -24,7 +24,7 @@ abstract class ModelA extends Base implements ModelI {
 			$oProperty = new \ReflectionProperty($this, $sIncName);
 			if (!$oProperty->isPublic()) {
 				// try for a getter method
-				$sGetterName = 'get'.ucfirst($sIncName);
+				$sGetterName = 'get' . ucfirst($sIncName);
 				$oGetter = new \ReflectionMethod($this, $sGetterName);
 
 				$this->_current = $sIncName; // ?? I wonder if setting the offset to the current read position is the right way
@@ -47,13 +47,13 @@ abstract class ModelA extends Base implements ModelI {
 	 */
 	public function __set($sIncName, $value) {
 		if (is_null($sIncName)) {
-			throw new \ReflectionException('Can\'t set a value to a null property on the current object ['.get_class($this).']');
+			throw new \ReflectionException('Can\'t set a value to a null property on the current object [' . get_class($this) . ']');
 		}
 		try {
 			$oProperty = new \ReflectionProperty($this, $sIncName);
 			if (!$oProperty->isPublic()) {
 				// trying for a setter
-				$sSetterName = 'set'.ucfirst($sIncName);
+				$sSetterName = 'set' . ucfirst($sIncName);
 				$oSetter = new \ReflectionMethod($this, $sSetterName);
 
 				$oSetter->invoke($this, $value);

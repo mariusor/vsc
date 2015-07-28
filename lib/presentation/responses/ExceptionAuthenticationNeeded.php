@@ -12,6 +12,6 @@ class ExceptionAuthenticationNeeded extends ExceptionResponseError {
 	}
 
 	public function getChallenge() {
-		return 'Basic realm="'.$this->sRealm.'"';
+		return 'Basic realm="' . $this->sRealm . '"';
 	}
 }

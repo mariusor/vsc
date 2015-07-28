@@ -72,7 +72,7 @@ abstract class RESTProcessorA extends ProcessorA {
 			$oModel = $this->handleDelete($oRequest);
 			break;
 		default:
-			throw new ExceptionResponseError('Method ['.$oRequest->getHttpMethod().'] is unavailable.', HttpResponseType::METHOD_NOT_ALLOWED);
+			throw new ExceptionResponseError('Method [' . $oRequest->getHttpMethod() . '] is unavailable.', HttpResponseType::METHOD_NOT_ALLOWED);
 		}
 		return $oModel;
 	}

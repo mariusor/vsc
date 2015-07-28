@@ -25,7 +25,7 @@ trait ArrayAccessT
 	/**
 	 * @return array
 	 */
-	private function getPropertyNames () {
+	private function getPropertyNames() {
 		$ret = [];
 		$mirror = new \ReflectionClass($this);
 		foreach ($mirror->getProperties() as $mirrorProperty) {

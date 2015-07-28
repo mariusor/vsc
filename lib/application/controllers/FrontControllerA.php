@@ -78,7 +78,7 @@ abstract class FrontControllerA extends Object {
 			$this->sTemplatePath = $sIncPath;
 			return true;
 		} else {
-			throw new ExceptionController('The template path ['.$sIncPath.'] is not a valid folder.');
+			throw new ExceptionController('The template path [' . $sIncPath . '] is not a valid folder.');
 		}
 	}
 
@@ -192,7 +192,7 @@ abstract class FrontControllerA extends Object {
 		/* @var ControllerMap $oMyMap */
 		$oMyMap = $this->getMap();
 
-		$oMyMap->setMainTemplatePath(VSC_RES_PATH.'templates');
+		$oMyMap->setMainTemplatePath(VSC_RES_PATH . 'templates');
 		$oMyMap->setMainTemplate('main.php');
 
 		if (!HttpRequestA::isValid($oRequest)) {
@@ -225,7 +225,7 @@ abstract class FrontControllerA extends Object {
 		// setting the processor map
 		$oView->setMap($oMap);
 		if (ControllerMap::isValid($oMyMap)) {
-			$oView->setMainTemplate($oMyMap->getMainTemplatePath().DIRECTORY_SEPARATOR.$oView->getViewFolder().DIRECTORY_SEPARATOR.$oMyMap->getMainTemplate());
+			$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . $oView->getViewFolder() . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
 		}
 		$oView->setModel($oModel);
 

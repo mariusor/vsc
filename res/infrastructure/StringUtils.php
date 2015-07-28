@@ -54,7 +54,7 @@ class StringUtils {
 	 * @return string
 	 */
 	public static function nl() {
-		return vsc::isCli() ? "\n" : '<br/>'."\n";
+		return vsc::isCli() ? "\n" : '<br/>' . "\n";
 	}
 
 	/**
@@ -102,7 +102,7 @@ class StringUtils {
 			return '';
 
 		if (strlen($sString) > $iLength) {
-			return substr($sString, 0, $iLength).$sEtc;
+			return substr($sString, 0, $iLength) . $sEtc;
 		} else {
 			return $sString;
 		}
@@ -119,8 +119,8 @@ class StringUtils {
 		$str = '';
 		do {
 			$i = $val % $base;
-			$str = $chars[$i].$str;
-			$val = ($val-$i) / $base;
+			$str = $chars[$i] . $str;
+			$val = ($val - $i) / $base;
 		} while ($val > 0);
 		return $str;
 	}
@@ -137,7 +137,7 @@ class StringUtils {
 		$val = 0;
 		$arr = array_flip(str_split($chars));
 		for ($i = 0; $i < $len; ++$i) {
-			$val += $arr[$str[$i]] * pow($base, $len-$i-1);
+			$val += $arr[$str[$i]] * pow($base, $len - $i - 1);
 		}
 		return $val;
 	}

@@ -5,11 +5,11 @@ use \vsc\infrastructure\vsc;
 
 $e = $model->getException();
 $error = array(
-	'message' => $e->getCode().' '.$e->getMessage(),
+	'message' => $e->getCode() . ' ' . $e->getMessage(),
 );
 
 if (vsc::getEnv()->isDevelopment()) {
-	$error['location'] = $e->getFile().':'.$e->getLine();
+	$error['location'] = $e->getFile() . ':' . $e->getLine();
 	$error['trace'] = $e->getTrace();
 }
 

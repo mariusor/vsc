@@ -8,8 +8,8 @@ use \vsc\domain\models\ModelA;
 foreach ($model->toArray() as $sName => $mValue) {
 	if (is_scalar($mValue)) {
 		StringUtils::_echo("\t", $GLOBALS['depth']);
-		echo $sName.' = ';
-		echo $mValue."\n";
+		echo $sName . ' = ';
+		echo $mValue . "\n";
 		continue;
 	} elseif (is_array($mValue)) {
 		$mValue = new ArrayModel($mValue);
@@ -18,7 +18,7 @@ foreach ($model->toArray() as $sName => $mValue) {
 	if (ModelA::isValid($mValue)) {
 		$this->setModel($mValue);
 		StringUtils::_echo("\t", $GLOBALS['depth']);
-		echo (is_int($sName) ? '#' : '').$sName.' ['.get_class($mValue).'] '.(isset($mValue->length) ? ' ('.$mValue->length.')' : '')."\n";
+		echo (is_int($sName) ? '#' : '') . $sName . ' [' . get_class($mValue) . '] ' . (isset($mValue->length) ? ' (' . $mValue->length . ')' : '') . "\n";
 		$GLOBALS['depth']++;
 		echo $this->fetch(__FILE__);
 		echo "\n";
@@ -27,6 +27,6 @@ foreach ($model->toArray() as $sName => $mValue) {
 	}
 
 	StringUtils::_echo("\t", $GLOBALS['depth']);
-	echo $sName.' = ';
-	echo var_export($mValue, true)."\n";
+	echo $sName . ' = ';
+	echo var_export($mValue, true) . "\n";
 }

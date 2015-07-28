@@ -33,7 +33,7 @@ class ErrorProcessor extends ProcessorA implements ErrorProcessorI {
 		$this->setException($e);
 
 		$oErrorMap = new ErrorMap();
-		$oErrorMap->setTemplatePath(VSC_RES_PATH.'templates');
+		$oErrorMap->setTemplatePath(VSC_RES_PATH . 'templates');
 		$oErrorMap->setTemplate('error.tpl.php');
 
 		$this->setMap($oErrorMap);
