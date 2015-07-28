@@ -67,7 +67,7 @@ abstract class RPCProcessorA extends ProcessorA {
 
 		$oInterface = $this->getRPCInterface($sNameSpace);
 		if (!$this->hasRPCMethod($oInterface, $sMethod)) {
-			$this->oResponse->error = 'Invalid RPC request: method ['.var_export($sMethod, true).'] does not exist';
+			$this->oResponse->error = 'Invalid RPC request: method [' . var_export($sMethod, true) . '] does not exist';
 		} else {
 			if (is_null($this->oRequest->params) || !is_array($this->oRequest->params)) {
 				throw new ExceptionResponseError('Invalid RPC request: missing parameters');

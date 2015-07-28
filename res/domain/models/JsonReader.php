@@ -43,7 +43,7 @@ class JsonReader extends ModelA {
 
 	public function __set($sIncName, $mValue) {
 		if (is_null($sIncName)) {
-			throw new \ReflectionException('Can\'t set a value to a null property on the current object ['.get_class($this).']');
+			throw new \ReflectionException('Can\'t set a value to a null property on the current object [' . get_class($this) . ']');
 		}
 		try {
 			$oProperty = new \ReflectionProperty($this->oPayload, $sIncName);
@@ -86,7 +86,7 @@ class JsonReader extends ModelA {
 				$this->$sName = $oStd;
 			}
 		} else {
-			throw new ExceptionDomain('The JSON string contains errors: ['.static::getError($iLastError).']');
+			throw new ExceptionDomain('The JSON string contains errors: [' . static::getError($iLastError) . ']');
 		}
 	}
 }

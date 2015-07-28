@@ -200,7 +200,7 @@ abstract class MappingA extends Object {
 	 */
 	public function getModuleMap() {
 		if (!MappingA::isValid($this->oParentMap)) {
-			$this->oParentMap = new ModuleMap(VSC_RES_PATH.'config/map.php', '');
+			$this->oParentMap = new ModuleMap(VSC_RES_PATH . 'config/map.php', '');
 		}
 		return $this->oParentMap;
 	}
@@ -255,8 +255,8 @@ abstract class MappingA extends Object {
 	}
 
 	private function getResourcePath($sPath) {
-		if (is_file($this->getModulePath().$sPath)) {
-			$sPath = $this->getModulePath().$sPath;
+		if (is_file($this->getModulePath() . $sPath)) {
+			$sPath = $this->getModulePath() . $sPath;
 		}
 		$oUrl = UrlParserA::url($sPath);
 		if ($oUrl->isLocal()) {
@@ -347,7 +347,7 @@ abstract class MappingA extends Object {
 		} else {
 			$sPath = str_replace(array('/', '\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR), $sPath);
 			if (!SiteMapA::isValidObjectPath($sPath)) {
-				$sPath = $this->getModulePath().$sPath;
+				$sPath = $this->getModulePath() . $sPath;
 			}
 			if (SiteMapA::isValidObjectPath($sPath)) {
 				$oNewMap = new ControllerMap($sPath, $sKey);
@@ -358,7 +358,7 @@ abstract class MappingA extends Object {
 
 				return $oNewMap;
 			} else {
-				throw new ExceptionController('Controller ['.$sPath.'] is invalid.');
+				throw new ExceptionController('Controller [' . $sPath . '] is invalid.');
 			}
 		}
 	}
@@ -467,7 +467,7 @@ abstract class MappingA extends Object {
 	 * @returns Url
 	 */
 	public function getUrl() {
-		$sRegex = '#('.str_replace('#', '\#', $this->getRegex()).')#iUu';
+		$sRegex = '#(' . str_replace('#', '\#', $this->getRegex()) . ')#iUu';
 		$bHaveMatch = preg_match($sRegex, $this->sMatchingUrl, $aMatches);
 
 		if ($bHaveMatch) {
@@ -515,19 +515,19 @@ abstract class MappingA extends Object {
 	 * @return string
 	 * @throws ExceptionSitemap
 	 */
-	protected function getValidPath ($sPath) {
+	protected function getValidPath($sPath) {
 		if (!is_dir($sPath)) {
 			if (!ModuleMap::isValid($this) && !ModuleMap::isValid($this->getModuleMap())) {
 				throw new ExceptionSitemap('No reference module path to use for relative paths');
 			}
-			$sPath = $this->getModulePath().$sPath;
+			$sPath = $this->getModulePath() . $sPath;
 		}
 		$sPath = realpath($sPath);
 		if (!is_dir($sPath)) {
 			throw new ExceptionSitemap('Template path is not valid.');
 		}
 
-		return $sPath.DIRECTORY_SEPARATOR;
+		return $sPath . DIRECTORY_SEPARATOR;
 	}
 }
 

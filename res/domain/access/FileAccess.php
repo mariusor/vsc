@@ -32,7 +32,7 @@ class FileAccess extends Object {
 		if (is_dir($sPath)) {
 			$this->sCachePath = $sPath;
 		} else {
-			throw new ExceptionAccess('Path ['.$sPath.'] is invalid for cache');
+			throw new ExceptionAccess('Path [' . $sPath . '] is invalid for cache');
 		}
 	}
 
@@ -40,11 +40,11 @@ class FileAccess extends Object {
 	 * @param string $sFile
 	 */
 	public function getLocalPath($sFile) {
-		return $this->sCachePath.DIRECTORY_SEPARATOR.$sFile;
+		return $this->sCachePath . DIRECTORY_SEPARATOR . $sFile;
 	}
 
 	public function getSignature($sUri) {
-		return md5($sUri.date('Ymd'));
+		return md5($sUri . date('Ymd'));
 	}
 
 	/**
@@ -66,13 +66,13 @@ class FileAccess extends Object {
 		$sFileName = $this->getLocalPath($this->getSignature($sUri));
 		// creating the file
 		if (!touch($sFileName)) {
-			throw new ExceptionError('Path ['.$sFileName.'] is not accessible.');
+			throw new ExceptionError('Path [' . $sFileName . '] is not accessible.');
 		}
 
 		if (is_writable($sFileName)) {
 			file_put_contents($sFileName, $sContent);
 		} else {
-			throw new ExceptionError('Path ['.$sFileName.'] is not writable.');
+			throw new ExceptionError('Path [' . $sFileName . '] is not writable.');
 		}
 	}
 

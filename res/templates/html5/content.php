@@ -16,17 +16,17 @@ These settings are defined in one of the following files:
 <?php
 	foreach (get_included_files() as $sFileName) {
 		if (stristr($sFileName, 'map.php') && stristr($sFileName, $this->getMap()->getModuleName()))
-			echo '<li>'.$sFileName.'</li>';
+			echo '<li>' . $sFileName . '</li>';
 	};
 ?>
 </ul>
 <?php /**/ ?>The matching regular expression for the current URI is: <pre> <?php echo $this->getMap()->getRegex(); ?> =&gt; <?php echo $this->getMap()->getPath(); ?> </pre> <?php /**/ ?>
 <?php
 try {
-	echo '<ul>'."\n";
-	echo '<li style="list-style:none; margin-left:-2em">Model type: <strong>'.get_class($this->getModel()).'</strong></li>'."\n";
-	echo $this->fetch(dirname(__FILE__).'/model.php');
-	echo '</ul>'."\n";
+	echo '<ul>' . "\n";
+	echo '<li style="list-style:none; margin-left:-2em">Model type: <strong>' . get_class($this->getModel()) . '</strong></li>' . "\n";
+	echo $this->fetch(dirname(__FILE__) . '/model.php');
+	echo '</ul>' . "\n";
 } catch (Exception $e) {
 	vsc::d($e);
 }

@@ -49,7 +49,7 @@ class UrlParserA extends Object implements UrlParserI {
 	public static function getRequestUri() {
 		if (is_array($_SERVER) && array_key_exists('REQUEST_URI', $_SERVER)) {
 			if (array_key_exists('HTTP_HOST', $_SERVER)) {
-				$uri = 'http'.(HttpRequestA::isSecure() ? 's' : '').'://'.$_SERVER['HTTP_HOST'];
+				$uri = 'http' . (HttpRequestA::isSecure() ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
 			} else {
 				$uri = '';
 			}
@@ -65,7 +65,7 @@ class UrlParserA extends Object implements UrlParserI {
 	 * @return bool
 	 */
 	public static function urlHasScheme($sUrl) {
-		$firstPos = min (strpos($sUrl, ':'), strpos($sUrl, '/'));
+		$firstPos = min(strpos($sUrl, ':'), strpos($sUrl, '/'));
 		$sScheme = substr($sUrl, 0, $firstPos);
 		return Url::isValidScheme($sScheme);
 	}
@@ -75,7 +75,7 @@ class UrlParserA extends Object implements UrlParserI {
 	 * @param array $aParsed
 	 * @return Url
 	 */
-	private static function loadParsedUrl ($oUrl, $aParsed) {
+	private static function loadParsedUrl($oUrl, $aParsed) {
 		if (isset($aParsed['scheme'])) {
 			$oUrl->setScheme($aParsed['scheme']);
 		}
@@ -139,7 +139,7 @@ class UrlParserA extends Object implements UrlParserI {
 
 	private function getSubdomainOf($sRootDomain) {
 		$sHost = strtolower($this->oUrl->getHost());
-		$sSubDomains = stristr($sHost, '.'.$sRootDomain, true);
+		$sSubDomains = stristr($sHost, '.' . $sRootDomain, true);
 
 		return self::getTldOf($sSubDomains);
 	}
@@ -150,7 +150,7 @@ class UrlParserA extends Object implements UrlParserI {
 		if (!strrpos($sHost, '.')) {
 			return $sHost;
 		} else {
-			return substr($sHost, strrpos($sHost, '.')+1);
+			return substr($sHost, strrpos($sHost, '.') + 1);
 		}
 	}
 
@@ -160,7 +160,7 @@ class UrlParserA extends Object implements UrlParserI {
 
 	public function getDomain() {
 		$sTld = $this->getTLD();
-		return $this->getSubdomainOf($sTld).'.'.$sTld;
+		return $this->getSubdomainOf($sTld) . '.' . $sTld;
 	}
 
 	public function getTLD($sString = null) {
@@ -247,12 +247,12 @@ class UrlParserA extends Object implements UrlParserI {
 	 */
 	public function getCompleteParentUri($bFull = false, $iSteps = 1) {
 		if (!$this->oUrl->isLocal()) {
-			$sUrl = ($this->oUrl->hasScheme() ? $this->oUrl->getScheme().'://' : '');
+			$sUrl = ($this->oUrl->hasScheme() ? $this->oUrl->getScheme() . '://' : '');
 			$sUrl .= $this->oUrl->getHost();
 		} else {
 			$sUrl = '';
 			if ($bFull) {
-				$sUrl = ($this->oUrl->getScheme() ? $this->oUrl->getScheme().':' : '').'//';
+				$sUrl = ($this->oUrl->getScheme() ? $this->oUrl->getScheme() . ':' : '') . '//';
 			}
 		}
 
@@ -288,7 +288,7 @@ class UrlParserA extends Object implements UrlParserI {
 	 * @param string $sUrl
 	 * @return Url
 	 */
-	static public function url ($sUrl) {
+	static public function url($sUrl) {
 		return static::parse_url($sUrl);
 	}
 
@@ -296,7 +296,7 @@ class UrlParserA extends Object implements UrlParserI {
 	 * @param string $sPath
 	 * @return string
 	 */
-	static public function normalizePath ($sPath) {
+	static public function normalizePath($sPath) {
 		if (empty ($sPath)) {
 			return '';
 		}
@@ -321,8 +321,8 @@ class UrlParserA extends Object implements UrlParserI {
 					$iCnt++;
 
 					unset ($aPath[$iKey]);
-					if (array_key_exists($iKey-1, $aPath)) {
-						$iPrevKey = $iKey-1;
+					if (array_key_exists($iKey - 1, $aPath)) {
+						$iPrevKey = $iKey - 1;
 					} else {
 						$sPrev = prev($aPath);
 						$iPrevKey = array_search($sPrev, $aPath);

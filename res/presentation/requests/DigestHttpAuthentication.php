@@ -60,7 +60,7 @@ class DigestHttpAuthentication extends HttpAuthenticationA {
  		);
 
 		$keys = implode('|', array_keys($aNeededParts));
-		$i = preg_match_all('@('.$keys.')=(?:([\'"])([^\2]+?)\2|([^\s,]+))@', $sDigestResponse, $aMatches, PREG_SET_ORDER);
+		$i = preg_match_all('@(' . $keys . ')=(?:([\'"])([^\2]+?)\2|([^\s,]+))@', $sDigestResponse, $aMatches, PREG_SET_ORDER);
 
 		if ($i) {
 			foreach ($aMatches as $m) {
@@ -78,9 +78,9 @@ class DigestHttpAuthentication extends HttpAuthenticationA {
 	 * @return bool
 	 */
 	public function validateDigestAuthentication($sPassword, $sRealm) {
-		$a1 = md5($this->username.':'.$sRealm.':'.$sPassword);
-		$a2 = md5($this->HTTPMethod.':'.$this->uri);
-		$sValidResponse = md5($a1.':'.$this->nonce.':'.$this->nc.':'.$this->cnonce.':'.$this->qop.':'.$a2);
+		$a1 = md5($this->username . ':' . $sRealm . ':' . $sPassword);
+		$a2 = md5($this->HTTPMethod . ':' . $this->uri);
+		$sValidResponse = md5($a1 . ':' . $this->nonce . ':' . $this->nc . ':' . $this->cnonce . ':' . $this->qop . ':' . $a2);
 
 		return $sValidResponse == $this->response;
 	}

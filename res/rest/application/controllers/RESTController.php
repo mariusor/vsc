@@ -56,7 +56,7 @@ class RESTController extends JsonController {
 						}
 						// here we check that the request contains the same authentication type as the map
 						if (($oRequest->getAuthentication()->getType() & $oMap->getAuthenticationType()) !== $oMap->getAuthenticationType()) {
-							throw new ExceptionAuthenticationNeeded('Invalid authorization scheme. Supported schemes: '.implode(', ', $oMap->getValidAuthenticationSchemas()));
+							throw new ExceptionAuthenticationNeeded('Invalid authorization scheme. Supported schemes: ' . implode(', ', $oMap->getValidAuthenticationSchemas()));
 						}
 						if (!$oProcessor->handleAuthentication($oRequest->getAuthentication())) {
 							throw new ExceptionAuthenticationNeeded('Invalid authentication data', 'testrealm');

@@ -45,7 +45,7 @@ abstract class HttpResponseA extends Object {
 
 	public function setStatus($iStatus) {
 		if (!HttpResponseType::isValidStatus($iStatus)) {
-			throw new ExceptionResponse('['.$iStatus.'] is not a valid '.$this->getServerProtocol().' status');
+			throw new ExceptionResponse('[' . $iStatus . '] is not a valid ' . $this->getServerProtocol() . ' status');
 		}
 
 		$this->iStatus = $iStatus;
@@ -263,7 +263,7 @@ abstract class HttpResponseA extends Object {
 	 * @return string
 	 */
 	public static function getHttpStatusString($sProtocol, $iStatus) {
-		return $sProtocol.' '.HttpResponseType::getStatus($iStatus);
+		return $sProtocol . ' ' . HttpResponseType::getStatus($iStatus);
 	}
 
 	public function getStatus() {
@@ -283,65 +283,65 @@ abstract class HttpResponseA extends Object {
 
 		$sLocation = $this->getLocation();
 		if ($sLocation) {
-			header('Location:'.$sLocation);
+			header('Location:' . $sLocation);
 			return true;
 			// end headers
 		}
 
 		$sContentType = $this->getContentType();
 		if ($sContentType) {
-			header('Content-Type: '.$sContentType);
+			header('Content-Type: ' . $sContentType);
 		}
 		$sCacheControl = $this->getCacheControl();
 		if ($sCacheControl) {
-			header('Cache-Control: '.$sCacheControl);
+			header('Cache-Control: ' . $sCacheControl);
 		}
 		$sContentDisposition = $this->getContentDisposition();
 		if ($sContentDisposition) {
-			header('Content-Disposition: '.$sContentDisposition);
+			header('Content-Disposition: ' . $sContentDisposition);
 		}
 		$sContentEncoding = $this->getContentEncoding();
 		if ($sContentEncoding) {
-			header('Content-Encoding: '.$sContentEncoding);
+			header('Content-Encoding: ' . $sContentEncoding);
 		}
 		$sContentLanguage = $this->getContentLanguage();
 		if ($sContentLanguage) {
-			header('Content-Language: '.$sContentLanguage);
+			header('Content-Language: ' . $sContentLanguage);
 		}
 		$iContentLength = $this->getContentLength();
 		if ($iContentLength !== null) {
-			header('Content-Length: '.$iContentLength);
+			header('Content-Length: ' . $iContentLength);
 		}
 		$sContentLocation = $this->getContentLocation();
 		if ($sContentLocation) {
-			header('Content-Location: '.$sContentLocation);
+			header('Content-Location: ' . $sContentLocation);
 		}
 		$sMd5 = $this->getContentMd5();
 		if ($sMd5) {
-			header('Content-MD5: '.$sMd5);
+			header('Content-MD5: ' . $sMd5);
 		}
 		$sDate = $this->getDate();
 		if ($sDate) {
-			header('Date: '.$sDate);
+			header('Date: ' . $sDate);
 		}
 		$sETag = $this->getETag();
 		if ($sETag) {
-			header('ETag: "'.$sETag.'"'); // the ETag is enclosed in quotes (i imagine it's because it might contain EOL's ?)
+			header('ETag: "' . $sETag . '"'); // the ETag is enclosed in quotes (i imagine it's because it might contain EOL's ?)
 		}
 		$sExpires = $this->getExpires();
 		if ($sExpires) {
-			header('Expires: '.$sExpires);
+			header('Expires: ' . $sExpires);
 		}
 		$sLastModified = $this->getLastModified();
 		if ($sLastModified) {
-			header('Last-Modified: '.$sLastModified);
+			header('Last-Modified: ' . $sLastModified);
 		}
 		if (is_array($this->aHeaders)) {
 			foreach ($this->aHeaders as $sHeaderName => $sHeaderValue) {
 				if (is_null($sHeaderValue)) {
 					header_remove($sHeaderName);
 				} else {
-					header($sHeaderName.': '.$sHeaderValue);
+					header($sHeaderName . ': ' . $sHeaderValue);
 				}
 			}
 		}

@@ -63,12 +63,12 @@ abstract class CacheableControllerA extends FrontControllerA implements Cacheabl
 			} else {
 				try {
 					$oResponse->setETag(substr(sha1($oResponse->getOutput()), 0, 8));
-					$oResponse->setCacheControl('public, max-age='.$iExpireTime);
+					$oResponse->setCacheControl('public, max-age=' . $iExpireTime);
 				} catch (ExceptionView $v) {
 					//
 				}
 
-				if ($oRequest->getIfNoneMatch() == '"'.$oResponse->getETag().'"') {
+				if ($oRequest->getIfNoneMatch() == '"' . $oResponse->getETag() . '"') {
 					$oResponse->setStatus(HttpResponseType::NOT_MODIFIED);
 				}
 			}

@@ -1,6 +1,6 @@
 <?php
 use vsc\ExceptionPath;
-echo '<?xml version="1.0" encoding="UTF-8" ?>'."\n"; ?>
+echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n"; ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -11,20 +11,20 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>'."\n"; ?>
 <?php
 $aAllStyles = $this->getStyles();
 if (count($aAllStyles) >= 1) {
-	echo "\t".'<style type="text/css">'."\n";
+	echo "\t" . '<style type="text/css">' . "\n";
 	foreach ($aAllStyles as $sMedia => $aStyles) {
 		if (is_array($aStyles)) {
 			foreach ($aStyles as $sPath) {
-				echo "\t\t".'@import url("'.$sPath.'")'.($sMedia ? $sMedia : '').";\n";
+				echo "\t\t" . '@import url("' . $sPath . '")' . ($sMedia ? $sMedia : '') . ";\n";
 			}
 		}
 	}
-	echo "\t".'</style>'."\n";
+	echo "\t" . '</style>' . "\n";
 }
 
 if (count($this->getMetaHeaders()) >= 1) {
 	foreach ($this->getMetaHeaders() as $sName => $sValue) { ?>
-	<meta <?php echo 'name="'.$sName.'" content="'.$sValue.'"'; ?> />
+	<meta <?php echo 'name="' . $sName . '" content="' . $sValue . '"'; ?> />
 <?php
 	}
 }
@@ -64,7 +64,7 @@ try {
 	$sContent = $this->fetch($this->getTemplate());
 } catch (ExceptionPath $e) {
 	// the template could not be found
-	$sContent = $this->fetch(dirname(__FILE__).DIRECTORY_SEPARATOR.'content.php');
+	$sContent = $this->fetch(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'content.php');
 }
 
 echo $sContent;

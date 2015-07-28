@@ -45,7 +45,7 @@ abstract class SiteMapA extends Object {
 		$oModuleMap = $this->getCurrentModuleMap();
 
 		if (MappingA::isValid($oModuleMap)) {
-			$sRegex = $oModuleMap->getRegex().$sRegex;
+			$sRegex = $oModuleMap->getRegex() . $sRegex;
 		}
 
 		if (!array_key_exists($sRegex, $this->aMaps)) {
@@ -75,7 +75,7 @@ abstract class SiteMapA extends Object {
 		$oNewMap = null;
 
 		if (MappingA::isValid($oModuleMap)) {
-			$sRegex = $oModuleMap->getRegex().$sRegex;
+			$sRegex = $oModuleMap->getRegex() . $sRegex;
 		}
 
 		if (!array_key_exists($sRegex, $this->aMaps)) {
@@ -102,7 +102,7 @@ abstract class SiteMapA extends Object {
 
 		// setting the parent module map to the existing one
 		if (MappingA::isValid($oModuleMap)) {
-			$sRegex = $oModuleMap->getRegex().$sRegex;
+			$sRegex = $oModuleMap->getRegex() . $sRegex;
 
 			$oNewModuleMap = new ModuleMap($sPath, $sRegex);
 
@@ -202,7 +202,7 @@ abstract class SiteMapA extends Object {
 			}
 		}
 		// return a default root node
-		return new ModuleMap(VSC_RES_PATH.'config/map.php', '');
+		return new ModuleMap(VSC_RES_PATH . 'config/map.php', '');
 	}
 
 	/**
@@ -225,11 +225,11 @@ abstract class SiteMapA extends Object {
 			return $this->addClassMap($sRegex, $sPath);
 		} else {
 			if (!is_file($sPath)) {
-				$sPath = $this->getCurrentModuleMap()->getModulePath().$sPath;
+				$sPath = $this->getCurrentModuleMap()->getModulePath() . $sPath;
 			}
 
 			if (!is_file($sPath)) {
-				throw new ExceptionSitemap('The path associated with ['.$sRegex.'] can\'t be empty or an invalid file.');
+				throw new ExceptionSitemap('The path associated with [' . $sRegex . '] can\'t be empty or an invalid file.');
 			}
 
 			$sPath = str_replace(array('/', '\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR), $sPath);
@@ -243,7 +243,7 @@ abstract class SiteMapA extends Object {
 				// Valid static file
 				return $this->addStaticMap($sRegex, $sPath);
 			}
-			throw new ExceptionSitemap('The file ['.$sPath.'] could not be loaded.');
+			throw new ExceptionSitemap('The file [' . $sPath . '] could not be loaded.');
 		}
 	}
 
