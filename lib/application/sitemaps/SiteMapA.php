@@ -176,7 +176,6 @@ abstract class SiteMapA extends Object {
 	 */
 	public static function getClassName($sPath) {
 		$sClassName = strtolower(basename($sPath, '.php'));
-//		$sClassName	= substr($sPath, 0, -4);
 
 		$iKey = array_search($sClassName, array_map('strtolower', get_declared_classes()));
 		$aClasses = get_declared_classes();
@@ -236,10 +235,12 @@ abstract class SiteMapA extends Object {
 			if (self::isValidMapPath($sPath)) {
 				// Valid site map
 				return $this->addModuleMap($sRegex, $sPath);
-			} elseif (self::isValidObjectPath($sPath)) {
+			}
+			if (self::isValidObjectPath($sPath)) {
 				// Valid processor
 				return $this->addMap($sRegex, $sPath);
-			} elseif (self::isValidStaticPath($sPath)) {
+			}
+			if (self::isValidStaticPath($sPath)) {
 				// Valid static file
 				return $this->addStaticMap($sRegex, $sPath);
 			}
@@ -250,7 +251,7 @@ abstract class SiteMapA extends Object {
 	/**
 	 * @returns ModuleMap[]
 	 */
-	private function getAllModules() {
+	protected function getAllModules() {
 		$aProcessorMaps = $this->getMaps();
 		$aModuleMaps = array();
 
@@ -269,7 +270,7 @@ abstract class SiteMapA extends Object {
 	/**
 	 * @returns ControllerMap[]
 	 */
-	private function getAllControllers() {
+	protected function getAllControllers() {
 		$aProcessorMaps = $this->getMaps();
 		$aControllerMaps = array();
 
