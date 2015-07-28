@@ -266,6 +266,9 @@ abstract class HttpResponseA extends Object {
 		return $sProtocol . ' ' . HttpResponseType::getStatus($iStatus);
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getStatus() {
 		return $this->iStatus;
 	}
@@ -273,28 +276,32 @@ abstract class HttpResponseA extends Object {
 	/**
 	 * @return bool
 	 */
-	public function outputHeaders() {
-		if (vsc::isCli()) { return false; }
-		if (headers_sent()) {
-			header_remove();
-		}
-		if ($this->getStatus())
+	public function outputStatusHeader () {
+		if ($this->getStatus()) {
 			header(self::getHttpStatusString($this->getServerProtocol(), $this->getStatus()));
+		}
+		return true;
+	}
 
+	/**
+	 * @return bool
+	 */
+	protected function outputLocationHeaders() {
 		$sLocation = $this->getLocation();
 		if ($sLocation) {
 			header('Location:' . $sLocation);
 			return true;
-			// end headers
 		}
+		return false;
+	}
 
+	/**
+	 * @return bool
+	 */
+	public function outputContentHeaders() {
 		$sContentType = $this->getContentType();
 		if ($sContentType) {
 			header('Content-Type: ' . $sContentType);
-		}
-		$sCacheControl = $this->getCacheControl();
-		if ($sCacheControl) {
-			header('Cache-Control: ' . $sCacheControl);
 		}
 		$sContentDisposition = $this->getContentDisposition();
 		if ($sContentDisposition) {
@@ -320,6 +327,17 @@ abstract class HttpResponseA extends Object {
 		if ($sMd5) {
 			header('Content-MD5: ' . $sMd5);
 		}
+		return true;
+	}
+
+	/**
+	 * @return bool
+	 */
+	protected function outputCachingHeaders() {
+		$sCacheControl = $this->getCacheControl();
+		if ($sCacheControl) {
+			header('Cache-Control: ' . $sCacheControl);
+		}
 		$sDate = $this->getDate();
 		if ($sDate) {
 			header('Date: ' . $sDate);
@@ -336,6 +354,14 @@ abstract class HttpResponseA extends Object {
 		if ($sLastModified) {
 			header('Last-Modified: ' . $sLastModified);
 		}
+
+		return true;
+	}
+
+	/**
+	 * @return bool
+	 */
+	protected function outputCustomHeaders () {
 		if (is_array($this->aHeaders)) {
 			foreach ($this->aHeaders as $sHeaderName => $sHeaderValue) {
 				if (is_null($sHeaderValue)) {
@@ -345,6 +371,25 @@ abstract class HttpResponseA extends Object {
 				}
 			}
 		}
+		return true;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function outputHeaders() {
+		if (vsc::isCli()) { return false; }
+		if (headers_sent()) {
+			header_remove();
+		}
+
+		$this->outputStatusHeader();
+		if ($this->outputLocationHeaders()) {
+			return true;
+		}
+		$this->outputContentHeaders();
+		$this->outputCachingHeaders();
+		$this->outputCustomHeaders();
 		return true;
 	}
 
