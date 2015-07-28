@@ -1,10 +1,10 @@
 <?php
-namespace tests\lib\presentation\requests\HttpRequestA;
+namespace tests\lib\presentation\requests\ServerRequest;
 use fixtures\presentation\requests\PopulatedRequest;
 use vsc\presentation\requests\HttpRequestTypes;
 
 /**
- * @covers \vsc\presentation\requests\HttpRequestA::getHttpMethod()
+ * @covers \vsc\presentation\requests\ServerRequest::getHttpMethod()
  */
 class getHttpMethod extends \PHPUnit_Framework_TestCase
 {

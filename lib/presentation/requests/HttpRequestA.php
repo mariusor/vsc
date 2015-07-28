@@ -19,182 +19,31 @@ abstract class HttpRequestA extends Object {
 	use FilesRequestT;
 	use SessionRequestT;
 	use AuthenticatedRequestT;
+	use ServerRequest;
 
 	protected $sUri = null;
 	/**
 	 * @var Url
 	 */
 	protected $oUri;
-	protected $sHttpMethod;
-	protected $sServerName;
-	protected $sServerProtocol;
 	static private $aVarOrder;
-
-	protected $aAccept = array();
-	protected $aAcceptCharset = array();
-	protected $aAcceptEncoding	= array();
-	protected $aAcceptLanguage	= array();
 
 	protected $sAuthorization	= '';
 	protected $iContentLength	= 0; // ? I don't think I'm interested in the length of the request
-	protected $sContentType		= '';
-
-	protected $sIfModifiedSince = '';
-	protected $sIfNoneMatch		= '';
-
-	protected $sReferer = '';
-	protected $sUserAgent = '';
-
-	protected $bDoNotTrack = false;
 
 	public function __construct() {
-		$this->initGet();
-		$this->initPost();
-		$this->initCookie();
-		$this->initFiles();
+		$this->initGet($_GET);
+		$this->initPost($_POST);
+		if (isset($_COOKIE)) {
+			$this->initCookie($_COOKIE);
+		}
+		if (isset($_FILES)) {
+			$this->initFiles($_FILES);
+		}
+		if ($_SERVER) {
+			$this->initServer($_SERVER);
+		}
 		$this->initSession();
-
-		if (isset($_SERVER)) {
-			$this->getServerProtocol();
-			$this->getHttpMethod();
-
-			if (isset ($_SERVER['HTTP_ACCEPT']) && !empty($_SERVER['HTTP_ACCEPT'])) {
-				$this->aAccept = explode(',', $_SERVER['HTTP_ACCEPT']);
-			}
-
-			if (isset ($_SERVER['HTTP_ACCEPT_LANGUAGE']) && !empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-				$this->aAcceptLanguage = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-			}
-			if (isset ($_SERVER['HTTP_ACCEPT_ENCODING']) && !empty($_SERVER['HTTP_ACCEPT_ENCODING'])) {
-				$this->aAcceptEncoding = explode(',', $_SERVER['HTTP_ACCEPT_ENCODING']);
-			}
-			if (isset ($_SERVER['HTTP_ACCEPT_CHARSET']) && !empty($_SERVER['HTTP_ACCEPT_CHARSET'])) {
-				$this->aAcceptCharset = explode(',', $_SERVER['HTTP_ACCEPT_CHARSET']);
-			}
-
-			if (isset ($_SERVER['HTTP_USER_AGENT']) && !empty($_SERVER['HTTP_USER_AGENT'])) {
-				$this->sUserAgent = $_SERVER['HTTP_USER_AGENT'];
-			}
-			if (isset ($_SERVER['HTTP_REFEER']) && !empty($_SERVER['HTTP_REFEER'])) {
-				$this->sReferer = $_SERVER['HTTP_REFERER'];
-			}
-
-			if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && !empty($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
-				$this->sIfModifiedSince = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
-			}
-
-			if (isset($_SERVER['HTTP_IF_NONE_MATCH']) && !empty($_SERVER['HTTP_IF_NONE_MATCH'])) {
-				$this->sIfNoneMatch = $_SERVER['HTTP_IF_NONE_MATCH'];
-			}
-
-			if (array_key_exists('CONTENT_TYPE', $_SERVER) && strlen($_SERVER['CONTENT_TYPE']) > 0) {
-				if (stripos($_SERVER['CONTENT_TYPE'], ';') !== false) {
-					$this->sContentType = substr($_SERVER['CONTENT_TYPE'], 0, stripos($_SERVER['CONTENT_TYPE'], ';'));
-				} else {
-					$this->sContentType = $_SERVER['CONTENT_TYPE'];
-				}
-			}
-
-			if (isset($_SERVER['HTTP_DNT'])) {
-				$this->bDoNotTrack = (bool)$_SERVER['HTTP_DNT'];
-			}
-			if (isset($_SERVER['PHP_AUTH_DIGEST'])) {
-				// DIGEST authorization attempt
-				$this->setAuthentication(new DigestHttpAuthentication($_SERVER['PHP_AUTH_DIGEST'], $_SERVER['REQUEST_METHOD']));
-			}
-			if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
-				$this->setAuthentication(new BasicHttpAuthentication($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']));
-			}
-		}
-	}
-
-	public function getServerName() {
-		if (!$this->sServerName && isset ($_SERVER['SERVER_NAME'])) {
-			$this->sServerName = $_SERVER['SERVER_NAME'];
-		}
-
-		return $this->sServerName;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getServerProtocol() {
-		if (!$this->sServerProtocol && isset ($_SERVER['SERVER_PROTOCOL'])) {
-			$this->sServerProtocol = $_SERVER['SERVER_PROTOCOL'];
-		}
-
-		return $this->sServerProtocol;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getHttpAccept() {
-		return $this->aAccept;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getHttpAcceptCharset() {
-		return $this->aAcceptCharset;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getContentType() {
-		return $this->sContentType;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getHttpAcceptEncoding() {
-		return $this->aAcceptEncoding;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getHttpAcceptLanguage() {
-		return $this->aAcceptLanguage;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getIfModifiedSince() {
-		return $this->sIfModifiedSince;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getIfNoneMatch() {
-		return $this->sIfNoneMatch;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getHttpReferer() {
-		return $this->sReferer;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getHttpUserAgent() {
-		return $this->sUserAgent;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function getDoNotTrack() {
-		return $this->bDoNotTrack;
 	}
 
 	/**
@@ -269,13 +118,6 @@ abstract class HttpRequestA extends Object {
 	}
 
 	/**
-	 * @return bool
-	 */
-	public function hasContentType() {
-		return !empty($this->sContentType);
-	}
-
-	/**
 	 * @param string $sContentType
 	 * @return bool
 	 */
@@ -294,16 +136,6 @@ abstract class HttpRequestA extends Object {
 			$this->hasSessionVar($sVarName) ||
 			$this->hasCookieVar($sVarName)
 		);
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getHttpMethod() {
-		if (!$this->sHttpMethod && isset ($_SERVER['REQUEST_METHOD'])) {
-			$this->sHttpMethod = $_SERVER['REQUEST_METHOD'];
-		}
-		return $this->sHttpMethod;
 	}
 
 	/**
@@ -339,13 +171,6 @@ abstract class HttpRequestA extends Object {
 	 */
 	public function isDelete() {
 		return ($this->getHttpMethod() == HttpRequestTypes::DELETE);
-	}
-
-	/**
-	 * @return bool
-	 */
-	public static function isSecure() {
-		return (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] == 'on');
 	}
 
 	/**
