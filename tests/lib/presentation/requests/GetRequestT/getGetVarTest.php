@@ -34,7 +34,7 @@ class GetRequestT_underTest_getGetVar {
 	use GetRequestT;
 
 	public function __construct () {
-		$this->initGet();
+		$this->initGet($_GET);
 	}
 
 	public function getVar ($key) {

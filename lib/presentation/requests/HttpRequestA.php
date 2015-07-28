@@ -32,17 +32,17 @@ abstract class HttpRequestA extends Object {
 	protected $iContentLength	= 0; // ? I don't think I'm interested in the length of the request
 
 	public function __construct() {
-		$this->initGet($_GET);
-		$this->initPost($_POST);
 		if (isset($_COOKIE)) {
 			$this->initCookie($_COOKIE);
 		}
 		if (isset($_FILES)) {
 			$this->initFiles($_FILES);
 		}
-		if ($_SERVER) {
+		if (isset($_SERVER)) {
 			$this->initServer($_SERVER);
 		}
+		$this->initGet($_GET);
+		$this->initPost($_POST);
 		$this->initSession();
 	}
 

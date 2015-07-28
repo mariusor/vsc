@@ -12,10 +12,8 @@ use vsc\Exception;
 trait CookieRequestT {
 	protected $aCookieVars = array();
 
-	protected function initCookie() {
-		if (isset($_COOKIE)) {
-			$this->aCookieVars = $_COOKIE;
-		}
+	protected function initCookie($aCookies) {
+		$this->aCookieVars = $aCookies;
 	}
 
 	/**
