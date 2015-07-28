@@ -4,6 +4,7 @@ use fixtures\application\processors\ProcessorFixture;
 use vsc\application\dispatchers\RwDispatcher;
 use fixtures\presentation\requests\PopulatedRequest;
 use vsc\application\processors\NotFoundProcessor;
+use vsc\application\processors\StaticFileProcessor;
 use vsc\infrastructure\vsc;
 
 /**
@@ -42,5 +43,19 @@ class getProcessController extends \PHPUnit_Framework_TestCase
 		vsc::getEnv()->setHttpRequest($oRequest);
 
 		$this->assertInstanceOf( ProcessorFixture::class, $o->getProcessController());
+	}
+
+	public function testGetStaticFile ()
+	{
+		$sFixturePath = VSC_FIXTURE_PATH . 'config' . DIRECTORY_SEPARATOR;
+		$o = new RwDispatcher();
+
+		$o->loadSiteMap($sFixturePath . 'map.php');
+
+		$oRequest = new PopulatedRequest();
+		$oRequest->setUri('/fixture.css');
+		vsc::getEnv()->setHttpRequest($oRequest);
+
+		$this->assertInstanceOf( StaticFileProcessor::class, $o->getProcessController());
 	}
 }

@@ -137,14 +137,6 @@ class RwDispatcher extends HttpDispatcherA {
 		if (!FrontControllerA::isValid($this->oController)) {
 			$oControllerMapping = $this->getCurrentControllerMap();
 
-			if (ControllerMap::isValid($oControllerMapping)) {
-				$sPath = $oControllerMapping->getPath();
-				if ($this->getSiteMap()->isValidObjectPath($sPath)) {
-					include($sPath);
-
-					$sControllerName = SiteMapA::getClassName($sPath);
-				}
-			}
 			if (ClassMap::isValid($oControllerMapping)) {
 				$sControllerName = $oControllerMapping->getPath();
 			}
@@ -160,7 +152,7 @@ class RwDispatcher extends HttpDispatcherA {
 				$this->oController->setMap($oControllerMapping);
 			}
 		}
-//		d ($oControllerMapping);
+
 		return $this->oController;
 	}
 
@@ -183,23 +175,11 @@ class RwDispatcher extends HttpDispatcherA {
 
 			$sPath = $oProcessorMap->getPath();
 			try {
-				$sProcessorName = null;
 				if ($this->getSiteMap()->isValidObjectPath($sPath) || (stristr(basename($sPath), '.') === false && !is_file($sPath))) {
-					if (stristr(basename($sPath), '.') === false && !is_file($sPath)) {
-						// namespaced class name
-						$sProcessorName = $sPath;
-					} elseif (is_file($sPath)) {
-						try {
-							include ($sPath);
-						} catch (\Exception $e) {
-							\vsc\_e($e);
-						}
-						$sProcessorName = SiteMapA::getClassName($sPath);
-					}
 
 					try {
-						if (class_exists($sProcessorName)) {
-							$this->oProcessor = new $sProcessorName();
+						if (class_exists($sPath)) {
+							$this->oProcessor = new $sPath();
 						} else {
 							$this->oProcessor = new NotFoundProcessor();
 						}
@@ -227,8 +207,6 @@ class RwDispatcher extends HttpDispatcherA {
 						$oRawRequest->setTaintedVars($this->oProcessor->getLocalVars()); // FIXME!!!
 					}
 				} else {
-//					\vsc\d($sPath, $this->oProcessor);
-//					\vsc\d($this->oProcessor);
 					// broken URL
 					throw new ExceptionResponseError('Broken URL', 400);
 				}

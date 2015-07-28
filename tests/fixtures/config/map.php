@@ -5,3 +5,5 @@ $this->getCurrentModuleMap()->setTemplatePath(VSC_FIXTURE_PATH . 'templates' . D
 $oMap = $this->map ('test', \fixtures\application\processors\ProcessorFixture::class);
 $oMap->mapController('.*', \fixtures\application\controllers\GenericFrontController::class);
 
+$this->map ('fixture.css', 'static/fixture.css');
+
