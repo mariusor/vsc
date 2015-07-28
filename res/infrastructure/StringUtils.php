@@ -12,7 +12,7 @@ class StringUtils {
 	 * @param string $sString
 	 * @return string
 	 */
-	static function br2nl($sString) {
+	public static function br2nl($sString) {
 		return preg_replace('/<br\/?>/i', "\n", $sString);
 	}
 
@@ -20,7 +20,7 @@ class StringUtils {
 	 * @param string $sString
 	 * @return string
 	 */
-	static function stripTags($sString) {
+	public static function stripTags($sString) {
 		return strip_tags($sString);
 	}
 
@@ -28,7 +28,7 @@ class StringUtils {
 	 * @param string $sString
 	 * @return string
 	 */
-	static function stripEntities($sString) {
+	public static function stripEntities($sString) {
 		return html_entity_decode($sString, ENT_NOQUOTES, 'UTF-8');
 	}
 
@@ -36,7 +36,7 @@ class StringUtils {
 	 * @param string $sString
 	 * @param int $iTimes
 	 */
-	static function _echo($sString, $iTimes = 1) {
+	public static function _echo($sString, $iTimes = 1) {
 		for ($i = 0; $i < $iTimes; $i++)
 			echo $sString;
 	}
@@ -45,7 +45,7 @@ class StringUtils {
 	 * @param string $sString
 	 * @return string
 	 */
-	static function stripScriptTags($sString) {
+	public static function stripScriptTags($sString) {
 		return preg_replace('/<script.*\/script>/mi', '', (string)$sString);
 	}
 
