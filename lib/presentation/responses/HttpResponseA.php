@@ -34,7 +34,7 @@ abstract class HttpResponseA extends Object {
 	private $sLocation;
 	private $oView;
 
-	protected $aHeaders;
+	protected $aHeaders = [];
 	protected $sContentType;
 
 	public function __construct() {
@@ -257,6 +257,13 @@ abstract class HttpResponseA extends Object {
 	 */
 	public function getServerProtocol() {
 		return $this->sServerProtocol;
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getCustomHeaders() {
+		return $this->aHeaders;
 	}
 
 	/**

@@ -87,6 +87,12 @@ trait HttpHeaders
 	 */
 	abstract public function getLastModified();
 
+	/**
+	 * @return array
+	 * @see HttpResponseA::getCustomHeaders
+	 */
+	abstract protected function getCustomHeaders();
+
 
 	/**
 	 * @return bool
@@ -94,7 +100,7 @@ trait HttpHeaders
 	public function outputStatusHeader () {
 		if (vsc::isCli()) { return false; }
 		if ($this->getStatus()) {
-			header(self::getHttpStatusString($this->getServerProtocol(), $this->getStatus()));
+			header(HttpResponseA::getHttpStatusString($this->getServerProtocol(), $this->getStatus()));
 		}
 		return true;
 	}
@@ -182,8 +188,9 @@ trait HttpHeaders
 	 */
 	protected function outputCustomHeaders () {
 		if (vsc::isCli()) { return false; }
-		if (is_array($this->aHeaders)) {
-			foreach ($this->aHeaders as $sHeaderName => $sHeaderValue) {
+		$aHeaders = $this->getCustomHeaders();
+		if (is_array($aHeaders)) {
+			foreach ($aHeaders as $sHeaderName => $sHeaderValue) {
 				if (is_null($sHeaderValue)) {
 					header_remove($sHeaderName);
 				} else {
