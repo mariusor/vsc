@@ -10,33 +10,33 @@ class getVars extends \PHPUnit_Framework_TestCase
 	public function testGetVars() {
 		$o = new PopulatedRequest();
 
-		$ExistingTaintedVars = array(
+		$existingTaintedVars = array(
 			'module'	=> 'test',
 			'cucu'		=> 'mucu',
 			'height'	=> 143
 		);
-		$ExistingGetVars	= array('cucu' => 'pasare','ana' => 'are', 'mere' => '', 'test' => 123);
-		$ExistingPostVars	= array('postone' => 'are', 'ana' => '');
-		$ExistingCookieVars	= array('user' => 'asddsasdad234');
+		$existingGetVars	= array('cucu' => 'pasare','ana' => 'are', 'mere' => '', 'test' => 123);
+		$existingPostVars	= array('postone' => 'are', 'ana' => '');
+		$existingCookieVars	= array('user' => 'asddsasdad234');
 
-		$ExistingVars = array ();
-		$VarOrder = $o->getVarOrder();
-		foreach ($VarOrder as $sMethod) {
+		$existingVars = array ();
+		$varOrder = PopulatedRequest::getVarOrder();
+		foreach ($varOrder as $sMethod) {
 			switch ($sMethod) {
 				case 'S':
 					break;
 				case 'C':
-					$ExistingVars = array_merge ($ExistingVars, $ExistingCookieVars);
+					$existingVars = array_merge ($existingVars, $existingCookieVars);
 					break;
 				case 'P':
-					$ExistingVars = array_merge ($ExistingVars, $ExistingPostVars);
+					$existingVars = array_merge ($existingVars, $existingPostVars);
 					break;
 				case 'G':
-					$ExistingVars = array_merge ($ExistingVars, $ExistingGetVars);
+					$existingVars = array_merge ($existingVars, $existingGetVars);
 					break;
 			}
 		}
 
-		$this->assertEquals(array_merge($ExistingTaintedVars, $ExistingVars), $o->getVars());
+		$this->assertEquals(array_merge($existingTaintedVars, $existingVars), $o->getVars());
 	}
 }

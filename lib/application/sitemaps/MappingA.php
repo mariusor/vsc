@@ -502,12 +502,12 @@ abstract class MappingA extends Object {
 	}
 
 	/**
-	 * @param \vsc\infrastructure\Object $MappedObject
+	 * @param \vsc\infrastructure\Object $mappedObject
 	 * @return boolean
 	 */
-	public function maps(Object $MappedObject)
+	public function maps(Object $mappedObject)
 	{
-		return (bool)stristr(get_class($MappedObject), substr(basename($this->getPath()), 0, -4));
+		return (bool)stristr(get_class($mappedObject), substr(basename($this->getPath()), 0, -4));
 	}
 
 	/**

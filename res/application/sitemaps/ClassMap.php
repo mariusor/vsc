@@ -13,11 +13,11 @@ class ClassMap extends MappingA implements ContentTypeMappingI {
 	use ControllerMapT;
 
 	/**
-	 * @param vscObject $MappedObject
+	 * @param vscObject $mappedObject
 	 * @return bool
 	 */
-	public function maps(vscObject $MappedObject)
+	public function maps(vscObject $mappedObject)
 	{
-		return (get_class($MappedObject) == $this->getPath());
+		return (get_class($mappedObject) == $this->getPath());
 	}
 }

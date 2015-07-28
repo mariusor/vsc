@@ -314,7 +314,7 @@ abstract class SiteMapA extends Object {
 	 */
 	public function findProcessorMap(ProcessorA $oProcessor) {
 		/* @var ProcessorMap $oProcessorMap */
-		foreach ($this->getMaps() as $sRegex => $oProcessorMap) {
+		foreach ($this->getMaps() as $oProcessorMap) {
 			if ($oProcessorMap->maps($oProcessor)) {
 				return $oProcessorMap;
 			}

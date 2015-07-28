@@ -20,7 +20,7 @@ class getCurrentUrlTest extends \PHPUnit_Framework_TestCase
 }
 
 class UrlParserA_underTest_getCurrentUrl extends UrlParserA {
-	static protected $QUERY_ENCODING_TYPE = PHP_QUERY_RFC3986;
+	static protected $queryEncodingType = PHP_QUERY_RFC3986;
 
 	static public function getRequestUri () {
 		return 'http://example.com/test/index.html?query=test+123';

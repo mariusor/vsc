@@ -5,7 +5,7 @@ use vsc\infrastructure\Object;
 use vsc\presentation\requests\HttpRequestA;
 
 class UrlParserA extends Object implements UrlParserI {
-	static protected $QUERY_ENCODING_TYPE = PHP_QUERY_RFC1738;
+	static protected $queryEncodingType = PHP_QUERY_RFC1738;
 
 	private $sUrl;
 	/**

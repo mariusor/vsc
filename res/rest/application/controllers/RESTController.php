@@ -16,7 +16,6 @@ use vsc\presentation\requests\ContentType;
 use vsc\presentation\responses\HttpResponseType;
 use vsc\rest\application\processors\RESTProcessorA;
 use vsc\presentation\requests\HttpRequestA;
-use vsc\rest\presentation\requests\RESTRequest;
 use vsc\presentation\responses\ExceptionAuthenticationNeeded;
 use vsc\presentation\responses\ExceptionResponseError;
 use vsc\presentation\responses\HttpResponseA;
