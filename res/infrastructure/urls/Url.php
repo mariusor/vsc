@@ -9,7 +9,7 @@ use vsc\infrastructure\Object;
 
 class Url extends Object
 {
-	static protected $QUERY_ENCODING_TYPE = PHP_QUERY_RFC1738;
+	static protected $queryEncodingType = PHP_QUERY_RFC1738;
 	static protected $validSchemes = ['http', 'https', 'file'];
 
 	/**
@@ -130,7 +130,7 @@ class Url extends Object
 	 * @return string
 	 */
 	public function getRawQueryString($encoded = true) {
-		return http_build_query($this->getQuery(), '', $encoded ? '&amp;' : '&', static::$QUERY_ENCODING_TYPE);
+		return http_build_query($this->getQuery(), '', $encoded ? '&amp;' : '&', static::$queryEncodingType);
 	}
 
 	/**
