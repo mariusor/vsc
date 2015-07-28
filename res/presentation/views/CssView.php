@@ -7,7 +7,6 @@
  */
 namespace vsc\presentation\views;
 
-// \vsc\import ('presentation/views');
 class CssView extends PlainTextView {
 	protected $sContentType = 'text/css';
 	protected $sFolder = 'css';
