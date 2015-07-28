@@ -9,22 +9,82 @@ use vsc\infrastructure\vsc;
 
 trait HttpHeaders
 {
+	/**
+	 * @return string
+	 * @see HttpResponseA::getServerProtocol
+	 */
 	abstract public function getServerProtocol();
+	/**
+	 * @return int
+	 * @see HttpResponseA::getStatus
+	 */
 	abstract public function getStatus();
+	/**
+	 * @return string
+	 * @see HttpResponseA::getLocation
+	 */
 	abstract public function getLocation();
 
+	/**
+	 * @return string
+	 * @see HttpResponseA::getContentType
+	 */
 	abstract public function getContentType();
+	/**
+	 * @return string
+	 * @see HttpResponseA::getContentDisposition
+	 */
 	abstract public function getContentDisposition();
+	/**
+	 * @return string
+	 * @see HttpResponseA::getContentEncoding
+	 */
 	abstract public function getContentEncoding();
+	/**
+	 * @return string
+	 * @see HttpResponseA::getContentLanguage
+	 */
 	abstract public function getContentLanguage();
+	/**
+	 * @return int
+	 * @see HttpResponseA::getContentLength
+	 */
 	abstract public function getContentLength();
+	/**
+	 * @return string
+	 * @see HttpResponseA::getContentLocation
+	 */
 	abstract public function getContentLocation();
+	/**
+	 * @return string
+	 * @see HttpResponseA::getContentMd5
+	 */
 	abstract public function getContentMd5();
 
+	/**
+	 * @return string
+	 * @see HttpResponseA::getCacheControl
+	 */
 	abstract public function getCacheControl();
+	/**
+	 * @return string
+	 * @see HttpResponseA::getDate
+	 */
 	abstract public function getDate();
+	/**
+	 * @return string
+	 * @see HttpResponseA::getETag
+	 */
 	abstract public function getETag();
+	/**
+	 * @return string
+	 * @see HttpResponseA::getExpires
+	 */
 	abstract public function getExpires();
+	/**
+	 * @return string
+	 * @see HttpResponseA::getLastModified
+	 */
 	abstract public function getLastModified();
 
 
