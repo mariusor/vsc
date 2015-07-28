@@ -4,19 +4,25 @@ namespace vsc\presentation\requests;
 use vsc\infrastructure\Base;
 
 class ContentType extends Base {
+	protected static function isAcceptedType ($sType, $aContentTypes) {
+
+	}
+	protected static function isAcceptedSubType ($sSubType, $aContentTypes) {}
+
+	/**
+	 * @param $sContentType
+	 * @param $aContentTypes
+	 * @return bool
+	 */
 	public static function isAccepted($sContentType, $aContentTypes) {
-		foreach ($aContentTypes as $key => $sEntry) {
-			$iSemicolonPosition = strpos($sEntry, ';');
-			if ($iSemicolonPosition > 0) {
-				$sTempContentType = substr($sEntry, 0, $iSemicolonPosition);
-				$aContentTypes[$key] = $sTempContentType;
-			} else {
-				$aContentTypes[$key] = $sEntry;
-			}
-		}
 		list ($sType, $sSubtype) = explode('/', $sContentType);
 		foreach ($aContentTypes as $sAcceptedContentType) {
 			list ($sAcceptedType, $sAcceptedSubtype) = explode('/', $sAcceptedContentType);
+			$iSemicolonPosition = strpos($sAcceptedSubtype, ';');
+			if ($iSemicolonPosition > 0) {
+				// discarding the data after the semicolon in the accepts entry
+				$sAcceptedSubtype = substr($sAcceptedSubtype, 0, $iSemicolonPosition);
+			}
 
 			if ($sAcceptedType == $sType && $sAcceptedSubtype == $sSubtype) {
 				return true;
