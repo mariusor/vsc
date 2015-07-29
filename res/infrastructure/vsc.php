@@ -10,6 +10,7 @@ use vsc\application\dispatchers\DispatcherA;
 use vsc\application\dispatchers\HttpDispatcherA;
 use vsc\application\dispatchers\RwDispatcher;
 use vsc\application\sitemaps\ModuleMap;
+use vsc\application\sitemaps\SiteMapA;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\RawHttpRequest;
 use vsc\presentation\requests\RwHttpRequest;
@@ -114,6 +115,13 @@ class vsc extends Object {
 			$this->oDispatcher = new RwDispatcher();
 		}
 		return $this->oDispatcher;
+	}
+
+	/**
+	 * @return SiteMapA
+	 */
+	public function getSiteMap() {
+		return $this->getDispatcher()->getSiteMap();
 	}
 
 	/**
