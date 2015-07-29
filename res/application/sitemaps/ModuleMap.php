@@ -13,6 +13,16 @@ class ModuleMap extends MappingA implements ContentTypeMappingI {
 	private $sMainTemplatePath;
 	private $sMainTemplate;
 
+	/**
+	 * verifies if $sPath is on the path
+	 * verifies if $sPath is a valid folder and it has a config/map.php file
+	 * @param string $sPath
+	 * @return bool
+	 */
+	public static function isValidMap ($sPath) {
+		return (basename($sPath) == 'map.php' && is_file($sPath));
+	}
+
 	public function __construct($sPath, $sRegex) {
 		$sPath = realpath(dirname($sPath));
 		if (basename($sPath) == 'config') {
@@ -49,7 +59,7 @@ class ModuleMap extends MappingA implements ContentTypeMappingI {
 	 */
 	public function getModulePath() {
 		$sModulePath = $this->getPath();
-		if (!SiteMapA::isValidMapPath($sModulePath) && SiteMapA::isValidObjectPath($sModulePath)) {
+		if (!ModuleMap::isValidMap($sModulePath) && ClassMap::isValidMap($sModulePath)) {
 			$sModulePath = $this->getModuleMap()->getModulePath();
 		}
 

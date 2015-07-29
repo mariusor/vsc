@@ -1,7 +1,7 @@
 <?php
 namespace tests\lib\presentation\views\ViewA;
+use vsc\application\sitemaps\ClassMap;
 use vsc\presentation\views\ViewA;
-use vsc\application\sitemaps\ProcessorMap;
 
 /**
  * @covers \vsc\presentation\views\ViewA::getTemplatePath()
@@ -12,7 +12,7 @@ class getTemplatePath extends \PHPUnit_Framework_TestCase
 	{
 		$o = new ViewA_underTest_getTemplatePath();
 
-		$oMap = new ProcessorMap('', '');
+		$oMap = new ClassMap('', '');
 		$o->setMap($oMap);
 
 		$this->assertEquals('', $o->getTemplatePath());

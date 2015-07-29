@@ -9,7 +9,7 @@ namespace vsc\application\sitemaps;
 
 use vsc\application\processors\ErrorProcessor;
 
-class ErrorMap extends ProcessorMap {
+class ErrorMap extends ClassMap {
 	public function __construct() {
 		parent::__construct(ErrorProcessor::class, '\A.*\Z');
 	}

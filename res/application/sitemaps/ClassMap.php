@@ -12,6 +12,10 @@ class ClassMap extends MappingA implements ContentTypeMappingI {
 	use ProcessorMapT;
 	use ControllerMapT;
 
+	public static function isValidMap($sPath) {
+		return class_exists($sPath);
+	}
+
 	/**
 	 * @param vscObject $mappedObject
 	 * @return bool

@@ -1,7 +1,7 @@
 <?php
 namespace tests\lib\application\controllers\FrontControllerA;
 use fixtures\application\controllers\GenericFrontController;
-use vsc\application\sitemaps\ControllerMap;
+use vsc\application\sitemaps\ClassMap;
 use fixtures\presentation\views\testView;
 use fixtures\presentation\views\NullView;
 use vsc\application\controllers\FrontControllerA;
@@ -20,7 +20,7 @@ class setMap extends \PHPUnit_Framework_TestCase
 	public function setUp () {
 
 		$this->state = new FrontController_underTest_setMap();
-		$oMap = new ControllerMap(__FILE__, '\A.*\Z');
+		$oMap = new ClassMap(self::class, '\A.*\Z');
 		$oMap->setView(testView::class);
 
 		$oMap->setMainTemplatePath(VSC_FIXTURE_PATH . 'templates');
@@ -34,12 +34,12 @@ class setMap extends \PHPUnit_Framework_TestCase
 	}
 
 	public function testSetGetMap() {
-		$s = new ControllerMap(GenericFrontController::class, '\A.*\Z');
+		$s = new ClassMap(GenericFrontController::class, '\A.*\Z');
 		$this->state->setMap($s);
 
 		$m = $this->state->getMap();
 		$this->assertInstanceOf(MappingA::class, $m);
-		$this->assertInstanceOf(ControllerMap::class, $m);
+		$this->assertInstanceOf(ClassMap::class, $m);
 		$this->assertEquals($s, $m);
 	}
 }

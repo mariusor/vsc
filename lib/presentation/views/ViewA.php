@@ -7,8 +7,8 @@
  */
 namespace vsc\presentation\views;
 
+use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\MappingA;
-use vsc\application\sitemaps\ProcessorMap;
 use vsc\domain\models\EmptyModel;
 use vsc\domain\models\HttpModelI;
 use vsc\domain\models\ModelA;
@@ -41,7 +41,7 @@ abstract class ViewA extends Object implements ViewI {
 	private $sMainTemplate;
 
 	/**
-	 * @var ProcessorMap
+	 * @var ClassMap
 	 */
 	private $oCurrentMap;
 
@@ -120,7 +120,7 @@ abstract class ViewA extends Object implements ViewI {
 
 	/**
 	 * @throws ExceptionView
-	 * @returns ProcessorMap
+	 * @returns ClassMap
 	 */
 	public function getMap() {
 		if (MappingA::isValid($this->oCurrentMap)) {
@@ -131,7 +131,7 @@ abstract class ViewA extends Object implements ViewI {
 	}
 
 	/**
-	 * @param ProcessorMap $oMap
+	 * @param ClassMap $oMap
 	 */
 	public function setMap($oMap) {
 		$this->oCurrentMap = $oMap;

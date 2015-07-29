@@ -1,8 +1,8 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
+use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\ContentTypeMappingI;
 use vsc\application\sitemaps\MappingA;
-use vsc\application\sitemaps\ProcessorMap;
 
 /**
  * @covers \vsc\application\sitemaps\MappingA::mergePaths()
@@ -11,9 +11,9 @@ class mergePaths extends \PHPUnit_Framework_TestCase
 {
 	public function testBasicMergePaths()
 	{
-		$o = new MappingA_underTest_mergePaths();
+		$o = new MappingA_underTest_mergePaths(self::class);
 
-		$oMap = new ProcessorMap(__FILE__, '.*');
+		$oMap = new ClassMap(self::class, '.*');
 		$o->mergePaths($oMap);
 
 		$this->assertEquals($oMap->getPath(), $o->getPath());
@@ -22,8 +22,8 @@ class mergePaths extends \PHPUnit_Framework_TestCase
 	}
 
 	public function testMergePathsForContentTypeMaps () {
-		$o = new MappingA_underTest_mergePaths_ContentTypeInterface();
-		$oMap = new ProcessorMap(__FILE__, '.*');
+		$o = new MappingA_underTest_mergePaths_ContentTypeInterface(self::class);
+		$oMap = new ClassMap(self::class, '.*');
 		$o->mergePaths($oMap);
 
 		$this->assertEquals($oMap->getPath(), $o->getPath());

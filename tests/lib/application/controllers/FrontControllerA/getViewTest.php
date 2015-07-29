@@ -3,7 +3,7 @@ namespace lib\application\controllers\FrontControllerA;
 
 use fixtures\presentation\views\testView;
 use vsc\application\controllers\FrontControllerA;
-use vsc\application\sitemaps\ControllerMap;
+use vsc\application\sitemaps\ClassMap;
 use vsc\infrastructure\Base;
 use vsc\presentation\views\ViewA;
 
@@ -17,7 +17,7 @@ class getViewTest extends \PHPUnit_Framework_TestCase {
 	public function testGetViewAfterBeingSet () {
 		$state = new FrontControllerA_underTest_getView();
 
-		$oMap = new ControllerMap(__FILE__, '\A.*\Z');
+		$oMap = new ClassMap(self::class, '\A.*\Z');
 		$oMap->setView(testView::class);
 		$state->setMap($oMap);
 

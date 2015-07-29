@@ -20,7 +20,7 @@ class getAllControllersTest extends \PHPUnit_Framework_TestCase
 		$o = new SiteMapA_underTest_getAllControllers();
 		$sRegex = '.*';
 		$oMap = $o->map($sRegex, VSC_FIXTURE_PATH . 'config/map.php');
-		$oCtrl = $oMap->mapController($sRegex, GenericFrontController::class);
+		$oCtrl = $oMap->map($sRegex, GenericFrontController::class);
 
 		$this->assertEquals([$sRegex => $oCtrl], $o->getAllControllers());
 	}

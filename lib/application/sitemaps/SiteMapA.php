@@ -49,7 +49,7 @@ abstract class SiteMapA extends Object {
 		}
 
 		if (!array_key_exists($sRegex, $this->aMaps)) {
-			$oNewMap = new ProcessorMap($sPath, $sRegex);
+			$oNewMap = new ClassMap($sPath, $sRegex);
 
 			if (MappingA::isValid($oModuleMap)) {
 				$oNewMap->merge($oModuleMap);
@@ -138,7 +138,7 @@ abstract class SiteMapA extends Object {
 	}
 
 	/**
-	 * @returns ProcessorMap[]
+	 * @returns ClassMap[]
 	 */
 	public function getMaps() {
 		return $this->aMaps;
@@ -232,11 +232,11 @@ abstract class SiteMapA extends Object {
 			}
 
 			$sPath = str_replace(array('/', '\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR), $sPath);
-			if (self::isValidMapPath($sPath)) {
+			if (ModuleMap::isValidMap($sPath)) {
 				// Valid site map
 				return $this->addModuleMap($sRegex, $sPath);
 			}
-			if (self::isValidObjectPath($sPath)) {
+			if (ClassMap::isValidMap($sPath)) {
 				// Valid processor
 				return $this->addMap($sRegex, $sPath);
 			}
@@ -268,7 +268,7 @@ abstract class SiteMapA extends Object {
 	}
 
 	/**
-	 * @returns ControllerMap[]
+	 * @returns ClassMap[]
 	 */
 	protected function getAllControllers() {
 		$aProcessorMaps = $this->getMaps();
@@ -299,7 +299,7 @@ abstract class SiteMapA extends Object {
 	}
 
 	/**
-	 * @returns ProcessorMap[]
+	 * @returns ClassMap[]
 	 */
 	public function getProcessorMappings() {
 		$aC = false;
@@ -314,7 +314,7 @@ abstract class SiteMapA extends Object {
 	 * @return MappingA
 	 */
 	public function findProcessorMap(ProcessorA $oProcessor) {
-		/* @var ProcessorMap $oProcessorMap */
+		/* @var ClassMap $oProcessorMap */
 		foreach ($this->getMaps() as $oProcessorMap) {
 			if ($oProcessorMap->maps($oProcessor)) {
 				return $oProcessorMap;

@@ -14,13 +14,10 @@ use vsc\application\processors\NotFoundProcessor;
 use vsc\application\processors\ProcessorA;
 use vsc\application\processors\StaticFileProcessor;
 use vsc\application\sitemaps\ClassMap;
-use vsc\application\sitemaps\ControllerMap;
 use vsc\application\sitemaps\ExceptionSitemap;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ModuleMap;
-use vsc\application\sitemaps\ProcessorMap;
 use vsc\application\sitemaps\RwSiteMap;
-use vsc\application\sitemaps\SiteMapA;
 use vsc\infrastructure\vsc;
 use vsc\presentation\requests\RwHttpRequest;
 use vsc\presentation\responses\ExceptionResponseError;
@@ -33,7 +30,7 @@ class RwDispatcher extends HttpDispatcherA {
 	/**
 	 * @param array $aMaps
 	 * @throws ExceptionError
-	 * @returns ProcessorMap
+	 * @returns ClassMap
 	 */
 	public function getCurrentMap($aMaps) {
 		if (!is_array($aMaps) || empty($aMaps)) {
@@ -75,7 +72,7 @@ class RwDispatcher extends HttpDispatcherA {
 	 */
 	public function getCurrentModuleMap() {
 		$oProcessorMap = $this->getCurrentProcessorMap();
-		if (ProcessorMap::isValid($oProcessorMap) || ClassMap::isValid($oProcessorMap)) {
+		if (ClassMap::isValid($oProcessorMap)) {
 			return $this->getCurrentProcessorMap()->getModuleMap();
 		} else {
 			return $this->getSiteMap()->getCurrentModuleMap();
@@ -83,7 +80,7 @@ class RwDispatcher extends HttpDispatcherA {
 	}
 
 	/**
-	 * @returns ProcessorMap
+	 * @returns ClassMap
 	 * @throws ExceptionSitemap
 	 * @throws ExceptionError
 	 */
@@ -92,7 +89,7 @@ class RwDispatcher extends HttpDispatcherA {
 	}
 
 	/**
-	 * @returns ControllerMap
+	 * @returns ClassMap
 	 * @throws ExceptionError
 	 */
 	public function getCurrentControllerMap() {
@@ -102,7 +99,7 @@ class RwDispatcher extends HttpDispatcherA {
 		$aProcessorMaps = $oProcessorMap->getControllerMaps();
 		if (count($aProcessorMaps) > 0) {
 			$oCurrentMap = $this->getCurrentMap($aProcessorMaps);
-			if (ControllerMap::isValid($oCurrentMap) || ClassMap::isValid($oCurrentMap)) {
+			if (ClassMap::isValid($oCurrentMap)) {
 				return $oCurrentMap;
 			}
 		}
@@ -111,12 +108,12 @@ class RwDispatcher extends HttpDispatcherA {
 		$oCurrentModule = $oProcessorMap->getModuleMap();
 		$aModuleMaps = $oCurrentModule->getControllerMaps();
 		$oCurrentMap = $this->getCurrentMap($aModuleMaps);
-		if (ControllerMap::isValid($oCurrentMap) || ClassMap::isValid($oCurrentMap)) {
+		if (ClassMap::isValid($oCurrentMap)) {
 			return $oCurrentMap;
 		}
 
 		// merging all controller maps found in the processor map's parent modules
-		while (!ControllerMap::isValid($oCurrentMap) && !ClassMap::isValid($oCurrentMap)) {
+		while (!ClassMap::isValid($oCurrentMap)) {
 			$oModuleMap		= $oCurrentModule->getModuleMap();
 			$aMaps = $oModuleMap->getControllerMaps();
 			$oCurrentMap	= $this->getCurrentMap($aMaps);
@@ -158,7 +155,7 @@ class RwDispatcher extends HttpDispatcherA {
 
 	/**
 	 * (non-PHPdoc)
-	 * @see lib/presentation/dispatchers/vscDispatcherA#getProcessController()
+	 * @see vsc/presentation/dispatchers/HttpDispatcherA::getProcessController()
 	 * @throws ExceptionSitemap
 	 * @throws ExceptionResponseError
 	 * @returns ProcessorA
@@ -166,16 +163,16 @@ class RwDispatcher extends HttpDispatcherA {
 	public function getProcessController() {
 		if (!ProcessorA::isValid($this->oProcessor)) {
 			$oProcessorMap = $this->getCurrentProcessorMap();
-			if (!ProcessorMap::isValid($oProcessorMap) && !ClassMap::isValid($oProcessorMap)) {
+			if (!ClassMap::isValid($oProcessorMap)) {
 				// this mainly means nothing was matched to our url, or no mappings exist, so we're falling back to 404
-				$oProcessorMap = new ProcessorMap(NotFoundProcessor::class, '.*');
+				$oProcessorMap = new ClassMap(NotFoundProcessor::class, '.*');
 				$oProcessorMap->setTemplatePath(VSC_RES_PATH . 'templates');
 				$oProcessorMap->setTemplate('404.php');
 			}
 
 			$sPath = $oProcessorMap->getPath();
 			try {
-				if ($this->getSiteMap()->isValidObjectPath($sPath) || (stristr(basename($sPath), '.') === false && !is_file($sPath))) {
+				if (ClassMap::isValidMap($sPath) || (stristr(basename($sPath), '.') === false && !is_file($sPath))) {
 
 					try {
 						if (class_exists($sPath)) {

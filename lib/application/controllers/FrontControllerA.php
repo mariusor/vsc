@@ -11,9 +11,7 @@ use vsc\application\processors\ErrorProcessor;
 use vsc\application\processors\ProcessorA;
 use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\ContentTypeMappingI;
-use vsc\application\sitemaps\ControllerMap;
 use vsc\application\sitemaps\MappingA;
-use vsc\application\sitemaps\ProcessorMap;
 use vsc\domain\models\EmptyModel;
 use vsc\domain\models\ErrorModel;
 use vsc\domain\models\ModelA;
@@ -51,10 +49,10 @@ abstract class FrontControllerA extends Object {
 
 	/**
 	 * @throws ExceptionView
-	 * @returns ControllerMap
+	 * @returns ClassMap
 	 */
 	public function getMap() {
-		if (!ClassMap::isValid($this->oCurrentMap) && !ControllerMap::isValid($this->oCurrentMap)) {
+		if (!ClassMap::isValid($this->oCurrentMap)) {
 			$Mirror = new \ReflectionClass($this);
 			$this->oCurrentMap = new ClassMap($Mirror->getName(), '.*');
 		}
@@ -97,7 +95,7 @@ abstract class FrontControllerA extends Object {
 		if (ProcessorA::isValid($oProcessor)) {
 			$oProcessor->init();
 			$oModel = $oProcessor->handleRequest($oRequest);
-			/* @var ProcessorMap $oMap */
+			/* @var ClassMap $oMap */
 			$oMap = $oProcessor->getMap();
 			if (MappingA::isValid($oMap)) {
 				if (MappingA::isValid($oMyMap)) {
@@ -107,7 +105,7 @@ abstract class FrontControllerA extends Object {
 			// setting the processor map
 			$oView->setMap($oMap);
 			try {
-				if (((ProcessorMap::isValid($oMap) || ClassMap::isValid($oMap)) && !$oMap->isStatic() && !$oMyMap->isStatic()) && (ControllerMap::isValid($oMyMap) || ClassMap::isValid($oMyMap))) {
+				if ((ClassMap::isValid($oMap) && !$oMap->isStatic() && !$oMyMap->isStatic()) && ClassMap::isValid($oMyMap)) {
 					$oView->setMainTemplate(
 						$oMyMap->getMainTemplatePath() .
 						$oView->getViewFolder() . DIRECTORY_SEPARATOR .
@@ -121,7 +119,7 @@ abstract class FrontControllerA extends Object {
 			}
 			if (!ModelA::isValid($oModel)) {
 				$oModel = new EmptyModel();
-				if (!ProcessorMap::isValid($oMap) || $oMap->getTitle() == '') {
+				if (!ClassMap::isValid($oMap) || $oMap->getTitle() == '') {
 					$oModel->setPageTitle('Warning');
 				}
 				$oModel->setPageContent('Warning: the processor didn\'t return a valid model. This is probably an error');
@@ -189,7 +187,7 @@ abstract class FrontControllerA extends Object {
 
 		$oProcessor = new ErrorProcessor($e);
 
-		/* @var ControllerMap $oMyMap */
+		/* @var ClassMap $oMyMap */
 		$oMyMap = $this->getMap();
 
 		$oMyMap->setMainTemplatePath(VSC_RES_PATH . 'templates');
@@ -213,7 +211,7 @@ abstract class FrontControllerA extends Object {
 		// this means that the developer needs to provide his own views
 		$oView = $this->getView();
 
-		/* @var ProcessorMap $oMap */
+		/* @var ClassMap $oMap */
 		$oMap = $oProcessor->getMap();
 		$oMap->merge($oMyMap);
 		$oProcessorResponse = $oMap->getResponse();
@@ -224,7 +222,7 @@ abstract class FrontControllerA extends Object {
 
 		// setting the processor map
 		$oView->setMap($oMap);
-		if (ControllerMap::isValid($oMyMap)) {
+		if (ClassMap::isValid($oMyMap)) {
 			$oView->setMainTemplate($oMyMap->getMainTemplatePath() . DIRECTORY_SEPARATOR . $oView->getViewFolder() . DIRECTORY_SEPARATOR . $oMyMap->getMainTemplate());
 		}
 		$oView->setModel($oModel);
