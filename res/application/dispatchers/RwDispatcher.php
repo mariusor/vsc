@@ -104,23 +104,16 @@ class RwDispatcher extends HttpDispatcherA {
 			}
 		}
 
-		// check the current module for maps
 		$oCurrentModule = $oProcessorMap->getModuleMap();
-		$aModuleMaps = $oCurrentModule->getControllerMaps();
-		$oCurrentMap = $this->getCurrentMap($aModuleMaps);
-		if (ClassMap::isValid($oCurrentMap)) {
-			return $oCurrentMap;
-		}
-
 		// merging all controller maps found in the processor map's parent modules
-		while (!ClassMap::isValid($oCurrentMap)) {
-			$oModuleMap		= $oCurrentModule->getModuleMap();
-			$aMaps = $oModuleMap->getControllerMaps();
-			$oCurrentMap	= $this->getCurrentMap($aMaps);
-			if ($oCurrentMap instanceof Base) {
-				return $oCurrentMap;
+		do {
+			// check the current module for maps
+			$aModuleMaps = $oCurrentModule->getControllerMaps();
+			if (count($aModuleMaps) > 0) {
+				$oCurrentMap = $this->getCurrentMap($aModuleMaps);
 			}
-		}
+			$oCurrentModule = $oCurrentModule->getModuleMap();
+		} while (!ClassMap::isValid($oCurrentMap) && !$oCurrentModule->isRoot());
 
 		return $oCurrentMap;
 	}
@@ -227,11 +220,11 @@ class RwDispatcher extends HttpDispatcherA {
 	 * @return boolean
 	 */
 	public function loadSiteMap($sIncPath) {
-		// @FIXME: this needs to be refactored with some getters/setters
-		$this->setSiteMap(new RwSiteMap());
 		try {
 			// hic sunt leones
-			$this->getSiteMap()->map('\A/', $sIncPath);
+			/** @var ModuleMap $oMap */
+			$oMap = $this->getSiteMap()->map('\A/', $sIncPath);
+			$oMap->setIsRoot(true);
 		} catch (ExceptionSitemap $e) {
 			// there was a faulty controller in the sitemap
 			// this will probably result in a incomplete parsed sitemap tree

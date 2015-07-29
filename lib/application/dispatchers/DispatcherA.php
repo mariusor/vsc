@@ -11,6 +11,7 @@ namespace vsc\application\dispatchers;
 use vsc\application\controllers\FrontControllerA;
 use vsc\application\processors\ProcessorA;
 use vsc\application\sitemaps\ExceptionSitemap;
+use vsc\application\sitemaps\RwSiteMap;
 use vsc\application\sitemaps\SiteMapA;
 use vsc\infrastructure\vsc;
 use vsc\infrastructure\Object;
@@ -69,11 +70,10 @@ abstract class DispatcherA extends Object {
 	 * @returns SiteMapA
 	 */
 	public function getSiteMap() {
-		if (SiteMapA::isValid($this->oSiteMap)) {
-			return $this->oSiteMap;
-		} else {
-			throw new ExceptionSitemap('No sitemap loaded.');
+		if (!SiteMapA::isValid($this->oSiteMap)) {
+			$this->oSiteMap = new RwSiteMap();
 		}
+		return $this->oSiteMap;
 	}
 
 	/**

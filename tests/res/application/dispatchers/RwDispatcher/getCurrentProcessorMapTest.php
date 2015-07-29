@@ -13,11 +13,9 @@ class getCurrentProcessorMap extends \PHPUnit_Framework_TestCase
 	public function testFailsWithoutSiteMap()
 	{
 		$o = new RwDispatcher();
-		try {
-			$this->assertEmpty($o->getCurrentProcessorMap());
-		} catch (\Exception $e) {
-			$this->assertInstanceOf(ExceptionSitemap::class, $e);
-		}
+		$empty = $o->getCurrentProcessorMap();
+		$this->assertInstanceOf(ClassMap::class, $empty);
+		$this->assertFalse(ClassMap::isValid($empty));
 	}
 
 	public function testBasicGetSitemap()

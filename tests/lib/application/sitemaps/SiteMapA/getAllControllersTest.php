@@ -2,6 +2,7 @@
 namespace lib\application\sitemaps\SiteMapA;
 
 use fixtures\application\controllers\GenericFrontController;
+use vsc\application\sitemaps\ModuleMap;
 use vsc\application\sitemaps\SiteMapA;
 
 /**

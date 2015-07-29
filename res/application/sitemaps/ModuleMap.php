@@ -10,8 +10,19 @@ namespace vsc\application\sitemaps;
 use vsc\infrastructure\urls\UrlParserA;
 
 class ModuleMap extends MappingA implements ContentTypeMappingI {
+	/**
+	 * @var string
+	 */
 	private $sMainTemplatePath;
+	/**
+	 * @var string
+	 */
 	private $sMainTemplate;
+
+	/**
+	 * @var bool
+	 */
+	private $bRoot = false;
 
 	/**
 	 * verifies if $sPath is on the path
@@ -52,6 +63,20 @@ class ModuleMap extends MappingA implements ContentTypeMappingI {
 
 	public function getNamespace() {
 		return '';
+	}
+
+	/**
+	 * @param bool $bIsRoot
+	 */
+	public function setIsRoot($bIsRoot) {
+		$this->bRoot = $bIsRoot;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isRoot() {
+		return $this->bRoot;
 	}
 
 	/**

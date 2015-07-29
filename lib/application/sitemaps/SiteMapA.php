@@ -155,20 +155,6 @@ abstract class SiteMapA extends Object {
 	}
 
 	/**
-	 * verifies if $sPath is on the path
-	 * verifies if $sPath is a valid folder and it has a config/map.php file
-	 * @param string $sPath
-	 * @return bool
-	 */
-	public static function isValidMapPath($sPath) {
-		return (basename($sPath) == 'map.php' && is_file($sPath));
-	}
-
-	public static function isValidObjectPath($sPath) {
-		return (substr($sPath, -4) == '.php' && is_file($sPath));
-	}
-
-	/**
 	 * Gets the class name of based on the included path
 	 * In order for it to work the file needs to be already include()-d
 	 * @param string $sPath
@@ -219,7 +205,7 @@ abstract class SiteMapA extends Object {
 			throw new ExceptionSitemap('A path must be present.');
 		}
 
-		if (class_exists($sPath)) {
+		if (ClassMap::isValidMap($sPath)) {
 			// instead of a path we have a namespace
 			return $this->addClassMap($sRegex, $sPath);
 		} else {
@@ -236,15 +222,11 @@ abstract class SiteMapA extends Object {
 				// Valid site map
 				return $this->addModuleMap($sRegex, $sPath);
 			}
-			if (ClassMap::isValidMap($sPath)) {
-				// Valid processor
-				return $this->addMap($sRegex, $sPath);
-			}
 			if (self::isValidStaticPath($sPath)) {
 				// Valid static file
 				return $this->addStaticMap($sRegex, $sPath);
 			}
-			throw new ExceptionSitemap('The file [' . $sPath . '] could not be loaded.');
+			throw new ExceptionSitemap('[' . $sPath . '] could not be loaded.');
 		}
 	}
 
@@ -256,7 +238,7 @@ abstract class SiteMapA extends Object {
 		$aModuleMaps = array();
 
 		/* @var MappingA $oProcessor */
-		foreach ($aProcessorMaps as $sKey => $oProcessor) {
+		foreach ($aProcessorMaps as $oProcessor) {
 			$oModuleMap = $oProcessor->getModuleMap();
 			if (!in_array($oModuleMap, $aModuleMaps, true)) {
 				$aModuleMaps[$oModuleMap->getRegex()] = $oModuleMap;

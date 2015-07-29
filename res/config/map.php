@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is included in the vscSiteMap::load () function
+ * This file is included in the SiteMapA::loadSiteMap () function
  * It should be used to load other sitemaps or point to specific controllers
  *
  * OBS: make sure you put the specific regular expressions at the top
@@ -37,4 +37,3 @@ $this->getCurrentModuleMap()->map('\.rss$', \vsc\application\controllers\RssCont
 $this->getCurrentModuleMap()->map('\.txt$', \vsc\application\controllers\PlainTextController::class);
 $this->getCurrentModuleMap()->map('^.*$', \vsc\application\controllers\Html5Controller::class);
 
-// d ($oMap->getModuleMap(), $this->getCurrentModuleMap());

@@ -201,6 +201,7 @@ abstract class MappingA extends Object {
 	public function getModuleMap() {
 		if (!MappingA::isValid($this->oParentMap)) {
 			$this->oParentMap = new ModuleMap(VSC_RES_PATH . 'config/map.php', '');
+			$this->oParentMap->setIsRoot(true);
 		}
 		return $this->oParentMap;
 	}
@@ -340,7 +341,7 @@ abstract class MappingA extends Object {
 		if (array_key_exists($sKey, $this->aControllerMaps)) {
 			unset($this->aControllerMaps[$sKey]);
 		}
-		if (class_exists($sPath)) {
+		if (ClassMap::isValidMap($sPath)) {
 			// instead of a path we have a namespace
 			$oNewMap = new ClassMap($sPath, $sKey);
 			$oNewMap->setModuleMap($this);
@@ -350,21 +351,7 @@ abstract class MappingA extends Object {
 
 			return $oNewMap;
 		} else {
-			$sPath = str_replace(array('/', '\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR), $sPath);
-			if (!ClassMap::isValidMap($sPath)) {
-				$sPath = $this->getModulePath() . $sPath;
-			}
-			if (ClassMap::isValidMap($sPath)) {
-				$oNewMap = new ClassMap($sPath, $sKey);
-				$oNewMap->setModuleMap($this);
-				$oNewMap->merge($this);
-
-				$this->aControllerMaps[$sKey] = $oNewMap;
-
-				return $oNewMap;
-			} else {
-				throw new ExceptionController('Controller [' . $sPath . '] is invalid.');
-			}
+			throw new ExceptionController('Controller [' . $sPath . '] is invalid.');
 		}
 	}
 

@@ -12,8 +12,20 @@ class ClassMap extends MappingA implements ContentTypeMappingI {
 	use ProcessorMapT;
 	use ControllerMapT;
 
+	/**
+	 * @param string $sPath
+	 * @return bool
+	 */
 	public static function isValidMap($sPath) {
 		return class_exists($sPath);
+	}
+
+	/**
+	 * @param MappingA $oMap
+	 * @return bool
+	 */
+	static public function isValid($oMap) {
+		return (parent::isValid($oMap) && $oMap->getPath() !== '');
 	}
 
 	/**

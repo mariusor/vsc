@@ -15,11 +15,7 @@ class getCurrentControllerMap extends \PHPUnit_Framework_TestCase
 	public function testFailsWithoutSiteMap()
 	{
 		$o = new RwDispatcher();
-		try {
-			$this->assertEmpty($o->getCurrentControllerMap());
-		} catch (\Exception $e) {
-			$this->assertInstanceOf(ExceptionSitemap::class, $e);
-		}
+		$this->assertEmpty($o->getCurrentControllerMap());
 	}
 
 	public function testBasicGetSitemap()
