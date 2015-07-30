@@ -9,20 +9,20 @@
 namespace vsc\application\dispatchers;
 
 use vsc\application\controllers\FrontControllerA;
+use vsc\application\controllers\Html5Controller;
 use vsc\application\processors\ErrorProcessor;
 use vsc\application\processors\NotFoundProcessor;
 use vsc\application\processors\ProcessorA;
 use vsc\application\processors\StaticFileProcessor;
 use vsc\application\sitemaps\ClassMap;
+use vsc\application\sitemaps\ErrorProcessorMap;
 use vsc\application\sitemaps\ExceptionSitemap;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ModuleMap;
-use vsc\application\sitemaps\RwSiteMap;
 use vsc\infrastructure\vsc;
 use vsc\presentation\requests\RwHttpRequest;
 use vsc\presentation\responses\ExceptionResponseError;
 use vsc\presentation\responses\ExceptionResponseRedirect;
-use vsc\infrastructure\Base;
 use vsc\ExceptionError;
 use vsc\presentation\responses\HttpResponseType;
 
@@ -85,7 +85,11 @@ class RwDispatcher extends HttpDispatcherA {
 	 * @throws ExceptionError
 	 */
 	public function getCurrentProcessorMap() {
-		return $this->getCurrentMap($this->getSiteMap()->getMaps());
+		$oProcessorMap = $this->getCurrentMap($this->getSiteMap()->getMaps());
+		if (!ClassMap::isValid($oProcessorMap)) {
+			$oProcessorMap = new ErrorProcessorMap(NotFoundProcessor::class);
+		}
+		return $oProcessorMap;
 	}
 
 	/**

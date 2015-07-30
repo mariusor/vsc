@@ -2,7 +2,7 @@
 namespace tests\res\application\processors\NotFoundProcessor;
 use vsc\application\processors\NotFoundProcessor;
 use vsc\presentation\responses\ExceptionResponseError;
-use vsc\application\sitemaps\ErrorMap;
+use vsc\application\sitemaps\ErrorProcessorMap;
 use vsc\presentation\responses\HttpResponseType;
 
 /**
@@ -14,7 +14,7 @@ class __construct extends \PHPUnit_Framework_TestCase
 	{
 		$o = new NotFoundProcessor();
 
-		$this->assertInstanceOf(ErrorMap::class, $o->getMap());
+		$this->assertInstanceOf(ErrorProcessorMap::class, $o->getMap());
 		$this->assertEquals ('templates', basename($o->getMap()->getTemplatePath()));
 		$this->assertEquals ('error.tpl.php', $o->getMap()->getTemplate());
 

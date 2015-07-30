@@ -7,7 +7,7 @@
  */
 namespace vsc\application\processors;
 
-use vsc\application\sitemaps\ErrorMap;
+use vsc\application\sitemaps\ErrorProcessorMap;
 use vsc\domain\models\ErrorModel;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\responses\ExceptionResponseError;
@@ -32,7 +32,7 @@ class ErrorProcessor extends ProcessorA implements ErrorProcessorI {
 	public function __construct(\Exception $e) {
 		$this->setException($e);
 
-		$oErrorMap = new ErrorMap();
+		$oErrorMap = new ErrorProcessorMap();
 		$oErrorMap->setTemplatePath(VSC_RES_PATH . 'templates');
 		$oErrorMap->setTemplate('error.tpl.php');
 

@@ -1,7 +1,7 @@
 <?php
 namespace tests\res\application\processors\ErrorProcessor;
 use vsc\application\processors\ErrorProcessor;
-use vsc\application\sitemaps\ErrorMap;
+use vsc\application\sitemaps\ErrorProcessorMap;
 use vsc\Exception;
 
 /**
@@ -15,7 +15,7 @@ class __construct extends \PHPUnit_Framework_TestCase
 		$o = new ErrorProcessor($e);
 
 		$this->assertInstanceOf(\Exception::class, $o->getModel()->getException());
-		$this->assertInstanceOf(ErrorMap::class, $o->getMap());
+		$this->assertInstanceOf(ErrorProcessorMap::class, $o->getMap());
 		$this->assertEquals ('templates', basename($o->getMap()->getTemplatePath()));
 		$this->assertEquals ('error.tpl.php', $o->getMap()->getTemplate());
 	}

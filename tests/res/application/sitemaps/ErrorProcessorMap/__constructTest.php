@@ -1,6 +1,6 @@
 <?php
 namespace tests\res\application\sitemaps\ErrorMap;
-use vsc\application\sitemaps\ErrorMap;
+use vsc\application\sitemaps\ErrorProcessorMap;
 use vsc\application\processors\ErrorProcessor;
 
 /**
@@ -10,7 +10,7 @@ class __construct extends \PHPUnit_Framework_TestCase
 {
 	public function testBasic__construct()
 	{
-		$o = new ErrorMap();
+		$o = new ErrorProcessorMap();
 		$this->assertEquals('\A.*\Z', $o->getRegex());
 		$this->assertEquals(ErrorProcessor::class, $o->getPath());
 
