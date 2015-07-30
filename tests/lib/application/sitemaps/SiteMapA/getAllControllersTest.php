@@ -2,7 +2,6 @@
 namespace lib\application\sitemaps\SiteMapA;
 
 use fixtures\application\controllers\GenericFrontController;
-use vsc\application\sitemaps\ModuleMap;
 use vsc\application\sitemaps\SiteMapA;
 
 /**
@@ -12,12 +11,12 @@ use vsc\application\sitemaps\SiteMapA;
  */
 class getAllControllersTest extends \PHPUnit_Framework_TestCase
 {
-	public function testEmptyModulesAtInitialization() {
+	public function testEmptyControllersAtInitialization() {
 		$o = new SiteMapA_underTest_getAllControllers();
 		$this->assertEquals([], $o->getAllControllers());
 	}
 
-	public function testBasicGetAllModules() {
+	public function testBasicGetAllControllers() {
 		$o = new SiteMapA_underTest_getAllControllers();
 		$sRegex = '.*';
 		$oMap = $o->map($sRegex, VSC_FIXTURE_PATH . 'config/map.php');

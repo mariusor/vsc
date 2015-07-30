@@ -1,6 +1,5 @@
 <?php
 namespace tests\res\application\dispatchers\RwDispatcher;
-use vsc\application\processors\NotFoundProcessor;
 use vsc\application\sitemaps\ErrorProcessorMap;
 use vsc\application\dispatchers\RwDispatcher;
 use vsc\application\sitemaps\MappingA;
@@ -18,7 +17,7 @@ class getCurrentProcessorMap extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf(ClassMap::class, $empty);
 		$this->assertInstanceOf(ErrorProcessorMap::class, $empty);
 		$this->assertTrue(ClassMap::isValid($empty));
-		$this->assertEquals(NotFoundProcessor::class, $empty->getPath());
+		$this->assertEquals(ErrorProcesso::class, $empty->getPath());
 	}
 
 	public function testBasicGetSitemap()

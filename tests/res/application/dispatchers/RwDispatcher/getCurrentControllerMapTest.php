@@ -1,10 +1,8 @@
 <?php
 namespace tests\res\application\dispatchers\RwDispatcher;
-use fixtures\application\controllers\GenericFrontController;
-use vsc\application\controllers\FrontControllerA;
 use vsc\application\dispatchers\RwDispatcher;
 use vsc\application\sitemaps\ClassMap;
-use vsc\application\sitemaps\ExceptionSitemap;
+use vsc\application\sitemaps\ErrorControllerMap;
 use vsc\application\sitemaps\MappingA;
 
 /**
@@ -12,10 +10,10 @@ use vsc\application\sitemaps\MappingA;
  */
 class getCurrentControllerMap extends \PHPUnit_Framework_TestCase
 {
-	public function testFailsWithoutSiteMap()
+	public function testServeHtml5WithoutSiteMap()
 	{
 		$o = new RwDispatcher();
-		$this->assertEmpty($o->getCurrentControllerMap());
+		$this->assertInstanceOf(ErrorControllerMap::class, $o->getCurrentControllerMap());
 	}
 
 	public function testBasicGetSitemap()

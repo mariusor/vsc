@@ -32,8 +32,8 @@ $oMap->setTemplatePath(VSC_RES_PATH.'templates');
 $oMap->setTemplate('404.php');
 
 // front controllers
-$this->getCurrentModuleMap()->map('\.json$', \vsc\application\controllers\JsonController::class);
-$this->getCurrentModuleMap()->map('\.rss$', \vsc\application\controllers\RssController::class);
-$this->getCurrentModuleMap()->map('\.txt$', \vsc\application\controllers\PlainTextController::class);
-$this->getCurrentModuleMap()->map('^.*$', \vsc\application\controllers\Html5Controller::class);
+//$this->getCurrentModuleMap()->map('\.json$', \vsc\application\controllers\JsonController::class);
+//$this->getCurrentModuleMap()->map('\.rss$', \vsc\application\controllers\RssController::class);
+//$this->getCurrentModuleMap()->map('\.txt$', \vsc\application\controllers\PlainTextController::class);
+$this->getCurrentModuleMap()->map('\A.*\Z', \vsc\application\controllers\Html5Controller::class);
 

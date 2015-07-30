@@ -7,7 +7,6 @@ use vsc\presentation\views\ViewA;
 
 class ContentTypeController extends FrontControllerA {
 
-
 	public static function isValidContentType($sContentType) {}
 
 	public function getAvailableContentTypes() {}

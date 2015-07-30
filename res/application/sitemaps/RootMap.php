@@ -14,7 +14,8 @@ class RootMap extends ModuleMap
 		if (count($aControllerMaps) > 0) {
 			return $aControllerMaps;
 		} else {
-			return [new ErrorControllerMap(Html5Controller::class, '\A.*\Z')];
+			$sRegex = '\A.*\Z';
+			return [$sRegex => new ErrorControllerMap(Html5Controller::class, $sRegex)];
 		}
 	}
 }

@@ -35,7 +35,7 @@ class RwDispatcher extends HttpDispatcherA {
 	 */
 	public function getCurrentMap($aMaps) {
 		if (!is_array($aMaps) || empty($aMaps)) {
-			return new ClassMap('', '');
+			return new ErrorProcessorMap();
 		}
 		$aRegexes = array_keys($aMaps);
 
@@ -163,7 +163,7 @@ class RwDispatcher extends HttpDispatcherA {
 			$oProcessorMap = $this->getCurrentProcessorMap();
 			if (!ClassMap::isValid($oProcessorMap)) {
 				// this mainly means nothing was matched to our url, or no mappings exist, so we're falling back to 404
-				$oProcessorMap = new ClassMap(NotFoundProcessor::class, '.*');
+				$oProcessorMap = new ErrorProcessorMap(NotFoundProcessor::class, '.*');
 				$oProcessorMap->setTemplatePath(VSC_RES_PATH . 'templates');
 				$oProcessorMap->setTemplate('404.php');
 			}
