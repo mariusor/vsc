@@ -7,6 +7,7 @@
  */
 namespace vsc\application\sitemaps;
 
+use vsc\application\sitemaps\RootMap;
 use vsc\application\processors\ProcessorA;
 use vsc\infrastructure\Object;
 
@@ -109,7 +110,7 @@ abstract class SiteMapA extends Object {
 			$oNewModuleMap->setModuleMap($oModuleMap);
 			$oNewModuleMap->merge($oModuleMap);
 		} else {
-			$oNewModuleMap = new ModuleMap($sPath, $sRegex);
+			$oNewModuleMap = new RootMap($sPath, $sRegex);
 		}
 
 		// switching the current module map to the new one

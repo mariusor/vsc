@@ -200,8 +200,7 @@ abstract class MappingA extends Object {
 	 */
 	public function getModuleMap() {
 		if (!MappingA::isValid($this->oParentMap)) {
-			$this->oParentMap = new ModuleMap(VSC_RES_PATH . 'config/map.php', '');
-			$this->oParentMap->setIsRoot(true);
+			$this->oParentMap = new RootMap(VSC_RES_PATH . 'config/map.php');
 		}
 		return $this->oParentMap;
 	}
