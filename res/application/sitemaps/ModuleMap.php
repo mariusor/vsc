@@ -20,11 +20,6 @@ class ModuleMap extends MappingA implements ContentTypeMappingI {
 	private $sMainTemplate;
 
 	/**
-	 * @var bool
-	 */
-	private $bRoot = false;
-
-	/**
 	 * verifies if $sPath is on the path
 	 * verifies if $sPath is a valid folder and it has a config/map.php file
 	 * @param string $sPath
@@ -63,20 +58,6 @@ class ModuleMap extends MappingA implements ContentTypeMappingI {
 
 	public function getNamespace() {
 		return '';
-	}
-
-	/**
-	 * @param bool $bIsRoot
-	 */
-	public function setIsRoot($bIsRoot) {
-		$this->bRoot = $bIsRoot;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function isRoot() {
-		return $this->bRoot;
 	}
 
 	/**
