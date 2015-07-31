@@ -80,8 +80,9 @@ abstract class DispatcherA extends Object {
 	 * @returns HttpRequestA
 	 */
 	public function getRequest() {
-		if (!HttpRequestA::isValid($this->oRequest))
+		if (!HttpRequestA::isValid($this->oRequest)) {
 			$this->oRequest = vsc::getEnv()->getHttpRequest();
+		}
 		return $this->oRequest;
 	}
 
