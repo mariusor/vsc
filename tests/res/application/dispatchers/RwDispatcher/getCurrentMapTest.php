@@ -18,8 +18,7 @@ class getCurrentMap extends \PHPUnit_Framework_TestCase
 
 		$sFullMatch = '\A.*\Z';
 
-		$o = new RwDispatcher();
-		$oCurrentMap = $o->getCurrentMap($aMaps);
+		$oCurrentMap = RwDispatcher_underTest_getCurrentMap::getCurrentMap($aMaps);
 		$this->assertInstanceOf(MappingA::class, $oCurrentMap);
 		$this->assertInstanceOf(ClassMap::class, $oCurrentMap);
 		$this->assertEquals($sFullMatch, $oCurrentMap->getRegex());
@@ -32,8 +31,7 @@ class getCurrentMap extends \PHPUnit_Framework_TestCase
 		$aMaps = array();
 		$aMaps[$sRegex] = new ClassMap(EmptyProcessor::class, $sRegex);
 
-		$o = new RwDispatcher();
-		$oCurrentMap = $o->getCurrentMap($aMaps);
+		$oCurrentMap = RwDispatcher_underTest_getCurrentMap::getCurrentMap($aMaps);
 		$this->assertInstanceOf(MappingA::class, $oCurrentMap);
 		$this->assertInstanceOf(ClassMap::class, $oCurrentMap);
 		$this->assertEquals($sRegex, $oCurrentMap->getRegex());
@@ -52,9 +50,8 @@ class getCurrentMap extends \PHPUnit_Framework_TestCase
 		$aMaps = array();
 		$aMaps[$sRegex] = new ClassMap(EmptyProcessor::class, $sRegex);
 
-		$o = new RwDispatcher();
 		try {
-			$o->getCurrentMap($aMaps);
+			RwDispatcher_underTest_getCurrentMap::getCurrentMap($aMaps);
 		} catch (\ErrorException $err) {
 			$errMessage =<<<START
 preg_match_all(): No ending delimiter '#' found<br/> Offending regular expression: <span style="font-weight:normal">#\#iu</span>
@@ -63,5 +60,11 @@ START;
 			$this->assertInstanceOf(ExceptionError::class, $err);
 			$this->assertEquals($errMessage, $err->getMessage());
 		}
+	}
+}
+
+class RwDispatcher_underTest_getCurrentMap extends RwDispatcher {
+	static public function getCurrentMap($aMaps, $sUrl = null) {
+		return parent::getCurrentMap($aMaps, $sUrl);
 	}
 }

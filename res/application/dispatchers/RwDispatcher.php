@@ -34,13 +34,16 @@ class RwDispatcher extends HttpDispatcherA {
 	 * @throws ExceptionError
 	 * @returns ClassMap
 	 */
-	public function getCurrentMap($aMaps) {
+	static protected function getCurrentMap($aMaps, $sUri = null) {
 		if (!is_array($aMaps) || empty($aMaps)) {
 			return new ErrorProcessorMap();
 		}
+
+		if (is_null($sUri)) {
+			$sUri = vsc::getEnv()->getHttpRequest()->getUri(true);
+		}
 		$aRegexes = array_keys($aMaps);
 
-		$sUri = $this->getRequest()->getUri(true); // get it as a urldecoded string
 		$aMatches = array();
 		foreach ($aRegexes as $sRegex) {
 			$sFullRegex = '#' . str_replace('#', '\#', $sRegex) . '#iu'; // i for insensitive, u for utf8
@@ -86,7 +89,7 @@ class RwDispatcher extends HttpDispatcherA {
 	 * @throws ExceptionError
 	 */
 	public function getCurrentProcessorMap() {
-		$oProcessorMap = $this->getCurrentMap($this->getSiteMap()->getMaps());
+		$oProcessorMap = self::getCurrentMap($this->getSiteMap()->getMaps());
 		if (!ClassMap::isValid($oProcessorMap)) {
 			$oProcessorMap = new ErrorProcessorMap(NotFoundProcessor::class);
 		}
@@ -104,7 +107,7 @@ class RwDispatcher extends HttpDispatcherA {
 		// check if the current processor has some set maps
 		$aProcessorCtrlMaps = $oProcessorMap->getControllerMaps();
 		if (count($aProcessorCtrlMaps) > 0) {
-			$oCurrentMap = $this->getCurrentMap($aProcessorCtrlMaps);
+			$oCurrentMap = self::getCurrentMap($aProcessorCtrlMaps);
 			if (ClassMap::isValid($oCurrentMap) && !ErrorControllerMap::isValid($oCurrentMap)) {
 				return $oCurrentMap;
 			}
@@ -116,10 +119,10 @@ class RwDispatcher extends HttpDispatcherA {
 			// check the current module for maps
 			$aModuleCtrlMaps = $oCurrentModule->getControllerMaps();
 			if (count($aModuleCtrlMaps) > 0) {
-				$oCurrentMap = $this->getCurrentMap($aModuleCtrlMaps);
+				$oCurrentMap = self::getCurrentMap($aModuleCtrlMaps);
 			}
 			$oCurrentModule = $oCurrentModule->getModuleMap();
-		} while (!ClassMap::isValid($oCurrentMap) && !RootMap::isValid($oCurrentModule));
+		} while (!ClassMap::isValid($oCurrentMap));
 
 		return $oCurrentMap;
 	}
@@ -243,7 +246,7 @@ class RwDispatcher extends HttpDispatcherA {
 
 	public function getTemplatePath() {
 		$aMaps = $this->getSiteMap()->getMaps();
-		$oProcessorMap = $this->getCurrentMap($aMaps);
+		$oProcessorMap = self::getCurrentMap($aMaps);
 
 		if (ClassMap::isValid($oProcessorMap)) {
 			$sPath = $oProcessorMap->getTemplatePath();
