@@ -187,12 +187,6 @@ abstract class MappingA extends Object {
 
 	public function setModuleMap(MappingA $oMap) {
 		$this->oParentMap = $oMap;
-
-		foreach ($oMap->getControllerMaps() as $sRegex => $oControllerMap) {
-			if (!array_key_exists($sRegex, $this->aControllerMaps) && ClassMap::isValid($oControllerMap)) {
-				$this->aControllerMaps[$sRegex] = $oControllerMap;
-			}
-		}
 	}
 
 	/**
