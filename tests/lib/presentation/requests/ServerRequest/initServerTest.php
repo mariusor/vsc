@@ -7,6 +7,7 @@ use vsc\presentation\requests\ServerRequest;
 /**
  * Class initServerTest
  * @package lib\presentation\requests\ServerRequest
+ * @covers \vsc\presentation\requests\ServerRequest::initServer()
  */
 class initServerTest extends \PHPUnit_Framework_TestCase
 {
