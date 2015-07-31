@@ -16,8 +16,10 @@ class ErrorModel extends ModelA {
 	public $message;
 	public $error_code;
 
-	public function __construct(\Exception $e) {
-		$this->setException($e);
+	public function __construct(\Exception $e = null) {
+		if ($e instanceof \Exception) {
+			$this->setException($e);
+		}
 		parent::__construct();
 	}
 

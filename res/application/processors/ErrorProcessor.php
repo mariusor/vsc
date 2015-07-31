@@ -8,6 +8,7 @@
 namespace vsc\application\processors;
 
 use vsc\application\sitemaps\ErrorProcessorMap;
+use vsc\domain\models\EmptyModel;
 use vsc\domain\models\ErrorModel;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\responses\ExceptionResponseError;
@@ -29,8 +30,10 @@ class ErrorProcessor extends ProcessorA implements ErrorProcessorI {
 		}
 	}
 
-	public function __construct(\Exception $e) {
-		$this->setException($e);
+	public function __construct(\Exception $e = null) {
+		if (!is_null($e)) {
+			$this->setException($e);
+		}
 
 		$oErrorMap = new ErrorProcessorMap();
 		$oErrorMap->setTemplatePath(VSC_RES_PATH . 'templates');
@@ -48,8 +51,12 @@ class ErrorProcessor extends ProcessorA implements ErrorProcessorI {
 
 	public function init() {}
 
-	public function setException(\Exception $e) {
-		$this->model = new ErrorModel($e);
+	public function setException(\Exception $e = null) {
+		if (!is_null($e)) {
+			$this->model = new ErrorModel($e);
+		} else {
+			$this->model = new EmptyModel();
+		}
 	}
 
 	public function handleRequest(HttpRequestA $oHttpRequest) {

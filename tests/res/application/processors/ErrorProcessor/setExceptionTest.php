@@ -1,5 +1,6 @@
 <?php
 namespace tests\res\application\processors\ErrorProcessor;
+use vsc\domain\models\EmptyModel;
 use vsc\presentation\responses\ExceptionResponseError;
 use vsc\presentation\responses\HttpResponseType;
 use vsc\application\processors\ErrorProcessor;
@@ -11,7 +12,7 @@ use vsc\ExceptionError;
  */
 class setException extends \PHPUnit_Framework_TestCase
 {
-	public function testBasicSetException ()
+	public function testSetErrorException ()
 	{
 		$Exception = new ExceptionError('test', 123);
 		$o = new ErrorProcessor($Exception);
@@ -25,5 +26,12 @@ class setException extends \PHPUnit_Framework_TestCase
 
 		$this->assertEquals($sMessage, $o->getModel()->getMessage());
 		$this->assertEquals($iError, $o->getModel()->getHttpStatus());
+	}
+
+	public function testSetNull ()
+	{
+		$o = new ErrorProcessor();
+		$o->setException();
+		$this->assertInstanceOf(EmptyModel::class, $o->getModel());
 	}
 }

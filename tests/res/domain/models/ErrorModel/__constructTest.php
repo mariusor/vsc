@@ -14,4 +14,10 @@ class __construct extends \PHPUnit_Framework_TestCase
 		$o = new ErrorModel($e);
 		$this->assertSame($e, $o->getException());
 	}
+
+	public function testCorrectInstantiationWithoutException()
+	{
+		$o = new ErrorModel();
+		$this->assertNull($o->getException());
+	}
 }
