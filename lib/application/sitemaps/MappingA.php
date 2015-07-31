@@ -355,8 +355,6 @@ abstract class MappingA extends Object {
 			$this->aControllerMaps[$sKey] = $oNewMap;
 
 			return $oNewMap;
-		} else {
-			throw new ExceptionController('Controller [' . $sPath . '] is invalid.');
 		}
 	}
 
