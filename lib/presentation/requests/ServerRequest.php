@@ -167,25 +167,34 @@ trait ServerRequest {
 	}
 
 	private function loadAcceptHeaders($aServer) {
-		if (isset ($aServer['HTTP_ACCEPT']) && !empty($aServer['HTTP_ACCEPT'])) {
+		if (isset ($aServer['HTTP_ACCEPT'])) {
 			$this->aAccept = explode(',', $aServer['HTTP_ACCEPT']);
 		}
-		if (isset ($aServer['HTTP_ACCEPT_LANGUAGE']) && !empty($aServer['HTTP_ACCEPT_LANGUAGE'])) {
+		if (isset ($aServer['HTTP_ACCEPT_LANGUAGE'])) {
 			$this->aAcceptLanguage = explode(',', $aServer['HTTP_ACCEPT_LANGUAGE']);
+			foreach ($this->aAcceptLanguage as $index => $value) {
+				$this->aAcceptLanguage[$index] = trim($value);
+			}
 		}
-		if (isset ($aServer['HTTP_ACCEPT_ENCODING']) && !empty($aServer['HTTP_ACCEPT_ENCODING'])) {
+		if (isset ($aServer['HTTP_ACCEPT_ENCODING'])) {
 			$this->aAcceptEncoding = explode(',', $aServer['HTTP_ACCEPT_ENCODING']);
+			foreach ($this->aAcceptEncoding as $index => $value) {
+				$this->aAcceptEncoding[$index] = trim($value);
+			}
 		}
-		if (isset ($aServer['HTTP_ACCEPT_CHARSET']) && !empty($aServer['HTTP_ACCEPT_CHARSET'])) {
+		if (isset ($aServer['HTTP_ACCEPT_CHARSET'])) {
 			$this->aAcceptCharset = explode(',', $aServer['HTTP_ACCEPT_CHARSET']);
+			foreach ($this->aAcceptCharset as $index => $value) {
+				$this->aAcceptCharset[$index] = trim($value);
+			}
 		}
 	}
 
 	private function loadCachingHeaders($aServer) {
-		if (isset($aServer['HTTP_IF_MODIFIED_SINCE']) && !empty($aServer['HTTP_IF_MODIFIED_SINCE'])) {
+		if (isset($aServer['HTTP_IF_MODIFIED_SINCE'])) {
 			$this->sIfModifiedSince = $aServer['HTTP_IF_MODIFIED_SINCE'];
 		}
-		if (isset($aServer['HTTP_IF_NONE_MATCH']) && !empty($aServer['HTTP_IF_NONE_MATCH'])) {
+		if (isset($aServer['HTTP_IF_NONE_MATCH'])) {
 			$this->sIfNoneMatch = $aServer['HTTP_IF_NONE_MATCH'];
 		}
 	}
@@ -210,22 +219,22 @@ trait ServerRequest {
 
 		$this->loadServerHeaders($aServer);
 		$this->loadAcceptHeaders($aServer);
+		$this->loadCachingHeaders($aServer);
+		$this->loadAuthenticationHeaders($aServer);
 
-		if (isset ($aServer['HTTP_USER_AGENT']) && !empty($aServer['HTTP_USER_AGENT'])) {
+		if (isset ($aServer['HTTP_USER_AGENT'])) {
 			$this->sUserAgent = $aServer['HTTP_USER_AGENT'];
 		}
-		if (isset ($aServer['HTTP_REFEER']) && !empty($aServer['HTTP_REFEER'])) {
+		if (isset ($aServer['HTTP_REFERER'])) {
 			$this->sReferer = $aServer['HTTP_REFERER'];
 		}
-		if (array_key_exists('CONTENT_TYPE', $aServer) && strlen($aServer['CONTENT_TYPE']) > 0) {
+		if (isset($aServer['CONTENT_TYPE'])) {
 			if (stripos($aServer['CONTENT_TYPE'], ';') !== false) {
 				$this->sContentType = substr($aServer['CONTENT_TYPE'], 0, stripos($aServer['CONTENT_TYPE'], ';'));
 			} else {
 				$this->sContentType = $aServer['CONTENT_TYPE'];
 			}
 		}
-		$this->loadCachingHeaders($aServer);
-		$this->loadAuthenticationHeaders($aServer);
 
 		if (isset($aServer['HTTP_DNT'])) {
 			$this->bDoNotTrack = (bool)$aServer['HTTP_DNT'];
