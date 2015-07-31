@@ -320,6 +320,18 @@ abstract class MappingA extends Object {
 	 * @throws ExceptionSitemap
 	 * @returns ClassMap
 	 */
+	public function mapController($sRegex, $sPath = null) {
+		return $this->map($sRegex, $sPath);
+	}
+
+	/**
+	 *
+	 * @param string $sRegex
+	 * @param string $sPath
+	 * @throws ExceptionController
+	 * @throws ExceptionSitemap
+	 * @returns ClassMap
+	 */
 	public function map($sRegex, $sPath = null) {
 		if (empty($sRegex)) {
 			throw new ExceptionSitemap('An URI must be present.');
