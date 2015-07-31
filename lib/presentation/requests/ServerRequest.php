@@ -156,19 +156,17 @@ trait ServerRequest {
 	public static function isSecure() {
 		return (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] == 'on');
 	}
-	/**
-	 * @param $aServer
-	 */
-	public function initServer($aServer) {
+
+	private function loadServerHeaders($aServer) {
 		if (isset ($aServer['SERVER_PROTOCOL'])) {
 			$this->sServerProtocol = $aServer['SERVER_PROTOCOL'];
-		}
-		if (isset ($aServer['REQUEST_METHOD'])) {
-			$this->sHttpMethod = $aServer['REQUEST_METHOD'];
 		}
 		if (isset ($aServer['SERVER_NAME'])) {
 			$this->sServerName = $aServer['SERVER_NAME'];
 		}
+	}
+
+	private function loadAcceptHeaders($aServer) {
 		if (isset ($aServer['HTTP_ACCEPT']) && !empty($aServer['HTTP_ACCEPT'])) {
 			$this->aAccept = explode(',', $aServer['HTTP_ACCEPT']);
 		}
@@ -181,17 +179,43 @@ trait ServerRequest {
 		if (isset ($aServer['HTTP_ACCEPT_CHARSET']) && !empty($aServer['HTTP_ACCEPT_CHARSET'])) {
 			$this->aAcceptCharset = explode(',', $aServer['HTTP_ACCEPT_CHARSET']);
 		}
-		if (isset ($aServer['HTTP_USER_AGENT']) && !empty($aServer['HTTP_USER_AGENT'])) {
-			$this->sUserAgent = $aServer['HTTP_USER_AGENT'];
-		}
-		if (isset ($aServer['HTTP_REFEER']) && !empty($aServer['HTTP_REFEER'])) {
-			$this->sReferer = $aServer['HTTP_REFERER'];
-		}
+	}
+
+	private function loadCachingHeaders($aServer) {
 		if (isset($aServer['HTTP_IF_MODIFIED_SINCE']) && !empty($aServer['HTTP_IF_MODIFIED_SINCE'])) {
 			$this->sIfModifiedSince = $aServer['HTTP_IF_MODIFIED_SINCE'];
 		}
 		if (isset($aServer['HTTP_IF_NONE_MATCH']) && !empty($aServer['HTTP_IF_NONE_MATCH'])) {
 			$this->sIfNoneMatch = $aServer['HTTP_IF_NONE_MATCH'];
+		}
+	}
+
+	private function loadAuthenticationHeaders($aServer) {
+		if (isset($aServer['PHP_AUTH_DIGEST'])) {
+			// DIGEST authorization attempt
+			$this->setAuthentication(new DigestHttpAuthentication($aServer['PHP_AUTH_DIGEST'], $aServer['REQUEST_METHOD']));
+		}
+		if (isset($aServer['PHP_AUTH_USER']) && isset($aServer['PHP_AUTH_PW'])) {
+			$this->setAuthentication(new BasicHttpAuthentication($aServer['PHP_AUTH_USER'], $aServer['PHP_AUTH_PW']));
+		}
+	}
+
+	/**
+	 * @param $aServer
+	 */
+	public function initServer($aServer) {
+		if (isset ($aServer['REQUEST_METHOD'])) {
+			$this->sHttpMethod = $aServer['REQUEST_METHOD'];
+		}
+
+		$this->loadServerHeaders($aServer);
+		$this->loadAcceptHeaders($aServer);
+
+		if (isset ($aServer['HTTP_USER_AGENT']) && !empty($aServer['HTTP_USER_AGENT'])) {
+			$this->sUserAgent = $aServer['HTTP_USER_AGENT'];
+		}
+		if (isset ($aServer['HTTP_REFEER']) && !empty($aServer['HTTP_REFEER'])) {
+			$this->sReferer = $aServer['HTTP_REFERER'];
 		}
 		if (array_key_exists('CONTENT_TYPE', $aServer) && strlen($aServer['CONTENT_TYPE']) > 0) {
 			if (stripos($aServer['CONTENT_TYPE'], ';') !== false) {
@@ -200,15 +224,11 @@ trait ServerRequest {
 				$this->sContentType = $aServer['CONTENT_TYPE'];
 			}
 		}
+		$this->loadCachingHeaders($aServer);
+		$this->loadAuthenticationHeaders($aServer);
+
 		if (isset($aServer['HTTP_DNT'])) {
 			$this->bDoNotTrack = (bool)$aServer['HTTP_DNT'];
-		}
-		if (isset($aServer['PHP_AUTH_DIGEST'])) {
-			// DIGEST authorization attempt
-			$this->setAuthentication(new DigestHttpAuthentication($aServer['PHP_AUTH_DIGEST'], $aServer['REQUEST_METHOD']));
-		}
-		if (isset($aServer['PHP_AUTH_USER']) && isset($aServer['PHP_AUTH_PW'])) {
-			$this->setAuthentication(new BasicHttpAuthentication($aServer['PHP_AUTH_USER'], $aServer['PHP_AUTH_PW']));
 		}
 	}
 }
