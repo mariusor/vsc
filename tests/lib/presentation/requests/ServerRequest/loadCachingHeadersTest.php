@@ -23,6 +23,7 @@ class loadCachingHeadersTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($aServer['HTTP_IF_NONE_MATCH'], $o->getIfNoneMatch());
 	}
 }
+
 class ServerRequest_underTest_loadCachingHeaders {
 	use ServerRequest {loadCachingHeaders as public;}
 
