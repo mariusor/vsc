@@ -55,10 +55,10 @@ class ModelA_underTest_getProperties extends ModelA {
 	private $private = 'saf';
 
 	/**
-	 * @param bool $bIncludeNonPublic
+	 * @param bool $bIncludeProtected
 	 * @return array
 	 */
-	public function getProperties ($bIncludeNonPublic = false) {
-		return parent::getProperties($bIncludeNonPublic);
+	public function getProperties ($bIncludeProtected = false) {
+		return parent::getProperties($bIncludeProtected);
 	}
 }

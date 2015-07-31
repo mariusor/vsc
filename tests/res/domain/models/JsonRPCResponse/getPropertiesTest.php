@@ -17,10 +17,23 @@ class getProperties extends \PHPUnit_Framework_TestCase
 		$o = new JsonRPCResponse_underTest_getProperties();
 		$this->assertEquals($jsonRPC, $o->getProperties());
 	}
+
+	public function testGetPropertiesWithProtected()
+	{
+		$jsonRPC = [
+			'id' => null,
+			'result' => null,
+			'error' => null,
+			'prot' => 123
+		];
+		$o = new JsonRPCResponse_underTest_getProperties();
+		$this->assertEquals($jsonRPC, $o->getProperties(true));
+	}
 }
 
 class JsonRPCResponse_underTest_getProperties extends JsonRPCResponse {
-	public function getProperties ($bIncludeNonPublic = false) {
-		return parent::getProperties($bIncludeNonPublic);
+	protected $prot = 123;
+	public function getProperties ($bIncludeProtected = false) {
+		return parent::getProperties($bIncludeProtected);
 	}
 }

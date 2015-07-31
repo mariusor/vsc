@@ -14,10 +14,10 @@ class JsonRPCResponse extends ModelA {
 
 	/**
 	 *
-	 * @param bool $bIncludeNonPublic
+	 * @param bool $bIncludeProtected
 	 * @return array
 	 */
-	protected function getProperties($bIncludeNonPublic = false) {
+	protected function getProperties($bIncludeProtected = false) {
 		$aRet = array();
 		$t = new \ReflectionObject($this);
 		$aProperties = $t->getProperties();
@@ -25,9 +25,18 @@ class JsonRPCResponse extends ModelA {
 		/* @var $oProperty \ReflectionProperty */
 		foreach ($aProperties as $oProperty) {
 			$sName = $oProperty->getName();
-			if ($oProperty->isPublic()) {
-				$aRet[$sName] = $oProperty->getValue($this);
+
+			if ($oProperty->isPrivate() || $sName == '_current') {
+				// skip private properties or IteratorT::$_current
+				continue;
+			} elseif ($oProperty->isProtected()) {
+				if ($bIncludeProtected) {
+					$oProperty->setAccessible(true);
+				} else {
+					continue;
+				}
 			}
+			$aRet[$sName] = $oProperty->getValue($this);
 		}
 		return $aRet;
 	}

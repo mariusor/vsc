@@ -126,11 +126,11 @@ class ModelA_underTest_isValid extends ModelA {
 	}
 
 	/**
-	 * @param bool $bIncludeNonPublic
+	 * @param bool $bIncludeProtected
 	 * @return array
 	 */
-	public function getProperties ($bIncludeNonPublic = false) {
-		return parent::getProperties($bIncludeNonPublic);
+	public function getProperties ($bIncludeProtected = false) {
+		return parent::getProperties($bIncludeProtected);
 	}
 
 	/**

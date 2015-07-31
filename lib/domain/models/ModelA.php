@@ -96,10 +96,10 @@ abstract class ModelA extends Base implements ModelI {
 	}
 
 	/**
-	 * @param bool $bIncludeNonPublic
+	 * @param bool $bIncludeProtected
 	 * @return array
 	 */
-	protected function getProperties($bIncludeNonPublic = false) {
+	protected function getProperties($bIncludeProtected = false) {
 		$aRet = array();
 		$oMirror = new \ReflectionObject($this);
 		$aProperties = $oMirror->getProperties();
@@ -109,7 +109,7 @@ abstract class ModelA extends Base implements ModelI {
 			$sName = $oProperty->getName();
 			if ($oProperty->isPublic()) {
 				$aRet[$sName] = $oProperty->getValue($this);
-			} elseif ($bIncludeNonPublic) {
+			} elseif ($bIncludeProtected) {
 				$oProperty->setAccessible(true);
 				$aRet[$sName] = $oProperty->getValue($this);
 			}
