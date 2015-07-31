@@ -15,6 +15,7 @@ use vsc\application\processors\NotFoundProcessor;
 use vsc\application\processors\ProcessorA;
 use vsc\application\processors\StaticFileProcessor;
 use vsc\application\sitemaps\ClassMap;
+use vsc\application\sitemaps\ErrorControllerMap;
 use vsc\application\sitemaps\ErrorProcessorMap;
 use vsc\application\sitemaps\ExceptionSitemap;
 use vsc\application\sitemaps\MappingA;
@@ -104,7 +105,7 @@ class RwDispatcher extends HttpDispatcherA {
 		$aProcessorCtrlMaps = $oProcessorMap->getControllerMaps();
 		if (count($aProcessorCtrlMaps) > 0) {
 			$oCurrentMap = $this->getCurrentMap($aProcessorCtrlMaps);
-			if (ClassMap::isValid($oCurrentMap)) {
+			if (ClassMap::isValid($oCurrentMap) && !ErrorControllerMap::isValid($oCurrentMap)) {
 				return $oCurrentMap;
 			}
 		}
