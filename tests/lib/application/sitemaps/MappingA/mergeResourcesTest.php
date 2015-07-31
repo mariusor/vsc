@@ -1,7 +1,7 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
+use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\MappingA;
-use vsc\application\sitemaps\ProcessorMap;
 
 /**
  * @covers \vsc\application\sitemaps\MappingA::mergeResources()
@@ -10,9 +10,9 @@ class mergeResources extends \PHPUnit_Framework_TestCase
 {
 	public function testBasicMergeResources()
 	{
-		$o = new MappingA_underTest_mergeResources();
+		$o = new MappingA_underTest_mergeResources(self::class);
 
-		$oMap = new ProcessorMap(__FILE__, '.*');
+		$oMap = new ClassMap(self::class, '.*');
 		$o->mergeResources($oMap);
 
 		$this->assertEmpty($o->getResources());

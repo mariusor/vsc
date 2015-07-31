@@ -3,6 +3,7 @@ namespace tests\res\application\dispatchers\RwDispatcher;
 use fixtures\application\processors\ProcessorFixture;
 use vsc\application\dispatchers\RwDispatcher;
 use fixtures\presentation\requests\PopulatedRequest;
+use vsc\application\processors\ErrorProcessor;
 use vsc\application\processors\NotFoundProcessor;
 use vsc\application\processors\StaticFileProcessor;
 use vsc\infrastructure\vsc;
@@ -29,7 +30,7 @@ class getProcessController extends \PHPUnit_Framework_TestCase
 
 		$oProcess = $o->getProcessController ();
 
-		$this->assertInstanceOf ( NotFoundProcessor::class, $oProcess );
+		$this->assertInstanceOf ( ErrorProcessor::class, $oProcess );
 	}
 
 	public function testGetProcessorController ()

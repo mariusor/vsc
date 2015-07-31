@@ -1,7 +1,8 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
+use fixtures\application\controllers\GenericFrontController;
+use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\MappingA;
-use vsc\application\sitemaps\ControllerMap;
 
 /**
  * @covers \vsc\application\sitemaps\MappingA::getControllerMaps()
@@ -18,7 +19,7 @@ class getControllerMaps extends \PHPUnit_Framework_TestCase
 	{
 		$sRegex = '.*';
 		$o = new MappingA_underTest_getControllerMaps();
-		$o->mapController($sRegex,__FILE__);
+		$o->map($sRegex, GenericFrontController::class);
 
 		$aMaps = $o->getControllerMaps();
 		$this->assertNotEmpty($aMaps);
@@ -26,8 +27,8 @@ class getControllerMaps extends \PHPUnit_Framework_TestCase
 		$this->assertEquals([$sRegex], array_keys($aMaps));
 
 		$controller = $aMaps[$sRegex];
-		$this->assertInstanceOf(ControllerMap::class, $controller);
-		$this->assertEquals(__FILE__, $controller->getPath());
+		$this->assertInstanceOf(ClassMap::class, $controller);
+		$this->assertEquals(GenericFrontController::class, $controller->getPath());
 		$this->assertEquals($sRegex, $controller->getRegex());
 	}
 }

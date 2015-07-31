@@ -1,6 +1,7 @@
 <?php
 namespace tests\res\application\dispatchers\RwDispatcher;
-use vsc\application\sitemaps\ExceptionSitemap;
+use vsc\application\processors\ErrorProcessor;
+use vsc\application\sitemaps\ErrorProcessorMap;
 use vsc\application\dispatchers\RwDispatcher;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ClassMap;
@@ -10,14 +11,14 @@ use vsc\application\sitemaps\ClassMap;
  */
 class getCurrentProcessorMap extends \PHPUnit_Framework_TestCase
 {
-	public function testFailsWithoutSiteMap()
+	public function test404WithoutSiteMap()
 	{
 		$o = new RwDispatcher();
-		try {
-			$this->assertEmpty($o->getCurrentProcessorMap());
-		} catch (\Exception $e) {
-			$this->assertInstanceOf(ExceptionSitemap::class, $e);
-		}
+		$empty = $o->getCurrentProcessorMap();
+		$this->assertInstanceOf(ClassMap::class, $empty);
+		$this->assertInstanceOf(ErrorProcessorMap::class, $empty);
+		$this->assertTrue(ClassMap::isValid($empty));
+		$this->assertEquals(ErrorProcessor::class, $empty->getPath());
 	}
 
 	public function testBasicGetSitemap()

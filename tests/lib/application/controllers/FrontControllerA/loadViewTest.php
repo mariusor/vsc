@@ -12,8 +12,7 @@ namespace tests\application\controllers\FrontControllerA;
 use fixtures\presentation\views\NullView;
 use vsc\application\controllers\FrontControllerA;
 use vsc\application\processors\EmptyProcessor;
-use vsc\application\sitemaps\ControllerMap;
-use vsc\application\sitemaps\ProcessorMap;
+use vsc\application\sitemaps\ClassMap;
 use vsc\infrastructure\vsc;
 use vsc\presentation\views\ViewA;
 
@@ -22,7 +21,7 @@ class loadViewTest extends \PHPUnit_Framework_TestCase
 	public function testDefaultPlainView()
 	{
 		$Controller = new FrontControllerA_underTest_loadView();
-		$Map = new ControllerMap('.', FrontControllerA_underTest_loadView::class);
+		$Map = new ClassMap('.', FrontControllerA_underTest_loadView::class);
 		$Controller->setMap($Map);
 		$View = $Controller->loadView(vsc::getEnv()->getHttpRequest());
 
@@ -33,10 +32,10 @@ class loadViewTest extends \PHPUnit_Framework_TestCase
 	public function testBasicPlainView()
 	{
 		$Controller = new FrontControllerA_underTest_loadView();
-		$ControllerMap = new ControllerMap('.', FrontControllerA_underTest_loadView::class);
+		$ControllerMap = new ClassMap('.', FrontControllerA_underTest_loadView::class);
 		$Controller->setMap($ControllerMap);
 
-		$ProcessorMap = new ProcessorMap('.', EmptyProcessor::class);
+		$ProcessorMap = new ClassMap('.', EmptyProcessor::class);
 		$Processor = new EmptyProcessor();
 		$Processor->setMap($ProcessorMap);
 

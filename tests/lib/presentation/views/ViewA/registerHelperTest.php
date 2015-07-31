@@ -1,8 +1,8 @@
 <?php
 namespace tests\lib\presentation\views\ViewA;
+use vsc\application\sitemaps\ClassMap;
 use vsc\presentation\views\ViewA;
 use vsc\presentation\helpers\ViewHelperA;
-use vsc\application\sitemaps\ProcessorMap;
 
 /**
  * @covers \vsc\presentation\views\ViewA::registerHelper()
@@ -13,7 +13,7 @@ class registerHelper extends \PHPUnit_Framework_TestCase
 	{
 		$o = new ViewA_underTest_registerHelper();
 
-		$oMap = new ProcessorMap('', '');
+		$oMap = new ClassMap('', '');
 		$o->setMap($oMap);
 
 		$oHelper = new ViewHelperA_underTest_registerHelper();

@@ -3,7 +3,7 @@ namespace tests\lib\application\controllers\FrontControllerA;
 use fixtures\application\controllers\GenericFrontController;
 use vsc\application\controllers\FrontControllerA;
 use fixtures\presentation\views\testView;
-use vsc\application\sitemaps\ControllerMap;
+use vsc\application\sitemaps\ClassMap;
 use fixtures\presentation\views\NullView;
 use vsc\application\sitemaps\MappingA;
 
@@ -20,7 +20,7 @@ class getMap extends \PHPUnit_Framework_TestCase
 	public function setUp () {
 
 		$this->state = new FrontController_underTest_getMap();
-		$oMap = new ControllerMap(__FILE__, '\A.*\Z');
+		$oMap = new ClassMap(__FILE__, '\A.*\Z');
 		$oMap->setView(testView::class);
 
 		$oMap->setMainTemplatePath(VSC_FIXTURE_PATH . 'templates');
@@ -36,16 +36,16 @@ class getMap extends \PHPUnit_Framework_TestCase
 	public function testBasicGetMap() {
 		$m = $this->state->getMap();
 		$this->assertInstanceOf(MappingA::class, $m);
-		$this->assertInstanceOf(ControllerMap::class, $m);
+		$this->assertInstanceOf(ClassMap::class, $m);
 	}
 
 	public function testSetGetMap() {
-		$s = new ControllerMap(GenericFrontController::class, '\A.*\Z');
+		$s = new ClassMap(GenericFrontController::class, '\A.*\Z');
 		$this->state->setMap($s);
 
 		$m = $this->state->getMap();
 		$this->assertInstanceOf(MappingA::class, $m);
-		$this->assertInstanceOf(ControllerMap::class, $m);
+		$this->assertInstanceOf(ClassMap::class, $m);
 		$this->assertEquals($s, $m);
 	}
 }

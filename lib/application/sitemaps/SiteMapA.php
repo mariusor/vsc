@@ -7,6 +7,7 @@
  */
 namespace vsc\application\sitemaps;
 
+use vsc\application\sitemaps\RootMap;
 use vsc\application\processors\ProcessorA;
 use vsc\infrastructure\Object;
 
@@ -49,7 +50,7 @@ abstract class SiteMapA extends Object {
 		}
 
 		if (!array_key_exists($sRegex, $this->aMaps)) {
-			$oNewMap = new ProcessorMap($sPath, $sRegex);
+			$oNewMap = new ClassMap($sPath, $sRegex);
 
 			if (MappingA::isValid($oModuleMap)) {
 				$oNewMap->merge($oModuleMap);
@@ -109,7 +110,7 @@ abstract class SiteMapA extends Object {
 			$oNewModuleMap->setModuleMap($oModuleMap);
 			$oNewModuleMap->merge($oModuleMap);
 		} else {
-			$oNewModuleMap = new ModuleMap($sPath, $sRegex);
+			$oNewModuleMap = new RootMap($sPath, $sRegex);
 		}
 
 		// switching the current module map to the new one
@@ -138,7 +139,7 @@ abstract class SiteMapA extends Object {
 	}
 
 	/**
-	 * @returns ProcessorMap[]
+	 * @returns ClassMap[]
 	 */
 	public function getMaps() {
 		return $this->aMaps;
@@ -152,20 +153,6 @@ abstract class SiteMapA extends Object {
 	 */
 	public static function isValidStaticPath($sPath) {
 		return (!stristr($sPath, 'php') && is_file($sPath));
-	}
-
-	/**
-	 * verifies if $sPath is on the path
-	 * verifies if $sPath is a valid folder and it has a config/map.php file
-	 * @param string $sPath
-	 * @return bool
-	 */
-	public static function isValidMapPath($sPath) {
-		return (basename($sPath) == 'map.php' && is_file($sPath));
-	}
-
-	public static function isValidObjectPath($sPath) {
-		return (substr($sPath, -4) == '.php' && is_file($sPath));
 	}
 
 	/**
@@ -219,7 +206,7 @@ abstract class SiteMapA extends Object {
 			throw new ExceptionSitemap('A path must be present.');
 		}
 
-		if (class_exists($sPath)) {
+		if (ClassMap::isValidMap($sPath)) {
 			// instead of a path we have a namespace
 			return $this->addClassMap($sRegex, $sPath);
 		} else {
@@ -232,19 +219,15 @@ abstract class SiteMapA extends Object {
 			}
 
 			$sPath = str_replace(array('/', '\\'), array(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR), $sPath);
-			if (self::isValidMapPath($sPath)) {
+			if (ModuleMap::isValidMap($sPath)) {
 				// Valid site map
 				return $this->addModuleMap($sRegex, $sPath);
-			}
-			if (self::isValidObjectPath($sPath)) {
-				// Valid processor
-				return $this->addMap($sRegex, $sPath);
 			}
 			if (self::isValidStaticPath($sPath)) {
 				// Valid static file
 				return $this->addStaticMap($sRegex, $sPath);
 			}
-			throw new ExceptionSitemap('The file [' . $sPath . '] could not be loaded.');
+			throw new ExceptionSitemap('[' . $sPath . '] could not be loaded.');
 		}
 	}
 
@@ -256,7 +239,7 @@ abstract class SiteMapA extends Object {
 		$aModuleMaps = array();
 
 		/* @var MappingA $oProcessor */
-		foreach ($aProcessorMaps as $sKey => $oProcessor) {
+		foreach ($aProcessorMaps as $oProcessor) {
 			$oModuleMap = $oProcessor->getModuleMap();
 			if (!in_array($oModuleMap, $aModuleMaps, true)) {
 				$aModuleMaps[$oModuleMap->getRegex()] = $oModuleMap;
@@ -268,7 +251,7 @@ abstract class SiteMapA extends Object {
 	}
 
 	/**
-	 * @returns ControllerMap[]
+	 * @returns ClassMap[]
 	 */
 	protected function getAllControllers() {
 		$aProcessorMaps = $this->getMaps();
@@ -299,7 +282,7 @@ abstract class SiteMapA extends Object {
 	}
 
 	/**
-	 * @returns ProcessorMap[]
+	 * @returns ClassMap[]
 	 */
 	public function getProcessorMappings() {
 		$aC = false;
@@ -314,7 +297,7 @@ abstract class SiteMapA extends Object {
 	 * @return MappingA
 	 */
 	public function findProcessorMap(ProcessorA $oProcessor) {
-		/* @var ProcessorMap $oProcessorMap */
+		/* @var ClassMap $oProcessorMap */
 		foreach ($this->getMaps() as $oProcessorMap) {
 			if ($oProcessorMap->maps($oProcessor)) {
 				return $oProcessorMap;

@@ -9,9 +9,9 @@ use fixtures\presentation\requests\PopulatedRequest;
 use vsc\application\controllers\JsonController;
 use vsc\application\controllers\PlainTextController;
 use vsc\application\controllers\RssController;
-use vsc\application\processors\NotFoundProcessor;
 use vsc\application\controllers\Html5Controller;
 use vsc\application\dispatchers\RwDispatcher;
+use vsc\application\processors\NotFoundProcessor;
 use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ModuleMap;
@@ -78,15 +78,23 @@ class mapTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf(MappingA::class, $controllerMap);
 		$this->assertInstanceOf(ClassMap::class, $controllerMap);
 
-		if (stristr($uri, 'json') == 'json') {
-			$this->assertEquals(JsonController::class, $controllerMap->getPath());
-		} elseif (stristr($uri, 'rss') == 'rss') {
-			$this->assertEquals(RssController::class, $controllerMap->getPath());
-		} elseif (stristr($uri, 'txt') == 'txt') {
-			$this->assertEquals(PlainTextController::class, $controllerMap->getPath());
+		$processorMap = $o->getCurrentProcessorMap();
+
+		if ($processorMap->getPath() != NotFoundProcessor::class) {
+			if (stristr($uri, 'json') == 'json') {
+				$this->assertEquals(JsonController::class, $controllerMap->getPath());
+			} elseif (stristr($uri, 'rss') == 'rss') {
+				$this->assertEquals(RssController::class, $controllerMap->getPath());
+			} elseif (stristr($uri, 'txt') == 'txt') {
+				$this->assertEquals(PlainTextController::class, $controllerMap->getPath());
+			} else {
+				$this->assertEquals(Html5Controller::class, $controllerMap->getPath());
+			}
 		} else {
+			// if the processor is not found we always serve as html5
 			$this->assertEquals(Html5Controller::class, $controllerMap->getPath());
 		}
+
 	}
 
 	public function testParentModuleMap() {

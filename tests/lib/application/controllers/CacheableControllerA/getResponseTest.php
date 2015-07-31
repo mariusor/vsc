@@ -3,7 +3,7 @@ namespace tests\lib\application\controllers\CacheableControllerA;
 use fixtures\application\processors\ProcessorFixture;
 use fixtures\presentation\requests\PopulatedRequest;
 use vsc\application\processors\ProcessorA;
-use vsc\application\sitemaps\ControllerMap;
+use vsc\application\sitemaps\ClassMap;
 use vsc\domain\models\CacheableModelA;
 use vsc\infrastructure\vsc;
 use vsc\presentation\requests\RawHttpRequest;
@@ -12,7 +12,6 @@ use vsc\application\controllers\CacheableControllerA;
 use fixtures\presentation\views\NullView;
 use vsc\presentation\responses\HttpResponseType;
 use vsc\presentation\views\CacheableViewA;
-use vsc\presentation\views\ViewA;
 
 /**
  * @covers \vsc\application\controllers\CacheableControllerA::getResponse()
@@ -26,7 +25,7 @@ class getResponse extends \PHPUnit_Framework_TestCase
 	public function testGetPlainResponse()
 	{
 		$Controller = new CacheableController_underTest_getResponse();
-		$Map = new ControllerMap('.', CacheableController_underTest_getResponse::class);
+		$Map = new ClassMap('.', CacheableController_underTest_getResponse::class);
 		$Controller->setMap($Map);
 		$Response = $Controller->getResponse(vsc::getEnv()->getHttpRequest());
 
@@ -38,7 +37,7 @@ class getResponse extends \PHPUnit_Framework_TestCase
 		$p = new ProcessorFixture();
 
 		$Controller = new CacheableController_underTest_getResponse();
-		$Map = new ControllerMap('.', CacheableController_underTest_getResponse::class);
+		$Map = new ClassMap('.', CacheableController_underTest_getResponse::class);
 		$Controller->setMap($Map);
 
 		$this->assertInstanceOf(HttpResponseA::class, $Controller->getResponse($r, $p));
@@ -82,7 +81,7 @@ class getResponse extends \PHPUnit_Framework_TestCase
 
 		$Controller = new CacheableController_underTest_getResponse();
 
-		$Map = new ControllerMap('.', CacheableController_underTest_getResponse::class);
+		$Map = new ClassMap('.', CacheableController_underTest_getResponse::class);
 		$Controller->setView($v);
 		$Controller->setMap($Map);
 
@@ -134,7 +133,7 @@ class getResponse extends \PHPUnit_Framework_TestCase
 
 		$Controller = new CacheableController_underTest_getResponse();
 
-		$Map = new ControllerMap('.', CacheableController_underTest_getResponse::class);
+		$Map = new ClassMap('.', CacheableController_underTest_getResponse::class);
 		$Controller->setView($v);
 		$Controller->setMap($Map);
 

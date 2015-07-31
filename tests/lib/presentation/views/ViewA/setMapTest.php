@@ -1,7 +1,7 @@
 <?php
 namespace tests\lib\presentation\views\ViewA;
+use vsc\application\sitemaps\ClassMap;
 use vsc\presentation\views\ViewA;
-use vsc\application\sitemaps\ProcessorMap;
 
 /**
  * @covers \vsc\presentation\views\ViewA::setMap()
@@ -12,7 +12,7 @@ class setMap extends \PHPUnit_Framework_TestCase
 	{
 		$o = new ViewA_underTest_setMap();
 
-		$oMap = new ProcessorMap('', '');
+		$oMap = new ClassMap('', '');
 		$o->setMap($oMap);
 
 		$this->assertSame($oMap, $o->getMap());

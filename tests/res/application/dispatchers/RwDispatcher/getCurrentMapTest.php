@@ -1,6 +1,7 @@
 <?php
 namespace tests\res\application\dispatchers\RwDispatcher;
 use vsc\application\dispatchers\RwDispatcher;
+use vsc\application\processors\ErrorProcessor;
 use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\processors\EmptyProcessor;
@@ -15,12 +16,14 @@ class getCurrentMap extends \PHPUnit_Framework_TestCase
 	{
 		$aMaps = array();
 
+		$sFullMatch = '\A.*\Z';
+
 		$o = new RwDispatcher();
 		$oCurrentMap = $o->getCurrentMap($aMaps);
 		$this->assertInstanceOf(MappingA::class, $oCurrentMap);
 		$this->assertInstanceOf(ClassMap::class, $oCurrentMap);
-		$this->assertEquals('', $oCurrentMap->getRegex());
-		$this->assertEquals('', $oCurrentMap->getPath());
+		$this->assertEquals($sFullMatch, $oCurrentMap->getRegex());
+		$this->assertEquals(ErrorProcessor::class, $oCurrentMap->getPath());
 	}
 
 	public function testCurrentMapWithEnvRequest()

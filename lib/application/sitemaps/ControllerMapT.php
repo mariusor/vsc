@@ -89,10 +89,7 @@ trait ControllerMapT {
 		if (ViewA::isValid($mView)) {
 			$this->oView = $mView;
 			$this->sViewPath = get_class($mView);
-		} elseif (stristr(basename($mView), '.') === false && !is_file($mView)) {
-			// namespaced class name
-			$this->sViewPath = $mView;
-		} elseif (SiteMapA::isValidObjectPath($mView)) {
+		} elseif (ClassMap::isValidMap($mView)) {
 			$this->sViewPath = $mView;
 		} else {
 			throw new ExceptionPath('View path [' . $mView . '] is not valid.');

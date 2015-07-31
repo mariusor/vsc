@@ -3,7 +3,7 @@ namespace lib\application\controllers\CacheableControllerA;
 
 use fixtures\presentation\views\testView;
 use vsc\application\controllers\CacheableControllerA;
-use vsc\application\sitemaps\ControllerMap;
+use vsc\application\sitemaps\ClassMap;
 use vsc\infrastructure\Base;
 use vsc\presentation\views\ViewA;
 
@@ -11,7 +11,7 @@ class getViewTest extends \PHPUnit_Framework_TestCase {
 	public function testGetViewAfterBeingSet () {
 		$state = new CacheableControllerA_underTest_getView();
 
-		$oMap = new ControllerMap(__FILE__, '\A.*\Z');
+		$oMap = new ClassMap(__FILE__, '\A.*\Z');
 		$oMap->setView(testView::class);
 		$state->setMap($oMap);
 

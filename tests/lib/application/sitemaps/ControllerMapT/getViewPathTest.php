@@ -20,11 +20,21 @@ class getViewPath extends \PHPUnit_Framework_TestCase
 		$o = new ControllerMapT_underTest_getViewPath(__FILE__, '.*');
 
 		$sValue = VSC_FIXTURE_PATH . 'templates/main.tpl.php';
-		$o->setView($sValue);
-		$this->assertEquals($sValue, $o->getViewPath());
+		try {
+			$o->setView($sValue);
+		} catch (\Exception $e) {
+
+		}
 	}
 
-	public function testGetSetViewPath()
+	public function testGetSetViewClassName()
+	{
+		$o = new ControllerMapT_underTest_getViewPath(__FILE__, '.*');
+		$o->setView(ViewA_underTest_getViewPath::class);
+		$this->assertEquals(ViewA_underTest_getViewPath::class, $o->getViewPath());
+	}
+
+	public function testGetSetViewObject()
 	{
 		$o = new ControllerMapT_underTest_getViewPath(__FILE__, '.*');
 

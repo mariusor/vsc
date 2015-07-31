@@ -7,8 +7,8 @@
  */
 namespace vsc\application\processors;
 
+use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\MappingA;
-use vsc\application\sitemaps\ProcessorMap;
 use vsc\domain\models\ModelA;
 use vsc\infrastructure\vsc;
 use vsc\infrastructure\Object;
@@ -22,14 +22,14 @@ abstract class ProcessorA extends Object implements ProcessorI {
 	protected $aLocalVars = array();
 
 	/**
-	 * @returns ProcessorMap
+	 * @returns ClassMap
 	 */
 	public function getMap() {
 		if (MappingA::isValid($this->oCurrentMap)) {
 			return $this->oCurrentMap;
 		} else {
 			$oMirror = new \ReflectionClass($this);
-			return new ProcessorMap($oMirror->getName(), '.*');
+			return new ClassMap($oMirror->getName(), '.*');
 		}
 	}
 
@@ -105,7 +105,7 @@ abstract class ProcessorA extends Object implements ProcessorI {
 	 */
 	public function delegateRequest(HttpRequestA $oHttpRequest, ProcessorA $oNewProcessor, HttpResponseA $oResponse = null) {
 		$oDispatcher = vsc::getEnv()->getDispatcher();
-		/** @var ProcessorMap $oMap */
+		/** @var ClassMap $oMap */
 		$oMap = $oDispatcher->getSiteMap()->findProcessorMap($oNewProcessor);
 
 		if (MappingA::isValid($oMap)) {

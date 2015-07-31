@@ -3,8 +3,6 @@ namespace tests\lib\application\controllers\FrontControllerA;
 use fixtures\presentation\views\NullView;
 use vsc\application\controllers\ExceptionController;
 use vsc\application\controllers\FrontControllerA;
-use vsc\application\sitemaps\ControllerMap;
-use fixtures\presentation\views\testView;
 
 /**
  * @covers \vsc\application\controllers\FrontControllerA::setTemplatePath()

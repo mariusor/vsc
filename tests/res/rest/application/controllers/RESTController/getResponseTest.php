@@ -1,11 +1,12 @@
 <?php
 namespace res\rest\application\controllers\RESTController;
 
+use fixtures\application\processors\ProcessorFixture;
 use fixtures\domain\models\ModelFixture;
 use fixtures\presentation\requests\PopulatedRESTRequest;
 use vsc\application\controllers\ExceptionController;
 use vsc\application\processors\AuthenticatedProcessorI;
-use vsc\application\sitemaps\ProcessorMap;
+use vsc\application\sitemaps\ClassMap;
 use vsc\infrastructure\vsc;
 use vsc\presentation\requests\HttpAuthenticationA;
 use vsc\presentation\requests\HttpRequestA;
@@ -111,7 +112,7 @@ class getResponseTest extends \PHPUnit_Framework_TestCase {
 		$_SERVER['CONTENT_TYPE'] = 'application/json';
 		$_SERVER['REQUEST_METHOD'] = 'GET';
 
-		$m = new ProcessorMap(__FILE__, '.*');
+		$m = new ClassMap(ProcessorFixture::class, '.*');
 		$m->setAuthenticationType(HttpAuthenticationA::BASIC);
 
 		$p = new RESTProcessorA_underTest_getResponse_withAuthentication();
@@ -135,7 +136,7 @@ class getResponseTest extends \PHPUnit_Framework_TestCase {
 		$_SERVER['CONTENT_TYPE'] = 'application/json';
 		$_SERVER['REQUEST_METHOD'] = 'GET';
 
-		$m = new ProcessorMap(__FILE__, '.*');
+		$m = new ClassMap(ProcessorFixture::class, '.*');
 		$m->setAuthenticationType(HttpAuthenticationA::DIGEST);
 
 		$p = new RESTProcessorA_underTest_getResponse_withAuthentication();
@@ -175,7 +176,7 @@ class getResponseTest extends \PHPUnit_Framework_TestCase {
 		$_SERVER['CONTENT_TYPE'] = 'application/json';
 		$_SERVER['REQUEST_METHOD'] = 'GET';
 
-		$m = new ProcessorMap(__FILE__, '.*');
+		$m = new ClassMap(ProcessorFixture::class, '.*');
 		$m->setAuthenticationType(HttpAuthenticationA::BASIC);
 
 		$p = new RESTProcessorA_underTest_getResponse_withAuthentication();
@@ -199,7 +200,7 @@ class getResponseTest extends \PHPUnit_Framework_TestCase {
 		$_SERVER['CONTENT_TYPE'] = 'application/json';
 		$_SERVER['REQUEST_METHOD'] = 'GET';
 
-		$m = new ProcessorMap(__FILE__, '.*');
+		$m = new ClassMap(ProcessorFixture::class, '.*');
 		$m->setAuthenticationType(HttpAuthenticationA::BASIC);
 
 		$p = new RESTProcessorA_underTest_getResponse ();

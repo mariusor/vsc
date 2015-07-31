@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is included in the vscSiteMap::load () function
+ * This file is included in the SiteMapA::loadSiteMap () function
  * It should be used to load other sitemaps or point to specific controllers
  *
  * OBS: make sure you put the specific regular expressions at the top
@@ -32,9 +32,8 @@ $oMap->setTemplatePath(VSC_RES_PATH.'templates');
 $oMap->setTemplate('404.php');
 
 // front controllers
-$this->getCurrentModuleMap()->mapController('\.json$', \vsc\application\controllers\JsonController::class);
-$this->getCurrentModuleMap()->mapController('\.rss$', \vsc\application\controllers\RssController::class);
-$this->getCurrentModuleMap()->mapController('\.txt$', \vsc\application\controllers\PlainTextController::class);
-$this->getCurrentModuleMap()->mapController('^.*$', \vsc\application\controllers\Html5Controller::class);
+//$this->getCurrentModuleMap()->map('\.json$', \vsc\application\controllers\JsonController::class);
+//$this->getCurrentModuleMap()->map('\.rss$', \vsc\application\controllers\RssController::class);
+//$this->getCurrentModuleMap()->map('\.txt$', \vsc\application\controllers\PlainTextController::class);
+$this->getCurrentModuleMap()->map('\A.*\Z', \vsc\application\controllers\Html5Controller::class);
 
-// d ($oMap->getModuleMap(), $this->getCurrentModuleMap());
