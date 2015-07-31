@@ -313,7 +313,7 @@ abstract class MappingA extends Object {
 	}
 
 	/**
-	 *
+	 * @deprecated
 	 * @param string $sRegex
 	 * @param string $sPath
 	 * @throws ExceptionController
