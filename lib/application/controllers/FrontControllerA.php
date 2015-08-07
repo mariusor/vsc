@@ -247,8 +247,9 @@ abstract class FrontControllerA extends Object {
 		if (ViewA::isValid($this->oView)) {
 			return $this->oView;
 		}
-		if (ViewA::isValid($this->getMap()->getView())) {
-			return $this->getMap()->getView();
+		$oMapView = $this->getMap()->getView();
+		if (ViewA::isValid($oMapView)) {
+			return $oMapView;
 		}
 		$this->oView = $this->getDefaultView();
 		return $this->oView;

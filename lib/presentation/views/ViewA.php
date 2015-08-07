@@ -169,15 +169,13 @@ abstract class ViewA extends Object implements ViewI {
 	}
 
 	/**
-	 * @throws ExceptionView
 	 * @returns ModelA
 	 */
 	public function getModel() {
-		if (ModelA::isValid($this->oModel)) {
-			return $this->oModel;
-		} else {
-			return new Base();
+		if (!ModelA::isValid($this->oModel)) {
+			$this->oModel = new EmptyModel();
 		}
+		return $this->oModel;
 	}
 
 //	public function setBody ($sText) {
