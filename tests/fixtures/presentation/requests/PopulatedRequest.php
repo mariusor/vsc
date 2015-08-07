@@ -65,4 +65,11 @@ class PopulatedRequest extends RwHttpRequest {
 	public function getGetVar ($key) {
 		return parent::getGetVar($key);
 	}
+
+	public function setIfModifiedSince ($sDate) {
+		$this->sIfModifiedSince = $sDate;
+	}
+	public function setIfNoneMatch ($sEtag) {
+		$this->sIfNoneMatch = $sEtag;
+	}
 }

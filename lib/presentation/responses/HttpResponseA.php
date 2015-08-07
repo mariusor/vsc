@@ -300,6 +300,10 @@ abstract class HttpResponseA extends Object {
 		return $this->oView;
 	}
 
+	/**
+	 * @return string
+	 * @throws ExceptionResponse
+	 */
 	public function getOutput() {
 		$sResponseBody = null;
 		$oView = null;
