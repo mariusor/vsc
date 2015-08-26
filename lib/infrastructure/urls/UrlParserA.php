@@ -37,13 +37,6 @@ class UrlParserA extends Object implements UrlParserI {
 	}
 
 	/**
-	 * @return bool
-	 */
-	public function hasScheme() {
-		return self::urlHasScheme($this->getUrl());
-	}
-
-	/**
 	 * @return string
 	 */
 	public static function getRequestUri() {
@@ -203,26 +196,6 @@ class UrlParserA extends Object implements UrlParserI {
 
 	public function getPath() {
 		return $this->getParentPath(0);
-	}
-
-	/**
-	 * @param string $sFragment
-	 * @returns UrlParserA
-	 */
-	public function addFragment($sFragment) {
-		$this->oUrl->setFragment($sFragment);
-		return $this;
-	}
-
-	public function setQueryParameters($aInc) {
-		$this->oUrl->setQuery($aInc);
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getUrl() {
-		return $this->sUrl;
 	}
 
 	/**
