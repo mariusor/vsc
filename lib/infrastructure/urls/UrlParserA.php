@@ -301,12 +301,6 @@ class UrlParserA extends Object implements UrlParserI {
 			return '';
 		}
 
-		if (!self::isAbsolutePath($sPath)) {
-			if (substr($sPath, 0, 2) == './') {
-				$sPath = substr($sPath, 2);
-			}
-		}
-
 		$len = strlen($sPath);
 		$bHasPrefixSlash = ($sPath{0} == '/');
 		$bHasSuffixSlash = (($len > 1) && ($sPath{$len - 1} == '/'));
@@ -330,13 +324,15 @@ class UrlParserA extends Object implements UrlParserI {
 					unset ($aPath[$iPrevKey]);
 					break;
 				case '.':
+				case '':
 					unset ($aPath[$iKey]);
 					break;
 			}
 		}
 
+		$sPath = ($bHasPrefixSlash ? '/' : '');
 		if (count($aPath) > 0) {
-			$sPath = ($bHasPrefixSlash ? '/' : '') . implode('/', $aPath) . ($bHasSuffixSlash ? '/' : '');
+			$sPath .= implode('/', $aPath) . ($bHasSuffixSlash ? '/' : '');
 		}
 
 		return $sPath;
