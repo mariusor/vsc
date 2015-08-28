@@ -8,7 +8,6 @@
 namespace vsc\application\controllers;
 
 use vsc\domain\models\CacheableModelA;
-use vsc\domain\models\EmptyModel;
 use vsc\domain\models\ModelA;
 use vsc\infrastructure\caching\CacheableI;
 use vsc\presentation\requests\HttpRequestA;

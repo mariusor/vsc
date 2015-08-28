@@ -34,6 +34,10 @@ class RssReader extends XmlReader {
 		$this->items[] = $oElement;
 	}
 
+	/**
+	 * @param integer $iIndex
+	 * @return Base
+	 */
 	public function getItem($iIndex) {
 		if (isset ($this->items[$iIndex])) {
 			return $this->items[$iIndex];

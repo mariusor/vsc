@@ -47,6 +47,10 @@ class RwHttpRequest extends HttpRequestA {
 		return $this->aTaintedVars;
 	}
 
+	/**
+	 * @param string $sVarName
+	 * @return mixed|null
+	 */
 	protected function getTaintedVar($sVarName) {
 		if (array_key_exists($sVarName, $this->aTaintedVars)) {
 			return self::getDecodedVar($this->aTaintedVars[$sVarName]);

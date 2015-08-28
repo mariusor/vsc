@@ -7,7 +7,6 @@
  */
 namespace vsc\application\sitemaps;
 
-use vsc\application\sitemaps\RootMap;
 use vsc\application\processors\ProcessorA;
 use vsc\infrastructure\Object;
 

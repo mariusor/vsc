@@ -38,6 +38,7 @@ class FileAccess extends Object {
 
 	/**
 	 * @param string $sFile
+	 * @return string
 	 */
 	public function getLocalPath($sFile) {
 		return $this->sCachePath . DIRECTORY_SEPARATOR . $sFile;
@@ -60,7 +61,9 @@ class FileAccess extends Object {
 	}
 
 	/**
+	 * @param string $sUri
 	 * @param string $sContent
+	 * @throws ExceptionError
 	 */
 	public function cacheFile($sUri, $sContent) {
 		$sFileName = $this->getLocalPath($this->getSignature($sUri));

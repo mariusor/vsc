@@ -58,6 +58,7 @@ class JsonReader extends ModelA {
 
 	/**
 	 * @param integer $iError
+	 * @return string
 	 */
 	public static function getError($iError) {
 		switch ($iError) {
