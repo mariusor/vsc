@@ -194,9 +194,13 @@ abstract class HttpRequestA extends Object {
 	 * @return string
 	 */
 	public function getUri($bUrlDecode = false) {
-		if (!$this->sUri && isset($_SERVER['SERVER_SOFTWARE'])) {
+		if (!$this->sUri && isset($_SERVER['REQUEST_URI'])) {
 			// this header is present for all servers in the same form
-			$sCurrentScriptDir = dirname($_SERVER['PHP_SELF']) != '/' ? dirname($_SERVER['PHP_SELF']) : '';
+			if (isset($_SERVER['PHP_SELF'])) {
+				$sCurrentScriptDir = dirname($_SERVER['PHP_SELF']) != '/' ? dirname($_SERVER['PHP_SELF']) : '';
+			} else {
+				$sCurrentScriptDir = '';
+			}
 			$sReqUri = $_SERVER['REQUEST_URI'];
 			$this->sUri = str_replace($sCurrentScriptDir, '', $sReqUri);
 
