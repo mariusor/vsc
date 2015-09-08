@@ -233,7 +233,9 @@ class RwDispatcher extends HttpDispatcherA {
 			// hic sunt leones
 			/** @var ModuleMap $oMap */
 			$oMap = $this->getSiteMap()->map('\A/', $sIncPath);
-			$oMap->map('\A.*\Z', Html5Controller::class);
+			if (count($oMap->getControllerMaps()) == 0) {
+				$oMap->map('\A.*\Z', Html5Controller::class);
+			}
 		} catch (ExceptionSitemap $e) {
 			// there was a faulty controller in the sitemap
 			// this will probably result in a incomplete parsed sitemap tree
