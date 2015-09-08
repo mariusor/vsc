@@ -36,7 +36,6 @@ class ModuleMap extends MappingA implements ContentTypeMappingI {
 		}
 
 		$sPath .= DIRECTORY_SEPARATOR;
-		$this->setTemplatePath(VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR);
 		parent::__construct($sPath, $sRegex);
 	}
 

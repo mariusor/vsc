@@ -15,6 +15,6 @@ class __constructTest extends \PHPUnit_Framework_TestCase {
 		$o = new ModuleMap(VSC_FIXTURE_PATH . 'config/map.php', $r);
 		$this->assertEquals(VSC_FIXTURE_PATH, $o->getPath());
 		$this->assertEquals($r, $o->getRegex());
-		$this->assertEquals(VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR, $o->getTemplatePath());
+		$this->assertNull($o->getTemplatePath());
 	}
 }

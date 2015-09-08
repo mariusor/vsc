@@ -106,7 +106,7 @@ class mapTest extends \PHPUnit_Framework_TestCase {
 		$moduleMap = $o->getCurrentModuleMap();
 		$this->assertInstanceOf(MappingA::class, $moduleMap);
 		$this->assertInstanceOf(ModuleMap::class, $moduleMap);
-		$this->assertEquals(VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR, $moduleMap->getTemplatePath());
+		$this->assertNull($moduleMap->getTemplatePath());
 		$this->assertEquals(VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR, $moduleMap->getMainTemplatePath());
 		$this->assertEquals('main.php', $moduleMap->getMainTemplate());
 
