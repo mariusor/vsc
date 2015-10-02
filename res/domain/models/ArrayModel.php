@@ -7,7 +7,7 @@
  */
 namespace vsc\domain\models;
 
-class ArrayModel extends ModelA implements ModelI {
+class ArrayModel extends ModelA implements ModelInterface {
 	protected $aContent = array();
 	private $length;
 

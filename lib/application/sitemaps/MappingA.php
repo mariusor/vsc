@@ -115,8 +115,8 @@ abstract class MappingA extends Object {
 			$this->setTemplate($sParentTemplate);
 		}
 
-		if (($this instanceof ContentTypeMappingI) && ($oMap instanceof ContentTypeMappingI)) {
-			/** @var ContentTypeMappingI $oMap */
+		if (($this instanceof ContentTypeMappingInterface) && ($oMap instanceof ContentTypeMappingInterface)) {
+			/** @var ContentTypeMappingInterface $oMap */
 			$sParentMainTemplatePath = $oMap->getMainTemplatePath();
 			if (is_null($this->getMainTemplatePath())) {
 				$this->setMainTemplatePath($sParentMainTemplatePath);

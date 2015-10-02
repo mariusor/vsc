@@ -7,7 +7,7 @@
  */
 namespace vsc\presentation\views;
 
-class XmlView extends ViewA implements XmlViewI {
+class XmlView extends ViewA implements XmlViewInterface {
 	protected $sContentType = 'application/xml';
 	protected $sFolder = 'xml';
 

@@ -8,7 +8,7 @@ namespace vsc\application\sitemaps;
 
 use vsc\infrastructure\Object as vscObject;
 
-class ClassMap extends MappingA implements ContentTypeMappingI {
+class ClassMap extends MappingA implements ContentTypeMappingInterface {
 	use ProcessorMapT;
 	use ControllerMapT;
 

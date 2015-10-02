@@ -10,7 +10,7 @@ namespace vsc\rest\application\controllers;
 
 use vsc\application\controllers\ExceptionController;
 use vsc\application\controllers\JsonController;
-use vsc\application\processors\AuthenticatedProcessorI;
+use vsc\application\processors\AuthenticatedProcessorInterface;
 use vsc\application\processors\ProcessorA;
 use vsc\presentation\requests\ContentType;
 use vsc\presentation\responses\HttpResponseType;
@@ -49,8 +49,8 @@ class RESTController extends JsonController {
 			$oMap = $oProcessor->getMap();
 			if ($oMap->requiresAuthentication()) {
 				try {
-					if ($oProcessor instanceof AuthenticatedProcessorI) {
-						/* @var AuthenticatedProcessorI $oProcessor */
+					if ($oProcessor instanceof AuthenticatedProcessorInterface) {
+						/* @var AuthenticatedProcessorInterface $oProcessor */
 						if (!$oRequest->hasAuthenticationData()) {
 							throw new ExceptionAuthenticationNeeded('This resource needs authentication');
 						}

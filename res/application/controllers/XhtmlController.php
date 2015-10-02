@@ -9,7 +9,7 @@ namespace vsc\application\controllers;
 
 use \vsc\presentation\views\XhtmlView;
 
-class XhtmlController extends CacheableControllerA implements HtmlControllerI {
+class XhtmlController extends CacheableControllerA implements HtmlControllerInterface {
 	public function getDefaultView() {
 		return new XhtmlView();
 	}

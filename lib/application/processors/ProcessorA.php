@@ -17,7 +17,7 @@ use vsc\presentation\responses\HttpResponse;
 use vsc\presentation\responses\HttpResponseA;
 use vsc\application\dispatchers\RwDispatcher;
 
-abstract class ProcessorA extends Object implements ProcessorI {
+abstract class ProcessorA extends Object implements ProcessorInterface {
 	private $oCurrentMap;
 	protected $aLocalVars = array();
 

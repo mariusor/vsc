@@ -10,7 +10,7 @@ namespace vsc\presentation\views;
 use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\MappingA;
 use vsc\domain\models\EmptyModel;
-use vsc\domain\models\HttpModelI;
+use vsc\domain\models\HttpModelInterface;
 use vsc\domain\models\ModelA;
 use vsc\infrastructure\urls\UrlParserA;
 use vsc\infrastructure\vsc;
@@ -19,7 +19,7 @@ use vsc\infrastructure\Object;
 use vsc\presentation\helpers\ViewHelperA;
 use vsc\ExceptionPath;
 
-abstract class ViewA extends Object implements ViewI {
+abstract class ViewA extends Object implements ViewInterface {
 	/**
 	 * @var string
 	 */
@@ -96,7 +96,7 @@ abstract class ViewA extends Object implements ViewI {
 		try {
 			/** @var EmptyModel $oModel */
 			$oModel = $this->getModel();
-			if (($oModel instanceof HttpModelI) && $oModel->getPageTitle() != '') {
+			if (($oModel instanceof HttpModelInterface) && $oModel->getPageTitle() != '') {
 				return  $oModel->getPageTitle();
 			}
 		} catch (\Exception $e) {

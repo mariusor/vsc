@@ -7,7 +7,7 @@
  */
 namespace vsc\presentation\views;
 
-class TxtView extends ViewA implements ViewI {
+class TxtView extends ViewA implements ViewInterface {
 	protected $sContentType = 'text/plain';
 	protected $sFolder = 'txt';
 }

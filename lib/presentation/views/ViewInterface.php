@@ -7,7 +7,7 @@
  */
 namespace vsc\presentation\views;
 
-interface ViewI {
+interface ViewInterface {
 	/**
 	 * executes & returns or displays the template results
 	 *

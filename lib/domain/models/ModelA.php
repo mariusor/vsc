@@ -10,7 +10,7 @@ namespace vsc\domain\models;
 use vsc\infrastructure\Base;
 use vsc\ExceptionUnimplemented;
 
-abstract class ModelA extends Base implements ModelI {
+abstract class ModelA extends Base implements ModelInterface {
 	use ArrayAccessT;
 	use CountableT;
 	use IteratorT;

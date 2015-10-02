@@ -11,7 +11,7 @@ use vsc\domain\models\ModelA;
 use vsc\infrastructure\Base;
 use vsc\presentation\views\ViewA;
 
-class ViewHelperA extends Base /* implements ViewI  */ {
+class ViewHelperA extends Base /* implements ViewInterface  */ {
 	private $sName;
 
 	/**

@@ -7,8 +7,8 @@
  */
 namespace vsc\domain\models;
 
-use vsc\infrastructure\caching\CacheableI;
+use vsc\infrastructure\caching\CacheableInterface;
 
-abstract class CacheableModelA extends ModelA implements CacheableI {
+abstract class CacheableModelA extends ModelA implements CacheableInterface {
 	abstract public function getLastModified();
 }

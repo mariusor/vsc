@@ -9,14 +9,14 @@ namespace vsc\application\controllers;
 
 use vsc\domain\models\CacheableModelA;
 use vsc\domain\models\ModelA;
-use vsc\infrastructure\caching\CacheableI;
+use vsc\infrastructure\caching\CacheableInterface;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\responses\HttpResponseA;
 use vsc\presentation\responses\HttpResponseType;
 use vsc\presentation\views\ExceptionView;
 use vsc\application\processors\ProcessorA;
 
-abstract class CacheableControllerA extends FrontControllerA implements CacheableI {
+abstract class CacheableControllerA extends FrontControllerA implements CacheableInterface {
 
 	public function getLastModified() {
 		return false;

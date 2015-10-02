@@ -9,7 +9,7 @@ namespace vsc\presentation\views;
 
 use vsc\domain\models\StaticFileModel;
 
-class PlainTextView extends ViewA implements ViewI {
+class PlainTextView extends ViewA implements ViewInterface {
 	protected $sContentType = 'text/plain';
 	protected $sFolder = 'txt';
 

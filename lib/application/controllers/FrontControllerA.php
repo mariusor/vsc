@@ -10,7 +10,7 @@ namespace vsc\application\controllers;
 use vsc\application\processors\ErrorProcessor;
 use vsc\application\processors\ProcessorA;
 use vsc\application\sitemaps\ClassMap;
-use vsc\application\sitemaps\ContentTypeMappingI;
+use vsc\application\sitemaps\ContentTypeMappingInterface;
 use vsc\application\sitemaps\MappingA;
 use vsc\domain\models\EmptyModel;
 use vsc\domain\models\ErrorModel;
@@ -33,7 +33,7 @@ abstract class FrontControllerA extends Object {
 	private $sTemplatePath;
 
 	/**
-	 * @var ContentTypeMappingI
+	 * @var ContentTypeMappingInterface
 	 */
 	private $oCurrentMap;
 
@@ -60,9 +60,9 @@ abstract class FrontControllerA extends Object {
 	}
 
 	/**
-	 * @param ContentTypeMappingI $oMap
+	 * @param ContentTypeMappingInterface $oMap
 	 */
-	public function setMap(ContentTypeMappingI $oMap) {
+	public function setMap(ContentTypeMappingInterface $oMap) {
 		$this->oCurrentMap = $oMap;
 	}
 

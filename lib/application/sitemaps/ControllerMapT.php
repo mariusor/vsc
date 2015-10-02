@@ -40,7 +40,7 @@ trait ControllerMapT {
 	public function getMainTemplatePath() {
 		// if we didn't provide the controller with a main template path we check the module
 		if (is_null($this->sMainTemplatePath)) {
-			if ($this->getModuleMap() instanceof ContentTypeMappingI) {
+			if ($this->getModuleMap() instanceof ContentTypeMappingInterface) {
 				$this->sMainTemplatePath = $this->getModuleMap()->getMainTemplatePath();
 			}
 		}
@@ -68,7 +68,7 @@ trait ControllerMapT {
 	public function getMainTemplate() {
 		// if we didn't provide the controller with a main template path we check the module
 		if (is_null($this->sMainTemplate)) {
-			if ($this->getModuleMap() instanceof ContentTypeMappingI) {
+			if ($this->getModuleMap() instanceof ContentTypeMappingInterface) {
 				$this->sMainTemplate = $this->getModuleMap()->getMainTemplate();
 			}
 		}

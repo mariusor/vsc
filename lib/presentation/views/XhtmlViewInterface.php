@@ -7,7 +7,7 @@
  */
 namespace vsc\presentation\views;
 
-interface XhtmlViewI {
+interface XhtmlViewInterface {
 	function getScripts();
 
 	function getContent();

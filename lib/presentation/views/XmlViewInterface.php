@@ -7,7 +7,7 @@
  */
 namespace vsc\presentation\views;
 
-interface XmlViewI {
+interface XmlViewInterface {
 	function getContent();
 
 	function getMetaHeaders();

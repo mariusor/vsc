@@ -13,7 +13,7 @@ use vsc\domain\models\ErrorModel;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\responses\ExceptionResponseError;
 
-class ErrorProcessor extends ProcessorA implements ErrorProcessorI {
+class ErrorProcessor extends ProcessorA implements ErrorProcessorInterface {
 	/**
 	 * @var ErrorModel
 	 */

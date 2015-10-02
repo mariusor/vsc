@@ -7,7 +7,7 @@
  */
 namespace vsc\presentation\views;
 
-class RssView extends ViewA implements RssViewI {
+class RssView extends ViewA implements RssViewInterface {
 	protected $sContentType = 'application/rss+xml';
 	protected $sFolder = 'rss';
 
