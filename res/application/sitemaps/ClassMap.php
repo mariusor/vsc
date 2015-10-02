@@ -9,8 +9,8 @@ namespace vsc\application\sitemaps;
 use vsc\infrastructure\Object as vscObject;
 
 class ClassMap extends MappingA implements ContentTypeMappingInterface {
-	use ProcessorMapT;
-	use ControllerMapT;
+	use ProcessorMapTrait;
+	use ControllerMapTrait;
 
 	/**
 	 * @param string $sPath

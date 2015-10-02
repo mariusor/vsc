@@ -27,7 +27,7 @@ class JsonRPCResponse extends ModelA {
 			$sName = $oProperty->getName();
 
 			if ($oProperty->isPrivate() || $sName == '_current') {
-				// skip private properties or IteratorT::$_current
+				// skip private properties or IteratorTrait::$_current
 				continue;
 			} elseif ($oProperty->isProtected()) {
 				if ($bIncludeProtected) {

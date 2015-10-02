@@ -13,13 +13,13 @@ use vsc\infrastructure\urls\UrlParserA;
 use vsc\Exception;
 
 abstract class HttpRequestA extends Object {
-	use GetRequest;
-	use PostRequest;
-	use CookieRequest;
-	use FilesRequest;
-	use SessionRequest;
-	use AuthenticatedRequest;
-	use ServerRequest;
+	use GetRequestTrait;
+	use PostRequestTrait;
+	use CookieRequestTrait;
+	use FilesRequestTrait;
+	use SessionRequestTrait;
+	use AuthenticatedRequestTrait;
+	use ServerRequestTrait;
 
 	protected $sUri = null;
 	/**

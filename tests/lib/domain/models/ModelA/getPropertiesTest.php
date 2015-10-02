@@ -35,7 +35,7 @@ class getPropertiesTest extends \PHPUnit_Framework_TestCase {
 		$aPublicProperties = $oMirror->getProperties(\ReflectionProperty::IS_PUBLIC);
 		$this->assertEquals(3, count($aPublicProperties));
 		$aProtectedProperties = $oMirror->getProperties(\ReflectionProperty::IS_PROTECTED);
-		$this->assertEquals(3, count($aProtectedProperties)); // this includes IteratorT::$_current
+		$this->assertEquals(3, count($aProtectedProperties)); // this includes IteratorTrait::$_current
 		$aPrivateProperties = $oMirror->getProperties(\ReflectionProperty::IS_PRIVATE);
 		$this->assertEquals(1, count($aPrivateProperties));
 

@@ -15,7 +15,7 @@ use vsc\presentation\requests\HttpRequestTypes;
 use vsc\presentation\views\ViewA;
 
 abstract class HttpResponseA extends Object {
-	use HttpHeaders;
+	use HttpHeadersTrait;
 
 	private $sServerProtocol;
 	private $iStatus;

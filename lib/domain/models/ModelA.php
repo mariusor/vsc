@@ -11,9 +11,9 @@ use vsc\infrastructure\Base;
 use vsc\ExceptionUnimplemented;
 
 abstract class ModelA extends Base implements ModelInterface {
-	use ArrayAccessT;
-	use CountableT;
-	use IteratorT;
+	use ArrayAccessTrait;
+	use CountableTrait;
+	use IteratorTrait;
 
 	/**
 	 * @param string $sIncName
