@@ -1,7 +1,7 @@
 <?php
 namespace lib\application\sitemaps\SiteMapA;
 
-use fixtures\application\controllers\FrontControllerFixture;
+use mocks\application\controllers\FrontControllerFixture;
 use vsc\application\sitemaps\SiteMapA;
 
 /**
@@ -19,7 +19,7 @@ class getAllControllersTest extends \PHPUnit_Framework_TestCase
 	public function testBasicGetAllControllers() {
 		$o = new SiteMapA_underTest_getAllControllers();
 		$sRegex = '.*';
-		$oMap = $o->map($sRegex, VSC_FIXTURE_PATH . 'config/map.php');
+		$oMap = $o->map($sRegex, VSC_MOCK_PATH . 'config/map.php');
 		$oCtrl = $oMap->map($sRegex, FrontControllerFixture::class);
 
 		$this->assertEquals([$sRegex => $oCtrl], $o->getAllControllers());

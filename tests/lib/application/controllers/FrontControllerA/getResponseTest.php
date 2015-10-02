@@ -1,12 +1,12 @@
 <?php
 namespace tests\lib\application\controllers\FrontControllerA;
-use fixtures\application\processors\ProcessorFixture;
-use fixtures\presentation\requests\PopulatedRequest;
+use mocks\application\processors\ProcessorFixture;
+use mocks\presentation\requests\PopulatedRequest;
 use vsc\application\controllers\FrontControllerA;
 use vsc\application\sitemaps\ClassMap;
 use vsc\infrastructure\vsc;
 use vsc\presentation\responses\HttpResponseA;
-use fixtures\presentation\views\NullView;
+use mocks\presentation\views\NullView;
 
 /**
  * @covers \vsc\application\controllers\FrontControllerA::getResponse()

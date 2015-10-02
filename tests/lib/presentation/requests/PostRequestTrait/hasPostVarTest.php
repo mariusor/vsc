@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\presentation\requests\PostRequestTrait;
-use fixtures\presentation\requests\PopulatedRequest;
+use mocks\presentation\requests\PopulatedRequest;
 
 /**
  * @covers \vsc\presentation\requests\PostRequestTrait::hasPostVar()

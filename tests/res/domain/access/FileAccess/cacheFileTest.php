@@ -12,13 +12,13 @@ class cacheFile extends \PHPUnit_Framework_TestCase
 		$value = uniqid('test:');
 		$file = __FILE__;
 		$o = new FileAccess(__FILE__);
-		$o->setCachePath(VSC_FIXTURE_PATH);
+		$o->setCachePath(VSC_MOCK_PATH);
 		$o->cacheFile($file, $value);
 
 		$sig = $o->getSignature($file);
-		$this->assertTrue(is_file(VSC_FIXTURE_PATH . $sig));
-		$this->assertEquals($value, file_get_contents(VSC_FIXTURE_PATH . $sig));
+		$this->assertTrue(is_file(VSC_MOCK_PATH . $sig));
+		$this->assertEquals($value, file_get_contents(VSC_MOCK_PATH . $sig));
 
-		unlink(VSC_FIXTURE_PATH . $sig);
+		unlink(VSC_MOCK_PATH . $sig);
 	}
 }

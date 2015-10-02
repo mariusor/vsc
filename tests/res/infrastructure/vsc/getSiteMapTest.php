@@ -18,7 +18,7 @@ class getSiteMapTest extends \PHPUnit_Framework_TestCase
 	}
 
 	public function testGetBasicSiteMap() {
-		vsc::getEnv()->getDispatcher()->loadSiteMap(VSC_FIXTURE_PATH . 'config/map.php');
+		vsc::getEnv()->getDispatcher()->loadSiteMap(VSC_MOCK_PATH . 'config/map.php');
 		$o = vsc::getEnv()->getSiteMap();
 		$this->assertInstanceOf(SiteMapA::class, $o);
 		$this->assertInstanceOf(RwSiteMap::class, $o);

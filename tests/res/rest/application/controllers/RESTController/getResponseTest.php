@@ -1,9 +1,9 @@
 <?php
 namespace res\rest\application\controllers\RESTController;
 
-use fixtures\application\processors\ProcessorFixture;
-use fixtures\domain\models\ModelFixture;
-use fixtures\presentation\requests\PopulatedRESTRequest;
+use mocks\application\processors\ProcessorFixture;
+use mocks\domain\models\ModelFixture;
+use mocks\presentation\requests\PopulatedRESTRequest;
 use vsc\application\controllers\ExceptionController;
 use vsc\application\processors\AuthenticatedProcessorInterface;
 use vsc\application\sitemaps\ClassMap;

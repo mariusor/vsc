@@ -1,6 +1,6 @@
 <?php
 namespace tests\res\presentation\requests\RwHttpRequest;
-use fixtures\presentation\requests\PopulatedRequest;
+use mocks\presentation\requests\PopulatedRequest;
 
 /**
  * @covers \vsc\presentation\requests\RwHttpRequest::getTaintedVar()

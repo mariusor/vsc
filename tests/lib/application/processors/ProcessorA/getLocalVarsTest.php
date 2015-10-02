@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\application\processors\ProcessorA;
-use fixtures\application\processors\ProcessorFixture;
+use mocks\application\processors\ProcessorFixture;
 
 /**
  * @covers \vsc\application\processors\ProcessorA::getLocalVars()

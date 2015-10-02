@@ -1,7 +1,7 @@
 <?php
 namespace tests\lib\presentation\requests\HttpRequestA;
-use fixtures\presentation\requests\PopulatedRequest;
-use fixtures\presentation\requests\PopulatedRESTRequest;
+use mocks\presentation\requests\PopulatedRequest;
+use mocks\presentation\requests\PopulatedRESTRequest;
 
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::accepts()

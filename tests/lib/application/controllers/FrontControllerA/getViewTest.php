@@ -1,7 +1,7 @@
 <?php
 namespace lib\application\controllers\FrontControllerA;
 
-use fixtures\presentation\views\testView;
+use mocks\presentation\views\testView;
 use vsc\application\controllers\FrontControllerA;
 use vsc\application\sitemaps\ClassMap;
 use vsc\infrastructure\Base;

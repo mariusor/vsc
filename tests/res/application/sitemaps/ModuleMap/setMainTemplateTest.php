@@ -12,7 +12,7 @@ class setMainTemplate extends \PHPUnit_Framework_TestCase
 		$o = new ModuleMap('.*', __FILE__);
 		$this->assertEmpty($o->getMainTemplate());
 
-		$path = VSC_FIXTURE_PATH . 'templates/';
+		$path = VSC_MOCK_PATH . 'templates/';
 		$tpl = 'main.tpl.php';
 		$o->setMainTemplatePath($path);
 		$o->setMainTemplate($tpl);

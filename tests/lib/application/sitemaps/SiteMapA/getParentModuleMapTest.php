@@ -18,7 +18,7 @@ class getParentModuleMap extends \PHPUnit_Framework_TestCase
 
 	public function testBasicGetParentModuleMap ()
 	{
-		$sMapPath = VSC_FIXTURE_PATH . 'config/map.php';
+		$sMapPath = VSC_MOCK_PATH . 'config/map.php';
 		$sRegex = '.*';
 
 		$o = new SiteMapA_underTest_getParentModuleMap();

@@ -24,7 +24,7 @@ class getCurrentProcessorMap extends \PHPUnit_Framework_TestCase
 	public function testBasicGetSitemap()
 	{
 		$o = new RwDispatcher();
-		$o->loadSiteMap(VSC_FIXTURE_PATH . 'config/map.php');
+		$o->loadSiteMap(VSC_MOCK_PATH . 'config/map.php');
 
 		$map = $o->getCurrentProcessorMap();
 		$this->assertInstanceOf(MappingA::class, $map);

@@ -1,5 +1,5 @@
 <?php
-namespace fixtures\presentation\views;
+namespace mocks\presentation\views;
 use vsc\presentation\views\ViewA;
 
 class NullView extends ViewA {

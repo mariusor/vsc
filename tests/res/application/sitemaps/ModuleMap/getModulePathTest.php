@@ -9,11 +9,11 @@ class getModulePath extends \PHPUnit_Framework_TestCase
 {
 	public function testGetModulePath ()
 	{
-		$oMap = new ModuleMap (VSC_FIXTURE_PATH . 'config/map.php', '\A.*\Z');
+		$oMap = new ModuleMap (VSC_MOCK_PATH . 'config/map.php', '\A.*\Z');
 
 		$oMap->setTemplatePath('templates/');
 		$oMap->setTemplate('main.tpl.php');
 
-		$this->assertEquals(VSC_FIXTURE_PATH, $oMap->getModulePath());
+		$this->assertEquals(VSC_MOCK_PATH, $oMap->getModulePath());
 	}
 }

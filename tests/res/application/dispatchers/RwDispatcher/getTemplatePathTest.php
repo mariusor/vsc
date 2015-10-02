@@ -1,7 +1,7 @@
 <?php
 namespace tests\res\application\dispatchers\RwDispatcher;
 use vsc\application\dispatchers\RwDispatcher;
-use fixtures\presentation\requests\PopulatedRequest;
+use mocks\presentation\requests\PopulatedRequest;
 use vsc\infrastructure\vsc;
 
 /**
@@ -11,7 +11,7 @@ class getTemplatePath extends \PHPUnit_Framework_TestCase
 {
 	public function testTemplatePath ()
 	{
-		$sFixturePath = VSC_FIXTURE_PATH . 'config' . DIRECTORY_SEPARATOR;
+		$sFixturePath = VSC_MOCK_PATH . 'config' . DIRECTORY_SEPARATOR;
 		$o = new RwDispatcher();
 
 		$o->loadSiteMap($sFixturePath . 'map.php');
@@ -19,7 +19,7 @@ class getTemplatePath extends \PHPUnit_Framework_TestCase
 		$oRequest  = new PopulatedRequest();
 		vsc::getEnv()->setHttpRequest($oRequest);
 
-		$genericTemplatePath = VSC_FIXTURE_PATH.'templates'.DIRECTORY_SEPARATOR;
+		$genericTemplatePath = VSC_MOCK_PATH.'templates'.DIRECTORY_SEPARATOR;
 		$this->assertEquals($genericTemplatePath, $o->getTemplatePath());
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 namespace tests\res\presentation\requests\RawHttpRequest;
-use fixtures\presentation\requests\PopulatedRawRequest;
+use mocks\presentation\requests\PopulatedRawRequest;
 
 /**
  * @covers \vsc\presentation\requests\RawHttpRequest::getRawVar()

@@ -6,7 +6,7 @@ use vsc\presentation\responses\HttpResponse;
 use vsc\presentation\responses\HttpResponseType;
 use vsc\presentation\views\PlainTextView;
 use vsc\presentation\views\ViewA;
-use fixtures\presentation\views\NullView;
+use mocks\presentation\views\NullView;
 
 /**
  * Class getErrorResponseTest

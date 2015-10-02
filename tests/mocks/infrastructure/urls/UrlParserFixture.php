@@ -1,5 +1,5 @@
 <?php
-namespace fixtures\infrastructure\urls;
+namespace mocks\infrastructure\urls;
 
 use vsc\infrastructure\urls\UrlParserA;
 

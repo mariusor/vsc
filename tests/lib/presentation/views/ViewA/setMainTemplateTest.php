@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\presentation\views\ViewA;
-use fixtures\presentation\views\testView;
+use mocks\presentation\views\testView;
 use vsc\Exception;
 use vsc\ExceptionPath;
 
@@ -13,7 +13,7 @@ class setMainTemplate extends \PHPUnit_Framework_TestCase
 	{
 		$o = new testView();
 
-		$t = VSC_FIXTURE_PATH . 'templates/main.tpl.php';
+		$t = VSC_MOCK_PATH . 'templates/main.tpl.php';
 		$o->setMainTemplate($t);
 
 		$this->assertEquals($t, $o->getMainTemplate());

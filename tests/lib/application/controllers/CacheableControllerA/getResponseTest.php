@@ -1,7 +1,7 @@
 <?php
 namespace tests\lib\application\controllers\CacheableControllerA;
-use fixtures\application\processors\ProcessorFixture;
-use fixtures\presentation\requests\PopulatedRequest;
+use mocks\application\processors\ProcessorFixture;
+use mocks\presentation\requests\PopulatedRequest;
 use vsc\application\processors\ProcessorA;
 use vsc\application\sitemaps\ClassMap;
 use vsc\domain\models\CacheableModelA;
@@ -9,7 +9,7 @@ use vsc\infrastructure\vsc;
 use vsc\presentation\requests\RawHttpRequest;
 use vsc\presentation\responses\HttpResponseA;
 use vsc\application\controllers\CacheableControllerA;
-use fixtures\presentation\views\NullView;
+use mocks\presentation\views\NullView;
 use vsc\presentation\responses\HttpResponseType;
 use vsc\presentation\views\CacheableViewA;
 

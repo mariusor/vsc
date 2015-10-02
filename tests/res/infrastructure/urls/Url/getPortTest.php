@@ -2,7 +2,7 @@
 namespace tests\infrastructure\urls\Url;
 
 
-use fixtures\infrastructure\urls\UrlParserFixture;
+use mocks\infrastructure\urls\UrlParserFixture;
 
 class getPortTest extends \PHPUnit_Framework_TestCase {
 	public function testGetPort () {

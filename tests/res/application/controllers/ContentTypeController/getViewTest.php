@@ -1,6 +1,6 @@
 <?php
 namespace tests\res\application\controllers\ContentTypeController;
-use fixtures\presentation\views\testView;
+use mocks\presentation\views\testView;
 use vsc\application\controllers\ContentTypeController;
 use vsc\application\sitemaps\ClassMap;
 

@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\presentation\views\ViewA;
-use fixtures\presentation\views\testView;
+use mocks\presentation\views\testView;
 use vsc\application\sitemaps\ClassMap;
 use vsc\domain\models\EmptyModel;
 
@@ -20,7 +20,7 @@ class getTitle extends \PHPUnit_Framework_TestCase
 		}
 		$oMap = new ClassMap(__FILE__, '\A.*\Z');
 
-		$oMap->setTemplatePath(VSC_FIXTURE_PATH . 'templates/');
+		$oMap->setTemplatePath(VSC_MOCK_PATH . 'templates/');
 		$oMap->setTemplate('main.tpl.php');
 
 		$o->setMap($oMap);
@@ -43,7 +43,7 @@ class getTitle extends \PHPUnit_Framework_TestCase
 
 		$oMap = new ClassMap(__FILE__, '\A.*\Z');
 
-		$oMap->setTemplatePath(VSC_FIXTURE_PATH . 'templates/');
+		$oMap->setTemplatePath(VSC_MOCK_PATH . 'templates/');
 		$oMap->setTemplate('main.tpl.php');
 
 		$o->setMap($oMap);

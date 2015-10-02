@@ -27,8 +27,8 @@ if (!defined('VSC_PATH')) {
 	require ('vsc.inc.php');
 }
 
-if (defined ('VSC_TEST_PATH') && !defined ('VSC_FIXTURE_PATH')) {
-	define ('VSC_FIXTURE_PATH', VSC_TEST_PATH . 'fixtures' . DIRECTORY_SEPARATOR);
+if (defined ('VSC_TEST_PATH') && !defined ('VSC_MOCK_PATH')) {
+	define ('VSC_MOCK_PATH', VSC_TEST_PATH . 'mocks' . DIRECTORY_SEPARATOR);
 }
 
 date_default_timezone_set('UTC');

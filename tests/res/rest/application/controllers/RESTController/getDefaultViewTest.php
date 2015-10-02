@@ -1,6 +1,6 @@
 <?php
 namespace tests\res\application\controllers\RESTController;
-use fixtures\presentation\requests\PopulatedRESTRequest;
+use mocks\presentation\requests\PopulatedRESTRequest;
 use vsc\application\controllers\JsonController;
 use vsc\infrastructure\vsc;
 use vsc\presentation\views\JsonView;

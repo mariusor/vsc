@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\application\processors\ProcessorA;
-use fixtures\application\processors\ProcessorFixture;
+use mocks\application\processors\ProcessorFixture;
 use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\ModuleMap;
 

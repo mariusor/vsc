@@ -1,6 +1,6 @@
 <?php
 namespace tests\res\presentation\requests\RawHttpRequest;
-use fixtures\presentation\requests\PopulatedRESTRequest;
+use mocks\presentation\requests\PopulatedRESTRequest;
 
 /**
  * @covers \vsc\presentation\requests\RawHttpRequest::hasVar()

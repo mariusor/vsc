@@ -1,7 +1,7 @@
 <?php
 namespace tests\lib\application\processors\ProcessorA;
-use fixtures\application\processors\ProcessorFixture;
-use fixtures\presentation\requests\PopulatedRequest;
+use mocks\application\processors\ProcessorFixture;
+use mocks\presentation\requests\PopulatedRequest;
 use vsc\application\dispatchers\RwDispatcher;
 use vsc\infrastructure\vsc;
 
@@ -19,7 +19,7 @@ class delegateRequest extends \PHPUnit_Framework_TestCase
 		$oNewProcessor = new ProcessorFixture();
 		$oNewProcessor->return = $sValue;
 
-		$sMapPath = VSC_FIXTURE_PATH . 'config' . DIRECTORY_SEPARATOR .'map.php';
+		$sMapPath = VSC_MOCK_PATH . 'config' . DIRECTORY_SEPARATOR .'map.php';
 
 		vsc::getEnv()->setDispatcher(new RwDispatcher());
 		vsc::getEnv()->getDispatcher()->loadSiteMap($sMapPath);

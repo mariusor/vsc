@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\presentation\views\ViewA;
-use fixtures\presentation\views\testView;
+use mocks\presentation\views\testView;
 
 /**
  * @covers \vsc\presentation\views\ViewA::getMainTemplate()

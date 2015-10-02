@@ -2,7 +2,7 @@
 namespace tests\lib\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\HttpRequestTypes;
-use fixtures\presentation\requests\PopulatedRequest;
+use mocks\presentation\requests\PopulatedRequest;
 
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::isDelete()

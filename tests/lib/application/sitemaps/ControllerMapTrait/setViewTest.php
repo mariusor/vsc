@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\application\sitemaps\ControllerMapTrait;
-use fixtures\presentation\views\NullView;
+use mocks\presentation\views\NullView;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ControllerMapTrait;
 use vsc\presentation\views\ViewA;

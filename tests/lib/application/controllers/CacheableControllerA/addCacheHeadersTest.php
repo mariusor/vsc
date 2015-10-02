@@ -1,8 +1,8 @@
 <?php
 namespace lib\application\controllers\CacheableControllerA;
 
-use fixtures\presentation\requests\PopulatedRequest;
-use fixtures\presentation\views\NullView;
+use mocks\presentation\requests\PopulatedRequest;
+use mocks\presentation\views\NullView;
 use vsc\application\controllers\CacheableControllerA;
 use vsc\domain\models\CacheableModelA;
 use vsc\domain\models\EmptyModel;

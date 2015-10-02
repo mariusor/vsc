@@ -1,7 +1,7 @@
 <?php
 namespace lib\application\sitemaps\MappingA;
 
-use fixtures\application\processors\ProcessorFixture;
+use mocks\application\processors\ProcessorFixture;
 use vsc\application\sitemaps\MappingA;
 
 /**
@@ -13,7 +13,7 @@ class mapsTest extends \PHPUnit_Framework_TestCase {
 
 	public function testBasicMaps ()
 	{
-		$o = new MappingA_underTest_maps(VSC_FIXTURE_PATH . 'application/processors/ProcessorFixture.php', '.*');
+		$o = new MappingA_underTest_maps(VSC_MOCK_PATH . 'application/processors/ProcessorFixture.php', '.*');
 		$p = new ProcessorFixture();
 
 		$this->assertTrue($o->maps($p));

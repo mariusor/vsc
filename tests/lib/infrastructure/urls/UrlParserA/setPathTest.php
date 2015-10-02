@@ -1,7 +1,7 @@
 <?php
 namespace lib\infrastructure\urls\UrlParserA;
 
-use fixtures\infrastructure\urls\UrlParserFixture;
+use mocks\infrastructure\urls\UrlParserFixture;
 
 /**
  * Class setPathTest

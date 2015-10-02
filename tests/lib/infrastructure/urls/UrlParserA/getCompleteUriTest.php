@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\infrastructure\urls\UrlParserA;
-use fixtures\infrastructure\urls\UrlParserFixture;
+use mocks\infrastructure\urls\UrlParserFixture;
 
 /**
  * @covers \vsc\infrastructure\urls\UrlParserA::getCompleteUri()

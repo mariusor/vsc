@@ -1,8 +1,8 @@
 <?php
-namespace fixtures\application\controllers;
+namespace mocks\application\controllers;
 
 use vsc\application\controllers\FrontControllerA;
-use fixtures\presentation\views\NullView;
+use mocks\presentation\views\NullView;
 
 class FrontControllerFixture extends FrontControllerA {
 	public function getDefaultView() {

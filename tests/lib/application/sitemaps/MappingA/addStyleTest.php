@@ -9,7 +9,7 @@ class addStyle extends \PHPUnit_Framework_TestCase
 {
 	public function testSetBasicStyle()
 	{
-		$sStyle = VSC_FIXTURE_PATH . 'static/fixture.css';
+		$sStyle = VSC_MOCK_PATH . 'static/fixture.css';
 		$sMedia = 'screen';
 
 		$o = new MappingA_underTest_addStyle();

@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\application\controllers\FrontControllerA;
-use fixtures\presentation\views\NullView;
+use mocks\presentation\views\NullView;
 use vsc\application\controllers\ExceptionController;
 use vsc\application\controllers\FrontControllerA;
 
@@ -14,7 +14,7 @@ class setTemplatePath extends \PHPUnit_Framework_TestCase
 		$state = new FrontController_underTest_setTemplatePath();
 
 		try {
-			$status = $state->setTemplatePath ( VSC_FIXTURE_PATH . 'templates' );
+			$status = $state->setTemplatePath ( VSC_MOCK_PATH . 'templates' );
 		} catch (ExceptionController $f) {
 			$this->fail ($f->getMessage());
 		}

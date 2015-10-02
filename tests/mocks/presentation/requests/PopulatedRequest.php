@@ -1,5 +1,5 @@
 <?php
-namespace fixtures\presentation\requests;
+namespace mocks\presentation\requests;
 
 use vsc\presentation\requests\RwHttpRequest;
 

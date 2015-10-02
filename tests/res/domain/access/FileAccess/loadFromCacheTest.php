@@ -12,10 +12,10 @@ class loadFromCache extends \PHPUnit_Framework_TestCase
 		$file = 'test';
 		$value = uniqid('test:');
 		$o = new FileAccess('');
-		$o->setCachePath(VSC_FIXTURE_PATH);
+		$o->setCachePath(VSC_MOCK_PATH);
 		$o->cacheFile($file, $value);
 
 		$this->assertEquals($value, $o->loadFromCache($file));
-		unlink(VSC_FIXTURE_PATH . $o->getSignature($file));
+		unlink(VSC_MOCK_PATH . $o->getSignature($file));
 	}
 }

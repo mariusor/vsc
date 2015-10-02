@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\presentation\requests\ServerRequestTrait;
-use fixtures\presentation\requests\PopulatedRequest;
+use mocks\presentation\requests\PopulatedRequest;
 use vsc\presentation\requests\HttpRequestTypes;
 
 /**

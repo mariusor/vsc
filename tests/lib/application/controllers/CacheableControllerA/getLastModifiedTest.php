@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\application\controllers\CacheableControllerA;
-use fixtures\presentation\views\NullView;
+use mocks\presentation\views\NullView;
 use vsc\application\controllers\CacheableControllerA;
 
 /**

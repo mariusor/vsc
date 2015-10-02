@@ -9,7 +9,7 @@ class getClassName extends \PHPUnit_Framework_TestCase
 {
 	public function testBasicGetClassName()
 	{
-		$sProcessorPath = VSC_FIXTURE_PATH . 'application/processors/ProcessorFixture.php';
+		$sProcessorPath = VSC_MOCK_PATH . 'application/processors/ProcessorFixture.php';
 		$this->assertEquals('stdClass', SiteMapA::getClassName($sProcessorPath));
 	}
 }

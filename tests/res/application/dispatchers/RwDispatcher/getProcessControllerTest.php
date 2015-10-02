@@ -1,8 +1,8 @@
 <?php
 namespace tests\res\application\dispatchers\RwDispatcher;
-use fixtures\application\processors\ProcessorFixture;
+use mocks\application\processors\ProcessorFixture;
 use vsc\application\dispatchers\RwDispatcher;
-use fixtures\presentation\requests\PopulatedRequest;
+use mocks\presentation\requests\PopulatedRequest;
 use vsc\application\processors\ErrorProcessor;
 use vsc\application\processors\NotFoundProcessor;
 use vsc\application\processors\StaticFileProcessor;
@@ -19,7 +19,7 @@ class getProcessController extends \PHPUnit_Framework_TestCase
 
 	public function testGetProcessController404 ()
 	{
-		$sFixturePath = VSC_FIXTURE_PATH . 'config' . DIRECTORY_SEPARATOR;
+		$sFixturePath = VSC_MOCK_PATH . 'config' . DIRECTORY_SEPARATOR;
 		$o = new RwDispatcher();
 
 		$o->loadSiteMap ( $sFixturePath . 'map.php' );
@@ -35,7 +35,7 @@ class getProcessController extends \PHPUnit_Framework_TestCase
 
 	public function testGetProcessorController ()
 	{
-		$sFixturePath = VSC_FIXTURE_PATH . 'config' . DIRECTORY_SEPARATOR;
+		$sFixturePath = VSC_MOCK_PATH . 'config' . DIRECTORY_SEPARATOR;
 		$o = new RwDispatcher();
 
 		$o->loadSiteMap($sFixturePath . 'map.php');
@@ -48,7 +48,7 @@ class getProcessController extends \PHPUnit_Framework_TestCase
 
 	public function testGetStaticFile ()
 	{
-		$sFixturePath = VSC_FIXTURE_PATH . 'config' . DIRECTORY_SEPARATOR;
+		$sFixturePath = VSC_MOCK_PATH . 'config' . DIRECTORY_SEPARATOR;
 		$o = new RwDispatcher();
 
 		$o->loadSiteMap($sFixturePath . 'map.php');

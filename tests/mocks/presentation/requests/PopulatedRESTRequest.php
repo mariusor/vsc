@@ -1,5 +1,5 @@
 <?php
-namespace fixtures\presentation\requests;
+namespace mocks\presentation\requests;
 
 $_GET		= array ('cucu' => 'pasare','ana' => 'are', 'mere' => '', 'test' => 123);
 $_POST		= array ('postone' => 'are', 'ana' => '');

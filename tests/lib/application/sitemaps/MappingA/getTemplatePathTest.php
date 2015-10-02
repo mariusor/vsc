@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
-use fixtures\application\controllers\FrontControllerFixture;
+use mocks\application\controllers\FrontControllerFixture;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ModuleMap;
 
@@ -13,22 +13,22 @@ class getTemplatePath extends \PHPUnit_Framework_TestCase
 	{
 		$oMap = new MappingA_underTest_getTemplatePath(FrontControllerFixture::class, '\A.*\Z');
 
-		$oMap->setTemplatePath(VSC_FIXTURE_PATH . 'templates/');
+		$oMap->setTemplatePath(VSC_MOCK_PATH . 'templates/');
 		$oMap->setTemplate('main.tpl.php');
 
-		$this->assertEquals(VSC_FIXTURE_PATH . 'templates/', $oMap->getTemplatePath());
+		$this->assertEquals(VSC_MOCK_PATH . 'templates/', $oMap->getTemplatePath());
 	}
 
 	public function testGetTemplatePathRelative ()
 	{
-		$oModuleMap = new ModuleMap(VSC_FIXTURE_PATH . 'config/map.php', '\A.*\Z');
+		$oModuleMap = new ModuleMap(VSC_MOCK_PATH . 'config/map.php', '\A.*\Z');
 
 		$oMap = new MappingA_underTest_getTemplatePath(FrontControllerFixture::class, '\A.*\Z');
 		$oMap->setModuleMap($oModuleMap);
 
 		$oMap->setTemplatePath ( 'templates/' );
 
-		$this->assertEquals(VSC_FIXTURE_PATH . 'templates/', $oMap->getTemplatePath());
+		$this->assertEquals(VSC_MOCK_PATH . 'templates/', $oMap->getTemplatePath());
 	}
 }
 

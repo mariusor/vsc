@@ -1,10 +1,10 @@
 <?php
 namespace tests\lib\application\controllers\FrontControllerA;
-use fixtures\application\controllers\FrontControllerFixture;
+use mocks\application\controllers\FrontControllerFixture;
 use vsc\application\controllers\FrontControllerA;
-use fixtures\presentation\views\testView;
+use mocks\presentation\views\testView;
 use vsc\application\sitemaps\ClassMap;
-use fixtures\presentation\views\NullView;
+use mocks\presentation\views\NullView;
 use vsc\application\sitemaps\MappingA;
 
 /**
@@ -23,7 +23,7 @@ class getMap extends \PHPUnit_Framework_TestCase
 		$oMap = new ClassMap(__FILE__, '\A.*\Z');
 		$oMap->setView(testView::class);
 
-		$oMap->setMainTemplatePath(VSC_FIXTURE_PATH . 'templates');
+		$oMap->setMainTemplatePath(VSC_MOCK_PATH . 'templates');
 		$oMap->setMainTemplate('main.tpl.php');
 
 		$this->state->setMap($oMap);

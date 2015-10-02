@@ -5,7 +5,7 @@
  */
 namespace res\config;
 
-use fixtures\presentation\requests\PopulatedRequest;
+use mocks\presentation\requests\PopulatedRequest;
 use vsc\application\controllers\JsonController;
 use vsc\application\controllers\PlainTextController;
 use vsc\application\controllers\RssController;

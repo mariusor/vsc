@@ -10,7 +10,7 @@ class getModulePath extends \PHPUnit_Framework_TestCase
 {
 	public function testGetModulePathWithoutModuleSet ()
 	{
-		$oMap = new MappingA_underTest_getModulePath (VSC_FIXTURE_PATH . 'config/map.php', '\A.*\Z');
+		$oMap = new MappingA_underTest_getModulePath (VSC_MOCK_PATH . 'config/map.php', '\A.*\Z');
 
 		$sPath = $oMap->getModulePath();
 		$this->assertEquals(VSC_RES_PATH, $sPath);
@@ -18,12 +18,12 @@ class getModulePath extends \PHPUnit_Framework_TestCase
 
 	public function testGetModulePathWithModuleSet ()
 	{
-		$oModuleMap = new ModuleMap(VSC_FIXTURE_PATH . 'config/map.php', '\A.*\Z');
+		$oModuleMap = new ModuleMap(VSC_MOCK_PATH . 'config/map.php', '\A.*\Z');
 
 		$oMap = new MappingA_underTest_getModulePath (__FILE__, '\A.*\Z');
 		$oMap->setModuleMap($oModuleMap);
 
-		$this->assertEquals(VSC_FIXTURE_PATH, $oMap->getModulePath());
+		$this->assertEquals(VSC_MOCK_PATH, $oMap->getModulePath());
 		$this->assertEquals($oModuleMap->getModulePath(), $oMap->getModulePath());
 	}
 }

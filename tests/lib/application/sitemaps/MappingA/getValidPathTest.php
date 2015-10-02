@@ -4,7 +4,7 @@
  * @created 2015-02-24
  */
 namespace lib\application\sitemaps\MappingA;
-use fixtures\application\controllers\FrontControllerFixture;
+use mocks\application\controllers\FrontControllerFixture;
 use vsc\application\sitemaps\ExceptionSitemap;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ModuleMap;
@@ -34,18 +34,18 @@ class getValidPathTest extends \PHPUnit_Framework_TestCase {
 	{
 		$oMap = new MappingA_underTest_getValidPath (FrontControllerFixture::class, '\A.*\Z');
 
-		$this->assertEquals(VSC_FIXTURE_PATH . 'templates'.DIRECTORY_SEPARATOR, $oMap->getValidPath( VSC_FIXTURE_PATH . 'templates'.DIRECTORY_SEPARATOR));
+		$this->assertEquals(VSC_MOCK_PATH . 'templates'.DIRECTORY_SEPARATOR, $oMap->getValidPath( VSC_MOCK_PATH . 'templates'.DIRECTORY_SEPARATOR));
 	}
 
 	public function testSetTemplatePathRelativeToWithModule ()
 	{
-		$oModuleMap = new ModuleMap(VSC_FIXTURE_PATH . 'config/map.php', '\A.*\Z');
+		$oModuleMap = new ModuleMap(VSC_MOCK_PATH . 'config/map.php', '\A.*\Z');
 
 		$oMap = new MappingA_underTest_getValidPath(FrontControllerFixture::class, '\A.*\Z');
 		$oMap->setModuleMap($oModuleMap);
 
-		$this->assertEquals(VSC_FIXTURE_PATH . 'templates'.DIRECTORY_SEPARATOR, $oMap->getValidPath('templates'.DIRECTORY_SEPARATOR));
-		$this->assertEquals(VSC_FIXTURE_PATH . 'templates'.DIRECTORY_SEPARATOR, $oMap->getValidPath('templates'));
+		$this->assertEquals(VSC_MOCK_PATH . 'templates'.DIRECTORY_SEPARATOR, $oMap->getValidPath('templates'.DIRECTORY_SEPARATOR));
+		$this->assertEquals(VSC_MOCK_PATH . 'templates'.DIRECTORY_SEPARATOR, $oMap->getValidPath('templates'));
 	}
 }
 

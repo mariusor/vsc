@@ -9,7 +9,7 @@ class isValidObjectPath extends \PHPUnit_Framework_TestCase
 {
 	public function testIsInValidObjectPathWithStaticFile()
 	{
-		$sPath = VSC_FIXTURE_PATH . 'static/fixture.css';
+		$sPath = VSC_MOCK_PATH . 'static/fixture.css';
 		$this->assertFalse(ClassMap::isValidMap($sPath));
 	}
 

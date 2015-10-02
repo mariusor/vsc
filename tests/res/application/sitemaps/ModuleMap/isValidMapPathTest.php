@@ -9,7 +9,7 @@ class isValidMap extends \PHPUnit_Framework_TestCase
 {
 	public function testIsInValidMapPathWithStaticFile()
 	{
-		$sPath = VSC_FIXTURE_PATH . 'static/fixture.css';
+		$sPath = VSC_MOCK_PATH . 'static/fixture.css';
 		$this->assertFalse(ModuleMap::isValidMap($sPath));
 	}
 
@@ -21,7 +21,7 @@ class isValidMap extends \PHPUnit_Framework_TestCase
 
 	public function testIsValidMapPathWithPHPFile()
 	{
-		$sPath = VSC_FIXTURE_PATH . 'config/map.php';
+		$sPath = VSC_MOCK_PATH . 'config/map.php';
 		$this->assertTrue(ModuleMap::isValidMap($sPath));
 	}
 }

@@ -18,7 +18,7 @@ class loadSiteMap extends \PHPUnit_Framework_TestCase
 
 		$oMap = new ClassMap(ErrorProcessor::class, '.*');
 		$o->setMap($oMap);
-		$sFixturePath = VSC_FIXTURE_PATH . 'config' . DIRECTORY_SEPARATOR;
+		$sFixturePath = VSC_MOCK_PATH . 'config' . DIRECTORY_SEPARATOR;
 		$o = new RwDispatcher();
 		$o->loadSiteMap ( $sFixturePath . 'map.php' );
 

@@ -19,7 +19,7 @@ class getViewPath extends \PHPUnit_Framework_TestCase
 	{
 		$o = new ControllerMapT_underTest_getViewPath(__FILE__, '.*');
 
-		$sValue = VSC_FIXTURE_PATH . 'templates/main.tpl.php';
+		$sValue = VSC_MOCK_PATH . 'templates/main.tpl.php';
 		try {
 			$o->setView($sValue);
 		} catch (\Exception $e) {

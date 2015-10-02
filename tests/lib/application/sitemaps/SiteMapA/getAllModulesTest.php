@@ -18,7 +18,7 @@ class getAllModulesTest extends \PHPUnit_Framework_TestCase
 	public function testBasicGetAllModules() {
 		$o = new SiteMapA_underTest_getAllModules();
 		$sRegex = '.*';
-		$oModuleMap = $o->addModuleMap($sRegex, VSC_FIXTURE_PATH . 'config/map.php');
+		$oModuleMap = $o->addModuleMap($sRegex, VSC_MOCK_PATH . 'config/map.php');
 
 		$this->assertEquals([$sRegex => $oModuleMap], $o->getAllModules());
 	}

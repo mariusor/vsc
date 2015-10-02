@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\presentation\responses\HttpResponseA;
-use fixtures\presentation\responses\ResponseFixture;
+use mocks\presentation\responses\ResponseFixture;
 
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::addHeader()

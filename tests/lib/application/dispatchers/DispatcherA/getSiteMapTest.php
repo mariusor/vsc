@@ -10,7 +10,7 @@ class getSiteMap extends \PHPUnit_Framework_TestCase
 {
 	public function testGetMapsMap ()
 	{
-		$sFixturePath = VSC_FIXTURE_PATH . 'config' . DIRECTORY_SEPARATOR;
+		$sFixturePath = VSC_MOCK_PATH . 'config' . DIRECTORY_SEPARATOR;
 		$o = new RwDispatcher();
 
 		$o->loadSiteMap ( $sFixturePath . 'map.php' );

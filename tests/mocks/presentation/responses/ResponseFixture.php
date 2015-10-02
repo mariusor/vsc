@@ -1,5 +1,5 @@
 <?php
-namespace fixtures\presentation\responses;
+namespace mocks\presentation\responses;
 
 
 use vsc\presentation\responses\HttpResponse;

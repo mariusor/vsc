@@ -2,7 +2,7 @@
 namespace tests\lib\application\sitemaps\SiteMapA;
 use vsc\application\sitemaps\SiteMapA;
 use vsc\application\sitemaps\MappingA;
-use fixtures\application\processors\ProcessorFixture;
+use mocks\application\processors\ProcessorFixture;
 use vsc\application\sitemaps\ClassMap;
 
 /**

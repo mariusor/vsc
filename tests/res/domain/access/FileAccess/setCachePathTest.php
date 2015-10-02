@@ -10,7 +10,7 @@ class setCachePath extends \PHPUnit_Framework_TestCase
 	public function testBasicSetCachePath()
 	{
 		$o = new FileAccess(__FILE__);
-		$o->setCachePath(VSC_FIXTURE_PATH);
-		$this->assertEquals(VSC_FIXTURE_PATH, $o->getCachePath());
+		$o->setCachePath(VSC_MOCK_PATH);
+		$this->assertEquals(VSC_MOCK_PATH, $o->getCachePath());
 	}
 }

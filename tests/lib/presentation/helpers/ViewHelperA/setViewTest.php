@@ -1,7 +1,7 @@
 <?php
 namespace tests\lib\presentation\helpers\ViewHelperA;
 use vsc\presentation\helpers\ViewHelperA;
-use fixtures\presentation\views\NullView;
+use mocks\presentation\views\NullView;
 
 /**
  * @covers \vsc\presentation\helpers\ViewHelperA::setView()

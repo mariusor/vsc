@@ -12,8 +12,8 @@ class __constructTest extends \PHPUnit_Framework_TestCase {
 
 	public function testInitialization () {
 		$r = '';
-		$o = new ModuleMap(VSC_FIXTURE_PATH . 'config/map.php', $r);
-		$this->assertEquals(VSC_FIXTURE_PATH, $o->getPath());
+		$o = new ModuleMap(VSC_MOCK_PATH . 'config/map.php', $r);
+		$this->assertEquals(VSC_MOCK_PATH, $o->getPath());
 		$this->assertEquals($r, $o->getRegex());
 		$this->assertNull($o->getTemplatePath());
 	}

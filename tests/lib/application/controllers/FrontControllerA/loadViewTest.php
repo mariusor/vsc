@@ -9,7 +9,7 @@
 namespace tests\application\controllers\FrontControllerA;
 
 
-use fixtures\presentation\views\NullView;
+use mocks\presentation\views\NullView;
 use vsc\application\controllers\FrontControllerA;
 use vsc\application\processors\EmptyProcessor;
 use vsc\application\sitemaps\ClassMap;

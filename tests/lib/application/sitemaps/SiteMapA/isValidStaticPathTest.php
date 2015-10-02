@@ -15,7 +15,7 @@ class isValidStaticPath extends \PHPUnit_Framework_TestCase
 
 	public function testIsValidStaticPathWithLocalJsFile()
 	{
-		$sPath = VSC_FIXTURE_PATH . 'static/fixture.css';
+		$sPath = VSC_MOCK_PATH . 'static/fixture.css';
 		$o = new SiteMapA_underTest_isValidStaticPath();
 		$this->assertTrue($o->isValidStaticPath($sPath));
 	}

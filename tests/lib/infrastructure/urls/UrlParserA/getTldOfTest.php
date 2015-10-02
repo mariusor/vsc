@@ -2,7 +2,7 @@
 namespace lib\infrastructure\urls\UrlParserA;
 
 
-use fixtures\infrastructure\urls\UrlParserFixture;
+use mocks\infrastructure\urls\UrlParserFixture;
 
 class getTldOfTest extends \PHPUnit_Framework_TestCase {
 	/**

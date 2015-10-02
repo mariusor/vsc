@@ -1,5 +1,5 @@
 <?php
-namespace fixtures\domain\models ;
+namespace mocks\domain\models ;
 
 use \vsc\domain\models\ModelA;
 

@@ -1,7 +1,7 @@
 <?php
 namespace res\application\sitemaps\ClassMap;
 
-use fixtures\application\processors\ProcessorFixture;
+use mocks\application\processors\ProcessorFixture;
 use vsc\application\sitemaps\ClassMap;
 
 /**

@@ -10,7 +10,7 @@ class buildObj extends \PHPUnit_Framework_TestCase
 	public function testBuildRssItemFromString()
 	{
 		$domdoc = new \DOMDocument('1.0');
-		$domdoc->load(VSC_FIXTURE_PATH . 'static/sample-rss-2.xml');
+		$domdoc->load(VSC_MOCK_PATH . 'static/sample-rss-2.xml');
 		$dom = $domdoc->getElementsByTagName('item')->item(0);
 //      <item>
 //         <title>Star City</title>

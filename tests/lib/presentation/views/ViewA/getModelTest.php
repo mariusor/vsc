@@ -1,7 +1,7 @@
 <?php
 namespace tests\lib\presentation\views\ViewA;
-use fixtures\presentation\views\testView;
-use fixtures\domain\models\ModelFixture;
+use mocks\presentation\views\testView;
+use mocks\domain\models\ModelFixture;
 use vsc\domain\models\ModelA;
 use vsc\Exception;
 use vsc\presentation\views\ExceptionView;

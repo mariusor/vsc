@@ -11,7 +11,7 @@ class addStaticMap extends \PHPUnit_Framework_TestCase
 	{
 		$o = new SiteMapA_underTest_addStaticMap();
 
-		$oStaticMap = $o->addStaticMap('.*\.css', VSC_FIXTURE_PATH . 'static/fixture.css');
+		$oStaticMap = $o->addStaticMap('.*\.css', VSC_MOCK_PATH . 'static/fixture.css');
 		$this->assertTrue($oStaticMap->isStatic());
 	}
 }

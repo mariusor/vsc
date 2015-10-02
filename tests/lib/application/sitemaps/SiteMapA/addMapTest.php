@@ -12,7 +12,7 @@ class addMap extends \PHPUnit_Framework_TestCase
 	public function testBasicAddMap()
 	{
 		$o = new SiteMapA_underTest_addMap();
-		$oModuleMap = $o->addMap('.*', VSC_FIXTURE_PATH . 'application/processors/ProcessorFixture.php');
+		$oModuleMap = $o->addMap('.*', VSC_MOCK_PATH . 'application/processors/ProcessorFixture.php');
 
 		$this->assertInstanceOf(MappingA::class, $oModuleMap);
 		$this->assertInstanceOf(ClassMap::class, $oModuleMap);
