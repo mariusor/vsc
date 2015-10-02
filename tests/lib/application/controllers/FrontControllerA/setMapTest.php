@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\application\controllers\FrontControllerA;
-use fixtures\application\controllers\GenericFrontController;
+use fixtures\application\controllers\FrontControllerFixture;
 use vsc\application\sitemaps\ClassMap;
 use fixtures\presentation\views\testView;
 use fixtures\presentation\views\NullView;
@@ -34,7 +34,7 @@ class setMap extends \PHPUnit_Framework_TestCase
 	}
 
 	public function testSetGetMap() {
-		$s = new ClassMap(GenericFrontController::class, '\A.*\Z');
+		$s = new ClassMap(FrontControllerFixture::class, '\A.*\Z');
 		$this->state->setMap($s);
 
 		$m = $this->state->getMap();

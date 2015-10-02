@@ -5,7 +5,7 @@ use fixtures\application\processors\ProcessorFixture;
 use fixtures\domain\models\ModelFixture;
 use fixtures\presentation\requests\PopulatedRESTRequest;
 use vsc\application\controllers\ExceptionController;
-use vsc\application\processors\AuthenticatedProcessorI;
+use vsc\application\processors\AuthenticatedProcessorInterface;
 use vsc\application\sitemaps\ClassMap;
 use vsc\infrastructure\vsc;
 use vsc\presentation\requests\HttpAuthenticationA;
@@ -259,7 +259,7 @@ class RESTProcessorA_underTest_getResponse extends RESTProcessorA {
 	}
 }
 
-class RESTProcessorA_underTest_getResponse_withAuthentication extends RESTProcessorA_underTest_getResponse implements AuthenticatedProcessorI {
+class RESTProcessorA_underTest_getResponse_withAuthentication extends RESTProcessorA_underTest_getResponse implements AuthenticatedProcessorInterface {
 	public $validRequestMethods = [HttpRequestTypes::GET];
 	public function handleAuthentication(HttpAuthenticationA $oHttpAuthentication)
 	{

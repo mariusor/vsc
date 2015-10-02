@@ -3,7 +3,7 @@ namespace fixtures\infrastructure\urls;
 
 use vsc\infrastructure\urls\UrlParserA;
 
-class UrlParserA_underTest extends UrlParserA {
+class UrlParserFixture extends UrlParserA {
 
 	public static function parse_url ($sUrl = null) {
 		return parent::parse_url($sUrl);

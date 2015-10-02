@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\infrastructure\urls\Url;
-use fixtures\infrastructure\urls\UrlParserA_underTest;
+use fixtures\infrastructure\urls\UrlParserFixture;
 use vsc\infrastructure\urls\Url;
 
 /**

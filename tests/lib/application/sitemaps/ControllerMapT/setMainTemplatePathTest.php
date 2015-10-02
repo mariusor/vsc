@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\application\sitemaps\ControllerMapT;
-use fixtures\application\controllers\GenericFrontController;
+use fixtures\application\controllers\FrontControllerFixture;
 use vsc\application\sitemaps\ControllerMapT;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ModuleMap;
@@ -14,7 +14,7 @@ class setMainTemplatePath extends \PHPUnit_Framework_TestCase
 {
 	public function testSetMainTemplatePathRelativeNoModuleMap ()
 	{
-		$oMap = new ControllerMapT_underTest_setMainTemplatePath (GenericFrontController::class, '\A.*\Z');
+		$oMap = new ControllerMapT_underTest_setMainTemplatePath (FrontControllerFixture::class, '\A.*\Z');
 
 		try {
 			$oMap->setMainTemplatePath ( 'templates/' );
@@ -28,7 +28,7 @@ class setMainTemplatePath extends \PHPUnit_Framework_TestCase
 
 	public function testSetMainTemplatePathAbsolute ()
 	{
-		$oMap = new ControllerMapT_underTest_setMainTemplatePath (GenericFrontController::class, '\A.*\Z');
+		$oMap = new ControllerMapT_underTest_setMainTemplatePath (FrontControllerFixture::class, '\A.*\Z');
 
 		$this->assertTrue($oMap->setMainTemplatePath ( VSC_FIXTURE_PATH . 'templates/' ));
 		$this->assertEquals(VSC_FIXTURE_PATH . 'templates/', $oMap->getMainTemplatePath());
@@ -38,7 +38,7 @@ class setMainTemplatePath extends \PHPUnit_Framework_TestCase
 	{
 		$oModuleMap = new ModuleMap(VSC_FIXTURE_PATH . 'config/map.php', '\A.*\Z');
 
-		$oMap = new ControllerMapT_underTest_setMainTemplatePath(GenericFrontController::class, '\A.*\Z');
+		$oMap = new ControllerMapT_underTest_setMainTemplatePath(FrontControllerFixture::class, '\A.*\Z');
 		$oMap->setModuleMap($oModuleMap);
 
 		$this->assertTrue($oMap->setMainTemplatePath ( 'templates/' ));

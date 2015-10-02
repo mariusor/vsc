@@ -2,7 +2,7 @@
 namespace tests\infrastructure\urls\Url;
 
 
-use fixtures\infrastructure\urls\UrlParserA_underTest;
+use fixtures\infrastructure\urls\UrlParserFixture;
 
 class getPortTest extends \PHPUnit_Framework_TestCase {
 	public function testGetPort () {
@@ -16,8 +16,8 @@ class getPortTest extends \PHPUnit_Framework_TestCase {
 			'query'		=> array(),
 			'fragment'	=> ''
 		);
-		$sUrl = UrlParserA_underTest::makeUrl($aUrlComponents);
-		$oUrl = UrlParserA_underTest::url($sUrl);
+		$sUrl = UrlParserFixture::makeUrl($aUrlComponents);
+		$oUrl = UrlParserFixture::url($sUrl);
 
 		$this->assertEquals($sPort, $oUrl->getPort());
 	}

@@ -2,7 +2,7 @@
 namespace lib\infrastructure\urls\UrlParserA;
 
 
-use fixtures\infrastructure\urls\UrlParserA_underTest;
+use fixtures\infrastructure\urls\UrlParserFixture;
 
 class getTldOfTest extends \PHPUnit_Framework_TestCase {
 	/**
@@ -12,18 +12,18 @@ class getTldOfTest extends \PHPUnit_Framework_TestCase {
 		$sHost = 'example.com';
 
 		$sTld = substr($sHost, strrpos ($sHost, '.') + 1);
-		$this->assertEquals ($sTld, UrlParserA_underTest::getTldOf($sHost));
+		$this->assertEquals ($sTld, UrlParserFixture::getTldOf($sHost));
 
 		$sHost = 'localhost';
-		$this->assertEquals ($sHost, UrlParserA_underTest::getTldOf($sHost));
+		$this->assertEquals ($sHost, UrlParserFixture::getTldOf($sHost));
 
 		$sIp = '192.168.1.1';
-		$this->assertFalse(UrlParserA_underTest::getTldOf($sIp));
+		$this->assertFalse(UrlParserFixture::getTldOf($sIp));
 
 		$sEmpty = '';
-		$this->assertFalse(UrlParserA_underTest::getTldOf($sEmpty));
+		$this->assertFalse(UrlParserFixture::getTldOf($sEmpty));
 
 		$sNull = null;
-		$this->assertFalse(UrlParserA_underTest::getTldOf($sNull));
+		$this->assertFalse(UrlParserFixture::getTldOf($sNull));
 	}
 }

@@ -1,7 +1,7 @@
 <?php
 namespace lib\infrastructure\urls\UrlParserA;
 
-use fixtures\infrastructure\urls\UrlParserA_underTest;
+use fixtures\infrastructure\urls\UrlParserFixture;
 
 /**
  * Class setPathTest
@@ -13,7 +13,7 @@ class setPathTest extends \PHPUnit_Framework_TestCase
 
 	public function testSetPathWithFolderWithoutProperEnding()
 	{
-		$o = new UrlParserA_underTest();
+		$o = new UrlParserFixture();
 		$path = uniqid('/ana/are/mere/');
 
 		$o->setPath($path);
@@ -23,7 +23,7 @@ class setPathTest extends \PHPUnit_Framework_TestCase
 
 	public function testSetPathWithFolderWithProperEnding()
 	{
-		$o = new UrlParserA_underTest();
+		$o = new UrlParserFixture();
 		$path = uniqid('/ana/') . '/';
 
 		$o->setPath($path);
@@ -33,7 +33,7 @@ class setPathTest extends \PHPUnit_Framework_TestCase
 
 	public function testSetPathWithFileWithExtension()
 	{
-		$o = new UrlParserA_underTest();
+		$o = new UrlParserFixture();
 		$path = uniqid('/ana/') . '/index.html';
 
 		$o->setPath($path);
@@ -43,7 +43,7 @@ class setPathTest extends \PHPUnit_Framework_TestCase
 
 	public function testSetRealPath()
 	{
-		$o = new UrlParserA_underTest();
+		$o = new UrlParserFixture();
 
 		$o->setPath(__FILE__);
 

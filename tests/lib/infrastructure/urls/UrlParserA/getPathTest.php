@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\infrastructure\urls\UrlParserA;
-use fixtures\infrastructure\urls\UrlParserA_underTest;
+use fixtures\infrastructure\urls\UrlParserFixture;
 
 /**
  * @covers \vsc\infrastructure\urls\UrlParserA::getPath
@@ -16,8 +16,8 @@ class getPathTest extends \PHPUnit_Framework_TestCase {
 			'query'		=> array(),
 			'fragment'	=> ''
 		);
-		$sUrl = UrlParserA_underTest::makeUrl($aUrlComponents);
-		$oUrl = new UrlParserA_underTest($sUrl);
+		$sUrl = UrlParserFixture::makeUrl($aUrlComponents);
+		$oUrl = new UrlParserFixture($sUrl);
 
 		$this->assertEquals(__FILE__, $oUrl->getPath());
 	}

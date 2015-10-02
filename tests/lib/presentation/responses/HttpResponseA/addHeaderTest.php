@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\presentation\responses\HttpResponseA;
-use fixtures\presentation\responses\FixtureResponse;
+use fixtures\presentation\responses\ResponseFixture;
 
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::addHeader()
@@ -8,7 +8,7 @@ use fixtures\presentation\responses\FixtureResponse;
 class addHeader extends \PHPUnit_Framework_TestCase
 {
 	public function testAddHeader() {
-		$state = new FixtureResponse();
+		$state = new ResponseFixture();
 
 		$testHeader = 'Location';
 		$testValue = 'http://ana.are.mere';

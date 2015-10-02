@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\infrastructure\urls\UrlParserA;
-use fixtures\infrastructure\urls\UrlParserA_underTest;
+use fixtures\infrastructure\urls\UrlParserFixture;
 
 /**
  * @covers \vsc\infrastructure\urls\UrlParserA::getParentPath
@@ -16,8 +16,8 @@ class getParentPathTest extends \PHPUnit_Framework_TestCase {
 			'query'		=> array(),
 			'fragment'	=> ''
 		);
-		$sUrl = UrlParserA_underTest::makeUrl($aUrlComponents);
-		$oUrl = new UrlParserA_underTest($sUrl);
+		$sUrl = UrlParserFixture::makeUrl($aUrlComponents);
+		$oUrl = new UrlParserFixture($sUrl);
 
 		$this->assertEquals(dirname(__FILE__), $oUrl->getParentPath(1));
 	}
@@ -27,7 +27,7 @@ class getParentPathTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testGetParentPathWithAbsolutePath () {
 		$sUrl = '/test/ana/../../rest/application/./processors/RESTProcessorA/validContentTypeTest.php';
-		$oUrl = new UrlParserA_underTest($sUrl);
+		$oUrl = new UrlParserFixture($sUrl);
 
 		$this->assertEquals('/rest/application', $oUrl->getParentPath(3));
 	}
@@ -37,7 +37,7 @@ class getParentPathTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testGetParentPathWithRelativePath () {
 		$sUrl = '/test/ana/../../rest/application/./processors/RESTProcessorA/validContentTypeTest.php';
-		$oUrl = new UrlParserA_underTest($sUrl);
+		$oUrl = new UrlParserFixture($sUrl);
 
 		$this->assertEquals('/rest/application', $oUrl->getParentPath(3));
 	}

@@ -4,7 +4,7 @@
  * @created 2015-02-24
  */
 namespace lib\application\sitemaps\MappingA;
-use fixtures\application\controllers\GenericFrontController;
+use fixtures\application\controllers\FrontControllerFixture;
 use vsc\application\sitemaps\ExceptionSitemap;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ModuleMap;
@@ -18,7 +18,7 @@ use vsc\Exception;
 class getValidPathTest extends \PHPUnit_Framework_TestCase {
 	public function testSetTemplatePathRelativeNoModuleMap ()
 	{
-		$oMap = new MappingA_underTest_getValidPath (GenericFrontController::class, '\A.*\Z');
+		$oMap = new MappingA_underTest_getValidPath (FrontControllerFixture::class, '\A.*\Z');
 
 		try {
 			$oMap->getValidPath( 'templates' . DIRECTORY_SEPARATOR );
@@ -32,7 +32,7 @@ class getValidPathTest extends \PHPUnit_Framework_TestCase {
 
 	public function testSetTemplatePathAbsolute ()
 	{
-		$oMap = new MappingA_underTest_getValidPath (GenericFrontController::class, '\A.*\Z');
+		$oMap = new MappingA_underTest_getValidPath (FrontControllerFixture::class, '\A.*\Z');
 
 		$this->assertEquals(VSC_FIXTURE_PATH . 'templates'.DIRECTORY_SEPARATOR, $oMap->getValidPath( VSC_FIXTURE_PATH . 'templates'.DIRECTORY_SEPARATOR));
 	}
@@ -41,7 +41,7 @@ class getValidPathTest extends \PHPUnit_Framework_TestCase {
 	{
 		$oModuleMap = new ModuleMap(VSC_FIXTURE_PATH . 'config/map.php', '\A.*\Z');
 
-		$oMap = new MappingA_underTest_getValidPath(GenericFrontController::class, '\A.*\Z');
+		$oMap = new MappingA_underTest_getValidPath(FrontControllerFixture::class, '\A.*\Z');
 		$oMap->setModuleMap($oModuleMap);
 
 		$this->assertEquals(VSC_FIXTURE_PATH . 'templates'.DIRECTORY_SEPARATOR, $oMap->getValidPath('templates'.DIRECTORY_SEPARATOR));

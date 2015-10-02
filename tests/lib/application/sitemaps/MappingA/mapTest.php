@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
-use fixtures\application\controllers\GenericFrontController;
+use fixtures\application\controllers\FrontControllerFixture;
 use vsc\application\controllers\ExceptionController;
 use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\MappingA;
@@ -14,7 +14,7 @@ class map extends \PHPUnit_Framework_TestCase
 	public function testMapClass()
 	{
 		$o = new MappingA_underTest_mapController();
-		$oMap = $o->map ('.*', GenericFrontController::class);
+		$oMap = $o->map ('.*', FrontControllerFixture::class);
 
 		$this->assertInstanceOf(MappingA::class, $oMap);
 		$this->assertInstanceOf(ClassMap::class, $oMap);
@@ -24,7 +24,7 @@ class map extends \PHPUnit_Framework_TestCase
 	{
 		$o = new MappingA_underTest_mapController();
 		try {
-			$o->map('.*', VSC_FIXTURE_PATH . 'application/controllers/GenericFrontController.php');
+			$o->map('.*', VSC_FIXTURE_PATH . 'application/controllers/FrontControllerFixture.php');
 		} catch (\Exception $e) {
 			$this->assertInstanceOf(Exception::class, $e);
 			$this->assertInstanceOf(ExceptionController::class, $e);

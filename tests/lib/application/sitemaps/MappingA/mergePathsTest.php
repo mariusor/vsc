@@ -1,7 +1,7 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ClassMap;
-use vsc\application\sitemaps\ContentTypeMappingI;
+use vsc\application\sitemaps\ContentTypeMappingInterface;
 use vsc\application\sitemaps\MappingA;
 
 /**
@@ -48,7 +48,7 @@ class MappingA_underTest_mergePaths extends MappingA {
 	}
 }
 
-class MappingA_underTest_mergePaths_ContentTypeInterface extends MappingA_underTest_mergePaths implements ContentTypeMappingI {
+class MappingA_underTest_mergePaths_ContentTypeInterface extends MappingA_underTest_mergePaths implements ContentTypeMappingInterface {
 
 	public function setMainTemplatePath($sPath)
 	{
