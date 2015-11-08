@@ -147,22 +147,6 @@ class UrlParserA extends Object implements UrlParserInterface {
 		}
 	}
 
-	public function getSubdomain() {
-		return $this->getSubdomainOf($this->getDomain());
-	}
-
-	public function getDomain() {
-		$sTld = $this->getTLD();
-		return $this->getSubdomainOf($sTld) . '.' . $sTld;
-	}
-
-	public function getTLD($sString = null) {
-		if (is_null($sString)) {
-			$sString = $this->oUrl->getHost();
-		}
-		return self::getTldOf($sString);
-	}
-
 	public static function getCurrentHostName() {
 		return $_SERVER['HTTP_HOST'];
 	}
@@ -250,11 +234,6 @@ class UrlParserA extends Object implements UrlParserInterface {
 	public static function hasGoodTermination($sUri, $sTermination = '/') {
 		// last element should be an / or in the last part after / there should be a .
 		return (substr($sUri, -1) == $sTermination || stristr(substr($sUri, strrpos($sUri, $sTermination)), '.'));
-	}
-
-	public function changeSubdomain($sNewSubdomain) {
-		$this->oUrl->setHost(str_ireplace($this->getSubdomain(), $sNewSubdomain, $this->oUrl->getHost()));
-		return $this->oUrl->getHost();
 	}
 
 	/**
