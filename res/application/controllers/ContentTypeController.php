@@ -7,11 +7,21 @@ use vsc\presentation\views\ViewA;
 
 class ContentTypeController extends FrontControllerA {
 
+	/**
+	 * The current request content type
+	 * @var string
+	 */
+	private $sContentType;
+
 	public static function isValidContentType($sContentType) {}
 
 	public function getAvailableContentTypes() {}
 
 	public function getController() {}
+
+	public function getContentType() {
+		return $this->sContentType;
+	}
 
 	/**
 	 * @returns ViewA
@@ -25,6 +35,8 @@ class ContentTypeController extends FrontControllerA {
 	 * @return \vsc\presentation\responses\HttpResponseA
 	 */
 	public function getResponse(HttpRequestA $oRequest, $oProcessor = null) {
+		$this->sContentType = $oRequest->getContentType();
+
 	}
 
 	/**
@@ -40,5 +52,7 @@ class ContentTypeController extends FrontControllerA {
 	 * @throws ExceptionView
 	 */
 	public function getView() {
+		$sContentType = $this->getContentType();
+
 	}
 }
