@@ -80,10 +80,10 @@ trait SessionRequestTrait {
 	public static function destroySession() {
 		$aSessionCookieParams = session_get_cookie_params();
 
-		session_unset();
-		session_destroy();
-		session_write_close();
 		setcookie(session_name(), "", -1, $aSessionCookieParams['path'], $aSessionCookieParams['domain'], $aSessionCookieParams['secure'], $aSessionCookieParams['httponly']);
+		session_unset();
+		session_write_close();
+		session_destroy();
 	}
 
 	/**
