@@ -14,7 +14,6 @@ class startSession extends \PHPUnit_Framework_TestCase
 
 	public function testUseless()
 	{
-		$this->markTestSkipped('PHP7 fucked up sessions');
 		$sSessionId = uniqid('test:');
 		@SessionRequestTrait::startSession($sSessionId);
 		$this->assertEquals($sSessionId, session_id());

@@ -12,7 +12,7 @@ class setCookieVarTest extends \PHPUnit_Framework_TestCase {
 		$o = new CookieRequest_underTest_setCookieVar();
 		$key = 'test';
 		$value = uniqid('test:');
-		$this->assertFalse(@$o->setCookieVar($key, $value));
+		$this->assertTrue($o->setCookieVar($key, $value));
 	}
 
 	public function testBasicSetCookieVar_throwsException()

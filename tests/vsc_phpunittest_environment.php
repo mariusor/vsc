@@ -6,6 +6,8 @@
  * Bolierplate code to make PHPUnit play nice with vsc *
  */
 
+ob_start();
+
 $_GET		= array ('cucu' => 'pasare','ana' => 'are', 'mere' => '', 'test' => 123);
 $_POST		= array ('postone' => 'are', 'ana' => '');
 $_COOKIE	= array ('user' => 'asddsasdad234');

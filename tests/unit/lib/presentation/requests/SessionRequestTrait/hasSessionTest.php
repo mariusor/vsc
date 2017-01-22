@@ -9,7 +9,6 @@ use vsc\presentation\requests\SessionRequestTrait;
 class hasSession extends \PHPUnit_Framework_TestCase
 {
 	public function testHasSession () {
-		$this->markTestSkipped('PHP7 fucked up sessions');
 		$this->assertFalse(SessionRequestTrait::hasSession());
 
 		@session_start();

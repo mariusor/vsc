@@ -82,8 +82,8 @@ trait SessionRequestTrait {
 
 		setcookie(session_name(), "", -1, $aSessionCookieParams['path'], $aSessionCookieParams['domain'], $aSessionCookieParams['secure'], $aSessionCookieParams['httponly']);
 		session_unset();
-		session_write_close();
 		session_destroy();
+		session_write_close();
 	}
 
 	/**

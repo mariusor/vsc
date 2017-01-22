@@ -9,10 +9,12 @@ class destroySession extends \PHPUnit_Framework_TestCase
 {
 	public function testBasicDestroySession()
 	{
-		$this->markTestSkipped('PHP7 fucked up sessions');
+		if (session_status() == PHP_SESSION_ACTIVE) {
+			$this->markTestSkipped('PHP7 fucked up sessions');
+		}
 		$o = new SessionRequest_underTest_destroySession();
 		$this->assertNotEquals('', session_id());
-		@SessionRequest_underTest_destroySession::destroySession();
+		SessionRequest_underTest_destroySession::destroySession();
 		$this->assertEquals('', session_id());
 		$this->assertEmpty(session_id());
 	}
