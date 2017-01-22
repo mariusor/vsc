@@ -15,10 +15,10 @@ $_SERVER	= array (
 	'PHP_SELF' => '/',
 	'REQUEST_URI' => '/test/ana:are/test:123/',
 	'HTTP_ACCEPT' => 'application/html,text/html;charset=UTF8,image/*',
-    'REQUEST_TIME' => time()
+	'REQUEST_TIME' => time()
 );
 
-$_SESSION = array();
+//$_SESSION = array();
 
 if (!defined('VSC_PATH')) {
 	define ( 'VSC_PATH', realpath( dirname (__FILE__) . '/../') . DIRECTORY_SEPARATOR );
@@ -35,7 +35,7 @@ date_default_timezone_set('UTC');
 chdir(dirname(__FILE__) . '/../');
 // Composer autoloading.
 if ( file_exists('vendor/autoload.php') ) {
-    $loader = include_once 'vendor/autoload.php';
+	$loader = include_once 'vendor/autoload.php';
 } else {
 	throw new RuntimeException('Unable to load the autoloader. Run `php composer.phar install`.');
 }

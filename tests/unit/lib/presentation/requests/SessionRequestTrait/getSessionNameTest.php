@@ -10,7 +10,7 @@ class getSessionName extends \PHPUnit_Framework_TestCase
 {
 	public function testGetEmptySessionName()
 	{
-        $this->markTestSkipped('PHP7 fucked up sessions');
+		$this->markTestSkipped('PHP7 fucked up sessions');
 		$o = new SessionRequest_underTest_getSessionName();
 		$this->assertEquals('', $o->getSessionName());
 	}

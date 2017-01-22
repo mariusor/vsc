@@ -11,6 +11,7 @@ use vsc\application\controllers\PlainTextController;
 use vsc\application\controllers\RssController;
 use vsc\application\controllers\Html5Controller;
 use vsc\application\dispatchers\RwDispatcher;
+use vsc\application\processors\ErrorProcessor;
 use vsc\application\processors\NotFoundProcessor;
 use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\MappingA;
@@ -57,6 +58,7 @@ class mapTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertInstanceOf(MappingA::class, $map);
 		$this->assertInstanceOf(ClassMap::class, $map);
+		$this->assertEquals(ErrorProcessor::class, $map->getPath());
 		$this->assertEquals(NotFoundProcessor::class, $map->getPath());
 		$this->assertEquals('404.php', $map->getTemplate());
 		$this->assertEquals(VSC_RES_PATH . 'templates' . DIRECTORY_SEPARATOR, $map->getTemplatePath());
