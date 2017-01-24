@@ -5,7 +5,7 @@ use vsc\presentation\responses\ExceptionDigestAuthenticationChallenge;
 /**
  * @covers \vsc\presentation\responses\ExceptionDigestAuthenticationChallenge::getChallenge()
  */
-class getChallenge extends \PHPUnit_Framework_TestCase
+class getChallenge extends \BaseUnitTest
 {
 	public function testGetBasicChallenge()
 	{

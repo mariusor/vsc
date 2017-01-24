@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::getPath()
  */
-class getPath extends \PHPUnit_Framework_TestCase
+class getPath extends \BaseUnitTest
 {
 	public function testBasicGetPath()
 	{

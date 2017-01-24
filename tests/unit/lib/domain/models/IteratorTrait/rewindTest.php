@@ -6,7 +6,7 @@ use vsc\domain\models\IteratorTrait;
 /**
  * @covers \vsc\domain\models\ModelA::rewind()
  */
-class rewind extends \PHPUnit_Framework_TestCase
+class rewind extends \BaseUnitTest
 {
 	/**
 	 * @covers \vsc\domain\models\ModelA::rewind

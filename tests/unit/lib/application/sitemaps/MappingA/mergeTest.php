@@ -6,7 +6,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::merge()
  */
-class merge extends \PHPUnit_Framework_TestCase
+class merge extends \BaseUnitTest
 {
 	public function testBasicMerge()
 	{

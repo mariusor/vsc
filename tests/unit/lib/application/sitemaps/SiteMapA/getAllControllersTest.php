@@ -9,7 +9,7 @@ use vsc\application\sitemaps\SiteMapA;
  * @package lib\application\sitemaps\SiteMapA
  * @covers \vsc\application\sitemaps\SiteMapA::getAllControllers()
  */
-class getAllControllersTest extends \PHPUnit_Framework_TestCase
+class getAllControllersTest extends \BaseUnitTest
 {
 	public function testEmptyControllersAtInitialization() {
 		$o = new SiteMapA_underTest_getAllControllers();

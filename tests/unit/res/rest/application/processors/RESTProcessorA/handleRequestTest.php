@@ -13,7 +13,7 @@ use vsc\presentation\requests\HttpRequestA;
  * @package res\rest\application\processors\RESTProcessorA
  * @covers \vsc\rest\application\processors\RESTProcessorA::handleRequest()
  */
-class handleRequestTest extends \PHPUnit_Framework_TestCase {
+class handleRequestTest extends \BaseUnitTest {
 
 	public function testNoHttpMethod () {
 		$o = new RESTProcessorA_underTest_handleRequest();

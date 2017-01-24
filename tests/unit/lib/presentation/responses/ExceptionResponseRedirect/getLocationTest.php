@@ -6,7 +6,7 @@ use vsc\presentation\responses\ExceptionResponseRedirect;
 /**
  * @covers \vsc\presentation\responses\ExceptionResponseRedirect::getLocation()
  */
-class getLocation extends \PHPUnit_Framework_TestCase
+class getLocation extends \BaseUnitTest
 {
 	public function testBasicGetLocation()
 	{

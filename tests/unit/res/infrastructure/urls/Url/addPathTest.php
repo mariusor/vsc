@@ -5,7 +5,7 @@ use vsc\infrastructure\urls\Url;
 /**
  * @covers \vsc\infrastructure\urls\Url::addPath()
  */
-class addPathTest extends \PHPUnit_Framework_TestCase {
+class addPathTest extends \BaseUnitTest {
 
 	public function testAddPath () {
 		$sLocalHost = 'http://localhost';

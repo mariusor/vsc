@@ -6,7 +6,7 @@ use vsc\presentation\views\ViewA;
 /**
  * @covers \vsc\presentation\views\ViewA::setMap()
  */
-class setMap extends \PHPUnit_Framework_TestCase
+class setMap extends \BaseUnitTest
 {
 	public function testBasicSetMap()
 	{

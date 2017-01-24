@@ -5,7 +5,7 @@ use vsc\presentation\requests\ContentType;
 /**
  * @covers \vsc\presentation\requests\ContentType::isValidContentType()
  */
-class isValidContentType extends \PHPUnit_Framework_TestCase
+class isValidContentType extends \BaseUnitTest
 {
 	/**
 	 * @return array

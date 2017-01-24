@@ -5,7 +5,7 @@ use vsc\domain\models\StaticFileModel;
 /**
  * @covers \vsc\domain\models\StaticFileModel::setFilePath()
  */
-class setFilePath extends \PHPUnit_Framework_TestCase
+class setFilePath extends \BaseUnitTest
 {
 	public function testBasicSetFilePath()
 	{

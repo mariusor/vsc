@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::getETag()
  */
-class getETag extends \PHPUnit_Framework_TestCase
+class getETag extends \BaseUnitTest
 {
 	public function testETag () {
 		$state = new HttpResponseA_underTest_getETag();

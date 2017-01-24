@@ -5,7 +5,7 @@ use vsc\domain\models\ArrayAccessTrait;
 /**
  * @covers \vsc\domain\models\ArrayAccessTrait::offsetUnset()
  */
-class offsetUnset extends \PHPUnit_Framework_TestCase
+class offsetUnset extends \BaseUnitTest
 {
 
 	public function testOffsetUnset()

@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::setContentMd5()
  */
-class setContentMd5 extends \PHPUnit_Framework_TestCase
+class setContentMd5 extends \BaseUnitTest
 {
 	public function testBasicSetContentMd5()
 	{

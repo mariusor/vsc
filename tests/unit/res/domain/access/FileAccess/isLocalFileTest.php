@@ -5,7 +5,7 @@ use vsc\domain\access\FileAccess;
 /**
  * @covers \vsc\domain\access\FileAccess::isLocalFile()
  */
-class isLocalFile extends \PHPUnit_Framework_TestCase
+class isLocalFile extends \BaseUnitTest
 {
 	public function testLocalFileIsLocal()
 	{

@@ -4,7 +4,7 @@ namespace lib\infrastructure\urls\UrlParserA;
 
 use mocks\infrastructure\urls\UrlParserFixture;
 
-class getTldOfTest extends \PHPUnit_Framework_TestCase {
+class getTldOfTest extends \BaseUnitTest {
 	/**
 	 * @covers \vsc\infrastructure\urls\UrlParserA::getTldOf
 	 */

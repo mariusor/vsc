@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::setDate()
  */
-class setDate extends \PHPUnit_Framework_TestCase
+class setDate extends \BaseUnitTest
 {
 	public function testBasicSetDate()
 	{

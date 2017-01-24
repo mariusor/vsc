@@ -6,7 +6,7 @@ use vsc\domain\models\IteratorTrait;
 /**
  * @covers \vsc\domain\models\IteratorTrait::setCurrent
  */
-class setCurrentTest extends \PHPUnit_Framework_TestCase {
+class setCurrentTest extends \BaseUnitTest {
 
 	public function testBasicSetCurrent() {
 		$test = uniqid('test:');

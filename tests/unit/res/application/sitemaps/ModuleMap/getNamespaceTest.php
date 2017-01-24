@@ -5,7 +5,7 @@ use vsc\application\sitemaps\ModuleMap;
 /**
  * @covers \vsc\application\sitemaps\ModuleMap::getNamespace()
  */
-class getNamespace extends \PHPUnit_Framework_TestCase
+class getNamespace extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

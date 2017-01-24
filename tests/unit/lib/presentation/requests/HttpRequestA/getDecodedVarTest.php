@@ -5,7 +5,7 @@ use vsc\presentation\requests\HttpRequestA;
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::getDecodedVar()
  */
-class getDecodedVar extends \PHPUnit_Framework_TestCase
+class getDecodedVar extends \BaseUnitTest
 {
 	public function providerForEmptyAtInitialize () {
 		return [

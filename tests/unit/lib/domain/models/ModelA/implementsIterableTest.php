@@ -3,7 +3,7 @@ namespace lib\domain\models\ModelA;
 
 use vsc\domain\models\ModelA;
 
-class implementsIterableTest extends \PHPUnit_Framework_TestCase {
+class implementsIterableTest extends \BaseUnitTest {
 	/**
 	 * @covers \vsc\domain\models\ModelA::current
 	 * @covers \vsc\domain\models\ModelA::next

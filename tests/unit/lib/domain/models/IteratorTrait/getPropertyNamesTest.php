@@ -5,7 +5,7 @@ use vsc\domain\models\IteratorTrait;
 /**
  * @covers \vsc\domain\models\IteratorTrait::getPropertyNames()
  */
-class getPropertyNamesTest extends \PHPUnit_Framework_TestCase {
+class getPropertyNamesTest extends \BaseUnitTest {
 
 	public function testBasicGetPropertyNames() {
 		$o = new IteratorT_underTest_getPropertyNames();

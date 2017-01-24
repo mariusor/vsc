@@ -6,7 +6,7 @@ use vsc\presentation\requests\ServerRequestTrait;
 /**
  * @covers \vsc\presentation\requests\ServerRequestTrait::getHttpUserAgent()
  */
-class getHttpUserAgent extends \PHPUnit_Framework_TestCase
+class getHttpUserAgent extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

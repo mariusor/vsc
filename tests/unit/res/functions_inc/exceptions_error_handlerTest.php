@@ -6,7 +6,7 @@ use vsc\ExceptionError;
  * Class exceptions_error_handler
  * @package tests\res\functions_inc
  */
-class exceptions_error_handler extends \PHPUnit_Framework_TestCase
+class exceptions_error_handler extends \BaseUnitTest
 {
 	public function testBasicExceptionsErrorHandler()
 	{

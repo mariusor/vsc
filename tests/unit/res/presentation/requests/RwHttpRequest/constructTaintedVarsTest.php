@@ -5,7 +5,7 @@ use vsc\presentation\requests\RwHttpRequest;
 /**
  * @covers \vsc\presentation\requests\RwHttpRequest::constructTaintedVars()
  */
-class constructTaintedVars extends \PHPUnit_Framework_TestCase
+class constructTaintedVars extends \BaseUnitTest
 {
 	public function testBasicConstructTaintedVars()
 	{

@@ -5,7 +5,7 @@ use vsc\domain\domain\RssItem;
 /**
  * @covers \vsc\domain\domain\RssItem::__construct()
  */
-class __construct extends \PHPUnit_Framework_TestCase
+class __construct extends \BaseUnitTest
 {
 	public function testBasic__construct()
 	{

@@ -5,7 +5,7 @@ use vsc\presentation\views\XhtmlView;
 /**
  * @covers \vsc\presentation\views\XhtmlView::getScripts()
  */
-class getScripts extends \PHPUnit_Framework_TestCase
+class getScripts extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

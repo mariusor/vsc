@@ -9,7 +9,7 @@ use vsc\Exception;
 /**
  * @covers \vsc\infrastructure\Object::__get()
  */
-class __get extends \PHPUnit_Framework_TestCase
+class __get extends \BaseUnitTest
 {
 	public function test__getDev () {
 		$null = new Object_underTest___get();

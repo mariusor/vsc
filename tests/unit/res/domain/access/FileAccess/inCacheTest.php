@@ -5,7 +5,7 @@ use vsc\domain\access\FileAccess;
 /**
  * @covers \vsc\domain\access\FileAccess::inCache()
  */
-class inCache extends \PHPUnit_Framework_TestCase
+class inCache extends \BaseUnitTest
 {
 	public function testNotInCacheAtInitialization()
 	{

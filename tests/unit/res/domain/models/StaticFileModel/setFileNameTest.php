@@ -5,7 +5,7 @@ use vsc\domain\models\StaticFileModel;
 /**
  * @covers \vsc\domain\models\StaticFileModel::setFileName()
  */
-class setFileName extends \PHPUnit_Framework_TestCase
+class setFileName extends \BaseUnitTest
 {
 	public function testBasicSetFilename()
 	{

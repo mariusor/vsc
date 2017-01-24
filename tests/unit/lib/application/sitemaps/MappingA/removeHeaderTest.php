@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::removeHeader()
  */
-class removeHeader extends \PHPUnit_Framework_TestCase
+class removeHeader extends \BaseUnitTest
 {
 	public function testBasicRemoveHeader()
 	{

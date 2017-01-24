@@ -7,7 +7,7 @@ use vsc\presentation\requests\HttpRequestA;
 /**
  * @covers \vsc\application\processors\ProcessorA::setVar()
  */
-class setVar extends \PHPUnit_Framework_TestCase
+class setVar extends \BaseUnitTest
 {
 	public function testBasicSetVar()
 	{

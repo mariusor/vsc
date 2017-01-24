@@ -5,7 +5,7 @@ use vsc\presentation\requests\HttpAuthenticationA;
 /**
  * @covers \vsc\presentation\requests\HttpAuthenticationA::getAuthenticationSchemas()
  */
-class getAuthenticationSchemas extends \PHPUnit_Framework_TestCase
+class getAuthenticationSchemas extends \BaseUnitTest
 {
 	public function testGetAuthenticationSchemasWithDifferentTypes ()
 	{

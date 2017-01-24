@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::getValidAuthenticationSchemas()
  */
-class getValidAuthenticationSchemas extends \PHPUnit_Framework_TestCase
+class getValidAuthenticationSchemas extends \BaseUnitTest
 {
 	public function testEmptyAtInitialize ()
 	{

@@ -7,7 +7,8 @@ use vsc\presentation\requests\HttpRequestA;
  * Class setCookieVarTest
  * @covers \vsc\presentation\requests\CookieRequestTrait::setCookieVar()
  */
-class setCookieVarTest extends \PHPUnit_Framework_TestCase {
+class setCookieVarTest extends \BaseUnitTest {
+
 	public function testBasicSetCookieVar() {
 		$o = new CookieRequest_underTest_setCookieVar();
 		$key = 'test';

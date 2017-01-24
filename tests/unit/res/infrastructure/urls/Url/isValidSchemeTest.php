@@ -12,7 +12,7 @@ use vsc\infrastructure\urls\Url;
  * @package tests\infrastructure\urls\Url
  * @covers vsc\infrastructure\urls\Url::isValidScheme()
  */
-class isValidSchemeTest extends \PHPUnit_Framework_TestCase
+class isValidSchemeTest extends \BaseUnitTest
 {
 	public function testBasicValidSchemes () {
 		$mirror = new \ReflectionClass(Url::class);

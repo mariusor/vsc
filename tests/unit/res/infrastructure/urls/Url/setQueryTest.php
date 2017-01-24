@@ -12,7 +12,7 @@ use vsc\infrastructure\urls\Url;
  * @package tests\infrastructure\urls
  * @covers vsc\infrastructure\urls\Url::setQuery()
  */
-class setQueryTest extends \PHPUnit_Framework_TestCase
+class setQueryTest extends \BaseUnitTest
 {
 	public function testBasicSetQuery () {
 		$value = [

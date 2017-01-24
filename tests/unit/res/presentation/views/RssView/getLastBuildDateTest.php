@@ -5,7 +5,7 @@ use vsc\presentation\views\RssView;
 /**
  * @covers \vsc\presentation\views\RssView::getLastBuildDate()
  */
-class getLastBuildDate extends \PHPUnit_Framework_TestCase
+class getLastBuildDate extends \BaseUnitTest
 {
 	public function testUseless()
 	{

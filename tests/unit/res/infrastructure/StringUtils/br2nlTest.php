@@ -7,7 +7,7 @@ use vsc\infrastructure\StringUtils;
  * @package res\infrastructure\StringUtils
  * @covers \vsc\infrastructure\StringUtils::br2nl()
  */
-class br2nlTest extends \PHPUnit_Framework_TestCase {
+class br2nlTest extends \BaseUnitTest {
 
 	public function testBasicNl2Br () {
 		$test =<<<ST

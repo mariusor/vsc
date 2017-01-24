@@ -5,7 +5,7 @@ use vsc\presentation\requests\HttpRequestA;
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::isSecure()
  */
-class isSecure extends \PHPUnit_Framework_TestCase
+class isSecure extends \BaseUnitTest
 {
 	public function testDefaultIsFalse()
 	{

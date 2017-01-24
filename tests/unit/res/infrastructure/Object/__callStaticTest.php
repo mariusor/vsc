@@ -9,7 +9,7 @@ use vsc\Exception;
 /**
  * @covers \vsc\infrastructure\Object::__callStatic()
  */
-class __callStatic extends \PHPUnit_Framework_TestCase
+class __callStatic extends \BaseUnitTest
 {
 	public function test__callStaticDev () {
 		$env = new vsc_underTest___callStatic();

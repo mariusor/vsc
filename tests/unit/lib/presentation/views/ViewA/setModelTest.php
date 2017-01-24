@@ -6,7 +6,7 @@ use vsc\presentation\views\ViewA;
 /**
  * @covers \vsc\presentation\views\ViewA::setModel()
  */
-class setModel extends \PHPUnit_Framework_TestCase
+class setModel extends \BaseUnitTest
 {
 	public function testBasicSetModel()
 	{

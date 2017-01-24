@@ -5,7 +5,7 @@ use vsc\domain\models\JsonReader;
 /**
  * @covers \vsc\domain\models\JsonReader::__construct()
  */
-class __construct extends \PHPUnit_Framework_TestCase
+class __construct extends \BaseUnitTest
 {
 	public function testUseless()
 	{

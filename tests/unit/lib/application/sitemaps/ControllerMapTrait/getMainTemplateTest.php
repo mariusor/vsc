@@ -6,7 +6,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\ControllerMapTrait::getMainTemplate()
  */
-class getMainTemplate extends \PHPUnit_Framework_TestCase
+class getMainTemplate extends \BaseUnitTest
 {
 	public function testGetDefaultMainTemplate ()
 	{

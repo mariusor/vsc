@@ -6,7 +6,7 @@ use vsc\presentation\requests\HttpRequestA;
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::isPost()
  */
-class isPost extends \PHPUnit_Framework_TestCase
+class isPost extends \BaseUnitTest
 {
 	public function testIsPost () {
 		$o = new HttpRequestA_underTest_isPost();

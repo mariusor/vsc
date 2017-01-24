@@ -6,7 +6,7 @@ use mocks\presentation\requests\PopulatedRESTRequest;
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::accepts()
  */
-class accepts extends \PHPUnit_Framework_TestCase
+class accepts extends \BaseUnitTest
 {
 
 	public function testAcceptsApplicationHtml () {

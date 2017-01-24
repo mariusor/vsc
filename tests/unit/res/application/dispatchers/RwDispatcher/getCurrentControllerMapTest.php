@@ -8,7 +8,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\dispatchers\RwDispatcher::getCurrentControllerMap()
  */
-class getCurrentControllerMap extends \PHPUnit_Framework_TestCase
+class getCurrentControllerMap extends \BaseUnitTest
 {
 	public function testServeHtml5WithoutSiteMap()
 	{

@@ -5,7 +5,7 @@ use vsc\presentation\requests\BasicHttpAuthentication;
 /**
  * @covers \vsc\presentation\requests\BasicHttpAuthentication::__construct()
  */
-class __construct extends \PHPUnit_Framework_TestCase
+class __construct extends \BaseUnitTest
 {
 	public function testUserAndPasswordAtInitialization()
 	{

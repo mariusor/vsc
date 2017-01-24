@@ -6,7 +6,7 @@ use vsc\infrastructure\urls\Url;
 /**
  * @covers \vsc\infrastructure\urls\Url::isLocal()
  */
-class isLocalTest extends \PHPUnit_Framework_TestCase {
+class isLocalTest extends \BaseUnitTest {
 	public function testIsLocal() {
 		$oUrl = new Url();
 		$oUrl->setPath(__FILE__);

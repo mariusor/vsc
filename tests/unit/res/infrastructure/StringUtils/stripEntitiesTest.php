@@ -8,7 +8,7 @@ use vsc\infrastructure\StringUtils;
  * @package res\infrastructure\StringUtils
  * @covers \vsc\infrastructure\StringUtils::stripEntities()
  */
-class stripEntitiesTest extends \PHPUnit_Framework_TestCase {
+class stripEntitiesTest extends \BaseUnitTest {
 
 	public function testBasicStripEntities() {
 		$test = 'test';

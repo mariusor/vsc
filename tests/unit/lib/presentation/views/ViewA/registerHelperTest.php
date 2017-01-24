@@ -7,7 +7,7 @@ use vsc\presentation\helpers\ViewHelperA;
 /**
  * @covers \vsc\presentation\views\ViewA::registerHelper()
  */
-class registerHelper extends \PHPUnit_Framework_TestCase
+class registerHelper extends \BaseUnitTest
 {
 	public function testBasicRegisterHelper()
 	{

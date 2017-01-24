@@ -5,7 +5,7 @@ use mocks\presentation\requests\PopulatedRequest;
 /**
  * @covers \vsc\presentation\requests\PostRequestTrait::hasPostVar()
  */
-class hasPostVar extends \PHPUnit_Framework_TestCase
+class hasPostVar extends \BaseUnitTest
 {
 	public function testHasPostVar() {
 		$o = new PopulatedRequest();

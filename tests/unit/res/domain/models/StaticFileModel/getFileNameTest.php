@@ -5,7 +5,7 @@ use vsc\domain\models\StaticFileModel;
 /**
  * @covers \vsc\domain\models\StaticFileModel::getFileName()
  */
-class getFileName extends \PHPUnit_Framework_TestCase
+class getFileName extends \BaseUnitTest
 {
 	public function testGetFileNameMatchesAfterSet()
 	{

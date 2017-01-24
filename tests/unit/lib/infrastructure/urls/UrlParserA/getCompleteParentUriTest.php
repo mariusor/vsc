@@ -5,7 +5,7 @@ use mocks\infrastructure\urls\UrlParserFixture;
 /**
  * @covers \vsc\infrastructure\urls\UrlParserA::getCompleteParentUri()
  */
-class getCompleteParentUri extends \PHPUnit_Framework_TestCase
+class getCompleteParentUri extends \BaseUnitTest
 {
 	public function testLocalPath () {
 		$oUrl = new UrlParserFixture(__FILE__);

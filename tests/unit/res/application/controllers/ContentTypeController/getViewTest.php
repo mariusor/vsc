@@ -7,7 +7,7 @@ use vsc\application\sitemaps\ClassMap;
 /**
  * @covers \vsc\application\controllers\ContentTypeController::getView()
  */
-class getView extends \PHPUnit_Framework_TestCase
+class getView extends \BaseUnitTest
 {
 	public function setUp () {
 	}

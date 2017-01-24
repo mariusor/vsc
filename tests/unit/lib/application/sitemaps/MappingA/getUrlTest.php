@@ -6,7 +6,7 @@ use vsc\infrastructure\urls\Url;
 /**
  * @covers \vsc\application\sitemaps\MappingA::getUrl()
  */
-class getUrl extends \PHPUnit_Framework_TestCase
+class getUrl extends \BaseUnitTest
 {
 	public function testEmptyAtInitialize ()
 	{

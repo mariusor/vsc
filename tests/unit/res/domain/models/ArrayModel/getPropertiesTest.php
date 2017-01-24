@@ -5,7 +5,7 @@ use vsc\domain\models\ArrayModel;
 /**
  * @covers \vsc\domain\models\ArrayModel::getProperties()
  */
-class getProperties extends \PHPUnit_Framework_TestCase
+class getProperties extends \BaseUnitTest
 {
 	public function testEmptyPropertiesAtInitialization()
 	{

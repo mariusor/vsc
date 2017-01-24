@@ -7,7 +7,7 @@ use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\SiteMapA;
 
-class findProcessorMap extends \PHPUnit_Framework_TestCase
+class findProcessorMap extends \BaseUnitTest
 {
 
 	public function testEmptyAtInitialization ()

@@ -6,7 +6,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\infrastructure\vsc::getHttpResponse()
  */
-class getHttpResponse extends \PHPUnit_Framework_TestCase
+class getHttpResponse extends \BaseUnitTest
 {
 	public function testBasicGetResponse()
 	{

@@ -6,7 +6,7 @@ use vsc\presentation\views\ViewA;
 /**
  * @covers \vsc\presentation\views\ViewA::getTemplatePath()
  */
-class getTemplatePath extends \PHPUnit_Framework_TestCase
+class getTemplatePath extends \BaseUnitTest
 {
 	public function testDefaultValueAtInitialization()
 	{

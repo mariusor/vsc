@@ -8,7 +8,7 @@ use mocks\infrastructure\urls\UrlParserFixture;
  * @package lib\infrastructure\urls\UrlParserA
  * @covers \vsc\infrastructure\urls\UrlParserA::setPath()
  */
-class setPathTest extends \PHPUnit_Framework_TestCase
+class setPathTest extends \BaseUnitTest
 {
 
 	public function testSetPathWithFolderWithoutProperEnding()

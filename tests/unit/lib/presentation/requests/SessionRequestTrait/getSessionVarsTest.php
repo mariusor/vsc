@@ -6,7 +6,7 @@ use vsc\presentation\requests\SessionRequestTrait;
 /**
  * @covers \vsc\presentation\requests\SessionRequestTrait::getSessionVars()
  */
-class getSessionVars extends \PHPUnit_Framework_TestCase
+class getSessionVars extends \BaseUnitTest
 {
 	public function testGetEmptySession()
 	{

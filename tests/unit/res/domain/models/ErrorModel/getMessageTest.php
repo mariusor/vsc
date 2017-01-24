@@ -5,7 +5,7 @@ use vsc\domain\models\ErrorModel;
 /**
  * @covers \vsc\domain\models\ErrorModel::getMessage()
  */
-class getMessage extends \PHPUnit_Framework_TestCase
+class getMessage extends \BaseUnitTest
 {
 	public function testModelMessageSameAsExceptionMessage()
 	{

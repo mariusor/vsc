@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseType;
 /**
  * @covers \vsc\presentation\responses\HttpResponseType::getList()
  */
-class getList extends \PHPUnit_Framework_TestCase
+class getList extends \BaseUnitTest
 {
 	public function testBasicGetList() {
 		$Mirror = new \ReflectionClass(HttpResponseType::class);

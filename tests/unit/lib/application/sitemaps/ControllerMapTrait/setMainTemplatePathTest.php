@@ -10,7 +10,7 @@ use vsc\ExceptionPath;
 /**
  * @covers \vsc\application\sitemaps\ControllerMapTrait::setMainTemplatePath()
  */
-class setMainTemplatePath extends \PHPUnit_Framework_TestCase
+class setMainTemplatePath extends \BaseUnitTest
 {
 	public function testSetMainTemplatePathRelativeNoModuleMap ()
 	{

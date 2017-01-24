@@ -10,7 +10,7 @@ use vsc\ExceptionError;
 /**
  * @covers \vsc\application\processors\ErrorProcessor::setException()
  */
-class setException extends \PHPUnit_Framework_TestCase
+class setException extends \BaseUnitTest
 {
 	public function testSetErrorException ()
 	{

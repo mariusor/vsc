@@ -6,7 +6,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\domain\models\RequestModel::__get()
  */
-class __get extends \PHPUnit_Framework_TestCase
+class __get extends \BaseUnitTest
 {
 	public function test__getForEmptyRequests()
 	{

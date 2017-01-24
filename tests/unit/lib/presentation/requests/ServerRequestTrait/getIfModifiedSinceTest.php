@@ -6,7 +6,7 @@ use vsc\presentation\requests\ServerRequestTrait;
 /**
  * @covers \vsc\presentation\requests\ServerRequestTrait::getIfModifiedSince()
  */
-class getIfModifiedSince extends \PHPUnit_Framework_TestCase
+class getIfModifiedSince extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

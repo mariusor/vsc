@@ -5,7 +5,7 @@ use vsc\presentation\views\RssView;
 /**
  * @covers \vsc\presentation\views\RssView::getDescription()
  */
-class getDescription extends \PHPUnit_Framework_TestCase
+class getDescription extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

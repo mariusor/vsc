@@ -7,7 +7,7 @@ use vsc\presentation\views\ViewA;
 /**
  * @covers \vsc\application\sitemaps\ControllerMapTrait::getViewPath()
  */
-class getViewPath extends \PHPUnit_Framework_TestCase
+class getViewPath extends \BaseUnitTest
 {
 	public function testGetDefaultViewPath()
 	{

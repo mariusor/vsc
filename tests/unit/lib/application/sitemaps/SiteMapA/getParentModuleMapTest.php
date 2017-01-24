@@ -7,7 +7,7 @@ use vsc\application\sitemaps\SiteMapA;
 /**
  * @covers \vsc\application\sitemaps\SiteMapA::getParentModuleMap()
  */
-class getParentModuleMap extends \PHPUnit_Framework_TestCase
+class getParentModuleMap extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization ()
 	{

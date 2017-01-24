@@ -6,7 +6,7 @@ use vsc\application\sitemaps\ExceptionSitemap;
 /**
  * @covers \vsc\infrastructure\vsc::getCurrentModuleMap()
  */
-class getCurrentModuleMap extends \PHPUnit_Framework_TestCase
+class getCurrentModuleMap extends \BaseUnitTest
 {
 	public function testGetCurrentModuleMapWithoutAMap()
 	{

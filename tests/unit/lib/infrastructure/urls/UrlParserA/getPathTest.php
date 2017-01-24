@@ -5,7 +5,7 @@ use mocks\infrastructure\urls\UrlParserFixture;
 /**
  * @covers \vsc\infrastructure\urls\UrlParserA::getPath
  */
-class getPathTest extends \PHPUnit_Framework_TestCase {
+class getPathTest extends \BaseUnitTest {
 	public function testGetPath () {
 		$aUrlComponents = array (
 			'scheme'	=> '',

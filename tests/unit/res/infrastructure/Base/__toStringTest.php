@@ -8,7 +8,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\infrastructure\Base::__toString()
  */
-class __toString extends \PHPUnit_Framework_TestCase
+class __toString extends \BaseUnitTest
 {
 	public function test__setDev ()
 	{

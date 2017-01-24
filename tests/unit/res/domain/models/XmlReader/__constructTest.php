@@ -6,7 +6,7 @@ use vsc\domain\models\ModelA;
 /**
  * @covers \vsc\domain\models\XmlReader::__construct()
  */
-class __construct extends \PHPUnit_Framework_TestCase
+class __construct extends \BaseUnitTest
 {
 	public function testBasic__construct()
 	{

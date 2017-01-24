@@ -8,7 +8,7 @@ use vsc\presentation\responses\HttpResponseType;
  * @package lib\presentation\responses\HttpResponseA
  * @covers \vsc\presentation\responses\HttpResponseA::isServerError()
  */
-class isServerErrorTest extends \PHPUnit_Framework_TestCase
+class isServerErrorTest extends \BaseUnitTest
 {
 	public function providerForHttpStatuses ()
 	{

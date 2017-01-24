@@ -5,7 +5,7 @@ use vsc\presentation\views\RssView;
 /**
  * @covers \vsc\presentation\views\RssView::getLanguage()
  */
-class getLanguage extends \PHPUnit_Framework_TestCase
+class getLanguage extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

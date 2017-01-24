@@ -7,7 +7,7 @@ use vsc\domain\models\JsonReader;
  * @package res\domain\models\JsonReader
  * @covers \vsc\domain\models\JsonReader::buildObj()
  */
-class buildObjTest extends \PHPUnit_Framework_TestCase {
+class buildObjTest extends \BaseUnitTest {
 	public function testBasicBuildObject() {
 		$o = new JsonReader();
 		$k = 'myKey';

@@ -6,7 +6,7 @@ use vsc\infrastructure\Base;
 /**
  * @covers \vsc\domain\models\JsonReader::__get()
  */
-class __get extends \PHPUnit_Framework_TestCase
+class __get extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

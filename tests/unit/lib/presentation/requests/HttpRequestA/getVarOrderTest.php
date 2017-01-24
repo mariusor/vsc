@@ -5,7 +5,7 @@ use mocks\presentation\requests\PopulatedRequest;
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::getVarOrder()
  */
-class getVarOrder extends \PHPUnit_Framework_TestCase
+class getVarOrder extends \BaseUnitTest
 {
 	public function testGetVarOrder() {
 		$sOrder = ini_get('variables_order');

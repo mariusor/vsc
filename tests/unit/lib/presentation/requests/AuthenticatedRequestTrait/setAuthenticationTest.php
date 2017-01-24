@@ -6,7 +6,7 @@ use vsc\presentation\requests\HttpAuthenticationA;
 /**
  * @covers \vsc\presentation\requests\AuthenticatedRequestTrait::setAuthentication()
  */
-class setAuthentication extends \PHPUnit_Framework_TestCase
+class setAuthentication extends \BaseUnitTest
 {
 	public function testSetNoAuthentication () {
 		$value = new HttpAuthenticationA_underTest_setAuthentication();

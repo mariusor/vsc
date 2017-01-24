@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::__construct()
  */
-class __construct extends \PHPUnit_Framework_TestCase
+class __construct extends \BaseUnitTest
 {
 	public function testBasic__construct()
 	{

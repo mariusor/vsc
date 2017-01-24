@@ -7,7 +7,7 @@ use vsc\domain\models\ModelA;
  * @package lib\domain\models\ModelA
  * @covers \vsc\domain\models\ModelA::getPropertyNames()
  */
-class getPropertyNamesTest extends \PHPUnit_Framework_TestCase {
+class getPropertyNamesTest extends \BaseUnitTest {
 
 	public function testBasicGetPublicPropertyNames() {
 		$o = new ModelA_underTest_getPropertyNames();

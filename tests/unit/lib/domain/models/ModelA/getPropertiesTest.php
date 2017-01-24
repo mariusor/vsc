@@ -5,7 +5,7 @@ use vsc\domain\models\ModelA;
 /**
  * @covers \vsc\domain\models\ModelA::getProperties()
  */
-class getPropertiesTest extends \PHPUnit_Framework_TestCase {
+class getPropertiesTest extends \BaseUnitTest {
 
 	/**
 	 * @covers \vsc\domain\models\ModelA::getProperties

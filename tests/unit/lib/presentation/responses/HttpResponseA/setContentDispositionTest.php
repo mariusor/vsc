@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::setContentDisposition()
  */
-class setContentDisposition extends \PHPUnit_Framework_TestCase
+class setContentDisposition extends \BaseUnitTest
 {
 	public function testBasicSetContentDisposition()
 	{

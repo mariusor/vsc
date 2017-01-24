@@ -7,7 +7,7 @@ use vsc\infrastructure\urls\UrlParserA;
  * @package lib\infrastructure\urls\UrlParserA
  * @covers \vsc\infrastructure\urls\UrlParserA::getRequestUri()
  */
-class getRequestUriTest extends \PHPUnit_Framework_TestCase {
+class getRequestUriTest extends \BaseUnitTest {
 
 	public function testEmptyWithoutRequest () {
 		$_SERVER = [];

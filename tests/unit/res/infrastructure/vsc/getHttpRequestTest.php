@@ -6,7 +6,7 @@ use vsc\presentation\requests\HttpRequestA;
 /**
  * @covers \vsc\infrastructure\vsc::getHttpRequest()
  */
-class getHttpRequest extends \PHPUnit_Framework_TestCase
+class getHttpRequest extends \BaseUnitTest
 {
 	public function testGetHttpRequest () {
 		$this->assertInstanceOf(HttpRequestA::class, vsc::getEnv()->getHttpRequest());

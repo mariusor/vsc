@@ -9,7 +9,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::getCustomHeaders()
  */
-class getCustomHeadersTest extends \PHPUnit_Framework_TestCase
+class getCustomHeadersTest extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization() {
 		$o = new HttpResponseA_underTest_getCustomHeaders();

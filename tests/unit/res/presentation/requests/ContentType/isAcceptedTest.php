@@ -7,7 +7,7 @@ use \vsc\presentation\requests\ContentTypes;
 /**
  * @covers \vsc\presentation\requests\ContentType::isAccepted()
  */
-class isAccepted extends \PHPUnit_Framework_TestCase
+class isAccepted extends \BaseUnitTest
 {
 	public function testBasicIsAccepted()
 	{

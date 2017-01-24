@@ -6,7 +6,7 @@ use vsc\application\sitemaps\SiteMapA;
 /**
  * @covers \vsc\application\dispatchers\DispatcherA::getSiteMap()
  */
-class getSiteMap extends \PHPUnit_Framework_TestCase
+class getSiteMap extends \BaseUnitTest
 {
 	public function testGetMapsMap ()
 	{

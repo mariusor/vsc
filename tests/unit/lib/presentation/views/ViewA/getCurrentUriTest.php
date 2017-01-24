@@ -7,7 +7,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\presentation\views\ViewA::getCurrentUri()
  */
-class getCurrentUri extends \PHPUnit_Framework_TestCase
+class getCurrentUri extends \BaseUnitTest
 {
 	public function testMockedAtInitialization()
 	{

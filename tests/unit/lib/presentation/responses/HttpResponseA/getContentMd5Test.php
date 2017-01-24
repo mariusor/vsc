@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::getContentMd5()
  */
-class getContentMd5 extends \PHPUnit_Framework_TestCase
+class getContentMd5 extends \BaseUnitTest
 {
 	/**
 	 * @covers \vsc\presentation\responses\HttpResponseA::getContentMd5()

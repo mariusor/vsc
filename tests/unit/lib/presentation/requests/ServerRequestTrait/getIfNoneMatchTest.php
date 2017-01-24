@@ -6,7 +6,7 @@ use vsc\presentation\requests\ServerRequestTrait;
 /**
  * @covers \vsc\presentation\requests\ServerRequestTrait::getIfNoneMatch()
  */
-class getIfNoneMatch extends \PHPUnit_Framework_TestCase
+class getIfNoneMatch extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

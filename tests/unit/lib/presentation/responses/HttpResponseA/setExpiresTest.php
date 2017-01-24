@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::setExpires()
  */
-class setExpires extends \PHPUnit_Framework_TestCase
+class setExpires extends \BaseUnitTest
 {
 	public function testBasicSetExpires()
 	{

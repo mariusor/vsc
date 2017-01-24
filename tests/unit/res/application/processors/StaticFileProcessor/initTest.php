@@ -5,7 +5,7 @@ use vsc\application\processors\StaticFileProcessor;
 /**
  * @covers \vsc\application\processors\StaticFileProcessor::init()
  */
-class init extends \PHPUnit_Framework_TestCase
+class init extends \BaseUnitTest
 {
 	public function testUseless()
 	{

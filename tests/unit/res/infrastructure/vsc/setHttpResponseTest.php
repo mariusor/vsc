@@ -6,7 +6,7 @@ use vsc\presentation\responses\HttpResponse;
 /**
  * @covers \vsc\infrastructure\vsc::setHttpResponse()
  */
-class setHttpResponse extends \PHPUnit_Framework_TestCase
+class setHttpResponse extends \BaseUnitTest
 {
 	public function testBasicSetHttpResponse()
 	{

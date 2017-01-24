@@ -5,7 +5,7 @@ use vsc\domain\models\EmptyModel;
 /**
  * @covers \vsc\domain\models\EmptyModel::getPageContent()
  */
-class getPageContent extends \PHPUnit_Framework_TestCase
+class getPageContent extends \BaseUnitTest
 {
 	/**
 	 * @covers \vsc\domain\models\EmptyModel::getPageContent

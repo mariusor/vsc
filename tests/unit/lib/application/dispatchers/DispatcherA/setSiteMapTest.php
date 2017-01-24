@@ -10,7 +10,7 @@ use vsc\application\sitemaps\SiteMapA;
 /**
  * @covers \vsc\application\dispatchers\DispatcherA::setSiteMap()
  */
-class setSiteMap extends \PHPUnit_Framework_TestCase
+class setSiteMap extends \BaseUnitTest
 {
 	public function testBasicSiteMap()
 	{

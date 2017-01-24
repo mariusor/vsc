@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::getServerProtocol()
  */
-class getServerProtocol extends \PHPUnit_Framework_TestCase
+class getServerProtocol extends \BaseUnitTest
 {
 	public function testBasicGetServerProtocol()
 	{

@@ -6,7 +6,7 @@ use vsc\domain\models\IteratorTrait;
 /**
  * @covers \vsc\domain\models\IteratorTrait::key()
  */
-class key extends \PHPUnit_Framework_TestCase
+class key extends \BaseUnitTest
 {
 	/**
 	 * @covers \vsc\domain\models\ModelA::key()

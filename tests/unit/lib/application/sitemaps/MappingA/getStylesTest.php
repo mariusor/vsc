@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::getStyles()
  */
-class getStyles extends \PHPUnit_Framework_TestCase
+class getStyles extends \BaseUnitTest
 {
 	public function testEmptyAtInitialize ()
 	{

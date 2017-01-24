@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::getModuleName()
  */
-class getModuleName extends \PHPUnit_Framework_TestCase
+class getModuleName extends \BaseUnitTest
 {
 	public function testSetModuleMap()
 	{

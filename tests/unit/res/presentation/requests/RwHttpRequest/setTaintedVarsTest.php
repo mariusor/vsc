@@ -5,7 +5,7 @@ use mocks\presentation\requests\PopulatedRequest;
 /**
  * @covers \vsc\presentation\requests\RwHttpRequest::setTaintedVars()
  */
-class setTaintedVars extends \PHPUnit_Framework_TestCase
+class setTaintedVars extends \BaseUnitTest
 {
 	public function testSetTaintedVars() {
 		$o = new PopulatedRequest();

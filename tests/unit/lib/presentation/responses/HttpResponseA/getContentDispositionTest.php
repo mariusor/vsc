@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::getContentDisposition()
  */
-class getContentDisposition extends \PHPUnit_Framework_TestCase
+class getContentDisposition extends \BaseUnitTest
 {
 	/**
 	 * @covers \vsc\presentation\responses\HttpResponseA::getContentDisposition()

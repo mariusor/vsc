@@ -10,7 +10,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\controllers\FrontControllerA::getMap()
  */
-class getMap extends \PHPUnit_Framework_TestCase
+class getMap extends \BaseUnitTest
 {
 	/**
 	 * @var FrontControllerA

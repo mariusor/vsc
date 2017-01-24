@@ -5,7 +5,7 @@ use vsc\application\controllers\ContentTypeController;
 /**
  * @covers \vsc\application\controllers\ContentTypeController::getController()
  */
-class getController extends \PHPUnit_Framework_TestCase
+class getController extends \BaseUnitTest
 {
 	public function testUseless()
 	{

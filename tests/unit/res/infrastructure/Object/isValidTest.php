@@ -15,7 +15,7 @@ use vsc\rest\application\processors\RESTProcessorA;
 /**
  * @covers \vsc\infrastructure\Object::isValid()
  */
-class isValid extends \PHPUnit_Framework_TestCase
+class isValid extends \BaseUnitTest
 {
 	public function testIsValid () {
 		$TestVar = new Base();

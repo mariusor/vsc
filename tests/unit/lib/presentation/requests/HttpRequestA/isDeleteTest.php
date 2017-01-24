@@ -7,7 +7,7 @@ use mocks\presentation\requests\PopulatedRequest;
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::isDelete()
  */
-class isDelete extends \PHPUnit_Framework_TestCase
+class isDelete extends \BaseUnitTest
 {
 
 	public function testIsDelete () {

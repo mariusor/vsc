@@ -13,7 +13,7 @@ use mocks\presentation\views\NullView;
  * @package lib\application\controllers\FrontControllerA
  * @covers \vsc\application\controllers\FrontControllerA::getErrorResponse()
  */
-class getErrorResponseTest extends \PHPUnit_Framework_TestCase
+class getErrorResponseTest extends \BaseUnitTest
 {
 
 	public function testBasicGetErrorResponse() {

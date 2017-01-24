@@ -8,7 +8,7 @@ use vsc\infrastructure\StringUtils;
  * @package res\infrastructure\StringUtils
  * @covers \vsc\infrastructure\StringUtils::stripScriptTags()
  */
-class stripScriptTagsTest extends \PHPUnit_Framework_TestCase {
+class stripScriptTagsTest extends \BaseUnitTest {
 
 	public function testBasicStripScriptTags() {
 		$test =<<<START

@@ -5,7 +5,7 @@ use vsc\domain\access\FileAccess;
 /**
  * @covers \vsc\domain\access\FileAccess::cacheFile()
  */
-class cacheFile extends \PHPUnit_Framework_TestCase
+class cacheFile extends \BaseUnitTest
 {
 	public function testBasicCacheFile()
 	{

@@ -6,7 +6,7 @@ use vsc\presentation\views\JsonView;
 /**
  * @covers \vsc\presentation\responses\ResponseA::setView()
  */
-class setView extends \PHPUnit_Framework_TestCase
+class setView extends \BaseUnitTest
 {
 	public function testBasicSetView()
 	{

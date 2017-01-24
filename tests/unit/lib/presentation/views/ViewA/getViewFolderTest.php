@@ -5,7 +5,7 @@ use mocks\presentation\views\testView;
 /**
  * @covers \vsc\presentation\views\ViewA::getViewFolder()
  */
-class getViewFolder extends \PHPUnit_Framework_TestCase
+class getViewFolder extends \BaseUnitTest
 {
 	public function testGetViewFolderEmpty()
 	{

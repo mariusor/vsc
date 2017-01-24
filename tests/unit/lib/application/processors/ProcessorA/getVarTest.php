@@ -7,7 +7,7 @@ use vsc\presentation\requests\HttpRequestA;
 /**
  * @covers \vsc\application\processors\ProcessorA::getVar()
  */
-class getVar extends \PHPUnit_Framework_TestCase
+class getVar extends \BaseUnitTest
 {
 	public function testBasicGetVar () {
 		$o = new ProcessorA_underTest_getVar();

@@ -8,7 +8,7 @@ use vsc\Exception;
 /**
  * @covers \vsc\infrastructure\Object::__set()
  */
-class __set extends \PHPUnit_Framework_TestCase
+class __set extends \BaseUnitTest
 {
 
 	public function test__setDev () {

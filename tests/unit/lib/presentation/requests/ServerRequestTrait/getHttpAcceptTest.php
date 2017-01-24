@@ -6,7 +6,7 @@ use vsc\presentation\requests\ServerRequestTrait;
 /**
  * @covers \vsc\presentation\requests\ServerRequestTrait::getHttpAccept()
  */
-class getHttpAccept extends \PHPUnit_Framework_TestCase
+class getHttpAccept extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

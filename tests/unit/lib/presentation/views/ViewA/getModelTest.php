@@ -9,7 +9,7 @@ use vsc\presentation\views\ExceptionView;
 /**
  * @covers \vsc\presentation\views\ViewA::getModel()
  */
-class getModel extends \PHPUnit_Framework_TestCase
+class getModel extends \BaseUnitTest
 {
 	public function testGetModel ()
 	{

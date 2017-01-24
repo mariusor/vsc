@@ -7,7 +7,7 @@ use vsc\domain\models\JsonRPCResponse;
 /**
  * @covers \vsc\application\processors\RPCProcessorA::getResponse()
  */
-class getResponse extends \PHPUnit_Framework_TestCase
+class getResponse extends \BaseUnitTest
 {
 	public function testUseless()
 	{

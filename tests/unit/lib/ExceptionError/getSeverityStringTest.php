@@ -5,7 +5,7 @@ use vsc\ExceptionError;
 /**
  * @covers \vsc\ExceptionError::getSeverityString()
  */
-class getSeverityString extends \PHPUnit_Framework_TestCase
+class getSeverityString extends \BaseUnitTest
 {
 	public function testBasicGetSeverityString () {
 		$E = new ExceptionError();

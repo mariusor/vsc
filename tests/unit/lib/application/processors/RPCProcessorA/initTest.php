@@ -8,7 +8,7 @@ use vsc\presentation\requests\RawHttpRequest;
 /**
  * @covers \vsc\application\processors\RPCProcessorA::init()
  */
-class init extends \PHPUnit_Framework_TestCase
+class init extends \BaseUnitTest
 {
 	public function testUseless()
 	{

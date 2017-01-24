@@ -6,7 +6,7 @@ use vsc\presentation\responses\HttpResponseType;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::setStatus()
  */
-class setStatus extends \PHPUnit_Framework_TestCase
+class setStatus extends \BaseUnitTest
 {
 
 	public function providerForTestBasicSetStatus ()

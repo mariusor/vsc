@@ -5,7 +5,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\infrastructure\vsc::isDevelopment()
  */
-class isDevelopment extends \PHPUnit_Framework_TestCase
+class isDevelopment extends \BaseUnitTest
 {
 	public function testBasicIsDevelopment()
 	{

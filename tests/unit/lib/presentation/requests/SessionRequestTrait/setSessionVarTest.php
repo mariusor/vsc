@@ -6,7 +6,7 @@ use vsc\presentation\requests\SessionRequestTrait;
 /**
  * @covers \vsc\presentation\requests\SessionRequestTrait::setSessionVar()
  */
-class setSessionVar extends \PHPUnit_Framework_TestCase
+class setSessionVar extends \BaseUnitTest
 {
 	protected function tearDown() {
 		@session_destroy();

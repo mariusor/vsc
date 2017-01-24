@@ -7,7 +7,7 @@ use vsc\application\controllers\RssController;
 /**
  * @covers \vsc\application\controllers\RssController::getDefaultView()
  */
-class getDefaultView extends \PHPUnit_Framework_TestCase
+class getDefaultView extends \BaseUnitTest
 {
 	public function testBasicGetDefaultView()
 	{

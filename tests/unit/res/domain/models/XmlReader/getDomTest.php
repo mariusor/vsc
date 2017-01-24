@@ -5,7 +5,7 @@ use vsc\domain\models\XmlReader;
 /**
  * @covers \vsc\domain\models\XmlReader::getDom()
  */
-class getDom extends \PHPUnit_Framework_TestCase
+class getDom extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

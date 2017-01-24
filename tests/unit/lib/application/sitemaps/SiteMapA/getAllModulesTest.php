@@ -8,7 +8,7 @@ use vsc\application\sitemaps\SiteMapA;
  * @package lib\application\sitemaps\SiteMapA
  * @covers \vsc\application\sitemaps\SiteMapA::getAllModules()
  */
-class getAllModulesTest extends \PHPUnit_Framework_TestCase
+class getAllModulesTest extends \BaseUnitTest
 {
 	public function testEmptyModulesAtInitialization() {
 		$o = new SiteMapA_underTest_getAllModules();

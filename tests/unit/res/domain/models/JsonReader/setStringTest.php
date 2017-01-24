@@ -5,7 +5,7 @@ use vsc\domain\models\JsonReader;
 /**
  * @covers \vsc\domain\models\JsonReader::setString()
  */
-class setString extends \PHPUnit_Framework_TestCase
+class setString extends \BaseUnitTest
 {
 	public function testBasicSetString()
 	{

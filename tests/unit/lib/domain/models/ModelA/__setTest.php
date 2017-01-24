@@ -6,7 +6,7 @@ use vsc\domain\models\ModelA;
 /**
  * @covers \vsc\domain\models\ModelA::__set()
  */
-class __set extends \PHPUnit_Framework_TestCase
+class __set extends \BaseUnitTest
 {
 
 	public function test__set()

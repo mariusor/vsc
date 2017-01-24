@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::addSetting()
  */
-class addSetting extends \PHPUnit_Framework_TestCase
+class addSetting extends \BaseUnitTest
 {
 	public function testBasicAddSetting()
 	{

@@ -12,6 +12,10 @@
 
 /* @var $this \vsc\application\sitemaps\RwSiteMap */
 
+if (!($this instanceof \vsc\application\sitemaps\SiteMapA)) {
+	return;
+}
+
 // this will break if the current map is the first loaded
 $this->getCurrentModuleMap()->setMainTemplatePath(VSC_RES_PATH.'templates');
 $this->getCurrentModuleMap()->setMainTemplate('main.php');

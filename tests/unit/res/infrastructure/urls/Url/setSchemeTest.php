@@ -12,7 +12,7 @@ use vsc\infrastructure\urls\Url;
  * @package tests\infrastructure\urls
  * @covers vsc\infrastructure\urls\Url::setScheme()
  */
-class setSchemeTest extends \PHPUnit_Framework_TestCase
+class setSchemeTest extends \BaseUnitTest
 {
 	public function testBasicSetScheme () {
 		$value = 'https';

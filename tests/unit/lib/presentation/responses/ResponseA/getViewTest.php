@@ -7,7 +7,7 @@ use vsc\presentation\views\ViewA;
 /**
  * @covers \vsc\presentation\responses\ResponseA::getView()
  */
-class getView extends \PHPUnit_Framework_TestCase
+class getView extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

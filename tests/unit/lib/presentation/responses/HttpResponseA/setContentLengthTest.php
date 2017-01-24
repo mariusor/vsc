@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::setContentLength()
  */
-class setContentLength extends \PHPUnit_Framework_TestCase
+class setContentLength extends \BaseUnitTest
 {
 	public function testBasicSetContentLength()
 	{

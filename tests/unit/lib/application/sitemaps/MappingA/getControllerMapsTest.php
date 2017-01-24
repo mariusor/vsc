@@ -7,7 +7,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::getControllerMaps()
  */
-class getControllerMaps extends \PHPUnit_Framework_TestCase
+class getControllerMaps extends \BaseUnitTest
 {
 	public function testInitializationEmpty()
 	{

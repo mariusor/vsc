@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpHeadersTrait::outputLocationHeaders()
  */
-class outputLocationHeaders extends \PHPUnit_Framework_TestCase
+class outputLocationHeaders extends \BaseUnitTest
 {
 	public function testNullInCLI()
 	{

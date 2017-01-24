@@ -6,7 +6,7 @@ use vsc\presentation\requests\HttpRequestTypes;
 /**
  * @covers \vsc\presentation\requests\ServerRequestTrait::getHttpMethod()
  */
-class getHttpMethod extends \PHPUnit_Framework_TestCase
+class getHttpMethod extends \BaseUnitTest
 {
 	public function testGetHttpMethod () {
 		$o = new PopulatedRequest();

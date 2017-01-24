@@ -5,7 +5,7 @@ use vsc\domain\access\FileAccess;
 /**
  * @covers \vsc\domain\access\FileAccess::setCachePath()
  */
-class setCachePath extends \PHPUnit_Framework_TestCase
+class setCachePath extends \BaseUnitTest
 {
 	public function testBasicSetCachePath()
 	{

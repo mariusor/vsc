@@ -8,7 +8,7 @@ use vsc\ExceptionPath;
 /**
  * @covers \vsc\presentation\views\ViewA::setTemplate()
  */
-class setTemplate extends \PHPUnit_Framework_TestCase
+class setTemplate extends \BaseUnitTest
 {
 	public function testSetTemplate ()
 	{

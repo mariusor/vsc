@@ -5,7 +5,7 @@ use vsc\domain\models\ModelA;
 /**
  * @covers \vsc\domain\models\ModelA::toArray()
  */
-class toArrayTest extends \PHPUnit_Framework_TestCase {
+class toArrayTest extends \BaseUnitTest {
 	/**
 	 * @covers \vsc\domain\models\ModelA::toArray
 	 */

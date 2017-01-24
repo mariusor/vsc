@@ -5,7 +5,7 @@ use mocks\presentation\requests\PopulatedRequest;
 /**
  * @covers \vsc\presentation\requests\RwHttpRequest::getVar()
  */
-class getVar extends \PHPUnit_Framework_TestCase
+class getVar extends \BaseUnitTest
 {
 	public function testGetGetVarCorrect() {
 		$o = new PopulatedRequest();

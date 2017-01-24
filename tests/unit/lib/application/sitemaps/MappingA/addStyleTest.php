@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::addStyle()
  */
-class addStyle extends \PHPUnit_Framework_TestCase
+class addStyle extends \BaseUnitTest
 {
 	public function testSetBasicStyle()
 	{

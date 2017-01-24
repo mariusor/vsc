@@ -5,7 +5,7 @@ use mocks\presentation\requests\PopulatedRequest;
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::hasVar()
  */
-class hasVar extends \PHPUnit_Framework_TestCase
+class hasVar extends \BaseUnitTest
 {
 	public function tearDown() {
 		@session_destroy();

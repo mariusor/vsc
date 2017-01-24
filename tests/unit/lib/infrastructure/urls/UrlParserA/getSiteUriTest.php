@@ -7,7 +7,7 @@ use vsc\infrastructure\urls\UrlParserA;
  * @package lib\infrastructure\urls\UrlParserA
  * @covers \vsc\infrastructure\urls\UrlParserA::getSiteUri()
  */
-class getSiteUriTest extends \PHPUnit_Framework_TestCase {
+class getSiteUriTest extends \BaseUnitTest {
 
 	public function testBasicGetSiteUri() {
 		$test = 'example.com';

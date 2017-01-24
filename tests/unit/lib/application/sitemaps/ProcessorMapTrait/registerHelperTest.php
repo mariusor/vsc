@@ -7,7 +7,7 @@ use vsc\presentation\helpers\ViewHelperA;
 /**
  * @covers \vsc\application\sitemaps\ProcessorMapTrait::registerHelper()
  */
-class registerHelper extends \PHPUnit_Framework_TestCase
+class registerHelper extends \BaseUnitTest
 {
 	public function testBasicRegisterHelper()
 	{

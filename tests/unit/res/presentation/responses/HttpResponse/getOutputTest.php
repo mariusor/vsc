@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponse;
 /**
  * @covers \vsc\presentation\responses\HttpResponse::getOutput()
  */
-class getOutput extends \PHPUnit_Framework_TestCase
+class getOutput extends \BaseUnitTest
 {
 	public function testGetEmptyOutput () {
 		$state = new HttpResponse();

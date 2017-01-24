@@ -6,7 +6,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\infrastructure\vsc::setHttpRequest()
  */
-class setHttpRequest extends \PHPUnit_Framework_TestCase
+class setHttpRequest extends \BaseUnitTest
 {
 	public function testBasicSetHttpRequest()
 	{

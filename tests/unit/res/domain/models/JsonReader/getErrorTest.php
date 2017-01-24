@@ -7,7 +7,7 @@ use vsc\domain\models\JsonReader;
  * @package res\domain\models\JsonReader
  * @covers \vsc\domain\models\JsonReader::getError()
  */
-class getErrorTest extends \PHPUnit_Framework_TestCase
+class getErrorTest extends \BaseUnitTest
 {
 
 	public function providerJsonErrorCode()

@@ -12,7 +12,7 @@ use vsc\infrastructure\urls\Url;
  * @package tests\infrastructure\urls\Url
  * @covers vsc\infrastructure\urls\Url::getUrl()
  */
-class getUrlTest extends \PHPUnit_Framework_TestCase
+class getUrlTest extends \BaseUnitTest
 {
 	public function testInstantiationIsEmptyString () {
 		$url = new Url_underTest_getUrl();

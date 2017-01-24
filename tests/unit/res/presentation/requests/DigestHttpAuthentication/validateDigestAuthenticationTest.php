@@ -9,7 +9,7 @@ use vsc\presentation\requests\HttpRequestTypes;
  * @package res\presentation\requests\DigestHttpAuthentication
  * @covers \vsc\presentation\requests\DigestHttpAuthentication::validateDigestAuthentication()
  */
-class validateDigestAuthenticationTest extends \PHPUnit_Framework_TestCase {
+class validateDigestAuthenticationTest extends \BaseUnitTest {
 	public function test__ExampleFromRFC() {
 		$realm = 'testrealm@host.com';
 		$user = 'Mufasa';

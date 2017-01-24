@@ -7,7 +7,7 @@ use vsc\application\sitemaps\ModuleMap;
 /**
  * @covers \vsc\application\processors\ProcessorA::getMap()
  */
-class getMap extends \PHPUnit_Framework_TestCase
+class getMap extends \BaseUnitTest
 {
 	public function testBasicGetMap ()
 	{

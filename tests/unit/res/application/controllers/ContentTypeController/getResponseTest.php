@@ -8,7 +8,7 @@ use vsc\application\processors\EmptyProcessor;
 /**
  * @covers \vsc\application\controllers\ContentTypeController::getResponse()
  */
-class getResponse extends \PHPUnit_Framework_TestCase
+class getResponse extends \BaseUnitTest
 {
 	public function testBasicGetResponse()
 	{

@@ -5,7 +5,7 @@ use vsc\presentation\views\XmlView;
 /**
  * @covers \vsc\presentation\views\XmlView::getMetaHeaders()
  */
-class getMetaHeaders extends \PHPUnit_Framework_TestCase
+class getMetaHeaders extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

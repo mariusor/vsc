@@ -5,7 +5,7 @@ use vsc\presentation\requests\HttpRequestA;
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::getVars()
  */
-class getVars extends \PHPUnit_Framework_TestCase
+class getVars extends \BaseUnitTest
 {
 	public function testWithEmptyRequest()
 	{

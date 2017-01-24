@@ -6,8 +6,6 @@
  * Bolierplate code to make PHPUnit play nice with vsc *
  */
 
-ob_start();
-
 $_GET		= array ('cucu' => 'pasare','ana' => 'are', 'mere' => '', 'test' => 123);
 $_POST		= array ('postone' => 'are', 'ana' => '');
 $_COOKIE	= array ('user' => 'asddsasdad234');
@@ -20,13 +18,12 @@ $_SERVER	= array (
 	'REQUEST_TIME' => time()
 );
 
-//$_SESSION = array();
-
 if (!defined('VSC_PATH')) {
 	define ( 'VSC_PATH', realpath( dirname (__FILE__) . '/../') . DIRECTORY_SEPARATOR );
 	define ( 'VSC_RES_PATH', VSC_PATH . 'res' . DIRECTORY_SEPARATOR);
 	set_include_path (VSC_PATH . PATH_SEPARATOR . get_include_path());
-	require ('vsc.inc.php');
+	require_once ('vsc.inc.php');
+	require_once ('BaseUnitTest.php');
 }
 
 if (defined ('VSC_TEST_PATH') && !defined ('VSC_MOCK_PATH')) {

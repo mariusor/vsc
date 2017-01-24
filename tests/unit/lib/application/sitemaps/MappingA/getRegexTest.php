@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::getRegex()
  */
-class getRegex extends \PHPUnit_Framework_TestCase
+class getRegex extends \BaseUnitTest
 {
 	public function testBasicGetRegex()
 	{

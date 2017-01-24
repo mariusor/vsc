@@ -8,7 +8,7 @@ use vsc\infrastructure\StringUtils;
  * @package res\infrastructure\StringUtils
  * @covers \vsc\infrastructure\StringUtils::baseDecode()
  */
-class baseDecodeTest extends \PHPUnit_Framework_TestCase {
+class baseDecodeTest extends \BaseUnitTest {
 	public function testBaseDecode () {
 		$test1 = 1;
 		$test2 = 2;

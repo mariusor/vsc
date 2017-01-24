@@ -6,7 +6,7 @@ use vsc\domain\domain\RssItem;
 /**
  * @covers \vsc\domain\models\RssReader::addItem()
  */
-class addItem extends \PHPUnit_Framework_TestCase
+class addItem extends \BaseUnitTest
 {
 	public function testBasicAddRssItem()
 	{

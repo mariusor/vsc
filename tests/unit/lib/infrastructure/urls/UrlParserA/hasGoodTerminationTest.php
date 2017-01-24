@@ -7,8 +7,7 @@ use vsc\infrastructure\urls\UrlParserA;
  * @package lib\infrastructure\urls\UrlParserA
  * @covers \vsc\infrastructure\urls\UrlParserA::hasGoodTermination()
  */
-class hasGoodTerminationTest extends \PHPUnit_Framework_TestCase {
-
+class hasGoodTerminationTest extends \BaseUnitTest {
 	public function urlsProvider () {
 		return [
 			'root' => ['/', true],
@@ -23,6 +22,8 @@ class hasGoodTerminationTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * @param string $url
+	 * @param bool $status
 	 * @dataProvider urlsProvider
 	 */
 	public function testBasicHasGoodTermination ($url, $status) {

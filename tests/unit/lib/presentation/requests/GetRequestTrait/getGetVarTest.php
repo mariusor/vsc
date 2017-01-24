@@ -7,7 +7,7 @@ use vsc\presentation\requests\HttpRequestA;
 /**
  * @covers \vsc\presentation\requests\GetRequestTrait::getGetVar()
  */
-class getGetVar extends \PHPUnit_Framework_TestCase
+class getGetVar extends \BaseUnitTest
 {
 	public function tearDown() {
 		@session_destroy();

@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::setUrl()
  */
-class setUrl extends \PHPUnit_Framework_TestCase
+class setUrl extends \BaseUnitTest
 {
 	public function testBasicSetUrl ()
 	{

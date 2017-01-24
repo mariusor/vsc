@@ -9,7 +9,7 @@ use vsc\presentation\responses\ExceptionResponseError;
 /**
  * @covers \vsc\application\dispatchers\RwDispatcher::getFrontController()
  */
-class getFrontController extends \PHPUnit_Framework_TestCase
+class getFrontController extends \BaseUnitTest
 {
 	public function testBasicGetFrontController ()
 	{

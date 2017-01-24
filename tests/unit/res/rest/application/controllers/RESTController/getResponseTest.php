@@ -22,7 +22,7 @@ use vsc\rest\presentation\requests\RESTRequest;
 /**
  * @covers \vsc\rest\application\controllers\RESTController::getResponse()
  */
-class getResponseTest extends \PHPUnit_Framework_TestCase {
+class getResponseTest extends \BaseUnitTest {
 
 	public function tearDown () {
 		foreach ($_SERVER as $key => $value) {

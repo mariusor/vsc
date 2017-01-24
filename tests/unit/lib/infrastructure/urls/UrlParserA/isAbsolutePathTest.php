@@ -7,7 +7,7 @@ use vsc\infrastructure\urls\UrlParserA;
  * @package lib\infrastructure\urls\UrlParserA
  * @covers \vsc\infrastructure\urls\UrlParserA::isAbsolutePath()
  */
-class isAbsolutePathTest extends \PHPUnit_Framework_TestCase {
+class isAbsolutePathTest extends \BaseUnitTest {
 
 	public function testBasicIsAbsolutePath() {
 		$test1 = '/';

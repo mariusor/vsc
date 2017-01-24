@@ -6,7 +6,7 @@ use vsc\application\sitemaps\ProcessorMapTrait;
 /**
  * @covers \vsc\application\sitemaps\ProcessorMapTrait::getViewHelpers()
  */
-class getViewHelpers extends \PHPUnit_Framework_TestCase
+class getViewHelpers extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

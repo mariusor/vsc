@@ -5,7 +5,7 @@ use vsc\domain\models\RssReader;
 /**
  * @covers \vsc\domain\models\RssReader::buildObj()
  */
-class buildObj extends \PHPUnit_Framework_TestCase
+class buildObj extends \BaseUnitTest
 {
 	public function testBuildObjectWithEmptyXml()
 	{

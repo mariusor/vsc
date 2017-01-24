@@ -5,7 +5,7 @@ use mocks\presentation\requests\PopulatedRequest;
 /**
  * @covers \vsc\presentation\requests\CookieRequestTrait::hasCookieVar()
  */
-class hasCookieVar extends \PHPUnit_Framework_TestCase
+class hasCookieVar extends \BaseUnitTest
 {
 	public function testHasCookieVar() {
 		$o = new PopulatedRequest();

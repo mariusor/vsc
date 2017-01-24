@@ -7,7 +7,7 @@ use vsc\application\sitemaps\ModuleMap;
 /**
  * @covers \vsc\application\sitemaps\SiteMapA::addModuleMap()
  */
-class addModuleMap extends \PHPUnit_Framework_TestCase
+class addModuleMap extends \BaseUnitTest
 {
 	public function testBasicAddModuleMap()
 	{

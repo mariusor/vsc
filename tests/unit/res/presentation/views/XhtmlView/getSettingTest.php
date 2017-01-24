@@ -5,7 +5,7 @@ use vsc\presentation\views\XhtmlView;
 /**
  * @covers \vsc\presentation\views\XhtmlView::getSetting()
  */
-class getSetting extends \PHPUnit_Framework_TestCase
+class getSetting extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

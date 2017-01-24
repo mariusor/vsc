@@ -9,7 +9,7 @@ use vsc\presentation\requests\HttpRequestTypes;
  * @package res\presentation\requests\DigestHttpAuthentication
  * @covers \vsc\presentation\requests\DigestHttpAuthentication::__construct()
  */
-class __constructTest extends \PHPUnit_Framework_TestCase {
+class __constructTest extends \BaseUnitTest {
 
 	public function test__construct() {
 		$realm = 'testrealm@Whost.com';

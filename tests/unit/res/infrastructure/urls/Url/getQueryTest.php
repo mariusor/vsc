@@ -12,7 +12,7 @@ use vsc\infrastructure\urls\Url;
  * @package tests\infrastructure\urls
  * @covers vsc\infrastructure\urls\Url::getQuery
  */
-class getQueryTest extends \PHPUnit_Framework_TestCase
+class getQueryTest extends \BaseUnitTest
 {
 	public function testInstantiationIsNull () {
 		$url = new Url();

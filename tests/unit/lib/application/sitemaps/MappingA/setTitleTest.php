@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::setTitle()
  */
-class setTitle extends \PHPUnit_Framework_TestCase
+class setTitle extends \BaseUnitTest
 {
 	public function testBasicSetTitle ()
 	{

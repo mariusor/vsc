@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::getHeaders()
  */
-class getHeaders extends \PHPUnit_Framework_TestCase
+class getHeaders extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

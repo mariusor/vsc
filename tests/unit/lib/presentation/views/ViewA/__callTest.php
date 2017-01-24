@@ -7,7 +7,7 @@ use vsc\presentation\views\ViewA;
 /**
  * @covers \vsc\presentation\views\ViewA::__call()
  */
-class __call extends \PHPUnit_Framework_TestCase
+class __call extends \BaseUnitTest
 {
 	public function test__callWithoutModel()
 	{

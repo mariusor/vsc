@@ -5,7 +5,7 @@ use mocks\application\processors\ProcessorFixture;
 /**
  * @covers \vsc\application\processors\ProcessorA::getLocalVars()
  */
-class getLocalVars extends \PHPUnit_Framework_TestCase
+class getLocalVars extends \BaseUnitTest
 {
 
 	public function testGetLocalVars ()

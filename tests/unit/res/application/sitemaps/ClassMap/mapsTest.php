@@ -9,7 +9,7 @@ use vsc\application\sitemaps\ClassMap;
  * @package res\application\sitemaps\ClassMap
  * @covers \vsc\application\sitemaps\ClassMap::maps()
  */
-class mapsTest extends \PHPUnit_Framework_TestCase {
+class mapsTest extends \BaseUnitTest {
 
 	public function testBasicMaps ()
 	{

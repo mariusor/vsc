@@ -6,7 +6,7 @@ use vsc\presentation\responses\HttpResponseType;
 /**
  * @covers \vsc\presentation\responses\ExceptionResponseRedirect::getRedirectCode()
  */
-class getRedirectCode extends \PHPUnit_Framework_TestCase
+class getRedirectCode extends \BaseUnitTest
 {
 
 	public function providerForTestBasicGetRedirectCode ()

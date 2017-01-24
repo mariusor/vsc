@@ -5,7 +5,7 @@ use vsc\domain\models\XmlReader;
 /**
  * @covers \vsc\domain\models\XmlReader::buildObj()
  */
-class buildObj extends \PHPUnit_Framework_TestCase
+class buildObj extends \BaseUnitTest
 {
 	public function testBuildObjectFromIncompleteXml()
 	{

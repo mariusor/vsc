@@ -12,7 +12,7 @@ use vsc\infrastructure\urls\Url;
  * @package tests\infrastructure\urls
  * @covers vsc\infrastructure\urls\Url::setPath()
  */
-class setPathTest extends \PHPUnit_Framework_TestCase
+class setPathTest extends \BaseUnitTest
 {
 	public function testBasicSetPath () {
 		$value = uniqid('test:');

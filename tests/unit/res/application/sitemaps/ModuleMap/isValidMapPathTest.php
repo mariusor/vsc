@@ -5,7 +5,7 @@ use vsc\application\sitemaps\ModuleMap;
 /**
  * @covers \vsc\application\sitemaps\ModuleMap::isValidMap()
  */
-class isValidMap extends \PHPUnit_Framework_TestCase
+class isValidMap extends \BaseUnitTest
 {
 	public function testIsInValidMapPathWithStaticFile()
 	{

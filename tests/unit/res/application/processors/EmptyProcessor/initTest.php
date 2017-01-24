@@ -5,7 +5,7 @@ use vsc\application\processors\EmptyProcessor;
 /**
  * @covers \vsc\application\processors\EmptyProcessor::init()
  */
-class init extends \PHPUnit_Framework_TestCase
+class init extends \BaseUnitTest
 {
 	public function testUseless()
 	{

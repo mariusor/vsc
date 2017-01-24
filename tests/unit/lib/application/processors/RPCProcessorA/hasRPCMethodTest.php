@@ -5,7 +5,7 @@ use vsc\application\processors\RPCProcessorA;
 /**
  * @covers \vsc\application\processors\RPCProcessorA::hasRPCMethod()
  */
-class hasRPCMethod extends \PHPUnit_Framework_TestCase
+class hasRPCMethod extends \BaseUnitTest
 {
 	public function testUseless()
 	{

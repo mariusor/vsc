@@ -6,7 +6,7 @@ use vsc\infrastructure\urls\Url;
 /**
  * @covers \vsc\infrastructure\urls\Url::__toString()
  */
-class __toString extends \PHPUnit_Framework_TestCase
+class __toString extends \BaseUnitTest
 {
 	public function testEmpty__toString()
 	{

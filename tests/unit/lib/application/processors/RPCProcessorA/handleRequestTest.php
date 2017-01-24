@@ -7,7 +7,7 @@ use vsc\presentation\requests\RwHttpRequest;
 /**
  * @covers \vsc\application\processors\RPCProcessorA::handleRequest()
  */
-class handleRequest extends \PHPUnit_Framework_TestCase
+class handleRequest extends \BaseUnitTest
 {
 	public function testUseless()
 	{

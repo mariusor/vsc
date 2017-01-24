@@ -7,7 +7,7 @@ use vsc\presentation\responses\HttpResponseType;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::getStatus()
  */
-class getStatus extends \PHPUnit_Framework_TestCase
+class getStatus extends \BaseUnitTest
 {
 	/**
 	 * @throws ExceptionResponse::setStatus

@@ -5,7 +5,7 @@ use vsc\application\dispatchers\RwDispatcher;
 /**
  * @covers \vsc\application\dispatchers\RwDispatcher::getView()
  */
-class getView extends \PHPUnit_Framework_TestCase
+class getView extends \BaseUnitTest
 {
 	public function testUseless()
 	{

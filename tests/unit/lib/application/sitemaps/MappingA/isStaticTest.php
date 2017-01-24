@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::isStatic()
  */
-class isStatic extends \PHPUnit_Framework_TestCase
+class isStatic extends \BaseUnitTest
 {
 	public function testNotStatic()
 	{

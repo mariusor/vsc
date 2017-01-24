@@ -5,7 +5,7 @@ use vsc\domain\models\ArrayModel;
 /**
  * @covers \vsc\domain\models\ArrayModel::__set()
  */
-class __set extends \PHPUnit_Framework_TestCase
+class __set extends \BaseUnitTest
 {
 	public function test__setUsingCall()
 	{

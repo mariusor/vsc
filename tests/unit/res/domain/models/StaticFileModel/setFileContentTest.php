@@ -5,7 +5,7 @@ use vsc\domain\models\StaticFileModel;
 /**
  * @covers \vsc\domain\models\StaticFileModel::setFileContent()
  */
-class setFileContent extends \PHPUnit_Framework_TestCase
+class setFileContent extends \BaseUnitTest
 {
 	public function testBasicSetFileContent()
 	{

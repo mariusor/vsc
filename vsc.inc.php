@@ -5,8 +5,8 @@ if (!defined('VSC_PATH')) {
 if (!defined('VSC_RES_PATH')) {
 	define('VSC_RES_PATH', VSC_PATH.'res'.DIRECTORY_SEPARATOR);
 }
-require (VSC_RES_PATH.'config.inc.php');
-require (VSC_RES_PATH.'functions.inc.php');
+require_once(VSC_RES_PATH . 'config.inc.php');
+require_once(VSC_RES_PATH . 'functions.inc.php');
 
 $sVersion = phpversion();
 $iMajorVersion = (int)substr($sVersion, 0, 1);

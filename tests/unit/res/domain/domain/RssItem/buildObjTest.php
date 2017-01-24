@@ -5,7 +5,7 @@ use vsc\domain\domain\RssItem;
 /**
  * @covers \vsc\domain\domain\RssItem::buildObj()
  */
-class buildObj extends \PHPUnit_Framework_TestCase
+class buildObj extends \BaseUnitTest
 {
 	public function testBuildRssItemFromString()
 	{

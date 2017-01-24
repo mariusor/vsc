@@ -8,7 +8,7 @@ use vsc\infrastructure\StringUtils;
  * @package res\infrastructure\StringUtils
  * @coverage \vsc\infrastructure\StringUtils::nl()
  */
-class nlTest extends \PHPUnit_Framework_TestCase {
+class nlTest extends \BaseUnitTest {
 
 	public function testBasicNl () {
 		$this->assertEquals("\n",StringUtils::nl());

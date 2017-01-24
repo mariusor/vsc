@@ -5,7 +5,7 @@ use vsc\application\sitemaps\SiteMapA;
 /**
  * @covers \vsc\application\sitemaps\SiteMapA::getClassName()
  */
-class getClassName extends \PHPUnit_Framework_TestCase
+class getClassName extends \BaseUnitTest
 {
 	public function testBasicGetClassName()
 	{

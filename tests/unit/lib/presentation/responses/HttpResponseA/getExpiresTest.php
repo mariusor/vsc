@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::getExpires()
  */
-class getExpires extends \PHPUnit_Framework_TestCase
+class getExpires extends \BaseUnitTest
 {
 	/**
 	 * @covers \vsc\presentation\responses\HttpResponseA::getExpires()

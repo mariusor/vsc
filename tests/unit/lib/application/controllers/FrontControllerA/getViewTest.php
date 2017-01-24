@@ -7,7 +7,7 @@ use vsc\application\sitemaps\ClassMap;
 use vsc\infrastructure\Base;
 use vsc\presentation\views\ViewA;
 
-class getViewTest extends \PHPUnit_Framework_TestCase {
+class getViewTest extends \BaseUnitTest {
 	public function setUp () {
 	}
 

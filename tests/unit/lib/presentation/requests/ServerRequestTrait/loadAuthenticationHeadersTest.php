@@ -10,7 +10,7 @@ use vsc\presentation\requests\ServerRequestTrait;
 /**
  * @covers vsc\presentation\requests\ServerRequestTrait::loadAuthenticationHeaders()
  */
-class loadAuthenticationHeadersTest extends \PHPUnit_Framework_TestCase
+class loadAuthenticationHeadersTest extends \BaseUnitTest
 {
 	public function testLoadWithDigestAuthentication() {
 		$aServer = [

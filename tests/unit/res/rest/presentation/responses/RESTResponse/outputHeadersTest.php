@@ -5,7 +5,7 @@ use vsc\rest\presentation\responses\RESTResponse;
 /**
  * @covers \vsc\rest\presentation\responses\RESTResponse::outputHeaders()
  */
-class outputHeaders extends \PHPUnit_Framework_TestCase
+class outputHeaders extends \BaseUnitTest
 {
 	public function testUseless()
 	{

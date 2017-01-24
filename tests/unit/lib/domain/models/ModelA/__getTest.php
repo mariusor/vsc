@@ -5,7 +5,7 @@ use vsc\domain\models\ModelA;
 /**
  * @covers \vsc\domain\models\ModelA::__get()
  */
-class __get extends \PHPUnit_Framework_TestCase
+class __get extends \BaseUnitTest
 {
 	public function test__getPublicProperties ()
 	{

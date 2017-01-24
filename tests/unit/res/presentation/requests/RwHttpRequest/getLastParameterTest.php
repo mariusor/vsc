@@ -5,7 +5,7 @@ use mocks\presentation\requests\PopulatedRequest;
 /**
  * @covers \vsc\presentation\requests\RwHttpRequest::getLastParameter()
  */
-class getLastParameter extends \PHPUnit_Framework_TestCase
+class getLastParameter extends \BaseUnitTest
 {
 	public function testGetLastParameter() {
 		$o = new PopulatedRequest();

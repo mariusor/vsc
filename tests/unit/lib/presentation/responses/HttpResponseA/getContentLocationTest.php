@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::getContentLocation()
  */
-class getContentLocation extends \PHPUnit_Framework_TestCase
+class getContentLocation extends \BaseUnitTest
 {
 	/**
 	 * @covers \vsc\presentation\responses\HttpResponseA::getContentLocation()

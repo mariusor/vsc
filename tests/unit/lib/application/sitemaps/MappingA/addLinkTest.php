@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::addLink()
  */
-class addLink extends \PHPUnit_Framework_TestCase
+class addLink extends \BaseUnitTest
 {
 	public function testBasicAddLink()
 	{

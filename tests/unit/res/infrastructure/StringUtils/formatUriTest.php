@@ -8,7 +8,7 @@ use vsc\infrastructure\StringUtils;
  * @package res\infrastructure\StringUtils
  * @covers \vsc\infrastructure\StringUtils::formatUri()
  */
-class formatUriTest extends \PHPUnit_Framework_TestCase {
+class formatUriTest extends \BaseUnitTest {
 
 	public function testReplaceSpaces () {
 		$spacefilled = 'a n a a r e m e r e';

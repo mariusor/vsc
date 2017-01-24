@@ -7,7 +7,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\application\dispatchers\RwDispatcher::getTemplatePath()
  */
-class getTemplatePath extends \PHPUnit_Framework_TestCase
+class getTemplatePath extends \BaseUnitTest
 {
 	public function testTemplatePath ()
 	{

@@ -4,7 +4,7 @@ namespace tests\infrastructure\urls\Url;
 
 use mocks\infrastructure\urls\UrlParserFixture;
 
-class getPortTest extends \PHPUnit_Framework_TestCase {
+class getPortTest extends \BaseUnitTest {
 	public function testGetPort () {
 		$sPort = 8080;
 		$aUrlComponents = array (

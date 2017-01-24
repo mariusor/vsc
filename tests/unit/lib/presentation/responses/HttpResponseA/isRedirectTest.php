@@ -8,7 +8,7 @@ use vsc\presentation\responses\HttpResponseType;
  * @package lib\presentation\responses\HttpResponseA
  * @covers \vsc\presentation\responses\HttpResponseA::isRedirect()
  */
-class isRedirectTest extends \PHPUnit_Framework_TestCase
+class isRedirectTest extends \BaseUnitTest
 {
 	public function providerForHttpStatuses ()
 	{

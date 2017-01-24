@@ -5,7 +5,7 @@ use vsc\presentation\views\ViewA;
 /**
  * @covers \vsc\presentation\views\ViewA::getCurrentSiteUri()
  */
-class getCurrentSiteUri extends \PHPUnit_Framework_TestCase
+class getCurrentSiteUri extends \BaseUnitTest
 {
 	public function setUp() {
 

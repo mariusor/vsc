@@ -12,7 +12,7 @@ use vsc\infrastructure\urls\Url;
  * @package tests\infrastructure\urls
  * @covers vsc\infrastructure\urls\Url::getFragment()
  */
-class getFragmentTest extends \PHPUnit_Framework_TestCase
+class getFragmentTest extends \BaseUnitTest
 {
 
 	public function testInstantiationIsNull () {

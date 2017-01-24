@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::setContentLanguage()
  */
-class setContentLanguage extends \PHPUnit_Framework_TestCase
+class setContentLanguage extends \BaseUnitTest
 {
 	public function testBasicSetContentLanguage()
 	{

@@ -5,7 +5,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\infrastructure\vsc::setInstance()
  */
-class setInstance extends \PHPUnit_Framework_TestCase
+class setInstance extends \BaseUnitTest
 {
 	public function testBasicSetInstance () {
 		vsc::setInstance(new vsc_underTest_setInstance());

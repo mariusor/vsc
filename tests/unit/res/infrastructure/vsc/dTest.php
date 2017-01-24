@@ -5,11 +5,10 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\infrastructure\vsc::d()
  */
-class d extends \PHPUnit_Framework_TestCase
+class d extends \BaseUnitTest
 {
 	public function testBasicDebugOutput()
 	{
-		$this->markTestSkipped('New buffer rules');
 		$value = 'test';
 		$_SERVER['PHP_SELF'] = 'phpunit';
 		ob_start();

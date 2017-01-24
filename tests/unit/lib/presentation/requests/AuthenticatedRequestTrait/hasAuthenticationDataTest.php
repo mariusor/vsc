@@ -7,7 +7,7 @@ use vsc\presentation\requests\HttpAuthenticationA;
 /**
  * @covers \vsc\presentation\requests\AuthenticatedRequestTrait::hasAuthenticationData()
  */
-class hasAuthenticationData extends \PHPUnit_Framework_TestCase
+class hasAuthenticationData extends \BaseUnitTest
 {
 	public function testHasNoAuthentication () {
 		$o = new AuthenticatedRequest_underTest_hasAuthenticationData();

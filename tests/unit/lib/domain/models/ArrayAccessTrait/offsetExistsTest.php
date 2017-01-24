@@ -5,7 +5,7 @@ use vsc\domain\models\ArrayAccessTrait;
 /**
  * @covers \vsc\domain\models\ArrayAccessTrait::offsetExists()
  */
-class offsetExists extends \PHPUnit_Framework_TestCase
+class offsetExists extends \BaseUnitTest
 {
 	/**
 	 * @covers \vsc\domain\models\ModelA::offsetExists

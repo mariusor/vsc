@@ -5,7 +5,7 @@ use vsc\domain\models\ArrayModel;
 /**
  * @covers \vsc\domain\models\ArrayModel::offsetUnset()
  */
-class offsetUnset extends \PHPUnit_Framework_TestCase
+class offsetUnset extends \BaseUnitTest
 {
 	public function testBasicOffsetUnset()
 	{

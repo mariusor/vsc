@@ -5,7 +5,7 @@ use vsc\domain\models\StaticFileModel;
 /**
  * @covers \vsc\domain\models\StaticFileModel::setLastModified()
  */
-class setLastModified extends \PHPUnit_Framework_TestCase
+class setLastModified extends \BaseUnitTest
 {
 	public function testBasicSetLastModifed()
 	{

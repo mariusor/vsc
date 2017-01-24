@@ -6,7 +6,7 @@ use vsc\presentation\responses\HttpResponseType;
 /**
  * @covers \vsc\presentation\responses\ExceptionResponseError::getErrorCode()
  */
-class getErrorCode extends \PHPUnit_Framework_TestCase
+class getErrorCode extends \BaseUnitTest
 {
 	public function testBasticGetErrorCode()
 	{

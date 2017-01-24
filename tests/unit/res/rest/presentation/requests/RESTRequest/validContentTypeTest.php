@@ -5,7 +5,7 @@ use vsc\rest\presentation\requests\RESTRequest;
 /**
  * @covers \vsc\rest\presentation\requests\RESTRequest::validContentType()
  */
-class validContentType extends \PHPUnit_Framework_TestCase
+class validContentType extends \BaseUnitTest
 {
 	public function testValidContentType () {
 		$o = new RESTRequest();

@@ -6,7 +6,7 @@ use vsc\presentation\requests\SessionRequestTrait;
 /**
  * @covers \vsc\presentation\requests\SessionRequestTrait::hasSession()
  */
-class hasSession extends \PHPUnit_Framework_TestCase
+class hasSession extends \BaseUnitTest
 {
 	public function testHasSession () {
 		$this->assertFalse(SessionRequestTrait::hasSession());

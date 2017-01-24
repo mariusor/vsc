@@ -5,7 +5,7 @@ use vsc\domain\models\IteratorTrait;
 /**
  * @covers \vsc\domain\models\IteratorTrait::current()()
  */
-class current extends \PHPUnit_Framework_TestCase
+class current extends \BaseUnitTest
 {
 	public function testCurrentAtInitialization()
 	{

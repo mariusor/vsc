@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::getLocation()
  */
-class getLocation extends \PHPUnit_Framework_TestCase
+class getLocation extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

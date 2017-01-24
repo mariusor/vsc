@@ -16,7 +16,7 @@ use vsc\application\sitemaps\ClassMap;
 use vsc\infrastructure\vsc;
 use vsc\presentation\views\ViewA;
 
-class loadViewTest extends \PHPUnit_Framework_TestCase
+class loadViewTest extends \BaseUnitTest
 {
 	public function testDefaultPlainView()
 	{

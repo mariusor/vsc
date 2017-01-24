@@ -11,7 +11,7 @@ use mocks\presentation\views\NullView;
 /**
  * @covers \vsc\application\controllers\FrontControllerA::getResponse()
  */
-class getResponse extends \PHPUnit_Framework_TestCase
+class getResponse extends \BaseUnitTest
 {
 	public function testGetPlainResponse()
 	{

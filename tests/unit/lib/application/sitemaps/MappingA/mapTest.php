@@ -9,7 +9,7 @@ use vsc\Exception;
 /**
  * @covers \vsc\application\sitemaps\MappingA::map()
  */
-class map extends \PHPUnit_Framework_TestCase
+class map extends \BaseUnitTest
 {
 	public function testMapClass()
 	{

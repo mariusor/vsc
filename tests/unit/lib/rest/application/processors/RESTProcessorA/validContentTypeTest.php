@@ -8,7 +8,7 @@ use vsc\presentation\requests\RawHttpRequest;
 /**
  * @covers \vsc\rest\application\processors\RESTProcessorA::validContentType
  */
-class validContentTypeTest extends \PHPUnit_Framework_TestCase {
+class validContentTypeTest extends \BaseUnitTest {
 	public function testValidContentTypes () {
 		$o = new RESTProcessorA_underTest_validContentType();
 

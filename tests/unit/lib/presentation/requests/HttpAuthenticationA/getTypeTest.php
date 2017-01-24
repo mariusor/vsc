@@ -5,7 +5,7 @@ use vsc\presentation\requests\HttpAuthenticationA;
 /**
  * @covers \vsc\presentation\requests\HttpAuthenticationA::getType()
  */
-class getType extends \PHPUnit_Framework_TestCase
+class getType extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

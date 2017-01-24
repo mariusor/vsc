@@ -5,7 +5,7 @@ use vsc\domain\models\JsonRPCResponse;
 /**
  * @covers \vsc\domain\models\JsonRPCResponse::getProperties()
  */
-class getProperties extends \PHPUnit_Framework_TestCase
+class getProperties extends \BaseUnitTest
 {
 	public function testBasicGetProperties()
 	{

@@ -5,7 +5,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\infrastructure\vsc::_isCli()
  */
-class _isCli extends \PHPUnit_Framework_TestCase
+class _isCli extends \BaseUnitTest
 {
 	public function testIsCli () {
 		$this->assertTrue(vsc::isCli());

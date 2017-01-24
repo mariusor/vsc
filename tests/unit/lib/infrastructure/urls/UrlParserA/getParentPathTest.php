@@ -5,7 +5,7 @@ use mocks\infrastructure\urls\UrlParserFixture;
 /**
  * @covers \vsc\infrastructure\urls\UrlParserA::getParentPath
  */
-class getParentPathTest extends \PHPUnit_Framework_TestCase {
+class getParentPathTest extends \BaseUnitTest {
 	public function testGetParentPath () {
 		$aUrlComponents = array (
 			'scheme'	=> '',

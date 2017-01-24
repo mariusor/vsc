@@ -7,7 +7,7 @@ use vsc\application\sitemaps\ModuleMap;
 /**
  * @covers \vsc\application\sitemaps\MappingA::setTemplatePath()
  */
-class setTemplatePath extends \PHPUnit_Framework_TestCase
+class setTemplatePath extends \BaseUnitTest
 {
 	public function testSetTemplatePathRelativeNoModuleMapUsingDefault ()
 	{

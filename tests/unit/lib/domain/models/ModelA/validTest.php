@@ -5,7 +5,7 @@ use vsc\domain\models\ModelA;
 /**
  * @covers \vsc\domain\models\ModelA::valid()
  */
-class valid extends \PHPUnit_Framework_TestCase
+class valid extends \BaseUnitTest
 {
 	/**
 	 * @covers \vsc\domain\models\ModelA::valid

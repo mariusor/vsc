@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::setCacheControl()
  */
-class setCacheControl extends \PHPUnit_Framework_TestCase
+class setCacheControl extends \BaseUnitTest
 {
 	public function testBasicSetCacheControl()
 	{

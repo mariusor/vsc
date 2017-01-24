@@ -6,7 +6,7 @@ use vsc\presentation\responses\HttpResponseType;
 /**
  * @covers \vsc\domain\models\ErrorModel::getHttpStatus()
  */
-class getHttpStatus extends \PHPUnit_Framework_TestCase
+class getHttpStatus extends \BaseUnitTest
 {
 	public function testModelHTTPStatusSameAsExceptionHTTPStatus()
 	{

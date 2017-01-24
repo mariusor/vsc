@@ -8,7 +8,7 @@ use vsc\infrastructure\StringUtils;
  * @package res\infrastructure\StringUtils
  * @covers \vsc\infrastructure\StringUtils::encodeEntities()
  */
-class encodeEntitiesTest extends \PHPUnit_Framework_TestCase {
+class encodeEntitiesTest extends \BaseUnitTest {
 
 	public function testUseless() {
 		$sString = 'ana are mere gigel <a /> ';

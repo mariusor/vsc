@@ -5,7 +5,7 @@ use vsc\presentation\requests\PostRequestTrait;
 /**
  * @covers \vsc\presentation\requests\PostRequestTrait::getPostVars()
  */
-class getPostVars extends \PHPUnit_Framework_TestCase
+class getPostVars extends \BaseUnitTest
 {
 	public function testGetEmptyPostVars()
 	{

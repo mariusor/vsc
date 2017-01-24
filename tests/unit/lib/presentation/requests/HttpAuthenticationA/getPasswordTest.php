@@ -5,7 +5,7 @@ use vsc\presentation\requests\HttpAuthenticationA;
 /**
  * @covers \vsc\presentation\requests\HttpAuthenticationA::getPassword()
  */
-class getPassword extends \PHPUnit_Framework_TestCase
+class getPassword extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

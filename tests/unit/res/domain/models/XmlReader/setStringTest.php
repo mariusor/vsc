@@ -5,7 +5,7 @@ use vsc\domain\models\XmlReader;
 /**
  * @covers \vsc\domain\models\XmlReader::setString()
  */
-class setString extends \PHPUnit_Framework_TestCase
+class setString extends \BaseUnitTest
 {
 	public function testBasicSetString()
 	{

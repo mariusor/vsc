@@ -5,7 +5,7 @@ use vsc\application\sitemaps\SiteMapA;
 /**
  * @covers \vsc\application\sitemaps\SiteMapA::isValidStaticPath()
  */
-class isValidStaticPath extends \PHPUnit_Framework_TestCase
+class isValidStaticPath extends \BaseUnitTest
 {
 	public function testIsInValidStaticPathWithLocalPHPFile()
 	{

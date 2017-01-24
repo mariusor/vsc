@@ -5,7 +5,7 @@ use vsc\ExceptionError;
 /**
  * @covers \vsc\Exception::isValid()
  */
-class isValid extends \PHPUnit_Framework_TestCase
+class isValid extends \BaseUnitTest
 {
 	public function testValidErrorException() {
 		$E = new ExceptionError();

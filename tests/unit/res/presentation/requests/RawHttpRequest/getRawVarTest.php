@@ -5,7 +5,7 @@ use mocks\presentation\requests\PopulatedRawRequest;
 /**
  * @covers \vsc\presentation\requests\RawHttpRequest::getRawVar()
  */
-class getRawVar extends \PHPUnit_Framework_TestCase
+class getRawVar extends \BaseUnitTest
 {
 	/**
 	 * @covers \vsc\presentation\requests\RawHttpRequest::getRawVar()

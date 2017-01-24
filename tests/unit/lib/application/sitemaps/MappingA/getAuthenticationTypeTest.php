@@ -6,7 +6,7 @@ use vsc\presentation\requests\HttpAuthenticationA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::getAuthenticationType()
  */
-class getAuthenticationType extends \PHPUnit_Framework_TestCase
+class getAuthenticationType extends \BaseUnitTest
 {
 	public function testGetAuthenticationTypeAtInitialization()
 	{

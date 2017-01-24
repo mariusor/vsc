@@ -8,7 +8,7 @@ use vsc\presentation\responses\HttpResponseType;
  * @package lib\presentation\responses\HttpResponseA
  * @covers \vsc\presentation\responses\HttpResponseA::isSuccess()
  */
-class isSuccessTest extends \PHPUnit_Framework_TestCase
+class isSuccessTest extends \BaseUnitTest
 {
 	public function providerForHttpStatuses ()
 	{

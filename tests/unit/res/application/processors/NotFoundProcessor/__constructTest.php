@@ -8,7 +8,7 @@ use vsc\presentation\responses\HttpResponseType;
 /**
  * @covers \vsc\application\processors\NotFoundProcessor::__construct()
  */
-class __construct extends \PHPUnit_Framework_TestCase
+class __construct extends \BaseUnitTest
 {
 	public function testBasic__construct()
 	{

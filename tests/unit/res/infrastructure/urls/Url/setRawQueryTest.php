@@ -12,7 +12,7 @@ use vsc\infrastructure\urls\Url;
  * @package tests\infrastructure\urls\Url
  * @covers vsc\infrastructure\urls\Url::setRawQuery()
  */
-class setRawQueryTest extends \PHPUnit_Framework_TestCase
+class setRawQueryTest extends \BaseUnitTest
 {
 	public function testBasicSetRawQuery () {
 		$value = 'ana=mere&test=123';

@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::getTemplate()
  */
-class getTemplate extends \PHPUnit_Framework_TestCase
+class getTemplate extends \BaseUnitTest
 {
 	public function testDefaultValue ()
 	{

@@ -6,7 +6,7 @@ use vsc\infrastructure\Base;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::getView()
  */
-class getView extends \PHPUnit_Framework_TestCase
+class getView extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

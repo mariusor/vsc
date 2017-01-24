@@ -4,7 +4,7 @@ namespace res\functions_inc;
 use vsc\Exception;
 use vsc\infrastructure\vsc;
 
-class getErrorHeaderOutputTest extends \PHPUnit_Framework_TestCase {
+class getErrorHeaderOutputTest extends \BaseUnitTest {
 
 	public function testGetErrorHeaderOutputCliWithoutException () {
 		$s = \vsc\getErrorHeaderOutput();

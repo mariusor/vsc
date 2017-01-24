@@ -8,7 +8,7 @@ use vsc\application\sitemaps\ClassMap;
 /**
  * @covers \vsc\application\sitemaps\SiteMapA::addClassMap()
  */
-class addClassMap extends \PHPUnit_Framework_TestCase
+class addClassMap extends \BaseUnitTest
 {
 	public function testBasicAddClassMap()
 	{

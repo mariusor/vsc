@@ -9,7 +9,7 @@ use vsc\presentation\views\ViewA;
 /**
  * @covers \vsc\application\sitemaps\ControllerMapTrait::getView()
  */
-class getView extends \PHPUnit_Framework_TestCase
+class getView extends \BaseUnitTest
 {
 	public function testGetDefaultViewPath()
 	{

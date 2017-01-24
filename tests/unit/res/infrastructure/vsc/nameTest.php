@@ -5,7 +5,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\infrastructure\vsc::name()
  */
-class name extends \PHPUnit_Framework_TestCase
+class name extends \BaseUnitTest
 {
 	public function testBasicName()
 	{

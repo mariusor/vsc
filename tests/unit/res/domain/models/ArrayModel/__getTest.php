@@ -5,7 +5,7 @@ use vsc\domain\models\ArrayModel;
 /**
  * @covers \vsc\domain\models\ArrayModel::__get()
  */
-class __get extends \PHPUnit_Framework_TestCase
+class __get extends \BaseUnitTest
 {
 	public function testEmpty__getAtInitialization()
 	{

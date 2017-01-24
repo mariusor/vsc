@@ -6,7 +6,7 @@ use vsc\presentation\requests\HttpRequestA;
 /**
  * @covers \vsc\presentation\requests\FilesRequestTrait::getFile()
  */
-class getFile extends \PHPUnit_Framework_TestCase
+class getFile extends \BaseUnitTest
 {
 	public function testEmptyAtInitialize()
 	{

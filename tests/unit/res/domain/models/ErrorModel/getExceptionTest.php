@@ -6,7 +6,7 @@ use vsc\Exception;
 /**
  * @covers \vsc\domain\models\ErrorModel::getException()
  */
-class getException extends \PHPUnit_Framework_TestCase
+class getException extends \BaseUnitTest
 {
 	public function testGetExceptionAfterModelInitializedWithException()
 	{

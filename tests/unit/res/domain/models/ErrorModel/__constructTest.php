@@ -6,7 +6,7 @@ use vsc\domain\models\ErrorModel;
 /**
  * @covers \vsc\domain\models\ErrorModel::__construct()
  */
-class __construct extends \PHPUnit_Framework_TestCase
+class __construct extends \BaseUnitTest
 {
 	public function testCorrectInstantiationWithException()
 	{

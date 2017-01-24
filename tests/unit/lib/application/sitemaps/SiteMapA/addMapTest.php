@@ -7,7 +7,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\SiteMapA::addMap()
  */
-class addMap extends \PHPUnit_Framework_TestCase
+class addMap extends \BaseUnitTest
 {
 	public function testBasicAddMap()
 	{

@@ -7,7 +7,7 @@ use vsc\presentation\requests\ServerRequestTrait;
 /**
  * @covers \vsc\presentation\requests\ServerRequestTrait::initServer()
  */
-class initServerTest extends \PHPUnit_Framework_TestCase
+class initServerTest extends \BaseUnitTest
 {
 
 	public function testBasicEmptyEverything () {

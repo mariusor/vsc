@@ -6,7 +6,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::getContentType()
  */
-class getContentType extends \PHPUnit_Framework_TestCase
+class getContentType extends \BaseUnitTest
 {
 	/**
 	 * @covers \vsc\presentation\responses\HttpResponseA::getContentType()

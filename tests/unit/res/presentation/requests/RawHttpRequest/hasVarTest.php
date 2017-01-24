@@ -5,7 +5,7 @@ use mocks\presentation\requests\PopulatedRESTRequest;
 /**
  * @covers \vsc\presentation\requests\RawHttpRequest::hasVar()
  */
-class hasVar extends \PHPUnit_Framework_TestCase
+class hasVar extends \BaseUnitTest
 {
 	public function testHasVar_ParentVar()
 	{

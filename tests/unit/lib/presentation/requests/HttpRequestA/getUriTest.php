@@ -5,7 +5,7 @@ use vsc\presentation\requests\HttpRequestA;
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::getUri()
  */
-class getUri extends \PHPUnit_Framework_TestCase
+class getUri extends \BaseUnitTest
 {
 	public function testGetEmptyUrl()
 	{

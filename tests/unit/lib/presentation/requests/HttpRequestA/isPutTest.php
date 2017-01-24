@@ -6,7 +6,7 @@ use vsc\presentation\requests\HttpRequestTypes;
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::isPut()
  */
-class isPut extends \PHPUnit_Framework_TestCase
+class isPut extends \BaseUnitTest
 {
 	public function testIsPut () {
 		$o = new HttpRequestA_underTest_isPut();

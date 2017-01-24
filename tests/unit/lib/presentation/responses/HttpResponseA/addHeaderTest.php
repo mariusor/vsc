@@ -5,7 +5,7 @@ use mocks\presentation\responses\ResponseFixture;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::addHeader()
  */
-class addHeader extends \PHPUnit_Framework_TestCase
+class addHeader extends \BaseUnitTest
 {
 	public function testAddHeader() {
 		$state = new ResponseFixture();

@@ -5,7 +5,7 @@ use vsc\presentation\requests\HttpRequestA;
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::hasContentType()
  */
-class hasContentType extends \PHPUnit_Framework_TestCase
+class hasContentType extends \BaseUnitTest
 {
 	public function testDoesNotHaveContentType ()
 	{

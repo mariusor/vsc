@@ -8,7 +8,7 @@ use vsc\infrastructure\StringUtils;
  * @package res\infrastructure\StringUtils
  * @covers \vsc\infrastructure\StringUtils::_echo()
  */
-class _echoTest extends \PHPUnit_Framework_TestCase {
+class _echoTest extends \BaseUnitTest {
 
 	public function testWTF() {
 		$test = 'test';

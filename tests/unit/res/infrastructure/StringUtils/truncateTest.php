@@ -7,7 +7,7 @@ use vsc\infrastructure\StringUtils;
  * @package res\infrastructure\StringUtils
  * @covers \vsc\infrastructure\StringUtils::truncate()
  */
-class truncateTest extends \PHPUnit_Framework_TestCase {
+class truncateTest extends \BaseUnitTest {
 
 	public function testBasicTruncate () {
 		$string = 'test';

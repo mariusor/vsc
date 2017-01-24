@@ -11,7 +11,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\application\dispatchers\RwDispatcher::getProcessController()
  */
-class getProcessController extends \PHPUnit_Framework_TestCase
+class getProcessController extends \BaseUnitTest
 {
 	public function tearDown() {
 		vsc::setInstance(new vsc());

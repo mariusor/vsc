@@ -7,7 +7,7 @@ use vsc\application\controllers\FrontControllerA;
 /**
  * @covers \vsc\application\controllers\FrontControllerA::setTemplatePath()
  */
-class setTemplatePath extends \PHPUnit_Framework_TestCase
+class setTemplatePath extends \BaseUnitTest
 {
 	public function testBasicSetTemplatePathWithValidFolder()
 	{

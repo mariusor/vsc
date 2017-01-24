@@ -5,7 +5,7 @@ use vsc\presentation\helpers\ViewHelperA;
 /**
  * @covers \vsc\presentation\helpers\ViewHelperA::getView()
  */
-class getView extends \PHPUnit_Framework_TestCase
+class getView extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

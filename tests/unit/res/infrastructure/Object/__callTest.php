@@ -9,7 +9,7 @@ use vsc\Exception;
 /**
  * @covers \vsc\infrastructure\Object::__call()
  */
-class __call extends \PHPUnit_Framework_TestCase
+class __call extends \BaseUnitTest
 {
 	/**
 	 * @test Object::__call()

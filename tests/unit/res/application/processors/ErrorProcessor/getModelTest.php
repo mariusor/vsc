@@ -9,7 +9,7 @@ use vsc\presentation\responses\ExceptionResponseError;
 /**
  * @covers \vsc\application\processors\ErrorProcessor::getModel()
  */
-class getModel extends \PHPUnit_Framework_TestCase
+class getModel extends \BaseUnitTest
 {
 	public function testGetModel ()
 	{

@@ -5,7 +5,7 @@ use vsc\domain\access\FileAccess;
 /**
  * @covers \vsc\domain\access\FileAccess::loadFromCache()
  */
-class loadFromCache extends \PHPUnit_Framework_TestCase
+class loadFromCache extends \BaseUnitTest
 {
 	public function testLoadFromCacheWorks()
 	{

@@ -5,7 +5,7 @@ use mocks\presentation\views\testView;
 /**
  * @covers \vsc\presentation\views\ViewA::getMainTemplate()
  */
-class getMainTemplate extends \PHPUnit_Framework_TestCase
+class getMainTemplate extends \BaseUnitTest
 {
 	public function testGetMainTemplateEmpty ()
 	{

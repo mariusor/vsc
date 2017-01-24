@@ -7,7 +7,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\application\processors\EmptyProcessor::handleRequest()
  */
-class handleRequest extends \PHPUnit_Framework_TestCase
+class handleRequest extends \BaseUnitTest
 {
 	public function testBasicHandleRequest()
 	{

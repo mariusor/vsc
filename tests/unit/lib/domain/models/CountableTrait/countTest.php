@@ -5,7 +5,7 @@ use vsc\domain\models\CountableTrait;
 /**
  * @covers \vsc\domain\models\CountableTrait::count()
  */
-class count extends \PHPUnit_Framework_TestCase
+class count extends \BaseUnitTest
 {
 
 	public function testCount()

@@ -8,7 +8,7 @@ use vsc\rest\application\processors\RESTProcessorA;
 /**
  * @covers \vsc\rest\application\processors\RESTProcessorA::getValidRequestMethods()
  */
-class getValidRequestMethods extends \PHPUnit_Framework_TestCase
+class getValidRequestMethods extends \BaseUnitTest
 {
 	public function testBasicGetValidRequestMethods()
 	{

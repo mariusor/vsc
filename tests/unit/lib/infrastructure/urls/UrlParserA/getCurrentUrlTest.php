@@ -7,7 +7,7 @@ use vsc\infrastructure\urls\UrlParserA;
  * @package lib\infrastructure\urls\UrlParserA
  * @covers \vsc\infrastructure\urls\UrlParserA::getCurrentUrl()
  */
-class getCurrentUrlTest extends \PHPUnit_Framework_TestCase
+class getCurrentUrlTest extends \BaseUnitTest
 {
 	public function testBasicGetCurrentUrl()
 	{

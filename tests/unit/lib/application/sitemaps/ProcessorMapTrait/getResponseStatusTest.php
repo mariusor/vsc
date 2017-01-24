@@ -6,7 +6,7 @@ use vsc\application\sitemaps\ProcessorMapTrait;
 /**
  * @covers \vsc\application\sitemaps\ProcessorMapTrait::getResponseStatus()
  */
-class getResponseStatus extends \PHPUnit_Framework_TestCase
+class getResponseStatus extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

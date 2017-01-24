@@ -5,7 +5,7 @@ use vsc\presentation\views\XhtmlView;
 /**
  * @covers \vsc\presentation\views\XhtmlView::getLinks()
  */
-class getLinks extends \PHPUnit_Framework_TestCase
+class getLinks extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

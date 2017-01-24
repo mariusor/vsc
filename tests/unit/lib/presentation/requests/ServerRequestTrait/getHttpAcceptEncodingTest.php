@@ -6,7 +6,7 @@ use vsc\presentation\requests\ServerRequestTrait;
 /**
  * @covers \vsc\presentation\requests\ServerRequestTrait::getHttpAcceptEncoding()
  */
-class getHttpAcceptEncoding extends \PHPUnit_Framework_TestCase
+class getHttpAcceptEncoding extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

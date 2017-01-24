@@ -6,7 +6,7 @@ use vsc\domain\models\IteratorTrait;
 /**
  * @covers \vsc\domain\models\IteratorTrait::next()
  */
-class next extends \PHPUnit_Framework_TestCase
+class next extends \BaseUnitTest
 {
 	/**
 	 * @covers \vsc\domain\models\ModelA::next

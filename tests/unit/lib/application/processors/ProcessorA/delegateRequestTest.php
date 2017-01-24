@@ -8,7 +8,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\application\processors\ProcessorA::delegateRequest()
  */
-class delegateRequest extends \PHPUnit_Framework_TestCase
+class delegateRequest extends \BaseUnitTest
 {
 	public function testBasicDelegateRequest ()
 	{

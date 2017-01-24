@@ -6,7 +6,7 @@ use vsc\presentation\requests\HttpRequestTypes;
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::isHead()
  */
-class isHead extends \PHPUnit_Framework_TestCase
+class isHead extends \BaseUnitTest
 {
 	public function testIsHead () {
 		$o = new HttpRequestA_underTest_isHead();

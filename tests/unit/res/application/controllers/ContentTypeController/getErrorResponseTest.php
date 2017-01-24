@@ -7,7 +7,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\application\controllers\ContentTypeController::getErrorResponse()
  */
-class getErrorResponse extends \PHPUnit_Framework_TestCase
+class getErrorResponse extends \BaseUnitTest
 {
 	public function testGetErrorResponse()
 	{

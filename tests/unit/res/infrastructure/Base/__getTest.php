@@ -5,7 +5,7 @@ use vsc\infrastructure\Base;
 /**
  * @covers \vsc\infrastructure\Base::__get()
  */
-class __get extends \PHPUnit_Framework_TestCase
+class __get extends \BaseUnitTest
 {
 	public function test__get ()
 	{

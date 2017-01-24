@@ -5,7 +5,7 @@ use vsc\presentation\requests\SessionRequestTrait;
 /**
  * @covers \vsc\presentation\requests\SessionRequestTrait::destroySession()
  */
-class destroySession extends \PHPUnit_Framework_TestCase
+class destroySession extends \BaseUnitTest
 {
 	public function testBasicDestroySession()
 	{

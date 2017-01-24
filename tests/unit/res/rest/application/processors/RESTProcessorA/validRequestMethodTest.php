@@ -12,7 +12,7 @@ use vsc\presentation\requests\RawHttpRequest;
  * @package res\rest\application\processors\RESTProcessorA
  * @covers \vsc\rest\application\processors\RESTProcessorA::validRequestMethod()
  */
-class validRequestMethodTest extends \PHPUnit_Framework_TestCase {
+class validRequestMethodTest extends \BaseUnitTest {
 
 	public function testBasicValidRequestMethod() {
 		$o = new RESTProcessorA_underTest_validRequestMethod();

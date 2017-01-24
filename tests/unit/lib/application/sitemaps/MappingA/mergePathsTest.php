@@ -7,7 +7,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::mergePaths()
  */
-class mergePaths extends \PHPUnit_Framework_TestCase
+class mergePaths extends \BaseUnitTest
 {
 	public function testBasicMergePaths()
 	{

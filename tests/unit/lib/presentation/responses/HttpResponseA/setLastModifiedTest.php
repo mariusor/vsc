@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::setLastModified()
  */
-class setLastModified extends \PHPUnit_Framework_TestCase
+class setLastModified extends \BaseUnitTest
 {
 	public function testBasicSetLastModified()
 	{

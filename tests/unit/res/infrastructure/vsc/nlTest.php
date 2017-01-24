@@ -5,7 +5,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\infrastructure\vsc::nl()
  */
-class nl extends \PHPUnit_Framework_TestCase
+class nl extends \BaseUnitTest
 {
 	public function testBasicNl()
 	{

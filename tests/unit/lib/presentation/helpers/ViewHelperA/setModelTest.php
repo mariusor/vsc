@@ -6,7 +6,7 @@ use vsc\domain\models\EmptyModel;
 /**
  * @covers \vsc\presentation\helpers\ViewHelperA::setModel()
  */
-class setModel extends \PHPUnit_Framework_TestCase
+class setModel extends \BaseUnitTest
 {
 	public function testBasicSetModel()
 	{

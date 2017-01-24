@@ -18,7 +18,7 @@ use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ModuleMap;
 use vsc\infrastructure\vsc;
 
-class mapTest extends \PHPUnit_Framework_TestCase {
+class mapTest extends \BaseUnitTest {
 
 	protected function setUp  () {
 		$req = new PopulatedRequest();

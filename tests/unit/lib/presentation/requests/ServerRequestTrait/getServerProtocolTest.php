@@ -6,7 +6,7 @@ use vsc\presentation\requests\ServerRequestTrait;
 /**
  * @covers \vsc\presentation\requests\ServerRequestTrait::getServerProtocol()
  */
-class getServerProtocol extends \PHPUnit_Framework_TestCase
+class getServerProtocol extends \BaseUnitTest
 {
 	public function testGetNullServerProtocol()
 	{

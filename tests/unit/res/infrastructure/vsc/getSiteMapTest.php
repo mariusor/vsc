@@ -6,7 +6,7 @@ use vsc\application\sitemaps\RwSiteMap;
 use vsc\application\sitemaps\SiteMapA;
 use vsc\infrastructure\vsc;
 
-class getSiteMapTest extends \PHPUnit_Framework_TestCase
+class getSiteMapTest extends \BaseUnitTest
 {
 	public function testExceptionIfNoSiteMapLoaded() {
 		try {

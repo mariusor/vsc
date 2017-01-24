@@ -9,7 +9,7 @@ use vsc\domain\models\ErrorModel;
 /**
  * @covers \vsc\application\processors\ErrorProcessor::handleRequest()
  */
-class handleRequest extends \PHPUnit_Framework_TestCase
+class handleRequest extends \BaseUnitTest
 {
 	public function testBasicHandleRequest()
 	{

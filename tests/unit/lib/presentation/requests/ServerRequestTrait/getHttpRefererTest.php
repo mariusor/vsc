@@ -6,7 +6,7 @@ use vsc\presentation\requests\ServerRequestTrait;
 /**
  * @covers \vsc\presentation\requests\ServerRequestTrait::getHttpReferer()
  */
-class getHttpReferer extends \PHPUnit_Framework_TestCase
+class getHttpReferer extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

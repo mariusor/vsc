@@ -9,7 +9,7 @@ use vsc\ExceptionPath;
 /**
  * @covers \vsc\presentation\views\ViewA::fetch()
  */
-class fetch extends \PHPUnit_Framework_TestCase
+class fetch extends \BaseUnitTest
 {
 	public function testFetch ()
 	{

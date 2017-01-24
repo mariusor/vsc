@@ -7,7 +7,7 @@ use vsc\infrastructure\urls\UrlParserA;
 /**
  * @covers \vsc\infrastructure\urls\UrlParserA::parse_url()
  */
-class parse_url extends \PHPUnit_Framework_TestCase
+class parse_url extends \BaseUnitTest
 {
 	/**
 	 * @test

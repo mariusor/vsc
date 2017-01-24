@@ -5,7 +5,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\infrastructure\vsc::getPaths()
  */
-class getPaths extends \PHPUnit_Framework_TestCase
+class getPaths extends \BaseUnitTest
 {
 	public function testBasicGetPaths()
 	{

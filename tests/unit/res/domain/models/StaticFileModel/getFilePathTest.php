@@ -5,7 +5,7 @@ use vsc\domain\models\StaticFileModel;
 /**
  * @covers \vsc\domain\models\StaticFileModel::getFilePath()
  */
-class getFilePath extends \PHPUnit_Framework_TestCase
+class getFilePath extends \BaseUnitTest
 {
 	public function testBasicGetFilePath()
 	{

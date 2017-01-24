@@ -6,7 +6,7 @@ use vsc\domain\models\JsonRPCRequest;
 /**
  * @covers \vsc\application\processors\RPCProcessorA::getRequest()
  */
-class getRequest extends \PHPUnit_Framework_TestCase
+class getRequest extends \BaseUnitTest
 {
 	public function testUseless()
 	{

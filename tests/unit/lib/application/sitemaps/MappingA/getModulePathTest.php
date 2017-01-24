@@ -6,7 +6,7 @@ use vsc\application\sitemaps\ModuleMap;
 /**
  * @covers \vsc\application\sitemaps\MappingA::getModulePath()
  */
-class getModulePath extends \PHPUnit_Framework_TestCase
+class getModulePath extends \BaseUnitTest
 {
 	public function testGetModulePathWithoutModuleSet ()
 	{

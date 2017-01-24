@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::addMeta()
  */
-class addMeta extends \PHPUnit_Framework_TestCase
+class addMeta extends \BaseUnitTest
 {
 	public function testGetSpecificMeta()
 	{

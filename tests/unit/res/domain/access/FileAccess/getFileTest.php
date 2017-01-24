@@ -5,7 +5,7 @@ use vsc\domain\access\FileAccess;
 /**
  * @covers \vsc\domain\access\FileAccess::getFile()
  */
-class getFile extends \PHPUnit_Framework_TestCase
+class getFile extends \BaseUnitTest
 {
 	public function testBasicGetFile()
 	{

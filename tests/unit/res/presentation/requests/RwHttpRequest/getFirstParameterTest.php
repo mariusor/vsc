@@ -5,7 +5,7 @@ use mocks\presentation\requests\PopulatedRequest;
 /**
  * @covers \vsc\presentation\requests\RwHttpRequest::getFirstParameter()
  */
-class getFirstParameter extends \PHPUnit_Framework_TestCase
+class getFirstParameter extends \BaseUnitTest
 {
 	public function testGetFirstParameter() {
 		$o = new PopulatedRequest();

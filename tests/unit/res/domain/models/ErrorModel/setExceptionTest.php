@@ -6,7 +6,7 @@ use vsc\ExceptionError;
 /**
  * @covers \vsc\domain\models\ErrorModel::setException()
  */
-class setException extends \PHPUnit_Framework_TestCase
+class setException extends \BaseUnitTest
 {
 	public function testBasicSetException()
 	{

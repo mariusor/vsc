@@ -6,7 +6,7 @@ use vsc\presentation\requests\ServerRequestTrait;
 /**
  * @covers \vsc\presentation\requests\ServerRequestTrait::getHttpAcceptLanguage()
  */
-class getHttpAcceptLanguage extends \PHPUnit_Framework_TestCase
+class getHttpAcceptLanguage extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

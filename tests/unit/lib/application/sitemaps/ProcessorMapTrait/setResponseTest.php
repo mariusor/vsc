@@ -8,7 +8,7 @@ use vsc\presentation\responses\HttpResponseType;
 /**
  * @covers \vsc\application\sitemaps\ProcessorMapTrait::setResponse()
  */
-class setResponse extends \PHPUnit_Framework_TestCase
+class setResponse extends \BaseUnitTest
 {
 	public function testBasicSetResponse ()
 	{

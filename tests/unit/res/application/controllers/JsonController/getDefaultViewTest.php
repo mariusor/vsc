@@ -7,7 +7,7 @@ use vsc\presentation\views\ViewA;
 /**
  * @covers \vsc\application\controllers\JsonController::getDefaultView()
  */
-class getDefaultView extends \PHPUnit_Framework_TestCase
+class getDefaultView extends \BaseUnitTest
 {
 	public function testBasicGetDefaultView()
 	{

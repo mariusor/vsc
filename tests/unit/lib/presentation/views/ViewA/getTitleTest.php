@@ -7,7 +7,7 @@ use vsc\domain\models\EmptyModel;
 /**
  * @covers \vsc\presentation\views\ViewA::getTitle()
  */
-class getTitle extends \PHPUnit_Framework_TestCase
+class getTitle extends \BaseUnitTest
 {
 	public function testGetTitleFromMap()
 	{

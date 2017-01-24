@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::addScript()
  */
-class addScript extends \PHPUnit_Framework_TestCase
+class addScript extends \BaseUnitTest
 {
 	public function testAddScriptWithFullPath()
 	{

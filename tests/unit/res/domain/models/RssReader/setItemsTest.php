@@ -5,7 +5,7 @@ use vsc\domain\models\RssReader;
 /**
  * @covers \vsc\domain\models\RssReader::setItems()
  */
-class setItems extends \PHPUnit_Framework_TestCase
+class setItems extends \BaseUnitTest
 {
 	public function testSetItemsWithEmptySet()
 	{

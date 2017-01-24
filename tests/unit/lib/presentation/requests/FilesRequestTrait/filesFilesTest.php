@@ -5,7 +5,7 @@ use vsc\presentation\requests\FilesRequestTrait;
 /**
  * @covers \vsc\presentation\requests\FilesRequestTrait::getFiles()
  */
-class getFiles extends \PHPUnit_Framework_TestCase
+class getFiles extends \BaseUnitTest
 {
 	public function testEmptyAtInitialize()
 	{

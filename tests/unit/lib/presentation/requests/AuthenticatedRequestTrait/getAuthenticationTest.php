@@ -5,7 +5,7 @@ use vsc\presentation\requests\AuthenticatedRequestTrait;
 /**
  * @covers \vsc\presentation\requests\AuthenticatedRequestTrait::getAuthentication()
  */
-class getAuthentication extends \PHPUnit_Framework_TestCase
+class getAuthentication extends \BaseUnitTest
 {
 	public function testEmptyAtInitialize()
 	{

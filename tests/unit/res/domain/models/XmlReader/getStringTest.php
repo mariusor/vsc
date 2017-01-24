@@ -5,7 +5,7 @@ use vsc\domain\models\XmlReader;
 /**
  * @covers \vsc\domain\models\XmlReader::getString()
  */
-class getString extends \PHPUnit_Framework_TestCase
+class getString extends \BaseUnitTest
 {
 	public function testGetString()
 	{

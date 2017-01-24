@@ -5,7 +5,7 @@ use vsc\domain\access\FileAccess;
 /**
  * @covers \vsc\domain\access\FileAccess::getSignature()
  */
-class getSignature extends \PHPUnit_Framework_TestCase
+class getSignature extends \BaseUnitTest
 {
 	public function testGetSignatureSameAsMD5OfPathDate()
 	{

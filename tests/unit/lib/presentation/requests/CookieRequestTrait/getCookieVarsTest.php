@@ -5,7 +5,7 @@ use vsc\presentation\requests\CookieRequestTrait;
 /**
  * @covers \vsc\presentation\requests\CookieRequestTrait::getCookieVars()
  */
-class getCookieVars extends \PHPUnit_Framework_TestCase
+class getCookieVars extends \BaseUnitTest
 {
 	public function testEmptyAtInitialize()
 	{

@@ -5,7 +5,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\infrastructure\vsc::getIncludePaths()
  */
-class getIncludePaths extends \PHPUnit_Framework_TestCase
+class getIncludePaths extends \BaseUnitTest
 {
 	public function testGetIncludePaths () {
 		// =))

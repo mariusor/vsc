@@ -5,7 +5,7 @@ use vsc\ExceptionPath;
 /**
  * @covers \vsc\ExceptionPath::getPathAsArray()
  */
-class getPathAsArray extends \PHPUnit_Framework_TestCase
+class getPathAsArray extends \BaseUnitTest
 {
 	public function testValidIncludePath()
 	{

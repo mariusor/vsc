@@ -9,7 +9,7 @@ use vsc\presentation\responses\HttpResponseType;
 /**
  * @covers \vsc\application\processors\NotFoundProcessor::handleRequest()
  */
-class handleRequest extends \PHPUnit_Framework_TestCase
+class handleRequest extends \BaseUnitTest
 {
 	public function testBasicHandleRequest()
 	{

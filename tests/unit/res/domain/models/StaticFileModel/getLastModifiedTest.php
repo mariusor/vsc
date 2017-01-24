@@ -5,7 +5,7 @@ use vsc\domain\models\StaticFileModel;
 /**
  * @covers \vsc\domain\models\StaticFileModel::getLastModified()
  */
-class getLastModified extends \PHPUnit_Framework_TestCase
+class getLastModified extends \BaseUnitTest
 {
 	public function testGetLastModifiedMatchesFilemtimeOfFile()
 	{

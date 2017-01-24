@@ -5,7 +5,7 @@ use mocks\presentation\requests\PopulatedRequest;
 /**
  * @covers \vsc\presentation\requests\RwHttpRequest::getTaintedVar()
  */
-class getTaintedVar extends \PHPUnit_Framework_TestCase
+class getTaintedVar extends \BaseUnitTest
 {
 
 	public function testGetTaintedVarCorrect() {

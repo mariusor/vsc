@@ -5,7 +5,7 @@ use vsc\presentation\views\JsonView;
 /**
  * @covers \vsc\presentation\views\JsonView::outputModel()
  */
-class outputModel extends \PHPUnit_Framework_TestCase
+class outputModel extends \BaseUnitTest
 {
 	public function testOutputModelWithEmptyArray()
 	{

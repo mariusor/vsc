@@ -14,7 +14,7 @@ use vsc\presentation\responses\HttpResponseType;
  * @package lib\application\controllers\CacheableControllerA
  * @covers \vsc\application\controllers\CacheableControllerA::addCacheHeaders()
  */
-class addCacheHeadersTest extends \PHPUnit_Framework_TestCase
+class addCacheHeadersTest extends \BaseUnitTest
 {
 	public function testWithCacheableModel() {
 		$now = new \DateTimeImmutable('now', new \DateTimeZone('GMT'));

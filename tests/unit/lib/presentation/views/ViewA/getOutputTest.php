@@ -9,7 +9,7 @@ use vsc\presentation\views\ExceptionView;
 /**
  * @covers \vsc\presentation\views\ViewA::getOutput()
  */
-class getOutput extends \PHPUnit_Framework_TestCase
+class getOutput extends \BaseUnitTest
 {
 	public function testGetOutput()
 	{

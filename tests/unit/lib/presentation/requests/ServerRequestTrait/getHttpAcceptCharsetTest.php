@@ -6,7 +6,7 @@ use vsc\presentation\requests\ServerRequestTrait;
 /**
  * @covers \vsc\presentation\requests\ServerRequestTrait::getHttpAcceptCharset()
  */
-class getHttpAcceptCharset extends \PHPUnit_Framework_TestCase
+class getHttpAcceptCharset extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

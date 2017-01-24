@@ -12,7 +12,7 @@ use vsc\infrastructure\urls\Url;
  * @package tests\infrastructure\urls
  * @covers vsc\infrastructure\urls\Url::getRawQueryString()
  */
-class getRawQueryStringTest extends \PHPUnit_Framework_TestCase
+class getRawQueryStringTest extends \BaseUnitTest
 {
 	public function testGetQueryString () {
 		$value = [

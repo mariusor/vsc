@@ -2,7 +2,7 @@
 namespace res\functions_inc;
 
 
-class isDebugTest extends \PHPUnit_Framework_TestCase {
+class isDebugTest extends \BaseUnitTest {
 
 	public function testIsDebug () {
 		$this->assertTrue (\vsc\isDebug());

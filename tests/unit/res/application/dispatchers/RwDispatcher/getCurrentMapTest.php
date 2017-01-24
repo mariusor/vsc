@@ -10,7 +10,7 @@ use vsc\ExceptionError;
 /**
  * @covers \vsc\application\dispatchers\RwDispatcher::getCurrentMap()
  */
-class getCurrentMap extends \PHPUnit_Framework_TestCase
+class getCurrentMap extends \BaseUnitTest
 {
 	public function testCurrentMapWithEmptyMaps()
 	{

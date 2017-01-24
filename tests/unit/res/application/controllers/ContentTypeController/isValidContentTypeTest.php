@@ -5,7 +5,7 @@ use vsc\application\controllers\ContentTypeController;
 /**
  * @covers \vsc\application\controllers\ContentTypeController::isValidContentType()
  */
-class isValidContentType extends \PHPUnit_Framework_TestCase
+class isValidContentType extends \BaseUnitTest
 {
 	public function testUseless()
 	{

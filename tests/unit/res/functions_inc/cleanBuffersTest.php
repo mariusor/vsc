@@ -1,11 +1,10 @@
 <?php
 namespace tests\res\functions_inc;
 
-class cleanBuffers extends \PHPUnit_Framework_TestCase
+class cleanBuffers extends \BaseUnitTest
 {
 	public function testBasicCleanBuffers()
 	{
-		$this->markTestSkipped('New buffer rules');
 		$s = ob_end_clean(); // phpunit buffer
 		$output = 'asd';
 		ob_start();

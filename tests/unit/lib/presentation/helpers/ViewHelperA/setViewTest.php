@@ -6,7 +6,7 @@ use mocks\presentation\views\NullView;
 /**
  * @covers \vsc\presentation\helpers\ViewHelperA::setView()
  */
-class setView extends \PHPUnit_Framework_TestCase
+class setView extends \BaseUnitTest
 {
 	public function testBasicsetView()
 	{

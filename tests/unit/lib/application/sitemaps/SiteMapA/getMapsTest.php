@@ -5,7 +5,7 @@ use vsc\application\sitemaps\SiteMapA;
 /**
  * @covers \vsc\application\sitemaps\SiteMapA::getMaps()
  */
-class getMaps extends \PHPUnit_Framework_TestCase
+class getMaps extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

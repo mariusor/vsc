@@ -5,7 +5,7 @@ use vsc\domain\models\ModelA;
 /**
  * @covers \vsc\domain\models\ModelA::getCurrent()
  */
-class getCurrent extends \PHPUnit_Framework_TestCase
+class getCurrent extends \BaseUnitTest
 {
 	/**
 	 * @covers \vsc\domain\models\ModelA::getCurrent()

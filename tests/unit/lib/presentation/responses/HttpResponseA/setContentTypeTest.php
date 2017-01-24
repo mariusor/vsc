@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::setContentType()
  */
-class setContentType extends \PHPUnit_Framework_TestCase
+class setContentType extends \BaseUnitTest
 {
 	public function testBasicSetContentType()
 	{

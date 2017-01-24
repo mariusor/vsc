@@ -6,7 +6,7 @@ use vsc\presentation\requests\ServerRequestTrait;
 /**
  * @covers \vsc\presentation\requests\ServerRequestTrait::getServerName()
  */
-class getServerName extends \PHPUnit_Framework_TestCase
+class getServerName extends \BaseUnitTest
 {
 	public function testGetNullServerName()
 	{

@@ -6,7 +6,7 @@ use vsc\presentation\responses\HttpResponseType;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::getHttpStatusString()
  */
-class getHttpStatusString extends \PHPUnit_Framework_TestCase
+class getHttpStatusString extends \BaseUnitTest
 {
 	public function testGetHttpStatusString ()
 	{

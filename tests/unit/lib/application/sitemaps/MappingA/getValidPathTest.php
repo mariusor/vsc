@@ -15,7 +15,7 @@ use vsc\Exception;
  * @package lib\application\sitemaps\MappingA
  * @covers \vsc\application\sitemaps\MappingA::getValidPath()
  */
-class getValidPathTest extends \PHPUnit_Framework_TestCase {
+class getValidPathTest extends \BaseUnitTest {
 	public function testSetTemplatePathRelativeNoModuleMap ()
 	{
 		$oMap = new MappingA_underTest_getValidPath (FrontControllerFixture::class, '\A.*\Z');

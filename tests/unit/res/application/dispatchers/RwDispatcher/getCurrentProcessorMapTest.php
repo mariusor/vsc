@@ -9,7 +9,7 @@ use vsc\application\sitemaps\ClassMap;
 /**
  * @covers \vsc\application\dispatchers\RwDispatcher::getCurrentProcessorMap()
  */
-class getCurrentProcessorMap extends \PHPUnit_Framework_TestCase
+class getCurrentProcessorMap extends \BaseUnitTest
 {
 	public function test404WithoutSiteMap()
 	{

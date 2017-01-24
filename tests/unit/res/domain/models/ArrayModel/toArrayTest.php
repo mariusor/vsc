@@ -5,7 +5,7 @@ use vsc\domain\models\ArrayModel;
 /**
  * @covers \vsc\domain\models\ArrayModel::toArray()
  */
-class toArray extends \PHPUnit_Framework_TestCase
+class toArray extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

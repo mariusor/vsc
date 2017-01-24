@@ -5,7 +5,7 @@ use vsc\presentation\requests\HttpAuthenticationA;
 /**
  * @covers \vsc\presentation\requests\HttpAuthenticationA::setType()
  */
-class setType extends \PHPUnit_Framework_TestCase
+class setType extends \BaseUnitTest
 {
 	public function testBasicSetType()
 	{

@@ -5,7 +5,7 @@ use vsc\presentation\requests\HttpRequestA;
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::getVar()
  */
-class getVar extends \PHPUnit_Framework_TestCase
+class getVar extends \BaseUnitTest
 {
 	public function testInvalidKey()
 	{

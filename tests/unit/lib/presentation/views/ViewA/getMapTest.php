@@ -7,7 +7,7 @@ use vsc\presentation\views\ViewA;
 /**
  * @covers \vsc\presentation\views\ViewA::getMap()
  */
-class getMap extends \PHPUnit_Framework_TestCase
+class getMap extends \BaseUnitTest
 {
 	public function testEmptyAtInitialize()
 	{

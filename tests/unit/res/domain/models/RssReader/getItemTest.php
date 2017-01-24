@@ -6,7 +6,7 @@ use vsc\infrastructure\Base;
 /**
  * @covers \vsc\domain\models\RssReader::getItem()
  */
-class getItem extends \PHPUnit_Framework_TestCase
+class getItem extends \BaseUnitTest
 {
 	public function testGetItemReturnsNullObjectForNoItems()
 	{

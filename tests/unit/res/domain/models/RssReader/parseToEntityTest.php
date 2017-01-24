@@ -5,7 +5,7 @@ use vsc\domain\models\RssReader;
 /**
  * @covers \vsc\domain\models\RssReader::parseToEntity()
  */
-class parseToEntity extends \PHPUnit_Framework_TestCase
+class parseToEntity extends \BaseUnitTest
 {
 	public function testParseToEntityEmptyItemsFromEmptyDOMNodeList()
 	{

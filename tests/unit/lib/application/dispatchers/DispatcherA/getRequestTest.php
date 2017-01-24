@@ -6,7 +6,7 @@ use vsc\application\dispatchers\RwDispatcher;
 /**
  * @covers \vsc\application\dispatchers\DispatcherA::getRequest()
  */
-class getRequest extends \PHPUnit_Framework_TestCase
+class getRequest extends \BaseUnitTest
 {
 	public function testBasicGetRequest () {
 		$o = new RwDispatcher();

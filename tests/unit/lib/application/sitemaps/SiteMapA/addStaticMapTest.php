@@ -5,7 +5,7 @@ use vsc\application\sitemaps\SiteMapA;
 /**
  * @covers \vsc\application\sitemaps\SiteMapA::addStaticMap()
  */
-class addStaticMap extends \PHPUnit_Framework_TestCase
+class addStaticMap extends \BaseUnitTest
 {
 	public function testBasicAddSiteMap ()
 	{

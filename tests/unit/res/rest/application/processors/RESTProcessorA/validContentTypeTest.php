@@ -9,7 +9,7 @@ use vsc\presentation\requests\HttpRequestA;
  * @package res\rest\application\processors\RESTProcessorA
  * @covers \vsc\rest\application\processors\RESTProcessorA::validContentType()
  */
-class validContentTypeTest extends \PHPUnit_Framework_TestCase {
+class validContentTypeTest extends \BaseUnitTest {
 
 	public function providerForContentType() {
 		return [

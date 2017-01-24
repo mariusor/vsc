@@ -10,7 +10,7 @@ use vsc\rest\application\controllers\RESTController;
 /**
  * @covers \vsc\rest\application\controllers\RESTController::getDefaultView()
  */
-class getDefaultView extends \PHPUnit_Framework_TestCase
+class getDefaultView extends \BaseUnitTest
 {
 	public function testBasicGetDefaultView()
 	{

@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::getLinks()
  */
-class getLinks extends \PHPUnit_Framework_TestCase
+class getLinks extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

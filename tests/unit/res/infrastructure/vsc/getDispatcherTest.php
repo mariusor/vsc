@@ -7,7 +7,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\infrastructure\vsc::getDispatcher()
  */
-class getDispatcher extends \PHPUnit_Framework_TestCase
+class getDispatcher extends \BaseUnitTest
 {
 	public function testGetDispatcher ()
 	{

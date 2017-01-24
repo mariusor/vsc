@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::getTaintedVars()
  */
-class getTaintedVars extends \PHPUnit_Framework_TestCase
+class getTaintedVars extends \BaseUnitTest
 {
 	public function testEmptyAtInitialize ()
 	{

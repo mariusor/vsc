@@ -6,7 +6,7 @@ use vsc\application\controllers\CacheableControllerA;
 /**
  * @covers \vsc\application\controllers\CacheableControllerA::getLastModified()
  */
-class getLastModified extends \PHPUnit_Framework_TestCase
+class getLastModified extends \BaseUnitTest
 {
 	public function testNoLastModified()
 	{

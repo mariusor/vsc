@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::getTitle()
  */
-class getTitle extends \PHPUnit_Framework_TestCase
+class getTitle extends \BaseUnitTest
 {
 	public function testEmptyAtInitialize ()
 	{

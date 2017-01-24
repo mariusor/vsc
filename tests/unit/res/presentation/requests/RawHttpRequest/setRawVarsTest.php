@@ -5,7 +5,7 @@ use vsc\presentation\requests\RawHttpRequest;
 /**
  * @covers \vsc\presentation\requests\RawHttpRequest::setRawVars()
  */
-class setRawVars extends \PHPUnit_Framework_TestCase
+class setRawVars extends \BaseUnitTest
 {
 	public function testSetVarsWithOnlyRaw()
 	{

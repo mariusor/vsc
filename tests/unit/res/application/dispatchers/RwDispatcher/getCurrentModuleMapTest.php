@@ -9,7 +9,7 @@ use vsc\infrastructure\vsc;
 /**
  * @covers \vsc\application\dispatchers\RwDispatcher::getCurrentModuleMap()
  */
-class getCurrentModuleMap extends \PHPUnit_Framework_TestCase
+class getCurrentModuleMap extends \BaseUnitTest
 {
 	public function testGetCurrentModuleMap ()
 	{

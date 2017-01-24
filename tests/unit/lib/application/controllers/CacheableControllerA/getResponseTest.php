@@ -16,7 +16,7 @@ use vsc\presentation\views\CacheableViewA;
 /**
  * @covers \vsc\application\controllers\CacheableControllerA::getResponse()
  */
-class getResponse extends \PHPUnit_Framework_TestCase
+class getResponse extends \BaseUnitTest
 {
 	protected function setUp () {
 		vsc::setInstance(new vsc());

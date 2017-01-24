@@ -5,7 +5,7 @@ use mocks\presentation\requests\PopulatedRequest;
 /**
  * @covers \vsc\presentation\requests\SessionRequestTrait::hasSessionVar()
  */
-class hasSessionVar extends \PHPUnit_Framework_TestCase
+class hasSessionVar extends \BaseUnitTest
 {
 	public function tearDown() {
 		@session_destroy();

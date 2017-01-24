@@ -7,7 +7,7 @@ use vsc\domain\models\ModelA;
  * @package lib\domain\models\ModelA
  * @covers \vsc\domain\models\ModelA::__construct()
  */
-class __constructTest extends \PHPUnit_Framework_TestCase {
+class __constructTest extends \BaseUnitTest {
 
 	public function testBasicInstantiation() {
 		$o = new ModelA_underTest___construct();

@@ -8,7 +8,7 @@ use vsc\application\sitemaps\ModuleMap;
  * @package res\application\sitemaps\ModuleMap
  * @covers \vsc\application\sitemaps\ModuleMap::__construct()
  */
-class __constructTest extends \PHPUnit_Framework_TestCase {
+class __constructTest extends \BaseUnitTest {
 
 	public function testInitialization () {
 		$r = '';

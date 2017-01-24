@@ -7,7 +7,7 @@ use vsc\application\processors\StaticFileProcessor;
 /**
  * @covers \vsc\application\processors\StaticFileProcessor::handleRequest()
  */
-class handleRequest extends \PHPUnit_Framework_TestCase
+class handleRequest extends \BaseUnitTest
 {
 	public function testBasicHandleRequest()
 	{

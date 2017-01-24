@@ -6,7 +6,7 @@ use vsc\presentation\views\PlainTextView;
 /**
  * @covers \vsc\presentation\views\PlainTextView::fetch()
  */
-class fetch extends \PHPUnit_Framework_TestCase
+class fetch extends \BaseUnitTest
 {
 	public function testUseless()
 	{

@@ -6,7 +6,7 @@ use vsc\presentation\requests\ServerRequestTrait;
 /**
  * @covers \vsc\presentation\requests\ServerRequestTrait::getContentType()
  */
-class getContentType extends \PHPUnit_Framework_TestCase
+class getContentType extends \BaseUnitTest
 {
 	public function testEmptyAtInitialize()
 	{

@@ -5,7 +5,7 @@ use mocks\presentation\views\testView;
 /**
  * @covers \vsc\presentation\views\ViewA::getContentType()
  */
-class getContentType extends \PHPUnit_Framework_TestCase
+class getContentType extends \BaseUnitTest
 {
 	public function testGetContentTypeEmpty()
 	{

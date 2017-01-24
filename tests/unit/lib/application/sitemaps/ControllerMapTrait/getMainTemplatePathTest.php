@@ -8,7 +8,7 @@ use vsc\application\sitemaps\ModuleMap;
 /**
  * @covers \vsc\application\sitemaps\ControllerMapTrait::getMainTemplatePath()
  */
-class getMainTemplatePath extends \PHPUnit_Framework_TestCase
+class getMainTemplatePath extends \BaseUnitTest
 {
 	public function testGetMainTemplatePath ()
 	{

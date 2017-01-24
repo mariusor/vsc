@@ -6,7 +6,7 @@ use vsc\presentation\requests\HttpRequestTypes;
 /**
  * @covers \vsc\presentation\requests\HttpRequestA::isGet()
  */
-class isGet extends \PHPUnit_Framework_TestCase
+class isGet extends \BaseUnitTest
 {
 	public function testIsGet () {
 		$o = new HttpRequestA_underTest_isGet();

@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::setLocation()
  */
-class setLocation extends \PHPUnit_Framework_TestCase
+class setLocation extends \BaseUnitTest
 {
 	public function testSetGetLocation () {
 		$state = new HttpResponseA_underTest_setLocation();

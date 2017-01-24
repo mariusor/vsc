@@ -6,7 +6,7 @@ use vsc\presentation\requests\ServerRequestTrait;
 /**
  * @covers vsc\presentation\requests\ServerRequestTrait::loadAcceptHeaders()
  */
-class loadAcceptHeadersTest extends \PHPUnit_Framework_TestCase
+class loadAcceptHeadersTest extends \BaseUnitTest
 {
 	public function testBasicLoad() {
 		$aServer = [

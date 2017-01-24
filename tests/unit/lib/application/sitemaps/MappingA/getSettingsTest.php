@@ -5,7 +5,7 @@ use vsc\application\sitemaps\MappingA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::getSettings()
  */
-class getSettings extends \PHPUnit_Framework_TestCase
+class getSettings extends \BaseUnitTest
 {
 	public function testEmptyAtInitialize ()
 	{

@@ -6,7 +6,7 @@ use vsc\presentation\requests\HttpAuthenticationA;
 /**
  * @covers \vsc\application\sitemaps\MappingA::requiresAuthentication()
  */
-class requiresAuthentication extends \PHPUnit_Framework_TestCase
+class requiresAuthentication extends \BaseUnitTest
 {
 	public function testRequiresAuthenticationBasic()
 	{

@@ -9,7 +9,7 @@ use vsc\presentation\requests\RawHttpRequest;
  * @package res\rest\application\processors\RESTProcessorA
  * @covers \vsc\rest\application\processors\RESTProcessorA::getValidContentTypes()
  */
-class getValidContentTypesTest extends \PHPUnit_Framework_TestCase {
+class getValidContentTypesTest extends \BaseUnitTest {
 	public function testBasic() {
 		$o = new RESTProcessorA_underTest_getValidContentTypes();
 		$this->assertSame($o->validContentTypes, $o->getValidContentTypes());

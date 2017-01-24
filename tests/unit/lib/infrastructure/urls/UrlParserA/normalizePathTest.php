@@ -13,7 +13,7 @@ use vsc\infrastructure\urls\UrlParserA;
  * @package tests\lib\infrastructure\urls\UrlParserA
  * @covers vsc\infrastructure\urls\UrlParserA::normalizePath()
  */
-class normalizePathTest extends \PHPUnit_Framework_TestCase
+class normalizePathTest extends \BaseUnitTest
 {
 	public function providerForNormalize() {
 		return [

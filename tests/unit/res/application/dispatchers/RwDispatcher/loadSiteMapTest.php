@@ -9,7 +9,7 @@ use vsc\ExceptionError;
 /**
  * @covers \vsc\application\dispatchers\RwDispatcher::loadSiteMap()
  */
-class loadSiteMap extends \PHPUnit_Framework_TestCase
+class loadSiteMap extends \BaseUnitTest
 {
 	public function testLoadSiteMap ()
 	{

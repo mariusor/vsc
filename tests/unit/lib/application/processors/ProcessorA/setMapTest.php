@@ -6,7 +6,7 @@ use vsc\application\sitemaps\ModuleMap;
 /**
  * @covers \vsc\application\processors\ProcessorA::setMap()
  */
-class setMap extends \PHPUnit_Framework_TestCase
+class setMap extends \BaseUnitTest
 {
 	public function testBasicSetMap () {
 		$o = new ProcessorFixture();

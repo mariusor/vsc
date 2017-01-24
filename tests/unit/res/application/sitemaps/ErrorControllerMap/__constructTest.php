@@ -6,7 +6,7 @@ use vsc\application\controllers\Html5Controller;
 /**
  * @covers \vsc\application\sitemaps\ErrorControllerMap::__construct()
  */
-class __construct extends \PHPUnit_Framework_TestCase
+class __construct extends \BaseUnitTest
 {
 	public function testBasic__construct()
 	{

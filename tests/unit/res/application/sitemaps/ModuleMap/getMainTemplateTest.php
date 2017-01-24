@@ -5,7 +5,7 @@ use vsc\application\sitemaps\ModuleMap;
 /**
  * @covers \vsc\application\sitemaps\ModuleMap::getMainTemplate()
  */
-class getMainTemplate extends \PHPUnit_Framework_TestCase
+class getMainTemplate extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{

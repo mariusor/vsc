@@ -5,7 +5,7 @@ use vsc\infrastructure\Base;
 /**
  * @covers \vsc\infrastructure\Base::__call()
  */
-class __call extends \PHPUnit_Framework_TestCase
+class __call extends \BaseUnitTest
 {
 	public function test__call ()
 	{

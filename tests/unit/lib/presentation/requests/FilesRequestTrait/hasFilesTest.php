@@ -5,7 +5,7 @@ use vsc\presentation\requests\FilesRequestTrait;
 /**
  * @covers \vsc\presentation\requests\FilesRequestTrait::hasFiles()
  */
-class hasFiles extends \PHPUnit_Framework_TestCase
+class hasFiles extends \BaseUnitTest
 {
 	public function testDefaultIsFalse()
 	{

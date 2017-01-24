@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpResponseA::setContentEncoding()
  */
-class setContentEncoding extends \PHPUnit_Framework_TestCase
+class setContentEncoding extends \BaseUnitTest
 {
 	public function testBasicSetContentEncoding()
 	{

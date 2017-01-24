@@ -5,7 +5,7 @@ use vsc\presentation\responses\HttpResponseA;
 /**
  * @covers \vsc\presentation\responses\HttpHeadersTrait::outputContentHeaders()
  */
-class outputContentHeaders extends \PHPUnit_Framework_TestCase
+class outputContentHeaders extends \BaseUnitTest
 {
 	public function testNullInCLI()
 	{
