@@ -18,7 +18,7 @@
 		}
 	],
 	"autoload": {
-		"psr-4" : { "vsc\\" : ["lib/", "res/"]}
+		"psr-4" : { "vsc\\" : ["src/"]}
 	},
 	"autoload-dev": {
 		"psr-4" : { "mocks\\" : "tests/mocks"}

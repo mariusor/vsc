@@ -8,50 +8,36 @@
 	stopOnSkipped="false">
 	<testsuites>
 		<testsuite name="unit">
-			<exclude>./unit/lib/presentation/requests</exclude>
+			<exclude>./unit/presentation/requests</exclude>
 			<directory suffix="Test.php">./unit</directory>
 		</testsuite>
 		<testsuite name="functions">
-			<directory suffix="Test.php">./unit/res/functions_inc</directory>
+			<directory suffix="Test.php">./unit/functions_inc</directory>
 		</testsuite>
 		<testsuite name="infrastructure">
-			<directory suffix="Test.php">./unit/lib/infrastructure</directory>
-			<directory suffix="Test.php">./unit/res/infrastructure</directory>
+			<directory suffix="Test.php">./unit/infrastructure</directory>
 		</testsuite>
 		<testsuite name="domain">
-			<directory suffix="Test.php">./unit/lib/domain</directory>
-			<directory suffix="Test.php">./unit/res/domain</directory>
+			<directory suffix="Test.php">./unit/domain</directory>
 		</testsuite>
 		<testsuite name="application">
-			<directory suffix="Test.php">./unit/lib/application</directory>
-			<directory suffix="Test.php">./unit/res/application</directory>
+			<directory suffix="Test.php">./unit/application</directory>
 		</testsuite>
 		<testsuite name="presentation">
-			<exclude>./unit/lib/presentation/requests</exclude>
-			<exclude>./unit/res/presentation/requests</exclude>
-			<directory suffix="Test.php">./unit/lib/presentation</directory>
-			<directory suffix="Test.php">./unit/res/presentation</directory>
+			<exclude>./unit/presentation/requests</exclude>
+			<directory suffix="Test.php">./unit/presentation</directory>
 		</testsuite>
 		<testsuite name="sitemaps">
-			<directory suffix="Test.php">./unit/lib/application/sitemaps</directory>
-			<directory suffix="Test.php">./unit/res/application/sitemaps</directory>
-		</testsuite>
-		<testsuite name="lib">
-			<exclude>./unit/lib/presentation/requests</exclude>
-			<directory suffix="Test.php">./unit/lib</directory>
-		</testsuite>
-		<testsuite name="res">
-			<exclude>./unit/res/presentation/requests</exclude>
-			<directory suffix="Test.php">./unit/res</directory>
+			<directory suffix="Test.php">./unit/application/sitemaps</directory>
 		</testsuite>
 	</testsuites>
 	<filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">../lib</directory>
-			<directory suffix=".php">../res</directory>
+			<directory suffix=".php">../src</directory>
 			<exclude>
-				<directory suffix=".php">../res/templates</directory>
-				<directory suffix="Interface.php">../lib</directory>
+				<directory suffix=".php">../src/templates</directory>
+				<directory suffix="Interface.php">../src</directory>
+				<directory suffix="map.php">../src</directory>
 			</exclude>
 		</whitelist>
 	</filter>
