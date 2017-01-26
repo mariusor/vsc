@@ -4,7 +4,7 @@ use mocks\application\sitemaps\ModuleMapFixture;
 use vsc\application\sitemaps\ResourceMapTrait;
 
 /**
- * @covers \vsc\application\sitemaps\ResourceMapTrait::getPath()
+ * @covers \vsc\application\sitemaps\MappingA::getPath()
  */
 class getPath extends \BaseUnitTest
 {
@@ -16,11 +16,9 @@ class getPath extends \BaseUnitTest
 }
 
 class MappingA_underTest_getPath extends ModuleMapFixture {
-	public function __construct () {
-		$sPath = __FILE__;
-		$sRegex = '.*';
-		parent::__construct($sPath, $sRegex);
-	}
-
 	use ResourceMapTrait;
+
+	public function __construct () {
+		parent::__construct( __FILE__, '.*');
+	}
 }
