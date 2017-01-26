@@ -1,8 +1,8 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
+use mocks\application\sitemaps\MapFixture;
 use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\ContentTypeMappingInterface;
-use vsc\application\sitemaps\MappingA;
 
 /**
  * @covers \vsc\application\sitemaps\MappingA::mergePaths()
@@ -32,7 +32,7 @@ class mergePaths extends \BaseUnitTest
 	}
 }
 
-class MappingA_underTest_mergePaths extends MappingA {
+class MappingA_underTest_mergePaths extends MapFixture {
 	public function __construct ($sPath = null, $sRegex = null) {
 		if (is_null($sPath)) {
 			$sPath = __FILE__;

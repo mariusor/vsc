@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
-use vsc\application\sitemaps\MappingA;
+use mocks\application\sitemaps\MapFixture;
 
 /**
  * @covers \vsc\application\sitemaps\MappingA::__construct()
@@ -17,4 +17,4 @@ class __construct extends \BaseUnitTest
 	}
 }
 
-class MappingA_underTest___construct extends MappingA {}
+class MappingA_underTest___construct extends MapFixture {}

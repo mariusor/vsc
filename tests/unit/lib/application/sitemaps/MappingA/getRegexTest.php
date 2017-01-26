@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
-use vsc\application\sitemaps\MappingA;
+use mocks\application\sitemaps\MapFixture;
 
 /**
  * @covers \vsc\application\sitemaps\MappingA::getRegex()
@@ -14,7 +14,7 @@ class getRegex extends \BaseUnitTest
 	}
 }
 
-class MappingA_underTest_getRegex extends MappingA {
+class MappingA_underTest_getRegex extends MapFixture {
 	public function __construct ($sPath = null, $sRegex = null) {
 		if (is_null($sPath)) {
 			$sPath = __FILE__;

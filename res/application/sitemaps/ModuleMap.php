@@ -10,6 +10,9 @@ namespace vsc\application\sitemaps;
 use vsc\infrastructure\urls\UrlParserA;
 
 class ModuleMap extends MappingA implements ContentTypeMappingInterface {
+	use ModuleMapTrait;
+	use ResourceMapTrait;
+
 	/**
 	 * @var string
 	 */

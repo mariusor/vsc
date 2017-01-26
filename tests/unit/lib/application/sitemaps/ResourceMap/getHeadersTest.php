@@ -1,9 +1,10 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
-use vsc\application\sitemaps\MappingA;
+use mocks\application\sitemaps\ModuleMapFixture;
+use vsc\application\sitemaps\ResourceMapTrait;
 
 /**
- * @covers \vsc\application\sitemaps\MappingA::getHeaders()
+ * @covers \vsc\application\sitemaps\ResourceMapTrait::getHeaders()
  */
 class getHeaders extends \BaseUnitTest
 {
@@ -24,14 +25,6 @@ class getHeaders extends \BaseUnitTest
 	}
 }
 
-class MappingA_underTest_getHeaders extends MappingA {
-	public function __construct ($sPath = null, $sRegex = null) {
-		if (is_null($sPath)) {
-			$sPath = __FILE__;
-		}
-		if (is_null($sRegex)) {
-			$sRegex = '.*';
-		}
-		parent::__construct($sPath, $sRegex);
-	}
+class MappingA_underTest_getHeaders extends ModuleMapFixture {
+	use ResourceMapTrait;
 }

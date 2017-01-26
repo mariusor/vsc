@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
-use vsc\application\sitemaps\MappingA;
+use mocks\application\sitemaps\MapFixture;
 use vsc\presentation\requests\HttpAuthenticationA;
 
 /**
@@ -38,7 +38,8 @@ class getAuthenticationType extends \BaseUnitTest
 	}
 }
 
-class MappingA_underTest_getAuthenticationType extends MappingA {
+class MappingA_underTest_getAuthenticationType extends MapFixture {
+
 	public function __construct ($sPath = null, $sRegex = null) {
 		if (is_null($sPath)) {
 			$sPath = __FILE__;

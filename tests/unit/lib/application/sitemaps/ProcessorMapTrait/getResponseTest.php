@@ -1,6 +1,6 @@
 <?php
 namespace tests\lib\application\sitemaps\ProcessorMapTrait;
-use vsc\application\sitemaps\MappingA;
+use mocks\application\sitemaps\MapFixture;
 use vsc\application\sitemaps\ProcessorMapTrait;
 
 /**
@@ -15,6 +15,6 @@ class getResponse extends \BaseUnitTest
 	}
 }
 
-class ProcessorMapT_underTest_getResponse extends MappingA {
+class ProcessorMapT_underTest_getResponse extends MapFixture {
 	use ProcessorMapTrait;
 }

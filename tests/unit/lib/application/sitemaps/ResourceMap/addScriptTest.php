@@ -1,9 +1,10 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
-use vsc\application\sitemaps\MappingA;
+use mocks\application\sitemaps\ModuleMapFixture;
+use vsc\application\sitemaps\ResourceMapTrait;
 
 /**
- * @covers \vsc\application\sitemaps\MappingA::addScript()
+ * @covers \vsc\application\sitemaps\ResourceMapTrait::addScript()
  */
 class addScript extends \BaseUnitTest
 {
@@ -28,14 +29,6 @@ class addScript extends \BaseUnitTest
 	}
 }
 
-class MappingA_underTest_addScript extends MappingA {
-	public function __construct ($sPath = null, $sRegex = null) {
-		if (is_null($sPath)) {
-			$sPath = __FILE__;
-		}
-		if (is_null($sRegex)) {
-			$sRegex = '.*';
-		}
-		parent::__construct($sPath, $sRegex);
-	}
+class MappingA_underTest_addScript extends ModuleMapFixture {
+	use ResourceMapTrait;
 }

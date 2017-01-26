@@ -1,9 +1,11 @@
 <?php
 namespace tests\lib\application\sitemaps\ControllerMapTrait;
 use mocks\application\controllers\FrontControllerFixture;
+use mocks\application\sitemaps\MapFixture;
 use vsc\application\sitemaps\ControllerMapTrait;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ModuleMap;
+use vsc\application\sitemaps\ModuleMapTrait;
 use vsc\Exception;
 use vsc\ExceptionPath;
 
@@ -46,6 +48,7 @@ class setMainTemplatePath extends \BaseUnitTest
 	}
 }
 
-class ControllerMapT_underTest_setMainTemplatePath extends MappingA {
+class ControllerMapT_underTest_setMainTemplatePath extends MapFixture {
 	use ControllerMapTrait;
+	use ModuleMapTrait;
 }

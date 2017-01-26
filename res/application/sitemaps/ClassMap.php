@@ -11,6 +11,8 @@ use vsc\infrastructure\Object as vscObject;
 class ClassMap extends MappingA implements ContentTypeMappingInterface {
 	use ProcessorMapTrait;
 	use ControllerMapTrait;
+	use ModuleMapTrait;
+	use ResourceMapTrait;
 
 	/**
 	 * @param string $sPath

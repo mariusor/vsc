@@ -1,7 +1,9 @@
 <?php
 namespace tests\lib\application\sitemaps\ControllerMapTrait;
+use mocks\application\sitemaps\MapFixture;
 use vsc\application\sitemaps\ControllerMapTrait;
 use vsc\application\sitemaps\MappingA;
+use vsc\application\sitemaps\ModuleMapTrait;
 
 /**
  * @covers \vsc\application\sitemaps\ControllerMapTrait::getMainTemplate()
@@ -24,6 +26,7 @@ class getMainTemplate extends \BaseUnitTest
 	}
 }
 
-class ControllerMapT_underTest_getMainTemplate extends MappingA {
+class ControllerMapT_underTest_getMainTemplate extends MapFixture {
+	use ModuleMapTrait;
 	use ControllerMapTrait;
 }

@@ -1,7 +1,7 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
 use mocks\application\controllers\FrontControllerFixture;
-use vsc\application\sitemaps\MappingA;
+use mocks\application\sitemaps\MapFixture;
 
 /**
  * @covers \vsc\application\sitemaps\MappingA::setTemplate()
@@ -19,4 +19,4 @@ class setTemplate extends \BaseUnitTest
 	}
 }
 
-class MappingA_underTest_setTemplate extends MappingA {}
+class MappingA_underTest_setTemplate extends MapFixture {}

@@ -1,8 +1,10 @@
 <?php
 namespace tests\lib\application\sitemaps\ControllerMapTrait;
+use mocks\application\sitemaps\MapFixture;
 use mocks\presentation\views\NullView;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ControllerMapTrait;
+use vsc\application\sitemaps\ModuleMapTrait;
 use vsc\presentation\views\ViewA;
 
 /**
@@ -25,6 +27,7 @@ class setView extends \BaseUnitTest
 	}
 }
 
-class ControllerMapT_underTest_setView extends MappingA {
+class ControllerMapT_underTest_setView extends MapFixture {
 	use ControllerMapTrait;
+	use ModuleMapTrait;
 }

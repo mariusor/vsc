@@ -1,8 +1,8 @@
 <?php
 namespace tests\lib\application\sitemaps\MappingA;
 use mocks\application\controllers\FrontControllerFixture;
+use mocks\application\sitemaps\MapFixture;
 use vsc\application\sitemaps\ClassMap;
-use vsc\application\sitemaps\MappingA;
 
 /**
  * @covers \vsc\application\sitemaps\MappingA::getControllerMaps()
@@ -33,7 +33,7 @@ class getControllerMaps extends \BaseUnitTest
 	}
 }
 
-class MappingA_underTest_getControllerMaps extends MappingA {
+class MappingA_underTest_getControllerMaps extends MapFixture {
 	public function __construct ($sPath = null, $sRegex = null) {
 		if (is_null($sPath)) {
 			$sPath = __FILE__;

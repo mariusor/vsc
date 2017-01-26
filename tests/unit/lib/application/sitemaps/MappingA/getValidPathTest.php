@@ -5,9 +5,11 @@
  */
 namespace lib\application\sitemaps\MappingA;
 use mocks\application\controllers\FrontControllerFixture;
+use mocks\application\sitemaps\MapFixture;
+use mocks\application\sitemaps\ModuleMapFixture;
 use vsc\application\sitemaps\ExceptionSitemap;
-use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ModuleMap;
+use vsc\application\sitemaps\ModuleMapTrait;
 use vsc\Exception;
 
 /**
@@ -34,7 +36,7 @@ class getValidPathTest extends \BaseUnitTest {
 	{
 		$oMap = new MappingA_underTest_getValidPath (FrontControllerFixture::class, '\A.*\Z');
 
-		$this->assertEquals(VSC_MOCK_PATH . 'templates'.DIRECTORY_SEPARATOR, $oMap->getValidPath( VSC_MOCK_PATH . 'templates'.DIRECTORY_SEPARATOR));
+		$this->assertEquals(VSC_MOCK_PATH . 'templates'.DIRECTORY_SEPARATOR, $oMap->getValidPath(VSC_MOCK_PATH . 'templates'.DIRECTORY_SEPARATOR));
 	}
 
 	public function testSetTemplatePathRelativeToWithModule ()
@@ -44,16 +46,18 @@ class getValidPathTest extends \BaseUnitTest {
 		$oMap = new MappingA_underTest_getValidPath(FrontControllerFixture::class, '\A.*\Z');
 		$oMap->setModuleMap($oModuleMap);
 
-		$this->assertEquals(VSC_MOCK_PATH . 'templates'.DIRECTORY_SEPARATOR, $oMap->getValidPath('templates'.DIRECTORY_SEPARATOR));
-		$this->assertEquals(VSC_MOCK_PATH . 'templates'.DIRECTORY_SEPARATOR, $oMap->getValidPath('templates'));
+		$this->assertEquals(VSC_MOCK_PATH . 'templates'. DIRECTORY_SEPARATOR, $oMap->getValidPath('templates'.DIRECTORY_SEPARATOR));
+		$this->assertEquals(VSC_MOCK_PATH . 'templates'. DIRECTORY_SEPARATOR, $oMap->getValidPath('templates'));
 	}
 }
 
-class MappingA_underTest_getValidPath extends MappingA {
+class MappingA_underTest_getValidPath extends MapFixture
+{
+	use ModuleMapTrait;
+
 	/**
 	 * @param string $sPath
 	 * @return string
-	 * @throws ExceptionSitemap
 	 */
 	public function getValidPath ($sPath) {
 		return parent::getValidPath($sPath);

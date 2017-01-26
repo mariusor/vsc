@@ -1,18 +1,17 @@
 <?php
-namespace tests\lib\application\sitemaps\MappingA;
-use vsc\application\sitemaps\MappingA;
+namespace tests\lib\application\sitemaps\ModuleMapTrait;
 use vsc\application\sitemaps\ModuleMap;
+use vsc\application\sitemaps\ModuleMapTrait;
 
 /**
- * @covers \vsc\application\sitemaps\MappingA::getModuleMap()
+ * @covers \vsc\application\sitemaps\ModuleMapTrait::getModuleMap()
  */
 class getModuleMap extends \BaseUnitTest
 {
 	public function testEmptyAtInitialization()
 	{
-		$o = new MappingA_underTest_getModuleMap();
+		$o = new ModuleMap_underTest_getModuleMap();
 		$oMap = $o->getModuleMap();
-		$this->assertInstanceOf(MappingA::class, $oMap);
 		$this->assertInstanceOf(ModuleMap::class, $oMap);
 
 		$this->assertEquals(VSC_RES_PATH, $oMap->getPath());
@@ -22,11 +21,10 @@ class getModuleMap extends \BaseUnitTest
 	public function testSetModuleMap()
 	{
 		$sRegex = '.*';
-		$o = new MappingA_underTest_getModuleMap();
+		$o = new ModuleMap_underTest_getModuleMap();
 		$o->setModuleMap(new ModuleMap(__FILE__, $sRegex));
 
 		$oMap = $o->getModuleMap();
-		$this->assertInstanceOf(MappingA::class, $oMap);
 		$this->assertInstanceOf(ModuleMap::class, $oMap);
 
 		$this->assertEquals(dirname(__FILE__).DIRECTORY_SEPARATOR, $oMap->getPath());
@@ -34,14 +32,6 @@ class getModuleMap extends \BaseUnitTest
 	}
 }
 
-class MappingA_underTest_getModuleMap extends MappingA {
-	public function __construct ($sPath = null, $sRegex = null) {
-		if (is_null($sPath)) {
-			$sPath = __FILE__;
-		}
-		if (is_null($sRegex)) {
-			$sRegex = '.*';
-		}
-		parent::__construct($sPath, $sRegex);
-	}
+class ModuleMap_underTest_getModuleMap {
+	use ModuleMapTrait;
 }

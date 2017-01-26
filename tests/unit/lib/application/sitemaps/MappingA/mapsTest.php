@@ -2,7 +2,7 @@
 namespace lib\application\sitemaps\MappingA;
 
 use mocks\application\processors\ProcessorFixture;
-use vsc\application\sitemaps\MappingA;
+use mocks\application\sitemaps\MapFixture;
 
 /**
  * Class mapsTest
@@ -20,4 +20,4 @@ class mapsTest extends \BaseUnitTest {
 	}
 }
 
-class MappingA_underTest_maps extends MappingA { }
+class MappingA_underTest_maps extends MapFixture { }

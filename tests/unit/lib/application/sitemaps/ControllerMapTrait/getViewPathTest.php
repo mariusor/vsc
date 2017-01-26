@@ -1,7 +1,9 @@
 <?php
 namespace tests\lib\application\sitemaps\ControllerMapTrait;
+use mocks\application\sitemaps\MapFixture;
 use vsc\application\sitemaps\MappingA;
 use vsc\application\sitemaps\ControllerMapTrait;
+use vsc\application\sitemaps\ModuleMapTrait;
 use vsc\presentation\views\ViewA;
 
 /**
@@ -78,6 +80,7 @@ class ViewA_underTest_getViewPath extends ViewA {
 	}
 }
 
-class ControllerMapT_underTest_getViewPath extends MappingA {
+class ControllerMapT_underTest_getViewPath extends MapFixture {
 	use ControllerMapTrait;
+	use ModuleMapTrait;
 }
