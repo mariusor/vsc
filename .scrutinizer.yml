@@ -1,5 +1,5 @@
 filter:
-    paths: [res/*, lib/*]
+    paths: [src/*]
     excluded_paths:
         - 'tests/*'
 build:
@@ -18,9 +18,10 @@ build:
 
 checks:
     php:
-        verify_property_names: true
         code_rating: true
         duplication: true
+
+        verify_property_names: true
         variable_existence: true
         useless_calls: true
         use_statement_alias_conflict: true
