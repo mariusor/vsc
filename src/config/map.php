@@ -13,7 +13,7 @@
 /* @var $this \vsc\application\sitemaps\RwSiteMap */
 
 if (!($this instanceof \vsc\application\sitemaps\SiteMapA)) {
-	return;
+	throw new \vsc\application\sitemaps\ExceptionModuleImport('Tyring to load map from outside SiteMap class');
 }
 
 // this will break if the current map is the first loaded
