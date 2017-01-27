@@ -5,6 +5,8 @@ use vsc\presentation\requests\SessionRequestTrait;
 
 /**
  * @covers \vsc\presentation\requests\SessionRequestTrait::getSessionName()
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
  */
 class getSessionName extends \BaseUnitTest
 {

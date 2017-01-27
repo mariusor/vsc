@@ -4,6 +4,8 @@ use mocks\presentation\requests\PopulatedRequest;
 
 /**
  * @covers \vsc\presentation\requests\CookieRequestTrait::hasCookieVar()
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
  */
 class hasCookieVar extends \BaseUnitTest
 {

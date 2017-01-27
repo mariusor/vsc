@@ -5,6 +5,8 @@ use vsc\presentation\requests\SessionRequestTrait;
 
 /**
  * @covers \vsc\presentation\requests\SessionRequestTrait::hasSession()
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
  */
 class hasSession extends \BaseUnitTest
 {

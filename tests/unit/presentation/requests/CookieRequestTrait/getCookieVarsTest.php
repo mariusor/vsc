@@ -4,6 +4,8 @@ use vsc\presentation\requests\CookieRequestTrait;
 
 /**
  * @covers \vsc\presentation\requests\CookieRequestTrait::getCookieVars()
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
  */
 class getCookieVars extends \BaseUnitTest
 {

@@ -6,6 +6,8 @@ use vsc\presentation\requests\HttpRequestA;
 /**
  * Class setCookieVarTest
  * @covers \vsc\presentation\requests\CookieRequestTrait::setCookieVar()
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
  */
 class setCookieVarTest extends \BaseUnitTest {
 

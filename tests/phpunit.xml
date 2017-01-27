@@ -1,5 +1,8 @@
 <phpunit
 	bootstrap="./vsc_phpunittest_environment.php"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
 	colors="true"
 	stopOnIncomplete="true"
 	stopOnError="true"
@@ -8,7 +11,6 @@
 	stopOnSkipped="false">
 	<testsuites>
 		<testsuite name="unit">
-			<exclude>./unit/presentation/requests</exclude>
 			<directory suffix="Test.php">./unit</directory>
 		</testsuite>
 		<testsuite name="functions">
@@ -24,7 +26,6 @@
 			<directory suffix="Test.php">./unit/application</directory>
 		</testsuite>
 		<testsuite name="presentation">
-			<exclude>./unit/presentation/requests</exclude>
 			<directory suffix="Test.php">./unit/presentation</directory>
 		</testsuite>
 		<testsuite name="sitemaps">

@@ -4,6 +4,8 @@ use vsc\presentation\requests\SessionRequestTrait;
 
 /**
  * @covers \vsc\presentation\requests\SessionRequestTrait::destroySession()
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
  */
 class destroySession extends \BaseUnitTest
 {
