@@ -143,7 +143,6 @@ abstract class FrontControllerA extends Object {
 			$oResponse->setStatus(HttpResponseType::OK);
 		}
 
-		$oModel = null;
 		try {
 			$oView = $this->loadView($oRequest, $oProcessor);
 			$oResponse->setView($oView);
