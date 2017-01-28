@@ -165,9 +165,11 @@ class vsc extends Object {
 		return self::isCli() ? "\n" : '<br/>' . "\n";
 	}
 
-	public static function d() {
-		$aRgs = func_get_args();
-
+	/**
+	 * @param array ...$values
+	 * @return string
+	 */
+	public static function d(...$values) {
 		$output = '';
 		for ($i = 0; $i < ob_get_level(); $i++) {
 			// cleaning the buffers
@@ -175,9 +177,9 @@ class vsc extends Object {
 		}
 
 		if (!self::isCLi() && self::getEnv()->getHttpRequest()->accepts('application/json')) {
-			$output = json_encode($aRgs);
+			$output = json_encode($values);
 		} elseif (self::isCLi() || self::getEnv()->getHttpRequest()->accepts('text/html')) {
-			foreach ($aRgs as $object) {
+			foreach ($values as $object) {
 				ob_start();
 				var_dump($object);
 				$output .= ob_get_clean();

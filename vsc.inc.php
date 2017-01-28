@@ -11,7 +11,7 @@ require_once(VSC_SRC_PATH . 'functions.inc.php');
 $sVersion = phpversion();
 $iMajorVersion = (int)substr($sVersion, 0, 1);
 $iMinorVersion = (int)substr($sVersion, 2, 1);
-if ($iMajorVersion < 5 || ($iMajorVersion == 5 && $iMinorVersion < 5)) {
+if ($iMajorVersion < 5 || ($iMajorVersion == 6 && $iMinorVersion < 0)) {
 	$sMessage = 'libVSC requires PHP version >= 5.5. Your current version is: '.$sVersion;
 
 	throw new ErrorException($sMessage, E_USER_ERROR);
