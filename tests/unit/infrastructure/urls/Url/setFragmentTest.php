@@ -10,7 +10,7 @@ use vsc\infrastructure\urls\Url;
 /**
  * Class setFragmentTest
  * @package tests\infrastructure\urls
- * @covers vsc\infrastructure\urls\Url::setFragment()
+ * @covers \vsc\infrastructure\urls\Url::setFragment()
  */
 class setFragmentTest extends \BaseUnitTest
 {
@@ -18,6 +18,6 @@ class setFragmentTest extends \BaseUnitTest
 		$value = uniqid('test:');
 		$url = new Url();
 		$url->setFragment($value);
-		$this->assertEquals($value, $url->getFragment());
+		$this->assertEquals('#' . $value, $url->getFragment());
 	}
 }

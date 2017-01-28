@@ -15,31 +15,33 @@ class addPathTest extends \BaseUnitTest {
 		$oUrl->setHost($sLocalHost);
 		$oUrl->addPath($sStr);
 
-		$this->assertEquals('http://' . $sLocalHost . '/' . $sStr . '/', $oUrl->getUrl());
+		$this->assertEquals('//' . $sLocalHost . '/' . $sStr . '/', $oUrl->getUrl());
 	}
 
 	public function testAddRelativePathWithParentDirectory () {
-		$sLocalHost = 'http://localhost';
+		$sLocalHost = 'localhost';
 		$sStr = 'ana/../are/mere';
 
 		$oUrl = new Url();
+		$oUrl->setScheme('http');
 		$oUrl->setHost($sLocalHost);
 		$oUrl->addPath($sStr);
 
 		$sParentStr = substr($sStr, strpos($sStr, '../') + strlen ('../'));
-		$this->assertEquals($sLocalHost . '/' . $sParentStr . '/', $oUrl->getUrl());
+		$this->assertEquals('http://' . $sLocalHost . '/' . $sParentStr . '/', $oUrl->getUrl());
 	}
 
 	public function testAddRelativePathWithCurrentDirectory () {
-		$sLocalHost = 'http://localhost';
+		$sLocalHost = 'localhost';
 		$sStr = 'ana/./are/mere';
 
 		$oUrl = new Url();
+		$oUrl->setScheme('http');
 		$oUrl->setHost($sLocalHost);
 		$oUrl->addPath($sStr);
 
 		$sCurrentStr = str_replace('./', '', $sStr);
-		$this->assertEquals($sLocalHost . '/' . $sCurrentStr . '/', $oUrl->getUrl());
+		$this->assertEquals('http://' . $sLocalHost . '/' . $sCurrentStr . '/', $oUrl->getUrl());
 	}
 
 }

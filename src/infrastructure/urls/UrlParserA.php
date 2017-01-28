@@ -24,7 +24,7 @@ class UrlParserA extends Object implements UrlParserInterface {
 	 * @return string
 	 */
 	public function __toString() {
-		return $this->getCompleteUri(true);
+		return $this->getCompleteUri();
 	}
 
 	/**
@@ -198,32 +198,26 @@ class UrlParserA extends Object implements UrlParserInterface {
 	}
 
 	/**
-	 * @param bool $bFull
 	 * @param int $iSteps
 	 * @return string
+	 * @internal param bool $bFull
 	 */
-	public function getCompleteParentUri($bFull = false, $iSteps = 1) {
-		if (!$this->oUrl->isLocal()) {
-			$sUrl = ($this->oUrl->hasScheme() ? $this->oUrl->getScheme() . '://' : '');
-			$sUrl .= $this->oUrl->getHost();
-		} else {
-			$sUrl = '';
-			if ($bFull) {
-				$sUrl = ($this->oUrl->getScheme() ? $this->oUrl->getScheme() . ':' : '') . '//';
-			}
-		}
-
-		$sUrl .= $this->getParentPath($iSteps);
-		if ($this->oUrl->hasQuery()) {
-			$sUrl .= '?' . $this->oUrl->getRawQueryString() . '';
-		}
-		$sUrl .= $this->oUrl->getFragment();
+	public function getCompleteParentUri($iSteps = 1) {
+		$sUrl = $this->oUrl->getScheme() .
+			$this->oUrl->getHost() .
+			$this->getParentPath($iSteps) .
+			$this->oUrl->getRawQueryString() .
+			$this->oUrl->getFragment();
 
 		return $sUrl;
 	}
 
-	public function getCompleteUri($bFull = false) {
-		return $this->getCompleteParentUri($bFull, 0);
+	/**
+	 * @return string
+	 * @internal param bool $bFull
+	 */
+	public function getCompleteUri() {
+		return $this->getCompleteParentUri(0);
 	}
 
 	/**

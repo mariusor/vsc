@@ -15,11 +15,11 @@ class getCompleteUri extends \BaseUnitTest
 
 	public function testNoSchemeIP() {
 		$oUrl = new UrlParserFixture('//8.8.8.8');
-		$this->assertEquals('http://8.8.8.8', $oUrl->getCompleteUri(true));
+		$this->assertEquals('http://8.8.8.8/', $oUrl->getCompleteUri());
 	}
 
 	public function testUrlNoSchemePath () {
 		$oUrl = new UrlParserFixture('//localhost');
-		$this->assertEquals('http://localhost', $oUrl->getCompleteUri(true));
+		$this->assertEquals('http://localhost/', $oUrl->getCompleteUri());
 	}
 }

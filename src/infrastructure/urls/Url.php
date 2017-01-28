@@ -54,7 +54,12 @@ class Url extends Object
 	 * @param string $host
 	 */
 	public function setHost($host) {
-		$this->host = $host;
+		$schPos = strpos($host, '//');
+		if ($schPos === false) {
+			$this->host = $host;
+		} else {
+			$this->host = substr($host, $schPos+2);
+		}
 	}
 
 	/**
@@ -94,8 +99,12 @@ class Url extends Object
 	 * @return string
 	 */
 	public function getScheme() {
-		if ($this->hasScheme()) {
-			return $this->scheme . '://';
+		if ($this->hasHost()) {
+			if ($this->hasScheme()) {
+				return $this->scheme . '://';
+			}
+
+			return '//';
 		}
 		return null;
 	}
@@ -125,7 +134,7 @@ class Url extends Object
 		if ($this->hasPath()) {
 			$path = UrlParserA::normalizePath($this->path);
 		}
-		if (!empty($path) && !UrlParserA::hasGoodTermination($path)) {
+		if (($this->hasHost() || !empty($path))&& !UrlParserA::hasGoodTermination($path)) {
 			$path .= '/';
 		}
 		return $path;
@@ -178,14 +187,14 @@ class Url extends Object
 	 * @return bool
 	 */
 	public function hasHost() {
-		return (null !== $this->host);
+		return (null !== $this->host && !empty($this->host));
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function hasPort() {
-		return (null !== $this->port);
+		return (null !== $this->port && !empty($this->port));
 	}
 
 	/**
@@ -206,7 +215,7 @@ class Url extends Object
 	 * @return bool
 	 */
 	public function hasFragment() {
-		return (null !== $this->fragment);
+		return (null !== $this->fragment && !empty($this->fragment));
 	}
 
 	/**
@@ -221,6 +230,7 @@ class Url extends Object
 	 */
 	public function getUrl() {
 		return $this->getScheme() .
+			$this->getHost() .
 			$this->getPort() .
 			$this->getPath() .
 			$this->getRawQueryString() .

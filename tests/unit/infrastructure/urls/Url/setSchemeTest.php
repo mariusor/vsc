@@ -10,14 +10,23 @@ use vsc\infrastructure\urls\Url;
 /**
  * Class setSchemeTest
  * @package tests\infrastructure\urls
- * @covers vsc\infrastructure\urls\Url::setScheme()
+ * @covers \vsc\infrastructure\urls\Url::setScheme()
  */
 class setSchemeTest extends \BaseUnitTest
 {
-	public function testBasicSetScheme () {
+	public function testSetSchemeNoHost () {
 		$value = 'https';
 		$url = new Url();
 		$url->setScheme($value);
-		$this->assertEquals($value, $url->getScheme());
+		$this->assertNull($url->getScheme());
+	}
+
+	public function testSetSchemeWithHost () {
+		$value = 'https';
+		$url = new Url();
+		$url->setScheme($value);
+		$url->setHost('random');
+
+		$this->assertEquals($value . '://', $url->getScheme());
 	}
 }

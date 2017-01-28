@@ -18,6 +18,6 @@ class setPathTest extends \BaseUnitTest
 		$value = uniqid('test:');
 		$url = new Url();
 		$url->setPath($value);
-		$this->assertEquals($value, $url->getPath());
+		$this->assertEquals($value . '/', $url->getPath());
 	}
 }

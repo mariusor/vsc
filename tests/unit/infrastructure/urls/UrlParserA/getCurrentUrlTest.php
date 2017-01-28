@@ -15,7 +15,7 @@ class getCurrentUrlTest extends \BaseUnitTest
 		$this->assertInstanceOf(UrlParserA::class, $o);
 		$this->assertInstanceOf(UrlParserA_underTest_getCurrentUrl::class, $o);
 
-		$this->assertEquals(UrlParserA_underTest_getCurrentUrl::getRequestUri(), $o->getCompleteUri(true));
+		$this->assertEquals(UrlParserA_underTest_getCurrentUrl::getRequestUri(), $o->getCompleteUri());
 	}
 }
 

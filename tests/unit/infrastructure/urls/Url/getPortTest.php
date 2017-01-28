@@ -19,6 +19,6 @@ class getPortTest extends \BaseUnitTest {
 		$sUrl = UrlParserFixture::makeUrl($aUrlComponents);
 		$oUrl = UrlParserFixture::url($sUrl);
 
-		$this->assertEquals($sPort, $oUrl->getPort());
+		$this->assertEquals(':' . $sPort, $oUrl->getPort());
 	}
 }
