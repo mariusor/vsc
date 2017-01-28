@@ -94,7 +94,10 @@ class Url extends Object
 	 * @return string
 	 */
 	public function getScheme() {
-		return $this->scheme;
+		if ($this->hasScheme()) {
+			return $this->scheme . '://';
+		}
+		return null;
 	}
 
 	/**
@@ -108,14 +111,24 @@ class Url extends Object
 	 * @return int
 	 */
 	public function getPort() {
-		return $this->port;
+		if ($this->hasPort() && $this->port != 80) {
+			return ':' . $this->port;
+		}
+		return null;
 	}
 
 	/**
 	 * @return string
 	 */
 	public function getPath() {
-		return UrlParserA::normalizePath($this->path);
+		$path = '';
+		if ($this->hasPath()) {
+			$path = UrlParserA::normalizePath($this->path);
+		}
+		if (!empty($path) && !UrlParserA::hasGoodTermination($path)) {
+			$path .= '/';
+		}
+		return $path;
 	}
 
 	/**
@@ -130,14 +143,20 @@ class Url extends Object
 	 * @return string
 	 */
 	public function getRawQueryString($encoded = true) {
-		return http_build_query($this->getQuery(), '', $encoded ? '&amp;' : '&', static::$queryEncodingType);
+		if ($this->hasQuery()) {
+			return '?' . http_build_query($this->getQuery(), '', $encoded ? '&amp;' : '&', static::$queryEncodingType);
+		}
+		return null;
 	}
 
 	/**
 	 * @return string
 	 */
 	public function getFragment() {
-		return $this->fragment;
+		if ($this->hasFragment()) {
+			return '#' . $this->fragment;
+		}
+		return null;
 	}
 
 	/**
@@ -201,31 +220,11 @@ class Url extends Object
 	 * @return string
 	 */
 	public function getUrl() {
-		$rawUrl = '';
-		if ($this->hasScheme() && $this->hasHost()) {
-			$rawUrl .= $this->getScheme() . '://';
-		}
-		if ($this->hasHost()) {
-			$rawUrl .= $this->getHost();
-		}
-		if ($this->hasPort() && $this->getPort() != 80) {
-			$rawUrl .= ':' . $this->getPort();
-		}
-		if ($this->hasPath()) {
-			// this needs normalization
-			$rawUrl .= $this->getPath();
-		}
-		if (!empty($rawUrl) && !UrlParserA::hasGoodTermination($rawUrl)) {
-			$rawUrl .= '/';
-		}
-		if ($this->hasQuery()) {
-			$rawUrl .= '?' . $this->getRawQueryString();
-		}
-		if ($this->hasFragment()) {
-			$rawUrl .= '#' . $this->getFragment();
-		}
-
-		return $rawUrl;
+		return $this->getScheme() .
+			$this->getPort() .
+			$this->getPath() .
+			$this->getRawQueryString() .
+			$this->getFragment();
 	}
 
 	/**

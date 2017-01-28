@@ -10,7 +10,7 @@ class setUrl extends \BaseUnitTest
 	public function testBasicSetUrl ()
 	{
 		$o = new MappingA_underTest_setUrl();
-		$sTest = '/test';
+		$sTest = '/test/';
 		$o->setUrl($sTest);
 
 		$this->assertEquals($sTest, $o->getUrl()->getPath());
@@ -19,10 +19,10 @@ class setUrl extends \BaseUnitTest
 	public function testSetUrl ()
 	{
 		$o = new MappingA_underTest_setUrl();
-		$sTest = 'http://example.com/test';
+		$sTest = 'http://example.com/test/';
 		$o->setUrl($sTest);
 
-		$this->assertEquals('/test', $o->getUrl()->getPath());
+		$this->assertEquals('/test/', $o->getUrl()->getPath());
 	}
 }
 

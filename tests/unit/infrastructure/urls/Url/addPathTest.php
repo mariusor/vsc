@@ -8,14 +8,14 @@ use vsc\infrastructure\urls\Url;
 class addPathTest extends \BaseUnitTest {
 
 	public function testAddPath () {
-		$sLocalHost = 'http://localhost';
+		$sLocalHost = 'localhost';
 		$sStr = 'ana/are/mere';
 
 		$oUrl = new Url();
 		$oUrl->setHost($sLocalHost);
 		$oUrl->addPath($sStr);
 
-		$this->assertEquals($sLocalHost . '/' . $sStr . '/', $oUrl->getUrl());
+		$this->assertEquals('http://' . $sLocalHost . '/' . $sStr . '/', $oUrl->getUrl());
 	}
 
 	public function testAddRelativePathWithParentDirectory () {

@@ -14,7 +14,7 @@ class setPathTest extends \BaseUnitTest
 	public function testSetPathWithFolderWithoutProperEnding()
 	{
 		$o = new UrlParserFixture();
-		$path = uniqid('/ana/are/mere/');
+		$path = uniqid('/ana/are/mere/') . '/';
 
 		$o->setPath($path);
 

@@ -10,17 +10,17 @@ class __toString extends \BaseUnitTest
 {
 	public function testEmpty__toString()
 	{
-		$sUrl = 'http://localhost/';
+		$sUrl = '';
 		$o = new Url();
 		$o->setHost($sUrl);
 		$this->assertEquals($sUrl, $o->__toString());
 		$this->assertEquals($sUrl, (string)$o);
 
-		$sUrl = 'http://192.168.1.1';
+		$sUrl = '192.168.1.1';
 		$o = new Url();
 		$o->setHost($sUrl);
-		$this->assertEquals($sUrl, $o->__toString());
-		$this->assertEquals($sUrl, (string)$o);
+		$this->assertEquals('http://' . $sUrl, $o->__toString());
+		$this->assertEquals('http://' . $sUrl, (string)$o);
 
 		$sUrl = '//localhost';
 		$o = new Url();

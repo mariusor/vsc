@@ -10,7 +10,7 @@ use vsc\infrastructure\urls\Url;
 /**
  * Class getFragmentTest
  * @package tests\infrastructure\urls
- * @covers vsc\infrastructure\urls\Url::getFragment()
+ * @covers \vsc\infrastructure\urls\Url::getFragment()
  */
 class getFragmentTest extends \BaseUnitTest
 {
