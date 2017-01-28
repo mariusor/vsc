@@ -20,7 +20,7 @@ $_SERVER	= array (
 
 if (!defined('VSC_PATH')) {
 	define ( 'VSC_PATH', realpath( dirname (__FILE__) . '/../') . DIRECTORY_SEPARATOR );
-	define ( 'VSC_RES_PATH', VSC_PATH . 'res' . DIRECTORY_SEPARATOR);
+	define ( 'VSC_SRC_PATH', VSC_PATH . 'src' . DIRECTORY_SEPARATOR);
 	set_include_path (VSC_PATH . PATH_SEPARATOR . get_include_path());
 	require_once ('vsc.inc.php');
 	require_once ('BaseUnitTest.php');
