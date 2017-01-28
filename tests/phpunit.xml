@@ -6,7 +6,7 @@
 	colors="true"
 	stopOnIncomplete="true"
 	stopOnError="true"
-	stopOnFailure="true"
+	stopOnFailure="false"
 	stopOnRisky="true"
 	stopOnSkipped="false">
 	<testsuites>
