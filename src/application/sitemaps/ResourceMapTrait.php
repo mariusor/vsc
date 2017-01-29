@@ -54,10 +54,26 @@ trait ResourceMapTrait
 	 */
 	protected function mergeResources($oMap) {
 		$aResources = $this->getResources();
-		if ($oMap instanceof self) {
+		if ($oMap instanceof ResourceMapInterface) {
 			$aParentResources = $oMap->getResources();
-			$aResources = array_merge($aResources, $aParentResources);
-			// maybe I should merge the regexes too like processor_regex . '.*' . controller_regex
+			// iterate over our resources and merging with matching existing parent resources
+			foreach ($aResources as $resType => $resources) {
+				if (!isset($aParentResources[$resType])) { continue; }
+
+				foreach ($resources as $key => $path) {
+					if (!isset($aParentResources[$resType][$key])) {  continue; }
+					$aResources[$resType][$key] = array_merge($aResources[$resType][$key], $aParentResources[$resType][$key]);
+					unset ($aParentResources[$resType][$key]);
+				}
+			}
+			// adding elements that exist just in parent resources
+			foreach ($aParentResources as $resType => $resources) {
+				if (!isset($aParentResources[$resType])) { $aResources[$resType] = []; }
+
+				foreach ($resources as $key => $path) {
+					$aResources[$resType][$key] = $aParentResources[$resType][$key];
+				}
+			}
 		}
 		$this->aResources = $aResources;
 	}
@@ -104,12 +120,15 @@ trait ResourceMapTrait
 		return $sPath;
 	}
 
+	/**
+	 * @param string $sPath
+	 * @param string $sMedia
+	 */
 	public function addStyle($sPath, $sMedia = 'screen') {
 		$this->aResources['styles'][$sMedia][] = $this->getResourcePath($sPath);
 	}
 
 	/**
-	 *
 	 * Adds a path for a JavaScript resource
 	 * @param string $sPath
 	 * @param bool $bInHead
@@ -134,6 +153,11 @@ trait ResourceMapTrait
 		$this->aResources['links'][$sType][] = $aData;
 	}
 
+	/**
+	 * @param string $sName
+	 * @param string $sValue
+	 * @return void
+	 */
 	public function addMeta($sName, $sValue) {
 		$this->aResources['meta'][$sName] = $sValue;
 	}
@@ -156,6 +180,10 @@ trait ResourceMapTrait
 		}
 	}
 
+	/**
+	 * @param null $sMedia
+	 * @return array|null
+	 */
 	public function getStyles($sMedia = null) {
 		$aStyles = $this->getResources('styles');
 		if (!is_null($sMedia)) {
@@ -166,6 +194,10 @@ trait ResourceMapTrait
 		}
 	}
 
+	/**
+	 * @param null $sName
+	 * @return array|string
+	 */
 	public function getMetas($sName = null) {
 		$aMetas = $this->getResources('meta');
 		if (!is_null($sName)) {
@@ -191,6 +223,9 @@ trait ResourceMapTrait
 		return [];
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getSettings() {
 		return $this->getResources('settings');
 	}
@@ -227,6 +262,9 @@ trait ResourceMapTrait
 		}
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getHeaders() {
 		return $this->getResources('headers');
 	}

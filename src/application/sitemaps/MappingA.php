@@ -122,6 +122,7 @@ abstract class MappingA extends Object {
 		if (MappingA::isValid($oMap)) {
 			$this->mergeResources($oMap);
 			$this->mergePaths($oMap);
+			// maybe I should merge the regexes too like processor_regex . '.*' . controller_regex
 
 			$sTitle = $this->getTitle();
 			$sMapTitle = $oMap->getTitle();
