@@ -3,7 +3,7 @@ namespace tests\ExceptionError;
 use vsc\ExceptionError;
 
 /**
- * @covers \vsc\Exception::isValid()
+ * @covers \vsc\ExceptionError::isValid()
  */
 class isValid extends \BaseUnitTest
 {
