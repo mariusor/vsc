@@ -3,12 +3,12 @@
 	"type": "library",
 	"description": "A small collection of PHP classes for RESTful development",
 	"require": {
-		"php": "^7.2"
+		"php": "~7.2"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "~5.0",
-       "codeclimate/php-test-reporter": "dev-master"
-    },
+		"phpunit/phpunit": "~7.0",
+		"codeclimate/php-test-reporter": "dev-master"
+	},
 	"minimum-stability": "stable",
 	"license": "MIT",
 	"authors": [
