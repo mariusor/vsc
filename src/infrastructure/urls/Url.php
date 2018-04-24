@@ -5,9 +5,9 @@
  */
 namespace vsc\infrastructure\urls;
 
-use vsc\infrastructure\Object;
+use vsc\infrastructure\BaseObject;
 
-class Url extends Object
+class Url extends BaseObject
 {
 	static protected $queryEncodingType = PHP_QUERY_RFC1738;
 	static protected $validSchemes = ['http', 'https', 'file'];

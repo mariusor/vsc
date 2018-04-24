@@ -15,11 +15,11 @@ use vsc\domain\models\ModelA;
 use vsc\infrastructure\urls\UrlParserA;
 use vsc\infrastructure\vsc;
 use vsc\infrastructure\Base;
-use vsc\infrastructure\Object;
+use vsc\infrastructure\BaseObject;
 use vsc\presentation\helpers\ViewHelperA;
 use vsc\ExceptionPath;
 
-abstract class ViewA extends Object implements ViewInterface {
+abstract class ViewA extends BaseObject implements ViewInterface {
 	/**
 	 * @var string
 	 */

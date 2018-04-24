@@ -6,7 +6,7 @@
  */
 namespace vsc\infrastructure;
 
-class Base extends Object {
+class Base extends BaseObject {
 	public function __call($sMethodName, $aVars) {
 		if (stristr($sMethodName, 'get')) {
 			// we have a getter we return $this

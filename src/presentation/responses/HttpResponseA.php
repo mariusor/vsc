@@ -10,11 +10,11 @@ namespace vsc\presentation\responses;
 use vsc\domain\models\ErrorModel;
 use vsc\infrastructure\vsc;
 use vsc\infrastructure\Base;
-use vsc\infrastructure\Object;
+use vsc\infrastructure\BaseObject;
 use vsc\presentation\requests\HttpRequestTypes;
 use vsc\presentation\views\ViewA;
 
-abstract class HttpResponseA extends Object {
+abstract class HttpResponseA extends BaseObject {
 	use HttpHeadersTrait;
 
 	private $sServerProtocol;

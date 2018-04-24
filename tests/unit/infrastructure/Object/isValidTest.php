@@ -6,42 +6,42 @@ use vsc\application\controllers\FrontControllerA;
 use vsc\application\processors\ProcessorA;
 use vsc\domain\models\ModelA;
 use vsc\infrastructure\Base;
-use vsc\infrastructure\Object;
+use vsc\infrastructure\BaseObject;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\requests\RawHttpRequest;
 use vsc\rest\application\controllers\RESTController;
 use vsc\rest\application\processors\RESTProcessorA;
 
 /**
- * @covers \vsc\infrastructure\Object::isValid()
+ * @covers \vsc\infrastructure\BaseObject::isValid()
  */
 class isValid extends \BaseUnitTest
 {
 	public function testIsValid () {
 		$TestVar = new Base();
 		$this->assertTrue (Base::isValid($TestVar));
-		$this->assertTrue (Object::isValid($TestVar));
+		$this->assertTrue (BaseObject::isValid($TestVar));
 
 		$TestVar = new RESTProcessorA_underTest_isValid();
 		$this->assertTrue (RESTProcessorA_underTest_isValid::isValid($TestVar));
 		$this->assertTrue (RESTProcessorA::isValid($TestVar));
 		$this->assertTrue (ProcessorA::isValid($TestVar));
-		$this->assertTrue (Object::isValid($TestVar));
+		$this->assertTrue (BaseObject::isValid($TestVar));
 
 		$TestVar = new ProcessorA_underTest_isValid();
 		$this->assertTrue (ProcessorA_underTest_isValid::isValid($TestVar));
 		$this->assertTrue (ProcessorA::isValid($TestVar));
-		$this->assertTrue (Object::isValid($TestVar));
+		$this->assertTrue (BaseObject::isValid($TestVar));
 
 		$TestVar = new RESTController();
 		$this->assertTrue (RESTController::isValid($TestVar));
 		$this->assertTrue (FrontControllerA::isValid($TestVar));
-		$this->assertTrue (Object::isValid($TestVar));
+		$this->assertTrue (BaseObject::isValid($TestVar));
 
 		$TestVar = new FrontControllerA_underTest_isValid();
 		$this->assertTrue (FrontControllerA_underTest_isValid::isValid($TestVar));
 		$this->assertTrue (FrontControllerA::isValid($TestVar));
-		$this->assertTrue (Object::isValid($TestVar));
+		$this->assertTrue (BaseObject::isValid($TestVar));
 
 		$TestVar = new ModelA_underTest_isValid();
 		$this->assertTrue (ModelA_underTest_isValid::isValid($TestVar));

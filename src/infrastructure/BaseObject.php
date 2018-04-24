@@ -8,7 +8,7 @@ namespace vsc\infrastructure;
 
 use vsc\ExceptionUnimplemented;
 
-abstract class Object {
+abstract class BaseObject {
 	public function __call($sMethodName, $aVars) {
 		if (vsc::getEnv()->isDevelopment()) {
 			throw new ExceptionUnimplemented('Method [' . get_class($this) . '::' . $sMethodName . '] not implemented for calling.');

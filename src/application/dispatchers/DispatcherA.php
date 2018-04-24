@@ -14,11 +14,11 @@ use vsc\application\sitemaps\ExceptionSitemap;
 use vsc\application\sitemaps\RwSiteMap;
 use vsc\application\sitemaps\SiteMapA;
 use vsc\infrastructure\vsc;
-use vsc\infrastructure\Object;
+use vsc\infrastructure\BaseObject;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\ExceptionPath;
 
-abstract class DispatcherA extends Object {
+abstract class DispatcherA extends BaseObject {
 	/**
 	 * @var HttpRequestA
 	 */

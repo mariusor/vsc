@@ -2,12 +2,12 @@
 namespace tests\infrastructure\Object;
 use vsc\infrastructure\Base;
 use vsc\infrastructure\vsc;
-use vsc\infrastructure\Object;
+use vsc\infrastructure\BaseObject;
 use vsc\ExceptionUnimplemented;
 use vsc\Exception;
 
 /**
- * @covers \vsc\infrastructure\Object::__callStatic()
+ * @covers \vsc\infrastructure\BaseObject::__callStatic()
  */
 class __callStatic extends \BaseUnitTest
 {
@@ -18,13 +18,13 @@ class __callStatic extends \BaseUnitTest
 		vsc::setInstance($env);
 
 		try {
-			Object_underTest___callStatic::__callStatic('test', array());
+			Base_Object_underTest___callStatic::__callStatic('test', array());
 		} catch (\Exception $e) {
 			$this->assertInstanceOf(ExceptionUnimplemented::class, $e);
 			$this->assertInstanceOf(Exception::class, $e);
 		}
 		try {
-			Object_underTest___callStatic::testCall('test');
+			Base_Object_underTest___callStatic::testCall('test');
 		} catch (\Exception $e) {
 			$this->assertInstanceOf(ExceptionUnimplemented::class, $e);
 			$this->assertInstanceOf(Exception::class, $e);
@@ -37,13 +37,13 @@ class __callStatic extends \BaseUnitTest
 
 		vsc::setInstance($env);
 
-		$this->assertInstanceOf(Base::class, Object_underTest___callStatic::__callStatic('test', array()));
-		$this->assertInstanceOf(Base::class, Object_underTest___callStatic::testCall('test'));
+		$this->assertInstanceOf(Base::class, Base_Object_underTest___callStatic::__callStatic('test', array()));
+		$this->assertInstanceOf(Base::class, Base_Object_underTest___callStatic::testCall('test'));
 	}
 }
 
 
-class Object_underTest___callStatic extends Object {}
+class Base_Object_underTest___callStatic extends BaseObject {}
 
 class vsc_underTest___callStatic extends vsc {
 	private $isDevelopmentEnviroment = false;

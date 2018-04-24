@@ -11,13 +11,13 @@ use vsc\application\sitemaps\ClassMap;
 use vsc\application\sitemaps\MappingA;
 use vsc\domain\models\ModelA;
 use vsc\infrastructure\vsc;
-use vsc\infrastructure\Object;
+use vsc\infrastructure\BaseObject;
 use vsc\presentation\requests\HttpRequestA;
 use vsc\presentation\responses\HttpResponse;
 use vsc\presentation\responses\HttpResponseA;
 use vsc\application\dispatchers\RwDispatcher;
 
-abstract class ProcessorA extends Object implements ProcessorInterface {
+abstract class ProcessorA extends BaseObject implements ProcessorInterface {
 	private $oCurrentMap;
 	protected $aLocalVars = array();
 

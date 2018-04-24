@@ -8,9 +8,9 @@
 namespace vsc\application\sitemaps;
 
 use vsc\application\processors\ProcessorA;
-use vsc\infrastructure\Object;
+use vsc\infrastructure\BaseObject;
 
-abstract class SiteMapA extends Object {
+abstract class SiteMapA extends BaseObject {
 	/**
 	 * the base regex for the current map
 	 * @todo this needs to be deprecated in favour of regexes of the parent module
