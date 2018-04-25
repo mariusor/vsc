@@ -1,5 +1,7 @@
 <?php
-class BaseUnitTest extends \PHPUnit_Framework_TestCase {
+use \PHPUnit\Framework\TestCase;
+
+class BaseUnitTest extends TestCase {
 
 	/**
 	 * @param string $name
