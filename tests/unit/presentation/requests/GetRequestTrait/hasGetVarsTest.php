@@ -16,10 +16,10 @@ class hasGetVars extends \BaseUnitTest
 	public function testHasGetVarsAfterUnset() {
 		$o = new PopulatedRequest();
 
-		$o->setGetVars(null);
+		$o->setGetVars([]);
 		$this->assertFalse ($o->hasGetVars());
 
-		$o->setGetVars(array('ana' => 'mere'));
+		$o->setGetVars(['ana' => 'mere']);
 		$this->assertTrue ($o->hasGetVars());
 	}
 }

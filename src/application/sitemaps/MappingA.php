@@ -11,10 +11,10 @@ use vsc\application\controllers\ExceptionController;
 use vsc\infrastructure\urls\Url;
 use vsc\infrastructure\urls\UrlParserA;
 use vsc\infrastructure\Base;
-use vsc\infrastructure\Object;
+use vsc\infrastructure\BaseObject;
 use vsc\presentation\requests\HttpAuthenticationA;
 
-abstract class MappingA extends Object {
+abstract class MappingA extends BaseObject {
 	/**
 	 * @var  string
 	 */
@@ -284,7 +284,7 @@ abstract class MappingA extends Object {
 	 * @param Object $mappedObject
 	 * @return boolean
 	 */
-	public function maps(Object $mappedObject)
+	public function maps(BaseObject $mappedObject)
 	{
 		return (bool)stristr(get_class($mappedObject), substr(basename($this->getPath()), 0, -4));
 	}

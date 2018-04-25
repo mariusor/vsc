@@ -1,11 +1,12 @@
 <?php
 namespace tests\Exception;
+use PHPUnit\Framework\TestCase;
 use vsc\Exception;
 
 /**
  * @covers \vsc\Exception::isValid()
  */
-class isValid extends \PHPUnit_Framework_TestCase
+class isValid extends TestCase
 {
 	public function testValidException() {
 		$E = new Exception();

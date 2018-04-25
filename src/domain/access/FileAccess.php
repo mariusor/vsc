@@ -7,10 +7,10 @@
  */
 namespace vsc\domain\access;
 
-use vsc\infrastructure\Object;
+use vsc\infrastructure\BaseObject;
 use vsc\ExceptionError;
 
-class FileAccess extends Object {
+class FileAccess extends BaseObject {
 	private $sUri;
 
 	private $sCachePath;

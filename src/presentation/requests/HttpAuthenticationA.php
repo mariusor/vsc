@@ -1,9 +1,9 @@
 <?php
 namespace vsc\presentation\requests;
 
-use vsc\infrastructure\Object;
+use vsc\infrastructure\BaseObject;
 
-abstract class HttpAuthenticationA extends Object {
+abstract class HttpAuthenticationA extends BaseObject {
 	const NONE = 0;
 	const BASIC = 2;
 	const DIGEST = 4;

@@ -15,7 +15,7 @@ use vsc\application\sitemaps\MappingA;
 use vsc\domain\models\EmptyModel;
 use vsc\domain\models\ErrorModel;
 use vsc\domain\models\ModelA;
-use vsc\infrastructure\Object;
+use vsc\infrastructure\BaseObject;
 use vsc\infrastructure\vsc;
 use vsc\presentation\responses\ExceptionResponseRedirect;
 use vsc\presentation\responses\HttpResponseA;
@@ -26,7 +26,7 @@ use vsc\presentation\views\ViewA;
 use vsc\ExceptionPath;
 use vsc\presentation\responses\ExceptionResponse;
 
-abstract class FrontControllerA extends Object {
+abstract class FrontControllerA extends BaseObject {
 	/**
 	 * @var string
 	 */

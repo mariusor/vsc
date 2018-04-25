@@ -1,13 +1,13 @@
 <?php
 namespace tests\infrastructure\Object;
 use vsc\infrastructure\Base;
-use vsc\infrastructure\Object;
+use vsc\infrastructure\BaseObject;
 use vsc\infrastructure\vsc;
 use vsc\ExceptionUnimplemented;
 use vsc\Exception;
 
 /**
- * @covers \vsc\infrastructure\Object::__call()
+ * @covers \vsc\infrastructure\BaseObject::__call()
  */
 class __call extends \BaseUnitTest
 {
@@ -15,7 +15,7 @@ class __call extends \BaseUnitTest
 	 * @test Object::__call()
 	 */
 	public function test__callDev() {
-		$null = new Object_underTest___call();
+		$null = new Base_Object_underTest___call();
 
 		$env = new vsc_underTest___call();
 		$env->setIsDevelopment(true);
@@ -40,7 +40,7 @@ class __call extends \BaseUnitTest
 	 * @test Object::__call()
 	 */
 	public function test__callNotDev () {
-		$null = new Object_underTest___call();
+		$null = new Base_Object_underTest___call();
 
 		$env = new vsc_underTest___call();
 		$env->setIsDevelopment(false);
@@ -52,7 +52,7 @@ class __call extends \BaseUnitTest
 	}
 }
 
-class Object_underTest___call extends Object {}
+class Base_Object_underTest___call extends BaseObject {}
 
 class vsc_underTest___call extends vsc {
 	private $isDevelopmentEnviroment = false;

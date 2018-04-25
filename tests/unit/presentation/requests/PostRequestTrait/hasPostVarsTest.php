@@ -16,10 +16,10 @@ class hasPostVars extends \BaseUnitTest
 	public function testHasPostVarsAfterUnset() {
 		$o = new PopulatedRequest();
 
-		$o->setPostVars(null);
+		$o->setPostVars([]);
 		$this->assertFalse ($o->hasPostVars());
 
-		$o->setPostVars(array('ana' => 'mere'));
+		$o->setPostVars(['ana' => 'mere']);
 		$this->assertTrue ($o->hasPostVars());
 	}
 }

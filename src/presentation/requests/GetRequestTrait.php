@@ -8,7 +8,7 @@
 namespace vsc\presentation\requests;
 
 trait GetRequestTrait {
-	protected $aGetVars = array();
+	protected $aGetVars = [];
 
 	protected function initGet($aGet) {
 		$this->aGetVars = $aGet;

@@ -1,18 +1,18 @@
 <?php
 namespace tests\infrastructure\Object;
-use vsc\infrastructure\Object;
+use vsc\infrastructure\BaseObject;
 use vsc\infrastructure\vsc;
 use vsc\infrastructure\Base;
 use vsc\ExceptionUnimplemented;
 use vsc\Exception;
 
 /**
- * @covers \vsc\infrastructure\Object::__get()
+ * @covers \vsc\infrastructure\BaseObject::__get()
  */
 class __get extends \BaseUnitTest
 {
 	public function test__getDev () {
-		$null = new Object_underTest___get();
+		$null = new Base_Object_underTest___get();
 
 		$env = new vsc_underTest___get();
 		$env->setIsDevelopment(true);
@@ -36,7 +36,7 @@ class __get extends \BaseUnitTest
 	}
 
 	public function test__getNotDev () {
-		$null = new Object_underTest___get();
+		$null = new Base_Object_underTest___get();
 
 		$env = new vsc_underTest___get();
 		$env->setIsDevelopment(false);
@@ -48,7 +48,7 @@ class __get extends \BaseUnitTest
 	}
 }
 
-class Object_underTest___get extends Object {}
+class Base_Object_underTest___get extends BaseObject {}
 
 class vsc_underTest___get extends vsc {
 	private $isDevelopmentEnviroment = false;

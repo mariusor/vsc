@@ -17,7 +17,7 @@ use vsc\presentation\requests\RwHttpRequest;
 use vsc\presentation\responses\HttpResponse;
 use vsc\presentation\responses\HttpResponseA;
 
-class vsc extends Object {
+class vsc extends BaseObject {
 	/**
 	 * @var vsc
 	 */
@@ -83,7 +83,7 @@ class vsc extends Object {
 	 * @param HttpResponseA $oResponse
 	 */
 	public function setHttpResponse(HttpResponseA $oResponse) {
-		if (HttpResponseA::isValid($oResponse) && get_class($this->oResponse) != get_class($oResponse)) {
+		if (HttpResponseA::isValid($oResponse) && (is_null($this->oResponse) || get_class($this->oResponse) != get_class($oResponse))) {
 			$this->oResponse = $oResponse;
 		}
 	}

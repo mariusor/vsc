@@ -7,12 +7,12 @@
  */
 namespace vsc\presentation\requests;
 
-use vsc\infrastructure\Object;
+use vsc\infrastructure\BaseObject;
 use vsc\infrastructure\urls\Url;
 use vsc\infrastructure\urls\UrlParserA;
 use vsc\Exception;
 
-abstract class HttpRequestA extends Object {
+abstract class HttpRequestA extends BaseObject {
 	use GetRequestTrait;
 	use PostRequestTrait;
 	use CookieRequestTrait;
@@ -26,7 +26,7 @@ abstract class HttpRequestA extends Object {
 	 * @var Url
 	 */
 	protected $oUri;
-	static private $aVarOrder;
+	static private $aVarOrder = [];
 
 	protected $sAuthorization	= '';
 	protected $iContentLength	= 0; // ? I don't think I'm interested in the length of the request
