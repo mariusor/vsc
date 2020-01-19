@@ -156,8 +156,8 @@ class UrlParserA extends BaseObject implements UrlParserInterface {
 
 
 		$len = strlen($sPath);
-		$bHasPrefixSlash = (($len > 0) && ($sPath{0} == '/'));
-		$bHasSuffixSlash = (($len > 1) && ($sPath{$len - 1} == '/'));
+		$bHasPrefixSlash = (($len > 0) && ($sPath[0] == '/'));
+		$bHasSuffixSlash = (($len > 1) && ($sPath[$len - 1] == '/'));
 
 		// removing the folders from the path if there are parent references (../)
 		$sPath = trim($sPath, '/');
@@ -248,8 +248,8 @@ class UrlParserA extends BaseObject implements UrlParserInterface {
 		}
 
 		$len = strlen($sPath);
-		$bHasPrefixSlash = ($sPath{0} == '/');
-		$bHasSuffixSlash = (($len > 1) && ($sPath{$len - 1} == '/'));
+		$bHasPrefixSlash = ($sPath[0] == '/');
+		$bHasSuffixSlash = (($len > 1) && ($sPath[$len - 1] == '/'));
 		// removing the folders from the path if there are parent references (../)
 		$sPath = trim($sPath, '/');
 		$aPath = explode('/', $sPath);
